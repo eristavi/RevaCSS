@@ -38,7 +38,43 @@
 }
 @layer re.utilities {
   /* System preferences win over local contrast resets. */
-  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active), print {
+  @media (prefers-reduced-transparency: reduce) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media (prefers-contrast: more) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media print {
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {

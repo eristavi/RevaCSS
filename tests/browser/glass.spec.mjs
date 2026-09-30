@@ -116,13 +116,6 @@ test('contrast overrides reset locally and system preferences force opaque surfa
   expect((await rgba(page.locator('#glass-primary')))[3]).toBeLessThan(255);
   await page.emulateMedia({contrast:'more',reducedMotion:'reduce'});
   await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);
-  console.log('GLASS_MEDIA_DIAGNOSTIC:'+JSON.stringify(await page.evaluate(()=>{
-    const el=document.querySelector('#glass-primary'),s=getComputedStyle(el);
-    const probe=document.createElement('article');probe.id='glass-media-probe';probe.className='card';probe.dataset.contrast='auto';document.querySelector('.glass-stage').append(probe);
-    const sheet=document.createElement('style');sheet.textContent='@media (prefers-contrast: more) { #glass-media-probe { outline-width: 13px; outline-style: solid; } }';document.head.append(sheet);
-    const p=getComputedStyle(probe);
-    return {media:matchMedia('(prefers-contrast: more)').matches,opacity:s.getPropertyValue('--re-glass-opacity'),background:s.backgroundColor,image:s.backgroundImage,filter:s.backdropFilter,probeOpacity:p.getPropertyValue('--re-glass-opacity'),probeBackground:p.backgroundColor,probeOutline:p.outlineWidth};
-  })));
   await expect.poll(async()=>(await rgba(page.locator('#glass-primary')))[3]).toBe(255);
   await expect.poll(()=>filter(page.locator('#glass-primary'))).toBe('none');
   expect(await page.locator('#glass-action').evaluate(el=>getComputedStyle(el).transitionDuration.split(',').every(v=>v.trim()==='0s'))).toBe(true);
