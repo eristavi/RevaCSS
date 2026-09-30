@@ -1,0 +1,32 @@
+{
+  "name": "revacss",
+  "version": "0.1.0-alpha.1",
+  "description": "Native foundations, adaptive design, minimal decisions.",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "files": [
+    "dist",
+    "tokens",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build:css": "node scripts/build.mjs",
+    "build:docs": "astro build --root docs",
+    "build": "npm run build:css && npm run build:docs",
+    "dev": "npm run build:css && astro dev --root docs --host 0.0.0.0",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
+    "check": "npm run build && npm test && npm run test:browser"
+  },
+  "devDependencies": {
+    "astro": "7.3.5",
+    "lightningcss": "1.33.0",
+    "@playwright/test": "1.63.0",
+    "axe-core": "4.13.0"
+  }
+}
