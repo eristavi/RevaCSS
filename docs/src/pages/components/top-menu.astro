@@ -1,26 +1,35 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TopMenu from '../../components/TopMenu.astro';
-import markup from '../../components/TopMenu.astro?raw';
+import markup from '../../components/TopMenuLinks.astro?raw';
 const base = import.meta.env.BASE_URL;
-const example = markup.slice(markup.indexOf('<nav')).replace('aria-label={label}', 'aria-label="Main navigation"').replaceAll('name={`${id}-primary`}', 'name="main-primary"').replaceAll('name={`${id}-products`}', 'name="main-products"').replaceAll('name={`${id}-frameworks`}', 'name="main-frameworks"').replace('aria-current={current===\'home\' ? \'page\' : undefined}', 'aria-current="page"');
+const list = variant => markup.slice(markup.indexOf('<ul')).replace('class:list={["menu-items", {"menu-desktop": desktop}]}', `class="menu-items${variant === 'desktop' ? ' menu-desktop' : ''}"`).replaceAll('name={`${id}-primary`}', `name="main-${variant}-primary"`).replaceAll('name={`${id}-products`}', `name="main-${variant}-products"`).replaceAll('name={`${id}-frameworks`}', `name="main-${variant}-frameworks"`).replace('aria-current={current===\'home\' ? \'page\' : undefined}', 'aria-current="page"');
+const example = `<nav class="top-menu" aria-label="Main navigation">
+  <a class="menu-brand" href="#home">RevaCSS</a>
+${list('desktop')}
+  <details class="menu-collapse">
+    <summary>Menu</summary>
+${list('mobile')}
+  </details>
+</nav>`;
 ---
 <Layout title="Top menu">
   <h1>Top menu</h1>
-  <p class="prose">Responsive site navigation using native HTML disclosures and CSS. One tree works on desktop and mobile, with nested submenus at any depth.</p>
+  <p class="prose">Responsive site navigation using native HTML disclosures and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Only the active layout is displayed and exposed to keyboard and accessibility navigation.</p>
   <TopMenu id="documentation" label="Interactive component example" />
   <div class="row" style="margin-block:1rem">
     <a href={`${base}preview/menu/light/`}>Light preview</a>
     <a href={`${base}preview/menu/dark/`}>Dark preview</a>
     <a href={`${base}preview/menu/auto/`}>Device theme preview</a>
   </div>
-  <h2>HTML</h2><p>Copy the markup below. Replace the example anchor destinations with your pages. Give each navigation instance its own disclosure group names.</p>
+  <h2>HTML</h2><p>Copy the markup below. Replace the example anchor destinations with your pages. Keep both lists in sync and give each layout and navigation instance its own disclosure group names. Static templates can generate both lists from one shared source, as these docs do. CSS-free pages show both lists; loading the component stylesheet selects the appropriate layout.</p>
   <pre><code>{example}</code></pre>
   <h2>Structure and configuration</h2>
   <div class="table-scroll" role="region" aria-label="Top menu API" tabindex="0">
     <table><thead><tr><th scope="col">Class or setting</th><th scope="col">Use</th></tr></thead><tbody>
       <tr><th scope="row"><code>.top-menu</code></th><td>Navigation landmark and containing surface.</td></tr>
       <tr><th scope="row"><code>.menu-brand</code></th><td>Optional brand link.</td></tr>
+      <tr><th scope="row"><code>.menu-desktop</code></th><td>Desktop list; hidden below 48rem. Generate it from the same links as the mobile list.</td></tr>
       <tr><th scope="row"><code>.menu-collapse</code></th><td>Native details element for the mobile menu.</td></tr>
       <tr><th scope="row"><code>.menu-items</code></th><td>Top-level list of links and disclosures.</td></tr>
       <tr><th scope="row"><code>.menu-dropdown</code></th><td>Nested details element; its summary toggles the following list.</td></tr>
@@ -33,7 +42,7 @@ const example = markup.slice(markup.indexOf('<nav')).replace('aria-label={label}
   </div>
   <h2>Responsive behavior</h2>
   <p class="prose">Below 48rem the Menu summary controls a stacked navigation list. At 48rem and wider, the top-level list is visible and dropdown panels open below the navigation, aligned to its inline end. Deeper submenus expand inside that panel, keeping the hierarchy within a scrollable surface. The breakpoint is ordinary CSS and can be changed in a custom stylesheet.</p>
-  <p class="prose">The desktop enhancement uses <code>::details-content</code>. Browsers without it retain the working collapsible layout at every width. Dropdown panels use normal stacking, so an ancestor with clipped overflow can clip them; keep overflow visible on navigation ancestors. The component does not create a top-layer overlay or lock page scrolling.</p>
+  <p class="prose">Desktop uses a regular list and mobile uses a native disclosure; CSS switches their visibility at the breakpoint. Each layout preserves its own open submenu state. Dropdown panels use normal stacking, so an ancestor with clipped overflow can clip them; keep overflow visible on navigation ancestors. The component does not create a top-layer overlay or lock page scrolling.</p>
   <h2>Keyboard and accessibility</h2>
   <p class="prose">Tab and Shift+Tab move between visible links and summaries. Enter and Space toggle summaries. Closed submenu links leave the focus order. Use native navigation/list semantics; do not add application-menu roles. A summary is a toggle, not a destination link; include an Overview link within its panel when the parent section has its own page.</p>
   <p class="prose">Submenus open explicitly by click, tap or keyboard activation, never solely on hover. Native details do not supply Escape/outside-click dismissal, arrow-key navigation, automatic closure after following an in-page link, or focus management after a breakpoint change. These behaviors require a separate enhancement if an application needs them. Closing a parent preserves its children's open state; reopening restores it. This is not an ARIA menubar implementation or an accessibility certification.</p>

@@ -85,6 +85,9 @@
     box-shadow: none;
   }
   :where(.top-menu .menu-collapse) { flex: 1 1 auto; }
+  :where(.top-menu .menu-desktop) { display: none; }
+  /* Explicit hiding also contains open descendants in nested disclosures. */
+  :where(.top-menu details:not([open]) > .menu-items, .top-menu details:not([open]) > .menu-panel) { display: none; }
   :where(.top-menu .menu-collapse > summary) { inline-size: fit-content; margin-inline-start: auto; }
   :where(.top-menu .menu-items, .top-menu .menu-panel) {
     list-style: none;
@@ -115,8 +118,8 @@
     flex: 0 0 .45em;
     inline-size: .45em;
     block-size: .45em;
-    border-inline-end: 2px solid currentColor;
-    border-block-end: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
     transform: rotate(45deg);
     margin-block-end: .25em;
   }
@@ -133,29 +136,25 @@
     :where(.top-menu .menu-collapse > summary) { position: absolute; inset-block-start: .5rem; inset-inline-end: .5rem; }
   }
 
-  /* Older browsers keep the working disclosure layout at every width. */
-  @supports selector(details::details-content) {
-    @media (width >= 48rem) {
-      :where(.top-menu .menu-collapse > summary) { display: none; }
-      :where(.top-menu .menu-collapse)::details-content { content-visibility: visible; }
-      :where(.top-menu .menu-items) { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .25rem; margin-block-start: 0; }
-      :where(.top-menu .menu-items > li > .menu-dropdown) { position: static; }
-      :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
-        position: absolute;
-        z-index: var(--re-menu-z, 20);
-        inset-block-start: 100%;
-        inset-inline-end: 0;
-        inline-size: min(var(--re-menu-width), 100%);
-        max-block-size: min(70dvh, 36rem);
-        overflow: auto;
-        overscroll-behavior: contain;
-        margin: 0;
-        padding: .5rem;
-        border: 1px solid var(--re-line);
-        border-radius: var(--re-radius);
-        background: var(--re-surface);
-        box-shadow: var(--re-shadow);
-      }
+  @media (width >= 48rem) {
+    :where(.top-menu .menu-collapse) { display: none; }
+    :where(.top-menu .menu-desktop) { display: flex; flex: 1 1 auto; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .25rem; margin-block-start: 0; }
+    :where(.top-menu .menu-items > li > .menu-dropdown) { position: static; }
+    :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
+      position: absolute;
+      z-index: var(--re-menu-z, 20);
+      inset-block-start: 100%;
+      inset-inline-end: 0;
+      inline-size: min(var(--re-menu-width), 100%);
+      max-block-size: min(70dvh, 36rem);
+      overflow: auto;
+      overscroll-behavior: contain;
+      margin: 0;
+      padding: .5rem;
+      border: 1px solid var(--re-line);
+      border-radius: var(--re-radius);
+      background: var(--re-surface);
+      box-shadow: var(--re-shadow);
     }
   }
   @media (forced-colors: active) {

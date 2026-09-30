@@ -6,7 +6,7 @@
 - Six tested accents, theme/tone independence and local presets.
 - Native typography, buttons, native forms, tables, disclosures and overlay appearance.
 - Cards, intrinsic grids, rows, stacks, container/prose widths and table scrolling.
-- Responsive top navigation using one HTML tree, native disclosure toggles, nested submenus, desktop dropdown panels and a mobile Menu control. Included in complete/scoped/component builds and a dedicated navigation module.
+- Responsive top navigation using shared link templates for desktop and mobile, native disclosure toggles, nested submenus, desktop dropdown panels and a mobile Menu control. Included in complete/scoped/component builds and a dedicated navigation module.
 - Responsive image options, local sizes/gaps, basic alignment/column helpers.
 - Global, scoped and modular builds; optional licensed Manrope variable font (TTF in alpha).
 - Reduced-motion, forced-colour, increased contrast, print and logical-direction rules.
@@ -43,6 +43,6 @@ GitHub Pages workflow reads repository path from configure-pages, so project-sit
 Load reva.tokens.css, reva.base.css, then reva.components.css for modular use. Contrast and accessibility utilities are included in the components module; use complete reva.css for the simplest supported setup. Load only one of the global/scoped builds. Scoped boundaries do not isolate inheritance or third-party classes like a Shadow DOM would.
 
 ## Top menu component
-Desktop enhancement uses `::details-content` at 48rem and wider. Older browsers retain native collapsible navigation. Deeper submenus expand inside the dropdown panel. Standard links and details/summary provide Tab, Enter and Space operation; Escape/outside-click dismissal and application-menu arrow-key controls are not part of this native disclosure version. Print hides the navigation. Clipping ancestors and breakpoint focus behavior are documented.
+A regular desktop list is visible at 48rem and wider; a separate native mobile disclosure is visible below that width. Shared static templates keep their links in sync; only the active layout enters keyboard and accessibility navigation. Each layout preserves its own submenu state. Deeper submenus expand inside the dropdown panel. Standard links and details/summary provide Tab, Enter and Space operation; Escape/outside-click dismissal and application-menu arrow-key controls are not part of this native disclosure version. Print hides the navigation. Clipping ancestors and breakpoint focus behavior are documented.
 
 Ten new browser tests cover nested disclosures, closed-link focus exclusion, mobile reflow and target sizes, sibling groups, independent instances, resizing, bounded desktop panels, RTL, long labels, scoped isolation, both themes, user preferences and print. Navigation interactions run with JavaScript disabled. Chromium checks passed locally; the GitHub PR records final cross-browser CI results. Component documentation includes copyable HTML and three isolated theme previews.

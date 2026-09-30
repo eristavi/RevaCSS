@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const menu = page => page.getByRole('navigation', { name: 'Main navigation', exact: true });
-const summary = (nav, label) => nav.locator('summary').filter({ hasText: new RegExp('^' + label + '$') });
+const summary = (nav, label) => nav.locator('summary:visible').filter({ hasText: new RegExp('^' + label + '$') });
 
 test.describe('native navigation without runtime JavaScript', () => {
   test.use({ javaScriptEnabled: false });
@@ -10,17 +10,17 @@ test.describe('native navigation without runtime JavaScript', () => {
   test('desktop supports three levels, native sibling exclusivity, and independent instances', async ({ page }) => {
     await page.goto('/preview/menu/light/');
     const nav = menu(page);
-    await expect(summary(nav, 'Menu')).toBeHidden();
+    await expect(nav.locator('.menu-collapse')).toBeHidden();
     await expect(nav.getByRole('link', { name: 'Home', exact: true })).toBeVisible();
     await expect(nav.getByRole('link', { name: 'Top menu', exact: true })).toBeHidden();
     for (const label of ['Products', 'Frameworks', 'Components']) await summary(nav, label).click();
     await expect(nav.getByRole('link', { name: 'Top menu', exact: true })).toBeVisible();
     await nav.getByRole('link', { name: 'Top menu', exact: true }).click();
     await expect(page).toHaveURL(/#navigation$/);
-    await page.getByRole('navigation', { name: 'Right-to-left example' }).locator('summary').filter({ hasText: /^Products$/ }).click();
-    await expect(nav.locator('.menu-items > li > details').first()).toHaveAttribute('open', '');
+    await page.getByRole('navigation', { name: 'Right-to-left example' }).locator('summary:visible').filter({ hasText: /^Products$/ }).click();
+    await expect(nav.locator('.menu-desktop > li > details').first()).toHaveAttribute('open', '');
     await summary(nav, 'Resources').click();
-    await expect(nav.locator('.menu-items > li > details').first()).not.toHaveAttribute('open');
+    await expect(nav.locator('.menu-desktop > li > details').first()).not.toHaveAttribute('open');
     await expect(nav.getByRole('link', { name: 'Top menu', exact: true })).toBeHidden();
   });
 
@@ -74,16 +74,22 @@ test.describe('native navigation without runtime JavaScript', () => {
     expect(await page.evaluate(() => document.activeElement.closest('.menu-items') === null)).toBe(true);
   });
 
-  test('resizing restores visible desktop links without duplicate navigation or scripts', async ({ page }) => {
+  test('resizing exposes only the active layout without runtime scripts', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 800 });
     await page.goto('/preview/menu/light/');
     const nav = menu(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     await expect(nav.getByRole('link', { name: 'Home', exact: true })).toBeVisible();
-    await expect(summary(nav, 'Menu')).toBeHidden();
+    await expect(nav.locator('.menu-collapse')).toBeHidden();
     await page.setViewportSize({ width: 375, height: 800 });
     await expect(nav.getByRole('link', { name: 'Home', exact: true })).toBeHidden();
-    await expect(nav.locator('.menu-items')).toHaveCount(1);
+    await expect(nav.locator('.menu-items:visible')).toHaveCount(0);
+    await summary(nav, 'Menu').click();
+    await expect(nav.locator('.menu-items:visible')).toHaveCount(1);
+    await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveCount(1);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await expect(nav.locator('.menu-items:visible')).toHaveCount(1);
+    await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveCount(1);
     expect(await page.locator('script').count()).toBe(0);
   });
 
@@ -95,7 +101,7 @@ test.describe('native navigation without runtime JavaScript', () => {
       await nav.evaluate(el => { el.style.maxInlineSize = '22rem'; });
       await summary(nav, 'Products').click();
       for (const label of ['Frameworks', 'Components']) await summary(nav, label).click();
-      const panel = await nav.locator('.menu-items > li > details > .menu-panel').first().boundingBox();
+      const panel = await nav.locator('.menu-desktop > li > details > .menu-panel').first().boundingBox();
       const box = await nav.boundingBox();
       expect(panel.x).toBeGreaterThanOrEqual(box.x - 1);
       expect(panel.x + panel.width).toBeLessThanOrEqual(box.x + box.width + 1);
@@ -148,7 +154,7 @@ test('user preferences keep the menu readable and omit it from print', async ({ 
   await page.goto('/preview/menu/auto/');
   await page.emulateMedia({ colorScheme: 'dark', reducedMotion: 'reduce', forcedColors: 'active' });
   await summary(menu(page), 'Products').click();
-  expect(await summary(menu(page), 'Products').evaluate(el => getComputedStyle(el, '::after').borderInlineEndWidth)).toBe('2px');
+  expect(await summary(menu(page), 'Products').evaluate(el => getComputedStyle(el, '::after').borderRightWidth)).toBe('2px');
   expect(await summary(menu(page), 'Products').evaluate(el => getComputedStyle(el).transitionDuration)).toBe('0s');
   await page.emulateMedia({ media: 'print', forcedColors: 'none' });
   await expect(menu(page)).toBeHidden();
