@@ -20,7 +20,7 @@ for(const theme of ['light','dark']) {
     const link=nav.getByRole('link',{name:'Top menu',exact:true});
     await expect(link).toBeVisible();
     expect(await link.evaluate(el=>{const r=el.getBoundingClientRect();return el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));})).toBe(true);
-    await link.focus();expect(await link.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
+    await link.focus();await page.keyboard.press('Shift+Tab');await page.keyboard.press('Tab');expect(await link.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
     await link.click();await expect(page).toHaveURL(/#navigation$/);
     await page.setViewportSize({width:320,height:800});
     await summary(nav,'Menu').click();
@@ -149,6 +149,14 @@ test('glass visual review',async({page,browserName},testInfo)=>{
     await page.setViewportSize({width,height:900});await page.goto('/preview/glass/'+theme+'/');
     const screenshot=await page.screenshot({type:'jpeg',quality:75});
     await testInfo.attach('glass-'+theme+'-'+width,{body:screenshot,contentType:'image/jpeg'});
-    if(process.env.REVA_GLASS_VISUAL==='1') console.log('GLASS_REVIEW_IMAGE:'+theme+'-'+width+':'+screenshot.toString('base64'));
+    if(process.env.REVA_GLASS_VISUAL==='1') {
+      console.log('GLASS_REVIEW_IMAGE:'+theme+'-'+width+':'+screenshot.toString('base64'));
+      if(width===1280) {
+        for(const section of ['forms','glass-solid']) {
+          const detail=await page.locator('#'+section).screenshot({type:'jpeg',quality:75});
+          console.log('GLASS_REVIEW_IMAGE:'+theme+'-'+section+':'+detail.toString('base64'));
+        }
+      }
+    }
   }
 });
