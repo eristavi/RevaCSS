@@ -115,9 +115,12 @@ test('contrast overrides reset locally and system preferences force opaque surfa
   await page.locator('#glass-primary').evaluate(el=>el.dataset.contrast='auto');
   expect((await rgba(page.locator('#glass-primary')))[3]).toBeLessThan(255);
   await page.emulateMedia({contrast:'more',reducedMotion:'reduce'});
-  expect((await rgba(page.locator('#glass-primary')))[3]).toBe(255);expect(await filter(page.locator('#glass-primary'))).toBe('none');
+  await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);
+  await expect.poll(async()=>(await rgba(page.locator('#glass-primary')))[3]).toBe(255);
+  await expect.poll(()=>filter(page.locator('#glass-primary'))).toBe('none');
   expect(await page.locator('#glass-action').evaluate(el=>getComputedStyle(el).transitionDuration.split(',').every(v=>v.trim()==='0s'))).toBe(true);
   await page.emulateMedia({contrast:'no-preference',forcedColors:'active'});
+  await expect.poll(()=>page.evaluate(()=>matchMedia('(forced-colors: active)').matches)).toBe(true);
   expect(await filter(page.locator('#glass-primary'))).toBe('none');expect(await page.locator('#glass-primary').evaluate(el=>getComputedStyle(el).backgroundImage)).toBe('none');
   await page.emulateMedia({forcedColors:'none',media:'print'});
   expect((await rgba(page.locator('#glass-primary')))[3]).toBe(255);expect(await filter(page.locator('#glass-primary'))).toBe('none');
