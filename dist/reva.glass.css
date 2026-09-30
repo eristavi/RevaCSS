@@ -42,6 +42,8 @@
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
         background-image: none;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
