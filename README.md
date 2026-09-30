@@ -32,6 +32,10 @@ npm run test:browser
 
 Built files include `dist/reva.css`, `dist/reva.min.css`, `dist/reva.scoped.css`, modular stylesheets, and opt-in `dist/reva-fonts.css`. Font loading is separate to avoid mandatory downloads. Copy the `dist/fonts` directory alongside the font stylesheet when using it.
 
+## Optional glass material
+
+Load `reva.glass.css` after `reva.css`, then add `data-material="glass"` to a component or section. `data-material="solid"` ends the treatment locally. Theme, tone, shape, density, depth, fill and contrast use the shared attributes. Styled fields and filled actions stay opaque. Use `reva.glass.scoped.css` with the scoped core. Reduced transparency, increased contrast, forced colours and print have opaque fallbacks; browsers without backdrop filtering retain ordinary core surfaces. See the Glass material documentation for supported components, customization and limits.
+
 ## Documentation and GitHub Pages
 
 Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. The API reference documents CSS tokens and HTML attributes.

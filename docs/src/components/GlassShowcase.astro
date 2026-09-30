@@ -1,0 +1,77 @@
+---
+import TopMenu from './TopMenu.astro';
+const { theme='light', id='glass' } = Astro.props;
+---
+<div class="glass-stage" data-material="glass" data-depth="pronounced">
+  <header class="container"><TopMenu id={id} label="Glass navigation" /></header>
+  <main id="main" class="container glass-main">
+    <section class="card glass-hero" id="home">
+      <p class="glass-eyebrow">REVA / OPTIONAL MATERIALS</p>
+      <h1>Light, through glass.</h1>
+      <p class="prose">Frosted surfaces. Native controls. Your existing design attributes.</p>
+      <div class="row"><a class="button" href="#forms">Explore the controls</a><a href="#attributes">See local overrides</a></div>
+    </section>
+    <div class="grid">
+      <article class="card" id="glass-primary" data-tone="cool">
+        <p class="glass-eyebrow">01 / SURFACES</p><h2>Calm by default.</h2>
+        <p>Blur and a subtle surface sheen preserve the shape and depth you choose.</p>
+        <p class="glass-muted">A 90% surface backing keeps the default text readable over varied backgrounds.</p>
+        <details id="glass-disclosure"><summary>How it works</summary><p>Load the optional stylesheet and add <code>data-material="glass"</code> to a component or parent.</p></details>
+      </article>
+      <article class="card" id="glass-local-theme" data-theme={theme === 'dark' ? 'light' : 'dark'} data-tone="warm">
+        <p class="glass-eyebrow">02 / LOCAL THEMES</p><h2>Your own atmosphere.</h2>
+        <p>A local theme or tone changes this surface without changing its neighbours.</p>
+        <button type="button" data-accent="violet" id="glass-action">Primary action</button>
+        <button type="button" class="outline">Secondary action</button>
+      </article>
+    </div>
+    <section class="card" id="forms">
+      <p class="glass-eyebrow">03 / NATIVE CONTROLS</p><h2>Clarity comes first.</h2>
+      <form action="#forms" method="get" class="stack">
+        <div class="grid">
+          <div><label for={id + '-email'}>Email address</label><input id={id + '-email'} name="email" type="email" autocomplete="email" placeholder="you@example.com" required /></div>
+          <div><label for={id + '-subject'}>Subject</label><select id={id + '-subject'} name="subject"><option>Design enquiry</option><option>Technical support</option></select></div>
+        </div>
+        <label><input type="checkbox" name="updates" /> Keep me updated</label>
+        <div class="row"><button type="submit">Send enquiry</button><button type="reset" class="ghost">Reset</button></div>
+      </form>
+    </section>
+    <section id="attributes" aria-labelledby="attributes-title">
+      <h2 id="attributes-title" class="card">Shared attributes, local choices.</h2>
+      <div class="grid">
+        <article class="card" id="glass-compact" data-density="compact" data-shape="square" data-depth="flat" data-fill="solid" data-border="defined"><h3>Compact and square</h3><p>Flat depth, a defined border, and no decorative gradient.</p><button type="button" data-accent="teal">Compact action</button></article>
+        <article class="card" id="glass-spacious" data-density="spacious" data-shape="pill" data-type="large"><h3>Space to breathe</h3><p>More padding, larger type, and bounded pill rounding.</p><button type="button" data-size="large">Large action</button></article>
+      </div>
+    </section>
+    <section data-material="solid">
+      <article class="card" id="glass-solid"><h2>A deliberate solid reset.</h2><p>This section opts out of glass, keeping the inherited theme and other settings.</p>
+        <article class="card" data-material="glass" id="glass-reentry"><h3>Glass can resume locally</h3><p>An explicit glass attribute starts a new material scope.</p></article>
+      </article>
+    </section>
+    <section class="card" aria-label="Example navigation destinations">
+      <h2 id="overview">A material, not a colour mode.</h2>
+      <p id="css">The extension adds surface treatment to RevaCSS.</p>
+      <p id="navigation">Desktop and mobile navigation keep their native interaction.</p>
+      <p id="templates">Use these styles in your own layouts.</p>
+      <p id="guide">Set the material on one component or a surrounding section.</p>
+      <p id="reference">Shared attributes stay shared.</p>
+      <p id="contact">This is a static HTML and CSS demonstration.</p>
+    </section>
+  </main>
+</div>
+<style>
+  .glass-stage {
+    padding-block: 1rem 3rem;
+    background-color: var(--re-bg);
+    background-image:
+      radial-gradient(ellipse at 4% 4%, color-mix(in srgb, var(--re-primary) 46%, transparent), transparent 48%),
+      radial-gradient(ellipse at 98% 24%, color-mix(in srgb, var(--re-primary-end) 35%, transparent), transparent 44%),
+      radial-gradient(ellipse at 28% 90%, color-mix(in srgb, var(--re-primary) 25%, transparent), transparent 50%);
+  }
+  .glass-main { padding-block-start: 2rem; }
+  .glass-main > * { margin-block-end: 1.5rem; }
+  .glass-hero { padding: clamp(1.5rem, 5vw, 4rem); }
+  .glass-hero h1 { max-inline-size: 12ch; margin-block-start: .5em; font-size: clamp(2.5rem, 7vw, 5rem); }
+  .glass-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
+  .glass-muted { color: var(--re-muted); }
+</style>

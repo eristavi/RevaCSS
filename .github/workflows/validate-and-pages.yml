@@ -36,6 +36,8 @@ jobs:
       - run: npm test
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser -- --project=${{ matrix.browser }}
+        env:
+          REVA_GLASS_VISUAL: "1"
       - name: Check GitHub Pages project paths
         run: npm run build:docs && npm test
         env:

@@ -163,5 +163,13 @@
     ],
     "default": "medium",
     "scope": "Layout only"
+  },
+  "material": {
+    "values": [
+      "solid",
+      "glass"
+    ],
+    "default": "solid",
+    "scope": "Inherited material scope; optional glass stylesheet"
   }
 }
