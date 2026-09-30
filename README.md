@@ -2,17 +2,44 @@
 
 A new default for the web. Native HTML and CSS, token-driven design, easy overrides.
 
-**Foundation alpha:** not a complete component library or a WCAG certification.
+**Foundation alpha · 0.1.0-alpha.1:** not a complete component library or a WCAG certification.
 
 ```html
 <link rel="stylesheet" href="reva.css">
 <button>Get started</button>
 ```
 
-`npm ci` then `npm run build`. `npm run dev` previews the Astro docs.
-`npm test` validates tokens, contrast pairs and size budgets.
-`npm run test:browser` runs Chromium checks (install it with `npx playwright install chromium`).
+## Develop and validate
 
-Built files: `dist/reva.css`, `dist/reva.min.css`, `dist/reva.scoped.css`, module files, and opt-in `dist/reva-fonts.css`. Font loading is separate to avoid mandatory downloads.
+Use Node 22.12+ (Node 24 recommended). Python 3 is required for the browser-test server.
 
-Complete release decisions live in SPECIFICATION.md. Read IMPLEMENTATION.md for what is implemented and deferred. Core is MIT; fonts retain their own licence. Package publication, repository creation and deployment have not occurred.
+```sh
+npm ci
+npm run dev
+```
+
+For a build from scratch and the full automated suite:
+
+```sh
+npm run clean
+npm run build
+npm test
+npx playwright install --with-deps chromium firefox webkit
+npm run test:browser
+```
+
+`npm test` checks tokens, contrast pairs, size budgets, documentation links, and absence of browser JavaScript. Browser tests run against the built docs with Chromium, Firefox, and WebKit. Use `npm run test:browser -- --project=chromium` for one engine. WebKit checks do not replace testing on real Safari/iOS devices.
+
+Built files include `dist/reva.css`, `dist/reva.min.css`, `dist/reva.scoped.css`, modular stylesheets, and opt-in `dist/reva-fonts.css`. Font loading is separate to avoid mandatory downloads. Copy the `dist/fonts` directory alongside the font stylesheet when using it.
+
+## Documentation and GitHub Pages
+
+Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. The API reference documents CSS tokens and HTML attributes.
+
+The validation workflow builds from scratch, runs all three browser engines, and checks the `/RevaCSS/` project path. Pushes to `main` deploy documentation only after validation succeeds. In **Settings → Pages → Build and deployment**, select **GitHub Actions** before the first deployment. The expected default address is https://eristavi.github.io/RevaCSS/; a successful deployment is required before that address is available.
+
+`REVA_SITE` and `REVA_BASE` control the documentation origin and path. The deployment workflow reads both from GitHub Pages configuration, including custom domains. Generated docs, public CSS copies, and API-reference data are rebuilt rather than tracked; `dist` remains committed for direct CSS downloads.
+
+## Release status
+
+The public repository is https://github.com/eristavi/RevaCSS. npm/CDN publication is pending; `private: true` intentionally prevents premature npm publication. Read [SPECIFICATION.md](SPECIFICATION.md) for release scope and [IMPLEMENTATION.md](IMPLEMENTATION.md) for implemented features, verification, and outstanding release checks. Core is MIT; bundled fonts retain their own licence.

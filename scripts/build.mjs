@@ -43,6 +43,7 @@ await writeFile('dist/reva.min.css',min); await copyFile('dist/reva.min.css','do
 await writeFile('docs/src/pages/generated-reference.json',JSON.stringify({options,tokens:data},null,2));
 console.log(`Built CSS: ${Buffer.byteLength(full)} bytes; minified ${min.length} bytes.`);
 
+await mkdir('dist/fonts',{recursive:true});
 await mkdir('docs/public/reva/fonts',{recursive:true});
 for(const name of ['Manrope.ttf','OFL.txt']) { await copyFile('assets/fonts/'+name,'dist/fonts/'+name); await copyFile('assets/fonts/'+name,'docs/public/reva/fonts/'+name); }
 await copyFile('assets/reva-fonts.css','dist/reva-fonts.css');

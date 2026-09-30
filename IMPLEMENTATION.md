@@ -10,26 +10,31 @@
 - Global, scoped and modular builds; optional licensed Manrope variable font (TTF in alpha).
 - Reduced-motion, forced-colour, increased contrast, print and logical-direction rules.
 - Static Astro documentation, Markdown guide, generated token/attribute reference and isolated previews.
-- GitHub Pages build/deploy workflow; no deployed site or remote repository yet.
+- Public GitHub repository at https://github.com/eristavi/RevaCSS.
+- GitHub Actions validation and Pages deployment workflow; deployment follows successful validation on main and requires Pages source to be set to GitHub Actions.
+- Clean-build command, generated-file exclusions, and documentation link/asset checks at root and project paths.
 
 ## Verification
-Build succeeded. Five Node checks and nine browser tests passed in Chromium 153.0.8010.0.
+Initial foundation verification: build succeeded. Five Node checks and nine browser tests passed in Chromium 153.0.8010.0.
 Automated axe A/AA checks passed on light/dark reference pages; colour checks passed across six accents in both modes.
 Keyboard disclosure/native validation, 320px reflow, nested themes/tones, independent layout gaps, ordinary CSS overrides, scoped isolation, reduced motion and forced colours checked.
 Minified CSS gzip: 3,889 bytes (budget 15 KiB). Generated docs contain no scripts or JS assets.
 Desktop/light/dark/mobile screenshots inspected. This is not WCAG certification: manual screen-reader, zoom/text-spacing, printing and Firefox/Safari/Edge verification remain.
 
+Housekeeping verification (2026-09-30): reproduced the missing `dist/fonts` clean-build failure, fixed directory creation, and rebuilt successfully without pre-existing output. Six Node checks passed with both `/` and `/RevaCSS/` documentation paths. All nine browser tests passed in Chromium 153.0.8010.0 using a local browser supplied through `REVA_CHROMIUM`. Direct Playwright browser downloads failed in the validation environment; local Firefox/WebKit results are pending. The suite and CI now define all three engines (27 test cases in total). Workflow YAML and deployment dependencies were checked. Real Safari/iOS, Edge, screen-reader, zoom/text-spacing and printing checks remain stable-release gates.
+
 ## Deferred to next milestones
 Full component library (navigation patterns, badges, alerts, segmented selectors, switchers, carousel), container-query-specific components, masonry experiment, glass extension, multilingual font packs, optional SVG icons and full templates.
 Development token tooling is basic validation, not yet a full DTCG schema validator or comprehensive custom-theme contrast tool. Current source uses tested accent stops; arbitrary custom palettes require explicit foreground/end/state tokens and checks.
-Private package flag prevents premature npm publication. GitHub/npm/CDN publication awaits repository setup and a release review.
+Private package flag prevents premature npm publication. The GitHub repository is public; npm/CDN publication awaits a release review. Documentation deployment awaits Pages configuration and a successful workflow run on main.
 
 ## Run locally
 Node 22.12+ (Node 24 recommended).
 `npm ci` → `npm run dev` for docs.
+`npm run clean` removes generated CSS, docs, public asset copies and generated API-reference data; the next build restores them.
 `npm run build` produces CSS and static docs.
 `npm test` checks tokens/build output.
-`npx playwright install chromium` → `npm run test:browser` for browser checks.
+`npx playwright install --with-deps chromium firefox webkit` → `npm run test:browser` for all browser projects. Python 3 serves the built documentation.
 `REVA_CHROMIUM=/path/to/chromium` optionally supplies an existing browser.
 GitHub Pages workflow reads repository path from configure-pages, so project-site base paths are supported.
 
