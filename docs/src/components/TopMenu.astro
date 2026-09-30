@@ -1,0 +1,48 @@
+---
+const { id='demo', label='Example site', current='home' } = Astro.props;
+---
+<nav class="top-menu" aria-label={label}>
+  <a class="menu-brand" href="#home">RevaCSS</a>
+  <details class="menu-collapse">
+    <summary>Menu</summary>
+    <ul class="menu-items">
+      <li><a href="#home" aria-current={current==='home' ? 'page' : undefined}>Home</a></li>
+      <li>
+        <details class="menu-dropdown" name={`${id}-primary`}>
+          <summary>Products</summary>
+          <ul class="menu-panel">
+            <li><a href="#overview">All products</a></li>
+            <li>
+              <details class="menu-dropdown" name={`${id}-products`}>
+                <summary>Frameworks</summary>
+                <ul class="menu-panel">
+                  <li><a href="#css">CSS foundation</a></li>
+                  <li>
+                    <details class="menu-dropdown" name={`${id}-frameworks`}>
+                      <summary>Components</summary>
+                      <ul class="menu-panel">
+                        <li><a href="#navigation">Top menu</a></li>
+                        <li><a href="#forms">Forms and controls</a></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li><a href="#templates">Templates</a></li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <details class="menu-dropdown" name={`${id}-primary`}>
+          <summary>Resources</summary>
+          <ul class="menu-panel">
+            <li><a href="#guide">Get started</a></li>
+            <li><a href="#reference">API reference</a></li>
+          </ul>
+        </details>
+      </li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </details>
+</nav>
