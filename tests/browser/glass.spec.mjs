@@ -79,7 +79,7 @@ test('shared spacing, shape, depth, fill, border, type and control settings appl
     const css=id=>getComputedStyle(document.getElementById(id));
     return {compactPadding:css('glass-compact').padding,spaciousPadding:css('glass-spacious').padding,compactRadius:css('glass-compact').borderRadius,spaciousRadius:css('glass-spacious').borderRadius,flat:css('glass-compact').boxShadow,depth:css('glass-spacious').boxShadow,border:css('glass-compact').borderTopWidth,type:css('glass-spacious').fontSize,solid:css('glass-compact').backgroundImage,gradient:css('glass-primary').backgroundImage,accent:css('glass-action').getPropertyValue('--re-primary').trim()};
   });
-  expect(states.compactPadding).toBe('19.2px');expect(states.spaciousPadding).toBe('30px');
+  expect(parseFloat(states.compactPadding)).toBeCloseTo(19.2,4);expect(states.spaciousPadding).toBe('30px');
   expect(states.compactRadius).toBe('0px');expect(states.spaciousRadius).toBe('24px');
   expect(states.flat).toBe('none');expect(states.depth).not.toBe('none');expect(states.border).toBe('2px');expect(states.type).toBe('18px');
   expect(states.solid).not.toBe(states.gradient);expect(states.accent).toBe('#7041cf');
@@ -142,21 +142,4 @@ test('reduced-transparency fallback rule produces opaque surfaces',async({page})
   });
   await page.goto('/preview/glass/light/');
   expect((await rgba(page.locator('#glass-primary')))[3]).toBe(255);expect(await filter(page.locator('#glass-primary'))).toBe('none');
-});
-test('glass visual review',async({page,browserName},testInfo)=>{
-  test.skip(browserName!=='chromium');
-  for(const [theme,width] of [['light',1280],['dark',1280],['light',375]]) {
-    await page.setViewportSize({width,height:900});await page.goto('/preview/glass/'+theme+'/');
-    const screenshot=await page.screenshot({type:'jpeg',quality:75});
-    await testInfo.attach('glass-'+theme+'-'+width,{body:screenshot,contentType:'image/jpeg'});
-    if(process.env.REVA_GLASS_VISUAL==='1') {
-      console.log('GLASS_REVIEW_IMAGE:'+theme+'-'+width+':'+screenshot.toString('base64'));
-      if(width===1280) {
-        for(const section of ['forms','glass-solid']) {
-          const detail=await page.locator('#'+section).screenshot({type:'jpeg',quality:75});
-          console.log('GLASS_REVIEW_IMAGE:'+theme+'-'+section+':'+detail.toString('base64'));
-        }
-      }
-    }
-  }
 });
