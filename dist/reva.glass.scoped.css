@@ -1,0 +1,111 @@
+@scope (.reva) {
+/* Optional material extension. Load after the matching global or scoped core. */
+@layer re.tokens {
+  :where([data-contrast="more"], :scope[data-contrast="more"]) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 90%; --re-glass-filter: blur(16px); }
+}
+@layer re.components {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
+      border-width: var(--re-surface-border);
+      border-color: var(--re-line);
+      box-shadow: var(--re-shadow);
+    }
+    /* Frosted navigation must paint above subsequent frosted cards. */
+    :where(.top-menu, :scope.top-menu) { z-index: var(--re-menu-z, 20); }
+    @media (width >= 48rem) {
+      :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
+        border-width: var(--re-surface-border);
+        box-shadow: var(--re-shadow);
+      }
+    }
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
+        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 90%), transparent);
+        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 12%), transparent), transparent);
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
+        backdrop-filter: var(--re-glass-filter, blur(16px));
+      }
+      @media (width >= 48rem) {
+        :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
+          background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 90%), transparent);
+          background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 12%), transparent), transparent);
+          -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
+          backdrop-filter: var(--re-glass-filter, blur(16px));
+        }
+      }
+    }
+  }
+}
+@layer re.utilities {
+  /* System preferences win over local contrast resets. */
+  @media (prefers-reduced-transparency: reduce) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media (prefers-contrast: more) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media print {
+    :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        /* Opaque preference paint must not depend on a local alpha override. */
+        background-color: var(--re-surface);
+        background-image: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
+        background-color: Canvas;
+        color: CanvasText;
+        border-color: CanvasText;
+        box-shadow: none;
+      }
+    }
+  }
+  @media print {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover])) {
+        background-color: #fff;
+        color: #000;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+}

@@ -1,7 +1,7 @@
 # Foundation alpha status
 
 ## Implemented
-- Frozen specification, 18-option manifest, MIT licence, pinned tooling and lockfile.
+- Frozen specification, 18 core options plus the optional material manifest entry, MIT licence, pinned tooling and lockfile.
 - DTCG token sources and generated variables; adaptive light/dark via CSS light-dark().
 - Six tested accents, theme/tone independence and local presets.
 - Native typography, buttons, native forms, tables, disclosures and overlay appearance.
@@ -25,7 +25,7 @@ Desktop/light/dark/mobile screenshots inspected. This is not WCAG certification:
 Housekeeping verification (2026-09-30): reproduced the missing `dist/fonts` clean-build failure, fixed directory creation, and rebuilt successfully without pre-existing output. Six Node checks passed with both `/` and `/RevaCSS/` documentation paths. All nine browser tests passed in Chromium 153.0.8010.0 using a local browser supplied through `REVA_CHROMIUM`. Direct Playwright browser downloads failed in the validation environment; local Firefox/WebKit results are pending. The suite and CI now define all three engines (27 test cases in total). Workflow YAML and deployment dependencies were checked. Real Safari/iOS, Edge, screen-reader, zoom/text-spacing and printing checks remain stable-release gates.
 
 ## Deferred to next milestones
-Remaining component library (other navigation patterns, badges, alerts, segmented selectors, switchers, carousel), container-query-specific components, masonry experiment, glass extension, multilingual font packs, optional SVG icons and full templates.
+Remaining component library (other navigation patterns, badges, alerts, segmented selectors, switchers, carousel), container-query-specific components, masonry experiment, multilingual font packs, optional SVG icons and full templates.
 Development token tooling is basic validation, not yet a full DTCG schema validator or comprehensive custom-theme contrast tool. Current source uses tested accent stops; arbitrary custom palettes require explicit foreground/end/state tokens and checks.
 Private package flag prevents premature npm publication. No npm alpha publication: the first fully functional release must include the agreed components and finish automated, manual accessibility and real-device testing before publication. Documentation is deployed at https://eristavi.github.io/RevaCSS/; main CI has passed Chromium, Firefox and WebKit foundation validation.
 
@@ -46,3 +46,6 @@ Load reva.tokens.css, reva.base.css, then reva.components.css for modular use. C
 A regular desktop list is visible at 48rem and wider; a separate native mobile disclosure is visible below that width. Shared static templates keep their links in sync; only the active layout enters keyboard and accessibility navigation. Each layout preserves its own submenu state. Deeper submenus expand inside the dropdown panel. Standard links and details/summary provide Tab, Enter and Space operation; Escape/outside-click dismissal and application-menu arrow-key controls are not part of this native disclosure version. Print hides the navigation. Clipping ancestors and breakpoint focus behavior are documented.
 
 Ten new browser tests cover nested disclosures, closed-link focus exclusion, mobile reflow and target sizes, sibling groups, independent instances, resizing, bounded desktop panels, RTL, long labels, scoped isolation, both themes, user preferences and print. Navigation interactions run with JavaScript disabled. Chromium checks passed locally; the GitHub PR records final cross-browser CI results. Component documentation includes copyable HTML and three isolated theme previews.
+
+## Optional glass material
+Separate global and scoped glass stylesheets. `data-material=glass` selects supported frosted surfaces; `solid` creates a local reset. Shared attributes drive colour mode, tone, shape, density, text size, depth, decorative borders, fill and contrast. Inputs and semantic actions retain their core treatment. Reduced transparency, increased contrast, forced colours, unsupported backdrop filtering and print retain opaque fallbacks. Documentation includes light/dark/auto previews. Browser and composited-colour regression results are recorded in the implementation PR; manual real-device and screen-reader review remain release requirements.

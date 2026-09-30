@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base=import.meta.env.BASE_URL;
+const example=`<link rel="stylesheet" href="reva.css">
+<link rel="stylesheet" href="reva.glass.css">
+
+<section data-material="glass"
+         data-theme="dark"
+         data-tone="cool"
+         data-shape="rounded"
+         data-density="comfortable"
+         data-depth="pronounced">
+  <article class="card">
+    <h2>A frosted surface</h2>
+    <p>Your content stays in native HTML.</p>
+    <button data-accent="teal">Primary action</button>
+  </article>
+  <section data-material="solid">
+    <article class="card">An opaque local reset</article>
+  </section>
+</section>`;
+---
+<Layout title="Glass material">
+  <h1>Glass material</h1>
+  <p class="prose">An optional frosted surface extension for cards, navigation, standalone disclosures, fieldsets, dialogs and popovers. It adds no runtime JavaScript and leaves the core stylesheet unchanged.</p>
+  <div class="row"><a class="button" href={base + 'preview/glass/light/'}>Light preview</a><a class="button secondary" href={base + 'preview/glass/dark/'}>Dark preview</a><a href={base + 'preview/glass/auto/'}>Device theme preview</a></div>
+  <h2>Install and activate</h2><p>Load the extension after the core. <code>data-material="glass"</code> applies the treatment to supported surfaces in that section. <code>data-material="solid"</code> ends it locally. A nested glass attribute starts another scope. <code>data-theme</code> retains its existing light, dark and auto values.</p>
+  <pre><code>{example}</code></pre>
+  <p>For scoped use, load <code>reva.scoped.css</code> followed by <code>reva.glass.scoped.css</code> and put the component inside a <code>.reva</code> boundary. Use matching global or scoped builds.</p>
+  <h2>Shared attributes</h2>
+  <div class="table-scroll" role="region" aria-label="Glass attribute support" tabindex="0">
+    <table><thead><tr><th scope="col">Attribute</th><th scope="col">Glass behavior</th></tr></thead><tbody>
+      <tr><th scope="row"><code>data-theme</code>, <code>data-tone</code></th><td>Choose the existing colour mode and surface palette, independently of material.</td></tr>
+      <tr><th scope="row"><code>data-accent</code></th><td>Colours semantic buttons and native accent controls. Ordinary navigation text keeps its existing link/text tokens.</td></tr>
+      <tr><th scope="row"><code>data-shape</code>, <code>data-density</code>, <code>data-type</code></th><td>Keep the existing rounding, component spacing and text sizing.</td></tr>
+      <tr><th scope="row"><code>data-depth</code></th><td>Controls surface and dropdown shadows; flat removes them.</td></tr>
+      <tr><th scope="row"><code>data-border</code></th><td>Controls decorative surface frames, including desktop dropdowns. Form-control boundaries remain visible.</td></tr>
+      <tr><th scope="row"><code>data-fill</code></th><td>Gradient adds a subtle glass sheen and keeps button gradients. Solid removes the sheen; use material solid to remove translucency.</td></tr>
+      <tr><th scope="row"><code>data-controls</code></th><td>Native inputs keep their styled/minimal treatments. Filled buttons and styled fields stay opaque for clarity.</td></tr>
+      <tr><th scope="row"><code>data-motion</code></th><td>Existing control motion remains governed by the shared setting. Glass introduces no animation.</td></tr>
+      <tr><th scope="row"><code>data-contrast</code></th><td>More makes glass opaque and removes blur. Auto restores the material default unless a system preference requests less transparency or more contrast.</td></tr>
+      <tr><th scope="row">Component attributes</th><td>Size, width, table, image and gap options retain their existing documented targets.</td></tr>
+    </tbody></table>
+  </div>
+  <h2>Readable defaults and fallbacks</h2>
+  <p class="prose">The default glass backing is 90% of the current surface colour with 16px backdrop blur. The optional <code>--re-glass-opacity</code> token accepts a percentage; reducing it or supplying custom colours requires contrast checks against the actual background. Blur does not guarantee readability. Decorative borders are not substitutes for form-control boundaries.</p>
+  <p class="prose">Browsers without backdrop filtering retain opaque core surfaces. Reduced-transparency and increased-contrast preferences remove translucency and blur where the browser supports those media queries. Forced colours use system colours, and printed surfaces are opaque. An explicit <code>data-contrast="more"</code> is also available.</p>
+  <h2>Navigation and overlays</h2><p class="prose">The top menu and desktop dropdown panels support glass; nested navigation disclosures keep their transparent layout. Interaction, touch targets and responsive behavior remain the native top-menu contract. Dialog and popover surfaces can be glass, but their opening behavior stays native HTML. Avoid stacking many blurred surfaces or placing essential text directly on a decorative backdrop. An ancestor with opacity, filters, clipping or stacking constraints can change the blur or overlay result.</p>
+  <p class="prose">Automated checks cover the shipped examples and attribute behavior. Glass does not certify a consuming page: actual imagery, custom palettes, screen readers and real devices still need review before release. npm publication remains on hold.</p>
+</Layout>

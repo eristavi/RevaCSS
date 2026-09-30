@@ -36,6 +36,9 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 | `data-fit` | `cover`, `contain` | `cover` | Constrained image only |
 | `data-gap` | `none`, `small`, `medium`, `large` | `medium` | Layout only |
 
+## Optional material extension
+`data-material="glass"` activates supported frosted surfaces when the glass stylesheet is loaded. `data-material="solid"` ends the material scope locally; another glass attribute can resume it. This is independent of `data-theme` and reuses the shared design attributes. Glass is excluded from core builds and budgets. Unsupported backdrop filtering and accessibility preferences retain opaque surfaces. Form controls and semantic action fills retain their core appearance.
+
 ## Behaviour
 Inherited design settings remain local to their subtree. Reset one setting without resetting unrelated settings. Component options (size, gap, fit, ratio, table, width) apply to their documented element, not all descendants. Visitor reduced motion and forced-colour preferences constrain decoration. User font preferences, zoom and reading order remain usable. Attribute auto restores the appropriate default or device choice. Invalid values have no effect.
 
