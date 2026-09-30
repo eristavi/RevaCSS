@@ -4,6 +4,14 @@
   "description": "Native foundations, adaptive design, minimal decisions.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eristavi/RevaCSS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eristavi/RevaCSS/issues"
+  },
+  "homepage": "https://github.com/eristavi/RevaCSS#readme",
   "private": true,
   "engines": {
     "node": ">=22.12.0"
@@ -15,6 +23,7 @@
     "README.md"
   ],
   "scripts": {
+    "clean": "node scripts/clean.mjs",
     "build:css": "node scripts/build.mjs",
     "build:docs": "astro build --root docs",
     "build": "npm run build:css && npm run build:docs",
