@@ -42,4 +42,6 @@ The validation workflow builds from scratch, runs all three browser engines, and
 
 ## Release status
 
-The public repository is https://github.com/eristavi/RevaCSS. npm/CDN publication is pending; `private: true` intentionally prevents premature npm publication. Read [SPECIFICATION.md](SPECIFICATION.md) for release scope and [IMPLEMENTATION.md](IMPLEMENTATION.md) for implemented features, verification, and outstanding release checks. Core is MIT; bundled fonts retain their own licence.
+The public repository is https://github.com/eristavi/RevaCSS, and documentation is live at https://eristavi.github.io/RevaCSS/. The first new component is a responsive top menu with nested native disclosures; see the Components section in the documentation.
+
+**npm publication is on hold until the first fully functional release includes the agreed components and completes automated, manual accessibility and real-device testing.** There will be no foundation-only npm alpha publication. `private: true` remains in place. Read [SPECIFICATION.md](SPECIFICATION.md) for release scope and [IMPLEMENTATION.md](IMPLEMENTATION.md) for implemented features, verification, and outstanding release checks. Core is MIT; bundled fonts retain their own licence.

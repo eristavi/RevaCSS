@@ -33,8 +33,9 @@ contrast+=rule(':where([data-contrast="more"])',contrastDecl);
 contrast+=`@media (prefers-contrast: more) { ${rule(':where(:root,[data-theme],[data-tone],[data-contrast])',contrastDecl)} }\n}\n`;
 await mkdir('dist',{recursive:true}); await mkdir('docs/public/reva',{recursive:true});
 const base=await readFile('src/css/base.css','utf8'), comp=await readFile('src/css/components.css','utf8');
-const full=tokens+base+comp+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',comp+contrast],['reva.scoped.css',`@scope (.reva) {\n${full.replaceAll(':root',':scope')}\n}`]]) {
+const navigation=await readFile('src/css/navigation.css','utf8');
+const full=tokens+base+comp+navigation+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',comp+navigation+contrast],['reva.navigation.css',navigation],['reva.scoped.css',`@scope (.reva) {\n${full.replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }

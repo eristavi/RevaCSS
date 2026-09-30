@@ -1,20 +1,27 @@
 ---
-const { title='RevaCSS', theme='auto' }=Astro.props;
+import DocumentationLinks from '../components/DocumentationLinks.astro';
+const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto' }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
 <!doctype html>
 <html lang="en" data-theme={theme}>
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="RevaCSS foundation alpha: native HTML, adaptive CSS, minimal decisions."/><title>{title} · RevaCSS</title><link rel="stylesheet" href={`${base}reva/reva-fonts.css`}/><link rel="stylesheet" href={`${base}reva/reva.css`}/></head>
 <body><a class="skip-link" href="#main">Skip to content</a>
-<header class="container"><nav aria-label="Documentation"><a href={base}>RevaCSS</a><a href={`${base}reference/`}>API reference</a><a href={`${base}guide/`}>Guide</a><a href={`${base}preview/light/`}>Light</a><a href={`${base}preview/dark/`}>Dark</a><a href={`${base}plain/`}>Plain HTML</a></nav></header>
+<header class="container">
+  <nav class="top-menu" aria-label="Documentation">
+    <a class="menu-brand" href={base}>RevaCSS</a>
+    <DocumentationLinks id="docs-desktop" desktop />
+    <details class="menu-collapse">
+      <summary>Menu</summary>
+      <DocumentationLinks id="docs-mobile" />
+    </details>
+  </nav>
+</header>
 <main id="main" class="container"><slot/></main>
 <footer class="container"><p>Foundation alpha · MIT · Revaz Eristavi · HTML and CSS only</p></footer>
 </body></html>
 <style>
 header { padding-block: 1.3rem; border-block-end: 1px solid var(--re-line); }
-nav { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
-nav a { min-block-size: 2rem; display: inline-flex; align-items: center; }
-nav a:first-child { font-weight: 800; font-size: 1.25rem; margin-inline-end: auto; }
 main { padding-block: 2rem 4rem; }
 footer { padding-block: 1.5rem; border-block-start: 1px solid var(--re-line); color: var(--re-muted); }
 </style>

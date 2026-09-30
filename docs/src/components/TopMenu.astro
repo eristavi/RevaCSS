@@ -1,0 +1,12 @@
+---
+import TopMenuLinks from './TopMenuLinks.astro';
+const { id='demo', label='Example site', current='home' } = Astro.props;
+---
+<nav class="top-menu" aria-label={label}>
+  <a class="menu-brand" href="#home">RevaCSS</a>
+  <TopMenuLinks id={`${id}-desktop`} current={current} desktop />
+  <details class="menu-collapse">
+    <summary>Menu</summary>
+    <TopMenuLinks id={`${id}-mobile`} current={current} />
+  </details>
+</nav>
