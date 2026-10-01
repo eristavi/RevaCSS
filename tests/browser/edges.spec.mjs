@@ -42,7 +42,7 @@ test('contrast, forced colour and print retain the regular border and focus',asy
  await page.goto('/plain/');await page.evaluate(fixture=>{document.body.innerHTML='<main>'+fixture+'</main>';document.documentElement.dataset.edge='animated';document.documentElement.dataset.contrast='more';},fixture);
  expect(await pseudo(page,'#action','display')).toBe('none');
  await page.locator('#action').evaluate(el=>el.dataset.contrast='auto');expect(await pseudo(page,'#action','display')).toBe('block');
- await page.emulateMedia({contrast:'more'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');
+ await page.emulateMedia({contrast:'more',reducedMotion:'reduce'});await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');
  await page.emulateMedia({contrast:'no-preference',forcedColors:'active'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');await expect.poll(()=>style(page,'#action','border-top-width')).toBe('1px');
  await page.emulateMedia({forcedColors:'none',media:'print'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');
 });
