@@ -47,7 +47,7 @@ Set shared defaults on `<html>`, then write ordinary HTML. All 18 core attribute
 
 ## Documentation and GitHub Pages
 
-Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them. Browse typography, buttons, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
+Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
 
 The validation workflow builds from scratch, runs all three browser engines, and checks the `/RevaCSS/` project path. Pushes to `main` deploy documentation only after validation succeeds. In **Settings → Pages → Build and deployment**, select **GitHub Actions** before the first deployment. The expected default address is https://eristavi.github.io/RevaCSS/; a successful deployment is required before that address is available.
 

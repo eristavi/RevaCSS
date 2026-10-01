@@ -1,0 +1,28 @@
+---
+import { Code } from 'astro:components';
+const { id, code, lang='html', label='HTML example', embedded=false }=Astro.props;
+---
+<div class:list={["code-viewer", {embedded}]}>
+  <div class="code-toolbar">
+    <span class="code-language">{lang.toUpperCase()}</span>
+    <span class="code-hint">Select text to copy</span>
+    <label class="code-wrap-label" for={`code-wrap-${id}`}><input id={`code-wrap-${id}`} class="code-wrap" type="checkbox"/>Wrap lines</label>
+  </div>
+  <Code code={code} lang={lang} themes={{light:'github-light-high-contrast',dark:'github-dark-high-contrast'}} defaultColor={false} wrap={null} tabindex="0" role="region" aria-label={label}/>
+</div>
+<style>
+.code-viewer { min-inline-size:0; max-inline-size:100%; border:1px solid var(--re-line); border-radius:.75rem; }
+.code-viewer.embedded { border:0; border-block-start:1px solid var(--re-line); border-radius:0 0 .75rem .75rem; }
+.code-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem 1rem; padding:.35rem 1rem; background:var(--re-surface-alt); border-block-end:1px solid var(--re-line); border-radius:.75rem .75rem 0 0; font-size:.8rem; }
+.embedded .code-toolbar { border-radius:0; }
+.code-language { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-weight:750; color:var(--re-text); }
+.code-hint { color:var(--re-muted); }
+.code-wrap-label { margin:0; margin-inline-start:auto; font-size:.8rem; gap:.4rem; }
+.code-wrap { inline-size:1rem; block-size:1rem; margin:0; }
+.code-viewer :global(pre.astro-code) { margin:0; padding:1rem; min-inline-size:0; max-inline-size:100%; max-block-size:32rem; overflow:auto; border-radius:0 0 .75rem .75rem; font-size:.85rem; line-height:1.7; tab-size:2; white-space:pre; background-color:light-dark(var(--shiki-light-bg),var(--shiki-dark-bg)); }
+.code-viewer :global(.astro-code), .code-viewer :global(.astro-code span) { color:light-dark(var(--shiki-light),var(--shiki-dark)); }
+.code-viewer :global(pre.astro-code code) { padding:0; background:transparent; font-size:inherit; white-space:inherit; }
+.code-viewer:has(.code-wrap:checked) :global(pre.astro-code) { white-space:pre-wrap; overflow-wrap:anywhere; }
+@media print { .code-toolbar { display:none; } .code-viewer :global(pre.astro-code) { max-block-size:none; overflow:visible; white-space:pre-wrap; overflow-wrap:anywhere; background:#fff; } .code-viewer :global(.astro-code), .code-viewer :global(.astro-code span) { color:#000; } }
+@media (forced-colors:active) { .code-viewer :global(pre.astro-code) { background:Canvas; } .code-viewer :global(.astro-code), .code-viewer :global(.astro-code span) { color:CanvasText; } }
+</style>
