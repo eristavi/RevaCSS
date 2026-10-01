@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "blockers": [
+    {"id":"Q-BUTTON-LABEL","kind":"automated","status":"open","summary":"An unbroken button label causes page overflow at 320px."},
+    {"id":"Q-GRID-CONTENT","kind":"automated","status":"open","summary":"An unbroken generic grid child causes page overflow at 320px."},
+    {"id":"Q-ROW-CONTENT","kind":"automated","status":"open","summary":"An unbroken generic row child causes page overflow at 320px."},
+    {"id":"Q-SUMMARY-LABEL","kind":"automated","status":"open","summary":"An unbroken disclosure summary causes page overflow at 320px."},
+    {"id":"Q-BUTTON-TEXT-SCALE","kind":"automated","status":"open","summary":"The buttons documentation overflows at 320px with 200% root font size. This probe is not browser zoom."},
+    {"id":"Q-NAV-FOCUS","kind":"manual","status":"open","summary":"Review nested Escape and Back focus recovery across supported browsers and assistive technology; native opener restoration is not guaranteed."},
+    {"id":"Q-EDGE-DEVICE","kind":"manual","status":"open","summary":"Reproduce the reported animated-edge failure in the affected browser/device; Chromium rendering changed in the audit probe."},
+    {"id":"Q-REAL-DEVICES","kind":"manual","status":"open","summary":"Validate current Safari/iOS, Firefox and Edge on real browsers/devices, including glass blur and native controls."},
+    {"id":"Q-SCREEN-READERS","kind":"manual","status":"open","summary":"Complete VoiceOver/Safari and NVDA/browser keyboard and screen-reader checks."},
+    {"id":"Q-ZOOM-PRINT","kind":"manual","status":"open","summary":"Complete actual 200%/400% browser zoom, text-spacing visual/interaction review, and print review."},
+    {"id":"Q-VISUAL-BASELINES","kind":"manual","status":"open","summary":"Approve per-browser visual baselines for component states and mixed-content fixtures."}
+  ]
+}

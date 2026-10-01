@@ -36,6 +36,16 @@ jobs:
       - run: npm test
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser -- --project=${{ matrix.browser }}
+      - name: Report release quality blockers (alpha documentation only)
+        run: |
+          if npm run check:release-quality > quality-status.txt 2>&1; then
+            cat quality-status.txt
+            echo 'Recorded release-quality blockers: resolved. Other release gates still apply.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            cat quality-status.txt
+            echo 'Release quality: BLOCKED. Expected failures are not acceptance passes; npm publication remains on hold.' >> "$GITHUB_STEP_SUMMARY"
+            cat quality-status.txt >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Check GitHub Pages project paths
         run: npm run build:docs && npm test
         env:
@@ -83,3 +93,4 @@ jobs:
       - name: Deploy documentation
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+

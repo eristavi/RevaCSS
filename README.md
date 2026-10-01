@@ -71,3 +71,8 @@ The public repository is https://github.com/eristavi/RevaCSS, and documentation 
 Shared defaults: set `data-theme="light"` or `data-theme="dark"` on `<html>` for a complete palette with default component settings. Configure shape, borders, density and other attributes globally, then override only exceptions on sections or elements. The [defaults and coverage reference](https://eristavi.github.io/RevaCSS/attributes/#defaults-reference) lists every supported target and omitted value. Native validation, focus and accessibility preferences remain authoritative.
 
 All documentation and preview page headers use the shared native-popover top menu and one navigation data source. The Theme menu offers System, Light and Dark using native radio inputs and CSS `:has()`. The choice applies to the current page, including code viewers, while explicit local themes stay independent. New pages use their configured default; no preference is stored and no browser JavaScript is shipped.
+
+## Component quality standard
+
+[QUALITY_STANDARD.md](QUALITY_STANDARD.md) defines the acceptance gates and existing-component coverage. Mixed-content fixtures and explicit known-failure regressions run with the browser suite. Expected failures are release blockers, not acceptance passes. `npm run check:release-quality` exits nonzero until recorded automated and manual blockers are resolved. Alpha documentation validation reports this separately; publication remains on hold.
+
