@@ -64,7 +64,7 @@
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
     }
-    :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="glass"])) { background-color: transparent; background-image: none; border-block-start-color: transparent; }
+    :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="glass"])) { --re-glass-button-fill: var(--re-surface); background-color: transparent; background-image: none; border-block-start-color: transparent; }
     :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="glass"])) { border-block-start-color: currentColor; }
   }
 }
