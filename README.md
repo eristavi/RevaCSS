@@ -47,7 +47,7 @@ Set shared defaults on `<html>`, then write ordinary HTML. All 19 core attribute
 
 ## Decorative edges
 
-`data-edge="plain"` is the default. Use `gradient` for a static ring, `shine` for one hover/focus sweep, or `animated` for a slow continuous turn. The setting inherits to buttons, `.button` links and `.card` surfaces; native input actions keep their regular borders. Shape, action/accent colours and border width remain shared. `data-motion="none"` pauses movement; reduced motion keeps a static ring. Higher contrast, forced colours and print remove decoration. The effect reserves `::after` on supported targets and falls back to the regular border without composite masking.
+`data-edge="plain"` is the default. Use `gradient` for a static ring, `shine` for one hover/focus sweep, or `animated` for a slow continuous turn. The setting inherits to buttons, `.button` links and `.card` surfaces; native input actions keep their regular borders. Shape and action/accent colours remain shared. The decorative ring uses twice the shared border width for visibility on light and dark surfaces, without changing layout; `data-border="none"` removes it. `data-motion="none"` pauses movement; reduced motion keeps a static ring. Higher contrast, forced colours and print remove decoration. The effect reserves `::after` on supported targets and falls back to the regular border without composite masking.
 
 ```html
 <button type="button" data-material="glass" data-edge="animated">Continue</button>
