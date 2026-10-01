@@ -199,3 +199,18 @@
     :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) { background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none; }
   }
 }
+
+
+/* Badges use the action backing opacity to preserve small-label contrast. */
+@layer re.components {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(.badge, :scope.badge):where(:not([data-material="solid"])) {
+        background-color: color-mix(in srgb, var(--re-badge-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
+        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-badge-fill-end) calc(var(--re-gradient) * 6%), transparent), transparent);
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
+        backdrop-filter: var(--re-glass-filter, blur(16px));
+      }
+    }
+  }
+}

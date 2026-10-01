@@ -18,6 +18,7 @@ tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
+--re-success: ${css(resolve('primitive.accent.green.start'))}; --re-success-end: ${css(resolve('primitive.accent.green.end'))};
 --re-danger: ${css(resolve('primitive.danger.start'))}; --re-danger-end: ${css(resolve('primitive.danger.end'))};
 --re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: ${css(resolve('primitive.warning.start'))}; --re-warning-end: ${css(resolve('primitive.warning.end'))}; --re-on-warning: ${css(resolve('primitive.warningText'))}; color-scheme: light dark;`);
 for(const mode of ['light','dark','auto']) tokens+=rule(`:where([data-theme="${mode}"], :scope[data-theme="${mode}"])`,`color-scheme: ${mode==='auto'?'light dark':mode};`);
@@ -42,13 +43,14 @@ contrast+=rule(':where([data-contrast="more"], :scope[data-contrast="more"])',co
 contrast+=`@media (prefers-contrast: more) { ${rule(':where(:root,[data-theme],[data-tone],[data-contrast])',contrastDecl)} }\n}\n`;
 await mkdir('dist',{recursive:true}); await mkdir('docs/public/reva',{recursive:true});
 const base=await readFile('src/css/base.css','utf8'), comp=await readFile('src/css/components.css','utf8');
+const badges=await readFile('src/css/badges.css','utf8');
 const navigation=await readFile('src/css/navigation.css','utf8');
 const glass=await readFile('src/css/glass.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=edgeRegistration+tokens+base+comp+navigation+edges+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+navigation+edges+contrast],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
+const full=edgeRegistration+tokens+base+comp+badges+navigation+edges+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+navigation+edges+contrast],['reva.badges.css',badges],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }
@@ -62,3 +64,4 @@ await mkdir('docs/public/reva/fonts',{recursive:true});
 for(const name of ['Manrope.ttf','OFL.txt']) { await copyFile('assets/fonts/'+name,'dist/fonts/'+name); await copyFile('assets/fonts/'+name,'docs/public/reva/fonts/'+name); }
 await copyFile('assets/reva-fonts.css','dist/reva-fonts.css');
 await copyFile('assets/reva-fonts.css','docs/public/reva/reva-fonts.css');
+
