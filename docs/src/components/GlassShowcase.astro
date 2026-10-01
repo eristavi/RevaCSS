@@ -1,10 +1,12 @@
 ---
+import DocumentationHeader from './DocumentationHeader.astro';
 import TopMenu from './TopMenu.astro';
 const { theme='light', id='glass' } = Astro.props;
 ---
 <div class="glass-stage" data-material="glass" data-depth="pronounced">
-  <header class="container"><TopMenu id={id} label="Glass navigation" /></header>
+  <DocumentationHeader theme={theme}/>
   <main id="main" class="container glass-main">
+    <TopMenu id={id} label="Glass navigation"/>
     <section class="card glass-hero" id="home">
       <p class="glass-eyebrow">REVA / OPTIONAL MATERIALS</p>
       <h1>Light, through glass.</h1>

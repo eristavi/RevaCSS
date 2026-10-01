@@ -1,11 +1,12 @@
 ---
 import TopMenuLinks from './TopMenuLinks.astro';
-const { id='demo', label='Example site', current='home' } = Astro.props;
+const { id='demo', label='Example site', current='home', brand='RevaCSS', brandHref='#home', items } = Astro.props;
 ---
 <nav class="top-menu" aria-label={label} style={`--re-menu-anchor: --${id}-navigation`}>
-  <a class="menu-brand" href="#home">RevaCSS</a>
-  <TopMenuLinks id={`${id}-desktop`} current={current} desktop />
+  <a class="menu-brand" href={brandHref}>{brand}</a>
+  <TopMenuLinks id={`${id}-desktop`} current={current} items={items} desktop />
   <button type="button" class="menu-toggle menu-collapse" popovertarget={`${id}-mobile-menu`}>Menu</button>
-  <TopMenuLinks id={`${id}-mobile`} current={current} />
+  <TopMenuLinks id={`${id}-mobile`} current={current} items={items} />
+  <slot name="actions"/>
 </nav>
 

@@ -1,4 +1,5 @@
 ---
+import DocumentationHeader from '../../../components/DocumentationHeader.astro';
 import TopMenu from '../../../components/TopMenu.astro';
 export function getStaticPaths() { return ['light','dark','auto'].map(theme=>({params:{theme}})); }
 const { theme } = Astro.params;
@@ -15,8 +16,9 @@ const base = import.meta.env.BASE_URL;
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="container"><TopMenu id="preview" label="Main navigation" /></header>
+  <DocumentationHeader theme={theme}/>
   <main id="main" class="container">
+    <TopMenu id="preview" label="Main navigation"/>
     <section class="prose" id="home">
       <p>REVA / NAVIGATION</p>
       <h1>A menu for every screen.</h1>
