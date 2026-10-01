@@ -39,6 +39,12 @@ test('shine runs once for hover or keyboard focus; motion settings stop movement
  await page.emulateMedia({reducedMotion:'reduce'});expect(await pseudo(page,'#action','animation-name')).toBe('none');expect(await pseudo(page,'#link','animation-name')).toBe('none');
 });
 test('contrast, forced colour and print retain the regular border and focus',async({page})=>{
+ await page.emulateMedia({contrast:'more'});await page.goto('/plain/');
+ await page.evaluate(()=>{document.body.innerHTML='<main><button id="initial-contrast" data-edge="animated">Initial preference</button></main>';});
+ await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);
+ expect(await pseudo(page,'#initial-contrast','display')).toBe('none');
+ await page.emulateMedia({contrast:'no-preference'});
+ await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(false);
  await page.goto('/plain/');await page.evaluate(fixture=>{document.body.innerHTML='<main>'+fixture+'</main>';document.documentElement.dataset.edge='animated';document.documentElement.dataset.contrast='more';},fixture);
  expect(await pseudo(page,'#action','display')).toBe('none');
  await page.locator('#action').evaluate(el=>el.dataset.contrast='auto');expect(await pseudo(page,'#action','display')).toBe('block');
