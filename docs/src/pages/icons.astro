@@ -1,0 +1,57 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+import Example from '../components/Example.astro';
+import CodeViewer from '../components/CodeViewer.astro';
+import catalog from '../../../src/icons/catalog.json';
+const base=import.meta.env.BASE_URL;
+const icon=(name)=>'<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">\n  <use href="'+base+'reva/icons/reva.svg#rv-'+name+'"></use>\n</svg>';
+const sections=[{id:'icon-themes',title:'Light, dark and glass'},{id:'icon-usage',title:'Usage'},{id:'icon-accessibility',title:'Accessible names'},{id:'icon-gallery',title:'Icon gallery'}];
+const themeDemo='<div class="grid">\n'+[
+ ['light','solid','Light'],
+ ['dark','solid','Dark'],
+ ['dark','glass','Glass']
+].map(([theme,material,label])=>'<section class="card" data-theme="'+theme+'" data-material="'+material+'">\n  <h3>'+label+'</h3>\n  <p class="row">'+icon('sun')+icon('moon')+icon('bell')+icon('heart')+'</p>\n  <button type="button">'+icon('plus')+' Create project</button>\n</section>').join('\n')+'\n</div>';
+const inlineIcon=catalog.find(i=>i.name==='check');
+---
+<DocsLayout title="SVG icons" active="icons" sections={sections}>
+<link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
+<p class="doc-kicker">ASSETS / REVA OUTLINE</p>
+<h1>SVG icons</h1>
+<p class="prose">{catalog.length} monochrome icons built on a 24 × 24 grid with 1.75-unit rounded strokes. One icon class sets presentation; colour follows surrounding text and size follows its font. No theme or material attributes are needed on icons.</p>
+<p><a href={base+'reva/icons/reva.svg'} download="reva-icons.svg">Download the SVG sprite</a>. Each icon also has a standalone SVG download below.</p>
+<Example id="icon-themes" title="Light, dark and glass" description="The same icon markup follows each parent theme. Opaque strokes keep their definition on frosted surfaces; buttons supply their own inherited foreground colour." html={themeDemo} glass/>
+<section id="icon-usage">
+<h2>Usage</h2>
+<p>Load the normal core stylesheet, which includes icon styling, or load <code>reva.icons.css</code> for modular use. Host the sprite alongside your project and adjust its URL. The symbol names use the <code>rv-</code> prefix.</p>
+<Example id="icon-button" title="An icon beside a label" description="The visible button label names the action. The icon is decorative and adds no duplicate announcement." html={'<button type="button">\n  '+icon('download')+'\n  Download report\n</button>'}/>
+<Example id="icon-inline" title="Inline SVG, without a sprite" description="Inline vectors inherit colour as well. Copy the SVG body for projects that prefer individual inline assets." html={'<p><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">\n  '+inlineIcon.body+'\n</svg> Changes saved</p>'}/>
+<p class="prose">Inline SVG and sprite use inherit <code>currentColor</code>. An SVG loaded through an <code>img</code> is a separate image and cannot inherit the parent text colour. Prefer inline SVG or sprite use for automatic theme colours. These icons add no glow, blur or animation.</p>
+<Example id="icon-size" title="Optional parent sizing" description="Icons follow the text by default. Set --re-icon-size on a parent for an explicit shared dimension; --re-icon-stroke adjusts stroke weight independently." html={'<div class="row" style="--re-icon-size: 2rem; --re-icon-stroke: 1.5;">\n  '+icon('home')+'\n  '+icon('mail')+'\n  '+icon('calendar')+'\n</div>'}/>
+</section>
+<section id="icon-accessibility">
+<h2>Accessible names</h2>
+<p class="prose">Icons do not replace meaningful labels. Decorative icons use <code>aria-hidden="true"</code> and <code>focusable="false"</code>. For a button without visible text, put its accessible name on the button. The SVG remains decorative and receives no separate focus.</p>
+<Example id="icon-named-button" title="A labelled icon-only control" description="This native button has a name and the existing button target size. The documentation action does not submit or mutate data." html={'<button type="button" aria-label="Search">\n  '+icon('search')+'\n</button>'}/>
+<Example id="icon-meaningful" title="A meaningful standalone icon" description="When an icon conveys information without accompanying text, give the SVG image semantics and a name. Avoid colour as the only status signal." html={'<svg class="icon" viewBox="0 0 24 24" role="img" aria-label="Information" focusable="false">\n  <use href="'+base+'reva/icons/reva.svg#rv-info"></use>\n</svg>'}/>
+</section>
+<section id="icon-gallery">
+<h2>Icon gallery</h2>
+<p>Open an icon's HTML example to copy its sprite markup. Downloads are plain SVG vectors.</p>
+<div class="icon-gallery">
+{catalog.map(item=><article class="card icon-tile">
+  <div class="icon-preview"><Fragment set:html={icon(item.name)}/></div>
+  <h3>{item.label}</h3><p><code>{item.name}</code></p>
+  <p><a href={base+'reva/icons/'+item.name+'.svg'} download={item.name+'.svg'}>Download SVG</a></p>
+  <details><summary>HTML example</summary><CodeViewer id={'icon-'+item.name} code={icon(item.name)} label={item.label+' icon HTML'}/></details>
+</article>)}
+</div>
+</section>
+</DocsLayout>
+<style>
+.icon-gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:1rem; }
+.icon-tile { min-inline-size:0; }
+.icon-preview { --re-icon-size:2rem; padding-block:.5rem; }
+.icon-tile h3 { font-size:1rem; margin-block:.65rem .4rem; }
+.icon-tile p { margin-block-end:.6rem; }
+.icon-tile details { padding:.5rem; box-shadow:none; }
+</style>

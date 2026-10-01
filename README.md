@@ -96,3 +96,9 @@ All four follow meaningful shared parent settings without repeated styling attri
 Native `progress` and `meter` already have inherited accent styling; the dedicated documentation page explains completion, indeterminate progress and bounded measurements. New `.spinner` indicators pair decorative CSS motion with visible status text. `.tabs` fieldsets and `.tab-panel` sections implement native radio-selected content panels, with radio semantics rather than ARIA tab roles. `.list-group` arranges native lists; `.empty-state` arranges first-use and no-results messages; `.avatar` supports image or explicitly rendered initials.
 
 These components add no browser JavaScript. Applications own loading state, result fetching, validation and failed-image fallback. Documentation provides live examples and formatted HTML. Modular builds include `reva.loading.css`, `reva.tabs.css`, `reva.lists.css`, `reva.empty-states.css` and `reva.avatars.css`.
+
+### SVG icons
+
+The Reva outline set contains 36 original SVG icons on a 24 × 24 grid with rounded 1.75-unit strokes. Use `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/path/to/icons/reva.svg#rv-search"></use></svg>` beside visible text. Inline SVG and sprite use inherit `currentColor`, so icons follow light, dark and glass foregrounds without repeated theme attributes. Name icon-only controls on the native button.
+
+Builds include `dist/icons/reva.svg`, individual SVG assets and `reva.icons.css`. Complete and scoped CSS include icon presentation. Set `--re-icon-size` or `--re-icon-stroke` on a parent only when defaults need adjustment. External `img` SVGs do not inherit the page text colour. Browse the [icon gallery and HTML examples](https://eristavi.github.io/RevaCSS/icons/). No JavaScript is required.

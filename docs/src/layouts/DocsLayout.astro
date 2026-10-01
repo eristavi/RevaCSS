@@ -3,7 +3,7 @@ import Layout from './Layout.astro';
 import { topics } from '../data/examples.js';
 const { title, active, sections=[] } = Astro.props;
 const base=import.meta.env.BASE_URL;
-const links=[['guide','guide/','Get started'], ...topics.map(t=>[t.slug,`components/${t.slug}/`,t.title]), ['top-menu','components/top-menu/','Top menu'], ['attributes','attributes/','Data attributes'], ['glass','themes/glass/','Glass material'], ['reference','reference/','API reference']];
+const links=[['guide','guide/','Get started'], ...topics.map(t=>[t.slug,`components/${t.slug}/`,t.title]), ['top-menu','components/top-menu/','Top menu'], ['icons','icons/','Icons'], ['attributes','attributes/','Data attributes'], ['glass','themes/glass/','Glass material'], ['reference','reference/','API reference']];
 ---
 <Layout title={title} current={active}>
 <div class="docs-shell">
