@@ -75,3 +75,5 @@ Mobile panel placement now uses the navigation's anchor with a block-flip fallba
 
 Component quality standard, step 1 (2026-10-01): added QUALITY_STANDARD.md, an explicit automated/manual release-blocker registry, mixed native HTML fixtures, and desired-behavior regressions for four long-content overflows and enlarged-root-text overflow on the buttons documentation. Known failures execute with Playwright expected-failure annotations; unexpected passes require review. The release-quality command remains nonzero until all blockers have evidence of resolution. Alpha documentation CI reports this status separately. Existing component CSS and designs remain unchanged. Actual zoom, real-device blur, screen-reader review and visual baselines are still open gates.
 
+
+Quality CI installation correction (2026-10-01): a WebKit runner timed out before tests while downloading dependencies from azure.archive.ubuntu.com. Validation runners now use the official Ubuntu archive over HTTPS and bounded APT retry/network timeouts, preserving suites, components and signature settings. No framework dependencies or component styles changed.
