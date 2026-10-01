@@ -38,7 +38,7 @@ jobs:
         run: |
           sudo python3 - <<'PY'
           from pathlib import Path
-          paths = [Path('/etc/apt/sources.list'), *Path('/etc/apt/sources.list.d').glob('*.list'), *Path('/etc/apt/sources.list.d').glob('*.sources')]
+          paths = [Path('/etc/apt/apt-mirrors.txt'), Path('/etc/apt/sources.list'), *Path('/etc/apt/sources.list.d').glob('*.list'), *Path('/etc/apt/sources.list.d').glob('*.sources')]
           for path in paths:
               if path.is_file():
                   source = path.read_text()
@@ -46,7 +46,12 @@ jobs:
                   if updated != source:
                       path.write_text(updated)
                       print(f'Updated Ubuntu mirror in {path}')
-          Path('/etc/apt/apt.conf.d/99reva-ci-timeouts').write_text('Acquire::Retries "2";\nAcquire::http::Timeout "30";\nAcquire::https::Timeout "30";\n')
+          Path('/etc/apt/apt.conf.d/99reva-ci-timeouts').write_text('Acquire::Retries "1";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n')
+          import subprocess
+          config = subprocess.check_output(['apt-config', 'dump'], text=True)
+          for setting in ['Acquire::Retries "1";', 'Acquire::http::Timeout "15";', 'Acquire::https::Timeout "15";']:
+              assert setting in config, f'APT setting not effective: {setting}'
+          print('Verified bounded APT download settings.')
           PY
       - run: npx playwright install --with-deps ${{ matrix.browser }}
       - run: npm run test:browser -- --project=${{ matrix.browser }}
