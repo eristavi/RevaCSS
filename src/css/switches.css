@@ -1,0 +1,28 @@
+/* A styled native checkbox retains checked, disabled and keyboard behavior. */
+@layer re.components {
+  :where(input[type="checkbox"].switch) {
+    appearance: none; -webkit-appearance: none; position: relative; display: inline-block; flex: 0 0 auto;
+    inline-size: 2.75em; block-size: 1.5em; margin-inline: 0 .5em;
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    background-color: var(--re-surface-alt); cursor: pointer; vertical-align: middle;
+  }
+  :where(input[type="checkbox"].switch)::before {
+    content: ""; position: absolute; inset-block-start: 50%; inset-inline-start: .15em;
+    inline-size: 1.05em; block-size: 1.05em; border-radius: var(--re-button-radius);
+    background-color: var(--re-text); transform: translateY(-50%);
+    transition: inset-inline-start var(--re-duration) ease;
+  }
+  :where(input[type="checkbox"].switch:checked) { background-color: var(--re-primary); border-color: var(--re-primary); }
+  :where(input[type="checkbox"].switch:checked)::before { inset-inline-start: calc(100% - 1.2em); background-color: var(--re-on-primary); }
+  :where(input[type="checkbox"].switch:disabled) { cursor: not-allowed; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(input[type="checkbox"].switch) { background-color: Canvas; border: 1px solid ButtonText; }
+    :where(input[type="checkbox"].switch)::before { background-color: ButtonText; }
+    :where(input[type="checkbox"].switch:checked) { background-color: Highlight; border-color: Highlight; }
+    :where(input[type="checkbox"].switch:checked)::before { background-color: HighlightText; }
+    :where(input[type="checkbox"].switch:disabled) { border-color: GrayText; }
+    :where(input[type="checkbox"].switch:disabled)::before { background-color: GrayText; }
+  }
+}

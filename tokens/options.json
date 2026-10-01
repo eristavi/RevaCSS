@@ -20,7 +20,7 @@
     ],
     "default": "blue",
     "scope": "Inherited",
-    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour; badges and alerts follow this setting"
+    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour; badges and alerts follow this setting; checked switches follow this setting"
   },
   "shape": {
     "values": [
@@ -31,7 +31,7 @@
     ],
     "default": "rounded",
     "scope": "Inherited",
-    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape; choice labels and avatars follow button shape"
+    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape; choice labels and avatars follow button shape; switches, input-group text and skeletons follow this setting"
   },
   "fill": {
     "values": [
@@ -50,7 +50,7 @@
     ],
     "default": "comfortable",
     "scope": "Inherited",
-    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting; list groups, empty states and choice labels follow this setting"
+    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting; list groups, empty states and choice labels follow this setting; input groups, description lists and card sections follow this setting"
   },
   "depth": {
     "values": [
@@ -70,7 +70,7 @@
     ],
     "default": "subtle",
     "scope": "Inherited",
-    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins; custom loading spinners follow motion settings; native indeterminate progress remains browser-owned"
+    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins; custom loading spinners follow motion settings; native indeterminate progress remains browser-owned; switch thumb transitions and skeleton shimmer follow this setting"
   },
   "type": {
     "values": [
@@ -180,7 +180,7 @@
     ],
     "default": "medium",
     "scope": "Inherited; affects .grid, .row, .stack, .accordion and .pagination",
-    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links; also choice-panel groups"
+    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links; also choice-panel groups; also toolbars"
   },
   "material": {
     "values": [
