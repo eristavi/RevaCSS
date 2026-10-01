@@ -1,52 +1,46 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
-import markup from '../../components/TopMenuLinks.astro?raw';
+import TopMenu from '../../components/TopMenu.astro';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 const base = import.meta.env.BASE_URL;
-const list = variant => markup.slice(markup.indexOf('<ul')).replace('class:list={["menu-items", {"menu-desktop": desktop}]}', `class="menu-items${variant === 'desktop' ? ' menu-desktop' : ''}"`).replaceAll('name={`${id}-primary`}', `name="main-${variant}-primary"`).replaceAll('name={`${id}-products`}', `name="main-${variant}-products"`).replaceAll('name={`${id}-frameworks`}', `name="main-${variant}-frameworks"`).replace('aria-current={current===\'home\' ? \'page\' : undefined}', 'aria-current="page"');
-const example = `<nav class="top-menu" aria-label="Main navigation">
-  <a class="menu-brand" href="#home">RevaCSS</a>
-${list('desktop').replace(/href="#[^"]+"/g, 'href="#main"')}
-  <details class="menu-collapse">
-    <summary>Menu</summary>
-${list('mobile').replace(/href="#[^"]+"/g, 'href="#main"')}
-  </details>
-</nav>`;
+const container = await AstroContainer.create();
+const example = (await container.renderToString(TopMenu, {props:{id:'documentation',label:'Example navigation'}})).replace(/href="#[^"]+"/g, 'href="#main"');
 ---
 <DocsLayout title="Top menu" active="top-menu">
   <h1>Top menu</h1>
-  <p class="prose">Responsive site navigation using native HTML disclosures and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Only the active layout is displayed and exposed to keyboard and accessibility navigation.</p>
-  <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Resize the page to switch between desktop and mobile navigation. Activate Products and Frameworks to explore multiple submenu levels." html={example.replace('aria-label="Main navigation"', 'aria-label="Example navigation"')}/>
+  <p class="prose">Responsive site navigation using native HTML popovers and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Clicking outside dismisses open menus without JavaScript.</p>
+  <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Open Products, Frameworks and Components. Click outside to close the stack, or press Escape to close the deepest panel. On mobile, Back returns to the parent panel." html={example}/>
   <div class="row" style="margin-block:1rem">
     <a href={`${base}preview/menu/light/`}>Light preview</a>
     <a href={`${base}preview/menu/dark/`}>Dark preview</a>
     <a href={`${base}preview/menu/auto/`}>Device theme preview</a>
   </div>
-  <h2>HTML</h2><p>Copy the markup below. Replace the example anchor destinations with your pages. Keep both lists in sync and give each layout and navigation instance its own disclosure group names. Static templates can generate both lists from one shared source, as these docs do. CSS-free pages show both lists; loading the component stylesheet selects the appropriate layout.</p>
-
+  <h2>HTML</h2>
+  <p>Copy the example above and replace its link destinations. Keep both lists in sync. Give each navigation a unique <code>--re-menu-anchor</code> CSS identifier as shown in the example. Every panel needs a unique document-wide <code>id</code>, and each toggle's <code>popovertarget</code> must match that id. Generate both layouts from a shared template. Nest child panels and their toggle buttons inside the parent panel so native dismissal preserves the hierarchy.</p>
   <h2>Structure and configuration</h2>
   <div class="table-scroll" role="region" aria-label="Top menu API" tabindex="0">
     <table><thead><tr><th scope="col">Class or setting</th><th scope="col">Use</th></tr></thead><tbody>
       <tr><th scope="row"><code>.top-menu</code></th><td>Navigation landmark and containing surface.</td></tr>
       <tr><th scope="row"><code>.menu-brand</code></th><td>Optional brand link.</td></tr>
-      <tr><th scope="row"><code>.menu-desktop</code></th><td>Desktop list; hidden below 48rem. Generate it from the same links as the mobile list.</td></tr>
-      <tr><th scope="row"><code>.menu-collapse</code></th><td>Native details element for the mobile menu.</td></tr>
-      <tr><th scope="row"><code>.menu-items</code></th><td>Top-level list of links and disclosures.</td></tr>
-      <tr><th scope="row"><code>.menu-dropdown</code></th><td>Nested details element; its summary toggles the following list.</td></tr>
-      <tr><th scope="row"><code>.menu-panel</code></th><td>List of submenu entries. Nest another disclosure to add a level.</td></tr>
-      <tr><th scope="row"><code>name</code> on details</th><td>Optional native exclusive group: only one sibling disclosure with that name stays open. Use distinct names for each depth and menu instance.</td></tr>
-      <tr><th scope="row"><code>aria-current="page"</code></th><td>Marks the current page on its link.</td></tr>
-      <tr><th scope="row"><code>--re-menu-width</code></th><td>Desktop dropdown width; default 20rem, capped at the navigation width.</td></tr>
-      <tr><th scope="row"><code>--re-menu-z</code></th><td>Dropdown stacking level; default 20.</td></tr>
+      <tr><th scope="row"><code>.menu-desktop</code></th><td>Desktop list, visible at 48rem and wider.</td></tr>
+      <tr><th scope="row"><code>.menu-collapse</code></th><td>Mobile Menu button, with class menu-toggle and popovertarget.</td></tr>
+      <tr><th scope="row"><code>.menu-items.menu-mobile</code></th><td>Mobile top-level list with a unique id and popover auto.</td></tr>
+      <tr><th scope="row"><code>.menu-dropdown</code></th><td>List item containing a toggle button and its submenu.</td></tr>
+      <tr><th scope="row"><code>.menu-toggle</code></th><td>Native type button control using popovertarget to toggle a panel.</td></tr>
+      <tr><th scope="row"><code>.menu-panel</code></th><td>Submenu list with a unique id and popover auto.</td></tr>
+      <tr><th scope="row"><code>.menu-back</code></th><td>List item containing a button with popovertargetaction hide, targeting its own panel.</td></tr>
+      <tr><th scope="row"><code>popover="auto"</code></th><td>Native outside-click and Escape dismissal. Another unrelated auto popover closes the current stack; descendants can remain open with their ancestors.</td></tr>
+      <tr><th scope="row"><code>aria-current="page"</code></th><td>Marks the current page link.</td></tr>
+      <tr><th scope="row"><code>--re-menu-width</code></th><td>Desktop panel width, default 20rem, bounded by the viewport.</td></tr>
     </tbody></table>
   </div>
   <h2>Responsive behavior</h2>
-  <p class="prose">Below 48rem the Menu summary controls a stacked navigation list. At 48rem and wider, the top-level list is visible and dropdown panels open below the navigation, aligned to its inline end. Deeper submenus expand inside that panel, keeping the hierarchy within a scrollable surface. The breakpoint is ordinary CSS and can be changed in a custom stylesheet.</p>
-  <p class="prose">Desktop uses a regular list and mobile uses a native disclosure; CSS switches their visibility at the breakpoint. Each layout preserves its own open submenu state. Dropdown panels use normal stacking, so an ancestor with clipped overflow can clip them; keep overflow visible on navigation ancestors. The component does not create a top-layer overlay or lock page scrolling.</p>
+  <p class="prose">Below 48rem the Menu button opens a viewport-bounded panel. Nested panels replace the parent view; Back returns one level and Close menu dismisses the mobile stack. At 48rem and wider, CSS anchor positioning places panels below the navigation, with alternate positions near viewport edges. Nested panels replace the parent view on desktop too, keeping deep menus within one readable surface. Without CSS anchor positioning, panels remain usable as centered popovers.</p>
+  <p class="prose">The browser paints popovers in its top layer, so ancestor overflow does not clip them. The page remains scrollable and interactive. CSS hides panels belonging to the inactive layout when crossing the breakpoint; returning to that layout may restore its open state. Clicking outside or closing a parent dismisses its descendant panels.</p>
   <h2>Keyboard and accessibility</h2>
-  <p class="prose">Tab and Shift+Tab move between visible links and summaries. Enter and Space toggle summaries. Closed submenu links leave the focus order. Use native navigation/list semantics; do not add application-menu roles. A summary is a toggle, not a destination link; include an Overview link within its panel when the parent section has its own page.</p>
-  <p class="prose">Submenus open explicitly by click, tap or keyboard activation, never solely on hover. Native details do not supply Escape/outside-click dismissal, arrow-key navigation, automatic closure after following an in-page link, or focus management after a breakpoint change. These behaviors require a separate enhancement if an application needs them. Closing a parent preserves its children's open state; reopening restores it. This is not an ARIA menubar implementation or an accessibility certification.</p>
+  <p class="prose">Tab and Shift+Tab move between visible links and buttons. Enter and Space activate toggle buttons. Escape closes the deepest open panel. Focus restoration follows the browser's native behavior; nested panels may not return focus to their opener. Use the visible Back controls to return through the hierarchy. Each panel's Back or Close button has <code>autofocus</code>, placing focus inside the newly opened panel without JavaScript. The browser provides the toggle's expanded relationship through popovertarget; do not hard-code aria-expanded. Closed panel links leave the focus order. Use native navigation and list semantics, without application-menu roles or arrow-key expectations.</p>
+  <p class="prose">An outside click dismisses panels outside the clicked branch. Clicking a parent panel closes its deeper descendants while leaving that parent open. Clicking another unrelated menu closes the previous stack. An ordinary destination link inside a panel does not automatically hide it; a full page navigation replaces the document, while an in-page link can leave it open. Native popover support is required for this markup. Screen-reader and actual-device review remain release checks.</p>
   <h2>Styling and modules</h2>
-  <p class="prose">Theme and tone choose surface colours; density and shape control spacing and radii. Depth controls dropdown shadows. Accent colours semantic controls, while ordinary navigation links keep their link/text tokens. Control size does not resize the menu. Core dropdown panels keep a one-pixel border; the optional glass module also applies shared fill and border settings to its surfaces. It is included in complete, scoped and component builds. The dedicated <code>reva.navigation.css</code> stylesheet can be loaded after the token and base modules; use the complete build for the full accessibility utilities. The menu is omitted from printed pages.</p>
+  <p class="prose">Shared theme, tone, density, shape, depth, border and control size settings continue to inherit. The optional glass stylesheet treats the panels as glass surfaces while navigation toggle buttons retain their neutral navigation appearance. Complete, scoped, component and dedicated navigation builds include the styles. Load <code>reva.navigation.css</code> after tokens and base modules; use the complete build for all accessibility utilities. Open panels and navigation are hidden in print. Existing details/summary markup retains its original disclosure behavior; migrate to the example above to gain native outside-click dismissal.</p>
 </DocsLayout>
-

@@ -20,11 +20,11 @@ const base = import.meta.env.BASE_URL;
     <section class="prose" id="home">
       <p>REVA / NAVIGATION</p>
       <h1>A menu for every screen.</h1>
-      <p>Open Products → Frameworks → Components to explore three levels of native HTML disclosure. Resize the page to reveal the mobile Menu toggle.</p>
+      <p>Open Products → Frameworks → Components to explore three levels of native HTML popovers. Resize the page to reveal the mobile Menu toggle.</p>
       <p>Use Tab to move between controls and Enter or Space to toggle a submenu. Click or tap its label again to close it. Opening Resources closes Products.</p>
-      <p>This example runs without JavaScript. It does not provide automatic Escape or outside-click dismissal.</p>
+      <p>This example runs without JavaScript. Click outside to close the menu stack, or press Escape to close the deepest panel.</p>
     </section>
-    <section class="card" id="overview"><h2>Your content stays in HTML</h2><p>A shared template generates desktop and mobile lists; CSS exposes one layout at a time. Nested sections expand inside the dropdown panel so long menus can scroll without hiding child menus.</p></section>
+    <section class="card" id="overview"><h2>Your content stays in HTML</h2><p>A shared template generates desktop and mobile lists; CSS exposes one layout at a time. Nested popovers replace the parent view and include Back controls. Panels scroll when their content exceeds the viewport.</p></section>
     <section dir="rtl" lang="en"><h2>Right-to-left layout</h2><TopMenu id="rtl" label="Right-to-left example" /></section>
     <section class="prose" aria-label="Example link destinations">
       <h2 id="css">CSS foundation</h2><p>Tokens, typography and native controls.</p>
@@ -43,3 +43,4 @@ const base = import.meta.env.BASE_URL;
   main { padding-block: 2rem; }
   main > section { margin-block-end: 2rem; }
 </style>
+
