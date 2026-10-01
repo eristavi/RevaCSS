@@ -33,13 +33,19 @@ export const topics = [
   {
     "slug": "buttons",
     "title": "Buttons",
-    "intro": "Native buttons are styled automatically. Keep buttons for actions and anchors for navigation.",
+    "intro": "Native buttons receive a restrained accent fill, subtle edge highlight and gentle press feedback automatically. Secondary actions use an accent tint that follows light and dark themes. Keep buttons for actions and anchors for navigation.",
     "examples": [
       {
         "id": "variants",
         "title": "Button variants",
         "description": "The default is primary. Add a semantic or visual variant class where needed. These demo actions do not submit anything.",
         "html": "<div class=\"row\">\n  <button type=\"button\">Primary</button>\n  <button type=\"button\" class=\"secondary\">Secondary</button>\n  <button type=\"button\" class=\"danger\">Delete</button>\n  <button type=\"button\" class=\"warning\">Review warning</button>\n  <button type=\"button\" class=\"outline\">Outline</button>\n  <button type=\"button\" class=\"ghost\">Ghost</button>\n</div>"
+      },
+      {
+        "id": "theme-actions",
+        "title": "Actions in light and dark",
+        "description": "Primary and secondary actions inherit the same accent. Theme changes their palette; shape, size, borders, depth and motion remain independently configurable. These are solid buttons; glass material and animated edges are a later step.",
+        "html": "<div class=\"grid\" data-accent=\"violet\" data-shape=\"pill\">\n  <section class=\"card\" data-theme=\"light\">\n    <h3>Light</h3>\n    <div class=\"row\">\n      <button type=\"button\">Continue</button>\n      <button type=\"button\" class=\"secondary\">Go back</button>\n    </div>\n  </section>\n  <section class=\"card\" data-theme=\"dark\">\n    <h3>Dark</h3>\n    <div class=\"row\">\n      <button type=\"button\">Continue</button>\n      <button type=\"button\" class=\"secondary\">Go back</button>\n    </div>\n  </section>\n</div>"
       },
       {
         "id": "sizes",
