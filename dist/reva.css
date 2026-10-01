@@ -115,21 +115,25 @@
   :where(button, input[type=button],input[type=submit],input[type=reset], .button) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
     display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
-    min-block-size: 2.75rem; padding: calc(.7em * var(--re-density)) calc(1.15em * var(--re-density));
-    border: var(--re-surface-border) solid transparent; border-radius: var(--re-button-radius); font-weight: 650; line-height: 1.3; text-align: center;
-    background: var(--re-action-start); background-image: linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 100%),var(--re-action-start))); color: var(--re-action-text);
+    min-block-size: 2.75rem; padding: calc(.65em * var(--re-density)) calc(1.1em * var(--re-density));
+    border: var(--re-surface-border) solid color-mix(in srgb, var(--re-action-text) 18%, transparent); border-radius: var(--re-button-radius); font-weight: 600; line-height: 1.3; text-align: center;
+    background: var(--re-action-start); background-image: linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 28%),var(--re-action-start))); color: var(--re-action-text);
     box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
     transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
   }
   :where(button.danger,.button.danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: #fff; }
-  :where(button.warning,.button.warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
-  :where(button.secondary,.button.secondary) { --re-action-start: #526073; --re-action-end: #354154; --re-action-text: #fff; }
-  :where(button.outline,.button.outline,button.ghost,.button.ghost) { background: transparent; background-image: none; color: var(--re-link); box-shadow: none; }
-  :where(button.outline,.button.outline) { border-color: currentColor; }
-  :where(button.danger.outline,button.danger.ghost) { color: var(--re-danger-link); }
+  :where(button.warning,.button.warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
+  :where(button.secondary,.button.secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
+    --re-action-start: color-mix(in srgb, var(--re-primary) 10%, var(--re-surface));
+    --re-action-end: color-mix(in srgb, var(--re-primary) 18%, var(--re-surface));
+    --re-action-text: light-dark(var(--re-primary-end), color-mix(in srgb, var(--re-primary) 20%, #fff));
+  }
+  :where(button.outline,.button.outline,button.ghost,.button.ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
+  :where(button.outline,.button.outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
+  :where(button.danger.outline,button.danger.ghost,.button.danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
   :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { cursor: not-allowed; opacity: .6; }
-  :where(button:enabled:active,.button:active) { transform: translateY(var(--re-press)); }
-  @media (hover: hover) { :where(button:enabled:hover,.button:hover,input[type=submit]:enabled:hover) { filter: brightness(1.06); } }
+  @media (hover: hover) { :where(button:enabled:hover,.button:hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
+  :where(button:enabled:active,.button:active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
   :where(label) { display: block; font-weight: 600; margin-block-end: .4em; }
   :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
     display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;
