@@ -129,7 +129,7 @@ test.describe('native navigation without runtime JavaScript', () => {
     await page.evaluate(() => {
       const stylesheet = document.querySelector('link[href$="reva.css"]');
       stylesheet.href = stylesheet.href.replace('reva.css', 'reva.scoped.css');
-      const inside = document.querySelector('header');
+      const inside = document.querySelector('nav[aria-label="Main navigation"]');
       inside.classList.add('reva');
     });
     await expect(summary(menu(page), 'Menu')).toBeHidden();
@@ -170,11 +170,11 @@ test.describe('native navigation without runtime JavaScript', () => {
     await page.route('**/reva.css',route=>route.fulfill({contentType:'text/css',body:stylesheet}));
     for(const width of [1280,375]) {
       await page.setViewportSize({width,height:900});await page.goto('/preview/menu/light/');
-      if(build==='scoped')await page.locator('header').evaluate(el=>el.classList.add('reva'));
+      if(build==='scoped'){await menu(page).evaluate(el=>el.classList.add('reva'));expect(await menu(page).evaluate(el=>getComputedStyle(el).anchorName)).toContain('--preview-navigation');}
       const nav=menu(page);if(width<768)await summary(nav,'Menu').click();
       for(const label of ['Products','Frameworks','Components'])await summary(nav,label).click();
       await expect(nav.getByRole('link',{name:'Top menu',exact:true})).toBeVisible();
-      await page.locator('h1').click();await expect(nav.locator('[popover]:popover-open')).toHaveCount(0);
+      await page.mouse.click(2,800);await expect(nav.locator('[popover]:popover-open')).toHaveCount(0);
     }
   });
   test('popover panels remain usable without CSS anchor positioning',async({page})=>{

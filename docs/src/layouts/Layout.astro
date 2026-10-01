@@ -1,22 +1,13 @@
 ---
-import DocumentationLinks from '../components/DocumentationLinks.astro';
-const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto' }=Astro.props;
+import DocumentationHeader from '../components/DocumentationHeader.astro';
+const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto', current }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
 <!doctype html>
 <html lang="en" data-theme={theme}>
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="RevaCSS documentation: live component demos, HTML examples and shared data attributes."/><title>{title} · RevaCSS</title><link rel="stylesheet" href={`${base}reva/reva-fonts.css`}/><link rel="stylesheet" href={`${base}reva/reva.css`}/></head>
 <body><a class="skip-link" href="#main">Skip to content</a>
-<header class="container">
-  <nav class="top-menu" aria-label="Documentation">
-    <a class="menu-brand" href={base}>RevaCSS</a>
-    <DocumentationLinks id="docs-desktop" desktop />
-    <details class="menu-collapse">
-      <summary>Menu</summary>
-      <DocumentationLinks id="docs-mobile" />
-    </details>
-  </nav>
-</header>
+<DocumentationHeader theme={theme} current={current}/>
 <main id="main" class="container"><slot/></main>
 <footer class="container"><p>Foundation alpha · MIT · Revaz Eristavi · HTML and CSS only</p></footer>
 </body></html>

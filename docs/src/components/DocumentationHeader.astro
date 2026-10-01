@@ -1,0 +1,16 @@
+---
+import TopMenu from './TopMenu.astro';
+import ThemeSwitch from './ThemeSwitch.astro';
+import { documentationNavigation } from '../data/navigation.js';
+const { theme='auto', current }=Astro.props;
+const base=import.meta.env.BASE_URL;
+---
+<header class="container documentation-header">
+  <TopMenu id="docs" label="Documentation" items={documentationNavigation(base)} current={current} brandHref={base}>
+    <ThemeSwitch slot="actions" theme={theme}/>
+  </TopMenu>
+</header>
+<style>
+.documentation-header { padding-block:1rem; }
+.documentation-header :global(.menu-brand) { max-inline-size:none; }
+</style>

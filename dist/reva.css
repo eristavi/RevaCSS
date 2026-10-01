@@ -228,7 +228,7 @@
   }
 }
 @layer re.components {
-  :where(.top-menu) {
+  :where(.top-menu, :scope.top-menu) {
     --re-menu-width: 20rem;
     anchor-name: var(--re-menu-anchor, --re-navigation);
     display: flex;
@@ -410,10 +410,20 @@
   @media (width < 48rem) {
     :where(.top-menu .menu-back) { display: list-item; }
     :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
-      inset: 4.5rem 1rem auto;
-      margin: 0 auto;
+      inset: 1rem;
+      margin: auto;
       inline-size: calc(100dvw - 2rem);
-      max-block-size: calc(100dvh - 5.5rem);
+      max-block-size: calc(100dvh - 2rem);
+    }
+    @supports (position-area: block-end span-all) {
+      :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+        inset: auto;
+        position-anchor: var(--re-menu-anchor, --re-navigation);
+        position-area: block-end span-all;
+        position-try-fallbacks: flip-block;
+        margin: .25rem 1rem;
+        max-block-size: min(70dvh, 36rem);
+      }
     }
     :where(.top-menu .menu-desktop [popover]:popover-open) { display: none; }
   }
