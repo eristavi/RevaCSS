@@ -138,5 +138,19 @@ export const attributes = [
     "description": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass. Default: solid. Scope: Inherited material scope; optional glass stylesheet.",
     "html": "<div class=\"grid\">\n  <section data-material=\"solid\"><article class=\"card\"><h3>Solid</h3><p>A local material setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-material=\"glass\"><article class=\"card\"><h3>Glass</h3><p>A local material setting.</p><button type=\"button\">Action</button></article></section>\n</div>",
     "glass": true
+  },
+  {
+    "id": "variant",
+    "title": "data-variant",
+    "description": "Inherited badge status colour. Place this setting on html or a parent; badge children only need their class. Default: primary.",
+    "html": "<div class=\"row\">\n  <section data-variant=\"primary\">\n    <span class=\"badge\">Primary</span>\n  </section>\n  <section data-variant=\"success\">\n    <span class=\"badge\">Success</span>\n  </section>\n  <section data-variant=\"warning\">\n    <span class=\"badge\">Warning</span>\n  </section>\n  <section data-variant=\"danger\">\n    <span class=\"badge\">Danger</span>\n  </section>\n  <section data-variant=\"neutral\">\n    <span class=\"badge\">Neutral</span>\n  </section>\n</div>",
+    "glass": false
+  },
+  {
+    "id": "appearance",
+    "title": "data-appearance",
+    "description": "Inherited badge appearance. Place this setting on html or a parent; badge children only need their class. Default: tinted.",
+    "html": "<div class=\"row\">\n  <section data-appearance=\"tinted\">\n    <span class=\"badge\">Tinted</span>\n  </section>\n  <section data-appearance=\"solid\">\n    <span class=\"badge\">Solid</span>\n  </section>\n  <section data-appearance=\"outline\">\n    <span class=\"badge\">Outline</span>\n  </section>\n</div>",
+    "glass": false
   }
 ];

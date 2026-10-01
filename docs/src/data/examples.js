@@ -80,6 +80,63 @@ export const topics = [
     ]
   },
   {
+    "slug": "badges",
+    "title": "Badges",
+    "glass": true,
+    "intro": "Passive status labels, counts and categories. One badge class identifies the component; theme, accent, size, shape, density, depth, borders and material follow the parent. No attributes are required on individual badges.",
+    "notes": [
+      "Use a span for a plain label. A badge has no automatic alert/status role, focusability or live announcement. For changing information, choose a live region on its meaningful containing element only when announcements are needed.",
+      "Write the status in visible text. Colour alone must not carry its meaning. Counts need context, for example \u201c3 unread messages.\u201d Use native links and buttons for actions; a badge itself is a passive label.",
+      "data-variant (primary, success, warning, danger, neutral) and data-appearance (tinted, solid, outline) configure badges on html, any parent, or an optional local exception. Unsupported values keep the nearest valid parent setting. data-fill retains its existing gradient/solid meaning; decorative data-edge does not apply to badges.",
+      "The complete, minified, scoped and components builds include badges. For modular use, load tokens and base, then reva.badges.css. Glass needs reva.glass.css after the matching core. Accessibility preferences and print keep labels readable."
+    ],
+    "examples": [
+      {
+        "id": "basic-badges",
+        "title": "One class, no attributes",
+        "description": "The default badge is tinted and uses the inherited accent. Use ordinary text around a count to explain it.",
+        "html": "<p>Product update <span class=\"badge\">New</span></p>\n<p>Unread messages <span class=\"badge\">3</span></p>"
+      },
+      {
+        "id": "badge-parent",
+        "title": "Configure a parent once",
+        "description": "Both badges inherit the parent. The same settings can be placed on html for the whole site.",
+        "html": "<section data-theme=\"dark\" data-accent=\"violet\"\n         data-shape=\"pill\" data-size=\"large\"\n         data-appearance=\"solid\" data-depth=\"flat\">\n  <p>\n    <span class=\"badge\">Featured</span> <span class=\"badge\">New</span></p>\n</section>"
+      },
+      {
+        "id": "badge-status",
+        "title": "Status colours from parents",
+        "description": "A status on a parent applies to all badges inside it. Each label states its meaning in text.",
+        "html": "<div class=\"row\">\n  <section data-variant=\"primary\">\n    <span class=\"badge\">New</span>\n  </section>\n  <section data-variant=\"success\">\n    <span class=\"badge\">Approved</span>\n  </section>\n  <section data-variant=\"warning\">\n    <span class=\"badge\">Pending</span>\n  </section>\n  <section data-variant=\"danger\">\n    <span class=\"badge\">Overdue</span>\n  </section>\n  <section data-variant=\"neutral\">\n    <span class=\"badge\">Archived</span>\n  </section>\n</div>"
+      },
+      {
+        "id": "badge-appearance",
+        "title": "Tinted, solid and outline",
+        "description": "Appearance is separate from status and from the shared gradient setting.",
+        "html": "<div class=\"row\" data-variant=\"success\">\n  <section data-appearance=\"tinted\">\n    <span class=\"badge\">Tinted</span>\n  </section>\n  <section data-appearance=\"solid\">\n    <span class=\"badge\">Solid</span>\n  </section>\n  <section data-appearance=\"outline\">\n    <span class=\"badge\">Outline</span>\n  </section>\n</div>"
+      },
+      {
+        "id": "badge-size",
+        "title": "Shared size and shape",
+        "description": "Size and shape are inherited. Labels can wrap instead of widening a narrow page.",
+        "html": "<div class=\"row\" data-shape=\"pill\">\n  <section data-size=\"small\">\n    <span class=\"badge\">Small</span>\n  </section>\n  <section data-size=\"medium\">\n    <span class=\"badge\">Medium</span>\n  </section>\n  <section data-size=\"large\">\n    <span class=\"badge\">Large</span>\n  </section>\n</div>\n<p data-shape=\"square\">\n    <span class=\"badge\">Square</span></p>"
+      },
+      {
+        "id": "badge-overrides",
+        "title": "Optional local exceptions",
+        "description": "The parent remains the default. Override only the label or subtree that needs to differ; plain buttons keep their existing API.",
+        "html": "<section data-variant=\"success\" data-appearance=\"solid\">\n  <p>\n    <span class=\"badge\">Approved</span></p>\n  <p><span class=\"badge\" data-variant=\"warning\">Pending review</span></p>\n  <section data-appearance=\"outline\">\n    <p>\n    <span class=\"badge\">Paid</span></p>\n  </section>\n</section>"
+      },
+      {
+        "id": "badge-glass",
+        "title": "Inherited glass with a solid exception",
+        "description": "Load the optional glass stylesheet. Badges inherit material; solid stops it locally. Unsupported blur falls back to the normal opaque badge.",
+        "glass": true,
+        "html": "<section data-material=\"glass\" data-theme=\"dark\"\n         data-shape=\"pill\" data-variant=\"primary\">\n  <p>\n    <span class=\"badge\">Glass label</span></p>\n  <section data-material=\"solid\">\n    <p>\n    <span class=\"badge\">Solid exception</span></p>\n  </section>\n</section>"
+      }
+    ]
+  },
+  {
     "slug": "forms",
     "title": "Forms",
     "intro": "Native controls need explicit labels. RevaCSS supplies appearance; your HTML supplies names, hints, errors and form behavior.",

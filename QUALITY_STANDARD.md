@@ -34,6 +34,7 @@ These are coverage notes and next checks, not declarations that every component 
 | Headings, paragraphs, lists, inline text, quotations | Native styling, documentation accessibility/reflow | Languages, fallback fonts, actual zoom and screen readers |
 | Code, kbd, samp, pre | Native styling and scrolling | Long content, keyboard scrolling, text enlargement |
 | Buttons, action links, native action inputs | Variants, themes, accents, disabled/focus, shared settings | Q-BUTTON-LABEL and Q-BUTTON-TEXT-SCALE; native input label limits |
+| Badges | Global/minified/modular/scoped inheritance, local resets, rendered palette contrast, narrow LTR/RTL labels, glass fallback/preferences, documentation | Real-device, screen-reader, actual zoom/print and approved visual baselines remain shared release checks |
 | Text/email/etc inputs, select, textarea | Labels, validation, read-only/disabled appearance | Native picker/autofill/device states, long labels, error announcements |
 | Checkbox/radio, fieldset/legend | Native groups and labelled targets | Long labels, selected/disabled/invalid states and assistive technology |
 | Range/file/colour/date controls | Basic native styles/examples | Real device/platform interactions and localization |

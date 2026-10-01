@@ -56,7 +56,7 @@ Set shared defaults on `<html>`, then write ordinary HTML. All 19 core attribute
 
 ## Documentation and GitHub Pages
 
-Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
+Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, badges, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
 
 The validation workflow builds from scratch, runs all three browser engines, and checks the `/RevaCSS/` project path. Pushes to `main` deploy documentation only after validation succeeds. In **Settings → Pages → Build and deployment**, select **GitHub Actions** before the first deployment. The expected default address is https://eristavi.github.io/RevaCSS/; a successful deployment is required before that address is available.
 
@@ -76,3 +76,7 @@ All documentation and preview page headers use the shared native-popover top men
 
 [QUALITY_STANDARD.md](QUALITY_STANDARD.md) defines the acceptance gates and existing-component coverage. Mixed-content fixtures and explicit known-failure regressions run with the browser suite. Expected failures are release blockers, not acceptance passes. `npm run check:release-quality` exits nonzero until recorded automated and manual blockers are resolved. Alpha documentation validation reports this separately; publication remains on hold.
 
+
+## Badges
+
+Use `<span class="badge">New</span>` for passive labels. Badges inherit theme, accent, size, shape, density, depth, borders, gradient and material settings from the parent. Optional `data-variant="primary|success|warning|danger|neutral"` and `data-appearance="tinted|solid|outline"` configure badges on any parent; local overrides remain optional. Defaults are primary and tinted. Use visible status text and meaningful count context; badges add no live-region roles or interaction. See the [badge examples](https://eristavi.github.io/RevaCSS/components/badges/). Modular builds provide `reva.badges.css`; glass remains opt-in.

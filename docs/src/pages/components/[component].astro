@@ -7,8 +7,11 @@ const { topic }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
 <DocsLayout title={topic.title} active={topic.slug} sections={topic.examples}>
+{topic.glass && <link rel="stylesheet" href={base+'reva/reva.glass.css'}/> }
 <p class="doc-kicker">COMPONENTS / FOUNDATION ALPHA</p>
 <h1>{topic.title}</h1><p class="prose">{topic.intro}</p>
 <p>Load <code>reva.css</code> first. Each rendered example below uses the HTML shown directly underneath. <a href={base+'attributes/'}>Explore shared data attributes</a>.</p>
+{topic.notes?.map(note=><p class="prose">{note}</p>)}
 {topic.examples.map(example=><Example {...example} html={example.html.replaceAll('__BASE__',base)}/>)}
 </DocsLayout>
+
