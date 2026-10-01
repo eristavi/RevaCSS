@@ -6,8 +6,8 @@
       "dark"
     ],
     "default": "auto",
-    "scope": "Inherited",
-    "affects": "Page, text, links, surfaces and native controls; auto follows device colours"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Page and component colour scheme: auto follows the visitor's preference."
   },
   "accent": {
     "values": [
@@ -19,8 +19,8 @@
       "rose"
     ],
     "default": "blue",
-    "scope": "Inherited",
-    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour; badges and alerts follow this setting; checked switches follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour."
   },
   "shape": {
     "values": [
@@ -30,8 +30,8 @@
       "pill"
     ],
     "default": "rounded",
-    "scope": "Inherited",
-    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape; choice labels and avatars follow button shape; switches, input-group text and skeletons follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders."
   },
   "fill": {
     "values": [
@@ -39,8 +39,8 @@
       "solid"
     ],
     "default": "gradient",
-    "scope": "Inherited",
-    "affects": "Button gradients and optional glass sheen; badges and alerts follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Button, badge and alert gradients; optional glass sheen. Does not change material."
   },
   "density": {
     "values": [
@@ -49,8 +49,8 @@
       "spacious"
     ],
     "default": "comfortable",
-    "scope": "Inherited",
-    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting; list groups, empty states and choice labels follow this setting; input groups, description lists and card sections follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Control and surface padding, list and description spacing, card sections and layout spacing."
   },
   "depth": {
     "values": [
@@ -59,8 +59,8 @@
       "pronounced"
     ],
     "default": "subtle",
-    "scope": "Inherited",
-    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls; badges and alerts follow this setting; pagination links follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Action and surface shadows. Text-control inset shadows are configured with data-controls."
   },
   "motion": {
     "values": [
@@ -69,8 +69,8 @@
       "expressive"
     ],
     "default": "subtle",
-    "scope": "Inherited",
-    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins; custom loading spinners follow motion settings; native indeterminate progress remains browser-owned; switch thumb transitions and skeleton shimmer follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Action transitions, press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned."
   },
   "type": {
     "values": [
@@ -79,8 +79,8 @@
       "large"
     ],
     "default": "standard",
-    "scope": "Inherited",
-    "affects": "Page and subtree typography"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Page or subtree typography."
   },
   "border": {
     "values": [
@@ -89,8 +89,8 @@
       "none"
     ],
     "default": "subtle",
-    "scope": "Inherited",
-    "affects": "Styled control and surface borders, table rules and menu panel separators; invalid and forced-colour boundaries win"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Styled control and surface borders, table rules and navigation boundaries. Invalid-state and forced-colour boundaries take priority."
   },
   "contrast": {
     "values": [
@@ -98,8 +98,8 @@
       "more"
     ],
     "default": "auto",
-    "scope": "Inherited",
-    "affects": "Readable text and boundary colours; optional glass becomes opaque; device high-contrast preference wins"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Foreground and boundary contrast; optional glass becomes opaque. System preferences retain their component-specific priority."
   },
   "tone": {
     "values": [
@@ -108,8 +108,8 @@
       "warm"
     ],
     "default": "neutral",
-    "scope": "Inherited",
-    "affects": "Neutral, cool or warm page and surface backgrounds"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Neutral, cool or warm page and surface colours."
   },
   "controls": {
     "values": [
@@ -117,8 +117,8 @@
       "minimal"
     ],
     "default": "styled",
-    "scope": "Inherited",
-    "affects": "Text input, select and textarea fill and inset shadow"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Text input, select and textarea backing and inset shadow."
   },
   "width": {
     "values": [
@@ -127,8 +127,8 @@
       "wide"
     ],
     "default": "standard",
-    "scope": "Inherited; affects .container",
-    "affects": "Content width of .container"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Maximum width of .container."
   },
   "table": {
     "values": [
@@ -137,8 +137,8 @@
       "bordered"
     ],
     "default": "plain",
-    "scope": "Inherited; affects tables",
-    "affects": "Table stripes and grid lines; grid thickness follows data-border"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Table stripes and grid lines; rule thickness follows data-border."
   },
   "size": {
     "values": [
@@ -147,8 +147,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination and form labels",
-    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting; accordion summaries, breadcrumbs, pagination and form labels follow this setting; spinners, choice labels and avatars follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination, form labels, choice labels, spinners and avatars."
   },
   "ratio": {
     "values": [
@@ -159,8 +159,8 @@
       "wide"
     ],
     "default": "auto",
-    "scope": "Inherited; affects images and videos",
-    "affects": "Image and video aspect ratio; auto retains natural proportions"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Image and video aspect ratio; auto retains natural proportions."
   },
   "fit": {
     "values": [
@@ -168,8 +168,8 @@
       "contain"
     ],
     "default": "cover",
-    "scope": "Inherited; affects constrained images and videos",
-    "affects": "Image and video content within constrained dimensions"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Image, video and avatar content within constrained dimensions."
   },
   "gap": {
     "values": [
@@ -179,8 +179,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects .grid, .row, .stack, .accordion and .pagination",
-    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links; also choice-panel groups; also toolbars"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Spacing in .grid, .row, .stack, .accordion, .pagination, .tabs and .toolbar; combines with density."
   },
   "material": {
     "values": [
@@ -188,8 +188,8 @@
       "glass"
     ],
     "default": "solid",
-    "scope": "Inherited material scope; optional glass stylesheet",
-    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass; badges and alerts follow this setting; pagination link surfaces follow this setting"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Supported glass surfaces and actions; requires the optional matching glass extension. A solid scope stops inherited glass."
   },
   "edge": {
     "values": [
@@ -199,8 +199,8 @@
       "animated"
     ],
     "default": "plain",
-    "scope": "Inherited; affects buttons, .button links and .card",
-    "affects": "Decorative gradient border; shine sweeps on hover/focus, animated turns continuously; motion, border and contrast settings apply. Native input buttons retain regular borders"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Decorative borders on buttons, .button links and cards. Shine sweeps on interaction; animated turns continuously. Native action inputs keep regular borders."
   },
   "variant": {
     "values": [
@@ -211,8 +211,8 @@
       "neutral"
     ],
     "default": "primary",
-    "scope": "Inherited scope; affects badges and alerts",
-    "affects": "Badge and alert status colour; primary uses the inherited accent and serves as an informational alert. Visible text conveys the meaning"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Badge and alert semantic colour. Primary uses the inherited accent. Does not configure buttons."
   },
   "appearance": {
     "values": [
@@ -221,7 +221,7 @@
       "outline"
     ],
     "default": "tinted",
-    "scope": "Inherited scope; affects badges and alerts",
-    "affects": "Badge and alert backing and border treatment"
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Badge and alert backing and border treatment. Does not configure buttons."
   }
 }

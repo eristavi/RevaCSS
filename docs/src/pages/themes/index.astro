@@ -1,0 +1,18 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Themes" active="themes" sections={[{id:'modes',title:'Colour modes'},{id:'material',title:'Material'},{id:'defaults',title:'Shared defaults'},{id:'previews',title:'Full-page previews'}]}>
+<p class="doc-kicker">THEMES</p><h1>Choose colours, then material</h1>
+<p class="doc-lead">One data-theme value selects a complete colour mode. Optional data-material changes supported surfaces independently.</p>
+<section id="modes"><h2>Colour modes</h2><div class="grid">
+{[['light','Light','An explicitly light palette.'],['dark','Dark','An explicitly dark palette.'],['auto','System','Follow the visitor’s preferred colour scheme.']].map(([key,title,description])=><article class="card"><h3><a href={base+'themes/'+key+'/'}>{title}</a></h3><p>{description}</p><code>data-theme="{key}"</code></article>)}
+</div></section>
+<Example id="material" title="Material is independent" description="Both cards use a dark palette. Only the glass section changes its supported surfaces." glass html={'<div class="grid" data-theme="dark">\n  <article class="card">\n    <h3>Solid material</h3>\n    <p>The default surface is opaque.</p>\n  </article>\n  <section data-material="glass">\n    <article class="card">\n      <h3>Glass material</h3>\n      <p>Load the optional glass stylesheet to activate this treatment.</p>\n    </article>\n  </section>\n</div>'}/>
+<link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
+<section id="defaults"><h2>The same styling logic in every mode</h2><p>Light and dark select different colour tokens, not different component APIs. Rounded shape, comfortable density, medium control size, subtle depth and gradient fill are the common omitted defaults. Change them once on html or on a scoped boundary.</p><p><a href={base+'reference/#attributes'}>See all supported defaults and values.</a> Semantic meanings remain local: a warning alert can differ from a success badge inside the same theme.</p></section>
+<section id="previews"><h2>Full-page previews</h2><div class="table-scroll" role="region" aria-label="Theme preview pages" tabindex="0"><table><caption>Existing previews remain available for exploration</caption><thead><tr><th scope="col">Example</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">System</th></tr></thead><tbody>
+{[['Foundation','preview/'],['Page defaults','preview/defaults/'],['Navigation','preview/menu/'],['Glass','preview/glass/']].map(([title,path])=><tr><th scope="row">{title}</th>{['light','dark','auto'].map(mode=><td><a href={base+path+mode+'/'}>{mode==='auto'?'System':mode}</a></td>)}</tr>)}
+</tbody></table></div></section>
+</DocsLayout>

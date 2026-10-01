@@ -1,0 +1,21 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'inheritance',title:'Inheritance'},{id:'exceptions',title:'Local exceptions'},{id:'classes',title:'Classes and attributes'},{id:'custom-css',title:'Custom CSS'}];
+---
+<DocsLayout title="Styling and inheritance" active="styling" sections={sections}>
+<p class="doc-kicker">LEARN</p><h1>Styling and inheritance</h1>
+<p class="doc-lead">Configure appearance on html or a parent section. Native elements and component classes consume those shared settings wherever they apply.</p>
+<section id="inheritance"><h2>What inherits?</h2><p>Theme, accent, shape, density and other shared attributes supply tokens or scoped styling. They affect documented targets, not every HTML element indiscriminately. Width affects containers; ratio affects media; variant affects badges and alerts.</p>
+<p>The nearest valid explicit value wins for its setting. An unsupported value leaves the nearest valid ancestor's setting in effect. Omitted settings use the shipped defaults. Values are not copied into child HTML attributes.</p></section>
+<Example id="exceptions" title="Override only what differs" description="Both cards inherit the theme and shape. The warning alert changes only its semantic colour." html={'<section class="stack" data-theme="dark" data-shape="rounded"\n         data-accent="teal" data-variant="success">\n  <article class="card">\n    <h3>Shared settings</h3>\n    <div class="alert">Success: Your profile is complete.</div>\n  </article>\n  <article class="card">\n    <div class="alert" data-variant="warning">Warning: Verify your email.</div>\n  </article>\n</section>'}/>
+<section id="classes"><h2>Classes identify patterns</h2><p>A native button already identifies its element. A generic div needs <code>class="alert"</code> to identify an alert pattern. Shared attributes then configure supported descendants.</p>
+<p>Buttons currently use <code>secondary</code>, <code>danger</code>, <code>warning</code>, <code>outline</code> and <code>ghost</code> classes for variants. Badges and alerts use <code>data-variant</code> and <code>data-appearance</code>. These APIs are not interchangeable in the current implementation. There are no rv- utility shortcuts yet; the rv- SVG symbol prefix is separate.</p>
+<p><a href={base+'reference/components/'}>See the exact hook and supported options for each component.</a></p></section>
+<section id="custom-css"><h2>Override with ordinary CSS</h2><p>The framework uses ordered CSS layers: tokens, base, components and utilities. Application styles outside a layer can override normal layered declarations. Load your custom stylesheet after RevaCSS for a clear project convention.</p>
+<CodeViewer id="css-overrides" lang="css" label="Page and component customisation" code={':root {\n  --re-primary: #7041cf;\n  --re-primary-end: #5228a4;\n  --re-on-primary: #fff;\n}\n.project-card {\n  max-inline-size: 40rem;\n}'}/>
+<p>Define both accent stops and a readable foreground when replacing colours. Scoped builds need custom properties on the .reva boundary or inside it because the boundary installs its own defaults. See <a href={base+'reference/tokens/'}>CSS token reference</a>.</p></section>
+<p class="doc-note">Theme is a colour mode. Material is a surface treatment. <code>data-fill="solid"</code> removes gradients; <code>data-material="solid"</code> removes inherited glass. These settings serve different purposes.</p>
+</DocsLayout>

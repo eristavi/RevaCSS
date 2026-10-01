@@ -2,59 +2,25 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
-const example=`<link rel="stylesheet" href="reva.css">
-<link rel="stylesheet" href="reva.glass.css">
-
-<section class="stack"
-         data-material="glass"
-         data-theme="dark"
-         data-tone="cool"
-         data-shape="rounded"
-         data-density="comfortable"
-         data-depth="pronounced">
-  <article class="card">
-    <h2>A frosted surface</h2>
-    <p>Your content stays in native HTML.</p>
-    <button data-accent="teal">Primary action</button>
-  </article>
-  <section data-material="solid">
-    <article class="card">An opaque local reset</article>
-  </section>
-</section>`;
+const sections=[{id:'installation',title:'Load and activate'},{id:'glass-example',title:'Inherited material'},{id:'coverage',title:'Supported surfaces'},{id:'glass-controls',title:'Controls and variants'},{id:'fallbacks',title:'Preferences and fallback'},{id:'scoped-glass',title:'Scoped use'}];
 ---
-<DocsLayout title="Glass material" active="glass">
+<DocsLayout title="Glass material" active="glass" sections={sections}>
 <link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
-  <h1>Glass material</h1>
-  <p class="prose">An optional frosted surface extension for buttons, cards, navigation, standalone disclosures, fieldsets, dialogs and popovers. It adds no runtime JavaScript and leaves the core stylesheet unchanged.</p>
-  <div class="row"><a class="button" href={base + 'preview/glass/light/'}>Light preview</a><a class="button secondary" href={base + 'preview/glass/dark/'}>Dark preview</a><a href={base + 'preview/glass/auto/'}>Device theme preview</a></div>
-  <h2>Install and activate</h2><p>Load the extension after the core. <code>data-material="glass"</code> applies the treatment to supported surfaces in that section. <code>data-material="solid"</code> ends it locally. A nested glass attribute starts another scope. Theme and tone wrappers inside glass stay transparent; cards paint their own rounded surfaces. Use a layout such as <code>class="stack"</code> to separate adjacent cards. <code>data-theme</code> retains its existing light, dark and auto values.</p>
-  <Example id="glass-install" title="Stylesheet order" description="Copy both stylesheets from dist into your project. Load core first, then the optional material." render={false} html={'<link rel="stylesheet" href="reva.css">\n<link rel="stylesheet" href="reva.glass.css">'}/>
-  <Example id="glass-surface" title="Glass with a local solid reset" description="The same shared attributes control this dark, cool surface. The nested solid section remains opaque." glass html={example.slice(example.indexOf('<section')).replace('<button data-accent="teal">', '<button type="button" data-accent="teal">')}/>
-  <Example id="glass-buttons" title="Glass buttons and a solid exception" description="A parent material setting reaches buttons, button links and native button inputs. The last action opts out locally. Shared accent, shape, size, border, fill, depth and motion continue to work." glass html={'<div class="row" data-material="glass" data-accent="violet" data-shape="pill">\n  <button type="button">Continue</button>\n  <button type="button" class="secondary">Go back</button>\n  <button type="button" class="outline">Outline</button>\n  <button type="button" class="ghost">Ghost</button>\n  <button type="button" class="danger">Delete</button>\n  <button type="button" class="warning">Review</button>\n  <input type="button" value="Native action">\n  <a class="button secondary" href="#glass-buttons">Destination</a>\n  <button type="button" data-material="solid">Solid exception</button>\n</div>'}/>
-  <Example id="glass-button-local" title="One glass button on a solid page" description="Apply material directly to one button. Its neighbours and enclosing card remain solid; no separate button-material attribute is needed." glass html={'<section class="card" data-material="solid">\n  <h3>Solid surface</h3>\n  <div class="row">\n    <button type="button" data-material="glass" data-accent="teal">Glass action</button>\n    <button type="button">Solid action</button>\n  </div>\n</section>'}/>
-  <Example id="glass-edges" title="A main action with an animated edge" description="Choose the main action explicitly with data-edge animated. Other actions keep plain edges. The overlay leaves the translucent interior intact; use gradient for a static edge or shine for a brief hover/focus sweep. Shared motion and accessibility preferences still apply." glass html={'<section data-material="glass" data-shape="pill">\n  <div class="row">\n    <button type="button" data-edge="animated">Continue</button>\n    <button type="button" class="secondary">Back</button>\n  </div>\n</section>'}/>
-  <Example id="glass-contrast" title="Opaque high contrast glass" description="Set data-contrast more to remove translucency and blur locally." glass html={'<section data-material="glass" data-contrast="more">\n  <article class="card"><h3>Clear content</h3><p>An opaque fallback using the current theme.</p></article>\n</section>'}/>
-  <Example id="glass-reentry" title="Restart glass inside a solid section" description="A new glass attribute creates another local material scope." glass html={'<section data-material="glass">\n  <section data-material="solid">\n    <article class="card">Opaque surface</article>\n    <article class="card" data-material="glass">Glass again</article>\n  </section>\n</section>'}/>
-  <p>For scoped use, load <code>reva.scoped.css</code> followed by <code>reva.glass.scoped.css</code> and put the component inside a <code>.reva</code> boundary. Use matching global or scoped builds.</p>
-  <h2>Shared attributes</h2>
-  <div class="table-scroll" role="region" aria-label="Glass attribute support" tabindex="0">
-    <table><thead><tr><th scope="col">Attribute</th><th scope="col">Glass behavior</th></tr></thead><tbody>
-      <tr><th scope="row"><code>data-theme</code>, <code>data-tone</code></th><td>Choose the existing colour mode and surface palette, independently of material.</td></tr>
-      <tr><th scope="row"><code>data-accent</code></th><td>Colours semantic buttons and native accent controls. Ordinary navigation text keeps its existing link/text tokens.</td></tr>
-      <tr><th scope="row"><code>data-shape</code>, <code>data-density</code>, <code>data-type</code></th><td>Keep the existing rounding, component spacing and text sizing.</td></tr>
-      <tr><th scope="row"><code>data-depth</code></th><td>Controls button, surface and dropdown shadows; flat removes them.</td></tr>
-      <tr><th scope="row"><code>data-border</code></th><td>Controls button edges and surface frames, including desktop dropdowns. Native invalid-state and forced-colour boundaries retain priority.</td></tr>
-      <tr><th scope="row"><code>data-fill</code></th><td>Gradient adds a subtle glass sheen and keeps button gradients. Solid removes the sheen; use material solid to remove translucency.</td></tr>
-      <tr><th scope="row"><code>data-controls</code></th><td>Native inputs keep their styled/minimal treatments. Styled text fields retain their existing backing; glass buttons use strong translucent colour for readable labels.</td></tr>
-      <tr><th scope="row"><code>data-motion</code></th><td>Existing control motion remains governed by the shared setting. Decorative edge animation follows this setting and the visitor’s reduced-motion preference.</td></tr>
-      <tr><th scope="row"><code>data-contrast</code></th><td>More makes glass opaque and removes blur. Auto restores the material default unless a system preference requests less transparency or more contrast.</td></tr>
-      <tr><th scope="row">Component attributes</th><td>Size, width, table, image and gap settings also inherit from html or a section and affect their documented targets. A nearer attribute overrides only its own setting.</td></tr>
-    </tbody></table>
-  </div>
-  <p><code>data-edge</code> is inherited for buttons, .button links and cards. Its default is plain in every material. Prefer a single explicitly animated main action; gradient decoration never replaces the keyboard focus outline. The effect uses the component’s ::after pseudo-element; reserve it for RevaCSS or override it in application CSS. Unsupported masking retains the regular border.</p>
-  <h2>Readable defaults and fallbacks</h2>
-  <p class="prose">Surface backing defaults to 70%; button backing defaults to 90%, with 16px backdrop blur. Surface sheen is limited to 6% so it adds little extra opacity. Supporting text and control boundaries use the theme text colour, and body links use a stronger theme-aware colour to remain readable over black and white backdrops. Filled glass actions deepen the selected colour slightly to preserve label contrast. Outline and ghost actions use a neutral surface backing. The optional <code>--re-glass-opacity</code> token controls surfaces; <code>--re-glass-button-opacity</code> controls buttons. Both accept percentages; reducing it or supplying custom colours requires contrast checks against the actual background. Blur does not guarantee readability. Decorative borders are not substitutes for form-control boundaries.</p>
-  <p class="prose">Browsers without backdrop filtering retain opaque core surfaces. Reduced-transparency and increased-contrast preferences remove translucency and blur where the browser supports those media queries. Forced colours use system colours, and printed surfaces are opaque. An explicit <code>data-contrast="more"</code> is also available.</p>
-  <h2>Navigation and overlays</h2><p class="prose">The top menu and desktop dropdown panels support glass; nested navigation disclosures keep their transparent layout. Interaction, touch targets and responsive behavior remain the native top-menu contract. Dialog and popover surfaces can be glass, but their opening behavior stays native HTML. Avoid stacking many blurred surfaces or placing essential text directly on a decorative backdrop. An ancestor with opacity, filters, clipping or stacking constraints can change the blur or overlay result.</p>
-  <p class="prose">Automated checks cover the shipped examples and attribute behavior. Glass does not certify a consuming page: actual imagery, custom palettes, screen readers and real devices still need review before release. npm publication remains on hold.</p>
+<p class="doc-kicker">THEMES / MATERIAL</p><h1>Glass material</h1>
+<p class="doc-lead">An optional frosted treatment for supported surfaces. Use it with light, dark or system colours; it does not replace the theme or require JavaScript.</p>
+<Example id="installation" title="Load and activate" description="Load the matching extension after the core. Loading the file alone does not activate glass." render={false} html={'<!doctype html>\n<html lang="en" data-theme="dark" data-material="glass">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>Glass page</title>\n  <link rel="stylesheet" href="/assets/reva/reva.css">\n  <link rel="stylesheet" href="/assets/reva/reva.glass.css">\n</head>\n<body>\n  <!-- Supported descendants inherit glass. -->\n</body>\n</html>'}/>
+<Example id="glass-example" title="Glass with a solid exception" description="The parent supplies material. A nearer solid value stops it; a nested glass value can restart it." glass html={'<section class="stack" data-theme="dark" data-material="glass">\n  <article class="card">\n    <h3>A frosted surface</h3>\n    <p>Your content remains ordinary HTML.</p>\n    <button type="button">Continue</button>\n  </article>\n  <section data-material="solid">\n    <article class="card">\n      <h3>A solid exception</h3>\n      <p>This surface stays opaque.</p>\n    </article>\n  </section>\n</section>'}/>
+<section id="coverage"><h2>What receives glass?</h2><div class="table-scroll" role="region" aria-label="Glass component coverage" tabindex="0"><table><thead><tr><th scope="col">Targets</th><th scope="col">Treatment</th></tr></thead><tbody>
+<tr><th scope="row">Cards, fieldsets, disclosures, dialogs and popovers</th><td>Frosted surface backing and blur; default surface opacity is 70%.</td></tr>
+<tr><th scope="row">Top navigation and its desktop panels</th><td>Frosted surfaces; neutral menu toggles preserve navigation styling.</td></tr>
+<tr><th scope="row">Buttons, .button links and native action inputs</th><td>Stronger coloured backing; default action opacity is 90%.</td></tr>
+<tr><th scope="row">Badges, alerts, pagination items, list items and choice-panel labels</th><td>Stronger backing with blur, following the parent material scope.</td></tr>
+<tr><th scope="row">Text inputs, selects, textareas and switches</th><td>Keep their normal control backing. Glass does not make every HTML element translucent.</td></tr>
+<tr><th scope="row">Icons, breadcrumbs, toolbars and layout wrappers</th><td>Keep their foreground/layout behaviour; they do not add a glass surface of their own.</td></tr>
+</tbody></table></div></section>
+<Example id="glass-controls" title="Button variants retain their API" description="Appearance is inherited. Existing button classes remain the current variant API; material solid is the local opt-out." glass html={'<div class="row" data-material="glass" data-accent="violet" data-shape="pill">\n  <button type="button">Continue</button>\n  <button type="button" class="secondary">Back</button>\n  <button type="button" class="outline">Outline</button>\n  <button type="button" class="danger">Delete</button>\n  <button type="button" data-material="solid">Solid exception</button>\n</div>'}/>
+<section id="fallbacks"><h2>Readable backing and preferences</h2><p>Default blur is 16px. Use <code>--re-glass-opacity</code> and <code>--re-glass-button-opacity</code> for percentage-based opacity overrides, and <code>--re-glass-filter</code> for the filter. Reduced opacity requires review against the actual backdrop; blur alone does not guarantee readable text.</p><p><code>data-contrast="more"</code> makes the material opaque. Supported reduced-transparency and increased-contrast preferences remove translucency; forced colours and print use their documented component fallbacks. Without backdrop filtering, the normal opaque core styles remain.</p><p>Shape, density, borders, depth, fill and theme retain their existing meanings. <code>data-fill="solid"</code> removes gradients; use <code>data-material="solid"</code> to remove glass. Animated edges remain opt-in decoration on buttons and cards.</p></section>
+<Example id="scoped-glass" title="Matching scoped files" description="Use the scoped core and scoped glass extension together; put the material setting on the .reva boundary or inside it." render={false} html={'<link rel="stylesheet" href="/assets/reva/reva.scoped.css">\n<link rel="stylesheet" href="/assets/reva/reva.glass.scoped.css">\n<section class="reva" data-theme="dark" data-material="glass">\n  <article class="card">A scoped frosted surface</article>\n</section>'}/>
+<p><a href={base+'preview/glass/light/'}>Light glass preview</a> · <a href={base+'preview/glass/dark/'}>Dark glass preview</a> · <a href={base+'preview/glass/auto/'}>System glass preview</a></p>
+<p class="doc-note">Backdrop filtering can create stacking and compositing constraints. Avoid unnecessary layers of blur and review your actual images, contrast and device performance. The documentation is not a completed device-validation report.</p>
 </DocsLayout>

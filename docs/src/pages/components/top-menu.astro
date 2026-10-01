@@ -21,7 +21,8 @@ const formattedExample = example
   })
   .join('\n');
 ---
-<DocsLayout title="Top menu" active="top-menu">
+<DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"}]}>
+  <p class="doc-kicker">COMPONENTS / NAVIGATION</p>
   <h1>Top menu</h1>
   <p class="prose">Responsive site navigation using native HTML popovers and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Clicking outside dismisses open menus without JavaScript.</p>
   <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Open Products, Frameworks and Components. Click outside to close the stack, or press Escape to close the deepest panel. On mobile, Back returns to the parent panel." html={formattedExample}/>
@@ -30,7 +31,8 @@ const formattedExample = example
     <a href={`${base}preview/menu/dark/`}>Dark preview</a>
     <a href={`${base}preview/menu/auto/`}>Device theme preview</a>
   </div>
-  <h2>HTML</h2>
+  <p><a href={base+'reference/components/#top-menu'}>Component API summary</a> · <a href={base+'themes/glass/'}>Optional glass material</a></p>
+  <h2>Use the markup</h2>
   <p>Copy the example above and replace its link destinations. Keep both lists in sync. Give each navigation a unique <code>--re-menu-anchor</code> CSS identifier as shown in the example. Every panel needs a unique document-wide <code>id</code>, and each toggle's <code>popovertarget</code> must match that id. Generate both layouts from a shared template. Nest child panels and their toggle buttons inside the parent panel so native dismissal preserves the hierarchy.</p>
   <h2>Structure and configuration</h2>
   <div class="table-scroll" role="region" aria-label="Top menu API" tabindex="0">
@@ -56,6 +58,6 @@ const formattedExample = example
   <p class="prose">Tab and Shift+Tab move between visible links and buttons. Enter and Space activate toggle buttons. Escape closes the deepest open panel. Focus restoration follows the browser's native behavior; nested panels may not return focus to their opener. Use the visible Back controls to return through the hierarchy. Each panel's Back or Close button has <code>autofocus</code>, placing focus inside the newly opened panel without JavaScript. The browser provides the toggle's expanded relationship through popovertarget; do not hard-code aria-expanded. Closed panel links leave the focus order. Use native navigation and list semantics, without application-menu roles or arrow-key expectations.</p>
   <p class="prose">An outside click dismisses panels outside the clicked branch. Clicking a parent panel closes its deeper descendants while leaving that parent open. Clicking another unrelated menu closes the previous stack. An ordinary destination link inside a panel does not automatically hide it; a full page navigation replaces the document, while an in-page link can leave it open. Native popover support is required for this markup. Screen-reader and actual-device review remain release checks.</p>
   <h2>Styling and modules</h2>
-  <p class="prose">Shared theme, tone, density, shape, depth, border and control size settings continue to inherit. The optional glass stylesheet treats the panels as glass surfaces while navigation toggle buttons retain their neutral navigation appearance. Complete, scoped, component and dedicated navigation builds include the styles. Load <code>reva.navigation.css</code> after tokens and base modules; use the complete build for all accessibility utilities. Open panels and navigation are hidden in print. Existing details/summary markup retains its original disclosure behavior; migrate to the example above to gain native outside-click dismissal.</p>
+  <p class="prose">Shared theme, tone, density, shape, depth, border and control size settings continue to inherit. The optional glass stylesheet treats the panels as glass surfaces while navigation toggle buttons retain their neutral navigation appearance. Complete, scoped, component and dedicated navigation builds include the styles. Load <code>reva.navigation.css</code> after tokens and base modules; use the complete build for all accessibility utilities. Open panels and navigation are hidden in print.</p>
 </DocsLayout>
 

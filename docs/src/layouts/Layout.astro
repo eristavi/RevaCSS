@@ -9,14 +9,20 @@ const base=import.meta.env.BASE_URL;
 <body><a class="skip-link" href="#main">Skip to content</a>
 <DocumentationHeader theme={theme} current={current}/>
 <main id="main" class="container"><slot/></main>
-<footer class="container"><p>Foundation alpha · MIT · Revaz Eristavi · HTML and CSS only</p></footer>
+<footer class="container site-footer"><p>RevaCSS · Development preview · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p></footer>
 </body></html>
 <style is:global>
 .doc-kicker { font-size:.75rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); }
 .docs-content > h1 { margin-block-start:.4rem; }
 
-header { padding-block: 1.3rem; border-block-end: 1px solid var(--re-line); }
-main { padding-block: 2rem 4rem; }
-footer { padding-block: 1.5rem; border-block-start: 1px solid var(--re-line); color: var(--re-muted); }
+body > .documentation-header { border-block-end: 1px solid var(--re-line); }
+body > main#main { padding-block: 2rem 4rem; }
+body > .site-footer { padding-block: 1.5rem; border-block-start: 1px solid var(--re-line); color: var(--re-muted); }
+.doc-table { max-inline-size:100%; overflow:auto; }
+.docs-content section { scroll-margin-block:1.5rem; }
+.doc-lead { max-inline-size:65ch; font-size:1.1rem; }
+.doc-note { padding:var(--re-space); border-inline-start:3px solid var(--re-link); background:var(--re-surface-alt); border-radius:var(--re-radius); }
+.doc-summary { margin-block:1.5rem; }
+.doc-summary li { margin-block:.5rem; }
 </style>
 

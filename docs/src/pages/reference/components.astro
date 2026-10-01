@@ -1,0 +1,35 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { topics } from '../../data/examples.js';
+import { componentGroups, componentContracts } from '../../data/documentation.js';
+const base=import.meta.env.BASE_URL;
+const sections=componentGroups.map(group=>({id:group.key,title:group.title}));
+---
+<DocsLayout title="Component API" active="component-api" sections={sections}>
+<p class="doc-kicker">REFERENCE</p><h1>Component API</h1>
+<p class="doc-lead">Find the identifying markup, optional states and behaviour boundary for each component. Follow its example page for complete HTML.</p>
+<p>All modules depend on the shared tokens and native base where applicable. Complete builds contain the listed component styling and common utilities. Component filenames identify styling modules; they are not independent behaviour packages.</p>
+{componentGroups.map(group=><section id={group.key}><h2>{group.title}</h2>{group.slugs.map(slug=>{
+ const api=componentContracts[slug];
+ const title=slug==='top-menu'?'Top menu':topics.find(t=>t.slug===slug).title;
+ return <article id={slug} class="api-component">
+   <h3><a href={base+'components/'+slug+'/'}>{title}</a></h3>
+   <dl>
+     <dt>Markup hook</dt><dd><code>{api[0]}</code></dd>
+     <dt>Options and states</dt><dd>{api[1]}</dd>
+     <dt>Styling module</dt><dd><code>{api[2]}</code></dd>
+     <dt>Behaviour</dt><dd>{api[3]}</dd>
+   </dl>
+   <p><a href={base+'components/'+slug+'/'}>Open demos and HTML examples</a></p>
+ </article>;
+})}</section>)}
+<p>SVG icon symbols, inline usage and custom sizing are documented in the <a href={base+'icons/'}>icon reference</a>.</p>
+</DocsLayout>
+<style>
+.api-component { margin-block:1.5rem 2rem; padding-block-end:1.25rem; border-block-end:1px solid var(--re-line); scroll-margin-block:1.5rem; }
+.api-component h3 { margin-block-start:0; }
+dl { display:grid; grid-template-columns:9rem minmax(0,1fr); gap:.6rem 1rem; }
+dt,dd { margin:0; overflow-wrap:anywhere; }
+code { white-space:normal; overflow-wrap:anywhere; }
+@media (width < 45rem) { dl { grid-template-columns:1fr; gap:.3rem; } dd { margin-block-end:.6rem; } }
+</style>
