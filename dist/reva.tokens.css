@@ -11,6 +11,7 @@
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
+--re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-danger: #be303c; --re-danger-end: #8f2030;
 --re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: #f5cc61; --re-warning-end: #e8b23e; --re-on-warning: #332400; color-scheme: light dark; }
@@ -58,9 +59,9 @@
 :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-shadow: none; }
 :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); }
 :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-shadow: 0 8px 24px rgb(0 0 0 / 18%); }
-:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; }
-:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; }
-:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; }
+:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; }
+:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; }
+:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; }
 :where([data-type="compact"], :scope[data-type="compact"]) { --re-type: .9375rem; }
 :where([data-type="standard"], :scope[data-type="standard"]) { --re-type: 1rem; }
 :where([data-type="large"], :scope[data-type="large"]) { --re-type: 1.125rem; }
@@ -69,4 +70,8 @@
 :where([data-border="none"], :scope[data-border="none"]) { --re-surface-border: 0px; }
 :where([data-controls="styled"], :scope[data-controls="styled"]) { --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%); }
 :where([data-controls="minimal"], :scope[data-controls="minimal"]) { --re-input-opacity: 0; --re-input-shadow: none; }
+:where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
+:where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
+:where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
+:where([data-edge="animated"], :scope[data-edge="animated"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: re-edge-turn; --re-edge-interaction: re-edge-turn; --re-edge-time: 8s; --re-edge-count: infinite; }
 }

@@ -38,11 +38,20 @@ Load `reva.glass.css` after `reva.css`, then add `data-material="glass"` to a co
 
 ## Configure once
 
-Set shared defaults on `<html>`, then write ordinary HTML. All 18 core attributes inherit; each affects its supported targets. For example, `data-table="striped"` makes descendant tables striped, `data-size="large"` sizes controls, and `data-gap="large"` sets layout gaps. A nearer value overrides just that setting: `data-table="plain"`, `data-size="medium"` and `data-ratio="auto"` are explicit resets. Width affects `.container`; gap affects `.grid`, `.row` and `.stack`; ratio/fit affect images. Scoped builds take their configuration on `.reva` or within that boundary.
+Set shared defaults on `<html>`, then write ordinary HTML. All 19 core attributes inherit; each affects its supported targets. For example, `data-table="striped"` makes descendant tables striped, `data-size="large"` sizes controls, and `data-gap="large"` sets layout gaps. A nearer value overrides just that setting: `data-table="plain"`, `data-size="medium"` and `data-ratio="auto"` are explicit resets. Width affects `.container`; gap affects `.grid`, `.row` and `.stack`; ratio/fit affect images. Scoped builds take their configuration on `.reva` or within that boundary.
 
 ```html
 <html data-theme="dark" data-accent="violet"
       data-table="striped" data-size="large" data-gap="large">
+```
+
+## Decorative edges
+
+`data-edge="plain"` is the default. Use `gradient` for a static ring, `shine` for one hover/focus sweep, or `animated` for a slow continuous turn. The setting inherits to buttons, `.button` links and `.card` surfaces; native input actions keep their regular borders. Shape, action/accent colours and border width remain shared. `data-motion="none"` pauses movement; reduced motion keeps a static ring. Higher contrast, forced colours and print remove decoration. The effect reserves `::after` on supported targets and falls back to the regular border without composite masking.
+
+```html
+<button type="button" data-material="glass" data-edge="animated">Continue</button>
+<button type="button" class="secondary">Back</button>
 ```
 
 ## Documentation and GitHub Pages
