@@ -4,37 +4,24 @@
   :where(.card > :first-child) { margin-block-start: 0; }
   :where(.card > :last-child) { margin-block-end: 0; }
   :where(.container) { inline-size: min(100% - 2rem, var(--re-container, 75rem)); margin-inline: auto; }
-  :where(.container[data-width=narrow]) { --re-container: 48rem; }
-  :where(.container[data-width=standard]) { --re-container: 75rem; }
-  :where(.container[data-width=wide]) { --re-container: 90rem; }
   :where(.prose) { max-inline-size: var(--re-prose, 65ch); }
-  :where(.grid,.row,.stack) { gap: var(--re-gap); min-inline-size: 0; }
+  :where(.grid,.row,.stack) { gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
   :where(.grid) { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,var(--re-column,18rem)),1fr)); }
   :where(.row) { display: flex; flex-wrap: wrap; align-items: center; }
   :where(.stack) { display: flex; flex-direction: column; }
   :where(.stack > *) { margin-block: 0; }
   :where(.table-scroll) { max-inline-size: 100%; overflow-x: auto; }
-  :where(table[data-table=striped] tbody tr:nth-child(even)) { background: var(--re-surface-alt); }
-  :where(table[data-table=bordered] th,table[data-table=bordered] td) { border: 1px solid var(--re-line); }
-  :where(img[data-ratio]) { object-fit: cover; }
-  :where(img[data-ratio=square]) { aspect-ratio: 1; block-size: auto; }
-  :where(img[data-ratio=landscape]) { aspect-ratio: 4 / 3; block-size: auto; }
-  :where(img[data-ratio=portrait]) { aspect-ratio: 3 / 4; block-size: auto; }
-  :where(img[data-ratio=wide]) { aspect-ratio: 16 / 9; block-size: auto; }
-  :where(img[data-fit=contain]) { object-fit: contain; }
+  :where(table tbody tr:nth-child(even)) { background: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), transparent); }
+  :where(table th,table td) { border-inline: var(--re-table-border, 0px) solid var(--re-line); border-block-start: var(--re-table-border, 0px) solid var(--re-line); }
+  :where(img) { aspect-ratio: var(--re-image-ratio, auto); object-fit: var(--re-image-fit, cover); }
   :where(.skip-link) { position: absolute; inset-inline-start: 1rem; inset-block-start: .5rem; padding: .65rem 1rem; background: var(--re-surface); z-index: 100; transform: translateY(-200%); }
   :where(.skip-link:focus) { transform: none; }
 }
 @layer re.utilities {
-  :where(.grid[data-gap=none],.row[data-gap=none],.stack[data-gap=none]) { gap: 0rem; }
-  :where(.grid[data-gap=small],.row[data-gap=small],.stack[data-gap=small]) { gap: calc(var(--re-space) * .5); }
-  :where(.grid[data-gap=medium],.row[data-gap=medium],.stack[data-gap=medium]) { gap: var(--re-space); }
-  :where(.grid[data-gap=large],.row[data-gap=large],.stack[data-gap=large]) { gap: calc(var(--re-space) * 2); }
+  :where(button,input,select,textarea,.button) { font-size: calc(1em * var(--re-control-scale, 1)); }
   :where(.align-start) { align-items: start; }
   :where(.align-center) { align-items: center; }
   :where(.justify-between) { justify-content: space-between; }
-  :where(button[data-size=small],input[data-size=small],select[data-size=small],textarea[data-size=small],.button[data-size=small]) { font-size: .875em; }
-  :where(button[data-size=large],input[data-size=large],select[data-size=large],textarea[data-size=large],.button[data-size=large]) { font-size: 1.125em; }
   :where(.grid.cols-2) { grid-template-columns: repeat(2,minmax(0,1fr)); }
   :where(.grid.cols-3) { grid-template-columns: repeat(3,minmax(0,1fr)); }
   @media (width < 40rem) { :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; } }
@@ -164,7 +151,7 @@
   @media print { :where(.top-menu) { display: none; } }
 }
 @layer re.utilities {
-:where([data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; }
+:where([data-contrast="more"], :scope[data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; }
 @media (prefers-contrast: more) { :where(:root,[data-theme],[data-tone],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; }
  }
 }

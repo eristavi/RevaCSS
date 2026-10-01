@@ -29,20 +29,20 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 | `data-contrast` | `auto`, `more` | `auto` | Inherited |
 | `data-tone` | `neutral`, `cool`, `warm` | `neutral` | Inherited |
 | `data-controls` | `styled`, `minimal` | `styled` | Inherited |
-| `data-width` | `narrow`, `standard`, `wide` | `standard` | Container only |
-| `data-table` | `plain`, `striped`, `bordered` | `plain` | Table only |
-| `data-size` | `small`, `medium`, `large` | `medium` | Control only |
-| `data-ratio` | `auto`, `square`, `landscape`, `portrait`, `wide` | `auto` | Image only |
-| `data-fit` | `cover`, `contain` | `cover` | Constrained image only |
-| `data-gap` | `none`, `small`, `medium`, `large` | `medium` | Layout only |
+| `data-width` | `narrow`, `standard`, `wide` | `standard` | Inherited; affects .container |
+| `data-table` | `plain`, `striped`, `bordered` | `plain` | Inherited; affects tables |
+| `data-size` | `small`, `medium`, `large` | `medium` | Inherited; affects buttons, inputs, selects, textareas and .button links |
+| `data-ratio` | `auto`, `square`, `landscape`, `portrait`, `wide` | `auto` | Inherited; affects images |
+| `data-fit` | `cover`, `contain` | `cover` | Inherited; affects constrained images |
+| `data-gap` | `none`, `small`, `medium`, `large` | `medium` | Inherited; affects .grid, .row and .stack |
 
 ## Optional material extension
 `data-material="glass"` activates supported frosted surfaces when the glass stylesheet is loaded. `data-material="solid"` ends the material scope locally; another glass attribute can resume it. This is independent of `data-theme` and reuses the shared design attributes. Glass is excluded from core builds and budgets. Unsupported backdrop filtering and accessibility preferences retain opaque surfaces. Form controls and semantic action fills retain their core appearance.
 
 ## Behaviour
-Inherited design settings remain local to their subtree. Reset one setting without resetting unrelated settings. Component options (size, gap, fit, ratio, table, width) apply to their documented element, not all descendants. Visitor reduced motion and forced-colour preferences constrain decoration. User font preferences, zoom and reading order remain usable. Attribute auto restores the appropriate default or device choice. Invalid values have no effect.
+Inherited design settings remain local to their subtree. Reset one setting without resetting unrelated settings. All core attributes can set defaults on html, a section, or a component. Size, gap, fit, ratio, table and width inherit through the subtree but affect only their documented targets. The nearest explicit value wins, including plain, medium, standard, auto and cover resets. Omitted settings preserve existing defaults. Configure scoped builds at the .reva boundary or within it; each boundary has its own defaults. Visitor reduced motion and forced-colour preferences constrain decoration. User font preferences, zoom and reading order remain usable. Attribute auto restores the appropriate default or device choice. Invalid values have no effect.
 
-Filled buttons are default; .outline/.ghost select treatment; .danger/.warning/.secondary select role. Body links are underlined. Form invalid styling follows interaction. Container widths are optional; tables use a horizontal scrolling wrapper. Density affects spacing; typography affects type scale; size targets one control. Pill applies full rounding to buttons and bounded large rounding to cards.
+Filled buttons are default; .outline/.ghost select treatment; .danger/.warning/.secondary select role. Body links are underlined. Form invalid styling follows interaction. Container widths are optional; tables use a horizontal scrolling wrapper. Density affects spacing; typography affects type scale; size targets controls throughout its subtree. Explicit gap presets inherit independently of density; their multiplier applies to the current density-based --re-gap spacing. Pill applies full rounding to buttons and bounded large rounding to cards.
 
 ## Release scope and milestones
 Foundation first: tokens, native HTML, light/dark, buttons, cards, layouts, forms, tables, disclosure/dialog appearance. Then navigation, breadcrumbs, pagination, badges, alerts, segmented radio selectors, content switchers, native popovers/dialog patterns and basic scroll-snap carousel. The first navigation component is a responsive top menu: desktop and mobile lists generated from shared links, native details/summary toggles, nested submenus, desktop dropdown panels and mobile stacked disclosures. Native details behavior is the contract; Escape/outside-click dismissal and application-menubar keyboard controls are not claimed. No autoplay, scripted tabs, client-side fetching or dynamic data table engine. Masonry enhancement remains experimental; any CSS-columns alternative documents column-first ordering.

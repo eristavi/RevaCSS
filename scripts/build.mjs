@@ -8,28 +8,29 @@ function css(t) { if(t.type==='color') return t.value.hex; if(t.type==='dimensio
 function declarations(group) { return Object.keys(data[group]).filter(k=>k!=='font-heading').map(k=>`--re-${k}: ${css(resolve(`${group}.${k}`))};`).join('\n'); }
 const tones={neutral:{light:{},dark:{}},cool:{light:{bg:'#f5f8ff',surface:'#ffffff','surface-alt':'#eaf0fc'},dark:{bg:'#0e1424',surface:'#182239','surface-alt':'#24314b'}},warm:{light:{bg:'#faf8f3',surface:'#fffdf8','surface-alt':'#f0ece3'},dark:{bg:'#1a1714',surface:'#28231e','surface-alt':'#352e26'}}};
 const rule=(sel,decl)=>`${sel} { ${decl} }\n`;
-const scope=(sel,decl)=>`@scope (${sel}) { ${rule(':where(:scope)',decl)} }\n`;
 const adaptive=Object.keys(data.light).map(k=>`--re-${k}: light-dark(${css(resolve(`light.${k}`))},${css(resolve(`dark.${k}`))});`).join(' ');
 let tokens='@layer re.tokens, re.base, re.components, re.utilities;\n@layer re.tokens {\n';
 tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
+--re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
+--re-table-stripe: 0%; --re-table-border: 0px; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-danger: ${css(resolve('primitive.danger.start'))}; --re-danger-end: ${css(resolve('primitive.danger.end'))};
 --re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: ${css(resolve('primitive.warning.start'))}; --re-warning-end: ${css(resolve('primitive.warning.end'))}; --re-on-warning: ${css(resolve('primitive.warningText'))}; color-scheme: light dark;`);
-for(const mode of ['light','dark','auto']) tokens+=rule(`:where([data-theme="${mode}"])`,`color-scheme: ${mode==='auto'?'light dark':mode};`);
+for(const mode of ['light','dark','auto']) tokens+=rule(`:where([data-theme="${mode}"], :scope[data-theme="${mode}"])`,`color-scheme: ${mode==='auto'?'light dark':mode};`);
 for(const [tone,v] of Object.entries(tones)) {
  const colors=Object.keys(data.light).map(k=>`--re-${k}: light-dark(${v.light[k]||css(resolve(`light.${k}`))},${v.dark[k]||css(resolve(`dark.${k}`))});`).join(' ');
- tokens+=rule(`:where([data-tone="${tone}"])`,colors);
+ tokens+=rule(`:where([data-tone="${tone}"], :scope[data-tone="${tone}"])`,colors);
 }
-for(const a of Object.keys(data.primitive.accent)) tokens+=rule(`:where([data-accent="${a}"])`,`--re-primary: ${css(resolve(`primitive.accent.${a}.start`))}; --re-primary-end: ${css(resolve(`primitive.accent.${a}.end`))};`);
-const presets={shape:{square:'--re-radius: 0rem; --re-button-radius: 0rem;',subtle:'--re-radius: .3rem; --re-button-radius: .3rem;',rounded:'--re-radius: .75rem; --re-button-radius: .75rem;',pill:'--re-radius: 1.5rem; --re-button-radius: 999px;'},fill:{solid:'--re-gradient: 0;',gradient:'--re-gradient: 1;'},density:{compact:'--re-density: .8; --re-space: .8rem; --re-gap: .8rem;',comfortable:'--re-density: 1; --re-space: 1rem; --re-gap: 1rem;',spacious:'--re-density: 1.25; --re-space: 1.25rem; --re-gap: 1.25rem;'},depth:{flat:'--re-shadow: none;',subtle:'--re-shadow: 0 2px 8px rgb(0 0 0 / 8%);',pronounced:'--re-shadow: 0 8px 24px rgb(0 0 0 / 18%);'},motion:{none:'--re-duration: 0ms; --re-press: 0px;',subtle:'--re-duration: 140ms; --re-press: 1px;',expressive:'--re-duration: 240ms; --re-press: 2px;'},type:{compact:'--re-type: .9375rem;',standard:'--re-type: 1rem;',large:'--re-type: 1.125rem;'},border:{subtle:'--re-surface-border: 1px;',defined:'--re-surface-border: 2px;',none:'--re-surface-border: 0px;'},controls:{styled:'--re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);',minimal:'--re-input-opacity: 0; --re-input-shadow: none;'}};
-for(const [key,vals] of Object.entries(presets)) for(const [val,decl] of Object.entries(vals)) tokens+=rule(`:where([data-${key}="${val}"])`,decl);
+for(const a of Object.keys(data.primitive.accent)) tokens+=rule(`:where([data-accent="${a}"], :scope[data-accent="${a}"])`,`--re-primary: ${css(resolve(`primitive.accent.${a}.start`))}; --re-primary-end: ${css(resolve(`primitive.accent.${a}.end`))};`);
+const presets={width:{narrow:'--re-container: 48rem;',standard:'--re-container: 75rem;',wide:'--re-container: 90rem;'},table:{plain:'--re-table-stripe: 0%; --re-table-border: 0px;',striped:'--re-table-stripe: 100%; --re-table-border: 0px;',bordered:'--re-table-stripe: 0%; --re-table-border: 1px;'},size:{small:'--re-control-scale: .875;',medium:'--re-control-scale: 1;',large:'--re-control-scale: 1.125;'},ratio:{auto:'--re-image-ratio: auto;',square:'--re-image-ratio: 1;',landscape:'--re-image-ratio: 4 / 3;',portrait:'--re-image-ratio: 3 / 4;',wide:'--re-image-ratio: 16 / 9;'},fit:{cover:'--re-image-fit: cover;',contain:'--re-image-fit: contain;'},gap:{none:'--re-gap-factor: 0;',small:'--re-gap-factor: .5;',medium:'--re-gap-factor: 1;',large:'--re-gap-factor: 2;'},shape:{square:'--re-radius: 0rem; --re-button-radius: 0rem;',subtle:'--re-radius: .3rem; --re-button-radius: .3rem;',rounded:'--re-radius: .75rem; --re-button-radius: .75rem;',pill:'--re-radius: 1.5rem; --re-button-radius: 999px;'},fill:{solid:'--re-gradient: 0;',gradient:'--re-gradient: 1;'},density:{compact:'--re-density: .8; --re-space: .8rem; --re-gap: .8rem;',comfortable:'--re-density: 1; --re-space: 1rem; --re-gap: 1rem;',spacious:'--re-density: 1.25; --re-space: 1.25rem; --re-gap: 1.25rem;'},depth:{flat:'--re-shadow: none;',subtle:'--re-shadow: 0 2px 8px rgb(0 0 0 / 8%);',pronounced:'--re-shadow: 0 8px 24px rgb(0 0 0 / 18%);'},motion:{none:'--re-duration: 0ms; --re-press: 0px;',subtle:'--re-duration: 140ms; --re-press: 1px;',expressive:'--re-duration: 240ms; --re-press: 2px;'},type:{compact:'--re-type: .9375rem;',standard:'--re-type: 1rem;',large:'--re-type: 1.125rem;'},border:{subtle:'--re-surface-border: 1px;',defined:'--re-surface-border: 2px;',none:'--re-surface-border: 0px;'},controls:{styled:'--re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);',minimal:'--re-input-opacity: 0; --re-input-shadow: none;'}};
+for(const [key,vals] of Object.entries(presets)) for(const [val,decl] of Object.entries(vals)) tokens+=rule(`:where([data-${key}="${val}"], :scope[data-${key}="${val}"])`,decl);
 tokens+='}\n';
 let contrast='@layer re.utilities {\n';
 const contrastDecl='--re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none;';
-contrast+=rule(':where([data-contrast="more"])',contrastDecl);
+contrast+=rule(':where([data-contrast="more"], :scope[data-contrast="more"])',contrastDecl);
 contrast+=`@media (prefers-contrast: more) { ${rule(':where(:root,[data-theme],[data-tone],[data-contrast])',contrastDecl)} }\n}\n`;
 await mkdir('dist',{recursive:true}); await mkdir('docs/public/reva',{recursive:true});
 const base=await readFile('src/css/base.css','utf8'), comp=await readFile('src/css/components.css','utf8');

@@ -7,11 +7,11 @@ for(const theme of ['light','dark']) test(`${theme} reference has no automated A
  const results=await page.evaluate(async()=>await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}}));
  expect(results.violations.map(v=>({id:v.id,description:v.description,nodes:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
-test('nested themes, density, fill and local gap do not leak',async({page})=>{
+test('nested themes and local resets preserve independent settings',async({page})=>{
  await page.goto('/preview/light/');
  const states=await page.evaluate(()=>{
  const card=document.querySelector('.card[data-theme=dark]');const input=document.createElement('input');card.append(input);
- const grid=document.querySelector('.grid');grid.dataset.gap='large';const stack=document.createElement('div');stack.className='stack';card.append(stack);
+ const grid=document.querySelector('.grid');grid.dataset.gap='large';const stack=document.createElement('div');stack.className='stack';stack.dataset.gap='medium';card.append(stack);
  const density=document.createElement('section');density.dataset.density='spacious';density.className='card';document.body.append(density);
  return {card:getComputedStyle(card).backgroundColor,input:(()=>{const c=document.createElement('canvas').getContext('2d');c.fillStyle=getComputedStyle(input).backgroundColor;c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data].slice(0,3)})(),grid:getComputedStyle(grid).gap,stack:getComputedStyle(stack).gap,padding:getComputedStyle(density).padding,solid:getComputedStyle(document.querySelector('[data-fill=solid] button')).backgroundImage,gradient:getComputedStyle(document.querySelector('#variants > button')).backgroundImage}; });
  expect(states.card).toBe('rgb(26, 32, 48)');expect(states.input).toEqual([26,32,48]);expect(states.grid).toBe('32px');expect(states.stack).toBe('16px');expect(states.padding).toBe('30px');expect(states.gradient).not.toBe('none');expect(states.solid).not.toBe(states.gradient);

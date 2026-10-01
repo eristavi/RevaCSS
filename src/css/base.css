@@ -2,9 +2,9 @@
 @layer re.base {
   :where(*, *::before, *::after) { box-sizing: border-box; }
   :where(html) { -webkit-text-size-adjust: 100%; }
-  :where(body,.reva) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
-  :where([data-theme], [data-tone]) { background-color: var(--re-bg); color: var(--re-text); }
-  :where([data-type]) { font-size: var(--re-type); }
+  :where(body,.reva,:scope.reva) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
+  :where([data-theme], [data-tone], :scope[data-theme], :scope[data-tone]) { background-color: var(--re-bg); color: var(--re-text); }
+  :where([data-type], :scope[data-type]) { font-size: var(--re-type); }
   :where(h1,h2,h3,h4,h5,h6) { font-family: var(--re-font-heading, var(--re-font)); font-weight: 700; line-height: 1.2; margin-block: 1.5em .55em; overflow-wrap: anywhere; text-wrap: balance; }
   :where(h1) { font-size: clamp(2em, 1.65em + 1.2vw, 3em); letter-spacing: -.025em; }
   :where(h2) { font-size: 1.8em; letter-spacing: -.02em; }

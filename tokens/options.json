@@ -115,7 +115,7 @@
       "wide"
     ],
     "default": "standard",
-    "scope": "Container only"
+    "scope": "Inherited; affects .container"
   },
   "table": {
     "values": [
@@ -124,7 +124,7 @@
       "bordered"
     ],
     "default": "plain",
-    "scope": "Table only"
+    "scope": "Inherited; affects tables"
   },
   "size": {
     "values": [
@@ -133,7 +133,7 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Control only"
+    "scope": "Inherited; affects buttons, inputs, selects, textareas and .button links"
   },
   "ratio": {
     "values": [
@@ -144,7 +144,7 @@
       "wide"
     ],
     "default": "auto",
-    "scope": "Image only"
+    "scope": "Inherited; affects images"
   },
   "fit": {
     "values": [
@@ -152,7 +152,7 @@
       "contain"
     ],
     "default": "cover",
-    "scope": "Constrained image only"
+    "scope": "Inherited; affects constrained images"
   },
   "gap": {
     "values": [
@@ -162,7 +162,7 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Layout only"
+    "scope": "Inherited; affects .grid, .row and .stack"
   },
   "material": {
     "values": [

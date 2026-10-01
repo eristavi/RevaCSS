@@ -86,43 +86,43 @@ export const attributes = [
   {
     "id": "width",
     "title": "data-width",
-    "description": "Place directly on .container. Width is a maximum; narrow viewports and parent containers still limit it. Default: standard. Scope: Container only.",
-    "html": "<div class=\"stack\">\n  <section class=\"container\" data-width=\"narrow\"><article class=\"card\">narrow container</article></section>\n  <section class=\"container\" data-width=\"standard\"><article class=\"card\">standard container</article></section>\n  <section class=\"container\" data-width=\"wide\"><article class=\"card\">wide container</article></section>\n</div>",
+    "description": "Sets maximum widths for descendant .container elements. Viewports and parent containers still limit the actual width. Set it on html, a section, or the target element. Default: standard. Scope: Inherited; affects .container.",
+    "html": "<div class=\"stack\">\n  <section data-width=\"narrow\"><div class=\"container\"><article class=\"card\">narrow container</article></div></section>\n  <section data-width=\"standard\"><div class=\"container\"><article class=\"card\">standard container</article></div></section>\n  <section data-width=\"wide\"><div class=\"container\"><article class=\"card\">wide container</article></div></section>\n</div>",
     "glass": false
   },
   {
     "id": "table",
     "title": "data-table",
-    "description": "Place directly on table to choose its row or cell treatment. Default: plain. Scope: Table only.",
-    "html": "<div class=\"grid\">\n  <table data-table=\"plain\"><caption>plain</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table>\n  <table data-table=\"striped\"><caption>striped</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table>\n  <table data-table=\"bordered\"><caption>bordered</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table>\n</div>",
+    "description": "Sets row or cell treatment on descendant tables. A local plain value removes inherited stripes or full-cell borders. Set it on html, a section, or the target element. Default: plain. Scope: Inherited; affects tables.",
+    "html": "<div class=\"grid\">\n  <section data-table=\"plain\"><table><caption>plain</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table></section>\n  <section data-table=\"striped\"><table><caption>striped</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table></section>\n  <section data-table=\"bordered\"><table><caption>bordered</caption><thead><tr><th scope=\"col\">Item</th><th scope=\"col\">State</th></tr></thead><tbody><tr><th scope=\"row\">One</th><td>Ready</td></tr><tr><th scope=\"row\">Two</th><td>Review</td></tr></tbody></table></section>\n</div>",
     "glass": false
   },
   {
     "id": "size",
     "title": "data-size",
-    "description": "Place directly on a button, input, select, textarea or .button link. It does not resize the navigation menu. Default: medium. Scope: Control only.",
-    "html": "<div class=\"grid\">\n  <button type=\"button\" data-size=\"small\">small</button>\n  <button type=\"button\" data-size=\"medium\">medium</button>\n  <button type=\"button\" data-size=\"large\">large</button>\n</div>",
+    "description": "Sets sizes on descendant buttons, inputs, selects, textareas and .button links. It does not resize ordinary text or menu links. Set it on html, a section, or the target element. Default: medium. Scope: Inherited; affects buttons, inputs, selects, textareas and .button links.",
+    "html": "<div class=\"row\">\n  <section data-size=\"small\"><button type=\"button\">small</button></section>\n  <section data-size=\"medium\"><button type=\"button\">medium</button></section>\n  <section data-size=\"large\"><button type=\"button\">large</button></section>\n</div>",
     "glass": false
   },
   {
     "id": "ratio",
     "title": "data-ratio",
-    "description": "Place directly on img to select an aspect ratio. Auto leaves the natural image ratio. Default: auto. Scope: Image only.",
-    "html": "<div class=\"grid\">\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"auto\" alt=\"Hills illustration, auto example\"><figcaption>auto</figcaption></figure>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"square\" alt=\"Hills illustration, square example\"><figcaption>square</figcaption></figure>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"landscape\" alt=\"Hills illustration, landscape example\"><figcaption>landscape</figcaption></figure>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"portrait\" alt=\"Hills illustration, portrait example\"><figcaption>portrait</figcaption></figure>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"wide\" alt=\"Hills illustration, wide example\"><figcaption>wide</figcaption></figure>\n</div>",
+    "description": "Sets aspect ratios on descendant images. A local auto value restores the natural image ratio. Set it on html, a section, or the target element. Default: auto. Scope: Inherited; affects images.",
+    "html": "<div class=\"grid\">\n  <figure data-ratio=\"auto\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Hills illustration, auto example\"><figcaption>auto</figcaption></figure>\n  <figure data-ratio=\"square\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Hills illustration, square example\"><figcaption>square</figcaption></figure>\n  <figure data-ratio=\"landscape\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Hills illustration, landscape example\"><figcaption>landscape</figcaption></figure>\n  <figure data-ratio=\"portrait\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Hills illustration, portrait example\"><figcaption>portrait</figcaption></figure>\n  <figure data-ratio=\"wide\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Hills illustration, wide example\"><figcaption>wide</figcaption></figure>\n</div>",
     "glass": false
   },
   {
     "id": "fit",
     "title": "data-fit",
-    "description": "Place directly on a constrained img. Cover crops; contain keeps the whole image visible. Default: cover. Scope: Constrained image only.",
-    "html": "<div class=\"grid\">\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-fit=\"cover\" data-ratio=\"square\" alt=\"Hills illustration, cover example\"><figcaption>cover</figcaption></figure>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-fit=\"contain\" data-ratio=\"square\" alt=\"Hills illustration, contain example\"><figcaption>contain</figcaption></figure>\n</div>",
+    "description": "Sets image fitting for descendant constrained images. Cover crops; contain keeps the whole image visible. Set it on html, a section, or the target element. Default: cover. Scope: Inherited; affects constrained images.",
+    "html": "<div class=\"grid\">\n  <figure data-fit=\"cover\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"square\" alt=\"Hills illustration, cover example\"><figcaption>cover</figcaption></figure>\n  <figure data-fit=\"contain\"><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" data-ratio=\"square\" alt=\"Hills illustration, contain example\"><figcaption>contain</figcaption></figure>\n</div>",
     "glass": false
   },
   {
     "id": "gap",
     "title": "data-gap",
-    "description": "Place directly on .grid, .row or .stack; it does not apply to arbitrary elements. Default: medium. Scope: Layout only.",
-    "html": "<div class=\"grid\">\n  <div class=\"stack\" data-gap=\"none\"><article class=\"card\">none gap</article><article class=\"card\">Second item</article></div>\n  <div class=\"stack\" data-gap=\"small\"><article class=\"card\">small gap</article><article class=\"card\">Second item</article></div>\n  <div class=\"stack\" data-gap=\"medium\"><article class=\"card\">medium gap</article><article class=\"card\">Second item</article></div>\n  <div class=\"stack\" data-gap=\"large\"><article class=\"card\">large gap</article><article class=\"card\">Second item</article></div>\n</div>",
+    "description": "Sets gaps on descendant .grid, .row and .stack layouts. The multiplier follows local density; arbitrary elements do not become layouts. Set it on html, a section, or the target element. Default: medium. Scope: Inherited; affects .grid, .row and .stack.",
+    "html": "<div class=\"grid\">\n  <section data-gap=\"none\"><div class=\"stack\"><article class=\"card\">none gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"small\"><div class=\"stack\"><article class=\"card\">small gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"medium\"><div class=\"stack\"><article class=\"card\">medium gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"large\"><div class=\"stack\"><article class=\"card\">large gap</article><article class=\"card\">Second item</article></div></section>\n</div>",
     "glass": false
   },
   {
