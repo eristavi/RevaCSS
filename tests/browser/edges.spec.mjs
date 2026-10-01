@@ -19,6 +19,12 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} edge
  await page.locator(root).evaluate(el=>el.dataset.border='none');expect(await pseudo(page,'#action','padding-top')).toBe('0px');
  await page.locator('#action').evaluate(el=>el.dataset.edge='gradient');expect(await pseudo(page,'#action','animation-name')).toBe('none');
  await page.locator(root).evaluate(el=>el.dataset.edge='plain');expect(await pseudo(page,'#card','content')).toBe('none');expect(await pseudo(page,'#link','content')).toBe('none');
+ if(build==='scoped') {
+  await page.locator('body').evaluate(el=>el.insertAdjacentHTML('beforeend','<button class="reva" data-edge="shine" id="boundary">Boundary action</button><button class="reva" data-edge="animated" disabled id="boundary-disabled">Unavailable boundary</button>'));
+  await page.locator('#boundary').hover();expect(await pseudo(page,'#boundary','animation-name')).toBe('re-edge-turn');
+  expect(await pseudo(page,'#boundary-disabled','animation-name')).toBe('none');
+ }
+
 });
 test('shine runs once for hover or keyboard focus; motion settings stop movement',async({page})=>{
  await page.goto('/plain/');await page.evaluate(fixture=>{document.body.innerHTML='<main>'+fixture+'</main>';document.documentElement.dataset.edge='shine';},fixture);
@@ -36,9 +42,9 @@ test('contrast, forced colour and print retain the regular border and focus',asy
  await page.goto('/plain/');await page.evaluate(fixture=>{document.body.innerHTML='<main>'+fixture+'</main>';document.documentElement.dataset.edge='animated';document.documentElement.dataset.contrast='more';},fixture);
  expect(await pseudo(page,'#action','display')).toBe('none');
  await page.locator('#action').evaluate(el=>el.dataset.contrast='auto');expect(await pseudo(page,'#action','display')).toBe('block');
- await page.emulateMedia({contrast:'more'});expect(await pseudo(page,'#action','display')).toBe('none');
- await page.emulateMedia({contrast:'no-preference',forcedColors:'active'});expect(await pseudo(page,'#action','display')).toBe('none');expect(await style(page,'#action','border-top-width')).toBe('1px');
- await page.emulateMedia({forcedColors:'none',media:'print'});expect(await pseudo(page,'#action','display')).toBe('none');
+ await page.emulateMedia({contrast:'more'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');
+ await page.emulateMedia({contrast:'no-preference',forcedColors:'active'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');await expect.poll(()=>style(page,'#action','border-top-width')).toBe('1px');
+ await page.emulateMedia({forcedColors:'none',media:'print'});await expect.poll(()=>pseudo(page,'#action','display')).toBe('none');
 });
 test('glass edges leave the interior and solid exceptions unchanged',async({page})=>{
  await page.goto('/themes/glass/');await page.evaluate(fixture=>{document.body.innerHTML='<main data-material="glass">'+fixture+'<section data-material="solid"><button id="solid">Solid</button></section></main>';},fixture);

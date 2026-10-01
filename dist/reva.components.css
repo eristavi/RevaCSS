@@ -193,12 +193,12 @@
       animation: var(--re-edge-animation, none) 8s linear infinite;
       animation-play-state: var(--re-edge-play, running);
     }
-    :where(button:enabled:hover, button:enabled:focus-visible, .button:not([aria-disabled="true"]):hover, .button:not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within)::after {
+    :where(button:enabled:hover, button:enabled:focus-visible, .button:not([aria-disabled="true"]):hover, .button:not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, .button:not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, .button:not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
       animation-name: var(--re-edge-interaction, var(--re-edge-animation, none));
       animation-duration: var(--re-edge-time, 8s);
       animation-iteration-count: var(--re-edge-count, infinite);
     }
-    :where(button:disabled, .button[aria-disabled="true"])::after { animation: none; }
+    :where(button:disabled, .button[aria-disabled="true"], :scope:is(button:disabled, .button[aria-disabled="true"]))::after { animation: none; }
   }
 }
 @layer re.utilities {
