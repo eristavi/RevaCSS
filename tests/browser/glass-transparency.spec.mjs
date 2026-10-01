@@ -9,7 +9,7 @@ const pixels=async(page,selector,points)=>{
  points=points.map(([x,y])=>[Math.round(box.x)+x,Math.round(box.y)+y]);
  return page.evaluate(async({url,points})=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);return points.map(([x,y])=>[...ctx.getImageData(x,y,1,1).data]);},{url:'data:image/png;base64,'+png.toString('base64'),points});
 };
-for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the backdrop and renders actual blur`,async({page})=>{
+for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the backdrop and renders actual blur`,async({page,browserName})=>{
  await page.goto('/plain/');await page.setContent(`<main data-material="glass" data-theme="${theme}" id="stage"><article class="card" id="paint" aria-label="Glass sample"></article></main>`);
  await page.addStyleTag({content:await css(false)});
  await page.addStyleTag({content:'body{margin:0}#stage{padding:48px;background:black}#paint{width:240px;height:120px}'});
@@ -21,12 +21,14 @@ for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the 
  expect((await rgba(page,'#paint'))[3]/255).toBeCloseTo(.7,2);expect(await filter(page,'#paint')).toContain('16px');
  // Compare two simultaneously painted samples, rather than changing the
  // compositor filter on one sample between captures.
- await page.setContent(`<main data-material="glass" data-theme="${theme}" id="checker"><article class="card" id="blurred" aria-label="Blurred sample"></article><article class="card" id="sharp" aria-label="Sharp sample"></article></main>`);
+ await page.setContent(`<main data-material="glass" data-theme="${theme}" id="checker"><article class="card" id="blurred" aria-label="Blurred sample"></article><article class="card" id="sharp" aria-label="Sharp sample"></article><div id="oracle"></div></main>`);
  await page.addStyleTag({content:await css(false)});
- await page.addStyleTag({content:'body{margin:0}#checker{padding:48px;display:flex;gap:48px;background:repeating-linear-gradient(90deg,black 0 12px,white 12px 24px)}#checker .card{width:240px;height:120px;flex:none}#sharp{backdrop-filter:none;-webkit-backdrop-filter:none}'});
+ await page.addStyleTag({content:'body{margin:0}#checker{padding:48px;display:flex;gap:48px;background:repeating-linear-gradient(90deg,black 0 12px,white 12px 24px)}#checker .card{width:240px;height:120px;flex:none}#sharp{backdrop-filter:none;-webkit-backdrop-filter:none}#oracle{width:240px;height:120px;flex:none;position:relative;background:rgb(255 255 255 / 70%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}'});
  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
  const blurred=await pixels(page,'#blurred',[[100,60],[112,60]]);
  const sharp=await pixels(page,'#sharp',[[100,60],[112,60]]);
+ const oracle=await pixels(page,'#oracle',[[100,60],[112,60]]);
+ console.log(JSON.stringify({glassRaster:browserName,theme,frameworkDifference:Math.abs(blurred[0][0]-blurred[1][0]),rawDifference:Math.abs(oracle[0][0]-oracle[1][0])}));
  expect(Math.abs(sharp[0][0]-sharp[1][0])).toBeGreaterThanOrEqual(64);
  expect(Math.abs(blurred[0][0]-blurred[1][0])).toBeLessThan(24);
 });
