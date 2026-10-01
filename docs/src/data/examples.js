@@ -1,5 +1,173 @@
 export const topics = [
 {
+  "slug": "progress",
+  "title": "Progress and meters",
+  "intro": "Native progress and meter elements already inherit the accent and available width. No component class is required.",
+  "notes": [
+    "Use progress for task completion. A missing value means indeterminate progress; native animation and appearance follow the browser. Provide a label and visible completion text.",
+    "Use meter for a known measurement within a range, not loading. min, max, low, high and optimum describe its scale and meaningful thresholds. Native meter colours may reflect those thresholds rather than your accent.",
+    "Your application or server supplies values. CSS cannot calculate completion or update measurements. Progress and meter have no added glass material or custom animation."
+  ],
+  "examples": [
+    {
+      "id": "progress-known",
+      "title": "Known completion",
+      "description": "A native label names the progress indicator; visible text communicates its value.",
+      "html": "<div class=\"form-group\">\n  <label for=\"upload-completion\">Upload progress</label>\n  <progress id=\"upload-completion\" value=\"65\" max=\"100\">65%</progress>\n  <small>65% complete</small>\n</div>"
+    },
+    {
+      "id": "progress-unknown",
+      "title": "Indeterminate progress",
+      "description": "Omit value when completion is unknown. Keep a visible explanation while the browser renders its native indicator.",
+      "html": "<div class=\"form-group\">\n  <label for=\"indexing-progress\">Preparing your files</label>\n  <progress id=\"indexing-progress\">Working</progress>\n  <small>This may take a moment.</small>\n</div>"
+    },
+    {
+      "id": "meter-range",
+      "title": "A measured range",
+      "description": "Meter describes a bounded measurement. The browser uses its native threshold presentation.",
+      "html": "<div class=\"form-group\">\n  <label for=\"storage-capacity\">Storage used</label>\n  <meter id=\"storage-capacity\" min=\"0\" max=\"100\" low=\"50\"\n         high=\"85\" optimum=\"20\" value=\"72\">72%</meter>\n  <small>72 GB of 100 GB used</small>\n</div>"
+    }
+  ]
+},
+{
+  "slug": "loading",
+  "title": "Loading indicators",
+  "intro": "A single spinner class supplies decorative CSS motion. Visible text explains what is happening; your application decides when to show or remove the indicator.",
+  "notes": [
+    "The spinner is decorative: use aria-hidden=\"true\" and keep meaningful text beside it. A static example needs no live-region role.",
+    "For application updates, establish a role=\"status\" region before changing its text. aria-busy on the affected content can communicate that work is incomplete; your application manages its value.",
+    "Size and motion follow shared parent settings. data-motion=\"none\" and reduced-motion preferences stop the custom spinner. The visible message remains available.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.loading.css."
+  ],
+  "examples": [
+    {
+      "id": "loading-basic",
+      "title": "Visible loading text",
+      "description": "The text carries the meaning, so the spinner is hidden from assistive technology.",
+      "html": "<p><span class=\"spinner\" aria-hidden=\"true\"></span> Loading your records…</p>"
+    },
+    {
+      "id": "loading-still",
+      "title": "Without animation",
+      "description": "Configure motion on the parent to keep a stationary indicator.",
+      "html": "<section data-motion=\"none\" data-size=\"large\">\n  <p><span class=\"spinner\" aria-hidden=\"true\"></span> Preparing your report…</p>\n</section>"
+    },
+    {
+      "id": "loading-application",
+      "title": "Application-owned status",
+      "description": "Keep the live region in place before updating it; hide the decorative spinner once loading finishes.",
+      "html": "<!-- Update this established region from your application. -->\n<p role=\"status\">\n  <span class=\"spinner\" aria-hidden=\"true\"></span>\n  Loading results…\n</p>",
+      "render": false
+    }
+  ]
+},
+{
+  "slug": "tabs",
+  "title": "Tabs: native choice panels",
+  "intro": "A tabs fieldset uses native radio choices to show one associated panel at a time. The controls retain their radio semantics and keyboard behavior; no JavaScript is added.",
+  "notes": [
+    "This is a radio-selection pattern, not an ARIA tab widget. Do not add tablist/tab roles or manually maintained aria-selected attributes. For an application that specifically needs the ARIA tabs interaction contract, use a separate behavior layer.",
+    "Give the fieldset a legend and every radio a label. Use one unique radio name per instance and mark exactly one radio checked. Tab enters the radio group; arrow keys select its native choices.",
+    "Keep each tab-panel immediately after its label. Panels may contain ordinary headings, links and controls. CSS :has selects the checked radio's following panel. Without :has support, all panels remain readable; print also shows all panels.",
+    "Theme, shape, size, density, gap, borders and fieldset material follow the parent. Controls remain visibly native. Included in complete, scoped and components builds; modular use: tokens, base and reva.tabs.css."
+  ],
+  "examples": [
+    {
+      "id": "tabs-basic",
+      "title": "Two choice panels",
+      "description": "The native radio labels select their immediately following sections.",
+      "html": "<fieldset class=\"tabs\">\n  <legend>Account information</legend>\n  <label>\n    <input type=\"radio\" name=\"account-panels\" checked> Overview\n  </label>\n  <section class=\"tab-panel\">\n    <h3>Account overview</h3>\n    <p>Your account is active.</p>\n  </section>\n  <label>\n    <input type=\"radio\" name=\"account-panels\"> Preferences\n  </label>\n  <section class=\"tab-panel\">\n    <h3>Your preferences</h3>\n    <p>Choose preferences in your application settings.</p>\n    <a href=\"__BASE__components/form-groups/\">Explore form groups</a>\n  </section>\n</fieldset>"
+    },
+    {
+      "id": "tabs-independent",
+      "title": "An independent instance",
+      "description": "A different name keeps this selection independent of the first example.",
+      "html": "<fieldset class=\"tabs\" data-shape=\"pill\" data-gap=\"small\">\n  <legend>Documentation view</legend>\n  <label><input type=\"radio\" name=\"documentation-panels\" checked> HTML</label>\n  <section class=\"tab-panel\">\n    <p>Start with native elements and shared parent settings.</p>\n  </section>\n  <label><input type=\"radio\" name=\"documentation-panels\"> Styling</label>\n  <section class=\"tab-panel\">\n    <p>Add a component class only when the pattern needs one.</p>\n  </section>\n</fieldset>"
+    }
+  ]
+},
+{
+  "slug": "lists",
+  "title": "List groups",
+  "intro": "One list-group class arranges ordinary list items with shared surface colours, borders, shape and density. Native lists without this class retain their existing typography.",
+  "notes": [
+    "Use ul for an unordered collection and ol when order matters. Keep role=\"list\" because list-style:none can affect list announcements in some browsers.",
+    "Use links for destinations. A list item needs no extra class; its only-child link gets a comfortable minimum target height. Do not use listbox roles for ordinary navigation.",
+    "aria-current marks the actual current destination. Status badges remain passive content inside a list item.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.lists.css. Load the matching optional glass extension to inherit frosted list-item backing."
+  ],
+  "examples": [
+    {
+      "id": "list-basic",
+      "title": "Text items with badges",
+      "description": "Standard list markup supports richer content without per-item classes.",
+      "html": "<ul class=\"list-group\" role=\"list\">\n  <li>Profile <span class=\"badge\" data-variant=\"success\">Complete</span></li>\n  <li>Billing <span class=\"badge\" data-variant=\"warning\">Review needed</span></li>\n  <li>Notifications enabled</li>\n</ul>"
+    },
+    {
+      "id": "list-links",
+      "title": "Linked items",
+      "description": "A labelled navigation landmark contains real documentation destinations.",
+      "html": "<nav aria-label=\"Related documentation\">\n  <ul class=\"list-group\" role=\"list\">\n    <li><a href=\"__BASE__guide/\">Getting started</a></li>\n    <li><a href=\"__BASE__attributes/\">Shared attributes</a></li>\n    <li><a href=\"__BASE__components/lists/\" aria-current=\"page\">List groups</a></li>\n  </ul>\n</nav>"
+    }
+  ]
+},
+{
+  "slug": "empty-states",
+  "title": "Empty states",
+  "intro": "One empty-state class centres ordinary content with readable spacing. Your application decides when the collection is empty; CSS only arranges the message.",
+  "notes": [
+    "Explain what is missing and the next useful action. Keep headings at the appropriate document level and use native links for navigation.",
+    "An empty state is content, not automatically an alert. For application-updated results, choose an appropriate established announcement region only when needed.",
+    "Spacing follows density, text follows the theme, and native actions keep their inherited styling. Combine with card when a surface is useful; card can receive optional glass material.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.empty-states.css."
+  ],
+  "examples": [
+    {
+      "id": "empty-basic",
+      "title": "No records yet",
+      "description": "A heading and explanation are enough when there is no meaningful action to offer.",
+      "html": "<section class=\"empty-state\" aria-labelledby=\"empty-records-heading\">\n  <h3 id=\"empty-records-heading\">No records yet</h3>\n  <p>Your records will appear here after you add them.</p>\n</section>"
+    },
+    {
+      "id": "empty-action",
+      "title": "A useful next step",
+      "description": "Combine existing card and button styles with the empty-state layout.",
+      "html": "<section class=\"card empty-state\" aria-labelledby=\"empty-start-heading\">\n  <h3 id=\"empty-start-heading\">Start your first project</h3>\n  <p>Explore the guide to choose your page defaults and components.</p>\n  <a class=\"button\" href=\"__BASE__guide/\">Read the guide</a>\n</section>"
+    }
+  ]
+},
+{
+  "slug": "avatars",
+  "title": "Avatars",
+  "intro": "One avatar class supports an image or explicit initials. Size, shape, borders and colours follow shared parent defaults.",
+  "notes": [
+    "Use meaningful alt text when the image identifies a person. Use alt=\"\" when a nearby visible name already gives the same information.",
+    "For standalone initials, supply the full name through an accessible label. Initials are not an automatic image-loading fallback; your application or server chooses which markup to render.",
+    "data-shape=\"pill\" makes the square avatar round. Use --re-avatar-size for a custom base dimension; data-size scales it. Set attributes on a parent for shared defaults.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.avatars.css. Avatar backing remains opaque."
+  ],
+  "examples": [
+    {
+      "id": "avatar-initials",
+      "title": "Initials with a full name",
+      "description": "The visible name gives context, so the initials are decorative.",
+      "html": "<div class=\"row\" data-shape=\"pill\">\n  <span class=\"avatar\" aria-hidden=\"true\">RE</span>\n  <span>Revaz Eristavi</span>\n</div>"
+    },
+    {
+      "id": "avatar-image",
+      "title": "Image markup",
+      "description": "This documentation illustration demonstrates cropping. Replace the source with a real profile image.",
+      "html": "<div class=\"row\" data-shape=\"pill\">\n  <img class=\"avatar\" src=\"__BASE__images/example-landscape.svg\"\n       width=\"44\" height=\"44\" alt=\"\">\n  <span>Example profile</span>\n</div>"
+    },
+    {
+      "id": "avatar-sizes",
+      "title": "Inherited sizes and shapes",
+      "description": "Each parent supplies a size. A full accessible name accompanies standalone initials.",
+      "html": "<div class=\"row\" data-shape=\"pill\">\n  <section data-size=\"small\"><span class=\"avatar\" role=\"img\" aria-label=\"Alex Morgan\">AM</span></section>\n  <section data-size=\"medium\"><span class=\"avatar\" role=\"img\" aria-label=\"Jamie Lee\">JL</span></section>\n  <section data-size=\"large\"><span class=\"avatar\" role=\"img\" aria-label=\"Sam Taylor\">ST</span></section>\n</div>"
+    }
+  ]
+},
+{
   "slug": "accordions",
   "title": "Accordions",
   "glass": true,

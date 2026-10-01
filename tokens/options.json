@@ -31,7 +31,7 @@
     ],
     "default": "rounded",
     "scope": "Inherited",
-    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape"
+    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape; choice labels and avatars follow button shape"
   },
   "fill": {
     "values": [
@@ -50,7 +50,7 @@
     ],
     "default": "comfortable",
     "scope": "Inherited",
-    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting"
+    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting; list groups, empty states and choice labels follow this setting"
   },
   "depth": {
     "values": [
@@ -70,7 +70,7 @@
     ],
     "default": "subtle",
     "scope": "Inherited",
-    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins"
+    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins; custom loading spinners follow motion settings; native indeterminate progress remains browser-owned"
   },
   "type": {
     "values": [
@@ -148,7 +148,7 @@
     ],
     "default": "medium",
     "scope": "Inherited; affects controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination and form labels",
-    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting; accordion summaries, breadcrumbs, pagination and form labels follow this setting"
+    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting; accordion summaries, breadcrumbs, pagination and form labels follow this setting; spinners, choice labels and avatars follow this setting"
   },
   "ratio": {
     "values": [
@@ -180,7 +180,7 @@
     ],
     "default": "medium",
     "scope": "Inherited; affects .grid, .row, .stack, .accordion and .pagination",
-    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links"
+    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links; also choice-panel groups"
   },
   "material": {
     "values": [

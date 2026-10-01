@@ -1,0 +1,14 @@
+/* Images or explicit initials; no automatic failed-image replacement. */
+@layer re.components {
+  :where(.avatar) {
+    display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; vertical-align: middle;
+    inline-size: calc(var(--re-avatar-size, 2.75rem) * var(--re-control-scale, 1)); block-size: calc(var(--re-avatar-size, 2.75rem) * var(--re-control-scale, 1));
+    max-inline-size: 100%; border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    object-fit: var(--re-image-fit, cover); aspect-ratio: 1; color: var(--re-text); background-color: var(--re-surface-alt);
+    font-weight: 650; font-size: 1em; line-height: 1; overflow: hidden;
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(.avatar) { color: CanvasText; background-color: Canvas; border-color: CanvasText; } }
+  @media print { :where(.avatar) { color: #000; background-color: #fff; } }
+}

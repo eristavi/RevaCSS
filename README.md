@@ -90,3 +90,9 @@ Use `<div class="alert">Information: Your draft is saved.</div>` for a persisten
 Use `.accordion` around native `details` items; omit `name` for independent sections or share a unique `name` for native exclusive groups. Use `nav.breadcrumbs` and `nav.pagination` with ordered lists, real destination links and `aria-current="page"` on the current location. Unavailable pagination controls are plain spans, not active links. One `.form-group` arranges a label, control and associated help text; optional `.field-error` styles a known validation message. Fieldsets and legends group related choices.
 
 All four follow meaningful shared parent settings without repeated styling attributes. They add no JavaScript. Pagination routing and application validation remain owned by your application. Each has [documentation examples](https://eristavi.github.io/RevaCSS/) with formatted HTML. Modular builds include `reva.accordions.css`, `reva.breadcrumbs.css`, `reva.pagination.css` and `reva.form-groups.css`.
+
+### More native components
+
+Native `progress` and `meter` already have inherited accent styling; the dedicated documentation page explains completion, indeterminate progress and bounded measurements. New `.spinner` indicators pair decorative CSS motion with visible status text. `.tabs` fieldsets and `.tab-panel` sections implement native radio-selected content panels, with radio semantics rather than ARIA tab roles. `.list-group` arranges native lists; `.empty-state` arranges first-use and no-results messages; `.avatar` supports image or explicitly rendered initials.
+
+These components add no browser JavaScript. Applications own loading state, result fetching, validation and failed-image fallback. Documentation provides live examples and formatted HTML. Modular builds include `reva.loading.css`, `reva.tabs.css`, `reva.lists.css`, `reva.empty-states.css` and `reva.avatars.css`.
