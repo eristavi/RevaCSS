@@ -5,11 +5,11 @@ const rgba=(page,selector,property='backgroundColor')=>page.locator(selector).ev
 const filter=(page,selector)=>page.locator(selector).evaluate(el=>getComputedStyle(el).backdropFilter||getComputedStyle(el).webkitBackdropFilter);
 const pixels=async(page,selector,points)=>{
  const box=await page.locator(selector).boundingBox();
- const png=await page.screenshot({animations:'disabled'});
+ const png=await page.screenshot({animations:'disabled',scale:'css'});
  points=points.map(([x,y])=>[Math.round(box.x)+x,Math.round(box.y)+y]);
  return page.evaluate(async({url,points})=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);return points.map(([x,y])=>[...ctx.getImageData(x,y,1,1).data]);},{url:'data:image/png;base64,'+png.toString('base64'),points});
 };
-for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the backdrop and renders actual blur`,async({page,browserName})=>{
+for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the backdrop and matches native blur rendering`,async({page,browserName})=>{
  await page.goto('/plain/');await page.setContent(`<main data-material="glass" data-theme="${theme}" id="stage"><article class="card" id="paint" aria-label="Glass sample"></article></main>`);
  await page.addStyleTag({content:await css(false)});
  await page.addStyleTag({content:'body{margin:0}#stage{padding:48px;background:black}#paint{width:240px;height:120px}'});
@@ -28,9 +28,20 @@ for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the 
  const blurred=await pixels(page,'#blurred',[[100,60],[112,60]]);
  const sharp=await pixels(page,'#sharp',[[100,60],[112,60]]);
  const oracle=await pixels(page,'#oracle',[[100,60],[112,60]]);
- console.log(JSON.stringify({glassRaster:browserName,theme,frameworkDifference:Math.abs(blurred[0][0]-blurred[1][0]),rawDifference:Math.abs(oracle[0][0]-oracle[1][0])}));
+ const frameworkDifference=Math.abs(blurred[0][0]-blurred[1][0]), nativeDifference=Math.abs(oracle[0][0]-oracle[1][0]);
  expect(Math.abs(sharp[0][0]-sharp[1][0])).toBeGreaterThanOrEqual(64);
- expect(Math.abs(blurred[0][0]-blurred[1][0])).toBeLessThan(24);
+ expect(await filter(page,'#blurred')).toContain('16px');
+ if(nativeDifference<24) {
+  expect(frameworkDifference).toBeLessThan(24);
+ } else {
+  // A native control distinguishes capture/backend limitations from CSS bugs.
+  // Do not claim rendered blur when even the plain CSS control cannot paint it.
+  expect(nativeDifference).toBeGreaterThanOrEqual(64);
+  expect(frameworkDifference).toBeGreaterThanOrEqual(64);
+  expect(Math.abs(frameworkDifference-nativeDifference)).toBeLessThan(6);
+  test.info().annotations.push({type:'native-blur-capture-limit',description:`${browserName}: native blur is absent in this capture; real-browser blur remains a manual release check.`});
+  console.log(`Native blur capture limitation: ${browserName}; transparency verified, actual blur requires a real-browser check.`);
+ }
 });
 for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} readable glass colours inherit through local themes and material resets`,async({page})=>{
  await page.goto('/plain/');await page.setContent(`<main ${scoped?'class="reva"':''} data-material="glass" data-theme="light"><article class="card" id="card"><figure><figcaption id="muted">Supporting text</figcaption></figure><a href="#card" id="link">Link</a><input aria-label="Name" id="field"><button id="action">Continue</button><section data-theme="dark"><figure><figcaption id="dark-muted">Dark supporting text</figcaption></figure><a href="#card" id="dark-link">Dark link</a></section><section data-material="solid"><article class="card" id="solid"><figure><figcaption id="solid-muted">Normal supporting text</figcaption></figure><a href="#card" id="solid-link">Normal link</a></article><article class="card" data-material="glass" id="reentry"><a href="#card" id="reentry-link">Glass link</a></article></section></article></main>`);
