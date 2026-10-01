@@ -31,7 +31,7 @@
     ],
     "default": "rounded",
     "scope": "Inherited",
-    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting"
+    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting; pagination follows button shape"
   },
   "fill": {
     "values": [
@@ -60,7 +60,7 @@
     ],
     "default": "subtle",
     "scope": "Inherited",
-    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls; badges and alerts follow this setting"
+    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls; badges and alerts follow this setting; pagination links follow this setting"
   },
   "motion": {
     "values": [
@@ -147,8 +147,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects controls and menu actions",
-    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting"
+    "scope": "Inherited; affects controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination and form labels",
+    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting; accordion summaries, breadcrumbs, pagination and form labels follow this setting"
   },
   "ratio": {
     "values": [
@@ -179,8 +179,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects .grid, .row and .stack",
-    "affects": "Spacing in .grid, .row and .stack; combines with density"
+    "scope": "Inherited; affects .grid, .row, .stack, .accordion and .pagination",
+    "affects": "Spacing in .grid, .row and .stack; combines with density; also accordion spacing and pagination links"
   },
   "material": {
     "values": [
@@ -189,7 +189,7 @@
     ],
     "default": "solid",
     "scope": "Inherited material scope; optional glass stylesheet",
-    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass; badges and alerts follow this setting"
+    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass; badges and alerts follow this setting; pagination link surfaces follow this setting"
   },
   "edge": {
     "values": [

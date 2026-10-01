@@ -228,3 +228,16 @@
     }
   }
 }
+
+/* Pagination follows material defaults without frosting the navigation wrapper. */
+@layer re.components {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(.pagination > ol > li > :is(a,span)) {
+        background-color: color-mix(in srgb, var(--re-pagination-fill) var(--re-glass-button-opacity, 90%), transparent);
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
+        backdrop-filter: var(--re-glass-filter, blur(16px));
+      }
+    }
+  }
+}

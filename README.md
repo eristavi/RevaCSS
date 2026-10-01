@@ -56,7 +56,7 @@ Set shared defaults on `<html>`, then write ordinary HTML. All 19 core attribute
 
 ## Documentation and GitHub Pages
 
-Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, badges, alerts, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
+Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, badges, alerts, accordions, breadcrumbs, pagination, form groups, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
 
 The validation workflow builds from scratch, runs all three browser engines, and checks the `/RevaCSS/` project path. Pushes to `main` deploy documentation only after validation succeeds. In **Settings → Pages → Build and deployment**, select **GitHub Actions** before the first deployment. The expected default address is https://eristavi.github.io/RevaCSS/; a successful deployment is required before that address is available.
 
@@ -84,3 +84,9 @@ Use `<span class="badge">New</span>` for passive labels. Badges inherit theme, a
 ### Alerts
 
 Use `<div class="alert">Information: Your draft is saved.</div>` for a persistent message. Alerts inherit shared parent styling and use the same optional `data-variant="primary|success|warning|danger|neutral"` and `data-appearance="tinted|solid|outline"` as badges. Defaults are primary (informational, using the inherited accent) and tinted. Use visible status text. Static messages need no live-region role; application updates can use an established `role="status"` or, when urgent, `role="alert"` region. No JavaScript or dismissal behavior is included. See the [alert examples](https://eristavi.github.io/RevaCSS/components/alerts/). Modular builds provide `reva.alerts.css`; glass remains opt-in.
+
+### Accordions, breadcrumbs, pagination and form groups
+
+Use `.accordion` around native `details` items; omit `name` for independent sections or share a unique `name` for native exclusive groups. Use `nav.breadcrumbs` and `nav.pagination` with ordered lists, real destination links and `aria-current="page"` on the current location. Unavailable pagination controls are plain spans, not active links. One `.form-group` arranges a label, control and associated help text; optional `.field-error` styles a known validation message. Fieldsets and legends group related choices.
+
+All four follow meaningful shared parent settings without repeated styling attributes. They add no JavaScript. Pagination routing and application validation remain owned by your application. Each has [documentation examples](https://eristavi.github.io/RevaCSS/) with formatted HTML. Modular builds include `reva.accordions.css`, `reva.breadcrumbs.css`, `reva.pagination.css` and `reva.form-groups.css`.

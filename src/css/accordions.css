@@ -1,0 +1,7 @@
+/* Native disclosure groups; HTML owns the open state. */
+@layer re.components {
+  :where(.accordion) { display: grid; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
+  :where(.accordion > details) { margin-block: 0; min-inline-size: 0; }
+  :where(.accordion > details > summary) { font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
+}
