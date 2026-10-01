@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
+import CodeViewer from '../components/CodeViewer.astro';
 const base=import.meta.env.BASE_URL;
 ---
 <DocsLayout title="Get started" active="guide">
@@ -12,7 +13,7 @@ const base=import.meta.env.BASE_URL;
 <Example id="local" title="Apply settings locally" description="The section supplies inherited settings. A nearer attribute can override them." html={'<section data-accent="violet" data-shape="subtle" data-density="compact">\n  <article class="card">\n    <h3>Your project</h3>\n    <p>Local settings apply to supported descendants.</p>\n    <button type="button">Violet action</button>\n    <button type="button" data-accent="teal">Teal override</button>\n  </article>\n</section>'}/>
 <Example id="scoped" title="Style part of an existing page" description="Use the scoped stylesheet and configure the .reva boundary or its descendants. Each boundary starts with its own defaults. It is a CSS scope, not Shadow DOM isolation. Overlay markup must remain inside the boundary." render={false} html={'<link rel="stylesheet" href="reva.scoped.css">\n<section class="reva">\n  <button type="button">A scoped control</button>\n</section>'}/>
 <h2>Choose what to explore</h2><p><a href={base+'components/buttons/'}>Buttons</a>, <a href={base+'components/forms/'}>forms</a>, <a href={base+'components/layouts/'}>cards and layouts</a>, <a href={base+'components/top-menu/'}>top menu</a>, <a href={base+'attributes/'}>shared data attributes</a> and <a href={base+'themes/glass/'}>glass material</a> each include demos and HTML.</p>
-<h2>Customise with ordinary CSS</h2><pre><code>{':root {\n  --re-primary: #7041cf;\n  --re-primary-end: #5228a4;\n  --re-on-primary: #fff;\n}\n.product { padding: 2rem; }'}</code></pre><p>Override both gradient stops and verify contrast. <a href={base+'reference/'}>See the public tokens</a>.</p>
+<h2>Customise with ordinary CSS</h2><CodeViewer id="custom-css" lang="css" label="Custom CSS" code={':root {\n  --re-primary: #7041cf;\n  --re-primary-end: #5228a4;\n  --re-on-primary: #fff;\n}\n.product { padding: 2rem; }'}/><p>Override both gradient stops and verify contrast. <a href={base+'reference/'}>See the public tokens</a>.</p>
 <h2>Supply meaningful HTML</h2><p class="prose">Provide labels, descriptive links, alternative text and explanatory errors. CSS supplies appearance; it does not invent error messages or announce application updates. Native interactions remain subject to their documented behavior.</p>
 <p class="prose">Manual keyboard, screen reader, text spacing, zoom and real device checks remain release requirements.</p>
 </DocsLayout>
