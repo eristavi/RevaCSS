@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Example from '../components/Example.astro';
+import { topics } from '../data/examples.js';
 const base=import.meta.env.BASE_URL;
 ---
-<Layout title="A new default for the web">
-<section class="prose"><p><strong>RevaCSS / foundation alpha</strong></p><h1>A new default<br/>for the web.</h1><p>Write meaningful HTML. Start with a complete design. Make it your own through a few tokens.</p><div class="row"><a class="button" href={`${base}guide/`}>Get started</a><a href={`${base}plain/`}>Inspect plain HTML</a></div></section>
-<hr/>
-<div class="grid"><article class="card"><h2>Native foundations</h2><p>Real buttons, forms, tables and disclosures. No runtime JavaScript.</p></article><article class="card"><h2>Adaptive design</h2><p>Device-aware light and dark appearances, intrinsic layouts and local overrides.</p></article><article class="card"><h2>Minimal decisions</h2><p>One stylesheet. Useful defaults. Ordinary CSS overrides.</p></article></div>
-<h2>Review the foundation</h2><p>Open the reference pages directly or inspect these isolated previews. Text inside previews uses the same stylesheet.</p>
-<div class="grid"><section><h3>Light</h3><iframe title="Light native HTML preview" src={`${base}preview/light/`} width="600" height="600" loading="lazy"></iframe></section><section><h3>Dark</h3><iframe title="Dark native HTML preview" src={`${base}preview/dark/`} width="600" height="600" loading="lazy"></iframe></section></div>
-<h2>Components in development</h2><p><a href={`${base}components/top-menu/`}>Top menu</a> adds responsive navigation with nested dropdowns, using only native HTML and CSS.</p>
-<h2>Optional materials</h2><p><a href={`${base}themes/glass/`}>Glass material</a> adds frosted surfaces to the existing themes and shared attributes. <a href={`${base}preview/glass/light/`}>Explore light glass</a> or <a href={`${base}preview/glass/dark/`}>dark glass</a>.</p>
-<h2>Current milestone</h2><p>This is an implementation preview, not the final component library or an accessibility certification. Foundations, documented presets, cards, layouts, forms, tables and top navigation are ready for review. Glass is available as an optional extension. More components, icons and multilingual font packs follow later. npm publication stays on hold until the first fully functional release is complete and tested.</p>
+<Layout title="Documentation">
+<section class="prose"><p class="doc-kicker">REVACSS / FOUNDATION ALPHA</p><h1>Build with HTML.<br/>See how it works.</h1><p>Native elements, useful defaults, and a small set of shared settings. Explore a working example, then use the HTML directly beneath it.</p><div class="row"><a class="button" href={base+'guide/'}>Get started</a><a class="button outline" href={base+'attributes/'}>Explore data attributes</a></div></section>
+<h2>Component documentation</h2><div class="grid">{[...topics,{slug:'top-menu',title:'Top menu',intro:'Responsive desktop and mobile navigation with nested native dropdowns.'}].map(t=><article class="card"><h3><a href={base+`components/${t.slug}/`}>{t.title}</a></h3><p>{t.intro}</p></article>)}</div>
+<Example id="first-card" title="Your first card" description="Link reva.css, then use ordinary HTML and a component class. Shared attributes customise the surface locally." html={'<article class="card" data-shape="rounded" data-depth="subtle">\n  <h3>A useful starting point</h3>\n  <p>Native HTML. A complete set of defaults.</p>\n  <button type="button">Continue</button>\n</article>'}/>
+<div class="grid"><article class="card"><h2>Shared settings</h2><p>See every attribute, its supported values and where it applies.</p><a href={base+'attributes/'}>Data attribute examples</a></article><article class="card"><h2>Glass material</h2><p>Frosted surfaces that follow the same theme and component settings.</p><a href={base+'themes/glass/'}>Glass demos and HTML</a></article><article class="card"><h2>API reference</h2><p>Generated option tables and design tokens for deeper customisation.</p><a href={base+'reference/'}>Browse the API</a></article></div>
+<h2>Full page previews</h2><div class="row"><a href={base+'preview/light/'}>Light foundation</a><a href={base+'preview/dark/'}>Dark foundation</a><a href={base+'preview/menu/light/'}>Responsive menu</a><a href={base+'preview/glass/light/'}>Light glass</a><a href={base+'preview/glass/dark/'}>Dark glass</a><a href={base+'plain/'}>Plain HTML</a></div>
+<p class="prose">This foundation alpha is an implementation preview. Further components and manual accessibility and device checks remain before the first stable release. npm publication stays on hold.</p>
 </Layout>

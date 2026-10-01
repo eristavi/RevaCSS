@@ -1,0 +1,14 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import { topics } from '../../data/examples.js';
+export function getStaticPaths() { return topics.map(topic=>({params:{component:topic.slug},props:{topic}})); }
+const { topic }=Astro.props;
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title={topic.title} active={topic.slug} sections={topic.examples}>
+<p class="doc-kicker">COMPONENTS / FOUNDATION ALPHA</p>
+<h1>{topic.title}</h1><p class="prose">{topic.intro}</p>
+<p>Load <code>reva.css</code> first. Each rendered example below uses the HTML shown directly underneath. <a href={base+'attributes/'}>Explore shared data attributes</a>.</p>
+{topic.examples.map(example=><Example {...example} html={example.html.replaceAll('__BASE__',base)}/>)}
+</DocsLayout>
