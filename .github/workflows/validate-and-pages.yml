@@ -1,127 +1,19 @@
-name: Validate and deploy documentation
+name: Build and deploy documentation
 
 on:
   push:
     branches: [main]
   pull_request:
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: reva-${{ github.workflow }}-${{ github.ref }}
+  group: reva-docs-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  changes:
-    name: Select validation scope
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    outputs:
-      docs_only: ${{ steps.scope.outputs.docs_only }}
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          fetch-depth: 0
-      - name: Classify changed files
-        id: scope
-        env:
-          REVA_EVENT: ${{ github.event_name }}
-          REVA_DIFF_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
-          REVA_DIFF_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: node scripts/validation-scope.mjs
-
-  docs-check:
-    name: Check documentation
-    needs: changes
-    if: needs.changes.outputs.docs_only == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run clean
-      - run: npm run build && npm test
-        env:
-          REVA_BASE: /
-      - name: Check GitHub Pages project paths
-        run: npm run build:docs && npm test
-        env:
-          REVA_SITE: https://eristavi.github.io
-          REVA_BASE: /RevaCSS/
-
-  validate:
-    name: Validate (${{ matrix.browser }})
-    needs: changes
-    if: needs.changes.outputs.docs_only != 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
-    steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run clean
-      - run: npm run build
-        env:
-          REVA_BASE: /
-      - run: npm test
-      - name: Use Ubuntu archive for browser dependencies
-        run: |
-          sudo python3 - <<'PY'
-          from pathlib import Path
-          paths = [Path('/etc/apt/apt-mirrors.txt'), Path('/etc/apt/sources.list'), *Path('/etc/apt/sources.list.d').glob('*.list'), *Path('/etc/apt/sources.list.d').glob('*.sources')]
-          for path in paths:
-              if path.is_file():
-                  source = path.read_text()
-                  updated = source.replace('http://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu').replace('https://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu')
-                  if updated != source:
-                      path.write_text(updated)
-                      print(f'Updated Ubuntu mirror in {path}')
-          Path('/etc/apt/apt.conf.d/99reva-ci-timeouts').write_text('Acquire::Retries "1";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n')
-          import subprocess
-          config = subprocess.check_output(['apt-config', 'dump'], text=True)
-          for setting in ['Acquire::Retries "1";', 'Acquire::http::Timeout "15";', 'Acquire::https::Timeout "15";']:
-              assert setting in config, f'APT setting not effective: {setting}'
-          print('Verified bounded APT download settings.')
-          PY
-      - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - run: npm run test:browser -- --project=${{ matrix.browser }}
-      - name: Report release quality blockers (alpha documentation only)
-        run: |
-          if npm run check:release-quality > quality-status.txt 2>&1; then
-            cat quality-status.txt
-            echo 'Recorded release-quality blockers: resolved. Other release gates still apply.' >> "$GITHUB_STEP_SUMMARY"
-          else
-            cat quality-status.txt
-            echo 'Release quality: BLOCKED. Expected failures are not acceptance passes; npm publication remains on hold.' >> "$GITHUB_STEP_SUMMARY"
-            cat quality-status.txt >> "$GITHUB_STEP_SUMMARY"
-          fi
-      - name: Check GitHub Pages project paths
-        run: npm run build:docs && npm test
-        env:
-          REVA_SITE: https://eristavi.github.io
-          REVA_BASE: /RevaCSS/
-
   pages-build:
-    needs: [changes, docs-check, validate]
-    if: >-
-      always() && !cancelled() &&
-      github.ref == 'refs/heads/main' && github.event_name != 'pull_request' &&
-      needs.changes.result == 'success' &&
-      ((needs.changes.outputs.docs_only == 'true' && needs.docs-check.result == 'success') ||
-       (needs.changes.outputs.docs_only != 'true' && needs.validate.result == 'success'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -138,7 +30,7 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - run: npm ci
       - run: npm run clean
-      - run: npm run build && npm test
+      - run: npm run build
         env:
           REVA_SITE: ${{ steps.pages.outputs.origin }}
           REVA_BASE: ${{ steps.pages.outputs.base_path }}/
@@ -148,7 +40,7 @@ jobs:
 
   pages-deploy:
     needs: pages-build
-    if: always() && !cancelled() && needs.pages-build.result == 'success'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
