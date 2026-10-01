@@ -53,6 +53,21 @@
     }
   }
 }
+@layer re.components {
+  @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material="glass"]) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="glass"])) {
+      --re-glass-button-fill: var(--re-action-start);
+      background-color: var(--re-action-start);
+      background-image: linear-gradient(to bottom, var(--re-action-start), color-mix(in srgb, var(--re-action-end) calc(var(--re-gradient) * 28%), var(--re-action-start)));
+      border-block-start-color: color-mix(in srgb, var(--re-action-text) 18%, transparent);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="glass"])) { background-color: transparent; background-image: none; border-block-start-color: transparent; }
+    :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="glass"])) { border-block-start-color: currentColor; }
+  }
+}
+
 @layer re.utilities {
   /* System preferences win over local contrast resets. */
   @media (prefers-reduced-transparency: reduce) {
@@ -124,26 +139,44 @@
   }
 }
 
-/* Preference paint is explicit, so an application alpha override cannot defeat it. */
+/* Explicit preference paint stays independent of custom alpha values. */
 @layer re.utilities {
-  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active), print {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
-      :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
-        background-color: var(--re-glass-button-fill, var(--re-action-start));
-        background-image: none;
-        -webkit-backdrop-filter: none;
-        backdrop-filter: none;
-      }
+  @media (prefers-reduced-transparency: reduce) {
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
+      background-color: var(--re-glass-button-fill, var(--re-action-start));
+      background-image: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+  @media (prefers-contrast: more) {
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
+      background-color: var(--re-glass-button-fill, var(--re-action-start));
+      background-image: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
   }
   @media (forced-colors: active) {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
-      :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) { background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none; }
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
+      background-color: var(--re-glass-button-fill, var(--re-action-start));
+      background-image: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
   }
   @media print {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
-      :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) { background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none; }
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
+      background-color: var(--re-glass-button-fill, var(--re-action-start));
+      background-image: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
     }
+  }
+  @media (forced-colors: active) {
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) { background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none; }
+  }
+  @media print {
+    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) { background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none; }
   }
 }
