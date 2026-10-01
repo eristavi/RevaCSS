@@ -1,0 +1,20 @@
+/* List semantics remain in ul/ol; optional item links need no class. */
+@layer re.components {
+  :where(.list-group) { list-style: none; margin: 0; padding: 0; min-inline-size: 0; }
+  :where(.list-group > li) { margin: 0; padding: calc(.85em * var(--re-density)); min-inline-size: 0; overflow-wrap: anywhere; background-color: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); }
+  :where(.list-group > li + li) { border-block-start: 0; }
+  :where(.list-group > li:first-child) { border-start-start-radius: var(--re-radius); border-start-end-radius: var(--re-radius); }
+  :where(.list-group > li:last-child) { border-end-start-radius: var(--re-radius); border-end-end-radius: var(--re-radius); }
+  :where(.list-group > li > :first-child) { margin-block-start: 0; }
+  :where(.list-group > li > :last-child) { margin-block-end: 0; }
+  :where(.list-group > li > a:only-child) { display: flex; align-items: center; min-block-size: 2.75rem; }
+  :where(.list-group [aria-current]) { font-weight: 700; }
+}
+@layer re.utilities {
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.list-group > li) { background-color: var(--re-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+
+  @media (forced-colors: active) { :where(.list-group > li) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; } }
+  @media print { :where(.list-group > li) { color: #000; background-color: #fff; } }
+}

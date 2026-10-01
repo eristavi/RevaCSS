@@ -49,13 +49,18 @@ const accordions=await readFile('src/css/accordions.css','utf8');
 const breadcrumbs=await readFile('src/css/breadcrumbs.css','utf8');
 const pagination=await readFile('src/css/pagination.css','utf8');
 const formGroups=await readFile('src/css/form-groups.css','utf8');
+const loading=await readFile('src/css/loading.css','utf8');
+const tabs=await readFile('src/css/tabs.css','utf8');
+const lists=await readFile('src/css/lists.css','utf8');
+const emptyStates=await readFile('src/css/empty-states.css','utf8');
+const avatars=await readFile('src/css/avatars.css','utf8');
 const navigation=await readFile('src/css/navigation.css','utf8');
 const glass=await readFile('src/css/glass.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+navigation+edges+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+navigation+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
+const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }
