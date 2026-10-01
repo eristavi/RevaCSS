@@ -44,7 +44,7 @@ export const topics = [
       {
         "id": "theme-actions",
         "title": "Actions in light and dark",
-        "description": "Primary and secondary actions inherit the same accent. Theme changes their palette; shape, size, borders, depth and motion remain independently configurable. These are solid buttons; glass material and animated edges are a later step.",
+        "description": "Primary and secondary actions inherit the same accent. Theme changes their palette; shape, size, borders, depth and motion remain independently configurable. These examples use solid buttons; the optional glass stylesheet enables translucent button material.",
         "html": "<div class=\"grid\" data-accent=\"violet\" data-shape=\"pill\">\n  <section class=\"card\" data-theme=\"light\">\n    <h3>Light</h3>\n    <div class=\"row\">\n      <button type=\"button\">Continue</button>\n      <button type=\"button\" class=\"secondary\">Go back</button>\n    </div>\n  </section>\n  <section class=\"card\" data-theme=\"dark\">\n    <h3>Dark</h3>\n    <div class=\"row\">\n      <button type=\"button\">Continue</button>\n      <button type=\"button\" class=\"secondary\">Go back</button>\n    </div>\n  </section>\n</div>"
       },
       {

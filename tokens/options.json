@@ -189,6 +189,6 @@
     ],
     "default": "solid",
     "scope": "Inherited material scope; optional glass stylesheet",
-    "affects": "Surface material; glass requires the optional glass stylesheet; solid stops inherited glass"
+    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass"
   }
 }

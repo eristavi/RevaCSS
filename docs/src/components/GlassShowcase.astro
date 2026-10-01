@@ -22,7 +22,9 @@ const { theme='light', id='glass' } = Astro.props;
         <p class="glass-eyebrow">02 / LOCAL THEMES</p><h2>Your own atmosphere.</h2>
         <p>A local theme or tone changes this surface without changing its neighbours.</p>
         <button type="button" data-accent="violet" id="glass-action">Primary action</button>
-        <button type="button" class="outline">Secondary action</button>
+        <button type="button" class="secondary" id="glass-secondary">Secondary action</button>
+        <button type="button" class="outline" id="glass-outline">Outline action</button>
+        <button type="button" data-material="solid" id="glass-solid-action">Solid exception</button>
       </article>
     </div>
     <section class="card" id="forms">
@@ -75,3 +77,4 @@ const { theme='light', id='glass' } = Astro.props;
   .glass-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
   .glass-muted { color: var(--re-muted); }
 </style>
+

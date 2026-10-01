@@ -29,15 +29,14 @@ test('documentation demos match their HTML and work without JavaScript', async (
   await context.close();
 });
 
-for (const width of [375,1280]) {
-  test(`documentation reflows and passes accessibility checks at ${width}px`, async ({ page }) => {
+// Each route gets its own timeout and failure report as the documentation grows.
+for (const width of [375,1280]) for (const route of routes) {
+  test(`${route} documentation reflows and passes accessibility checks at ${width}px`, async ({ page }) => {
     await page.setViewportSize({width,height:900});
-    for (const route of routes) {
-      await page.goto(route);
-      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route).toBe(true);
-      await page.addScriptTag({content:axeSource.source});
-      const violations=await page.evaluate(async()=> (await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
-      expect(violations,route).toEqual([]);
-    }
+    await page.goto(route);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route).toBe(true);
+    await page.addScriptTag({content:axeSource.source});
+    const violations=await page.evaluate(async()=> (await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
+    expect(violations,route).toEqual([]);
   });
 }
