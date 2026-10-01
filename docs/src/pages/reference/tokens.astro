@@ -1,0 +1,18 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+import { publicTokens } from '../../data/public-tokens.js';
+import reference from '../generated-reference.json';
+const sections=[{id:'properties',title:'Custom properties'},{id:'palette',title:'Default palette'},{id:'overrides',title:'Overrides'}];
+---
+<DocsLayout title="CSS tokens" active="tokens" sections={sections}>
+<p class="doc-kicker">REFERENCE</p><h1>CSS tokens</h1>
+<p class="doc-lead">Shared attributes are the main configuration API. Use custom properties for values that need a project-specific adjustment.</p>
+<section id="properties"><h2>Custom properties</h2><div class="table-scroll" role="region" aria-label="Documented CSS custom properties" tabindex="0"><table><thead><tr><th scope="col">Area</th><th scope="col">Property</th><th scope="col">Value type</th><th scope="col">Use</th></tr></thead><tbody>{publicTokens.map(([area,name,type,description])=><tr><td>{area}</td><th scope="row"><code>{name}</code></th><td>{type}</td><td>{description}</td></tr>)}</tbody></table></div>
+<p>Other component-internal variables implement derived colours and state. Prefer the shared attributes and documented properties above; the development API may still change before beta.</p></section>
+<section id="palette"><h2>Default light and dark palette</h2><p>The values below come from the foundation token source. Tone, local theme and glass material can alter effective component colours.</p><div class="table-scroll" role="region" aria-label="Default palette values" tabindex="0"><table><thead><tr><th scope="col">Property</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead><tbody>{Object.keys(reference.tokens.light).map(name=><tr><th scope="row"><code>--re-{name}</code></th><td><code>{reference.tokens.light[name].$value.hex}</code></td><td><code>{reference.tokens.dark[name].$value.hex}</code></td></tr>)}</tbody></table></div></section>
+<section id="overrides"><h2>Override on the configured boundary</h2><p>Global application values can live on :root. Scoped overrides belong on .reva or a descendant. Explicit shared attributes can install their own local token values, so place custom overrides where they should take precedence.</p>
+<CodeViewer id="accent-tokens" lang="css" label="A custom accent" code={':root {\n  --re-primary: #7041cf;\n  --re-primary-end: #5228a4;\n  --re-on-primary: #fff;\n}\n.reva.product-panel {\n  --re-container: 60rem;\n  --re-card-padding: 1.25rem;\n}'}/>
+<p>Changing a colour does not automatically produce a readable palette. Review foregrounds, gradients, borders and glass backgrounds together. Opacity properties take percentages rather than decimal numbers.</p>
+<p><a href="https://github.com/eristavi/RevaCSS/blob/main/tokens/foundation.tokens.json">Foundation token source</a> · <a href="https://github.com/eristavi/RevaCSS/blob/main/tokens/options.json">Attribute option manifest</a></p></section>
+</DocsLayout>

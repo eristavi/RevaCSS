@@ -1,4 +1,5 @@
 import { topics } from './examples.js';
+import { componentGroups, learnLinks, themeLinks, referenceLinks } from './documentation.js';
 export const demoNavigation=[
  {key:'home',label:'Home',href:'#home'},
  {key:'products',label:'Products',children:[
@@ -13,14 +14,10 @@ export const demoNavigation=[
  {key:'contact',label:'Contact',href:'#contact'}
 ];
 export const documentationNavigation=base=>[
- {key:'guide',label:'Guide',href:base+'guide/'},
- {key:'attributes',label:'Data attributes',href:base+'attributes/'},
- {key:'reference',label:'API reference',href:base+'reference/'},
- {key:'icons',label:'Icons',href:base+'icons/'},
- {key:'components',label:'Components',children:[...topics.map(t=>({key:t.slug,label:t.title,href:base+`components/${t.slug}/`})),{key:'top-menu',label:'Top menu',href:base+'components/top-menu/'}]},
- {key:'glass',label:'Glass material',href:base+'themes/glass/'},
- {key:'previews',label:'Previews',children:[
-  {key:'plain',label:'Plain HTML',href:base+'plain/'},
-  ...[['foundation','Foundation','preview/'],['menu','Top menu','preview/menu/'],['glass','Glass','preview/glass/'],['defaults','Page defaults','preview/defaults/']].map(([key,label,path])=>({key,label,children:['light','dark','auto'].map(theme=>({key:theme,label:theme==='auto'?'System':theme[0].toUpperCase()+theme.slice(1),href:base+path+theme+'/'}))}))
- ]}
+ {key:'learn',label:'Learn',children:learnLinks.map(i=>({key:i.key,label:i.title,href:base+i.path}))},
+ {key:'themes',label:'Themes',children:themeLinks.map(i=>({key:i.key,label:i.title,href:base+i.path}))},
+ {key:'components',label:'Components',children:componentGroups.map(group=>({
+   key:group.key,label:group.title,children:group.slugs.map(slug=>({key:slug,label:slug==='top-menu'?'Top menu':topics.find(t=>t.slug===slug).title,href:base+'components/'+slug+'/'}))
+ }))},
+ {key:'reference',label:'Reference',children:referenceLinks.map(i=>({key:i.key,label:i.title,href:base+i.path}))}
 ];

@@ -2,13 +2,23 @@
 import Layout from '../layouts/Layout.astro';
 import Example from '../components/Example.astro';
 import { topics } from '../data/examples.js';
+import { componentGroups } from '../data/documentation.js';
 const base=import.meta.env.BASE_URL;
 ---
 <Layout title="Documentation">
-<section class="prose"><p class="doc-kicker">REVACSS / FOUNDATION ALPHA</p><h1>Build with HTML.<br/>See how it works.</h1><p>Native elements, useful defaults, and a small set of shared settings. Explore a working example, then use the HTML directly beneath it.</p><div class="row"><a class="button" href={base+'guide/'}>Get started</a><a class="button outline" href={base+'attributes/'}>Explore data attributes</a></div></section>
-<h2>Component documentation</h2><div class="grid">{[...topics,{slug:'top-menu',title:'Top menu',intro:'Responsive desktop and mobile navigation with nested native dropdowns.'}].map(t=><article class="card"><h3><a href={base+`components/${t.slug}/`}>{t.title}</a></h3><p>{t.intro}</p></article>)}</div>
-<Example id="first-card" title="Your first card" description="Link reva.css, then use ordinary HTML and a component class. Shared attributes customise the surface locally." html={'<article class="card" data-shape="rounded" data-depth="subtle">\n  <h3>A useful starting point</h3>\n  <p>Native HTML. A complete set of defaults.</p>\n  <button type="button">Continue</button>\n</article>'}/>
-<div class="grid"><article class="card"><h2>Shared settings</h2><p>See every attribute, its supported values and where it applies.</p><a href={base+'attributes/'}>Data attribute examples</a></article><article class="card"><h2>Glass material</h2><p>Frosted surfaces that follow the same theme and component settings.</p><a href={base+'themes/glass/'}>Glass demos and HTML</a></article><article class="card"><h2>API reference</h2><p>Generated option tables and design tokens for deeper customisation.</p><a href={base+'reference/'}>Browse the API</a></article></div>
-<h2>Full page previews</h2><div class="row"><a href={base+'preview/light/'}>Light foundation</a><a href={base+'preview/dark/'}>Dark foundation</a><a href={base+'preview/menu/light/'}>Responsive menu</a><a href={base+'preview/glass/light/'}>Light glass</a><a href={base+'preview/glass/dark/'}>Dark glass</a><a href={base+'plain/'}>Plain HTML</a></div>
-<p class="prose">This foundation alpha is an implementation preview. Further components and manual accessibility and device checks remain before the first stable release. npm publication stays on hold.</p>
+<p class="doc-kicker">REVACSS / DOCUMENTATION</p>
+<h1>Start with HTML.<br/>Set your defaults once.</h1>
+<p class="doc-lead">Style native elements, choose a shared theme on the page, and add a component class only where a pattern needs one.</p>
+<div class="row"><a class="button" href={base+'guide/'}>Get started</a><a class="button outline" href={base+'reference/'}>API reference</a></div>
+<div class="grid doc-summary">
+<article class="card"><h2>Learn the model</h2><p>Understand inheritance, local overrides, global and scoped builds.</p><a href={base+'guide/styling/'}>Styling and inheritance</a></article>
+<article class="card"><h2>Choose a theme</h2><p>Light, dark or system colours; optional glass material is a separate choice.</p><a href={base+'themes/'}>Theme guides</a></article>
+<article class="card"><h2>Use the reference</h2><p>Find supported attributes, classes, CSS files and custom properties.</p><a href={base+'reference/components/'}>Component API</a></article>
+</div>
+<Example id="first-component" title="Page defaults, simple markup" description="The section stands in for page-level settings. The button and card inherit them without repeated attributes." html={'<section data-theme="light" data-accent="teal" data-shape="rounded">\n  <article class="card">\n    <h3>Your project</h3>\n    <p>Useful defaults for ordinary HTML.</p>\n    <a class="button" href="'+base+'guide/">Read the guide</a>\n  </article>\n</section>'}/>
+<h2>Find a component</h2>
+<div class="grid">{componentGroups.map(group=><section class="card"><h3>{group.title}</h3><ul>{group.slugs.map(slug=><li><a href={base+'components/'+slug+'/'}>{slug==='top-menu'?'Top menu':topics.find(t=>t.slug===slug).title}</a></li>)}</ul></section>)}</div>
+<h2>Assets and full-page examples</h2>
+<p><a href={base+'icons/'}>SVG icon gallery</a> · <a href={base+'preview/light/'}>Light foundation</a> · <a href={base+'preview/dark/'}>Dark foundation</a> · <a href={base+'preview/glass/dark/'}>Glass page</a> · <a href={base+'plain/'}>Plain HTML comparison</a></p>
+<p class="doc-note">Development preview. Documentation describes the current implementation; recent components have not yet completed release validation. npm publication remains on hold.</p>
 </Layout>

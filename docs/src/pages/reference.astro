@@ -1,20 +1,41 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
+import { stylesheets } from '../data/stylesheets.js';
 import reference from './generated-reference.json';
-function flatten(obj,prefix='') { return Object.entries(obj).flatMap(([k,v])=>k.startsWith('$')?[]: v.$type?[{path:prefix+k,type:v.$type,value:JSON.stringify(v.$value)}]:flatten(v,prefix+k+'.')); }
-const tokens=flatten(reference.tokens);
+import pkg from '../../../package.json';
 const base=import.meta.env.BASE_URL;
+const sections=[{id:'files',title:'Stylesheet files'},{id:'attributes',title:'Attribute API'},{id:'boundaries',title:'Scope and behaviour'},{id:'related',title:'Detailed reference'}];
+function fileDescription(file) {
+  const descriptions={
+    'reva.css':'Complete readable global stylesheet. Recommended starting point.',
+    'reva.tokens.css':'Theme, palette and shared setting definitions.',
+    'reva.base.css':'Native element styling. Depends on token definitions.',
+    'reva.components.css':'Component bundle plus shared utilities. Depends on tokens and base.',
+    'reva.scoped.css':'Complete styling scoped to .reva boundaries.',
+    'reva.glass.css':'Optional global glass extension; load after the global core.',
+    'reva.glass.scoped.css':'Optional scoped glass extension; load after reva.scoped.css.'
+  };
+  return descriptions[file] || 'Component-specific styling. Load its token/base dependencies and any required shared utilities.';
+}
 ---
-<DocsLayout title="API reference" active="reference">
-<h1>API reference</h1><p class="prose">Generated from the same option manifest and DTCG token files used to build the CSS. Use your browser’s Find command to search this reference.</p>
-<p><a href={base+"attributes/"}>See a live HTML example for every data attribute</a>.</p>
-<h2>Configuration</h2><p>The material option requires the optional <a href={base + "themes/glass/"}>glass stylesheet</a>; the other settings belong to the core.</p><div class="table-scroll" role="region" aria-label="Configuration options" tabindex="0"><table class="options-table"><caption>All core settings inherit through their subtree and affect their supported targets. The nearest explicit value overrides an inherited default.</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Values</th><th scope="col">Default</th><th scope="col">Scope</th><th scope="col">Affects</th></tr></thead><tbody>{Object.entries(reference.options).map(([name,opt])=><tr><th scope="row"><code>data-{name}</code></th><td>{opt.values.join(', ')}</td><td>{opt.default}</td><td>{opt.scope}</td><td>{opt.affects}</td></tr>)}</tbody></table></div>
-<h2>Public entry points</h2><p><code>--re-primary</code>, <code>--re-primary-end</code>, <code>--re-on-primary</code>, <code>--re-font</code>, <code>--re-font-heading</code>, <code>--re-radius</code>, <code>--re-gap</code>, <code>--re-bg</code>, <code>--re-surface</code>, <code>--re-text</code>, <code>--re-muted</code>, <code>--re-link</code>, <code>--re-line</code>, <code>--re-control-line</code>.</p>
-<p>Colour overrides require contrast checks for text, states and gradients. A new primary colour does not automatically create an accessible theme.</p>
-<h2>Token source</h2><div class="table-scroll" role="region" aria-label="Design tokens" tabindex="0"><table><thead><tr><th scope="col">Token</th><th scope="col">Type</th><th scope="col">Value</th></tr></thead><tbody>{tokens.map(t=><tr><th scope="row"><code>{t.path}</code></th><td>{t.type}</td><td><code>{t.value}</code></td></tr>)}</tbody></table></div>
+<DocsLayout title="API reference" active="reference" sections={sections}>
+<p class="doc-kicker">REFERENCE</p><h1>API reference</h1>
+<p class="doc-lead">The current CSS and HTML interface for RevaCSS {pkg.version}. Attribute values below come from the option manifest used by the build.</p>
+<p>Use the <a href={base+'guide/'}>guide</a> for setup and the <a href={base+'reference/components/'}>component API</a> for exact hooks. The API describes implemented features, not a release-validation guarantee.</p>
+<section id="files"><h2>Stylesheet files</h2><p>Start with one complete build: global or scoped. Do not combine both. Load the matching glass extension afterward when needed.</p>
+<div class="table-scroll" role="region" aria-label="Stylesheet entry points" tabindex="0"><table><caption>Generated CSS files</caption><thead><tr><th scope="col">File</th><th scope="col">Purpose</th></tr></thead><tbody>
+<tr><th scope="row"><code>reva.min.css</code></th><td>Minified equivalent of the complete global stylesheet.</td></tr>
+{stylesheets.map(file=><tr><th scope="row"><code>{file}</code></th><td>{fileDescription(file)}</td></tr>)}
+<tr><th scope="row"><code>reva-fonts.css</code></th><td>Optional Manrope font declarations; copy its adjacent fonts directory.</td></tr>
+</tbody></table></div>
+<p>The generated icons directory contains individual SVG files and <code>icons/reva.svg</code>. <a href={base+'icons/'}>See icon usage and downloads.</a></p>
+<p>Standalone modules are not a replacement for common dependencies. The complete build includes shared preference utilities; modular consumers must preserve the corresponding behaviours.</p></section>
+<section id="attributes"><h2>Shared attribute API</h2><p>Set attributes on html, a parent section, or a .reva boundary. A nearer valid value overrides only that setting for supported descendants. Unsupported values retain the nearest valid inherited setting.</p>
+<div class="table-scroll" role="region" aria-label="Shared attribute API" tabindex="0"><table class="attribute-api"><caption>{Object.keys(reference.options).length} settings from tokens/options.json</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Values</th><th scope="col">Omitted default</th><th scope="col">Targets and meaning</th></tr></thead><tbody>
+{Object.entries(reference.options).map(([name,opt])=><tr><th scope="row"><a href={base+'attributes/#'+name}><code>data-{name}</code></a></th><td>{opt.values.join(' · ')}</td><td><code>{opt.default}</code></td><td>{opt.affects}</td></tr>)}
+</tbody></table></div>
+<p><code>data-variant</code> and <code>data-appearance</code> currently configure badges and alerts. Button variants use their documented classes. Material and fill are separate settings.</p></section>
+<section id="boundaries"><h2>Scope and behavioural boundaries</h2><p>Each .reva boundary installs defaults. Configure the boundary itself or its descendants. CSS scope does not provide Shadow DOM isolation, and overlay markup must remain in its boundary.</p><p>The core relies on modern CSS including light-dark(), color-mix(), :has() and @scope. Native popovers are required for the top-menu interaction. Some enhancements have component-specific fallbacks; do not assume a complete legacy-browser fallback.</p><p>CSS does not supply routing, data loading, validation messages or arbitrary focus management. See <a href={base+'guide/accessibility/'}>behaviour and accessibility</a>.</p></section>
+<section id="related"><h2>Detailed reference</h2><ul><li><a href={base+'reference/components/'}>Component classes, native states and dependencies</a></li><li><a href={base+'reference/tokens/'}>CSS tokens and override examples</a></li><li><a href={base+'attributes/'}>Live HTML examples for every shared attribute</a></li></ul></section>
 </DocsLayout>
-
-<style>
-.options-table { min-inline-size: 52rem; }
-@media print { .options-table { min-inline-size: 0; } }
-</style>
+<style>.attribute-api { min-inline-size:46rem; } @media print { .attribute-api { min-inline-size:0; } }</style>

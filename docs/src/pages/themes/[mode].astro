@@ -1,0 +1,20 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+export function getStaticPaths() { return ['light','dark','auto'].map(mode=>({params:{mode}})); }
+const { mode }=Astro.params;
+const base=import.meta.env.BASE_URL;
+const title=mode==='auto'?'System theme':mode==='light'?'Light theme':'Dark theme';
+const sections=[{id:'activate',title:'Activate'},{id:'theme-example',title:'Component example'},{id:'local-mode',title:'Local override'},{id:'material',title:'Add glass'}];
+const demo='<section class="stack" data-theme="'+mode+'" data-accent="teal">\n  <article class="card">\n    <h3>Your account</h3>\n    <p>Surfaces, text, links and controls use this colour mode.</p>\n    <p><span class="badge" data-variant="success">Active</span></p>\n    <div class="row">\n      <button type="button">Save changes</button>\n      <button type="button" class="secondary">Cancel</button>\n    </div>\n  </article>\n  <div class="alert" data-variant="warning">Warning: Verify your email address.</div>\n</section>';
+---
+<DocsLayout title={title} active={mode} theme={mode} sections={sections}>
+<p class="doc-kicker">THEMES / COLOUR MODE</p><h1>{title}</h1>
+<p class="doc-lead">{mode==='auto'?'Follow the visitor’s preferred colour scheme using native CSS colour-scheme.':mode==='light'?'Choose an explicitly light palette for backgrounds, foregrounds, surfaces and native controls.':'Choose an explicitly dark palette for backgrounds, foregrounds, surfaces and native controls.'}</p>
+<Example id="activate" title="Activate on the page" description="Only one theme value is needed. Other component settings keep their shared defaults." render={false} html={'<html lang="en" data-theme="'+mode+'">\n  <!-- Load reva.css in the head, then add your content. -->\n</html>'}/>
+<p>{mode==='auto'?'Omitting data-theme also uses the system mode. When the device preference changes, supporting browsers update the palette without a script.':'This explicit value takes precedence over the device’s preferred colour mode.'} The documentation theme menu changes this document only; it does not persist across navigation. Fixed theme values inside individual demos remain local overrides.</p>
+<Example id="theme-example" title="The same component markup" description="No theme attributes are repeated on the card, actions, badge or alert." html={demo}/>
+<Example id="local-mode" title="Override one section" description="A nearer theme value changes this section while leaving its neighbours in the page mode." html={'<section data-theme="'+(mode==='dark'?'light':'dark')+'">\n  <article class="card">\n    <h3>A local colour mode</h3>\n    <p>Other settings still inherit independently.</p>\n  </article>\n</section>'}/>
+<section id="material"><h2>Add glass independently</h2><p>Load <code>reva.glass.css</code> after the core and add <code>data-material="glass"</code> to a parent. The theme remains <code>{mode}</code>. Styled text controls retain their normal backing.</p><p><a href={base+'themes/glass/'}>Glass installation, coverage and fallback guide</a> · <a href={base+'preview/'+mode+'/'}>Full-page colour preview</a> · <a href={base+'preview/glass/'+mode+'/'}>Full-page glass preview</a></p></section>
+<p><a href={base+'reference/tokens/#palette'}>Inspect the light and dark palette tokens.</a> Both modes use the same shape, density and component defaults.</p>
+</DocsLayout>
