@@ -57,3 +57,15 @@ for (const direction of ['ltr', 'rtl']) test(`mixed native fixture reflows with 
     }
   } finally { await context.close(); }
 });
+
+for(const direction of ['ltr','rtl']) test(`action variants and nested labels wrap inside narrow parents in ${direction}`,async({page})=>{
+ await page.setViewportSize({width:320,height:900});
+ await mount(page,`<main class="container" dir="${direction}"><section class="stack" style="width:180px"><button><span>${long}</span></button><a class="button outline" href="#target">${long}</a><input type="submit" value="${long}" aria-label="Submit"><div class="row"><span>${long}</span></div><div class="grid"><div>${long}</div></div><details><summary>${long}</summary><p id="target">Details</p></details></section></main>`);
+ await noPageOverflow(page);
+ for(const el of await page.locator('button,a.button,input[type=submit],summary').all()) {
+  const box=await el.boundingBox();expect(box.width).toBeLessThanOrEqual(180);expect(box.height).toBeGreaterThanOrEqual(44);
+ }
+ const wrapped=await page.locator('button').evaluate(el=>el.scrollWidth<=el.clientWidth);
+ expect(wrapped).toBe(true);
+ await page.locator('summary').click();await expect(page.locator('details')).toHaveAttribute('open','');
+});

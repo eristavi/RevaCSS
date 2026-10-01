@@ -10,7 +10,7 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} edge
  const root=build==='scoped'?'main':'html';
  const before=await page.locator('#action').boundingBox();expect(await pseudo(page,'#action','content')).toBe('none');
  await page.locator(root).evaluate(el=>{el.dataset.edge='animated';el.dataset.shape='pill';el.dataset.border='defined';el.dataset.accent='teal';});
- for(const id of ['action','link','card']) {expect(await pseudo(page,'#'+id,'content')).toBe('""');expect(await pseudo(page,'#'+id,'animation-name')).toBe('re-edge-turn');expect(await pseudo(page,'#'+id,'padding-top')).toBe('2px');expect(await pseudo(page,'#'+id,'pointer-events')).toBe('none');expect(await pseudo(page,'#'+id,'mask-composite')).toContain('exclude');}
+ for(const id of ['action','link','card']) {expect(await pseudo(page,'#'+id,'content')).toBe('""');expect(await pseudo(page,'#'+id,'animation-name')).toBe('re-edge-turn');expect(await pseudo(page,'#'+id,'padding-top')).toBe('4px');expect(await pseudo(page,'#'+id,'pointer-events')).toBe('none');expect(await pseudo(page,'#'+id,'mask-composite')).toContain('exclude');}
  expect(await pseudo(page,'#action','border-top-left-radius')).toBe('999px');expect(await pseudo(page,'#card','border-top-left-radius')).toBe('24px');
  expect(await pseudo(page,'#plain','content')).toBe('none');expect(await pseudo(page,'#disabled','animation-name')).toBe('none');
  if(build==='scoped') expect(await pseudo(page,'#outside','content')).toBe('none');
@@ -67,4 +67,26 @@ test('missing composite masking falls back to unchanged core borders',async({pag
  await page.goto('/plain/');await page.locator('link[rel=stylesheet]').evaluateAll(els=>els.forEach(el=>el.remove()));await page.addStyleTag({content:css});
  await page.evaluate(fixture=>{document.body.innerHTML='<main>'+fixture+'</main>';document.documentElement.dataset.edge='animated';},fixture);
  expect(await pseudo(page,'#action','content')).toBe('none');expect(await style(page,'#action','border-top-width')).toBe('1px');expect(await style(page,'#action','position')).toBe('static');
+});
+
+
+// Verify rendered pixels, not just a changing custom property. Pause the
+// timeline at two deterministic positions so captures remain comparable.
+for (const theme of ['light', 'dark']) for (const material of ['solid', 'glass']) test(`${theme} ${material} edges visibly animate while preserving the interior`, async ({page}) => {
+ const css=(await Promise.all(['dist/reva.css','dist/reva.glass.css'].map(p=>readFile(p,'utf8')))).join('\n');
+ await page.setContent(`<html data-theme="${theme}" data-material="${material}"><head><style>${css}\nbody{margin:0;padding:32px;background:var(--re-bg)}#sample{width:200px;height:80px;border-radius:0;box-shadow:none}</style></head><body><button id="sample" data-edge="animated">Continue</button></body></html>`);
+ const capture=async time=>{
+  await page.locator('#sample').evaluate((el,time)=>{for(const a of el.getAnimations({subtree:true})){a.pause();a.currentTime=time;}},time);
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  const png=await page.locator('#sample').screenshot({animations:'allow',scale:'css'});
+  return page.evaluate(async url=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const pixel=(x,y)=>[...ctx.getImageData(x,y,1,1).data];return {edge:Array.from({length:180},(_,i)=>pixel(i+10,0)),center:pixel(20,40)};},'data:image/png;base64,'+png.toString('base64'));
+ };
+ const start=await capture(0),quarter=await capture(2000);
+ const changed=(a,b)=>a.filter((p,i)=>p.slice(0,3).some((v,j)=>Math.abs(v-b[i][j])>=24)).length;
+ expect(changed(start.edge,quarter.edge)).toBeGreaterThan(30);
+ expect(start.center).toEqual(quarter.center);
+ await page.locator('#sample').evaluate(el=>el.dataset.edge='plain');
+ const plain=await capture(0);
+ expect(changed(start.edge,plain.edge)).toBeGreaterThan(30);
+ expect(start.center).toEqual(plain.center);
 });

@@ -5,7 +5,8 @@
   :where(.card > :last-child) { margin-block-end: 0; }
   :where(.container) { inline-size: min(100% - 2rem, var(--re-container, 75rem)); margin-inline: auto; }
   :where(.prose) { max-inline-size: var(--re-prose, 65ch); }
-  :where(.grid,.row,.stack) { gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
+  :where(.grid,.row,.stack) { gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.grid > *,.row > *,.stack > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.grid) { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,var(--re-column,18rem)),1fr)); }
   :where(.row) { display: flex; flex-wrap: wrap; align-items: center; }
   :where(.stack) { display: flex; flex-direction: column; }
@@ -46,3 +47,4 @@
     :where(.skip-link) { display: none; }
   }
 }
+

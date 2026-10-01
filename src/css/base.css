@@ -43,6 +43,7 @@
   :where(button, input[type=button],input[type=submit],input[type=reset], .button) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
     display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
+    min-inline-size: 0; max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere;
     min-block-size: 2.75rem; padding: calc(.65em * var(--re-density)) calc(1.1em * var(--re-density));
     border: var(--re-surface-border) solid color-mix(in srgb, var(--re-action-text) 18%, transparent); border-radius: var(--re-button-radius); font-weight: 600; line-height: 1.3; text-align: center;
     background: var(--re-action-start); background-image: linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 28%),var(--re-action-start))); color: var(--re-action-text);
@@ -86,9 +87,10 @@
   :where(th) { font-weight: 650; text-align: start; }
   :where(thead > tr > *,tfoot > tr > *) { background: var(--re-surface-alt); }
   :where(details) { padding: var(--re-space); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); box-shadow: var(--re-shadow); }
-  :where(summary) { cursor: pointer; font-weight: 650; min-block-size: 2rem; }
+  :where(summary) { cursor: pointer; font-weight: 650; min-block-size: 2.75rem; overflow-wrap: anywhere; }
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
   :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-space) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
   :where([hidden]) { display: none !important; }
 }
+
