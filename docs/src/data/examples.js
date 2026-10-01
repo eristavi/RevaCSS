@@ -79,6 +79,65 @@ export const topics = [
       }
     ]
   },
+{
+  "slug": "alerts",
+  "title": "Alerts",
+  "glass": true,
+  "intro": "Messages with one alert class. Theme, accent, shape, size, density, depth, borders, fill and material follow the parent. Attributes are optional exceptions, not required on every alert.",
+  "notes": [
+    "Default: primary variant with a tinted appearance. Primary uses your inherited accent for informational messages. Success, warning, danger and neutral share the badge vocabulary. Write the meaning in text; colour alone is insufficient.",
+    "Use ordinary div, section or paragraph markup for static messages. The alert class does not create a live region. For a message updated by your application, establish role=\"status\" before a non-urgent update, or role=\"alert\" for an urgent update that warrants interruption. These ARIA roles do not add interactivity.",
+    "data-variant and data-appearance work on html, parent sections or individual exceptions. Unsupported values preserve the nearest valid ancestor setting. Decorative data-edge does not apply to alerts.",
+    "Alerts are persistent. CSS does not provide a dismiss action; no inactive close buttons are included. Use native links for destinations and buttons only for actions implemented by your application.",
+    "The complete, minified, scoped and components builds include alerts. Modular use: load tokens and base, then reva.alerts.css. Glass requires the matching optional glass stylesheet after the core. Higher contrast, reduced transparency, forced colours and print receive opaque treatments."
+  ],
+  "examples": [
+    {
+      "id": "basic-alert",
+      "title": "One class, no attributes",
+      "description": "A static informational message uses the inherited accent and needs no announcement role.",
+      "html": "<div class=\"alert\">\n  <strong>Information:</strong> Your draft is saved locally.\n</div>"
+    },
+    {
+      "id": "alert-variants",
+      "title": "Shared status variants",
+      "description": "Choose meaning through visible text and optional variants. Each message stays readable without relying on its colour.",
+      "html": "<div class=\"stack\">\n  <div class=\"alert\">Information: Your next invoice arrives on Monday.</div>\n  <div class=\"alert\" data-variant=\"success\">Success: Your changes have been saved.</div>\n  <div class=\"alert\" data-variant=\"warning\">Warning: Your subscription expires in three days.</div>\n  <div class=\"alert\" data-variant=\"danger\">Error: Your payment could not be processed.</div>\n  <div class=\"alert\" data-variant=\"neutral\">Note: This project is archived.</div>\n</div>"
+    },
+    {
+      "id": "alert-content",
+      "title": "Headings, lists and links",
+      "description": "Ordinary HTML supports richer messages. Use a heading level that fits your document and descriptive links.",
+      "html": "<section class=\"alert\" data-variant=\"warning\" aria-labelledby=\"alert-review-heading\">\n  <h3 id=\"alert-review-heading\">Review before continuing</h3>\n  <p>Please check the following details:</p>\n  <ul>\n    <li>Your billing address</li>\n    <li>Your preferred payment method</li>\n  </ul>\n  <p><a href=\"#main\">Return to the documentation content</a></p>\n</section>"
+    },
+    {
+      "id": "alert-inheritance",
+      "title": "Parent defaults and local exceptions",
+      "description": "Both alerts inherit appearance and shape. Only the exception needs its own variant.",
+      "html": "<section class=\"stack\" data-variant=\"success\" data-appearance=\"tinted\"\n         data-shape=\"rounded\" data-density=\"comfortable\">\n  <div class=\"alert\">Success: Your profile is complete.</div>\n  <div class=\"alert\" data-variant=\"warning\">Warning: Verify your email address.</div>\n</section>"
+    },
+    {
+      "id": "alert-appearance",
+      "title": "Tinted, solid and outline",
+      "description": "The same appearance setting configures badges and alerts. Outline keeps an opaque surface backing for readable content.",
+      "html": "<div class=\"stack\" data-variant=\"success\">\n  <div class=\"alert\">Success: Tinted appearance.</div>\n  <div class=\"alert\" data-appearance=\"solid\">Success: Solid appearance.</div>\n  <div class=\"alert\" data-appearance=\"outline\">Success: Outline appearance.</div>\n</div>"
+    },
+    {
+      "id": "alert-glass",
+      "title": "Glass with a solid exception",
+      "description": "Load the optional glass extension. Parent material carries into alerts; a local solid section stops it. Unsupported blur retains opaque backing.",
+      "glass": true,
+      "html": "<section class=\"stack\" data-theme=\"dark\" data-material=\"glass\">\n  <div class=\"alert\">Information: A frosted message surface.</div>\n  <section data-material=\"solid\">\n    <div class=\"alert\">Information: An opaque local exception.</div>\n  </section>\n</section>"
+    },
+    {
+      "id": "alert-announcements",
+      "title": "Application announcement markup",
+      "description": "This markup is for an application that later updates the message. Keep the region in the document before updating its contents; use urgent alerts sparingly.",
+      "render": false,
+      "html": "<!-- Non-urgent feedback; populate after a completed action. -->\n<div class=\"alert\" data-variant=\"success\" role=\"status\"></div>\n\n<!-- Urgent feedback; populate when immediate attention is needed. -->\n<div class=\"alert\" data-variant=\"danger\" role=\"alert\"></div>"
+    }
+  ]
+},
   {
     "slug": "badges",
     "title": "Badges",

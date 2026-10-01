@@ -20,7 +20,7 @@
     ],
     "default": "blue",
     "scope": "Inherited",
-    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour; badges follow this setting"
+    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour; badges and alerts follow this setting"
   },
   "shape": {
     "values": [
@@ -31,7 +31,7 @@
     ],
     "default": "rounded",
     "scope": "Inherited",
-    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges follow this setting"
+    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code; badges and alerts follow this setting"
   },
   "fill": {
     "values": [
@@ -40,7 +40,7 @@
     ],
     "default": "gradient",
     "scope": "Inherited",
-    "affects": "Button gradients and optional glass sheen; badges follow this setting"
+    "affects": "Button gradients and optional glass sheen; badges and alerts follow this setting"
   },
   "density": {
     "values": [
@@ -50,7 +50,7 @@
     ],
     "default": "comfortable",
     "scope": "Inherited",
-    "affects": "Surface padding, control padding, table cells and layout spacing; badges follow this setting"
+    "affects": "Surface padding, control padding, table cells and layout spacing; badges and alerts follow this setting"
   },
   "depth": {
     "values": [
@@ -60,7 +60,7 @@
     ],
     "default": "subtle",
     "scope": "Inherited",
-    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls; badges follow this setting"
+    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls; badges and alerts follow this setting"
   },
   "motion": {
     "values": [
@@ -148,7 +148,7 @@
     ],
     "default": "medium",
     "scope": "Inherited; affects controls and menu actions",
-    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges follow this setting"
+    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain; badges and alerts follow this setting"
   },
   "ratio": {
     "values": [
@@ -189,7 +189,7 @@
     ],
     "default": "solid",
     "scope": "Inherited material scope; optional glass stylesheet",
-    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass; badges follow this setting"
+    "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass; badges and alerts follow this setting"
   },
   "edge": {
     "values": [
@@ -211,8 +211,8 @@
       "neutral"
     ],
     "default": "primary",
-    "scope": "Inherited scope; affects badges",
-    "affects": "Badge status colour; visible text conveys the meaning"
+    "scope": "Inherited scope; affects badges and alerts",
+    "affects": "Badge and alert status colour; primary uses the inherited accent and serves as an informational alert. Visible text conveys the meaning"
   },
   "appearance": {
     "values": [
@@ -221,7 +221,7 @@
       "outline"
     ],
     "default": "tinted",
-    "scope": "Inherited scope; affects badges",
-    "affects": "Badge backing and border treatment"
+    "scope": "Inherited scope; affects badges and alerts",
+    "affects": "Badge and alert backing and border treatment"
   }
 }

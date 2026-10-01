@@ -214,3 +214,17 @@
     }
   }
 }
+
+/* Alerts retain strong backing for readable multi-line content. */
+@layer re.components {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(.alert, :scope.alert):where(:not([data-material="solid"])) {
+        background-color: color-mix(in srgb, var(--re-alert-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
+        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-alert-fill-end) calc(var(--re-gradient) * 6%), transparent), transparent);
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
+        backdrop-filter: var(--re-glass-filter, blur(16px));
+      }
+    }
+  }
+}

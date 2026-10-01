@@ -56,7 +56,7 @@ Set shared defaults on `<html>`, then write ordinary HTML. All 19 core attribute
 
 ## Documentation and GitHub Pages
 
-Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, badges, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
+Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them in a syntax-highlighted, theme-aware code viewer with native line wrapping. Browse typography, buttons, badges, alerts, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
 
 The validation workflow builds from scratch, runs all three browser engines, and checks the `/RevaCSS/` project path. Pushes to `main` deploy documentation only after validation succeeds. In **Settings → Pages → Build and deployment**, select **GitHub Actions** before the first deployment. The expected default address is https://eristavi.github.io/RevaCSS/; a successful deployment is required before that address is available.
 
@@ -80,3 +80,7 @@ All documentation and preview page headers use the shared native-popover top men
 ## Badges
 
 Use `<span class="badge">New</span>` for passive labels. Badges inherit theme, accent, size, shape, density, depth, borders, gradient and material settings from the parent. Optional `data-variant="primary|success|warning|danger|neutral"` and `data-appearance="tinted|solid|outline"` configure badges on any parent; local overrides remain optional. Defaults are primary and tinted. Use visible status text and meaningful count context; badges add no live-region roles or interaction. See the [badge examples](https://eristavi.github.io/RevaCSS/components/badges/). Modular builds provide `reva.badges.css`; glass remains opt-in.
+
+### Alerts
+
+Use `<div class="alert">Information: Your draft is saved.</div>` for a persistent message. Alerts inherit shared parent styling and use the same optional `data-variant="primary|success|warning|danger|neutral"` and `data-appearance="tinted|solid|outline"` as badges. Defaults are primary (informational, using the inherited accent) and tinted. Use visible status text. Static messages need no live-region role; application updates can use an established `role="status"` or, when urgent, `role="alert"` region. No JavaScript or dismissal behavior is included. See the [alert examples](https://eristavi.github.io/RevaCSS/components/alerts/). Modular builds provide `reva.alerts.css`; glass remains opt-in.

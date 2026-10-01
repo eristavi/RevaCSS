@@ -44,13 +44,14 @@ contrast+=`@media (prefers-contrast: more) { ${rule(':where(:root,[data-theme],[
 await mkdir('dist',{recursive:true}); await mkdir('docs/public/reva',{recursive:true});
 const base=await readFile('src/css/base.css','utf8'), comp=await readFile('src/css/components.css','utf8');
 const badges=await readFile('src/css/badges.css','utf8');
+const alerts=await readFile('src/css/alerts.css','utf8');
 const navigation=await readFile('src/css/navigation.css','utf8');
 const glass=await readFile('src/css/glass.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=edgeRegistration+tokens+base+comp+badges+navigation+edges+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+navigation+edges+contrast],['reva.badges.css',badges],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
+const full=edgeRegistration+tokens+base+comp+badges+alerts+navigation+edges+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+navigation+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }
