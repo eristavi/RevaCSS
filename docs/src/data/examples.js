@@ -1,5 +1,180 @@
 export const topics = [
 {
+  "slug": "switches",
+  "title": "Switches",
+  "intro": "A switch class styles a native checkbox as an on/off control. Checked state, keyboard activation, form submission and disabled behavior remain native.",
+  "notes": [
+    "Use switches for boolean settings. Keep a stable visible label; Space toggles the focused checkbox. Optional role=\"switch\" communicates on/off semantics while checked remains the native input state.",
+    "Place the checkbox inside its label for a comfortable label target. Add aria-describedby for explanatory text. Do not maintain aria-checked manually on a native checkbox.",
+    "Size, shape, accent, borders and motion follow the parent. Switches keep opaque control backing, including inside a glass section. Reduced-motion preferences stop thumb transitions.",
+    "Included in complete, minified, scoped and components builds. Modular use: tokens, base and reva.switches.css."
+  ],
+  "examples": [
+    {
+      "id": "switch-basic",
+      "title": "A native on/off setting",
+      "description": "The label names the setting and activates its checkbox.",
+      "html": "<label>\n  <input class=\"switch\" type=\"checkbox\" role=\"switch\"\n         name=\"email-updates\" checked>\n  Email updates\n</label>"
+    },
+    {
+      "id": "switch-help",
+      "title": "Help and disabled settings",
+      "description": "Associated help text explains the setting. Native disabled prevents changes.",
+      "html": "<div class=\"form-group\" data-shape=\"pill\">\n  <label>\n    <input class=\"switch\" type=\"checkbox\" role=\"switch\"\n           name=\"weekly-summary\" aria-describedby=\"weekly-summary-help\">\n    Weekly summary\n  </label>\n  <small id=\"weekly-summary-help\">Receive one summary every Monday.</small>\n</div>\n<label>\n  <input class=\"switch\" type=\"checkbox\" role=\"switch\"\n         name=\"managed-backups\" checked disabled>\n  Backups enabled by your administrator\n</label>"
+    },
+    {
+      "id": "switch-inherited",
+      "title": "Shared defaults",
+      "description": "Set accent and size on the parent; controls only need the switch class.",
+      "html": "<section data-accent=\"teal\" data-size=\"large\" data-shape=\"pill\">\n  <label><input class=\"switch\" type=\"checkbox\" role=\"switch\" checked> Notifications</label>\n  <label><input class=\"switch\" type=\"checkbox\" role=\"switch\">Activity emails</label>\n</section>"
+    }
+  ],
+  "glass": false
+},
+{
+  "slug": "input-groups",
+  "title": "Input groups",
+  "intro": "One input-group wrapper arranges a native input with text prefixes, suffixes or an action. Each field keeps its own label and shared control styling.",
+  "notes": [
+    "The prefix or suffix does not replace a label. Include units in the visible label and connect meaningful supporting text with aria-describedby when needed.",
+    "Groups wrap when space is limited. Small gaps keep each control's borders and focus outline clear rather than relying on tightly joined corners.",
+    "Use type=\"submit\" only for actions backed by an actual form. Application routes and processing remain your responsibility. Static action demos use type=\"button\".",
+    "Included in complete, minified, scoped and components builds. Modular use: tokens, base and reva.input-groups.css."
+  ],
+  "examples": [
+    {
+      "id": "input-group-currency",
+      "title": "An amount with a prefix",
+      "description": "The visible label names both the field and its currency; the decorative prefix avoids repeating it.",
+      "html": "<div class=\"form-group\">\n  <label for=\"invoice-amount\">Amount in euros</label>\n  <div class=\"input-group\">\n    <span aria-hidden=\"true\">€</span>\n    <input id=\"invoice-amount\" name=\"amount\" type=\"number\" min=\"0\" step=\"0.01\"\n           aria-describedby=\"invoice-amount-help\">\n  </div>\n  <small id=\"invoice-amount-help\">Enter the total before tax.</small>\n</div>"
+    },
+    {
+      "id": "input-group-action",
+      "title": "A field with an action",
+      "description": "The example action is presentation-only. Your application supplies the search behavior.",
+      "html": "<div class=\"form-group\">\n  <label for=\"group-search\">Search projects</label>\n  <div class=\"input-group\">\n    <input id=\"group-search\" name=\"query\" type=\"search\">\n    <button type=\"button\">Search</button>\n  </div>\n</div>"
+    },
+    {
+      "id": "input-group-unit",
+      "title": "A measured value",
+      "description": "Units are explicit in the label, with a decorative suffix.",
+      "html": "<div class=\"form-group\" data-size=\"small\">\n  <label for=\"package-weight\">Package weight in kilograms</label>\n  <div class=\"input-group\">\n    <input id=\"package-weight\" name=\"weight\" type=\"number\" min=\"0\" step=\"0.1\">\n    <span aria-hidden=\"true\">kg</span>\n  </div>\n</div>"
+    }
+  ],
+  "glass": false
+},
+{
+  "slug": "skeletons",
+  "title": "Skeletons",
+  "intro": "A skeleton class draws a decorative loading placeholder. Keep a real loading message available; your application controls when placeholders are replaced by content.",
+  "notes": [
+    "Hide decorative placeholders from assistive technology using aria-hidden=\"true\" on their containing wrapper. Do not place essential text inside a skeleton.",
+    "aria-busy on the affected region communicates incomplete updates. Your application must clear busy state when the content arrives. A static documentation example adds no automatic live announcements.",
+    "Theme, roundness and motion inherit. data-motion=\"none\" pauses shimmer, reduced-motion preferences remove it, and forced colours use static boundaries. Placeholders are omitted from print.",
+    "Use --re-skeleton-width and --re-skeleton-height on a parent or individual exception. Included in all core builds; modular use: tokens, base and reva.skeletons.css."
+  ],
+  "examples": [
+    {
+      "id": "skeleton-card",
+      "title": "Loading card content",
+      "description": "Visible text explains the waiting state; only the placeholders are decorative.",
+      "html": "<article class=\"card\" aria-busy=\"true\" aria-label=\"Project details\">\n  <p>Loading project details…</p>\n  <div class=\"stack\" aria-hidden=\"true\">\n    <span class=\"skeleton\" style=\"--re-skeleton-width: 55%;\"></span>\n    <span class=\"skeleton\"></span>\n    <span class=\"skeleton\" style=\"--re-skeleton-width: 80%;\"></span>\n  </div>\n</article>"
+    },
+    {
+      "id": "skeleton-static",
+      "title": "Shared stationary placeholders",
+      "description": "The parent disables motion. An optional height gives the first placeholder a media shape.",
+      "html": "<section data-motion=\"none\" data-shape=\"rounded\">\n  <p>Preparing a preview…</p>\n  <div class=\"stack\" aria-hidden=\"true\">\n    <span class=\"skeleton\" style=\"--re-skeleton-height: 8rem;\"></span>\n    <span class=\"skeleton\" style=\"--re-skeleton-width: 60%;\"></span>\n  </div>\n</section>"
+    }
+  ],
+  "glass": false
+},
+{
+  "slug": "toolbars",
+  "title": "Toolbars",
+  "intro": "One toolbar class arranges related native actions and allows them to wrap. Controls inherit their existing button and form styling.",
+  "notes": [
+    "Use role=\"group\" with a descriptive name for this CSS-only pattern. Each control remains a normal Tab stop. Do not add role=\"toolbar\" without implementing its expected arrow-key focus behavior.",
+    "Use links for destinations and buttons for application actions. Native disabled works as usual. Name icon-only buttons explicitly.",
+    "Gap and density inherit. The wrapper paints no extra surface; combine it with card when a surface is useful.",
+    "Included in all core builds; modular use: tokens, base and reva.toolbars.css."
+  ],
+  "examples": [
+    {
+      "id": "toolbar-basic",
+      "title": "A group of actions",
+      "description": "The labelled group explains why these controls belong together.",
+      "html": "<div class=\"toolbar\" role=\"group\" aria-label=\"Project actions\">\n  <button type=\"button\">Create project</button>\n  <button type=\"button\" class=\"secondary\">Export</button>\n  <button type=\"button\" disabled>Archive selected</button>\n</div>"
+    },
+    {
+      "id": "toolbar-links",
+      "title": "Related destinations",
+      "description": "Ordinary links keep navigation semantics inside a labelled action group.",
+      "html": "<div class=\"toolbar\" role=\"group\" aria-label=\"Documentation shortcuts\" data-gap=\"small\">\n  <a class=\"button\" href=\"__BASE__guide/\">Get started</a>\n  <a class=\"button secondary\" href=\"__BASE__attributes/\">Shared settings</a>\n  <a class=\"button outline\" href=\"__BASE__icons/\">SVG icons</a>\n</div>"
+    }
+  ],
+  "glass": false
+},
+{
+  "slug": "description-lists",
+  "title": "Description lists",
+  "intro": "One description-list class arranges native term and description pairs. Use this pattern for record summaries and profile metadata.",
+  "notes": [
+    "Use dl, dt and dd for associations, not a table when there are no tabular column relationships. A native div may group each term with its description.",
+    "Pairs stack when their own container is narrow; a viewport fallback supports browsers without container queries. Use --re-description-label to customise the label column.",
+    "Colours, density and borders inherit. Basic dl without this class retains normal document formatting.",
+    "Included in all core builds; modular use: tokens, base and reva.description-lists.css."
+  ],
+  "examples": [
+    {
+      "id": "description-record",
+      "title": "Record details",
+      "description": "Each native div groups a term and its value.",
+      "html": "<dl class=\"description-list\">\n  <div><dt>Project</dt><dd>RevaCSS</dd></div>\n  <div><dt>Status</dt><dd><span class=\"badge\" data-variant=\"success\">Active</span></dd></div>\n  <div><dt>Documentation</dt><dd><a href=\"__BASE__guide/\">Getting started</a></dd></div>\n</dl>"
+    },
+    {
+      "id": "description-card",
+      "title": "Metadata inside a card",
+      "description": "The label width is optional; the enclosing card supplies its inherited surface.",
+      "html": "<article class=\"card\">\n  <h3>Account summary</h3>\n  <dl class=\"description-list\" style=\"--re-description-label: 8rem;\">\n    <div><dt>Plan</dt><dd>Professional</dd></div>\n    <div><dt>Billing</dt><dd>Monthly</dd></div>\n    <div><dt>Team</dt><dd>12 members</dd></div>\n  </dl>\n</article>"
+    }
+  ],
+  "glass": false
+},
+{
+  "slug": "card-patterns",
+  "title": "Card patterns",
+  "intro": "Extend the existing card class with native header, figure and footer elements. No extra classes are needed for the card's structural sections.",
+  "notes": [
+    "Use article for self-contained content or section with an appropriate heading for a page section. Heading levels should fit the surrounding document.",
+    "Header and footer separators follow shared borders and density. Native media keeps its responsive sizing and meaningful alternative text. Existing row and grid classes arrange actions or multiple cards.",
+    "Theme, shape, depth, density and optional glass material belong to the existing card. The new module adds structure without replacing its surface styling.",
+    "Included in all core builds. The components bundle already includes these patterns. reva.card-patterns.css is also available for projects supplying their own card surface; glass requires its matching extension."
+  ],
+  "examples": [
+    {
+      "id": "card-header-footer",
+      "title": "Header, content and actions",
+      "description": "Native elements identify the structural sections of the card.",
+      "html": "<article class=\"card\">\n  <header>\n    <h3>Project overview</h3>\n    <p><span class=\"badge\">New</span> RevaCSS documentation</p>\n  </header>\n  <p>Start with inherited page defaults, then add only local exceptions.</p>\n  <footer class=\"row\">\n    <a class=\"button\" href=\"__BASE__guide/\">Read the guide</a>\n    <a href=\"__BASE__attributes/\">View defaults</a>\n  </footer>\n</article>"
+    },
+    {
+      "id": "card-media",
+      "title": "A media card",
+      "description": "Intrinsic image dimensions reserve its natural space. The figure adds a visible caption.",
+      "html": "<article class=\"card\">\n  <figure>\n    <img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\"\n         alt=\"Illustrated hills beneath a pale sky\">\n    <figcaption>A quiet landscape</figcaption>\n  </figure>\n  <h3>Explore the possibilities</h3>\n  <p>Native content and responsive media share the same surface.</p>\n  <footer><a href=\"__BASE__components/media/\">Explore media styling</a></footer>\n</article>"
+    },
+    {
+      "id": "card-glass-pattern",
+      "title": "Shared glass material",
+      "description": "Only the enclosing section needs theme and material settings.",
+      "html": "<section data-theme=\"dark\" data-material=\"glass\" data-shape=\"rounded\">\n  <article class=\"card\">\n    <header><h3>Frosted account summary</h3></header>\n    <p>A native header and footer follow the inherited card surface.</p>\n    <footer><a href=\"__BASE__themes/glass/\">Explore glass material</a></footer>\n  </article>\n</section>",
+      "glass": true
+    }
+  ],
+  "glass": true
+},
+{
   "slug": "progress",
   "title": "Progress and meters",
   "intro": "Native progress and meter elements already inherit the accent and available width. No component class is required.",

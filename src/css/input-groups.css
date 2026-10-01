@@ -1,0 +1,17 @@
+/* Flexible grouped fields wrap rather than shrinking actions beyond usability. */
+@layer re.components {
+  :where(.input-group) { display: flex; flex-wrap: wrap; align-items: stretch; gap: calc(.35em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; }
+  :where(.input-group > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.input-group > :is(input,select,textarea)) { flex: 1 1 12rem; inline-size: auto; }
+  :where(.input-group > :is(button,.button)) { flex: 0 1 auto; }
+  :where(.input-group > span) {
+    display: inline-flex; align-items: center; padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
+    font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
+    background-color: var(--re-surface-alt); color: var(--re-text);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius);
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(.input-group > span) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; } }
+  @media print { :where(.input-group > span) { color: #000; background-color: #fff; } }
+}

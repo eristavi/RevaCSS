@@ -102,3 +102,9 @@ These components add no browser JavaScript. Applications own loading state, resu
 The Reva outline set contains 36 original SVG icons on a 24 × 24 grid with rounded 1.75-unit strokes. Use `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/path/to/icons/reva.svg#rv-search"></use></svg>` beside visible text. Inline SVG and sprite use inherit `currentColor`, so icons follow light, dark and glass foregrounds without repeated theme attributes. Name icon-only controls on the native button.
 
 Builds include `dist/icons/reva.svg`, individual SVG assets and `reva.icons.css`. Complete and scoped CSS include icon presentation. Set `--re-icon-size` or `--re-icon-stroke` on a parent only when defaults need adjustment. External `img` SVGs do not inherit the page text colour. Browse the [icon gallery and HTML examples](https://eristavi.github.io/RevaCSS/icons/). No JavaScript is required.
+
+### Settings and content patterns
+
+Native checkbox `.switch` controls provide on/off settings with inherited accent, shape, size and motion. `.input-group` flexibly arranges a labelled input with text or an action. Decorative `.skeleton` placeholders retain visible loading text and respect reduced motion. `.toolbar` groups ordinary controls with `role="group"` semantics; applications wanting ARIA toolbar arrow-key navigation supply that behavior separately.
+
+Use `dl.description-list` for responsive term/value pairs. Existing `.card` elements now support native headers, media figures and action footers without extra structural classes. All six patterns include HTML examples in the documentation and standalone CSS modules. No JavaScript was added; application actions, busy states and data updates remain application-owned.
