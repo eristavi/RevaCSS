@@ -1,0 +1,32 @@
+/* Real links navigate; plain spans represent current/unavailable pages. */
+@layer re.components {
+  :where(.pagination) { min-inline-size: 0; }
+  :where(.pagination > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.4em * var(--re-density) * var(--re-gap-factor, 1)); list-style: none; margin: 0; padding: 0; }
+  :where(.pagination > ol > li) { min-inline-size: 0; max-inline-size: 100%; margin: 0; }
+  :where(.pagination > ol > li > :is(a,span)) {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: min(2.75rem, 100%); max-inline-size: 100%; min-block-size: 2.75rem;
+    padding: calc(.5em * var(--re-density)) calc(.8em * var(--re-density));
+    font-size: calc(1em * var(--re-control-scale, 1)); line-height: 1.4; overflow-wrap: anywhere; text-align: center;
+    --re-pagination-fill: var(--re-surface);
+    color: var(--re-link); background-color: var(--re-pagination-fill);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    box-shadow: var(--re-shadow); text-decoration: none;
+  }
+  :where(.pagination a:hover) { text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-current="page"]) { --re-pagination-fill: var(--re-surface-alt); color: var(--re-text); background-color: var(--re-pagination-fill); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-disabled="true"]) { color: var(--re-muted); box-shadow: none; }
+}
+@layer re.utilities {
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.pagination > ol > li > :is(a,span)) { color: LinkText; background-color: Canvas; border: 1px solid CanvasText; box-shadow: none; }
+    :where(.pagination [aria-current="page"]) { color: CanvasText; }
+    :where(.pagination [aria-disabled="true"]) { color: GrayText; }
+  }
+  @media print {
+    :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; }
+  }
+}

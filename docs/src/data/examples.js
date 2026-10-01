@@ -1,4 +1,143 @@
 export const topics = [
+{
+  "slug": "accordions",
+  "title": "Accordions",
+  "glass": true,
+  "intro": "Native details and summary elements provide the interaction. One accordion wrapper arranges the group; theme, shape, density, spacing, borders, depth and material inherit from the parent.",
+  "notes": [
+    "Keep summary as the first child of details. Its native marker and keyboard behavior remain intact; do not add button roles or manually maintained aria-expanded attributes.",
+    "Omit name to allow multiple items to stay open. Give details a shared, unique name for native exclusive groups. Browsers without exclusive-group support still provide independent disclosure toggles. Names are document-wide, so separate accordion instances need different names.",
+    "Use open on at most one item in an exclusive group. CSS does not add custom arrow-key navigation, opening animations or force collapsed content to print.",
+    "Included in the complete, scoped and components builds. Modular use: tokens, base and reva.accordions.css; glass requires its matching extension."
+  ],
+  "examples": [
+    {
+      "id": "accordion-basic",
+      "title": "Independent sections",
+      "description": "Each native disclosure opens and closes independently. The wrapper supplies spacing without extra classes on items.",
+      "html": "<div class=\"accordion\">\n  <details open>\n    <summary>What does RevaCSS include?</summary>\n    <p>Native HTML styling and optional components.</p>\n  </details>\n  <details>\n    <summary>Do I need JavaScript?</summary>\n    <p>These accordions work through native browser behavior.</p>\n  </details>\n</div>"
+    },
+    {
+      "id": "accordion-exclusive",
+      "title": "One item open at a time",
+      "description": "Matching name attributes request an exclusive group. Use a different name for every group in your document.",
+      "html": "<div class=\"accordion\">\n  <details name=\"account-faq\" open>\n    <summary>How do I create an account?</summary>\n    <p>Complete the registration form.</p>\n  </details>\n  <details name=\"account-faq\">\n    <summary>How do I change my details?</summary>\n    <p>Open your profile settings.</p>\n  </details>\n</div>"
+    },
+    {
+      "id": "accordion-glass",
+      "title": "Inherited material and shape",
+      "description": "Configure the wrapper once. Both native disclosures inherit glass, dark colours and roundness.",
+      "glass": true,
+      "html": "<div class=\"accordion\" data-theme=\"dark\" data-material=\"glass\"\n     data-shape=\"rounded\" data-gap=\"small\">\n  <details>\n    <summary>Shared appearance</summary>\n    <p>This disclosure follows its parent settings.</p>\n  </details>\n  <details>\n    <summary>More information</summary>\n    <p>No component attributes are repeated.</p>\n  </details>\n</div>"
+    }
+  ]
+},
+{
+  "slug": "breadcrumbs",
+  "title": "Breadcrumbs",
+  "intro": "One breadcrumbs class styles a native navigation landmark and ordered list. Real links lead to ancestor pages; aria-current identifies the current page.",
+  "notes": [
+    "Give the navigation a descriptive aria-label, particularly when there are other navigation landmarks.",
+    "Keep role=\"list\" on the list to preserve list announcements in browsers that treat list-style:none differently. Decorative separators have no spoken text.",
+    "Use actual destination URLs in your application. The documentation examples link to real documentation pages. Theme, typography, size and density inherit; breadcrumbs have no surface requiring glass.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.breadcrumbs.css."
+  ],
+  "examples": [
+    {
+      "id": "breadcrumbs-basic",
+      "title": "A page trail",
+      "description": "The current location is plain text with aria-current; only ancestor pages are links.",
+      "html": "<nav class=\"breadcrumbs\" aria-label=\"Breadcrumb\">\n  <ol role=\"list\">\n    <li><a href=\"__BASE__\">Home</a></li>\n    <li><a href=\"__BASE__guide/\">Guide</a></li>\n    <li><span aria-current=\"page\">Breadcrumbs</span></li>\n  </ol>\n</nav>"
+    },
+    {
+      "id": "breadcrumbs-long",
+      "title": "Wrapping and parent defaults",
+      "description": "Long labels wrap. The same logical layout works with the document reading direction.",
+      "html": "<section data-size=\"small\" data-density=\"compact\">\n  <nav class=\"breadcrumbs\" aria-label=\"Documentation breadcrumb\">\n    <ol role=\"list\">\n      <li><a href=\"__BASE__\">Documentation home</a></li>\n      <li><a href=\"__BASE__attributes/\">Shared component settings and defaults</a></li>\n      <li><span aria-current=\"page\">Customising navigation for your project</span></li>\n    </ol>\n  </nav>\n</section>"
+    }
+  ]
+},
+{
+  "slug": "pagination",
+  "title": "Pagination",
+  "glass": true,
+  "intro": "One pagination class arranges native page links. Shared theme, size, density, shape, depth, borders, gap and optional glass styling inherit from the parent. Your server or application supplies page destinations.",
+  "notes": [
+    "Use a labelled nav and ordered list. Give numeric links accessible names such as Page 2. Mark exactly one current page with aria-current=\"page\".",
+    "Unavailable controls are spans with aria-disabled=\"true\", without href or tabindex. aria-disabled alone does not stop a link from navigating. Ellipses are text, not controls.",
+    "CSS provides presentation only. It does not fetch results, calculate page counts, change the current page or restore focus after an application update.",
+    "The live demo links navigate to this page's example anchors to demonstrate native navigation. Production markup should point to actual result pages.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.pagination.css. Glass requires its matching extension."
+  ],
+  "examples": [
+    {
+      "id": "pagination-basic",
+      "title": "Current and unavailable pages",
+      "description": "The current page and unavailable Previous control are plain spans. Demo links have real anchor destinations.",
+      "html": "<nav class=\"pagination\" aria-label=\"Example pages\">\n  <ol role=\"list\">\n    <li><span aria-disabled=\"true\">Previous</span></li>\n    <li><span aria-current=\"page\" aria-label=\"Page 1\">1</span></li>\n    <li><a href=\"#pagination-more\" aria-label=\"Page 2\">2</a></li>\n    <li><a href=\"#pagination-glass\" aria-label=\"Page 3\">3</a></li>\n    <li><a href=\"#pagination-more\" rel=\"next\">Next</a></li>\n  </ol>\n</nav>"
+    },
+    {
+      "id": "pagination-more",
+      "title": "A longer range",
+      "description": "Ellipses are passive text. Links wrap rather than stretching the page beyond its container.",
+      "html": "<nav class=\"pagination\" aria-label=\"Long example page range\">\n  <ol role=\"list\">\n    <li><a href=\"#pagination-basic\" rel=\"prev\">Previous</a></li>\n    <li><a href=\"#pagination-basic\" aria-label=\"Page 1\">1</a></li>\n    <li><span aria-label=\"More pages\">…</span></li>\n    <li><span aria-current=\"page\" aria-label=\"Page 8\">8</span></li>\n    <li><span aria-label=\"More pages\">…</span></li>\n    <li><a href=\"#pagination-glass\" aria-label=\"Page 20\">20</a></li>\n    <li><a href=\"#pagination-glass\" rel=\"next\">Next</a></li>\n  </ol>\n</nav>"
+    },
+    {
+      "id": "pagination-glass",
+      "title": "Inherited glass and pill shape",
+      "description": "The parent supplies material and shape; page links need no styling attributes.",
+      "glass": true,
+      "html": "<section data-theme=\"dark\" data-material=\"glass\" data-shape=\"pill\">\n  <nav class=\"pagination\" aria-label=\"Glass example pages\">\n    <ol role=\"list\">\n      <li><a href=\"#pagination-basic\" rel=\"prev\">Previous</a></li>\n      <li><a href=\"#pagination-basic\" aria-label=\"Page 1\">1</a></li>\n      <li><span aria-current=\"page\" aria-label=\"Page 2\">2</span></li>\n      <li><span aria-disabled=\"true\">Next</span></li>\n    </ol>\n  </nav>\n</section>"
+    },
+    {
+      "id": "pagination-production",
+      "title": "Application URL pattern",
+      "description": "Replace these sample paths with routes served by your application. This is code-only to avoid navigating to unimplemented demo routes.",
+      "render": false,
+      "html": "<nav class=\"pagination\" aria-label=\"Search result pages\">\n  <ol role=\"list\">\n    <li><a href=\"/search?page=1\" rel=\"prev\">Previous</a></li>\n    <li><a href=\"/search?page=1\" aria-label=\"Page 1\">1</a></li>\n    <li><span aria-current=\"page\" aria-label=\"Page 2\">2</span></li>\n    <li><a href=\"/search?page=3\" aria-label=\"Page 3\">3</a></li>\n    <li><a href=\"/search?page=3\" rel=\"next\">Next</a></li>\n  </ol>\n</nav>"
+    }
+  ]
+},
+{
+  "slug": "form-groups",
+  "title": "Form groups",
+  "glass": true,
+  "intro": "One form-group class keeps a native label, control and help text together. Theme and control settings inherit from the parent; use fieldset and legend for related choices.",
+  "notes": [
+    "Every control needs an accessible label. Match label for to a unique control id. Associate help and error text using aria-describedby; placeholders do not replace labels.",
+    "Use native required, disabled and readonly where appropriate. aria-invalid=\"true\" marks a known validation error; your server or application owns the error text and when it is shown. CSS does not generate validation messages.",
+    "The optional field-error class styles explicit error text. State the error in words and explain how to fix it; do not rely only on a red border.",
+    "Use existing grid and stack classes for arrangement. This component adds no grid system. Optional glass affects existing fieldsets, while text controls retain their normal readable backing.",
+    "Included in complete, scoped and components builds; modular use: tokens, base and reva.form-groups.css."
+  ],
+  "examples": [
+    {
+      "id": "form-group-basic",
+      "title": "Label, control and help",
+      "description": "Only the group needs a class. IDs connect the label and explanation to the native control.",
+      "html": "<div class=\"form-group\">\n  <label for=\"profile-display-name\">Display name</label>\n  <input id=\"profile-display-name\" name=\"display-name\"\n         autocomplete=\"nickname\" aria-describedby=\"profile-name-help\">\n  <small id=\"profile-name-help\">The name shown on your public profile.</small>\n</div>"
+    },
+    {
+      "id": "form-group-error",
+      "title": "A known validation error",
+      "description": "This static server-validation example includes an explicit error and aria-invalid. No automatic validation script is added.",
+      "html": "<div class=\"form-group\">\n  <label for=\"profile-email\">Email address (required)</label>\n  <input id=\"profile-email\" name=\"email\" type=\"email\" required\n         autocomplete=\"email\" value=\"invalid-address\" aria-invalid=\"true\"\n         aria-describedby=\"profile-email-help profile-email-error\">\n  <small id=\"profile-email-help\">We use this for account notifications.</small>\n  <small class=\"field-error\" id=\"profile-email-error\">Enter a complete email address, such as name@example.com.</small>\n</div>"
+    },
+    {
+      "id": "form-group-grid",
+      "title": "Responsive grouped fields",
+      "description": "Existing grid layout arranges groups. A textarea and select retain native behavior and shared control styling.",
+      "html": "<div class=\"grid\" data-size=\"medium\" data-density=\"comfortable\">\n  <div class=\"form-group\">\n    <label for=\"profile-language\">Language</label>\n    <select id=\"profile-language\" name=\"language\">\n      <option value=\"en\">English</option>\n      <option value=\"fr\">French</option>\n    </select>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"profile-bio\">About you</label>\n    <textarea id=\"profile-bio\" name=\"bio\" rows=\"3\"\n              aria-describedby=\"profile-bio-help\"></textarea>\n    <small id=\"profile-bio-help\">Write a short introduction.</small>\n  </div>\n</div>"
+    },
+    {
+      "id": "form-group-choices",
+      "title": "Related choices in a fieldset",
+      "description": "The legend names the group. Each radio has its own native label. This fieldset inherits optional glass material.",
+      "glass": true,
+      "html": "<section data-material=\"glass\" data-theme=\"dark\">\n  <fieldset aria-describedby=\"contact-channel-help\">\n    <legend>Preferred contact method</legend>\n    <div class=\"form-group\">\n      <label><input type=\"radio\" name=\"contact-channel\" value=\"email\" checked> Email</label>\n      <label><input type=\"radio\" name=\"contact-channel\" value=\"phone\"> Phone</label>\n      <small id=\"contact-channel-help\">Choose one contact method.</small>\n    </div>\n  </fieldset>\n</section>"
+    }
+  ]
+},
   {
     "slug": "typography",
     "title": "Typography",
