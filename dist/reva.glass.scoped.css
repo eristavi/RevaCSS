@@ -2,7 +2,7 @@
 /* Optional material extension. Load after the matching global or scoped core. */
 @layer re.tokens {
   :where([data-contrast="more"], :scope[data-contrast="more"]) { --re-glass-opacity: 100%; --re-glass-button-opacity: 100%; --re-glass-filter: none; }
-  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 90%; --re-glass-button-opacity: 95%; --re-glass-filter: blur(16px); }
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 70%; --re-glass-button-opacity: 90%; --re-glass-filter: blur(16px); }
 }
 @layer re.components {
   @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
@@ -20,11 +20,18 @@
       }
     }
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      /* More translucent surfaces need stronger inherited text and boundaries.
+         Scope proximity keeps local themes, material resets and re-entry intact. */
+      :where(*, :scope):where(:not([data-material="solid"])) {
+        --re-muted: var(--re-text);
+        --re-link: light-dark(#182a87, #eaf0ff);
+        --re-control-line: var(--re-text);
+      }
       /* Strong colour backing preserves label contrast while the backdrop remains visible. */
       :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"])) {
         --re-glass-button-fill: color-mix(in srgb, var(--re-action-start) 65%, var(--re-action-end));
         --re-glass-button-end: var(--re-action-end);
-        background-color: color-mix(in srgb, var(--re-glass-button-fill) var(--re-glass-button-opacity, 95%), transparent);
+        background-color: color-mix(in srgb, var(--re-glass-button-fill) var(--re-glass-button-opacity, 90%), transparent);
         background-image: linear-gradient(to bottom, transparent,
           color-mix(in srgb, var(--re-glass-button-end) calc(var(--re-gradient) * 28%), transparent));
         border-block-start-color: color-mix(in srgb, currentColor 32%, transparent);
@@ -38,15 +45,15 @@
       :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="solid"])) { border-block-start-color: currentColor; }
       :where(button.ghost, input:is([type=button],[type=submit],[type=reset]).ghost, .button.ghost, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).ghost):where(:not([data-material="solid"])) { border-block-start-color: transparent; }
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
-        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 90%), transparent);
-        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 12%), transparent), transparent);
+        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 70%), transparent);
+        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 6%), transparent), transparent);
         -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
         backdrop-filter: var(--re-glass-filter, blur(16px));
       }
       @media (width >= 48rem) {
         :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
-          background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 90%), transparent);
-          background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 12%), transparent), transparent);
+          background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 70%), transparent);
+          background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 6%), transparent), transparent);
           -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
           backdrop-filter: var(--re-glass-filter, blur(16px));
         }
@@ -56,6 +63,13 @@
 }
 @layer re.components {
   @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material="glass"]) {
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(*, :scope):where(:not([data-material="glass"])) {
+        --re-muted: light-dark(#526073, #b7c2d6);
+        --re-link: light-dark(#2438b8, #a9b9ff);
+        --re-control-line: light-dark(#738096, #8593ae);
+      }
+    }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="glass"])) {
       --re-glass-button-fill: var(--re-action-start);
       background-color: var(--re-action-start);

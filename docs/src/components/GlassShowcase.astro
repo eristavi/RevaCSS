@@ -15,7 +15,7 @@ const { theme='light', id='glass' } = Astro.props;
       <article class="card" id="glass-primary" data-tone="cool">
         <p class="glass-eyebrow">01 / SURFACES</p><h2>Calm by default.</h2>
         <p>Blur and a subtle surface sheen preserve the shape and depth you choose.</p>
-        <p class="glass-muted">A 90% surface backing keeps the default text readable over varied backgrounds.</p>
+        <p class="glass-muted">A 70% surface backing keeps the default text readable over varied backgrounds.</p>
         <details id="glass-disclosure"><summary>How it works</summary><p>Load the optional stylesheet and add <code>data-material="glass"</code> to a component or parent.</p></details>
       </article>
       <article class="card" id="glass-local-theme" data-theme={theme === 'dark' ? 'light' : 'dark'} data-tone="warm">
@@ -66,9 +66,9 @@ const { theme='light', id='glass' } = Astro.props;
     padding-block: 1rem 3rem;
     background-color: var(--re-bg);
     background-image:
-      radial-gradient(ellipse at 4% 4%, color-mix(in srgb, var(--re-primary) 46%, transparent), transparent 48%),
-      radial-gradient(ellipse at 98% 24%, color-mix(in srgb, var(--re-primary-end) 35%, transparent), transparent 44%),
-      radial-gradient(ellipse at 28% 90%, color-mix(in srgb, var(--re-primary) 25%, transparent), transparent 50%);
+      radial-gradient(ellipse at 4% 4%, color-mix(in srgb, var(--re-primary) 80%, transparent), transparent 48%),
+      radial-gradient(ellipse at 98% 24%, color-mix(in srgb, var(--re-primary-end) 65%, transparent), transparent 44%),
+      radial-gradient(ellipse at 28% 90%, color-mix(in srgb, var(--re-primary) 55%, transparent), transparent 50%);
   }
   .glass-main { padding-block-start: 2rem; }
   .glass-main > * { margin-block-end: 1.5rem; }
