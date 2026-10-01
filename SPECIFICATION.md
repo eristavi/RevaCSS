@@ -23,6 +23,7 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 | `data-fill` | `gradient`, `solid` | `gradient` | Inherited |
 | `data-density` | `compact`, `comfortable`, `spacious` | `comfortable` | Inherited |
 | `data-depth` | `flat`, `subtle`, `pronounced` | `subtle` | Inherited |
+| `data-edge` | `plain`, `gradient`, `shine`, `animated` | `plain` | Inherited; buttons, .button links and cards |
 | `data-motion` | `none`, `subtle`, `expressive` | `subtle` | Inherited |
 | `data-type` | `compact`, `standard`, `large` | `standard` | Inherited |
 | `data-border` | `subtle`, `defined`, `none` | `subtle` | Inherited |
@@ -59,3 +60,5 @@ Custom primary shades do not guarantee accessible foregrounds; explicit foregrou
 Proposed gzip CSS budgets: 15 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks required before stable release. No new attribute options until scope reviewed.
 
 Shared appearance contract: shape applies to styled controls, surfaces, tables (including captioned tables), media and code. Border thickness applies to styled controls, surfaces, table separators and navigation panels. Table grid lines use the current border thickness without doubled internal edges. Depth applies to raised surfaces and actions; text-control inset shadows remain controlled by data-controls. Native invalid-field borders, focus indicators and forced-colour boundaries override decorative settings. Theme changes colours without resetting geometry or local settings. Optional material requires its matching global/scoped stylesheet.
+
+Decorative edges preserve the component interior and keyboard focus. They follow action/accent colours, shape and border width. Shine runs one sweep on hover or keyboard focus (focus-within for cards); animated runs an eight-second turn. Motion none pauses movement, reduced motion freezes it, and increased contrast, forced colours and print suppress decoration. Native input actions and browsers without composite masking retain normal borders. The framework reserves ::after on supported edge targets; custom pseudo-element effects must override or disable it.

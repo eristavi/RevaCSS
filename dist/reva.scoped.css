@@ -1,3 +1,13 @@
+/* The registration stays outside @scope; the names are framework-prefixed. */
+@property --re-edge-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 45deg;
+}
+@keyframes re-edge-turn {
+  from { --re-edge-angle: 45deg; }
+  to { --re-edge-angle: 405deg; }
+}
 @scope (.reva) {
 @layer re.tokens, re.base, re.components, re.utilities;
 @layer re.tokens {
@@ -12,6 +22,7 @@
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
+--re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-danger: #be303c; --re-danger-end: #8f2030;
 --re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: #f5cc61; --re-warning-end: #e8b23e; --re-on-warning: #332400; color-scheme: light dark; }
@@ -59,9 +70,9 @@
 :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-shadow: none; }
 :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); }
 :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-shadow: 0 8px 24px rgb(0 0 0 / 18%); }
-:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; }
-:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; }
-:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; }
+:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; }
+:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; }
+:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; }
 :where([data-type="compact"], :scope[data-type="compact"]) { --re-type: .9375rem; }
 :where([data-type="standard"], :scope[data-type="standard"]) { --re-type: 1rem; }
 :where([data-type="large"], :scope[data-type="large"]) { --re-type: 1.125rem; }
@@ -70,6 +81,10 @@
 :where([data-border="none"], :scope[data-border="none"]) { --re-surface-border: 0px; }
 :where([data-controls="styled"], :scope[data-controls="styled"]) { --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%); }
 :where([data-controls="minimal"], :scope[data-controls="minimal"]) { --re-input-opacity: 0; --re-input-shadow: none; }
+:where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
+:where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
+:where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
+:where([data-edge="animated"], :scope[data-edge="animated"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: re-edge-turn; --re-edge-interaction: re-edge-turn; --re-edge-time: 8s; --re-edge-count: infinite; }
 }
 
 @layer re.base {
@@ -326,9 +341,56 @@
   }
   @media print { :where(.top-menu) { display: none; } }
 }
+@layer re.components {
+  /* Native input buttons do not reliably generate pseudo-elements. */
+  @supports (mask-composite: exclude) {
+    :where(button, .button, .card, :scope:is(button, .button, .card)) {
+      position: var(--re-edge-position, static);
+    }
+    :where(button, .button, .card, :scope:is(button, .button, .card))::after {
+      content: var(--re-edge-content, none);
+      display: var(--re-edge-display, block);
+      position: absolute;
+      inset: calc(-1 * var(--re-surface-border));
+      padding: var(--re-surface-border);
+      border-radius: inherit;
+      pointer-events: none;
+      background: conic-gradient(from var(--re-edge-angle, 45deg),
+        var(--re-action-start, var(--re-primary)),
+        color-mix(in srgb, var(--re-action-text, var(--re-text)) 65%, var(--re-action-start, var(--re-primary))),
+        var(--re-action-end, var(--re-primary-end)),
+        var(--re-action-start, var(--re-primary)));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: var(--re-edge-animation, none) 8s linear infinite;
+      animation-play-state: var(--re-edge-play, running);
+    }
+    :where(button:enabled:hover, button:enabled:focus-visible, .button:not([aria-disabled="true"]):hover, .button:not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, .button:not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, .button:not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
+      animation-name: var(--re-edge-interaction, var(--re-edge-animation, none));
+      animation-duration: var(--re-edge-time, 8s);
+      animation-iteration-count: var(--re-edge-count, infinite);
+    }
+    :where(button:disabled, .button[aria-disabled="true"], :scope:is(button:disabled, .button[aria-disabled="true"]))::after { animation: none; }
+  }
+}
 @layer re.utilities {
-:where([data-contrast="more"], :scope[data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; }
-@media (prefers-contrast: more) { :where(:scope,[data-theme],[data-tone],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :where(button, .button, .card, :scope:is(button, .button, .card))::after { animation: none; }
+  }
+  @media (prefers-contrast: more) {
+    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+  }
+  @media (forced-colors: active) {
+    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+  }
+  @media print {
+    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+  }
+}
+@layer re.utilities {
+:where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-edge-display: block; }
+:where([data-contrast="more"], :scope[data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
+@media (prefers-contrast: more) { :where(:scope,[data-theme],[data-tone],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
  }
 }
 

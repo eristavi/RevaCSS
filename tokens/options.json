@@ -70,7 +70,7 @@
     ],
     "default": "subtle",
     "scope": "Inherited",
-    "affects": "Button transitions and press movement; reduced-motion preference wins"
+    "affects": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins"
   },
   "type": {
     "values": [
@@ -190,5 +190,16 @@
     "default": "solid",
     "scope": "Inherited material scope; optional glass stylesheet",
     "affects": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass"
+  },
+  "edge": {
+    "values": [
+      "plain",
+      "gradient",
+      "shine",
+      "animated"
+    ],
+    "default": "plain",
+    "scope": "Inherited; affects buttons, .button links and .card",
+    "affects": "Decorative gradient border; shine sweeps on hover/focus, animated turns continuously; motion, border and contrast settings apply. Native input buttons retain regular borders"
   }
 }

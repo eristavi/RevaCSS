@@ -44,7 +44,7 @@ export const attributes = [
   {
     "id": "motion",
     "title": "data-motion",
-    "description": "Button transitions and press movement; reduced-motion preference wins. Default: subtle. Scope: Inherited.",
+    "description": "Button transitions, press movement and decorative edge animation; reduced-motion preference wins. Default: subtle. Scope: Inherited.",
     "html": "<div class=\"grid\">\n  <section data-motion=\"none\"><button type=\"button\">none</button></section>\n  <section data-motion=\"subtle\"><button type=\"button\">subtle</button></section>\n  <section data-motion=\"expressive\"><button type=\"button\">expressive</button></section>\n</div>",
     "glass": false
   },
@@ -123,6 +123,13 @@ export const attributes = [
     "title": "data-gap",
     "description": "Spacing in .grid, .row and .stack; combines with density. Default: medium. Scope: Inherited; affects .grid, .row and .stack.",
     "html": "<div class=\"grid\">\n  <section data-gap=\"none\"><div class=\"stack\"><article class=\"card\">none gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"small\"><div class=\"stack\"><article class=\"card\">small gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"medium\"><div class=\"stack\"><article class=\"card\">medium gap</article><article class=\"card\">Second item</article></div></section>\n  <section data-gap=\"large\"><div class=\"stack\"><article class=\"card\">large gap</article><article class=\"card\">Second item</article></div></section>\n</div>",
+    "glass": false
+  },
+  {
+    "id": "edge",
+    "title": "data-edge",
+    "description": "Decorative gradient border; shine sweeps on hover/focus, animated turns continuously; motion, border and contrast settings apply. Native input buttons retain regular borders. Default: plain. Scope: Inherited; affects buttons, .button links and .card.",
+    "html": "<div class=\"row\">\n  <button type=\"button\" data-edge=\"plain\">Plain</button>\n  <button type=\"button\" data-edge=\"gradient\">Gradient</button>\n  <button type=\"button\" data-edge=\"shine\">Shine</button>\n  <button type=\"button\" data-edge=\"animated\">Animated</button>\n</div>",
     "glass": false
   },
   {

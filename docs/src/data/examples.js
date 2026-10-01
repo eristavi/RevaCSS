@@ -64,6 +64,18 @@ export const topics = [
         "title": "Local button configuration",
         "description": "Shared attributes can be placed directly on a button or inherited from a surrounding section.",
         "html": "<button type=\"button\" data-accent=\"violet\" data-shape=\"pill\" data-fill=\"solid\" data-motion=\"none\">Violet action</button>"
+      },
+      {
+        "id": "gradient-edges",
+        "title": "Gradient edges and motion",
+        "description": "Plain is the default. Gradient is stationary; shine makes one 800ms sweep on hover or keyboard focus; animated turns slowly. Use continuous animation sparingly for a selected main action. Edges follow the action colour and shape, independently of fill. Native input buttons retain regular borders.",
+        "html": "<div class=\"row\">\n  <button type=\"button\" data-edge=\"plain\">Plain</button>\n  <button type=\"button\" data-edge=\"gradient\">Gradient</button>\n  <button type=\"button\" data-edge=\"shine\">Shine</button>\n  <button type=\"button\" data-edge=\"animated\">Animated</button>\n</div>"
+      },
+      {
+        "id": "inherited-edges",
+        "title": "A shared edge with local exceptions",
+        "description": "Set data-edge on html or a section to configure buttons, .button links and cards. A nearer plain value removes decoration. data-border none removes the gradient ring; data-motion none pauses it. Reduced motion keeps a static ring; higher contrast, forced colours and print remove decoration.",
+        "html": "<section data-edge=\"animated\" data-shape=\"pill\" data-accent=\"violet\" data-motion=\"none\">\n  <article class=\"card\">\n    <h3>Shared stationary edge</h3>\n    <div class=\"row\">\n      <button type=\"button\">Inherited edge</button>\n      <a class=\"button secondary\" href=\"#main\" data-edge=\"shine\" data-motion=\"subtle\">Focused shine</a>\n      <button type=\"button\" data-edge=\"plain\">Plain exception</button>\n      <button type=\"button\" disabled>Unavailable</button>\n    </div>\n  </article>\n</section>"
       }
     ]
   },
