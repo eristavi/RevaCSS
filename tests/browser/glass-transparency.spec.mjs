@@ -56,3 +56,31 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} readable gla
  await page.locator('#card').evaluate(el=>el.dataset.contrast='more');expect((await rgba(page,'#card'))[3]).toBe(255);expect(await filter(page,'#card')).toBe('none');
  await page.locator('#card').evaluate(el=>el.dataset.contrast='auto');expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.7,2);
 });
+
+for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme wrappers leave rounded corners and layout gaps transparent`,async({page})=>{
+ await page.goto('/plain/');
+ await page.setContent(`<main ${scoped?'class="reva"':''} id="stage"><section class="stack" data-material="glass" data-theme="dark" data-tone="cool" data-depth="flat" id="wrapper"><article class="card" id="rounded">Frosted surface</article><section data-material="solid" id="reset"><article class="card" id="opaque">Opaque reset</article><section data-theme="light" id="solid-theme">Solid theme wrapper</section><article class="card" data-material="glass" data-theme="light" id="resume">Glass re-entry</article></section></section></main>`);
+ await page.addStyleTag({content:await css(scoped)});
+ await page.addStyleTag({content:'#stage{padding:40px;background:rgb(200 80 120)}#rounded{height:160px;border-radius:32px}'});
+ expect((await rgba(page,'#wrapper'))[3]).toBe(0);
+ expect((await rgba(page,'#rounded'))[3]/255).toBeCloseTo(.7,2);
+ expect((await rgba(page,'#opaque'))[3]).toBe(255);
+ expect((await rgba(page,'#solid-theme'))[3]).toBe(255);
+ expect((await rgba(page,'#resume'))[3]/255).toBeCloseTo(.7,2);
+ expect(await rgba(page,'#rounded','color')).toEqual([242,245,252,255]);
+ const card=await page.locator('#rounded').boundingBox(), reset=await page.locator('#reset').boundingBox();
+ expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(16);
+ const samples=await pixels(page,'#rounded',[[1,1],[5,5],[20,card.height+8]]);
+ for(const sample of samples) expect(sample).toEqual([200,80,120,255]);
+});
+test('glass documentation separates the surface and solid reset at desktop and phone widths',async({page})=>{
+ for(const width of [1280,375]) {
+  await page.setViewportSize({width,height:900});await page.goto('/themes/glass/');
+  const wrapper=page.locator('#glass-surface .example-demo > section');
+  expect((await rgba(page,'#glass-surface .example-demo > section'))[3]).toBe(0);
+  const card=await wrapper.locator(':scope > .card').boundingBox();
+  const reset=await wrapper.locator(':scope > section').boundingBox();
+  expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(16);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ }
+});

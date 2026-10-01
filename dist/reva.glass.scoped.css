@@ -20,6 +20,11 @@
       }
     }
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      /* Theme/tone wrappers carry tokens, not an opaque rectangle behind glass.
+         Page roots and actual surfaces retain their own background paint. */
+      :where([data-theme], [data-tone], :scope[data-theme], :scope[data-tone]):where(:not(html, body, .reva, .card, fieldset, details, dialog, [popover], .top-menu)) {
+        background-color: transparent;
+      }
       /* More translucent surfaces need stronger inherited text and boundaries.
          Scope proximity keeps local themes, material resets and re-entry intact. */
       :where(*, :scope):where(:not([data-material="solid"])) {

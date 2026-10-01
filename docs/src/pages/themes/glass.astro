@@ -5,7 +5,8 @@ const base=import.meta.env.BASE_URL;
 const example=`<link rel="stylesheet" href="reva.css">
 <link rel="stylesheet" href="reva.glass.css">
 
-<section data-material="glass"
+<section class="stack"
+         data-material="glass"
          data-theme="dark"
          data-tone="cool"
          data-shape="rounded"
@@ -26,7 +27,7 @@ const example=`<link rel="stylesheet" href="reva.css">
   <h1>Glass material</h1>
   <p class="prose">An optional frosted surface extension for buttons, cards, navigation, standalone disclosures, fieldsets, dialogs and popovers. It adds no runtime JavaScript and leaves the core stylesheet unchanged.</p>
   <div class="row"><a class="button" href={base + 'preview/glass/light/'}>Light preview</a><a class="button secondary" href={base + 'preview/glass/dark/'}>Dark preview</a><a href={base + 'preview/glass/auto/'}>Device theme preview</a></div>
-  <h2>Install and activate</h2><p>Load the extension after the core. <code>data-material="glass"</code> applies the treatment to supported surfaces in that section. <code>data-material="solid"</code> ends it locally. A nested glass attribute starts another scope. <code>data-theme</code> retains its existing light, dark and auto values.</p>
+  <h2>Install and activate</h2><p>Load the extension after the core. <code>data-material="glass"</code> applies the treatment to supported surfaces in that section. <code>data-material="solid"</code> ends it locally. A nested glass attribute starts another scope. Theme and tone wrappers inside glass stay transparent; cards paint their own rounded surfaces. Use a layout such as <code>class="stack"</code> to separate adjacent cards. <code>data-theme</code> retains its existing light, dark and auto values.</p>
   <Example id="glass-install" title="Stylesheet order" description="Copy both stylesheets from dist into your project. Load core first, then the optional material." render={false} html={'<link rel="stylesheet" href="reva.css">\n<link rel="stylesheet" href="reva.glass.css">'}/>
   <Example id="glass-surface" title="Glass with a local solid reset" description="The same shared attributes control this dark, cool surface. The nested solid section remains opaque." glass html={example.slice(example.indexOf('<section')).replace('<button data-accent="teal">', '<button type="button" data-accent="teal">')}/>
   <Example id="glass-buttons" title="Glass buttons and a solid exception" description="A parent material setting reaches buttons, button links and native button inputs. The last action opts out locally. Shared accent, shape, size, border, fill, depth and motion continue to work." glass html={'<div class="row" data-material="glass" data-accent="violet" data-shape="pill">\n  <button type="button">Continue</button>\n  <button type="button" class="secondary">Go back</button>\n  <button type="button" class="outline">Outline</button>\n  <button type="button" class="ghost">Ghost</button>\n  <button type="button" class="danger">Delete</button>\n  <button type="button" class="warning">Review</button>\n  <input type="button" value="Native action">\n  <a class="button secondary" href="#glass-buttons">Destination</a>\n  <button type="button" data-material="solid">Solid exception</button>\n</div>'}/>
