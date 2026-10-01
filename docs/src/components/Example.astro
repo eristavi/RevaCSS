@@ -1,6 +1,6 @@
 ---
 import CodeViewer from './CodeViewer.astro';
-const { id, title, description, html, render=true, glass=false, isolated=false } = Astro.props;
+const { id, title, description, html, code=html, render=true, glass=false, isolated=false } = Astro.props;
 const base=import.meta.env.BASE_URL;
 const isolatedDocument=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title} demo</title><link rel="stylesheet" href="${base}reva/reva.css"></head><body>${html}</body></html>`;
 ---
@@ -10,7 +10,7 @@ const isolatedDocument=`<!doctype html><html lang="en"><head><meta charset="utf-
   <div class="example-frame">
     {isolated && <iframe class="example-isolated" title={`${title} demo`} srcdoc={isolatedDocument} width="640" height="320"/>}
     {render && !isolated && <div class:list={["example-demo", {"glass-backdrop": glass}]} aria-label={`${title} demo`}><Fragment set:html={html}/></div>}
-    <div class="example-code"><CodeViewer id={id} code={html} label={`${title} HTML`} embedded/></div>
+    <div class="example-code"><CodeViewer id={id} code={code} label={`${title} HTML`} embedded/></div>
   </div>
 </section>
 <style>
@@ -22,3 +22,4 @@ h2 a { color:inherit; text-decoration:none; } h2 a:hover { text-decoration:under
 .example-code { min-inline-size:0; }
 .glass-backdrop { background:radial-gradient(ellipse at top left,color-mix(in srgb,var(--re-primary) 55%,transparent),transparent 65%),radial-gradient(ellipse at bottom right,color-mix(in srgb,var(--re-primary-end) 50%,transparent),transparent 65%); }
 </style>
+

@@ -6,11 +6,25 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 const base = import.meta.env.BASE_URL;
 const container = await AstroContainer.create();
 const example = (await container.renderToString(TopMenu, {props:{id:'documentation',label:'Example navigation'}})).replace(/href="#[^"]+"/g, 'href="#main"');
+// The generated navigation contains only nav/list blocks and inline links or
+// buttons. Format those blocks for display while preserving the live markup.
+let depth = 0;
+const formattedExample = example
+  .split(/(<\/?(?:nav|ul|li)\b[^>]*>)/g)
+  .map(part => part.trim())
+  .filter(Boolean)
+  .map(part => {
+    if (/^<\/(?:nav|ul|li)>$/.test(part)) depth--;
+    const line = `${'  '.repeat(depth)}${part}`;
+    if (/^<(?:nav|ul|li)\b/.test(part)) depth++;
+    return line;
+  })
+  .join('\n');
 ---
 <DocsLayout title="Top menu" active="top-menu">
   <h1>Top menu</h1>
   <p class="prose">Responsive site navigation using native HTML popovers and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Clicking outside dismisses open menus without JavaScript.</p>
-  <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Open Products, Frameworks and Components. Click outside to close the stack, or press Escape to close the deepest panel. On mobile, Back returns to the parent panel." html={example}/>
+  <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Open Products, Frameworks and Components. Click outside to close the stack, or press Escape to close the deepest panel. On mobile, Back returns to the parent panel." html={example} code={formattedExample}/>
   <div class="row" style="margin-block:1rem">
     <a href={`${base}preview/menu/light/`}>Light preview</a>
     <a href={`${base}preview/menu/dark/`}>Dark preview</a>
@@ -44,3 +58,4 @@ const example = (await container.renderToString(TopMenu, {props:{id:'documentati
   <h2>Styling and modules</h2>
   <p class="prose">Shared theme, tone, density, shape, depth, border and control size settings continue to inherit. The optional glass stylesheet treats the panels as glass surfaces while navigation toggle buttons retain their neutral navigation appearance. Complete, scoped, component and dedicated navigation builds include the styles. Load <code>reva.navigation.css</code> after tokens and base modules; use the complete build for all accessibility utilities. Open panels and navigation are hidden in print. Existing details/summary markup retains its original disclosure behavior; migrate to the example above to gain native outside-click dismissal.</p>
 </DocsLayout>
+
