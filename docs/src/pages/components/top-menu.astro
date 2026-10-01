@@ -1,29 +1,29 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import TopMenu from '../../components/TopMenu.astro';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
 import markup from '../../components/TopMenuLinks.astro?raw';
 const base = import.meta.env.BASE_URL;
 const list = variant => markup.slice(markup.indexOf('<ul')).replace('class:list={["menu-items", {"menu-desktop": desktop}]}', `class="menu-items${variant === 'desktop' ? ' menu-desktop' : ''}"`).replaceAll('name={`${id}-primary`}', `name="main-${variant}-primary"`).replaceAll('name={`${id}-products`}', `name="main-${variant}-products"`).replaceAll('name={`${id}-frameworks`}', `name="main-${variant}-frameworks"`).replace('aria-current={current===\'home\' ? \'page\' : undefined}', 'aria-current="page"');
 const example = `<nav class="top-menu" aria-label="Main navigation">
   <a class="menu-brand" href="#home">RevaCSS</a>
-${list('desktop')}
+${list('desktop').replace(/href="#[^"]+"/g, 'href="#main"')}
   <details class="menu-collapse">
     <summary>Menu</summary>
-${list('mobile')}
+${list('mobile').replace(/href="#[^"]+"/g, 'href="#main"')}
   </details>
 </nav>`;
 ---
-<Layout title="Top menu">
+<DocsLayout title="Top menu" active="top-menu">
   <h1>Top menu</h1>
   <p class="prose">Responsive site navigation using native HTML disclosures and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Only the active layout is displayed and exposed to keyboard and accessibility navigation.</p>
-  <TopMenu id="documentation" label="Interactive component example" />
+  <Example id="complete-menu" title="Responsive menu with nested dropdowns" description="Resize the page to switch between desktop and mobile navigation. Activate Products and Frameworks to explore multiple submenu levels." html={example.replace('aria-label="Main navigation"', 'aria-label="Example navigation"')}/>
   <div class="row" style="margin-block:1rem">
     <a href={`${base}preview/menu/light/`}>Light preview</a>
     <a href={`${base}preview/menu/dark/`}>Dark preview</a>
     <a href={`${base}preview/menu/auto/`}>Device theme preview</a>
   </div>
   <h2>HTML</h2><p>Copy the markup below. Replace the example anchor destinations with your pages. Keep both lists in sync and give each layout and navigation instance its own disclosure group names. Static templates can generate both lists from one shared source, as these docs do. CSS-free pages show both lists; loading the component stylesheet selects the appropriate layout.</p>
-  <pre><code>{example}</code></pre>
+
   <h2>Structure and configuration</h2>
   <div class="table-scroll" role="region" aria-label="Top menu API" tabindex="0">
     <table><thead><tr><th scope="col">Class or setting</th><th scope="col">Use</th></tr></thead><tbody>
@@ -47,5 +47,6 @@ ${list('mobile')}
   <p class="prose">Tab and Shift+Tab move between visible links and summaries. Enter and Space toggle summaries. Closed submenu links leave the focus order. Use native navigation/list semantics; do not add application-menu roles. A summary is a toggle, not a destination link; include an Overview link within its panel when the parent section has its own page.</p>
   <p class="prose">Submenus open explicitly by click, tap or keyboard activation, never solely on hover. Native details do not supply Escape/outside-click dismissal, arrow-key navigation, automatic closure after following an in-page link, or focus management after a breakpoint change. These behaviors require a separate enhancement if an application needs them. Closing a parent preserves its children's open state; reopening restores it. This is not an ARIA menubar implementation or an accessibility certification.</p>
   <h2>Styling and modules</h2>
-  <p class="prose">The component inherits theme, accent, density, shape and contrast tokens. It is included in complete, scoped and component builds. The dedicated <code>reva.navigation.css</code> stylesheet can be loaded after the token and base modules; use the complete build for the full accessibility utilities. The menu is omitted from printed pages.</p>
-</Layout>
+  <p class="prose">Theme and tone choose surface colours; density and shape control spacing and radii. Depth controls dropdown shadows. Accent colours semantic controls, while ordinary navigation links keep their link/text tokens. Control size does not resize the menu. Core dropdown panels keep a one-pixel border; the optional glass module also applies shared fill and border settings to its surfaces. It is included in complete, scoped and component builds. The dedicated <code>reva.navigation.css</code> stylesheet can be loaded after the token and base modules; use the complete build for the full accessibility utilities. The menu is omitted from printed pages.</p>
+</DocsLayout>
+

@@ -1,14 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DocsLayout from '../layouts/DocsLayout.astro';
 import reference from './generated-reference.json';
 function flatten(obj,prefix='') { return Object.entries(obj).flatMap(([k,v])=>k.startsWith('$')?[]: v.$type?[{path:prefix+k,type:v.$type,value:JSON.stringify(v.$value)}]:flatten(v,prefix+k+'.')); }
 const tokens=flatten(reference.tokens);
 const base=import.meta.env.BASE_URL;
 ---
-<Layout title="API reference">
+<DocsLayout title="API reference" active="reference">
 <h1>API reference</h1><p class="prose">Generated from the same option manifest and DTCG token files used to build the CSS. Use your browser’s Find command to search this reference.</p>
+<p><a href={base+"attributes/"}>See a live HTML example for every data attribute</a>.</p>
 <h2>Configuration</h2><p>The material option requires the optional <a href={base + "themes/glass/"}>glass stylesheet</a>; the other settings belong to the core.</p><div class="table-scroll" role="region" aria-label="Configuration options" tabindex="0"><table><caption>Inherited settings affect their subtree; component settings target only their documented element.</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Values</th><th scope="col">Default</th><th scope="col">Scope</th></tr></thead><tbody>{Object.entries(reference.options).map(([name,opt])=><tr><th scope="row"><code>data-{name}</code></th><td>{opt.values.join(', ')}</td><td>{opt.default}</td><td>{opt.scope}</td></tr>)}</tbody></table></div>
 <h2>Public entry points</h2><p><code>--re-primary</code>, <code>--re-primary-end</code>, <code>--re-on-primary</code>, <code>--re-font</code>, <code>--re-font-heading</code>, <code>--re-radius</code>, <code>--re-gap</code>, <code>--re-bg</code>, <code>--re-surface</code>, <code>--re-text</code>, <code>--re-muted</code>, <code>--re-link</code>, <code>--re-line</code>, <code>--re-control-line</code>.</p>
 <p>Colour overrides require contrast checks for text, states and gradients. A new primary colour does not automatically create an accessible theme.</p>
 <h2>Token source</h2><div class="table-scroll" role="region" aria-label="Design tokens" tabindex="0"><table><thead><tr><th scope="col">Token</th><th scope="col">Type</th><th scope="col">Value</th></tr></thead><tbody>{tokens.map(t=><tr><th scope="row"><code>{t.path}</code></th><td>{t.type}</td><td><code>{t.value}</code></td></tr>)}</tbody></table></div>
-</Layout>
+</DocsLayout>
+

@@ -1,0 +1,43 @@
+import { test, expect } from '@playwright/test';
+import axeSource from 'axe-core';
+
+const routes = ['/', '/guide/', '/attributes/', ...['typography','buttons','forms','layouts','tables','media','disclosures','top-menu'].map(name=>`/components/${name}/`), '/themes/glass/', '/reference/'];
+
+test('documentation demos match their HTML and work without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled:false });
+  const page = await context.newPage();
+  for (const route of routes) {
+    await page.goto(route);
+    await expect(page.locator('h1')).toHaveCount(1);
+    const mismatch = await page.locator('.example-frame').evaluateAll(frames=>frames.flatMap(frame=>{
+      const demo=frame.querySelector('.example-demo');
+      if (!demo) return [];
+      const template=document.createElement('template');
+      template.innerHTML=frame.querySelector('.example-code pre code').textContent;
+      return demo.innerHTML.trim()===template.innerHTML.trim()?[]:[frame.closest('section').id];
+    }));
+    expect(mismatch, route).toEqual([]);
+    expect(await page.locator('script').count(),route).toBe(0);
+  }
+  await page.goto('/components/disclosures/');
+  await page.locator('#details summary').click();
+  await expect(page.locator('#details details')).toHaveAttribute('open','');
+  await page.locator('[popovertarget="demo-popover"]').first().click();
+  await expect(page.locator('#demo-popover')).toBeVisible();
+  await page.locator('#demo-popover button').click();
+  await expect(page.locator('#demo-popover')).toBeHidden();
+  await context.close();
+});
+
+for (const width of [375,1280]) {
+  test(`documentation reflows and passes accessibility checks at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({width,height:900});
+    for (const route of routes) {
+      await page.goto(route);
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),route).toBe(true);
+      await page.addScriptTag({content:axeSource.source});
+      const violations=await page.evaluate(async()=> (await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));
+      expect(violations,route).toEqual([]);
+    }
+  });
+}
