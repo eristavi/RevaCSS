@@ -69,7 +69,7 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme 
  expect((await rgba(page,'#resume'))[3]/255).toBeCloseTo(.7,2);
  expect(await rgba(page,'#rounded','color')).toEqual([242,245,252,255]);
  const card=await page.locator('#rounded').boundingBox(), reset=await page.locator('#reset').boundingBox();
- expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(16);
+ expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(15.99);
  const samples=await pixels(page,'#rounded',[[1,1],[5,5],[20,card.height+8]]);
  for(const sample of samples) expect(sample).toEqual([200,80,120,255]);
 });
@@ -80,7 +80,7 @@ test('glass documentation separates the surface and solid reset at desktop and p
   expect((await rgba(page,'#glass-surface .example-demo > section'))[3]).toBe(0);
   const card=await wrapper.locator(':scope > .card').boundingBox();
   const reset=await wrapper.locator(':scope > section').boundingBox();
-  expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(16);
+  expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(15.99);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  }
 });

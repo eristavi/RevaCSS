@@ -33,6 +33,8 @@ test('shine runs once for hover or keyboard focus; motion settings stop movement
  expect(await pseudo(page,'#action','animation-name')).toBe('re-edge-turn');expect(await pseudo(page,'#action','animation-duration')).toBe('0.8s');expect(await pseudo(page,'#action','animation-iteration-count')).toBe('1');
  await page.locator('#link').hover();expect(await pseudo(page,'#link','animation-name')).toBe('re-edge-turn');
  await page.locator('html').evaluate(el=>{el.dataset.edge='animated';el.dataset.motion='none';});expect(await pseudo(page,'#action','animation-play-state')).toBe('paused');
+ // Allow the pause to reach the animation timeline before sampling stability.
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
  const angle=await pseudo(page,'#action','--re-edge-angle');await page.waitForTimeout(150);expect(await pseudo(page,'#action','--re-edge-angle')).toBe(angle);
  await page.locator('#action').evaluate(el=>el.dataset.motion='subtle');expect(await pseudo(page,'#action','animation-play-state')).toBe('running');
  await expect.poll(async()=>pseudo(page,'#action','--re-edge-angle')).not.toBe(angle);
