@@ -4,7 +4,9 @@ const css=async scoped=>(await Promise.all([`dist/reva.${scoped?'scoped.':''}css
 const rgba=(page,selector,property='backgroundColor')=>page.locator(selector).evaluate((el,p)=>{const c=document.createElement('canvas').getContext('2d');c.fillStyle=getComputedStyle(el)[p];c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data];},property);
 const filter=(page,selector)=>page.locator(selector).evaluate(el=>getComputedStyle(el).backdropFilter||getComputedStyle(el).webkitBackdropFilter);
 const pixels=async(page,selector,points)=>{
- const png=await page.locator(selector).screenshot({animations:'disabled'});
+ const box=await page.locator(selector).boundingBox();
+ const png=await page.screenshot({animations:'disabled'});
+ points=points.map(([x,y])=>[Math.round(box.x)+x,Math.round(box.y)+y]);
  return page.evaluate(async({url,points})=>{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);return points.map(([x,y])=>[...ctx.getImageData(x,y,1,1).data]);},{url:'data:image/png;base64,'+png.toString('base64'),points});
 };
 for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the backdrop and renders actual blur`,async({page})=>{
@@ -17,10 +19,14 @@ for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the 
  // must visibly transmit at least a quarter of the backdrop through its sheen.
  for(let i=0;i<3;i++) expect(white[i]-black[i]).toBeGreaterThanOrEqual(64);
  expect((await rgba(page,'#paint'))[3]/255).toBeCloseTo(.7,2);expect(await filter(page,'#paint')).toContain('16px');
- await page.locator('#stage').evaluate(el=>el.style.background='repeating-linear-gradient(90deg, black 0 12px, white 12px 24px)');
- const blurred=await pixels(page,'#paint',[[100,60],[112,60]]);
- await page.locator('#paint').evaluate(el=>{el.style.backdropFilter='none';el.style.webkitBackdropFilter='none';});
- const sharp=await pixels(page,'#paint',[[100,60],[112,60]]);
+ // Compare two simultaneously painted samples, rather than changing the
+ // compositor filter on one sample between captures.
+ await page.setContent(`<main data-material="glass" data-theme="${theme}" id="checker"><article class="card" id="blurred" aria-label="Blurred sample"></article><article class="card" id="sharp" aria-label="Sharp sample"></article></main>`);
+ await page.addStyleTag({content:await css(false)});
+ await page.addStyleTag({content:'body{margin:0}#checker{padding:48px;display:flex;gap:48px;background:repeating-linear-gradient(90deg,black 0 12px,white 12px 24px)}#checker .card{width:240px;height:120px;flex:none}#sharp{backdrop-filter:none;-webkit-backdrop-filter:none}'});
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ const blurred=await pixels(page,'#blurred',[[100,60],[112,60]]);
+ const sharp=await pixels(page,'#sharp',[[100,60],[112,60]]);
  expect(Math.abs(sharp[0][0]-sharp[1][0])).toBeGreaterThanOrEqual(64);
  expect(Math.abs(blurred[0][0]-blurred[1][0])).toBeLessThan(24);
 });
