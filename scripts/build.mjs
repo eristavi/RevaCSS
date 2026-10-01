@@ -54,13 +54,14 @@ const tabs=await readFile('src/css/tabs.css','utf8');
 const lists=await readFile('src/css/lists.css','utf8');
 const emptyStates=await readFile('src/css/empty-states.css','utf8');
 const avatars=await readFile('src/css/avatars.css','utf8');
+const icons=await readFile('src/css/icons.css','utf8');
 const navigation=await readFile('src/css/navigation.css','utf8');
 const glass=await readFile('src/css/glass.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
+const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+navigation+edges+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+navigation+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.icons.css',icons],['reva.navigation.css',navigation],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+navigation+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }
@@ -75,3 +76,14 @@ for(const name of ['Manrope.ttf','OFL.txt']) { await copyFile('assets/fonts/'+na
 await copyFile('assets/reva-fonts.css','dist/reva-fonts.css');
 await copyFile('assets/reva-fonts.css','docs/public/reva/reva-fonts.css');
 
+
+/* One source catalog generates the sprite and standalone vector assets. */
+const iconCatalog=JSON.parse(await readFile('src/icons/catalog.json','utf8'));
+const iconAttributes='viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"';
+for (const folder of ['dist/icons','docs/public/reva/icons']) {
+  await mkdir(folder,{recursive:true});
+  await writeFile(folder+'/reva.svg','<svg xmlns="http://www.w3.org/2000/svg">'+iconCatalog.map(icon=>'<symbol id="rv-'+icon.name+'" viewBox="0 0 24 24">'+icon.body+'</symbol>').join('')+'</svg>\n');
+  for (const icon of iconCatalog) {
+    await writeFile(folder+'/'+icon.name+'.svg','<svg xmlns="http://www.w3.org/2000/svg" '+iconAttributes+'>'+icon.body+'</svg>\n');
+  }
+}

@@ -16,6 +16,7 @@ export const documentationNavigation=base=>[
  {key:'guide',label:'Guide',href:base+'guide/'},
  {key:'attributes',label:'Data attributes',href:base+'attributes/'},
  {key:'reference',label:'API reference',href:base+'reference/'},
+ {key:'icons',label:'Icons',href:base+'icons/'},
  {key:'components',label:'Components',children:[...topics.map(t=>({key:t.slug,label:t.title,href:base+`components/${t.slug}/`})),{key:'top-menu',label:'Top menu',href:base+'components/top-menu/'}]},
  {key:'glass',label:'Glass material',href:base+'themes/glass/'},
  {key:'previews',label:'Previews',children:[
