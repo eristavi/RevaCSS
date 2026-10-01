@@ -28,14 +28,14 @@
   :where(mark) { background: #f5cc61; color: #332400; padding-inline: .15em; }
   :where(abbr[title]) { text-decoration: underline dotted; text-underline-offset: .2em; cursor: help; }
   :where(pre,code,kbd,samp) { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9em; }
-  :where(code,kbd) { background: var(--re-surface-alt); border-radius: .25em; padding: .12em .35em; }
-  :where(kbd) { border: 1px solid var(--re-control-line); }
+  :where(code,kbd) { background: var(--re-surface-alt); border-radius: min(var(--re-radius), .25em); padding: .12em .35em; }
+  :where(kbd) { border: var(--re-surface-border) solid var(--re-control-line); }
   :where(pre) { padding: var(--re-space); background: var(--re-surface-alt); border-radius: var(--re-radius); overflow-x: auto; }
   :where(pre code) { padding: 0; font-size: inherit; background: transparent; }
   :where(figure) { margin-inline: 0; }
   :where(img,video,canvas,svg) { max-inline-size: 100%; }
   :where(img,video) { block-size: auto; }
-  :where(iframe,object,embed) { max-inline-size: 100%; border: 1px solid var(--re-line); }
+  :where(iframe,object,embed) { max-inline-size: 100%; border: var(--re-surface-border) solid var(--re-line); }
   :where(audio) { max-inline-size: 100%; }
   :where(address) { font-style: normal; }
   :where(button,input,select,textarea) { font: inherit; color: inherit; }
@@ -44,7 +44,7 @@
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
     display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
     min-block-size: 2.75rem; padding: calc(.7em * var(--re-density)) calc(1.15em * var(--re-density));
-    border: 1px solid transparent; border-radius: var(--re-button-radius); font-weight: 650; line-height: 1.3; text-align: center;
+    border: var(--re-surface-border) solid transparent; border-radius: var(--re-button-radius); font-weight: 650; line-height: 1.3; text-align: center;
     background: var(--re-action-start); background-image: linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 100%),var(--re-action-start))); color: var(--re-action-text);
     box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
     transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
@@ -62,29 +62,29 @@
   :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
     display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;
     padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
-    background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: 1px solid var(--re-control-line); border-radius: var(--re-radius); box-shadow: var(--re-input-shadow);
+    background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius); box-shadow: var(--re-input-shadow);
   }
   :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
   :where(textarea) { resize: vertical; min-block-size: 7rem; }
-  :where(input[type=checkbox],input[type=radio]) { accent-color: var(--re-primary); inline-size: 1.25rem; block-size: 1.25rem; vertical-align: middle; margin-inline: 0 .5em; }
+  :where(input[type=checkbox],input[type=radio]) { accent-color: var(--re-primary); inline-size: calc(1.25rem * var(--re-control-scale)); block-size: calc(1.25rem * var(--re-control-scale)); vertical-align: middle; margin-inline: 0 .5em; }
   :where(label:has(input[type=checkbox],input[type=radio])) { display: flex; align-items: center; min-block-size: 2.75rem; font-weight: 400; }
   :where(input[type=range],progress,meter) { accent-color: var(--re-primary); inline-size: 100%; }
   :where(input[type=color]) { padding: .25em; }
-  :where(input[type=file]::file-selector-button) { font: inherit; padding: .4em .7em; margin-inline-end: .8em; border: 1px solid var(--re-control-line); border-radius: var(--re-radius); color: var(--re-text); background: var(--re-surface-alt); }
-  :where(fieldset) { min-inline-size: 0; margin: 0 0 var(--re-space); padding: var(--re-space); border: 1px solid var(--re-line); border-radius: var(--re-radius); }
+  :where(input[type=file]::file-selector-button) { font: inherit; padding: .4em .7em; margin-inline-end: .8em; border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius); color: var(--re-text); background: var(--re-surface-alt); }
+  :where(fieldset) { min-inline-size: 0; margin: 0 0 var(--re-space); padding: var(--re-space); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(legend) { padding-inline: .4em; font-weight: 650; }
   :where(input:user-invalid,textarea:user-invalid,select:user-invalid,[aria-invalid=true]) { border-color: var(--re-danger-link); border-width: 2px; }
   :where(input:read-only:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=file],[type=color],[type=hidden]),textarea:read-only) { background: var(--re-surface-alt); }
   :where(output) { font-weight: 600; }
-  :where(table) { inline-size: 100%; border-collapse: collapse; text-align: start; }
+  :where(table) { inline-size: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--re-radius); overflow: hidden; text-align: start; }
   :where(caption) { text-align: start; color: var(--re-muted); margin-block-end: .75em; }
-  :where(th,td) { padding: calc(.75em * var(--re-density)); border-block-end: 1px solid var(--re-line); vertical-align: top; }
+  :where(th,td) { padding: calc(.75em * var(--re-density)); border-block-end: var(--re-surface-border) solid var(--re-line); vertical-align: top; }
   :where(th) { font-weight: 650; text-align: start; }
-  :where(thead,tfoot) { background: var(--re-surface-alt); }
-  :where(details) { padding: var(--re-space); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); }
+  :where(thead > tr > *,tfoot > tr > *) { background: var(--re-surface-alt); }
+  :where(details) { padding: var(--re-space); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); box-shadow: var(--re-shadow); }
   :where(summary) { cursor: pointer; font-weight: 650; min-block-size: 2rem; }
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
-  :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-space) * 1.5); background: var(--re-surface); color: var(--re-text); border: 1px solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
+  :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-space) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
   :where([hidden]) { display: none !important; }
 }

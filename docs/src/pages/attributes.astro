@@ -2,15 +2,31 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
 import { defaultSettings, defaultsHTML } from '../data/defaults.js';
+import reference from './generated-reference.json';
 import { attributes } from '../data/attributes.js';
 const base=import.meta.env.BASE_URL;
 ---
-<DocsLayout title="Data attributes" active="attributes" sections={[{id:"page-defaults",title:"Configure once"}, ...attributes]}>
+<DocsLayout title="Data attributes" active="attributes" sections={[{id:"page-defaults",title:"Configure once"}, {id:"defaults-reference",title:"Defaults reference"}, ...attributes]}>
 <link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
 <p class="doc-kicker">CUSTOMISE / SHARED SETTINGS</p><h1>Data attributes</h1>
 <p class="prose">Choose a setting on the page or a local section. All core settings inherit through the subtree and affect their supported descendants. Set defaults once on html, then add local attributes only for exceptions.</p>
+<p class="prose">One theme selection is enough: light and dark share the same component defaults and select their own colour palette. Omitted attributes use the defaults below; no child attributes are injected. Choose shape, density or other options only when you want to change those defaults.</p>
 <Example id="page-defaults" title="Configure the whole page once" description="Use the global stylesheet and set defaults on html. Native controls, tables and images follow them automatically; layout settings affect the existing layout classes." render={false} html={'<html data-theme="dark" data-accent="violet"\n      data-width="narrow" data-table="striped"\n      data-size="large" data-gap="large"\n      data-ratio="square" data-fit="contain">\n  <!-- Your ordinary HTML goes here. -->\n</html>'}/>
 <p><a href={base+'preview/defaults/light/'}>Open a page with defaults on html</a> · <a href={base+'preview/defaults/dark/'}>Dark version</a></p>
+<section id="defaults-reference" aria-labelledby="defaults-heading">
+<h2 id="defaults-heading">Defaults and component coverage</h2>
+<p>All settings inherit. The nearest valid explicit value wins for that setting; other settings continue to inherit. An unsupported value leaves the inherited setting intact. With the scoped stylesheet, each .reva boundary starts from its own defaults.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Attribute defaults and supported components">
+<table class="defaults-table"><caption>18 core attributes and one optional material attribute</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Default</th><th scope="col">Accepted values</th><th scope="col">Affects</th></tr></thead><tbody>
+{Object.entries(reference.options).map(([name,option])=><tr><th scope="row"><a href={'#'+name}>data-{name}</a></th><td>{option.default}</td><td>{option.values.join(', ')}</td><td>{option.affects}</td></tr>)}
+</tbody></table></div>
+<h3>Light and dark colour defaults</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Light and dark colour defaults">
+<table><caption>Neutral palette; both themes use the component defaults above</caption><thead><tr><th scope="col">Token</th><th scope="col">Light</th><th scope="col">Dark</th></tr></thead><tbody>
+{Object.keys(reference.tokens.light).map(name=><tr><th scope="row">--re-{name}</th><td>{reference.tokens.light[name].$value.hex}</td><td>{reference.tokens.dark[name].$value.hex}</td></tr>)}
+</tbody></table></div>
+<p class="prose">Settings apply where meaningful: size changes controls, width changes containers, and fit changes media. Native radio shapes, focus indicators, invalid-field borders and accessibility preferences preserve their purpose. Rounded uses a .75rem radius; pill gives buttons a fully rounded outline and surfaces a 1.5rem radius. Custom application CSS can override framework styling.</p>
+</section>
 <Example id="default-demo" title="Inherited defaults and local exceptions" description="This demo applies those six defaults to its surrounding section. No attributes are repeated on the inherited controls, table or image. The final section resets individual settings." html={'<section '+Object.entries(defaultSettings).map(([k,v])=>`${k}="${v}"`).join(' ')+'>\n'+defaultsHTML.replaceAll('__BASE__',base)+'\n</section>'}/>
 <p class="prose">For the scoped stylesheet, configure its top-level .reva boundary or a section within it. Each .reva boundary starts with its own defaults. Optional material still requires the glass stylesheet. Settings control appearance, not labels, semantic structure or interaction behavior.</p>
 <Example id="inheritance" title="Inherited and local settings" description="The nearest explicit setting wins. Put page-wide defaults on html; override them on a section or individual component." html={`<section data-accent="violet" data-shape="rounded">
@@ -19,3 +35,8 @@ const base=import.meta.env.BASE_URL;
 </section>`}/>
 {attributes.map(example=><Example {...example} html={example.html.replaceAll('__BASE__',base)}/>)}
 </DocsLayout>
+
+<style>
+.defaults-table { min-inline-size: 52rem; }
+@media print { .defaults-table { min-inline-size: 0; } }
+</style>

@@ -31,9 +31,9 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 | `data-controls` | `styled`, `minimal` | `styled` | Inherited |
 | `data-width` | `narrow`, `standard`, `wide` | `standard` | Inherited; affects .container |
 | `data-table` | `plain`, `striped`, `bordered` | `plain` | Inherited; affects tables |
-| `data-size` | `small`, `medium`, `large` | `medium` | Inherited; affects buttons, inputs, selects, textareas and .button links |
-| `data-ratio` | `auto`, `square`, `landscape`, `portrait`, `wide` | `auto` | Inherited; affects images |
-| `data-fit` | `cover`, `contain` | `cover` | Inherited; affects constrained images |
+| `data-size` | `small`, `medium`, `large` | `medium` | Inherited; affects controls and menu actions |
+| `data-ratio` | `auto`, `square`, `landscape`, `portrait`, `wide` | `auto` | Inherited; affects images and videos |
+| `data-fit` | `cover`, `contain` | `cover` | Inherited; affects constrained images and videos |
 | `data-gap` | `none`, `small`, `medium`, `large` | `medium` | Inherited; affects .grid, .row and .stack |
 
 ## Optional material extension
@@ -57,3 +57,5 @@ WCAG 2.2 A/AA target for shipped defaults and documented examples; not automatic
 Custom primary shades do not guarantee accessible foregrounds; explicit foreground and state tokens are tested. Container queries applied deliberately. Scoped builds document inheritance/overlay limits and third-party class collisions. Public attributes/classes/tokens follow semantic versioning and migration notices.
 
 Proposed gzip CSS budgets: 15 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks required before stable release. No new attribute options until scope reviewed.
+
+Shared appearance contract: shape applies to styled controls, surfaces, tables (including captioned tables), media and code. Border thickness applies to styled controls, surfaces, table separators and navigation panels. Table grid lines use the current border thickness without doubled internal edges. Depth applies to raised surfaces and actions; text-control inset shadows remain controlled by data-controls. Native invalid-field borders, focus indicators and forced-colour boundaries override decorative settings. Theme changes colours without resetting geometry or local settings. Optional material requires its matching global/scoped stylesheet.
