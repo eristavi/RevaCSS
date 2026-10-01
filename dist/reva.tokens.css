@@ -8,7 +8,7 @@
 --re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#f8fafc,#10141f); --re-surface: light-dark(#ffffff,#1a2030); --re-surface-alt: light-dark(#eef1f6,#242d40); --re-text: light-dark(#18202d,#f2f5fc); --re-muted: light-dark(#526073,#b7c2d6); --re-line: light-dark(#d7dde7,#3a465f); --re-control-line: light-dark(#738096,#8593ae); --re-link: light-dark(#2438b8,#a9b9ff);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
---re-table-stripe: 0%; --re-table-border: 0px; --re-image-ratio: auto; --re-image-fit: cover;
+--re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
@@ -29,9 +29,9 @@
 :where([data-width="narrow"], :scope[data-width="narrow"]) { --re-container: 48rem; }
 :where([data-width="standard"], :scope[data-width="standard"]) { --re-container: 75rem; }
 :where([data-width="wide"], :scope[data-width="wide"]) { --re-container: 90rem; }
-:where([data-table="plain"], :scope[data-table="plain"]) { --re-table-stripe: 0%; --re-table-border: 0px; }
-:where([data-table="striped"], :scope[data-table="striped"]) { --re-table-stripe: 100%; --re-table-border: 0px; }
-:where([data-table="bordered"], :scope[data-table="bordered"]) { --re-table-stripe: 0%; --re-table-border: 1px; }
+:where([data-table="plain"], :scope[data-table="plain"]) { --re-table-stripe: 0%; --re-table-lines: 0; }
+:where([data-table="striped"], :scope[data-table="striped"]) { --re-table-stripe: 100%; --re-table-lines: 0; }
+:where([data-table="bordered"], :scope[data-table="bordered"]) { --re-table-stripe: 0%; --re-table-lines: 1; }
 :where([data-size="small"], :scope[data-size="small"]) { --re-control-scale: .875; }
 :where([data-size="medium"], :scope[data-size="medium"]) { --re-control-scale: 1; }
 :where([data-size="large"], :scope[data-size="large"]) { --re-control-scale: 1.125; }

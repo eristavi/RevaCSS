@@ -10,10 +10,17 @@
   :where(.row) { display: flex; flex-wrap: wrap; align-items: center; }
   :where(.stack) { display: flex; flex-direction: column; }
   :where(.stack > *) { margin-block: 0; }
-  :where(.table-scroll) { max-inline-size: 100%; overflow-x: auto; }
+  :where(.table-scroll) { max-inline-size: 100%; overflow-x: auto; border-radius: var(--re-radius); }
   :where(table tbody tr:nth-child(even)) { background: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), transparent); }
-  :where(table th,table td) { border-inline: var(--re-table-border, 0px) solid var(--re-line); border-block-start: var(--re-table-border, 0px) solid var(--re-line); }
-  :where(img) { aspect-ratio: var(--re-image-ratio, auto); object-fit: var(--re-image-fit, cover); }
+  :where(table th,table td) { border-inline-start: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  :where(table tr > :last-child) { border-inline-end: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > *) { border-block-start: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  /* Round painted cells as well as the table box: captions sit above its grid. */
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > :first-child) { border-start-start-radius: var(--re-radius); }
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > :last-child) { border-start-end-radius: var(--re-radius); }
+  :where(table > :nth-last-child(1 of thead,tbody,tfoot) > tr:last-child > :first-child) { border-end-start-radius: var(--re-radius); }
+  :where(table > :nth-last-child(1 of thead,tbody,tfoot) > tr:last-child > :last-child) { border-end-end-radius: var(--re-radius); }
+  :where(img,video) { border-radius: var(--re-radius); aspect-ratio: var(--re-image-ratio, auto); object-fit: var(--re-image-fit, cover); }
   :where(.skip-link) { position: absolute; inset-inline-start: 1rem; inset-block-start: .5rem; padding: .65rem 1rem; background: var(--re-surface); z-index: 100; transform: translateY(-200%); }
   :where(.skip-link:focus) { transform: none; }
 }
@@ -53,6 +60,7 @@
     border: var(--re-surface-border) solid var(--re-line);
     border-radius: var(--re-radius);
     background: var(--re-surface);
+    box-shadow: var(--re-shadow);
     color: var(--re-text);
   }
   :where(.top-menu .menu-brand) {
@@ -92,6 +100,7 @@
     padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
     border-radius: calc(var(--re-radius) * .6);
     color: inherit;
+    font-size: calc(var(--re-type) * var(--re-control-scale));
     font-weight: 550;
     text-align: start;
     text-decoration: none;
@@ -114,7 +123,7 @@
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
   :where(.top-menu a:hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
-  :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: 1px solid var(--re-line); }
+  :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
   :where(.top-menu .menu-items) { margin-block-start: .5rem; }
 
   @media (width < 48rem) {
@@ -138,7 +147,7 @@
       overscroll-behavior: contain;
       margin: 0;
       padding: .5rem;
-      border: 1px solid var(--re-line);
+      border: var(--re-surface-border) solid var(--re-line);
       border-radius: var(--re-radius);
       background: var(--re-surface);
       box-shadow: var(--re-shadow);

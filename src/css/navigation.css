@@ -12,6 +12,7 @@
     border: var(--re-surface-border) solid var(--re-line);
     border-radius: var(--re-radius);
     background: var(--re-surface);
+    box-shadow: var(--re-shadow);
     color: var(--re-text);
   }
   :where(.top-menu .menu-brand) {
@@ -51,6 +52,7 @@
     padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
     border-radius: calc(var(--re-radius) * .6);
     color: inherit;
+    font-size: calc(var(--re-type) * var(--re-control-scale));
     font-weight: 550;
     text-align: start;
     text-decoration: none;
@@ -73,7 +75,7 @@
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
   :where(.top-menu a:hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
-  :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: 1px solid var(--re-line); }
+  :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
   :where(.top-menu .menu-items) { margin-block-start: .5rem; }
 
   @media (width < 48rem) {
@@ -97,7 +99,7 @@
       overscroll-behavior: contain;
       margin: 0;
       padding: .5rem;
-      border: 1px solid var(--re-line);
+      border: var(--re-surface-border) solid var(--re-line);
       border-radius: var(--re-radius);
       background: var(--re-surface);
       box-shadow: var(--re-shadow);

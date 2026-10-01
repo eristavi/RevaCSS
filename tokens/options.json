@@ -6,7 +6,8 @@
       "dark"
     ],
     "default": "auto",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Page, text, links, surfaces and native controls; auto follows device colours"
   },
   "accent": {
     "values": [
@@ -18,7 +19,8 @@
       "rose"
     ],
     "default": "blue",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour"
   },
   "shape": {
     "values": [
@@ -28,7 +30,8 @@
       "pill"
     ],
     "default": "rounded",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code"
   },
   "fill": {
     "values": [
@@ -36,7 +39,8 @@
       "solid"
     ],
     "default": "gradient",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Button gradients and optional glass sheen"
   },
   "density": {
     "values": [
@@ -45,7 +49,8 @@
       "spacious"
     ],
     "default": "comfortable",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Surface padding, control padding, table cells and layout spacing"
   },
   "depth": {
     "values": [
@@ -54,7 +59,8 @@
       "pronounced"
     ],
     "default": "subtle",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Buttons, cards, fieldsets, disclosures, dialogs, popovers, menus and desktop panels; control inset shadows use data-controls"
   },
   "motion": {
     "values": [
@@ -63,7 +69,8 @@
       "expressive"
     ],
     "default": "subtle",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Button transitions and press movement; reduced-motion preference wins"
   },
   "type": {
     "values": [
@@ -72,7 +79,8 @@
       "large"
     ],
     "default": "standard",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Page and subtree typography"
   },
   "border": {
     "values": [
@@ -81,7 +89,8 @@
       "none"
     ],
     "default": "subtle",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Styled control and surface borders, table rules and menu panel separators; invalid and forced-colour boundaries win"
   },
   "contrast": {
     "values": [
@@ -89,7 +98,8 @@
       "more"
     ],
     "default": "auto",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Readable text and boundary colours; optional glass becomes opaque; device high-contrast preference wins"
   },
   "tone": {
     "values": [
@@ -98,7 +108,8 @@
       "warm"
     ],
     "default": "neutral",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Neutral, cool or warm page and surface backgrounds"
   },
   "controls": {
     "values": [
@@ -106,7 +117,8 @@
       "minimal"
     ],
     "default": "styled",
-    "scope": "Inherited"
+    "scope": "Inherited",
+    "affects": "Text input, select and textarea fill and inset shadow"
   },
   "width": {
     "values": [
@@ -115,7 +127,8 @@
       "wide"
     ],
     "default": "standard",
-    "scope": "Inherited; affects .container"
+    "scope": "Inherited; affects .container",
+    "affects": "Content width of .container"
   },
   "table": {
     "values": [
@@ -124,7 +137,8 @@
       "bordered"
     ],
     "default": "plain",
-    "scope": "Inherited; affects tables"
+    "scope": "Inherited; affects tables",
+    "affects": "Table stripes and grid lines; grid thickness follows data-border"
   },
   "size": {
     "values": [
@@ -133,7 +147,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects buttons, inputs, selects, textareas and .button links"
+    "scope": "Inherited; affects controls and menu actions",
+    "affects": "Buttons, inputs, selects, textareas, .button links and menu actions; native touch target minimums remain"
   },
   "ratio": {
     "values": [
@@ -144,7 +159,8 @@
       "wide"
     ],
     "default": "auto",
-    "scope": "Inherited; affects images"
+    "scope": "Inherited; affects images and videos",
+    "affects": "Image and video aspect ratio; auto retains natural proportions"
   },
   "fit": {
     "values": [
@@ -152,7 +168,8 @@
       "contain"
     ],
     "default": "cover",
-    "scope": "Inherited; affects constrained images"
+    "scope": "Inherited; affects constrained images and videos",
+    "affects": "Image and video content within constrained dimensions"
   },
   "gap": {
     "values": [
@@ -162,7 +179,8 @@
       "large"
     ],
     "default": "medium",
-    "scope": "Inherited; affects .grid, .row and .stack"
+    "scope": "Inherited; affects .grid, .row and .stack",
+    "affects": "Spacing in .grid, .row and .stack; combines with density"
   },
   "material": {
     "values": [
@@ -170,6 +188,7 @@
       "glass"
     ],
     "default": "solid",
-    "scope": "Inherited material scope; optional glass stylesheet"
+    "scope": "Inherited material scope; optional glass stylesheet",
+    "affects": "Surface material; glass requires the optional glass stylesheet; solid stops inherited glass"
   }
 }
