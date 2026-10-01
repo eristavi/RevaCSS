@@ -36,6 +36,15 @@ Built files include `dist/reva.css`, `dist/reva.min.css`, `dist/reva.scoped.css`
 
 Load `reva.glass.css` after `reva.css`, then add `data-material="glass"` to a component or section. `data-material="solid"` ends the treatment locally. Theme, tone, shape, density, depth, fill and contrast use the shared attributes. Styled fields and filled actions stay opaque. Use `reva.glass.scoped.css` with the scoped core. Reduced transparency, increased contrast, forced colours and print have opaque fallbacks; browsers without backdrop filtering retain ordinary core surfaces. See the Glass material documentation for supported components, customization and limits.
 
+## Configure once
+
+Set shared defaults on `<html>`, then write ordinary HTML. All 18 core attributes inherit; each affects its supported targets. For example, `data-table="striped"` makes descendant tables striped, `data-size="large"` sizes controls, and `data-gap="large"` sets layout gaps. A nearer value overrides just that setting: `data-table="plain"`, `data-size="medium"` and `data-ratio="auto"` are explicit resets. Width affects `.container`; gap affects `.grid`, `.row` and `.stack`; ratio/fit affect images. Scoped builds take their configuration on `.reva` or within that boundary.
+
+```html
+<html data-theme="dark" data-accent="violet"
+      data-table="striped" data-size="large" data-gap="large">
+```
+
 ## Documentation and GitHub Pages
 
 Astro generates static documentation with no browser JavaScript. `npm run dev` previews it locally. Component pages pair live demos with the exact HTML used to render them. Browse typography, buttons, forms, cards/layouts, tables, images, disclosures, top navigation, glass material, and examples for every shared data attribute. The API reference documents CSS tokens and HTML attributes.
@@ -49,4 +58,3 @@ The validation workflow builds from scratch, runs all three browser engines, and
 The public repository is https://github.com/eristavi/RevaCSS, and documentation is live at https://eristavi.github.io/RevaCSS/. The first new component is a responsive top menu with nested native disclosures; see the Components section in the documentation.
 
 **npm publication is on hold until the first fully functional release includes the agreed components and completes automated, manual accessibility and real-device testing.** There will be no foundation-only npm alpha publication. `private: true` remains in place. Read [SPECIFICATION.md](SPECIFICATION.md) for release scope and [IMPLEMENTATION.md](IMPLEMENTATION.md) for implemented features, verification, and outstanding release checks. Core is MIT; bundled fonts retain their own licence.
-

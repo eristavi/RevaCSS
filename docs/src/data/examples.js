@@ -44,7 +44,7 @@ export const topics = [
       {
         "id": "sizes",
         "title": "Sizes and disabled state",
-        "description": "data-size targets the selected control. Native disabled prevents activation.",
+        "description": "data-size can set inherited control sizes on html or a section; a value on a control overrides them. Native disabled prevents activation.",
         "html": "<div class=\"row\">\n  <button type=\"button\" data-size=\"small\">Small</button>\n  <button type=\"button\" data-size=\"medium\">Medium</button>\n  <button type=\"button\" data-size=\"large\">Large</button>\n  <button type=\"button\" disabled>Unavailable</button>\n</div>"
       },
       {
@@ -118,13 +118,13 @@ export const topics = [
       {
         "id": "row-stack",
         "title": "Rows and stacks",
-        "description": "Combine .row, .stack and alignment utilities. data-gap belongs on the layout element itself.",
+        "description": "Combine .row, .stack and alignment utilities. data-gap can be inherited from html or a section, or overridden on a layout.",
         "html": "<div class=\"stack\" data-gap=\"large\">\n  <p>A vertical stack.</p>\n  <div class=\"row justify-between\" data-gap=\"small\">\n    <span>Actions wrap when space runs out.</span>\n    <button type=\"button\">Continue</button>\n  </div>\n</div>"
       },
       {
         "id": "container",
         "title": "Containers and prose",
-        "description": "data-width belongs on .container. .prose limits text measure independently of the page width.",
+        "description": "data-width can set inherited container defaults or be overridden on .container. .prose limits text measure independently of the page width.",
         "html": "<section class=\"container\" data-width=\"narrow\">\n  <div class=\"prose\">\n    <h3>Comfortable reading</h3>\n    <p>A narrow container with a readable text measure.</p>\n  </div>\n</section>"
       }
     ]
@@ -137,19 +137,19 @@ export const topics = [
       {
         "id": "plain",
         "title": "Plain table",
-        "description": "Set data-table on the table, not its wrapper. The wrapper contains horizontal overflow.",
+        "description": "Set data-table on html or a section for shared defaults, or on the table for a local override. The wrapper contains horizontal overflow.",
         "html": "<div class=\"table-scroll\" role=\"region\" aria-label=\"Project status, plain table\" tabindex=\"0\">\n  <table data-table=\"plain\">\n    <caption>Project status</caption>\n    <thead><tr><th scope=\"col\">Project</th><th scope=\"col\">Status</th></tr></thead>\n    <tbody>\n      <tr><th scope=\"row\">Website</th><td>In review</td></tr>\n      <tr><th scope=\"row\">Documentation</th><td>In progress</td></tr>\n    </tbody>\n  </table>\n</div>"
       },
       {
         "id": "striped",
         "title": "Striped table",
-        "description": "Set data-table on the table, not its wrapper. The wrapper contains horizontal overflow.",
+        "description": "Set data-table on html or a section for shared defaults, or on the table for a local override. The wrapper contains horizontal overflow.",
         "html": "<div class=\"table-scroll\" role=\"region\" aria-label=\"Project status, striped table\" tabindex=\"0\">\n  <table data-table=\"striped\">\n    <caption>Project status</caption>\n    <thead><tr><th scope=\"col\">Project</th><th scope=\"col\">Status</th></tr></thead>\n    <tbody>\n      <tr><th scope=\"row\">Website</th><td>In review</td></tr>\n      <tr><th scope=\"row\">Documentation</th><td>In progress</td></tr>\n    </tbody>\n  </table>\n</div>"
       },
       {
         "id": "bordered",
         "title": "Bordered table",
-        "description": "Set data-table on the table, not its wrapper. The wrapper contains horizontal overflow.",
+        "description": "Set data-table on html or a section for shared defaults, or on the table for a local override. The wrapper contains horizontal overflow.",
         "html": "<div class=\"table-scroll\" role=\"region\" aria-label=\"Project status, bordered table\" tabindex=\"0\">\n  <table data-table=\"bordered\">\n    <caption>Project status</caption>\n    <thead><tr><th scope=\"col\">Project</th><th scope=\"col\">Status</th></tr></thead>\n    <tbody>\n      <tr><th scope=\"row\">Website</th><td>In review</td></tr>\n      <tr><th scope=\"row\">Documentation</th><td>In progress</td></tr>\n    </tbody>\n  </table>\n</div>"
       }
     ]

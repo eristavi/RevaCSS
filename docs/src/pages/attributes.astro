@@ -1,13 +1,18 @@
 ---
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
+import { defaultSettings, defaultsHTML } from '../data/defaults.js';
 import { attributes } from '../data/attributes.js';
 const base=import.meta.env.BASE_URL;
 ---
-<DocsLayout title="Data attributes" active="attributes" sections={attributes}>
+<DocsLayout title="Data attributes" active="attributes" sections={[{id:"page-defaults",title:"Configure once"}, ...attributes]}>
 <link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
 <p class="doc-kicker">CUSTOMISE / SHARED SETTINGS</p><h1>Data attributes</h1>
-<p class="prose">Choose a setting on the page or a local section. Inherited settings affect supported descendants; element settings belong on the exact component named below.</p>
+<p class="prose">Choose a setting on the page or a local section. All core settings inherit through the subtree and affect their supported descendants. Set defaults once on html, then add local attributes only for exceptions.</p>
+<Example id="page-defaults" title="Configure the whole page once" description="Use the global stylesheet and set defaults on html. Native controls, tables and images follow them automatically; layout settings affect the existing layout classes." render={false} html={'<html data-theme="dark" data-accent="violet"\n      data-width="narrow" data-table="striped"\n      data-size="large" data-gap="large"\n      data-ratio="square" data-fit="contain">\n  <!-- Your ordinary HTML goes here. -->\n</html>'}/>
+<p><a href={base+'preview/defaults/light/'}>Open a page with defaults on html</a> · <a href={base+'preview/defaults/dark/'}>Dark version</a></p>
+<Example id="default-demo" title="Inherited defaults and local exceptions" description="This demo applies those six defaults to its surrounding section. No attributes are repeated on the inherited controls, table or image. The final section resets individual settings." html={'<section '+Object.entries(defaultSettings).map(([k,v])=>`${k}="${v}"`).join(' ')+'>\n'+defaultsHTML.replaceAll('__BASE__',base)+'\n</section>'}/>
+<p class="prose">For the scoped stylesheet, configure its top-level .reva boundary or a section within it. Each .reva boundary starts with its own defaults. Optional material still requires the glass stylesheet. Settings control appearance, not labels, semantic structure or interaction behavior.</p>
 <Example id="inheritance" title="Inherited and local settings" description="The nearest explicit setting wins. Put page-wide defaults on html; override them on a section or individual component." html={`<section data-accent="violet" data-shape="rounded">
   <button type="button">Inherited violet</button>
   <button type="button" data-accent="teal">Local teal</button>

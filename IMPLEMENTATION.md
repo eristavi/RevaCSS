@@ -7,7 +7,7 @@
 - Native typography, buttons, native forms, tables, disclosures and overlay appearance.
 - Cards, intrinsic grids, rows, stacks, container/prose widths and table scrolling.
 - Responsive top navigation using shared link templates for desktop and mobile, native disclosure toggles, nested submenus, desktop dropdown panels and a mobile Menu control. Included in complete/scoped/component builds and a dedicated navigation module.
-- Responsive image options, local sizes/gaps, basic alignment/column helpers.
+- Responsive image options, inherited control sizes/layout gaps/container widths/table styles, basic alignment/column helpers.
 - Global, scoped and modular builds; optional licensed Manrope variable font (TTF in alpha).
 - Reduced-motion, forced-colour, increased contrast, print and logical-direction rules.
 - Static Astro documentation, Markdown guide, generated token/attribute reference and isolated previews.
@@ -49,3 +49,6 @@ Ten new browser tests cover nested disclosures, closed-link focus exclusion, mob
 
 ## Optional glass material
 Separate global and scoped glass stylesheets. `data-material=glass` selects supported frosted surfaces; `solid` creates a local reset. Shared attributes drive colour mode, tone, shape, density, text size, depth, decorative borders, fill and contrast. Inputs and semantic actions retain their core treatment. Reduced transparency, increased contrast, forced colours, unsupported backdrop filtering and print retain opaque fallbacks. Documentation includes light/dark/auto previews. Browser and composited-colour regression results are recorded in the implementation PR; manual real-device and screen-reader review remain release requirements.
+
+## Page-wide defaults
+All 18 core data attributes can configure defaults at the top level. Width, table, size, ratio, fit and gap now use inherited custom properties and affect their supported targets only. The nearest explicit value resets one setting without resetting the others. Table stripe colour resolves against the local theme/tone; gap multipliers use local density spacing. Scoped boundaries keep their own defaults and can be configured on .reva or inside it. Native HTML defaults and CSS override priority remain intact. Browser regression coverage includes page/section/component inheritance, neutral resets, local colour/density, scoped boundaries, modular builds and unconfigured defaults. Results are recorded in the implementation PR; manual release gates remain.
