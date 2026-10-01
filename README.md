@@ -34,7 +34,7 @@ Built files include `dist/reva.css`, `dist/reva.min.css`, `dist/reva.scoped.css`
 
 ## Optional glass material
 
-Load `reva.glass.css` after `reva.css`, then add `data-material="glass"` to a component or section. `data-material="solid"` ends the treatment locally. Theme, tone, shape, density, depth, fill and contrast use the shared attributes. Styled fields and filled actions stay opaque. Use `reva.glass.scoped.css` with the scoped core. Reduced transparency, increased contrast, forced colours and print have opaque fallbacks; browsers without backdrop filtering retain ordinary core surfaces. See the Glass material documentation for supported components, customization and limits.
+Load `reva.glass.css` after `reva.css`, then add `data-material="glass"` to a component or section. `data-material="solid"` ends the treatment locally. Theme, tone, shape, density, depth, fill and contrast use the shared attributes. Styled text fields retain their existing treatment. Glass actions use 95% colour backing and backdrop blur; a local material attribute also works on a single button, button link or native action input. Use `reva.glass.scoped.css` with the scoped core. Reduced transparency, increased contrast, forced colours and print have opaque fallbacks; browsers without backdrop filtering retain ordinary core surfaces. See the Glass material documentation for supported components, customization and limits.
 
 ## Configure once
 

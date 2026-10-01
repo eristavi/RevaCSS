@@ -128,7 +128,7 @@ export const attributes = [
   {
     "id": "material",
     "title": "data-material",
-    "description": "Surface material; glass requires the optional glass stylesheet; solid stops inherited glass. Default: solid. Scope: Inherited material scope; optional glass stylesheet.",
+    "description": "Buttons, button links, native action inputs and supported surfaces; glass requires the optional stylesheet; solid stops inherited glass. Default: solid. Scope: Inherited material scope; optional glass stylesheet.",
     "html": "<div class=\"grid\">\n  <section data-material=\"solid\"><article class=\"card\"><h3>Solid</h3><p>A local material setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-material=\"glass\"><article class=\"card\"><h3>Glass</h3><p>A local material setting.</p><button type=\"button\">Action</button></article></section>\n</div>",
     "glass": true
   }

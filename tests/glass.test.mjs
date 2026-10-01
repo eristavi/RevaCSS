@@ -26,3 +26,16 @@ test('glass global and scoped distributions match their source and remain opt-in
   assert.equal(await readFile('dist/reva.glass.scoped.css','utf8'),'@scope (.reva) {\n'+source+'\n}\n');
   assert.ok(!(await readFile('dist/reva.css','utf8')).includes('--re-glass-opacity'));
 });
+
+test('glass action labels withstand black and white backdrops in every theme and accent',()=>{
+ const mix=(a,b,f)=>a.map((v,i)=>v*f+b[i]*(1-f));
+ for(const theme of ['light','dark']) for(const [accent,palette] of Object.entries(tokens.primitive.accent)) {
+  const primary=color(palette.start),end=color(palette.end),surface=color(tokens[theme].surface);
+  const cases=[['primary',primary,end,[1,1,1]],['secondary',mix(primary,surface,.1),mix(primary,surface,.18),theme==='light'?end:mix(primary,[1,1,1],.2)],['danger',color(tokens.primitive.danger.start),color(tokens.primitive.danger.end),[1,1,1]],['warning',color(tokens.primitive.warning.start),color(tokens.primitive.warning.end),color(tokens.primitive.warningText)]];
+  for(const [role,start,finish,text] of cases) for(const backdrop of [0,1]) for(const sheen of [0,.28]) {
+   const base=mix(mix(start,finish,.65),[backdrop,backdrop,backdrop],.95);
+   const painted=mix(finish,base,sheen);
+   assert.ok(contrast(text,painted)>=4.5,`${theme} ${accent} ${role} backing ${backdrop} sheen ${sheen}`);
+  }
+ }
+});
