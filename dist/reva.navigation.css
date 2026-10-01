@@ -1,6 +1,7 @@
 @layer re.components {
   :where(.top-menu) {
     --re-menu-width: 20rem;
+    anchor-name: var(--re-menu-anchor, --re-navigation);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -110,4 +111,99 @@
     :where(.top-menu a[aria-current=page]) { color: LinkText; }
   }
   @media print { :where(.top-menu) { display: none; } }
+}
+
+/* Native popover navigation. Legacy details markup keeps its disclosure behavior. */
+@layer re.components {
+  :where(.top-menu .menu-toggle) {
+    --re-edge-content: none;
+    --re-edge-animation: none;
+    --re-edge-interaction: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75em;
+    min-block-size: 2.75rem;
+    inline-size: 100%;
+    padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+    border: 0;
+    border-radius: calc(var(--re-radius) * .6);
+    background: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: inherit;
+    font-size: calc(var(--re-type) * var(--re-control-scale));
+    font-weight: 550;
+    text-align: start;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    filter: none;
+    transform: none;
+  }
+  :where(.top-menu .menu-toggle:hover) { background: var(--re-surface-alt); filter: none; }
+  :where(.top-menu .menu-toggle)::before {
+    content: '';
+    order: 1;
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-block-end: .25em;
+  }
+  :where(.top-menu .menu-back .menu-toggle)::before { content: none; }
+  :where(.top-menu button.menu-collapse) { flex: 0 0 auto; inline-size: auto; margin-inline-start: auto; }
+  :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+    position: fixed;
+    inset: 1rem;
+    margin: auto;
+    inline-size: min(var(--re-menu-width), calc(100dvw - 2rem));
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: .5rem;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.top-menu [popover]:not(:popover-open)) { display: none; }
+  :where(.top-menu [popover]:popover-open) { display: block; }
+  :where(.top-menu .menu-back) { display: list-item; }
+  /* One visible panel per branch avoids overlapping ancestor hit targets.
+     Hidden ancestors remain in the native popover stack for Back and Escape. */
+  :where(.top-menu [popover]:has([popover]:popover-open)) { visibility: hidden; }
+  :where(.top-menu [popover]:popover-open:not(:has([popover]:popover-open))) { visibility: visible; }
+  @media (width < 48rem) {
+    :where(.top-menu .menu-back) { display: list-item; }
+    :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+      inset: 4.5rem 1rem auto;
+      margin: 0 auto;
+      inline-size: calc(100dvw - 2rem);
+      max-block-size: calc(100dvh - 5.5rem);
+    }
+    :where(.top-menu .menu-desktop [popover]:popover-open) { display: none; }
+  }
+  @media (width >= 48rem) {
+    :where(.top-menu button.menu-collapse, .top-menu .menu-mobile[popover]:popover-open, .top-menu .menu-mobile [popover]:popover-open) { display: none; }
+    @supports (position-area: block-end span-inline-start) {
+      :where(.top-menu .menu-panel[popover]) {
+        inset: auto;
+        margin: .25rem 0;
+        position-anchor: var(--re-menu-anchor, --re-navigation);
+        position-area: block-end span-inline-start;
+        position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+        max-block-size: min(70dvh, 36rem);
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.top-menu .menu-toggle) { color: ButtonText; background: Canvas; }
+    :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) { border-color: CanvasText; }
+  }
+  @media print { :where(.top-menu [popover]:popover-open) { display: none; } }
 }

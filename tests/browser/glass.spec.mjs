@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const summary=(nav,label)=>nav.locator('summary:visible').filter({hasText:new RegExp('^'+label+'$')});
+const summary=(nav,label)=>nav.locator('button.menu-toggle:visible').filter({hasText:new RegExp('^'+label+'$')});
 const rgba=async locator=>locator.evaluate(el=>{
   const ctx=document.createElement('canvas').getContext('2d');
   ctx.fillStyle=getComputedStyle(el).backgroundColor;ctx.fillRect(0,0,1,1);
@@ -13,7 +13,7 @@ for(const theme of ['light','dark']) {
   test.describe(theme+' native glass navigation',()=>{
   test.use({javaScriptEnabled:false});
   test(theme+' glass retains native navigation, reflow and overlay stacking without JavaScript',async({page,browserName})=>{
-    // This context disables scripts; native details and links provide the interaction.
+    // This context disables scripts; native popovers and links provide the interaction.
     await page.goto('/preview/glass/'+theme+'/');
     const nav=page.getByRole('navigation',{name:'Glass navigation'});
     for(const label of ['Products','Frameworks','Components']) await summary(nav,label).click();
@@ -27,7 +27,7 @@ for(const theme of ['light','dark']) {
     for(const label of ['Products','Frameworks','Components']) await summary(nav,label).click();
     await expect(nav.getByRole('link',{name:'Top menu',exact:true})).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    for(const el of await nav.locator('a:visible,summary:visible').all()) expect((await el.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    for(const el of await nav.locator('a:visible,button.menu-toggle:visible').all()) expect((await el.boundingBox()).height).toBeGreaterThanOrEqual(44);
     await summary(nav,'Menu').click();
     await expect(nav.getByRole('link',{name:'Top menu',exact:true})).toBeHidden();
     expect(await page.locator('script').count()).toBe(0);
@@ -146,3 +146,4 @@ test('reduced-transparency fallback rule produces opaque surfaces',async({page})
   await page.goto('/preview/glass/light/');
   expect((await rgba(page.locator('#glass-primary')))[3]).toBe(255);expect(await filter(page.locator('#glass-primary'))).toBe('none');
 });
+
