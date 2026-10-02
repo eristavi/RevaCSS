@@ -1,4 +1,5 @@
 export const publicTokens = [
+  ["Navigation", "--re-dropdown-width", "Length", "Standalone dropdown width; 18rem fallback, bounded by viewport"],
   [
     "Palette",
     "--re-bg",

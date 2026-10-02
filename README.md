@@ -112,3 +112,7 @@ Use `dl.description-list` for responsive term/value pairs. Existing `.card` elem
 ### Shared action variants
 
 `data-variant="primary|success|warning|danger|neutral"` now configures native buttons, action inputs, `.button` links, badges and alerts. Set it on a parent to define a shared default; override only exceptions. Existing semantic button classes (`secondary`, `danger`, `warning`) remain local overrides of inherited variants. A valid action-level `data-variant` takes precedence when both are present. `outline` and `ghost` remain presentation classes; `data-appearance` still belongs to badges and alerts. Native text controls and navigation toggles keep their existing styling.
+
+### Standalone dropdowns
+
+Use `<button type="button" popovertarget="resources">Resources</button>` followed by `<ul class="dropdown" id="resources" popover="auto" role="list" aria-label="Resources">` containing ordinary list items with links or buttons. A single component class is enough; theme, size, shape and material follow the DOM parent. Native popovers handle outside-click and Escape dismissal. CSS uses the opener’s implicit anchor when supported, with a centred viewport-bounded fallback. No JavaScript, ARIA menu roles, arrow-key handling or automatic action dismissal is added. Use a native button with `popovertargetaction="hide"` when explicit closing is needed. Complete/scoped/component builds include the pattern; modular use loads tokens, base and `reva.dropdowns.css`. [HTML examples and behaviour](https://eristavi.github.io/RevaCSS/components/dropdowns/).
