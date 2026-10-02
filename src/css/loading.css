@@ -10,6 +10,12 @@
   @keyframes re-spinner-turn { to { transform: rotate(1turn); } }
 }
 @layer re.utilities {
+  /* Action text already consumed its size; local spinner overrides remain independent. */
+  :where(:is(button,.button) .spinner) {
+    inline-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+    block-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+  }
+
   @media (prefers-reduced-motion: reduce) { :where(.spinner) { animation: none; } }
   @media (forced-colors: active) { :where(.spinner) { border-color: CanvasText; border-inline-end-color: transparent; } }
   @media print { :where(.spinner) { animation: none; } }

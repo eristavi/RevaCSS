@@ -158,48 +158,41 @@
   }
 }
 
-/* Explicit preference paint stays independent of custom alpha values. */
+/* Preference paint respects the same material boundaries as normal paint. */
 @layer re.utilities {
   @media (prefers-reduced-transparency: reduce) {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
-      background-color: var(--re-glass-button-fill, var(--re-action-start));
-      background-image: none;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
+        background-color: var(--re-glass-button-fill, var(--re-action-start));
+        background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
     }
   }
   @media (prefers-contrast: more) {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
-      background-color: var(--re-glass-button-fill, var(--re-action-start));
-      background-image: none;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
+        background-color: var(--re-glass-button-fill, var(--re-action-start));
+        background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
     }
   }
   @media (forced-colors: active) {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
-      background-color: var(--re-glass-button-fill, var(--re-action-start));
-      background-image: none;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
+        background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none;
+        background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
     }
   }
   @media print {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
-      background-color: var(--re-glass-button-fill, var(--re-action-start));
-      background-image: none;
-      -webkit-backdrop-filter: none;
-      backdrop-filter: none;
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) {
+        background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none;
+        background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
     }
-  }
-  @media (forced-colors: active) {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) { background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none; }
-  }
-  @media print {
-    :where([data-material="glass"] :is(button,input:is([type=button],[type=submit],[type=reset]),.button), [data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button), :scope[data-material="glass"]:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle)) { background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none; }
   }
 }
-
 
 /* Badges use the action backing opacity to preserve small-label contrast. */
 @layer re.components {
@@ -247,11 +240,10 @@
   @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.list-group > li, .tabs > label) {
-        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-button-opacity, 90%), transparent);
+        background-color: color-mix(in srgb, var(--re-choice-fill, var(--re-surface)) var(--re-glass-button-opacity, 90%), transparent);
         -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
         backdrop-filter: var(--re-glass-filter, blur(16px));
       }
-      :where(.tabs > label:has(input:checked)) { background-color: color-mix(in srgb, var(--re-surface-alt) var(--re-glass-button-opacity, 90%), transparent); }
     }
   }
 }

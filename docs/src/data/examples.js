@@ -26,6 +26,12 @@ export const topics = [
         "title": "Shared defaults",
         "description": "Set accent and size on the parent; controls only need the switch class.",
         "html": "<section data-accent=\"teal\" data-size=\"large\" data-shape=\"pill\">\n  <label><input class=\"switch\" type=\"checkbox\" role=\"switch\" checked> Notifications</label>\n  <label><input class=\"switch\" type=\"checkbox\" role=\"switch\">Activity emails</label>\n</section>"
+      },
+      {
+        "id": "switch-sized-group",
+        "title": "A sized labelled switch",
+        "description": "The group label and switch consume the size setting once. A local switch size remains an independent override.",
+        "html": "<section data-size=\"large\">\n  <div class=\"form-group\">\n    <label><input class=\"switch\" type=\"checkbox\" role=\"switch\" checked> Email notifications</label>\n  </div>\n  <div class=\"form-group\">\n    <label><input class=\"switch\" type=\"checkbox\" role=\"switch\" data-size=\"small\"> A smaller local switch</label>\n  </div>\n</section>"
       }
     ],
     "glass": false
@@ -57,6 +63,12 @@ export const topics = [
         "title": "A measured value",
         "description": "Units are explicit in the label, with a decorative suffix.",
         "html": "<div class=\"form-group\" data-size=\"small\">\n  <label for=\"package-weight\">Package weight in kilograms</label>\n  <div class=\"input-group\">\n    <input id=\"package-weight\" name=\"weight\" type=\"number\" min=\"0\" step=\"0.1\">\n    <span aria-hidden=\"true\">kg</span>\n  </div>\n</div>"
+      },
+      {
+        "id": "input-group-native-action",
+        "title": "A native action input",
+        "description": "Action inputs use the same grouping role as buttons. The editable field takes the available width; the action wraps when needed.",
+        "html": "<div class=\"form-group\">\n  <label for=\"native-group-query\">Search documents</label>\n  <div class=\"input-group\">\n    <input id=\"native-group-query\" type=\"search\" name=\"query\">\n    <input type=\"button\" value=\"Search\">\n  </div>\n</div>"
       }
     ],
     "glass": false
@@ -227,6 +239,12 @@ export const topics = [
         "description": "Keep the live region in place before updating it; hide the decorative spinner once loading finishes.",
         "html": "<!-- Update this established region from your application. -->\n<p role=\"status\">\n  <span class=\"spinner\" aria-hidden=\"true\"></span>\n  Loading results…\n</p>",
         "render": false
+      },
+      {
+        "id": "loading-in-action",
+        "title": "Loading inside a sized action",
+        "description": "The action supplies size once; its spinner follows the resolved text size without multiplying that setting again. Applications control disabled and loading state.",
+        "html": "<section class=\"row\" data-size=\"large\">\n  <button type=\"button\" disabled>\n    <span class=\"spinner\" aria-hidden=\"true\"></span>\n    Preparing report…\n  </button>\n</section>"
       }
     ]
   },
@@ -310,7 +328,8 @@ export const topics = [
     "notes": [
       "Use meaningful alt text when the image identifies a person. Use alt=\"\" when a nearby visible name already gives the same information.",
       "For standalone initials, supply the full name through an accessible label. Initials are not an automatic image-loading fallback; your application or server chooses which markup to render.",
-      "data-shape=\"pill\" makes the square avatar round. Use --re-avatar-size for a custom base dimension; data-size scales it. Set attributes on a parent for shared defaults."
+      "data-shape=\"pill\" makes the square avatar round. Use --re-avatar-size for a custom base dimension; data-size scales it. Set attributes on a parent for shared defaults.",
+      "Constrained avatars keep a square aspect ratio as their available width decreases. Shape changes the boundary, not the aspect ratio."
     ],
     "examples": [
       {
@@ -697,6 +716,12 @@ export const topics = [
         "description": "Load the optional glass stylesheet. Badges inherit material; solid stops it locally. Unsupported blur falls back to the normal opaque badge.",
         "glass": true,
         "html": "<section data-material=\"glass\" data-theme=\"dark\"\n         data-shape=\"pill\" data-variant=\"primary\">\n  <p>\n    <span class=\"badge\">Glass label</span></p>\n  <section data-material=\"solid\">\n    <p>\n    <span class=\"badge\">Solid exception</span></p>\n  </section>\n</section>"
+      },
+      {
+        "id": "badge-in-action",
+        "title": "A count inside a sized action",
+        "description": "The badge remains relative to the action text while preserving shared size and an optional local badge override. The button label supplies count context.",
+        "html": "<div class=\"row\" data-size=\"large\">\n  <button type=\"button\">Messages <span class=\"badge\" data-variant=\"neutral\">3 unread</span></button>\n</div>"
       }
     ]
   },

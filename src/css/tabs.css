@@ -2,13 +2,15 @@
 @layer re.components {
   :where(.tabs) { display: flex; flex-wrap: wrap; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
   :where(.tabs > label) {
+    --re-label-font-scale: var(--re-control-scale, 1);
     display: inline-flex; align-items: center; order: 0; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem;
     margin: 0; padding: calc(.5em * var(--re-density)) calc(.8em * var(--re-density));
     border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
-    color: var(--re-text); background-color: var(--re-surface); cursor: pointer;
+    --re-choice-fill: var(--re-surface);
+    color: var(--re-text); background-color: var(--re-choice-fill); cursor: pointer;
     font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
   }
-  :where(.tabs > label:has(input:checked)) { background-color: var(--re-surface-alt); font-weight: 700; }
+  :where(.tabs > label:has(input:checked)) { --re-choice-fill: var(--re-surface-alt); background-color: var(--re-choice-fill); font-weight: 700; }
   :where(.tabs > label:has(input:focus-visible)) { outline: 3px solid var(--re-text); outline-offset: 4px; }
   :where(.tabs > .tab-panel) { order: 1; flex-basis: 100%; min-inline-size: 0; overflow-wrap: anywhere; }
   :where(.tab-panel > :first-child) { margin-block-start: 0; }
@@ -19,10 +21,12 @@
   }
 }
 @layer re.utilities {
+  :where(.tabs > label input) { font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1)); }
+
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-    :where(.tabs > label) { background-color: var(--re-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(.tabs > label) { background-color: var(--re-choice-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
 
-  @media (forced-colors: active) { :where(.tabs > label) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; } }
-  @media print { :where(.tabs > .tab-panel) { display: block; } :where(.tabs > label) { color: #000; background-color: #fff; } }
+  @media (forced-colors: active) { :where(.tabs > label) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+  @media print { :where(.tabs > .tab-panel) { display: block; } :where(.tabs > label) { color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
 }

@@ -2,8 +2,8 @@
 @layer re.components {
   :where(.input-group) { display: flex; flex-wrap: wrap; align-items: stretch; gap: calc(.35em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; }
   :where(.input-group > *) { min-inline-size: 0; max-inline-size: 100%; }
-  :where(.input-group > :is(input,select,textarea)) { flex: 1 1 12rem; inline-size: auto; }
-  :where(.input-group > :is(button,.button)) { flex: 0 1 auto; }
+  :where(.input-group > :is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=hidden]),select,textarea)) { flex: 1 1 12rem; inline-size: auto; }
+  :where(.input-group > :is(button,.button,input:is([type=button],[type=submit],[type=reset]))) { flex: 0 1 auto; inline-size: auto; }
   :where(.input-group > span) {
     display: inline-flex; align-items: center; padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
     font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
