@@ -1,4 +1,18 @@
 {
+  "palette": {
+    "values": [
+      "mono",
+      "sand",
+      "ocean",
+      "cobalt",
+      "citrus",
+      "violet",
+      "forest"
+    ],
+    "default": "mono",
+    "scope": "Inherited; applies to supported targets",
+    "affects": "Coordinated page, surface, foreground, border, link and primary colours. Light/dark follows data-theme. Success, warning and error colours stay semantic."
+  },
   "theme": {
     "values": [
       "auto",
@@ -18,9 +32,9 @@
       "orange",
       "rose"
     ],
-    "default": "blue",
+    "default": "Palette primary",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour."
+    "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour. Explicit accents reset their foreground; omitted accents follow data-palette."
   },
   "shape": {
     "values": [
@@ -107,9 +121,9 @@
       "cool",
       "warm"
     ],
-    "default": "neutral",
+    "default": "Palette surfaces",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Neutral, cool or warm page and surface colours."
+    "affects": "Override page and surface temperature without resetting the palette accent, links or foregrounds."
   },
   "controls": {
     "values": [

@@ -229,6 +229,7 @@ export const learnLinks = [
 ];
 export const themeLinks = [
  { key:'themes', title:'Theme overview', path:'themes/' },
+ { key:'palettes', title:'Colour palettes', path:'themes/palettes/' },
  { key:'light', title:'Light', path:'themes/light/' },
  { key:'dark', title:'Dark', path:'themes/dark/' },
  { key:'auto', title:'System', path:'themes/auto/' },

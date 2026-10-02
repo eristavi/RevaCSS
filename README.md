@@ -121,6 +121,18 @@ Use `<button type="button" popovertarget="resources">Resources</button>` followe
 
 Load `reva.motion.css` after the global core, or `reva.motion.scoped.css` after the scoped core. The core bundles remain unchanged. Native popovers, including dropdown and navigation panels, gain a short fade, slide and scale entrance using CSS `@starting-style`. Existing parent `data-motion="none|subtle|expressive"` settings control intensity and duration (0/140/240ms); nearer settings override inherited defaults. Reduced motion, forced colours and print disable this entrance effect. Unsupported starting-style browsers show the content immediately. Closing stays immediate and native; there is no delayed dismissal, JavaScript, scroll reveal or dialog animation in this first module. [Motion guide and HTML examples](https://eristavi.github.io/RevaCSS/guide/motion/).
 
+### Coordinated colour palettes
+
+Mono is the default in light, dark and system modes. Select one of seven coordinated colour families once on a parent:
+
+```html
+<html data-theme="auto" data-palette="ocean">
+```
+
+Accepted palettes: `mono`, `sand`, `ocean`, `cobalt`, `citrus`, `violet`, `forest`. They supply page and surface colours, text, links, borders and primary actions. Semantic success, warning and error colours retain their meanings. Glass uses the same palette tokens; load the optional glass extension as usual.
+
+A nearer palette installs a complete colour set. On the same element, explicit `data-accent` overrides the primary stops and their foreground; `data-tone` overrides surfaces while preserving palette foregrounds and links. Omitted accent and tone settings follow the selected palette. Theme, material and other shared options inherit independently. Scoped builds accept palettes on `.reva` boundaries. [Compare palettes and HTML examples](https://eristavi.github.io/RevaCSS/themes/palettes/).
+
 ### Default gliding highlights
 
 Tabs include scoped underline indicators; desktop top-level navigation and pagination use a gliding hover background. Submenus retain static hover and focus styling. These effects are included in the core and dedicated component modules. Tabs follow selected native choices; navigation and pagination follow eligible hover/visible-focus targets and return to a current-page item where present. Pagination retains its persistent current-page styling. The effect uses CSS anchor positioning and anchor-scope, with ordinary static state styling as fallback. Parent `data-motion` controls duration and reduced-motion preferences disable transitions. No JavaScript, extra markup or animation class is required. These effects reserve `::after` on `.tabs` and `::after` on the desktop top-menu list and pagination’s direct `ol`. The optional motion extension still controls popover entrances separately.

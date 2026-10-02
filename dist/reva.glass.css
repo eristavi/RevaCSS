@@ -21,14 +21,14 @@
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       /* Theme/tone wrappers carry tokens, not an opaque rectangle behind glass.
          Page roots and actual surfaces retain their own background paint. */
-      :where([data-theme], [data-tone], :scope[data-theme], :scope[data-tone]):where(:not(html, body, .reva, .card, fieldset, details, dialog, [popover], .top-menu)) {
+      :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]):where(:not(html, body, .reva, .card, fieldset, details, dialog, [popover], .top-menu)) {
         background-color: transparent;
       }
       /* More translucent surfaces need stronger inherited text and boundaries.
          Scope proximity keeps local themes, material resets and re-entry intact. */
       :where(*, :scope):where(:not([data-material="solid"], .menu-toggle)) {
         --re-muted: var(--re-text);
-        --re-link: light-dark(#182a87, #eaf0ff);
+        --re-link: var(--re-text);
         --re-control-line: var(--re-text);
       }
       /* Strong colour backing preserves label contrast while the backdrop remains visible. */

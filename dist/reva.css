@@ -10,12 +10,12 @@
 }
 @layer re.tokens, re.base, re.components, re.utilities;
 @layer re.tokens {
-:where(:root) { --re-primary: #354de8;
---re-primary-end: #2438b8;
+:where(:root) { --re-primary: #111111;
+--re-primary-end: #000000;
 --re-on-primary: #ffffff;
 --re-radius: 0.75rem;
 --re-gap: 1rem;
---re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#f8fafc,#10141f); --re-surface: light-dark(#ffffff,#1a2030); --re-surface-alt: light-dark(#eef1f6,#242d40); --re-text: light-dark(#18202d,#f2f5fc); --re-muted: light-dark(#526073,#b7c2d6); --re-line: light-dark(#d7dde7,#3a465f); --re-control-line: light-dark(#738096,#8593ae); --re-link: light-dark(#2438b8,#a9b9ff);
+--re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#111111,#F5F5F5); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#000000,#DEDEDE); --re-link: light-dark(#111111,#F5F5F5); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -29,15 +29,22 @@
 :where([data-theme="light"], :scope[data-theme="light"]) { color-scheme: light; }
 :where([data-theme="dark"], :scope[data-theme="dark"]) { color-scheme: dark; }
 :where([data-theme="auto"], :scope[data-theme="auto"]) { color-scheme: light dark; }
-:where([data-tone="neutral"], :scope[data-tone="neutral"]) { --re-bg: light-dark(#f8fafc,#10141f); --re-surface: light-dark(#ffffff,#1a2030); --re-surface-alt: light-dark(#eef1f6,#242d40); --re-text: light-dark(#18202d,#f2f5fc); --re-muted: light-dark(#526073,#b7c2d6); --re-line: light-dark(#d7dde7,#3a465f); --re-control-line: light-dark(#738096,#8593ae); --re-link: light-dark(#2438b8,#a9b9ff); }
-:where([data-tone="cool"], :scope[data-tone="cool"]) { --re-bg: light-dark(#f5f8ff,#0e1424); --re-surface: light-dark(#ffffff,#182239); --re-surface-alt: light-dark(#eaf0fc,#24314b); --re-text: light-dark(#18202d,#f2f5fc); --re-muted: light-dark(#526073,#b7c2d6); --re-line: light-dark(#d7dde7,#3a465f); --re-control-line: light-dark(#738096,#8593ae); --re-link: light-dark(#2438b8,#a9b9ff); }
-:where([data-tone="warm"], :scope[data-tone="warm"]) { --re-bg: light-dark(#faf8f3,#1a1714); --re-surface: light-dark(#fffdf8,#28231e); --re-surface-alt: light-dark(#f0ece3,#352e26); --re-text: light-dark(#18202d,#f2f5fc); --re-muted: light-dark(#526073,#b7c2d6); --re-line: light-dark(#d7dde7,#3a465f); --re-control-line: light-dark(#738096,#8593ae); --re-link: light-dark(#2438b8,#a9b9ff); }
-:where([data-accent="blue"], :scope[data-accent="blue"]) { --re-primary: #354de8; --re-primary-end: #2438b8; }
-:where([data-accent="violet"], :scope[data-accent="violet"]) { --re-primary: #7041cf; --re-primary-end: #5228a4; }
-:where([data-accent="teal"], :scope[data-accent="teal"]) { --re-primary: #087c80; --re-primary-end: #075b60; }
-:where([data-accent="green"], :scope[data-accent="green"]) { --re-primary: #237a50; --re-primary-end: #145434; }
-:where([data-accent="orange"], :scope[data-accent="orange"]) { --re-primary: #ad4b0c; --re-primary-end: #873808; }
-:where([data-accent="rose"], :scope[data-accent="rose"]) { --re-primary: #bc2854; --re-primary-end: #92203f; }
+:where([data-palette="mono"], :scope[data-palette="mono"]) { --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#111111,#F5F5F5); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#000000,#DEDEDE); --re-link: light-dark(#111111,#F5F5F5); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); }
+:where([data-palette="sand"], :scope[data-palette="sand"]) { --re-bg: light-dark(#F7F5EF,#1D1A15); --re-surface: light-dark(#FFFEFA,#2A261F); --re-text: light-dark(#383329,#F4EFE4); --re-surface-alt: light-dark(#EBE6DA,#3C362C); --re-primary: light-dark(#665842,#D5C2A2); --re-on-primary: light-dark(#FFFFFF,#292116); --re-line: light-dark(#D4CBBB,#5B5142); --re-primary-end: light-dark(#514632,#C3AE8D); --re-link: light-dark(#665842,#D5C2A2); --re-muted: light-dark(#6A665D,#C2BDB3); --re-control-line: light-dark(#8E8779,#A0988B); }
+:where([data-palette="ocean"], :scope[data-palette="ocean"]) { --re-bg: light-dark(#F4F8FB,#0B1922); --re-surface: light-dark(#FFFFFF,#132833); --re-text: light-dark(#142E3D,#E5F3F8); --re-surface-alt: light-dark(#DFEFF2,#203C49); --re-primary: light-dark(#08657A,#67D1DE); --re-on-primary: light-dark(#FFFFFF,#08252C); --re-line: light-dark(#B9D1DA,#385967); --re-primary-end: light-dark(#075468,#50B9C6); --re-link: light-dark(#08657A,#67D1DE); --re-muted: light-dark(#4F626E,#B0C0C7); --re-control-line: light-dark(#6F8893,#869EA8); }
+:where([data-palette="cobalt"], :scope[data-palette="cobalt"]) { --re-bg: light-dark(#F5F7FC,#10172A); --re-surface: light-dark(#FFFFFF,#1A2440); --re-text: light-dark(#1A2744,#EDF2FF); --re-surface-alt: light-dark(#E5EBFC,#29385A); --re-primary: light-dark(#2455BE,#92B4FF); --re-on-primary: light-dark(#FFFFFF,#14264B); --re-line: light-dark(#C5CFE4,#43557B); --re-primary-end: light-dark(#1E459F,#7DA0EB); --re-link: light-dark(#2455BE,#92B4FF); --re-muted: light-dark(#535D73,#B8BECF); --re-control-line: light-dark(#78839C,#909CB6); }
+:where([data-palette="citrus"], :scope[data-palette="citrus"]) { --re-bg: light-dark(#FAFAF3,#191C10); --re-surface: light-dark(#FFFFFF,#272B19); --re-text: light-dark(#30321C,#F4F6E3); --re-surface-alt: light-dark(#EFEFCF,#3B4025); --re-primary: light-dark(#D8D94A,#E6E875); --re-on-primary: light-dark(#272A0C,#282D0C); --re-line: light-dark(#D4D5B4,#5A6240); --re-primary-end: light-dark(#B7B938,#D3D561); --re-link: light-dark(#666A13,#E6E875); --re-muted: light-dark(#646555,#C1C3B0); --re-control-line: light-dark(#8A8C70,#9FA589); }
+:where([data-palette="violet"], :scope[data-palette="violet"]) { --re-bg: light-dark(#F9F6FC,#1A1423); --re-surface: light-dark(#FFFFFF,#281E35); --re-text: light-dark(#33233F,#F3ECFA); --re-surface-alt: light-dark(#EEE5F6,#3D2D4D); --re-primary: light-dark(#7045A1,#C5A2EF); --re-on-primary: light-dark(#FFFFFF,#2A1742); --re-line: light-dark(#D6C7E3,#5D486F); --re-primary-end: light-dark(#5B3687,#B18BDC); --re-link: light-dark(#7045A1,#C5A2EF); --re-muted: light-dark(#665A6F,#C0B8C9); --re-control-line: light-dark(#8D7D99,#A092AE); }
+:where([data-palette="forest"], :scope[data-palette="forest"]) { --re-bg: light-dark(#F5F8F3,#101B14); --re-surface: light-dark(#FFFFFF,#1B2A20); --re-text: light-dark(#223329,#ECF3E8); --re-surface-alt: light-dark(#E4EDDF,#2C3F2E); --re-primary: light-dark(#326344,#A0CEA4); --re-on-primary: light-dark(#FFFFFF,#15291B); --re-line: light-dark(#C4D2BE,#435C46); --re-primary-end: light-dark(#285236,#88B98D); --re-link: light-dark(#326344,#A0CEA4); --re-muted: light-dark(#59665E,#B8C1B6); --re-control-line: light-dark(#7B8A7B,#8FA08F); }
+:where([data-tone="neutral"], :scope[data-tone="neutral"]) { --re-bg: light-dark(#fafafa,#101010); --re-surface: light-dark(#ffffff,#191919); --re-surface-alt: light-dark(#ededed,#292929); }
+:where([data-tone="cool"], :scope[data-tone="cool"]) { --re-bg: light-dark(#f5f8ff,#0e1424); --re-surface: light-dark(#ffffff,#182239); --re-surface-alt: light-dark(#eaf0fc,#24314b); }
+:where([data-tone="warm"], :scope[data-tone="warm"]) { --re-bg: light-dark(#faf8f3,#1a1714); --re-surface: light-dark(#fffdf8,#28231e); --re-surface-alt: light-dark(#f0ece3,#352e26); }
+:where([data-accent="blue"], :scope[data-accent="blue"]) { --re-primary: #354de8; --re-primary-end: #2438b8; --re-on-primary: #fff; }
+:where([data-accent="violet"], :scope[data-accent="violet"]) { --re-primary: #7041cf; --re-primary-end: #5228a4; --re-on-primary: #fff; }
+:where([data-accent="teal"], :scope[data-accent="teal"]) { --re-primary: #087c80; --re-primary-end: #075b60; --re-on-primary: #fff; }
+:where([data-accent="green"], :scope[data-accent="green"]) { --re-primary: #237a50; --re-primary-end: #145434; --re-on-primary: #fff; }
+:where([data-accent="orange"], :scope[data-accent="orange"]) { --re-primary: #ad4b0c; --re-primary-end: #873808; --re-on-primary: #fff; }
+:where([data-accent="rose"], :scope[data-accent="rose"]) { --re-primary: #bc2854; --re-primary-end: #92203f; --re-on-primary: #fff; }
 :where([data-width="narrow"], :scope[data-width="narrow"]) { --re-container: 48rem; }
 :where([data-width="standard"], :scope[data-width="standard"]) { --re-container: 75rem; }
 :where([data-width="wide"], :scope[data-width="wide"]) { --re-container: 90rem; }
@@ -91,7 +98,7 @@
   :where(*, *::before, *::after) { box-sizing: border-box; }
   :where(html) { -webkit-text-size-adjust: 100%; }
   :where(body,.reva,:scope.reva) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
-  :where([data-theme], [data-tone], :scope[data-theme], :scope[data-tone]) { background-color: var(--re-bg); color: var(--re-text); }
+  :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]) { background-color: var(--re-bg); color: var(--re-text); }
   :where([data-type], :scope[data-type]) { font-size: var(--re-type); }
   :where(h1,h2,h3,h4,h5,h6) { font-family: var(--re-font-heading, var(--re-font)); font-weight: 700; line-height: 1.2; margin-block: 1.5em .55em; overflow-wrap: anywhere; text-wrap: balance; }
   :where(h1) { font-size: clamp(2em, 1.65em + 1.2vw, 3em); letter-spacing: -.025em; }
@@ -143,7 +150,7 @@
   :where(button.secondary,.button.secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
     --re-action-start: color-mix(in srgb, var(--re-primary) 10%, var(--re-surface));
     --re-action-end: color-mix(in srgb, var(--re-primary) 18%, var(--re-surface));
-    --re-action-text: light-dark(var(--re-primary-end), color-mix(in srgb, var(--re-primary) 20%, #fff));
+    --re-action-text: var(--re-link);
   }
   :where(button.outline,.button.outline,button.ghost,.button.ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
   :where(button.outline,.button.outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
@@ -158,7 +165,7 @@
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
-      --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: var(--re-on-primary); --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
+      --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: #fff; --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
     }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
@@ -170,7 +177,7 @@
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
-      --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-primary); --re-action-link: var(--re-danger-link);
+      --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: #fff; --re-action-link: var(--re-danger-link);
     }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
@@ -278,7 +285,7 @@
     --re-badge-start: var(--re-primary);
     --re-badge-end: var(--re-primary-end);
     --re-badge-on: var(--re-on-primary);
-    --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff));
+    --re-badge-text: var(--re-link);
     --re-badge-fill: color-mix(in srgb, var(--re-badge-start) 12%, var(--re-surface));
     --re-badge-fill-end: color-mix(in srgb, var(--re-badge-end) 12%, var(--re-surface));
     --re-badge-glass-fill: var(--re-badge-fill);
@@ -305,16 +312,16 @@
   }
   :where(.badge > *) { min-inline-size: 0; max-inline-size: 100%; }
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-primary); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-primary); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }
@@ -378,13 +385,13 @@
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-primary); --re-alert-end: var(--re-primary-end); --re-alert-on: var(--re-on-primary); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: var(--re-on-primary); }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: #fff; }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-warning); --re-alert-end: var(--re-warning-end); --re-alert-on: var(--re-on-warning); --re-alert-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: var(--re-on-primary); }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: #fff; }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-text); --re-alert-end: var(--re-muted); --re-alert-on: var(--re-surface); --re-alert-text: var(--re-text); }
@@ -1209,6 +1216,6 @@
 @layer re.utilities {
 :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-edge-display: block; }
 :where([data-contrast="more"], :scope[data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
-@media (prefers-contrast: more) { :where(:root,[data-theme],[data-tone],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
+@media (prefers-contrast: more) { :where(:root,[data-theme],[data-tone],[data-palette],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
  }
 }
