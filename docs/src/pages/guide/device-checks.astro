@@ -1,0 +1,98 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import TopMenu from '../../components/TopMenu.astro';
+import {stylesheet} from '../../data/assets.js';
+const base=import.meta.env.BASE_URL;
+const revision=process.env.GITHUB_SHA || 'local preview';
+const sections=[{id:'device-plan',title:'First pass'},{id:'device-navigation',title:'Navigation'},{id:'device-glass',title:'Glass'},{id:'device-edges',title:'Edges'},{id:'device-preferences',title:'Preferences'},{id:'device-results',title:'Report results'}];
+const items=[
+ {key:'guide',label:'Guide',href:base+'guide/'},
+ {key:'explore',label:'Explore',children:[
+  {key:'materials',label:'Materials',children:[
+   {key:'surfaces',label:'Surfaces',children:[
+    {key:'glass',label:'Glass guide',href:base+'themes/glass/'},
+    {key:'buttons',label:'Buttons guide',href:base+'components/buttons/'}
+   ]}
+  ]},
+  {key:'motion',label:'Motion guide',href:base+'guide/motion/'}
+ ]}
+];
+const edgeCases=['light','dark'].flatMap(theme=>['solid','glass'].map(material=>({theme,material,id:`device-edge-${theme}-${material}`})));
+const resultTemplate=`Device model:\nOS version / browser version:\nPage build revision:\nDate / tester:\nOrientation: portrait / landscape\nReduce Motion / Reduce Transparency / Increase Contrast:\nLow Power Mode:\nN1–N5: pass / fail / not tested\nG1–G3: pass / fail / not tested\nE1–E3: pass / fail / not tested\nP1–P2: pass / fail / unsupported / not tested\nFailure IDs, steps and screenshots/video:\nKeyboard / VoiceOver: not tested unless separately reviewed`;
+---
+<DocsLayout title="Real-device checks" active="device-checks" sections={sections}>
+<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+<p class="doc-kicker">VALIDATION</p><h1>Real-device checks</h1>
+<p class="doc-lead">One repeatable page for navigation, glass and animated edges on a physical phone or desktop browser. Start with iPhone Safari, then repeat on desktop Firefox and Edge.</p>
+<p class="doc-note"><strong>Awaiting physical-device results.</strong> These fixtures are ready to test. Automated engine checks do not establish a device pass, and this page runs without browser JavaScript.</p>
+<p>Page build: <code class="build-revision">{revision}</code>. Keep this revision with your results.</p>
+<section id="device-plan"><h2>First pass: iPhone Safari</h2>
+<ol><li>Record the phone model, iOS version, date and page build. Note Low Power Mode and accessibility preferences.</li><li>Use your usual preferences first. Run N1–N5, G1–G3 and E1–E3 in portrait; repeat in landscape.</li><li>For the animation comparison, briefly test with Reduce Motion off if comfortable. Then run P1 with it on. Restore your usual settings afterward.</li><li>Record each result as pass, fail or not tested. Capture an eight-second video for a movement failure; use screenshots for clipping or placement.</li></ol>
+<p>If you prefer to keep motion reduced, E1 is not tested rather than failed. A touch pass does not close the keyboard or screen-reader gate.</p>
+</section>
+<section id="device-navigation"><h2>Navigation</h2>
+<p>Use these three instances as well as the documentation menu at the top. In the narrow layout, start with Menu → Explore → Materials → Surfaces. In the wide layout, start with Explore.</p>
+<div class="stack">
+{['light','dark','glass'].map(mode=><section class="navigation-fixture">
+ <h3>{mode==='glass'?'Dark glass':mode==='light'?'Light solid':'Dark solid'} navigation</h3>
+ <div class:list={['navigation-surface',{ 'device-backdrop':mode==='glass'}]} data-theme={mode==='light'?'light':'dark'} data-material={mode==='glass'?'glass':'solid'} data-shape="rounded">
+ <TopMenu id={`device-nav-${mode}`} label={`${mode} device navigation`} brand="Test site" brandHref={base} items={items}/>
+ <button type="button" class="secondary outside-target">Outside tap target</button>
+ </div>
+</section>)}
+</div>
+<ol class="device-checklist"><li><strong>N1 — Open and position.</strong> Open each level. The active panel stays within the viewport, its labels remain visible, and it appears below its top-level opener on wide screens. On narrow screens it uses the mobile panel placement.</li><li><strong>N2 — Dismiss outside.</strong> With Surfaces open, tap the outside target or another area outside the panel. All open panels close. Reopen and repeat from Explore.</li><li><strong>N3 — Back and close.</strong> Use Back to return one level at a time, then Close menu. The expected parent appears and hidden panels do not receive taps.</li><li><strong>N4 — Navigate.</strong> Follow Glass guide. The destination loads; return with Safari Back and note whether a restored page retains an open panel. In-page links are not used for this dismissal check.</li><li><strong>N5 — Rotate and switch theme.</strong> Rotate with a panel open; close it, use the documentation Theme menu to switch Light/Dark, and reopen a documentation submenu. Record clipping, stale paint or unreadable text. The fixed-theme fixtures below deliberately keep their own theme.</li></ol>
+<p>Desktop or hardware-keyboard follow-up: Tab/Shift+Tab through the visible controls; use Enter/Space, Back and Escape at every depth. Record where focus lands after each close. Native opener restoration is a known limitation requiring review.</p>
+</section>
+<section id="device-glass"><h2>Glass transmission, corners and native controls</h2>
+<p>The broad colour bands are a test backdrop. Compare the glass card with its solid exception. The glass should transmit a softened tint; the solid card should conceal the pattern.</p>
+<div class="grid">
+{['light','dark'].map(theme=><section class="device-backdrop stack" data-theme={theme} data-material="glass" data-palette="ocean" data-shape="rounded" aria-label={`${theme} glass comparison`}>
+ <article class="card" id={`device-glass-${theme}`}><h3>{theme==='light'?'Light':'Dark'} glass</h3><p>Inspect all four corners and the gap between cards.</p>
+  <button type="button" popovertarget={`device-glass-response-${theme}`}>Open glass response</button>
+  <div id={`device-glass-response-${theme}`} popover><h4>Glass response</h4><p>The action opened this native popover.</p><button type="button" popovertarget={`device-glass-response-${theme}`} popovertargetaction="hide">Close response</button></div>
+  <label for={`device-input-${theme}`}>Editable native input</label><input id={`device-input-${theme}`} value="Sample text"/>
+  <label for={`device-select-${theme}`}>Native select</label><select id={`device-select-${theme}`}><option>First option</option><option>Second option</option></select>
+ </article>
+ <article class="card" data-material="solid" id={`device-solid-${theme}`}><h3>Solid exception</h3><p>The shared Ocean palette stays in effect.</p><a href={base+'guide/styling/'}>Palette and inheritance guide</a></article>
+</section>)}
+</div>
+<ol class="device-checklist"><li><strong>G1 — Material.</strong> Compare both themes: the colour bands are softened through glass, while solid exceptions remain opaque. If blur is unsupported or a transparency preference is exposed, an opaque fallback is acceptable; record that condition.</li><li><strong>G2 — Shape and paint.</strong> No square patches protrude from rounded corners, borders join cleanly, and the gap between cards shows the backdrop. Labels and primary actions remain readable.</li><li><strong>G3 — Interaction and scroll.</strong> Open and dismiss the glass response, edit the input and use the native select. Scroll with the keyboard shown and hidden. Controls stay reachable; note visible stutter or flashing while scrolling.</li></ol>
+</section>
+<section id="device-edges"><h2>Static and animated edges</h2>
+<p>These four cases use the default Mono palette. Compare Animated with Plain for at least eight seconds. Movement belongs to the rim; the label and interior should stay steady.</p>
+<div class="grid">
+{edgeCases.map(({theme,material,id})=><section class:list={['edge-fixture',{ 'device-backdrop':material==='glass'}]} data-theme={theme} data-material={material} data-palette="mono" data-edge="animated" data-shape="rounded" aria-label={`${theme} ${material} edge comparison`}>
+ <article class="card" id={id}><h3>{theme} {material}</h3><p>The card and first button inherit the animated edge.</p>
+  <div class="row"><button type="button" popovertarget="device-edge-response" id={`${id}-action`}>Animated</button><button type="button" data-edge="plain" popovertarget="device-edge-response">Plain</button><button type="button" disabled popovertarget="device-edge-response">Disabled</button></div>
+ </article>
+</section>)}
+</div>
+<div id="device-edge-response" popover><h3>Edge action received</h3><p>The decorative rim did not block the tap.</p><button type="button" popovertarget="device-edge-response" popovertargetaction="hide">Close edge response</button></div>
+<ol class="device-checklist"><li><strong>E1 — Visible movement.</strong> With motion allowed, the card and Animated rim visibly move in all four cases. Plain stays undecorated and Disabled does not animate. Pay particular attention to dark Mono.</li><li><strong>E2 — Geometry.</strong> No filled centre, square corner patch, clipped rim or layout shift appears. Animated and Plain have the same control size and text treatment.</li><li><strong>E3 — Tap through decoration.</strong> Both enabled buttons open the response. Close or tap outside to dismiss it. Disabled cannot open it.</li></ol>
+</section>
+<section id="device-preferences"><h2>Preference checks</h2>
+<p><strong>P1 — Reduce Motion.</strong> On iPhone, use Settings → Accessibility → Motion → Reduce Motion. Return to Safari and reload. Decorative edge movement and popover/glide transitions should stop; navigation and controls must still work. <a href="https://support.apple.com/en-us/111781">Apple’s Reduce Motion instructions</a>.</p>
+<p><strong>P2 — Reduce Transparency / Increase Contrast.</strong> In Settings → Accessibility → Display &amp; Text Size, test these settings separately. When Safari exposes the corresponding CSS preference, glass falls back to opaque surfaces and increased contrast removes decorative edges. If the setting is not exposed, record unsupported rather than claiming the fallback was tested. <a href="https://support.apple.com/guide/iphone/change-display-colors-iph3e2e1fb0/ios">Apple’s display accessibility instructions</a>.</p>
+<div class="preference-readout" role="group" aria-label="CSS preference indicators"><p>CSS Reduce Motion: <strong class="motion-allowed">not requested</strong><strong class="motion-reduced">requested</strong></p><p>CSS Reduce Transparency: <strong class="transparency-normal">not requested or unsupported</strong><strong class="transparency-reduced">requested</strong></p><p>CSS Increased Contrast: <strong class="contrast-normal">not requested or unsupported</strong><strong class="contrast-more">requested</strong></p><p>Backdrop blur: <strong class="blur-unavailable">unsupported; opaque fallback expected</strong><strong class="blur-available">supported; inspect actual rendering</strong></p><p>Composite edge mask: <strong class="mask-unavailable">unsupported; regular border expected</strong><strong class="mask-available">supported; inspect the visible rim</strong></p></div>
+<p>These indicators use CSS feature and preference queries. They report what this browser exposes, not its model/version or a physical-device pass.</p>
+</section>
+<section id="device-results"><h2>Report the result</h2><p>Copy this template and report any failed IDs with reproduction steps. An eight-second recording is more useful than a still image for an animation failure. The page does not store or submit results.</p><pre tabindex="0" role="region" aria-label="Device result template"><code>{resultTemplate}</code></pre>
+<p>Physical-device results are still pending. The release gates remain open until the relevant device, keyboard and assistive-technology evidence has been reviewed.</p></section>
+</DocsLayout>
+<style>
+.build-revision { overflow-wrap:anywhere; }
+.navigation-fixture,.edge-fixture { padding:clamp(.75rem,2vw,1.5rem); border-radius:var(--re-radius); }
+.navigation-surface { padding:clamp(.75rem,2vw,1.5rem); border-radius:var(--re-radius); }
+.outside-target { margin-block-start:1rem; }
+.device-backdrop { padding:clamp(.75rem,2vw,1.5rem); border-radius:var(--re-radius); background:repeating-linear-gradient(115deg,#84cfff 0 4rem,#fff5ae 4rem 8rem,#e7aeff 8rem 12rem,#9ff2cf 12rem 16rem); }
+.edge-fixture .row > button { inline-size:min(100%,8rem); }
+.device-checklist li { margin-block:.75rem; }
+.preference-readout { padding:1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); }
+.motion-reduced,.transparency-reduced,.contrast-more,.blur-available,.mask-available { display:none; }
+@media (prefers-reduced-motion:reduce) { .motion-allowed { display:none; } .motion-reduced { display:inline; } }
+@media (prefers-reduced-transparency:reduce) { .transparency-normal { display:none; } .transparency-reduced { display:inline; } }
+@media (prefers-contrast:more) { .contrast-normal { display:none; } .contrast-more { display:inline; } }
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .blur-unavailable { display:none; } .blur-available { display:inline; } }
+@supports (mask-composite:exclude) { .mask-unavailable { display:none; } .mask-available { display:inline; } }
+</style>
