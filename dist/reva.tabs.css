@@ -48,3 +48,31 @@
     :where(.tabs > label:has(input:checked)) { border-block-end-color: #000; }
   }
 }
+
+/* One scoped underline follows the selected label; the base border is fallback. */
+@layer re.components {
+  @supports (anchor-scope: --re-tab-highlight) and (left: anchor(left)) {
+
+  :where(.tabs) { position: relative; anchor-scope: --re-tab-highlight; }
+  :where(.tabs)::after {
+    content: ""; position: absolute; position-anchor: --re-tab-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    :where(.tabs > label:has(> input:checked)) { anchor-name: --re-tab-highlight; border-block-end-color: transparent; }
+    :where(.tabs:has(> label > input:checked))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.tabs)::after { transition: none; } }
+  @media (forced-colors: active), print {
+    :where(.tabs)::after { display: none; }
+    :where(.tabs > label:has(input:checked)) { border-block-end-color: currentColor; }
+  }
+}

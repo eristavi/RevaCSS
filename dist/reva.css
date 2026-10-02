@@ -461,6 +461,33 @@
     :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
 }
+
+/* The current page stays marked while a decorative underline follows interaction. */
+@layer re.components {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+
+  :where(.pagination > ol) { position: relative; anchor-scope: --re-page-highlight; }
+  :where(.pagination > ol)::after {
+    content: ""; position: absolute; position-anchor: --re-page-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    :where(.pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover)) > li > :is(a,span)[aria-current=page],
+      .pagination > ol > li > a:not([aria-disabled=true]):focus-visible,
+      .pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible)) > li > a:not([aria-disabled=true]):hover) { anchor-name: --re-page-highlight; }
+    :where(.pagination > ol:has(> li > :is(a,span)[aria-current=page], > li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.pagination > ol)::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.pagination > ol)::after { display: none; } }
+}
 /* Labels and descriptions remain native HTML with explicit ID associations. */
 @layer re.components {
   :where(.form-group) { display: flex; flex-direction: column; gap: calc(.4em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin-block-end: var(--re-space); }
@@ -546,6 +573,34 @@
     :where(.tabs > .tab-panel) { display: block; margin-block-end: var(--re-space); }
     :where(.tabs > label) { display: block; color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(.tabs > label:has(input:checked)) { border-block-end-color: #000; }
+  }
+}
+
+/* One scoped underline follows the selected label; the base border is fallback. */
+@layer re.components {
+  @supports (anchor-scope: --re-tab-highlight) and (left: anchor(left)) {
+
+  :where(.tabs) { position: relative; anchor-scope: --re-tab-highlight; }
+  :where(.tabs)::after {
+    content: ""; position: absolute; position-anchor: --re-tab-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    :where(.tabs > label:has(> input:checked)) { anchor-name: --re-tab-highlight; border-block-end-color: transparent; }
+    :where(.tabs:has(> label > input:checked))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.tabs)::after { transition: none; } }
+  @media (forced-colors: active), print {
+    :where(.tabs)::after { display: none; }
+    :where(.tabs > label:has(input:checked)) { border-block-end-color: currentColor; }
   }
 }
 /* List semantics remain in ul/ol; optional item links need no class. */
@@ -1026,6 +1081,40 @@
     :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) { border-color: CanvasText; }
   }
   @media print { :where(.top-menu [popover]:popover-open) { display: none; } }
+}
+
+/* Scoped markers do not share targets between desktop/mobile or nested panels. */
+@layer re.components {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+
+  :where(.top-menu :is(.menu-items, .menu-panel)) { anchor-scope: --re-nav-highlight; }
+  :where(.top-menu .menu-items:not([popover])) { position: relative; }
+  :where(.top-menu :is(.menu-items, .menu-panel))::after {
+    content: ""; position: absolute; position-anchor: --re-nav-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    /* Preserve the root branch anchor used to position its dropdown panels. */
+    :where(.top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page], .top-menu :is(.menu-items, .menu-panel) > li > :is(a, button):focus-visible, .top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
+      anchor-name: --re-nav-highlight;
+    }
+    :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page],
+      .top-menu .menu-desktop > li > :is(a, button):focus-visible,
+      .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
+      anchor-name: var(--re-menu-branch-anchor, --re-unused-navigation-anchor), --re-nav-highlight;
+    }
+    :where(.top-menu :is(.menu-items, .menu-panel):has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.top-menu :is(.menu-items, .menu-panel))::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.top-menu :is(.menu-items, .menu-panel))::after { display: none; } }
 }
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */

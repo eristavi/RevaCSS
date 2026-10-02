@@ -221,3 +221,37 @@
   }
   @media print { :where(.top-menu [popover]:popover-open) { display: none; } }
 }
+
+/* Scoped markers do not share targets between desktop/mobile or nested panels. */
+@layer re.components {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+
+  :where(.top-menu :is(.menu-items, .menu-panel)) { anchor-scope: --re-nav-highlight; }
+  :where(.top-menu .menu-items:not([popover])) { position: relative; }
+  :where(.top-menu :is(.menu-items, .menu-panel))::after {
+    content: ""; position: absolute; position-anchor: --re-nav-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    /* Preserve the root branch anchor used to position its dropdown panels. */
+    :where(.top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page], .top-menu :is(.menu-items, .menu-panel) > li > :is(a, button):focus-visible, .top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
+      anchor-name: --re-nav-highlight;
+    }
+    :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page],
+      .top-menu .menu-desktop > li > :is(a, button):focus-visible,
+      .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
+      anchor-name: var(--re-menu-branch-anchor, --re-unused-navigation-anchor), --re-nav-highlight;
+    }
+    :where(.top-menu :is(.menu-items, .menu-panel):has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.top-menu :is(.menu-items, .menu-panel))::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.top-menu :is(.menu-items, .menu-panel))::after { display: none; } }
+}
