@@ -5,9 +5,11 @@ First complete website demo: `/demos/marketing/`. The fictional Forma workspace 
 ## Configuration and source
 
 - Parent settings: theme, palette, material and shape; default Light / Mono / Solid / Rounded.
-- All 112 combinations are static routes. Native links preserve the other three choices; switching reloads the page and resets transient controls.
+- All 168 base combinations are static routes, including System theme. Native links preserve the other three base choices; switching reloads the page and resets transient controls and advanced choices.
+- Advanced radio controls preview motion, edges, density, shadows, fill, typography, control size, borders, width and contrast immediately through CSS. Declarations come from the built framework CSS and registry, not a separate token map. Device preferences retain priority.
+- The selected-attributes snippet exposes one line per radio group. The complete HTML download/code viewer remain the base configuration: users copy the selected advanced attributes onto the opening html tag. This limitation is explained in the panel and beside the source; CSS does not rewrite attributes or serialize current state into downloads.
 - The customization panel is outside the preview's theme boundary. Its native details disclosure starts expanded and can be collapsed on mobile or desktop.
-- The preview uses the shared TopMenu component. Complete downloadable HTML and the code viewer render the same MarketingSite component; downloads move appearance attributes to `<html>`.
+- The preview uses the shared TopMenu component. Complete base HTML downloads and the code viewer render the same MarketingSite component; downloads move base appearance attributes to `<html>`.
 - The core supplies component surfaces/states. `docs/public/demos/marketing.css` supplies website composition. No core CSS or public API change is required.
 - Contact controls deliberately omit names: browser validation works, but entered data is not transmitted. Production adaptations must supply names and a submission endpoint.
 
