@@ -18,6 +18,15 @@
   :where(.pagination [aria-disabled="true"]) { color: var(--re-muted); box-shadow: none; }
 }
 @layer re.utilities {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+    :where(.pagination > ol) { isolation: isolate; }
+    :where(.pagination > ol > li > a:not([aria-disabled=true]), .pagination > ol > li > :is(a,span)[aria-current=page]) {
+      position: relative; z-index: 1; background: transparent;
+      -webkit-backdrop-filter: none; backdrop-filter: none; text-decoration: none;
+    }
+    /* Preserve the selected page when the hover highlight moves away. */
+    :where(.pagination > ol > li > :is(a,span)[aria-current=page]) { border-color: var(--re-primary); }
+  }
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
     :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
@@ -31,7 +40,7 @@
   }
 }
 
-/* The current page stays marked while a decorative underline follows interaction. */
+/* A shared background follows interaction while the current page stays marked. */
 @layer re.components {
   @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
 
@@ -39,12 +48,13 @@
   :where(.pagination > ol)::after {
     content: ""; position: absolute; position-anchor: --re-page-highlight;
     inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
-    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
-    background: var(--re-primary); border-radius: 999px;
-    pointer-events: none; z-index: 1; opacity: 0;
+    top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+    background: var(--re-surface-alt); border-radius: var(--re-button-radius);
+    pointer-events: none; z-index: 0; opacity: 0;
     transition: left var(--re-duration, 140ms) ease,
       right var(--re-duration, 140ms) ease,
-      top var(--re-duration, 140ms) ease;
+      top var(--re-duration, 140ms) ease,
+      bottom var(--re-duration, 140ms) ease;
   }
 
     :where(.pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover)) > li > :is(a,span)[aria-current=page],
