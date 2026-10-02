@@ -1,4 +1,5 @@
 ---
+import { stylesheet } from '../../../data/assets.js';
 import DocumentationHeader from '../../../components/DocumentationHeader.astro';
 import { defaultSettings, defaultsHTML } from '../../../data/defaults.js';
 export function getStaticPaths() { return ['light','dark','auto'].map(theme=>({params:{theme}})); }
@@ -7,7 +8,7 @@ const base=import.meta.env.BASE_URL;
 ---
 <!doctype html>
 <html lang="en" data-theme={theme} {...defaultSettings}>
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Page-wide defaults · RevaCSS · {theme}</title><link rel="stylesheet" href={base+'reva/reva-fonts.css'}/><link rel="stylesheet" href={base+'reva/reva.css'}/></head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Page-wide defaults · RevaCSS · {theme}</title><link rel="stylesheet" href={stylesheet('reva-fonts.css')}/><link rel="stylesheet" href={stylesheet('reva.css')}/></head>
 <body><a class="skip-link" href="#main">Skip to content</a><DocumentationHeader theme={theme}/><main id="main"><div class="container"><h1>Configure once</h1><p>These six defaults are set on html. Descendant components inherit them; the final section supplies local resets.</p><a href={base+'attributes/'}>Data attribute documentation</a></div><Fragment set:html={defaultsHTML.replaceAll('__BASE__',base)}/></main></body>
 </html>
 <style>main { padding-block:2rem; }</style>

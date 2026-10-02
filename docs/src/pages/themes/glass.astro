@@ -1,11 +1,12 @@
 ---
+import { stylesheet } from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
 const sections=[{id:'installation',title:'Load and activate'},{id:'glass-example',title:'Inherited material'},{id:'coverage',title:'Supported surfaces'},{id:'glass-controls',title:'Controls and variants'},{id:'fallbacks',title:'Preferences and fallback'},{id:'scoped-glass',title:'Scoped use'}];
 ---
 <DocsLayout title="Glass material" active="glass" sections={sections}>
-<link rel="stylesheet" href={base+'reva/reva.glass.css'}/>
+<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
 <p class="doc-kicker">THEMES / MATERIAL</p><h1>Glass material</h1>
 <p class="doc-lead">An optional frosted treatment for supported surfaces. Use it with light, dark or system colours; it does not replace the theme or require JavaScript.</p>
 <Example id="installation" title="Load and activate" description="Load the matching extension after the core. Loading the file alone does not activate glass." render={false} html={'<!doctype html>\n<html lang="en" data-theme="dark" data-material="glass">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>Glass page</title>\n  <link rel="stylesheet" href="/assets/reva/reva.css">\n  <link rel="stylesheet" href="/assets/reva/reva.glass.css">\n</head>\n<body>\n  <!-- Supported descendants inherit glass. -->\n</body>\n</html>'}/>

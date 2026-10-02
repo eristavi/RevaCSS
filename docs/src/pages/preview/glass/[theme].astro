@@ -1,4 +1,5 @@
 ---
+import { stylesheet } from '../../../data/assets.js';
 import GlassShowcase from '../../../components/GlassShowcase.astro';
 export function getStaticPaths() { return ['light','dark','auto'].map(theme=>({params:{theme}})); }
 const { theme } = Astro.params;
@@ -10,9 +11,9 @@ const base=import.meta.env.BASE_URL;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RevaCSS glass material · {theme}</title>
-  <link rel="stylesheet" href={base + 'reva/reva-fonts.css'} />
-  <link rel="stylesheet" href={base + 'reva/reva.css'} />
-  <link rel="stylesheet" href={base + 'reva/reva.glass.css'} />
+  <link rel="stylesheet" href={stylesheet('reva-fonts.css')} />
+  <link rel="stylesheet" href={stylesheet('reva.css')} />
+  <link rel="stylesheet" href={stylesheet('reva.glass.css')} />
 </head>
 <body><a class="skip-link" href="#main">Skip to content</a>
   <GlassShowcase theme={theme} id="preview-glass" />
