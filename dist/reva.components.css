@@ -782,12 +782,16 @@
   }
   @media (width >= 48rem) {
     :where(.top-menu button.menu-collapse, .top-menu .menu-mobile[popover]:popover-open, .top-menu .menu-mobile [popover]:popover-open) { display: none; }
-    @supports (position-area: block-end span-inline-start) {
+    /* A branch anchor keeps deeper panels under the visible top-level opener. */
+    :where(.top-menu .menu-desktop > .menu-dropdown > .menu-toggle) {
+      anchor-name: var(--re-menu-branch-anchor, none);
+    }
+    @supports (position-area: block-end span-inline-end) {
       :where(.top-menu .menu-panel[popover]) {
         inset: auto;
         margin: .25rem 0;
-        position-anchor: var(--re-menu-anchor, --re-navigation);
-        position-area: block-end span-inline-start;
+        position-anchor: var(--re-menu-branch-anchor, auto);
+        position-area: block-end span-inline-end;
         position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
         max-block-size: min(70dvh, 36rem);
       }

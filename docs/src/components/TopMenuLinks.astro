@@ -5,7 +5,7 @@ const target=panelId || `${id}-menu`;
 ---
 <ul class:list={[panel?'menu-panel':'menu-items', {"menu-desktop": !panel && desktop, "menu-mobile": !panel && !desktop}]} id={panel || !desktop ? target : undefined} popover={panel || !desktop ? 'auto' : undefined}>
   {(panel || !desktop) && <li class="menu-back"><button type="button" class="menu-toggle" popovertarget={target} popovertargetaction="hide" autofocus>{panel?backLabel:'Close menu'}</button></li>}
-  {items.map(item=><li class:list={{'menu-dropdown':!!item.children}}>
+  {items.map(item=><li class:list={{'menu-dropdown':!!item.children}} style={!panel && desktop && item.children ? `--re-menu-branch-anchor: --${id}-${path}${item.key}-anchor` : undefined}>
     {item.children ? <>
       <button type="button" class="menu-toggle" popovertarget={`${id}-${path}${item.key}`}>{item.label}</button>
       <Astro.self id={id} current={current} items={item.children} panel panelId={`${id}-${path}${item.key}`} path={`${path}${item.key}-`} backLabel={panel?`Back to ${Astro.props.parentLabel}`:'Back to main menu'} parentLabel={item.label}/>
