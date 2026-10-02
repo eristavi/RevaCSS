@@ -502,13 +502,44 @@ export const topics = [
   {
     "slug": "buttons",
     "title": "Buttons",
-    "intro": "Native buttons receive a restrained accent fill, subtle edge highlight and gentle press feedback automatically. Secondary actions use an accent tint that follows light and dark themes. Keep buttons for actions and anchors for navigation.",
+    "intro": "Native actions use the inherited primary accent by default. Set data-variant on a parent for shared semantic colours, or on an action for a local exception. Keep buttons for actions and anchors for navigation.",
     "examples": [
       {
         "id": "variants",
         "title": "Button variants",
-        "description": "The default is primary. Add a semantic or visual variant class where needed. These demo actions do not submit anything.",
-        "html": "<div class=\"row\">\n  <button type=\"button\">Primary</button>\n  <button type=\"button\" class=\"secondary\">Secondary</button>\n  <button type=\"button\" class=\"danger\">Delete</button>\n  <button type=\"button\" class=\"warning\">Review warning</button>\n  <button type=\"button\" class=\"outline\">Outline</button>\n  <button type=\"button\" class=\"ghost\">Ghost</button>\n</div>"
+        "description": "Use the shared semantic vocabulary. No identifying class is needed on native buttons.",
+        "html": "<div class=\"row\">\n  <button type=\"button\">Primary</button>\n  <button type=\"button\" data-variant=\"success\">Confirm</button>\n  <button type=\"button\" data-variant=\"warning\">Review warning</button>\n  <button type=\"button\" data-variant=\"danger\">Delete</button>\n  <button type=\"button\" data-variant=\"neutral\">Neutral</button>\n</div>"
+      },
+      {
+        "id": "button-parent-variant",
+        "title": "Parent defaults and local exceptions",
+        "description": "The button and badge share the parent's meaning. The delete action overrides only its variant.",
+        "html": "<section class=\"stack\" data-variant=\"success\" data-shape=\"rounded\">\n  <div class=\"row\">\n    <button type=\"button\">Approve</button>\n    <span class=\"badge\">Approved</span>\n    <button type=\"button\" data-variant=\"danger\">Delete</button>\n  </div>\n  <div class=\"alert\">Success: Your changes have been saved.</div>\n</section>"
+      },
+      {
+        "id": "button-presentation",
+        "title": "Semantic colour with outline or ghost",
+        "description": "Presentation classes remain optional. data-appearance is not a button setting.",
+        "html": "<div class=\"row\" data-variant=\"success\">\n  <button type=\"button\">Confirm</button>\n  <button type=\"button\" class=\"outline\">Outline confirm</button>\n  <button type=\"button\" class=\"ghost\">Quiet confirm</button>\n  <button type=\"button\" class=\"outline\" data-variant=\"danger\">Outline delete</button>\n</div>"
+      },
+      {
+        "id": "button-compatibility",
+        "title": "Existing classes and precedence",
+        "description": "Local semantic classes override the parent. An explicit action attribute wins when both APIs are present.",
+        "html": "<div class=\"row\" data-variant=\"success\">\n  <button type=\"button\">Inherited success</button>\n  <button type=\"button\" class=\"danger\">Existing danger class</button>\n  <button type=\"button\" class=\"secondary\">Existing secondary class</button>\n  <button type=\"button\" class=\"danger\" data-variant=\"primary\">Explicit primary override</button>\n</div>"
+      },
+      {
+        "id": "button-action-elements",
+        "title": "Links and native action inputs",
+        "description": "Only native action input types receive the semantic button treatment. Destination links keep their .button hook.",
+        "html": "<section class=\"row\" data-variant=\"success\">\n  <a class=\"button\" href=\"__BASE__guide/\">Read the guide</a>\n  <input type=\"button\" value=\"Confirm\">\n  <button type=\"button\" disabled>Unavailable</button>\n</section>"
+      },
+      {
+        "id": "button-glass-variant",
+        "title": "Glass and semantic edge colours",
+        "description": "The parent supplies the variant and material. A local primary value resets the semantic colour while retaining glass.",
+        "glass": true,
+        "html": "<section class=\"row\" data-material=\"glass\" data-theme=\"dark\"\n         data-variant=\"success\" data-shape=\"pill\">\n  <button type=\"button\" data-edge=\"gradient\">Confirm</button>\n  <button type=\"button\" data-variant=\"primary\">Continue</button>\n  <button type=\"button\" data-variant=\"danger\" data-material=\"solid\">Solid delete</button>\n</section>"
       },
       {
         "id": "theme-actions",
@@ -546,6 +577,13 @@ export const topics = [
         "description": "Set data-edge on html or a section to configure buttons, .button links and cards. A nearer plain value removes decoration. data-border none removes the gradient ring; data-motion none pauses it. Reduced motion keeps a static ring; higher contrast, forced colours and print remove decoration.",
         "html": "<section data-edge=\"animated\" data-shape=\"pill\" data-accent=\"violet\" data-motion=\"none\">\n  <article class=\"card\">\n    <h3>Shared stationary edge</h3>\n    <div class=\"row\">\n      <button type=\"button\">Inherited edge</button>\n      <a class=\"button secondary\" href=\"#main\" data-edge=\"shine\" data-motion=\"subtle\">Focused shine</a>\n      <button type=\"button\" data-edge=\"plain\">Plain exception</button>\n      <button type=\"button\" disabled>Unavailable</button>\n    </div>\n  </article>\n</section>"
       }
+    ],
+    "glass": true,
+    "notes": [
+      "data-variant accepts primary, success, warning, danger and neutral. It applies to native buttons, button/submit/reset inputs and .button links. Other form controls do not acquire action colours, and navigation toggles keep their neutral menu styling.",
+      "Existing secondary, danger and warning classes remain supported as local choices over inherited variants. A valid data-variant placed directly on an action takes precedence over those classes. An unsupported value leaves the nearest valid inherited variant in effect, with a local legacy class still taking priority.",
+      "Outline and ghost are presentation classes that can combine with data-variant. data-appearance still applies only to badges and alerts. Secondary remains a class; it is not an accepted data-variant value.",
+      "Shared theme, material, accent, shape, size, border, fill, depth and motion continue to apply. Glass and decorative edges consume the action's resolved semantic colours. Native disabled prevents activation; an anchor cannot be disabled with the disabled attribute."
     ]
   },
   {

@@ -212,7 +212,7 @@
     ],
     "default": "primary",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Badge and alert semantic colour. Primary uses the inherited accent. Does not configure buttons."
+    "affects": "Button, action-input, .button link, badge and alert semantic colour. Primary uses the inherited accent; local legacy button classes override inherited variants, while a valid action-level attribute takes precedence."
   },
   "appearance": {
     "values": [
