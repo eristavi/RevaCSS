@@ -532,32 +532,112 @@ export const topics = [
   {
     "slug": "typography",
     "title": "Typography",
-    "intro": "Native text elements receive styles automatically. Choose HTML for its meaning; no typography classes are required.",
+    "intro": "Native HTML text elements receive their styling automatically. This page covers all six heading levels, body text, inline semantics, lists, quotations and technical notation, with the HTML beneath every example.",
     "examples": [
       {
         "id": "headings",
-        "title": "Headings and paragraphs",
-        "description": "Use one page heading, then a logical heading hierarchy. These examples start at h3 to sit beneath the documentation section heading.",
-        "html": "<div class=\"prose\">\n  <h3>A clear heading</h3>\n  <h4>A supporting heading</h4>\n  <p>Readable text with <strong>emphasis</strong>, <em>expression</em> and <a href=\"#main\">a meaningful link</a>.</p>\n  <p><small>Supporting information.</small></p>\n</div>"
+        "title": "All six heading levels",
+        "description": "h1 through h6 retain their native semantics and default styling. This isolated document has its own page heading; use levels according to the structure of your real content.",
+        "isolated": true,
+        "isolatedHeight": 760,
+        "html": "<main class=\"container\" style=\"padding: 1rem;\">\n  <h1>Heading 1 — Page title</h1>\n  <h2>Heading 2 — Main section</h2>\n  <h3>Heading 3 — Subsection</h3>\n  <h4>Heading 4 — Detailed section</h4>\n  <h5>Heading 5 — Supporting detail</h5>\n  <h6>Heading 6 — Further detail</h6>\n  <p>Heading levels express hierarchy, not a choice of font size.</p>\n</main>"
+      },
+      {
+        "id": "paragraphs",
+        "title": "Paragraphs and readable text",
+        "description": "Paragraphs use the inherited font, colour and line height. The optional prose wrapper provides a readable maximum width.",
+        "html": "<div class=\"prose\">\n  <p>RevaCSS starts with ordinary HTML. Use paragraphs to organise related sentences into clear blocks of content.</p>\n  <p>A new paragraph gives the next idea room to breathe. Shared typography settings apply without repeated classes.</p>\n  <p><small>Supporting information: available features may vary by browser.</small></p>\n</div>"
       },
       {
         "id": "inline",
-        "title": "Inline text",
-        "description": "Use semantic elements for highlights, abbreviations and keyboard instructions.",
-        "html": "<p><mark>Highlighted information</mark> and <abbr title=\"Cascading Style Sheets\">CSS</abbr>.</p>\n<p>Use <kbd>Tab</kbd> to move focus. Write <code>data-theme=\"dark\"</code> in HTML.</p>"
+        "title": "Importance, emphasis and visual annotation",
+        "description": "strong expresses importance and em expresses stress. b draws attention, i distinguishes an alternate voice or term, u annotates, and s marks information that is no longer accurate.",
+        "html": "<p><strong>Important:</strong> save your changes before leaving.</p>\n<p>This setting is <em>especially</em> useful for shared themes.</p>\n<p>The keyword is <b>inheritance</b>.</p>\n<p>The term <i lang=\"la\">in situ</i> means in its original place.</p>\n<p>Spelling annotation: <u>recieve</u> should be receive.</p>\n<p><s>Registration closes on Friday.</s> Registration now closes on Monday.</p>\n<p><mark>Highlighted for review:</mark> confirm the delivery date.</p>"
+      },
+      {
+        "id": "links",
+        "title": "Links and supporting text",
+        "description": "Use real destinations and meaningful link labels. Small print remains readable and is not a substitute for essential instructions.",
+        "html": "<p>Start with the <a href=\"__BASE__guide/\">RevaCSS installation guide</a>.</p>\n<p>For a local section, see <a href=\"#headings\">all six heading levels</a>.</p>\n<p><small>Terms apply to the current preview release.</small></p>"
+      },
+      {
+        "id": "edits",
+        "title": "Inserted and deleted content",
+        "description": "Use ins and del to identify document edits. Their semantics differ from simply drawing a line through outdated text with s.",
+        "html": "<p>The meeting starts at <del datetime=\"2026-10-01\">09:00</del> <ins datetime=\"2026-10-02\">10:00</ins>.</p>"
+      },
+      {
+        "id": "definitions",
+        "title": "Abbreviations and definitions",
+        "description": "Expand abbreviations visibly on first use. The title attribute provides additional information but should not be the only explanation.",
+        "html": "<p>Cascading Style Sheets (<abbr title=\"Cascading Style Sheets\">CSS</abbr>) controls presentation.</p>\n<p><dfn>Inheritance</dfn> is the process by which supported styling values pass from a parent to its descendants.</p>"
       },
       {
         "id": "lists",
-        "title": "Lists and definitions",
-        "description": "Lists preserve their native structure and spacing.",
-        "html": "<ul>\n  <li>First item</li>\n  <li>Second item</li>\n</ul>\n<ol>\n  <li>Choose a theme</li>\n  <li>Add your content</li>\n</ol>\n<dl>\n  <dt>Material</dt>\n  <dd>The treatment applied to a surface.</dd>\n</dl>"
+        "title": "Unordered, ordered and nested lists",
+        "description": "Use ul when order is not meaningful and ol for sequences. Nest another list inside its parent li; native numbering options need no helper classes.",
+        "html": "<ul>\n  <li>Light theme</li>\n  <li>Dark theme\n    <ul>\n      <li>Solid surfaces</li>\n      <li>Glass surfaces</li>\n    </ul>\n  </li>\n</ul>\n<ol>\n  <li>Load the stylesheet</li>\n  <li>Set shared defaults</li>\n  <li>Add semantic HTML</li>\n</ol>\n<ol start=\"4\">\n  <li>Override local exceptions</li>\n  <li>Review the result</li>\n</ol>"
+      },
+      {
+        "id": "description-lists",
+        "title": "Terms and descriptions",
+        "description": "Native dl, dt and dd express term/value associations. The separate description-list component is available when you need a responsive record layout.",
+        "html": "<dl>\n  <dt>Theme</dt>\n  <dd>The light, dark or system colour mode.</dd>\n  <dt>Material</dt>\n  <dd>The solid or glass surface treatment.</dd>\n  <dt>Accent</dt>\n  <dd>The shared highlight colour.</dd>\n</dl>"
       },
       {
         "id": "quote",
-        "title": "Quotes and code blocks",
-        "description": "Use blockquote for a quotation and pre/code to preserve code formatting.",
-        "html": "<blockquote>\n  <p>Good defaults leave room for your own decisions.</p>\n</blockquote>\n<pre tabindex=\"0\" aria-label=\"Example code\"><code>&lt;button type=\"button\"&gt;Save&lt;/button&gt;</code></pre>"
+        "title": "Block quotations, inline quotes and citations",
+        "description": "blockquote contains a quotation, q marks an inline quotation, and cite names a work rather than a person's name. The text below is demonstration copy.",
+        "html": "<figure>\n  <blockquote>\n    <p>Good defaults leave room for your own decisions.</p>\n  </blockquote>\n  <figcaption>From <cite>A demonstration of semantic typography</cite>.</figcaption>\n</figure>\n<p>The example describes its approach as <q>native by design</q>.</p>"
+      },
+      {
+        "id": "code",
+        "title": "Code, keyboard input, output and variables",
+        "description": "code identifies code, kbd keyboard input, samp program output and var a variable. Escape angle brackets when showing HTML as text.",
+        "html": "<p>Set <code>data-theme=\"dark\"</code> on your page.</p>\n<p>Press <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.</p>\n<p>The command reports <samp>Build complete.</samp></p>\n<p>The rectangle area is <var>w</var> × <var>h</var>.</p>\n<pre tabindex=\"0\" aria-label=\"Example HTML\"><code>&lt;button type=\"button\"&gt;Save&lt;/button&gt;\n&lt;p&gt;Your content stays in HTML.&lt;/p&gt;</code></pre>"
+      },
+      {
+        "id": "notation",
+        "title": "Subscripts and superscripts",
+        "description": "sub and sup support conventional notation. Provide an understandable text explanation when a formula needs more context.",
+        "html": "<p>Water has the chemical formula H<sub>2</sub>O.</p>\n<p>A square metre is written m<sup>2</sup>.</p>\n<p>The expression x<sup>2</sup> means x squared.</p>"
+      },
+      {
+        "id": "time-data",
+        "title": "Dates and machine-readable values",
+        "description": "time supplies a machine-readable date or time; data associates visible text with an application value. CSS does not format dates or calculate values.",
+        "html": "<p>Published <time datetime=\"2026-10-02\">2 October 2026</time>.</p>\n<p>The call begins at <time datetime=\"15:30\">15:30</time>.</p>\n<p>Product: <data value=\"RV-001\">RevaCSS starter</data>.</p>"
+      },
+      {
+        "id": "address",
+        "title": "Contact information",
+        "description": "address contains contact information for the relevant page or article. RevaCSS removes the default italic styling; use ordinary HTML links where appropriate.",
+        "html": "<address>\n  RevaCSS project<br>\n  <a href=\"https://github.com/eristavi/RevaCSS\">Project repository and issue tracker</a>\n</address>"
+      },
+      {
+        "id": "breaks",
+        "title": "Thematic breaks and controlled line breaks",
+        "description": "hr marks a thematic change, br creates a meaningful line break and wbr marks an optional wrapping opportunity. Use paragraphs and CSS spacing rather than repeated br elements.",
+        "html": "<p>The first topic ends here.</p>\n<hr>\n<p>A new topic begins here.</p>\n<p>A two-line label:<br>Native HTML and CSS</p>\n<p>An optional break: verylong<wbr>projectname<wbr>example</p>"
+      },
+      {
+        "id": "international",
+        "title": "Language, direction and ruby annotations",
+        "description": "Set language and direction where needed. bdi isolates text with an unknown direction; bdo deliberately overrides direction. Ruby annotations retain native browser presentation.",
+        "html": "<p lang=\"fr\">Une interface claire et lisible.</p>\n<p>Contributor: <bdi dir=\"auto\" lang=\"he\">עדי</bdi>.</p>\n<p>Direction override demonstration: <bdo dir=\"rtl\">ABC</bdo>.</p>\n<p lang=\"ja\"><ruby>東京<rp>（</rp><rt>とうきょう</rt><rp>）</rp></ruby></p>"
+      },
+      {
+        "id": "shared-type",
+        "title": "Inherited text scale and a local exception",
+        "description": "data-type selects body typography scale. Configure a parent and override only exceptions; headings and paragraphs require no extra styling classes.",
+        "html": "<section data-type=\"large\">\n  <h3>A larger shared text scale</h3>\n  <p>Headings and body text use the parent typography scale.</p>\n  <section data-type=\"compact\">\n    <h4>A compact local section</h4>\n    <p>Only this branch changes its text scale.</p>\n  </section>\n</section>"
       }
+    ],
+    "notes": [
+      "Choose an element for its meaning, rather than its visual size. Use a logical heading hierarchy and a clear page heading; no typography classes are required.",
+      "The heading specimen uses a separate document so its h1–h6 examples do not interrupt the documentation page's own outline. Its palette follows the browser colour preference.",
+      "Theme, font and data-type defaults inherit from the parent. data-size configures controls, not body text. The optional prose class limits reading width; it is not required for text styling.",
+      "Some elements use RevaCSS styling and others preserve browser-native presentation. Semantic markup does not automatically add application behaviour or accessible explanations; expand abbreviations in text when needed."
     ]
   },
   {
