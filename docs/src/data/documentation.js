@@ -225,7 +225,8 @@ export const learnLinks = [
  { key:'guide', title:'Get started', path:'guide/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
- { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' }
+ { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
+ { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' }
 ];
 export const themeLinks = [
  { key:'themes', title:'Theme overview', path:'themes/' },
