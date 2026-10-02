@@ -500,19 +500,22 @@
 }
 /* Radio-selected panels; native radios retain their semantics and focus. */
 @layer re.components {
-  :where(.tabs) { display: flex; flex-wrap: wrap; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
+  :where(.tabs) { display: flex; flex-wrap: wrap; column-gap: calc(.25rem * var(--re-gap-factor, 1)); row-gap: 0; min-inline-size: 0; }
   :where(.tabs > label) {
     --re-label-font-scale: var(--re-control-scale, 1);
-    display: inline-flex; align-items: center; order: 0; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem;
-    margin: 0; padding: calc(.5em * var(--re-density)) calc(.8em * var(--re-density));
-    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
-    --re-choice-fill: var(--re-surface);
+    position: relative; display: inline-flex; align-items: center; order: 0; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem;
+    margin: 0; padding: calc(.7em * var(--re-density)) calc(1em * var(--re-density));
+    border: var(--re-surface-border) solid transparent; border-block-end: 3px solid transparent;
+    border-radius: min(var(--re-radius), .75rem) min(var(--re-radius), .75rem) 0 0;
+    --re-choice-fill: transparent;
     color: var(--re-text); background-color: var(--re-choice-fill); cursor: pointer;
-    font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
+    font-size: calc(1em * var(--re-control-scale, 1)); font-weight: 600; overflow-wrap: anywhere;
   }
-  :where(.tabs > label:has(input:checked)) { --re-choice-fill: var(--re-surface-alt); background-color: var(--re-choice-fill); font-weight: 700; }
-  :where(.tabs > label:has(input:focus-visible)) { outline: 3px solid var(--re-text); outline-offset: 4px; }
-  :where(.tabs > .tab-panel) { order: 1; flex-basis: 100%; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.tabs > label:hover:not(:has(input:disabled))) { --re-choice-fill: var(--re-surface-alt); }
+  :where(.tabs > label:has(input:checked)) { --re-choice-fill: var(--re-surface-alt); border-block-end-color: var(--re-primary); }
+  :where(.tabs > label:has(input:focus-visible)) { outline: 3px solid var(--re-text); outline-offset: -3px; }
+  :where(.tabs > label:has(input:disabled)) { opacity: .55; cursor: not-allowed; }
+  :where(.tabs > .tab-panel) { order: 1; flex-basis: 100%; min-inline-size: 0; border-block-start: 1px solid var(--re-line); padding-block-start: var(--re-space); overflow-wrap: anywhere; }
   :where(.tab-panel > :first-child) { margin-block-start: 0; }
   :where(.tab-panel > :last-child) { margin-block-end: 0; }
   @supports selector(label:has(input:checked)) {
@@ -521,14 +524,29 @@
   }
 }
 @layer re.utilities {
-  :where(.tabs > label input) { font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1)); }
+  /* Visually hide the control, preserving native focus and radio behaviour. */
+  :where(.tabs > label > input[type=radio]) {
+    position: absolute; inline-size: 1px; block-size: 1px;
+    margin: -1px; padding: 0; border: 0; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+    font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1));
+  }
 
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
     :where(.tabs > label) { background-color: var(--re-choice-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
 
   @media (forced-colors: active) { :where(.tabs > label) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; -webkit-backdrop-filter: none; backdrop-filter: none; } }
-  @media print { :where(.tabs > .tab-panel) { display: block; } :where(.tabs > label) { color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+  @media (forced-colors: active) {
+    :where(.tabs > label:has(input:checked)) { border-block-end: 3px solid Highlight; }
+    :where(.tabs > label:has(input:disabled)) { color: GrayText; opacity: 1; }
+  }
+  @media print {
+    :where(.tabs) { display: block; }
+    :where(.tabs > .tab-panel) { display: block; margin-block-end: var(--re-space); }
+    :where(.tabs > label) { display: block; color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(.tabs > label:has(input:checked)) { border-block-end-color: #000; }
+  }
 }
 /* List semantics remain in ul/ol; optional item links need no class. */
 @layer re.components {
