@@ -1,5 +1,12 @@
 export const attributes = [
   {
+    id: "palette",
+    title: "data-palette",
+    description: "Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: mono, sand, ocean, cobalt, citrus, violet, forest. Default: mono. Scope: inherited. See Themes / Colour palettes for every light and dark example.",
+    html: '<section data-palette="ocean" data-theme="light">\n  <article class="card">\n    <h3>Inherited Ocean</h3>\n    <p><a href="#palette">Palette link</a></p>\n    <button type="button">Primary action</button>\n  </article>\n  <article class="card" data-palette="mono">\n    <h3>Local Mono</h3>\n    <button type="button">Local action</button>\n  </article>\n</section>',
+    glass: false
+  },
+  {
     "id": "theme",
     "title": "data-theme",
     "description": "Page, text, links, surfaces and native controls; auto follows device colours. Default: auto. Scope: Inherited.",
@@ -9,7 +16,7 @@ export const attributes = [
   {
     "id": "accent",
     "title": "data-accent",
-    "description": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour. Default: blue. Scope: Inherited.",
+    "description": "Primary buttons and native checkbox, radio, range, progress and meter accents; links retain their readable theme colour. Default: the selected palette primary. Explicit values also install the matching primary foreground. Scope: Inherited.",
     "html": "<div class=\"grid\">\n  <section data-accent=\"blue\"><button type=\"button\">blue</button></section>\n  <section data-accent=\"violet\"><button type=\"button\">violet</button></section>\n  <section data-accent=\"teal\"><button type=\"button\">teal</button></section>\n  <section data-accent=\"green\"><button type=\"button\">green</button></section>\n  <section data-accent=\"orange\"><button type=\"button\">orange</button></section>\n  <section data-accent=\"rose\"><button type=\"button\">rose</button></section>\n</div>",
     "glass": false
   },
@@ -72,7 +79,7 @@ export const attributes = [
   {
     "id": "tone",
     "title": "data-tone",
-    "description": "Neutral, cool or warm page and surface backgrounds. Default: neutral. Scope: Inherited.",
+    "description": "Neutral, cool or warm page and surface backgrounds. Default: the selected palette surfaces. Explicit values change surfaces without resetting palette foregrounds or primary colours. Scope: Inherited.",
     "html": "<div class=\"grid\">\n  <section data-tone=\"neutral\"><article class=\"card\"><h3>Neutral</h3><p>A local tone setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-tone=\"cool\"><article class=\"card\"><h3>Cool</h3><p>A local tone setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-tone=\"warm\"><article class=\"card\"><h3>Warm</h3><p>A local tone setting.</p><button type=\"button\">Action</button></article></section>\n</div>",
     "glass": false
   },

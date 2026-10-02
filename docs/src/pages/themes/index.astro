@@ -6,7 +6,8 @@ const base=import.meta.env.BASE_URL;
 ---
 <DocsLayout title="Themes" active="themes" sections={[{id:'modes',title:'Colour modes'},{id:'material',title:'Material'},{id:'defaults',title:'Shared defaults'},{id:'previews',title:'Full-page previews'}]}>
 <p class="doc-kicker">THEMES</p><h1>Choose colours, then material</h1>
-<p class="doc-lead">One data-theme value selects a complete colour mode. Optional data-material changes supported surfaces independently.</p>
+<p class="doc-lead">Mono is the default palette. data-theme selects the colour mode; data-palette selects one of seven coordinated colour families. Optional data-material changes supported surfaces independently.</p>
+<p><a href={base+'themes/palettes/'}>Compare Mono, Sand, Ocean, Cobalt, Citrus, Violet and Forest, with HTML examples.</a></p>
 <section id="modes"><h2>Colour modes</h2><div class="grid">
 {[['light','Light','An explicitly light palette.'],['dark','Dark','An explicitly dark palette.'],['auto','System','Follow the visitor’s preferred colour scheme.']].map(([key,title,description])=><article class="card"><h3><a href={base+'themes/'+key+'/'}>{title}</a></h3><p>{description}</p><code>data-theme="{key}"</code></article>)}
 </div></section>
