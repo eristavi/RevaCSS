@@ -1117,6 +1117,34 @@
   @media (prefers-reduced-motion: reduce) { :where(.top-menu :is(.menu-items, .menu-panel))::after { transition: none; } }
   @media (forced-colors: active), print { :where(.top-menu :is(.menu-items, .menu-panel))::after { display: none; } }
 }
+
+/* Desktop top-level navigation uses a gliding surface rather than an underline. */
+@layer re.components {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+    :where(.top-menu .menu-desktop)::after {
+      top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+      background: var(--re-surface-alt); border-radius: calc(var(--re-radius) * .6);
+      z-index: 0;
+      transition: left var(--re-duration, 140ms) ease,
+        right var(--re-duration, 140ms) ease,
+        top var(--re-duration, 140ms) ease,
+        bottom var(--re-duration, 140ms) ease;
+    }
+    :where(.top-menu .menu-desktop > li > :is(a, button)) {
+      position: relative; z-index: 1; background: transparent;
+    }
+    :where(.top-menu .menu-desktop > li > a[aria-current=page]) {
+      text-decoration: none; font-weight: 700;
+    }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.top-menu .menu-desktop > li > :is(a, button):hover) {
+      color: HighlightText; background-color: Highlight;
+    }
+  }
+}
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
   @supports (mask-composite: exclude) {
