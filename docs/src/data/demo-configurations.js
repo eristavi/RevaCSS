@@ -1,6 +1,6 @@
 // Static routes keep the demo's actual data attributes and copyable HTML aligned.
 export const demoOptions = {
-  theme: ['light', 'dark'],
+  theme: ['auto', 'light', 'dark'],
   palette: ['mono', 'sand', 'ocean', 'cobalt', 'citrus', 'violet', 'forest'],
   material: ['solid', 'glass'],
   shape: ['square', 'subtle', 'rounded', 'pill']
