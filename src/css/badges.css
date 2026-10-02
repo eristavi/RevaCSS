@@ -56,6 +56,8 @@
   }
 }
 @layer re.utilities {
+  :where(:is(button,.button) .badge) { font-size: calc(.8125em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1)); }
+
   @media (prefers-contrast: more) {
     :where(.badge) { color: var(--re-text); background-color: var(--re-surface); background-image: none; border: 1px solid currentColor; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
   }

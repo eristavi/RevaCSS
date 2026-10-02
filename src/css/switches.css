@@ -17,6 +17,15 @@
   :where(input[type="checkbox"].switch:disabled) { cursor: not-allowed; }
 }
 @layer re.utilities {
+  @media print {
+    :where(input[type="checkbox"].switch) { background-color: #fff; border: 1px solid #000; }
+    :where(input[type="checkbox"].switch)::before { background-color: #000; transition: none; }
+    :where(input[type="checkbox"].switch:checked) { background-color: #000; }
+    :where(input[type="checkbox"].switch:checked)::before { background-color: #fff; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { :where(input[type="checkbox"].switch)::before { transition: none; } }
+
   @media (forced-colors: active) {
     :where(input[type="checkbox"].switch) { background-color: Canvas; border: 1px solid ButtonText; }
     :where(input[type="checkbox"].switch)::before { background-color: ButtonText; }

@@ -22,11 +22,11 @@
     :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
   @media (forced-colors: active) {
-    :where(.pagination > ol > li > :is(a,span)) { color: LinkText; background-color: Canvas; border: 1px solid CanvasText; box-shadow: none; }
+    :where(.pagination > ol > li > :is(a,span)) { color: LinkText; background-color: Canvas; border: 1px solid CanvasText; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(.pagination [aria-current="page"]) { color: CanvasText; }
     :where(.pagination [aria-disabled="true"]) { color: GrayText; }
   }
   @media print {
-    :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; }
+    :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
 }
