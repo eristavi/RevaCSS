@@ -108,3 +108,7 @@ Builds include `dist/icons/reva.svg`, individual SVG assets and `reva.icons.css`
 Native checkbox `.switch` controls provide on/off settings with inherited accent, shape, size and motion. `.input-group` flexibly arranges a labelled input with text or an action. Decorative `.skeleton` placeholders retain visible loading text and respect reduced motion. `.toolbar` groups ordinary controls with `role="group"` semantics; applications wanting ARIA toolbar arrow-key navigation supply that behavior separately.
 
 Use `dl.description-list` for responsive term/value pairs. Existing `.card` elements now support native headers, media figures and action footers without extra structural classes. All six patterns include HTML examples in the documentation and standalone CSS modules. No JavaScript was added; application actions, busy states and data updates remain application-owned.
+
+### Shared action variants
+
+`data-variant="primary|success|warning|danger|neutral"` now configures native buttons, action inputs, `.button` links, badges and alerts. Set it on a parent to define a shared default; override only exceptions. Existing semantic button classes (`secondary`, `danger`, `warning`) remain local overrides of inherited variants. A valid action-level `data-variant` takes precedence when both are present. `outline` and `ghost` remain presentation classes; `data-appearance` still belongs to badges and alerts. Native text controls and navigation toggles keep their existing styling.

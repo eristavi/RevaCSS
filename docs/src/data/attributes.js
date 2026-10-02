@@ -142,8 +142,8 @@ export const attributes = [
   {
     "id": "variant",
     "title": "data-variant",
-    "description": "Inherited badge and alert status colour. Place this setting on html or a parent; children only need their component class. Primary alerts provide informational messages. Default: primary.",
-    "html": "<div class=\"row\">\n  <section data-variant=\"primary\">\n    <span class=\"badge\">Primary</span>\n  </section>\n  <section data-variant=\"success\">\n    <span class=\"badge\">Success</span>\n  </section>\n  <section data-variant=\"warning\">\n    <span class=\"badge\">Warning</span>\n  </section>\n  <section data-variant=\"danger\">\n    <span class=\"badge\">Danger</span>\n  </section>\n  <section data-variant=\"neutral\">\n    <span class=\"badge\">Neutral</span>\n  </section>\n</div>",
+    "description": "Inherited semantic colour for buttons, action inputs, .button links, badges and alerts. Default: primary. Local action attributes override parent settings; existing semantic button classes remain local overrides unless the action supplies a valid variant.",
+    "html": "<section class=\"stack\" data-variant=\"success\">\n  <div class=\"row\">\n    <button type=\"button\">Confirm</button>\n    <span class=\"badge\">Approved</span>\n    <button type=\"button\" data-variant=\"danger\">Delete</button>\n  </div>\n  <div class=\"alert\">Success: Your changes have been saved.</div>\n</section>",
     "glass": false
   },
   {

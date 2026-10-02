@@ -89,9 +89,9 @@ export const componentContracts = {
   ],
   "buttons": [
     "button, action inputs; a.button for destinations",
-    "secondary, danger, warning, outline, ghost classes.",
+    "Inherited data-variant; outline/ghost presentation; existing secondary/danger/warning classes.",
     "reva.base.css",
-    "data-variant and data-appearance currently apply to badges/alerts, not buttons."
+    "Local action attributes override inherited values and legacy classes; data-appearance remains badge/alert-only."
   ],
   "forms": [
     "label, input, select, textarea, fieldset, legend",
