@@ -292,19 +292,19 @@ export const topics = [
   },
   {
     "slug": "tabs",
-    "title": "Tabs: native choice panels",
-    "intro": "A tabs fieldset uses native radio choices to show one associated panel at a time. The controls retain their radio semantics and keyboard behavior; no JavaScript is added.",
+    "title": "Tabs",
+    "intro": "A tab-style header selects its associated content panel using native radios underneath. Visible radio circles are removed; the selected tab has an accent underline and surface backing. No JavaScript is added.",
     "notes": [
-      "This is a radio-selection pattern, not an ARIA tab widget. Do not add tablist/tab roles or manually maintained aria-selected attributes. For an application that specifically needs the ARIA tabs interaction contract, use a separate behavior layer.",
+      "The visual presentation is a tab bar, while the underlying interaction retains radio semantics. Do not add tablist/tab roles or manually maintained aria-selected attributes. Applications requiring the ARIA tabs interaction contract need a separate behaviour layer.",
       "Give the fieldset a legend and every radio a label. Use one unique radio name per instance and mark exactly one radio checked. Tab enters the radio group; arrow keys select its native choices.",
       "Keep each tab-panel immediately after its label. Panels may contain ordinary headings, links and controls. CSS :has selects the checked radio's following panel. Without :has support, all panels remain readable; print also shows all panels.",
-      "Theme, shape, size, density, gap, borders and fieldset material follow the parent. Controls remain visibly native. Included in complete, scoped and components builds; modular use: tokens, base and reva.tabs.css."
+      "Theme, shape, size, density, gap, borders and fieldset material follow the parent. Radio controls are visually hidden, not removed from the focus order. Focus appears on the tab label, and native disabled choices remain unavailable. Included in complete, scoped and components builds; modular use: tokens, base and reva.tabs.css."
     ],
     "examples": [
       {
         "id": "tabs-basic",
-        "title": "Two choice panels",
-        "description": "The native radio labels select their immediately following sections.",
+        "title": "A tab bar with two panels",
+        "description": "Click a tab label or use native radio-group arrow keys. The selected tab is underlined; radio circles are visually hidden.",
         "html": "<fieldset class=\"tabs\">\n  <legend>Account information</legend>\n  <label>\n    <input type=\"radio\" name=\"account-panels\" checked> Overview\n  </label>\n  <section class=\"tab-panel\">\n    <h3>Account overview</h3>\n    <p>Your account is active.</p>\n  </section>\n  <label>\n    <input type=\"radio\" name=\"account-panels\"> Preferences\n  </label>\n  <section class=\"tab-panel\">\n    <h3>Your preferences</h3>\n    <p>Choose preferences in your application settings.</p>\n    <a href=\"__BASE__components/form-groups/\">Explore form groups</a>\n  </section>\n</fieldset>"
       },
       {
@@ -312,6 +312,12 @@ export const topics = [
         "title": "An independent instance",
         "description": "A different name keeps this selection independent of the first example.",
         "html": "<fieldset class=\"tabs\" data-shape=\"pill\" data-gap=\"small\">\n  <legend>Documentation view</legend>\n  <label><input type=\"radio\" name=\"documentation-panels\" checked> HTML</label>\n  <section class=\"tab-panel\">\n    <p>Start with native elements and shared parent settings.</p>\n  </section>\n  <label><input type=\"radio\" name=\"documentation-panels\"> Styling</label>\n  <section class=\"tab-panel\">\n    <p>Add a component class only when the pattern needs one.</p>\n  </section>\n</fieldset>"
+      },
+      {
+        "id": "tabs-disabled",
+        "title": "An unavailable tab",
+        "description": "Native disabled prevents selection and keyboard focus. Keep an available choice checked; a disabled label explains its unavailable state.",
+        "html": "<fieldset class=\"tabs\">\n  <legend>Project views</legend>\n  <label><input type=\"radio\" name=\"project-view-panels\" checked> Overview</label>\n  <section class=\"tab-panel\"><h3>Project overview</h3><p>Your active project details.</p></section>\n  <label><input type=\"radio\" name=\"project-view-panels\" disabled> Reports — unavailable</label>\n  <section class=\"tab-panel\"><h3>Reports</h3><p>This view is currently unavailable.</p></section>\n</fieldset>"
       }
     ]
   },
