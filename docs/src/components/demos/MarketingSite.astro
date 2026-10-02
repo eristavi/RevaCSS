@@ -1,0 +1,104 @@
+---
+import TopMenu from '../TopMenu.astro';
+import catalog from '../../../../src/icons/catalog.json';
+const {base='/',contactHref='#contact-confirmation'}=Astro.props;
+const icon=name=>`<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${catalog.find(item=>item.name===name).body}</svg>`;
+const items=[
+ {key:'features',label:'Features',href:'#features'},
+ {key:'product',label:'Product',children:[
+  {key:'overview',label:'Workspace overview',href:'#overview'},
+  {key:'ways',label:'Ways to work',children:[{key:'planning',label:'Plan a project',href:'#overview'},{key:'collaboration',label:'Bring your team',href:'#contact'}]},
+  {key:'faq',label:'Questions & answers',href:'#faq'}
+ ]},
+ {key:'pricing',label:'Pricing',href:'#pricing'},
+ {key:'contact',label:'Contact',href:'#contact'}
+];
+const features=[
+ {icon:'folder',title:'A home for every project',text:'Keep the brief, decisions and next steps together. Less searching, more making.'},
+ {icon:'calendar',title:'Plans with room to breathe',text:'See what matters this week, then give your team space to do their best work.'},
+ {icon:'user',title:'Everyone on the same page',text:'Make ownership clear and conversations easy to follow, wherever you work.'}
+];
+const plans=[
+ {name:'Solo',price:'12',description:'A calm place for independent work.',features:['One personal workspace','Project planning','Notes and file links'],action:'Choose Solo'},
+ {name:'Studio',price:'29',description:'A shared rhythm for growing teams.',features:['Shared team workspace','Everything in Solo','Project roles and reviews'],action:'Choose Studio',featured:true},
+ {name:'Collective',price:'59',description:'Space for several teams to move together.',features:['Multiple workspaces','Everything in Studio','Shared project library'],action:'Choose Collective'}
+];
+---
+<header class="container forma-header">
+  <TopMenu id="forma" label="Forma website" brand="forma." brandHref="#demo-site" current="none" items={items}>
+    <a slot="actions" class="button" href="#contact">Let’s talk <Fragment set:html={icon('arrow-right')}/></a>
+  </TopMenu>
+</header>
+<div class="container">
+  <section class="forma-hero" aria-labelledby="forma-title">
+    <div class="stack">
+      <p class="forma-eyebrow"><span class="badge">A little less busy</span> A little more together</p>
+      <h1 id="forma-title">Good work starts<br/>with a clear space.</h1>
+      <p class="forma-lead">Bring your projects, plans and people into one thoughtful workspace. Make room for what you do best.</p>
+      <div class="row"><a class="button" href="#pricing">Find your space <Fragment set:html={icon('arrow-right')}/></a><a class="button outline" href="#overview">Take a look around</a></div>
+      <p class="forma-fine">Designed for independent minds and teams that care.</p>
+    </div>
+    <figure class="forma-workspace">
+      <article class="card stack">
+        <header class="row justify-between"><span><Fragment set:html={icon('folder')}/> Spring collection</span><span class="badge">In progress</span></header>
+        <div><p class="forma-eyebrow">THIS WEEK</p><h2>A fresh perspective.</h2><p>Three small steps toward the next big idea.</p></div>
+        <ul class="list-group" role="list"><li><Fragment set:html={icon('check-circle')}/> Gather inspiration</li><li><Fragment set:html={icon('check-circle')}/> Shape the direction</li><li><Fragment set:html={icon('clock')}/> Share the first draft</li></ul>
+        <footer class="row justify-between"><span class="row"><span class="avatar" aria-hidden="true">AL</span> Alex’s workspace</span><span>Friday review</span></footer>
+      </article>
+      <figcaption>A sample project, with room for the whole team.</figcaption>
+    </figure>
+  </section>
+  <section class="forma-section" id="features" aria-labelledby="features-title">
+    <header class="forma-section-heading"><p class="forma-eyebrow">LESS FRICTION. MORE FLOW.</p><h2 id="features-title">Everything has its place.</h2><p>Simple tools for the everyday work that moves an idea forward.</p></header>
+    <div class="grid">{features.map(feature=><article class="card"><span class="forma-feature-icon"><Fragment set:html={icon(feature.icon)}/></span><h3>{feature.title}</h3><p>{feature.text}</p></article>)}</div>
+  </section>
+  <section class="forma-section forma-overview" id="overview" aria-labelledby="overview-title">
+    <header class="forma-section-heading"><p class="forma-eyebrow">YOUR WORK. YOUR RHYTHM.</p><h2 id="overview-title">From a first thought to a shared plan.</h2><p>Keep the context close, and the next step clear.</p></header>
+    <fieldset class="tabs"><legend>Explore the workspace</legend>
+      <label><input type="radio" name="forma-overview" checked/>Plan</label>
+      <div class="tab-panel"><div class="grid">
+        <div><h3>A week with a little more focus.</h3><p>Turn a loose brief into a handful of useful milestones. See the next step without losing the bigger picture.</p><a href="#contact">Tell us about your team <Fragment set:html={icon('arrow-right')}/></a></div>
+        <article class="card"><h4>Website refresh</h4><ol><li>Agree the direction <small>— Monday</small></li><li>Review the first concept <small>— Wednesday</small></li><li>Share the final story <small>— Friday</small></li></ol></article>
+      </div></div>
+      <label><input type="radio" name="forma-overview"/>Create</label>
+      <div class="tab-panel"><div class="grid"><div><h3>Give your ideas somewhere to grow.</h3><p>Capture a thought, connect it to a project and leave a useful trail for the person who picks it up next.</p></div><article class="card"><h4>Creative brief</h4><dl class="description-list"><div><dt>Purpose</dt><dd>A welcoming first impression</dd></div><div><dt>Direction</dt><dd>Warm, clear, considered</dd></div><div><dt>Next step</dt><dd>Choose the opening story</dd></div></dl></article></div></div>
+      <label><input type="radio" name="forma-overview"/>Together</label>
+      <div class="tab-panel"><div class="grid"><div><h3>Clear ownership. Open conversation.</h3><p>A shared space for decisions, feedback and thoughtful handovers. Everyone knows where to begin.</p></div><article class="card"><h4>The project team</h4><ul class="list-group" role="list"><li>Alex — creative direction</li><li>Sam — content and story</li><li>Jamie — project planning</li></ul></article></div></div>
+    </fieldset>
+  </section>
+  <section class="forma-section" id="pricing" aria-labelledby="pricing-title">
+    <header class="forma-section-heading"><p class="forma-eyebrow">MAKE ROOM TO GROW</p><h2 id="pricing-title">A space that fits your work.</h2><p>Illustrative monthly plans. Choose one to preview the next step.</p></header>
+    <div class="grid forma-plans">{plans.map(plan=><article class:list={['card stack',{'forma-featured':plan.featured}]}>
+      <header><div class="row justify-between"><h3>{plan.name}</h3>{plan.featured&&<span class="badge">For teams</span>}</div><p>{plan.description}</p></header>
+      <p class="forma-price">€{plan.price}<small> / month</small></p>
+      <ul>{plan.features.map(feature=><li>{feature}</li>)}</ul>
+      <footer><button type="button" class:list={{outline:!plan.featured}} popovertarget={`forma-plan-${plan.name.toLowerCase()}`}>{plan.action} <Fragment set:html={icon('arrow-right')}/></button></footer>
+      <div id={`forma-plan-${plan.name.toLowerCase()}`} popover="auto"><h3>{plan.name}: a place to start.</h3><p>This is a demonstration plan; no purchase or signup takes place.</p><p>Close this preview, then use the contact form to explore the form controls.</p><button type="button" popovertarget={`forma-plan-${plan.name.toLowerCase()}`} popovertargetaction="hide">Close preview</button></div>
+    </article>)}</div>
+  </section>
+  <section class="forma-section forma-faq" id="faq" aria-labelledby="faq-title">
+    <header class="forma-section-heading"><p class="forma-eyebrow">A FEW GOOD QUESTIONS</p><h2 id="faq-title">Before you make yourself at home.</h2></header>
+    <div class="accordion">
+      <details name="forma-faq"><summary>Who is Forma for?</summary><p>Forma is a fictional workspace product used to demonstrate a complete RevaCSS marketing website. Its projects, people and prices are sample content.</p></details>
+      <details name="forma-faq"><summary>Can I explore the workspace?</summary><p>Yes. The Plan, Create and Together views above give you three perspectives on the same project. Select a view to explore it.</p></details>
+      <details name="forma-faq"><summary>Can I change the look of this website?</summary><p>Use the Customize this demo panel above the website. Choose light or dark, a palette, solid or glass material, and a shape.</p></details>
+      <details name="forma-faq"><summary>Will this demo create an account or collect my details?</summary><p>No. Plan buttons open local previews. The contact form demonstrates native validation without sending or storing your entries.</p></details>
+    </div>
+  </section>
+  <section class="forma-section" id="contact" aria-labelledby="contact-title">
+    <div class="grid forma-contact">
+      <div><p class="forma-eyebrow">START A CONVERSATION</p><h2 id="contact-title">What are you<br/>making room for?</h2><p class="forma-lead">A new project, a growing team, or simply a calmer way to work. Tell us what’s on your mind.</p><p><Fragment set:html={icon('mail')}/> A thoughtful next step starts here.</p></div>
+      <form class="card" action={contactHref} method="get" aria-labelledby="contact-form-title">
+        <h3 id="contact-form-title">Let’s find your space.</h3>
+        <p id="contact-help"><small>Preview form: nothing is sent or saved. Try a sample name and email.</small></p>
+        <!-- Unnamed controls deliberately prevent this preview from transmitting entries. Add names and a real form endpoint in your application. -->
+        <div class="grid"><div class="form-group"><label for="forma-name">Your name</label><input id="forma-name" autocomplete="off" placeholder="Alex Morgan" required aria-describedby="contact-help"/></div><div class="form-group"><label for="forma-email">Email address</label><input id="forma-email" type="email" autocomplete="off" placeholder="alex@example.com" required/></div></div>
+        <div class="form-group"><label for="forma-team">Team size</label><select id="forma-team"><option>Just me</option><option>2–10 people</option><option>11–50 people</option><option>More than 50 people</option></select></div>
+        <div class="form-group"><label for="forma-message">What would you like to work on?</label><textarea id="forma-message" rows="4" placeholder="A little about your next project…"></textarea></div>
+        <button type="submit">Preview next step <Fragment set:html={icon('arrow-right')}/></button>
+      </form>
+    </div>
+    <div class="alert forma-confirmation" id="contact-confirmation" tabindex="-1"><h3>Ready for the next step.</h3><p>Your browser validated the preview form. No entries were submitted or saved.</p><a href="#contact">Back to the form</a></div>
+  </section>
+  <footer class="forma-footer"><div class="row justify-between"><a class="forma-wordmark" href="#demo-site">forma.</a><nav aria-label="Footer"><div class="row"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div></nav></div><p><small>A fictional product. A real HTML/CSS demonstration. Built with <a href={base}>RevaCSS</a>.</small></p></footer>
+</div>

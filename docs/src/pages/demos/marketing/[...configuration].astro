@@ -1,0 +1,9 @@
+---
+import MarketingWorkbench from '../../../components/demos/MarketingWorkbench.astro';
+import {demoConfigurations,configurationKey} from '../../../data/demo-configurations.js';
+export function getStaticPaths() {
+  return demoConfigurations.map(config=>({params:{configuration:configurationKey(config)},props:{config}}));
+}
+const {config}=Astro.props;
+---
+<MarketingWorkbench config={config}/>

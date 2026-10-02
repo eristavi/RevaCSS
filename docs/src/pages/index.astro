@@ -19,6 +19,7 @@ const base=import.meta.env.BASE_URL;
 <h2>Find a component</h2>
 <div class="grid">{componentGroups.map(group=><section class="card"><h3>{group.title}</h3><ul>{group.slugs.map(slug=><li><a href={base+'components/'+slug+'/'}>{slug==='top-menu'?'Top menu':topics.find(t=>t.slug===slug).title}</a></li>)}</ul></section>)}</div>
 <h2>Assets and full-page examples</h2>
+<article class="card doc-summary"><h3>A complete marketing website</h3><p>Explore Forma: a responsive website with navigation, features, product tabs, pricing, FAQ and a contact form. Customize its parent theme, palette, material and shape, then download the matching HTML.</p><a class="button" href={base+'demos/marketing/'}>Explore the marketing demo</a></article>
 <p><a href={base+'icons/'}>SVG icon gallery</a> · <a href={base+'preview/light/'}>Light foundation</a> · <a href={base+'preview/dark/'}>Dark foundation</a> · <a href={base+'preview/glass/dark/'}>Glass page</a> · <a href={base+'plain/'}>Plain HTML comparison</a></p>
 <p class="doc-note">Development preview. Documentation describes the current implementation; recent components have not yet completed release validation. npm publication remains on hold.</p>
 </Layout>

@@ -1,0 +1,22 @@
+---
+import MarketingSite from './MarketingSite.astro';
+const {config,assetBase}=Astro.props;
+---
+<!doctype html>
+<html lang="en" class="forma-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape}>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Forma: a fictional workspace product demonstrating a complete RevaCSS marketing website."/>
+  <title>Forma · RevaCSS marketing demo</title>
+  <link rel="stylesheet" href={assetBase+'reva/reva-fonts.css'}/>
+  <link rel="stylesheet" href={assetBase+'reva/reva.css'}/>
+  <link rel="stylesheet" href={assetBase+'reva/reva.motion.css'}/>
+  <link rel="stylesheet" href={assetBase+'reva/reva.glass.css'}/>
+  <link rel="stylesheet" href={assetBase+'demos/marketing.css'}/>
+</head>
+<body id="demo-site">
+  <a class="skip-link" href="#forma-title">Skip to content</a>
+  <main><MarketingSite base={assetBase}/></main>
+</body>
+</html>

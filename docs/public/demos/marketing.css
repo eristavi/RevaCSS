@@ -1,0 +1,53 @@
+/* Demo composition only. Component surfaces and states come from RevaCSS. */
+.forma-site {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(ellipse at 90% 12%, color-mix(in srgb, var(--re-primary) 13%, transparent), transparent 32%), radial-gradient(ellipse at 5% 62%, color-mix(in srgb, var(--re-primary) 9%, transparent), transparent 30%), var(--re-bg);
+  color: var(--re-text);
+  font-family: var(--re-font);
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.forma-site :is(section, [id]) { scroll-margin-block-start: 2rem; }
+.forma-header { padding-block: 1.25rem; }
+.forma-header .menu-brand, .forma-wordmark { font-size: 1.8rem; font-weight: 800; letter-spacing: -.06em; text-decoration: none; }
+.forma-header .top-menu { padding: .65rem 1rem; }
+.forma-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(3rem, 8vw, 7rem); }
+.forma-hero h1 { font-size: clamp(2.5rem, 4.8vw, 5.25rem); line-height: 1.08; letter-spacing: -.055em; margin: 0; }
+.forma-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
+.forma-hero .forma-eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; letter-spacing: .03em; }
+.forma-lead { font-size: clamp(1.05rem, 1.3vw, 1.25rem); max-inline-size: 44ch; }
+.forma-fine { font-size: .85rem; color: var(--re-muted); }
+.forma-workspace { margin: 0; padding: clamp(.75rem, 2vw, 1.5rem); border-radius: var(--re-radius); background: linear-gradient(125deg, color-mix(in srgb, var(--re-primary) 22%, var(--re-bg)), color-mix(in srgb, var(--re-primary) 4%, var(--re-bg)) 55%, color-mix(in srgb, var(--re-primary-end) 20%, var(--re-bg))); }
+.forma-workspace h2 { font-size: clamp(1.6rem, 2.3vw, 2rem); margin-block: .25rem .75rem; }
+.forma-workspace .list-group li { display: flex; align-items: center; gap: .75rem; }
+.forma-workspace .card > header, .forma-workspace .card > footer { font-size: .85rem; }
+.forma-workspace figcaption { text-align: center; }
+.forma-section { padding-block: clamp(2.5rem, 6vw, 5rem); border-block-start: 1px solid var(--re-line); }
+.forma-section-heading { max-inline-size: 46rem; margin-block-end: 2rem; }
+.forma-section-heading h2 { font-size: clamp(1.8rem, 3vw, 2.75rem); margin-block: .4rem .8rem; letter-spacing: -.04em; }
+.forma-feature-icon { display: inline-grid; place-items: center; inline-size: 3rem; block-size: 3rem; border: 1px solid var(--re-line); border-radius: var(--re-radius); background: color-mix(in srgb, var(--re-primary) 8%, transparent); }
+.forma-feature-icon .icon { inline-size: 1.35rem; block-size: 1.35rem; }
+.forma-overview .tabs { padding: clamp(1rem, 3vw, 2rem); }
+.forma-overview .tab-panel { padding-block-start: 1.5rem; }
+.forma-overview .tab-panel h3 { margin-block-start: 0; }
+.forma-plans .card > header { margin-block-end: 0; }
+.forma-plans h3 { margin-block: 0; }
+.forma-plans footer { margin-block-start: auto; }
+.forma-plans footer button { inline-size: 100%; }
+.forma-featured { border-color: var(--re-primary); }
+.forma-price { font-size: 3rem; font-weight: 700; letter-spacing: -.05em; line-height: 1.2; }
+.forma-price small { font-size: .9rem; font-weight: 400; letter-spacing: 0; color: var(--re-muted); }
+.forma-faq { max-inline-size: 54rem; margin-inline: auto; }
+.forma-contact { --re-column: 24rem; gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+.forma-contact h2 { font-size: clamp(2rem, 3.5vw, 3.5rem); margin-block: .4rem 1.25rem; letter-spacing: -.04em; }
+.forma-contact h3 { margin-block-start: 0; }
+.forma-contact .grid { --re-column: 12rem; }
+.forma-confirmation { display: none; margin-block-start: 1.5rem; }
+.forma-confirmation:target { display: block; }
+.forma-footer { border-block-start: 1px solid var(--re-line); padding-block: 2rem; }
+.forma-footer > p { margin-block: 1rem 0; color: var(--re-muted); }
+@media (width < 60rem) { .forma-hero { grid-template-columns: minmax(0, 1fr); } .forma-hero h1 { max-inline-size: 16ch; } .forma-workspace { max-inline-size: 38rem; inline-size: 100%; } }
+@media (width < 30rem) { .forma-header .top-menu { padding: .5rem; } .forma-header .menu-brand { font-size: 1.4rem; } .forma-header .button { padding-inline: .65rem; } .forma-hero h1 { font-size: 2.5rem; } }
+@media (forced-colors: active) { .forma-site, .forma-workspace { background: Canvas; } .forma-feature-icon { border-color: CanvasText; } .forma-featured { border-color: Highlight; } }
+@media print { .forma-site, .forma-workspace { background: #fff; color: #000; } .forma-hero { grid-template-columns: 1fr; padding-block: 1rem; } .forma-section { padding-block: 1rem; } .forma-header, .forma-contact form { display: none; } }
