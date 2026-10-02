@@ -1,0 +1,101 @@
+/* Ordinary list semantics and native popover interaction; no ARIA menu roles. */
+@layer re.components {
+  :where(.dropdown[popover], :scope.dropdown[popover]) {
+    position: fixed;
+    inset: 1rem;
+    margin: auto;
+    inline-size: min(var(--re-dropdown-width, 18rem), calc(100dvw - 2rem));
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    padding: .5rem;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.dropdown > li) { margin: 0; padding: 0; }
+  :where(.dropdown > li > :is(a, button)) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .75em;
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+    padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+    border: 1px solid transparent;
+    border-radius: calc(var(--re-radius) * .6);
+    font-weight: 550;
+    line-height: 1.5;
+    text-align: start;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  :where(.dropdown > li > a[aria-current=page]) {
+    text-decoration: underline;
+    text-underline-offset: .25em;
+    font-weight: 700;
+  }
+  :where(.dropdown > li > :is(a, button):focus-visible) {
+    outline-offset: -3px;
+  }
+  @supports selector(:popover-open) {
+    :where(.dropdown[popover]:not(:popover-open)) { display: none; }
+    :where(.dropdown[popover]:popover-open) { display: block; }
+  }
+  @supports (position-area: block-end span-inline-end) {
+    :where(.dropdown[popover], :scope.dropdown[popover]) {
+      position-anchor: auto;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+      inset: auto;
+      margin: .25rem 0;
+      max-block-size: min(70dvh, 30rem);
+    }
+  }
+}
+@layer re.utilities {
+  /* Rows remain neutral navigation/actions, even under shared button variants. */
+  :where(.dropdown > li > :is(a, button)) {
+    --re-edge-content: none;
+    --re-edge-animation: none;
+    --re-edge-interaction: none;
+    background: transparent;
+    color: var(--re-text);
+    font-size: calc(var(--re-type) * var(--re-control-scale));
+    box-shadow: none;
+    filter: none;
+    transform: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  :where(.dropdown > li > a:hover, .dropdown > li > button:enabled:hover) {
+    background-color: var(--re-surface-alt);
+  }
+  @media (forced-colors: active) {
+    :where(.dropdown[popover]) {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      box-shadow: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    :where(.dropdown > li > a) { color: LinkText; }
+    :where(.dropdown > li > button) { color: ButtonText; }
+    :where(.dropdown > li > button:disabled) { color: GrayText; opacity: 1; }
+    :where(.dropdown > li > a:hover, .dropdown > li > button:enabled:hover) {
+      color: HighlightText;
+      background-color: Highlight;
+    }
+    :where(.dropdown > li > :is(a, button):focus-visible) { outline-color: Highlight; }
+  }
+  @media print { :where(.dropdown[popover], .dropdown[popover]:popover-open) { display: none; } }
+}

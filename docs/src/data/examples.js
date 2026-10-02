@@ -1,5 +1,47 @@
 export const topics = [
   {
+    "slug": "dropdowns",
+    "title": "Dropdowns",
+    "intro": "One dropdown class turns a native popover list into a standalone set of links or actions. Use it beside a button, outside the top navigation, with inherited theme styling and no JavaScript.",
+    "notes": [
+      "Use a native button with type=\"button\" and popovertarget matching the list’s unique document-wide id. Keep popover=\"auto\" for outside-click and Escape dismissal; another unrelated auto popover closes the current one.",
+      "Keep ordinary list, link and button semantics. role=\"list\" preserves list semantics when markers are removed. Do not add role=\"menu\", role=\"menuitem\", aria-haspopup=\"menu\" or fixed aria-expanded: this pattern uses ordinary Tab navigation, not application-menu arrow keys.",
+      "The opener’s native association anchors the panel where CSS anchor positioning is supported. No wrapper or anchor-name is required. Panels can flip at viewport edges; otherwise they use a viewport-bounded centred fallback. Native popover support is required.",
+      "Panels inherit theme, shape, density, border and depth through their DOM parent, even in the top layer. Keep the panel inside the configured parent or .reva boundary. Shared size affects rows once; rows remain neutral rather than adopting filled button variants or animated edges.",
+      "Tab and Shift+Tab move through ordinary controls. Enter/Space activate buttons; Escape dismisses. Default opening and focus restoration follow native browser behaviour. An optional autofocus close button explicitly places focus inside on opening. Do not use this pattern as a modal dialog.",
+      "Destination links navigate normally. In-page links and arbitrary action buttons do not automatically dismiss the panel; an explicit popovertargetaction=\"hide\" button can close it. Applications supply business actions; CSS adds no event handlers.",
+      "The complete, scoped and components builds include the dropdown. Modular use: tokens, base and reva.dropdowns.css; glass requires the matching optional extension. --re-dropdown-width defaults to 18rem and remains viewport-bounded. Open dropdowns are omitted from print."
+    ],
+    "glass": true,
+    "examples": [
+      {
+        "id": "dropdown-links",
+        "title": "A standalone link dropdown",
+        "description": "One class on the list, one unique id, and native button targeting. Use the documentation links as real destinations.",
+        "html": "<button type=\"button\" popovertarget=\"resource-dropdown\">Resources</button>\n<ul class=\"dropdown\" id=\"resource-dropdown\" popover=\"auto\"\n    role=\"list\" aria-label=\"Resources\">\n  <li><a href=\"__BASE__guide/\">Get started</a></li>\n  <li><a href=\"__BASE__reference/\">API reference</a></li>\n  <li><a href=\"__BASE__icons/\">SVG icons</a></li>\n</ul>"
+      },
+      {
+        "id": "dropdown-actions",
+        "title": "Explicit close and unavailable actions",
+        "description": "The close button is functional and receives focus on opening. The disabled action remains unavailable through native HTML.",
+        "html": "<button type=\"button\" popovertarget=\"project-dropdown\">Project options</button>\n<ul class=\"dropdown\" id=\"project-dropdown\" popover=\"auto\"\n    role=\"list\" aria-label=\"Project options\">\n  <li><button type=\"button\" popovertarget=\"project-dropdown\"\n              popovertargetaction=\"hide\" autofocus>Close options</button></li>\n  <li><a href=\"__BASE__components/card-patterns/\">View card patterns</a></li>\n  <li><button type=\"button\" disabled>Archive project — unavailable</button></li>\n</ul>"
+      },
+      {
+        "id": "dropdown-themes",
+        "title": "Light and dark parent defaults",
+        "description": "Theme, shape and size live on the containing section; neither dropdown needs repeated styling attributes.",
+        "html": "<section data-theme=\"light\" data-shape=\"rounded\" data-size=\"small\">\n  <button type=\"button\" popovertarget=\"light-dropdown\">Light resources</button>\n  <ul class=\"dropdown\" id=\"light-dropdown\" popover=\"auto\"\n      role=\"list\" aria-label=\"Light resources\">\n    <li><a href=\"__BASE__themes/light/\">Light theme guide</a></li>\n    <li><a href=\"__BASE__guide/styling/\">Shared styling</a></li>\n  </ul>\n</section>\n<section data-theme=\"dark\" data-shape=\"subtle\" data-size=\"large\">\n  <button type=\"button\" popovertarget=\"dark-dropdown\">Dark resources</button>\n  <ul class=\"dropdown\" id=\"dark-dropdown\" popover=\"auto\"\n      role=\"list\" aria-label=\"Dark resources\">\n    <li><a href=\"__BASE__themes/dark/\">Dark theme guide</a></li>\n    <li><a href=\"__BASE__reference/tokens/\">CSS tokens</a></li>\n  </ul>\n</section>"
+      },
+      {
+        "id": "dropdown-glass",
+        "title": "Glass and a local solid boundary",
+        "description": "The optional glass extension follows the parent material. A solid section resets the second panel without repeating settings on its rows.",
+        "glass": true,
+        "html": "<section data-material=\"glass\" data-shape=\"rounded\" data-accent=\"teal\">\n  <button type=\"button\" popovertarget=\"glass-dropdown\">Glass resources</button>\n  <ul class=\"dropdown\" id=\"glass-dropdown\" popover=\"auto\"\n      role=\"list\" aria-label=\"Glass resources\">\n    <li><button type=\"button\" popovertarget=\"glass-dropdown\"\n                popovertargetaction=\"hide\" autofocus>Close resources</button></li>\n    <li><a href=\"__BASE__themes/glass/\">Glass material guide</a></li>\n    <li><a href=\"__BASE__reference/\">API reference</a></li>\n  </ul>\n  <section data-material=\"solid\">\n    <button type=\"button\" popovertarget=\"solid-dropdown\">Solid resources</button>\n    <ul class=\"dropdown\" id=\"solid-dropdown\" popover=\"auto\"\n        role=\"list\" aria-label=\"Solid resources\">\n      <li><a href=\"__BASE__guide/\">Get started</a></li>\n      <li><a href=\"__BASE__guide/accessibility/\">Behaviour and accessibility</a></li>\n    </ul>\n  </section>\n</section>"
+      }
+    ]
+  },
+  {
     "slug": "switches",
     "title": "Switches",
     "intro": "A switch class styles a native checkbox as an on/off control. Checked state, keyboard activation, form submission and disabled behavior remain native.",

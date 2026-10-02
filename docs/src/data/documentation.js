@@ -27,6 +27,7 @@ export const componentGroups = [
     "title": "Navigation and disclosure",
     "slugs": [
       "top-menu",
+      "dropdowns",
       "breadcrumbs",
       "pagination",
       "accordions",
@@ -57,6 +58,12 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "dropdowns": [
+    "ul.dropdown[popover=auto] > li > a or button",
+    "Unique id and native popovertarget; role=list and a panel label.",
+    "reva.dropdowns.css",
+    "Native outside-click/Escape dismissal; ordinary Tab navigation, not an ARIA menu. Actions and in-page links do not automatically dismiss."
+  ],
   "typography": [
     "Native headings, paragraphs, lists and inline text",
     "None; choose semantic HTML.",

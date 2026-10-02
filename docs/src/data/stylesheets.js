@@ -22,6 +22,7 @@ export const stylesheets = [
   "reva.description-lists.css",
   "reva.card-patterns.css",
   "reva.navigation.css",
+  "reva.dropdowns.css",
   "reva.glass.css",
   "reva.glass.scoped.css",
   "reva.scoped.css"
