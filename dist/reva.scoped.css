@@ -450,6 +450,15 @@
   :where(.pagination [aria-disabled="true"]) { color: var(--re-muted); box-shadow: none; }
 }
 @layer re.utilities {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+    :where(.pagination > ol) { isolation: isolate; }
+    :where(.pagination > ol > li > a:not([aria-disabled=true]), .pagination > ol > li > :is(a,span)[aria-current=page]) {
+      position: relative; z-index: 1; background: transparent;
+      -webkit-backdrop-filter: none; backdrop-filter: none; text-decoration: none;
+    }
+    /* Preserve the selected page when the hover highlight moves away. */
+    :where(.pagination > ol > li > :is(a,span)[aria-current=page]) { border-color: var(--re-primary); }
+  }
   @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
     :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
   }
@@ -463,7 +472,7 @@
   }
 }
 
-/* The current page stays marked while a decorative underline follows interaction. */
+/* A shared background follows interaction while the current page stays marked. */
 @layer re.components {
   @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
 
@@ -471,12 +480,13 @@
   :where(.pagination > ol)::after {
     content: ""; position: absolute; position-anchor: --re-page-highlight;
     inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
-    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
-    background: var(--re-primary); border-radius: 999px;
-    pointer-events: none; z-index: 1; opacity: 0;
+    top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+    background: var(--re-surface-alt); border-radius: var(--re-button-radius);
+    pointer-events: none; z-index: 0; opacity: 0;
     transition: left var(--re-duration, 140ms) ease,
       right var(--re-duration, 140ms) ease,
-      top var(--re-duration, 140ms) ease;
+      top var(--re-duration, 140ms) ease,
+      bottom var(--re-duration, 140ms) ease;
   }
 
     :where(.pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover)) > li > :is(a,span)[aria-current=page],
@@ -1084,13 +1094,13 @@
   @media print { :where(.top-menu [popover]:popover-open) { display: none; } }
 }
 
-/* Scoped markers do not share targets between desktop/mobile or nested panels. */
+/* Only the desktop top-level list receives a shared hover highlight. */
 @layer re.components {
   @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
 
-  :where(.top-menu :is(.menu-items, .menu-panel)) { anchor-scope: --re-nav-highlight; }
-  :where(.top-menu .menu-items:not([popover])) { position: relative; }
-  :where(.top-menu :is(.menu-items, .menu-panel))::after {
+  :where(.top-menu .menu-desktop) { anchor-scope: --re-nav-highlight; }
+  :where(.top-menu .menu-desktop) { position: relative; }
+  :where(.top-menu .menu-desktop)::after {
     content: ""; position: absolute; position-anchor: --re-nav-highlight;
     inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
     top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
@@ -1102,20 +1112,17 @@
   }
 
     /* Preserve the root branch anchor used to position its dropdown panels. */
-    :where(.top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page], .top-menu :is(.menu-items, .menu-panel) > li > :is(a, button):focus-visible, .top-menu :is(.menu-items, .menu-panel):not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
-      anchor-name: --re-nav-highlight;
-    }
     :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page],
       .top-menu .menu-desktop > li > :is(a, button):focus-visible,
       .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
       anchor-name: var(--re-menu-branch-anchor, --re-unused-navigation-anchor), --re-nav-highlight;
     }
-    :where(.top-menu :is(.menu-items, .menu-panel):has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover))::after { opacity: 1; }
+    :where(.top-menu .menu-desktop:has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover))::after { opacity: 1; }
   }
 }
 @layer re.utilities {
-  @media (prefers-reduced-motion: reduce) { :where(.top-menu :is(.menu-items, .menu-panel))::after { transition: none; } }
-  @media (forced-colors: active), print { :where(.top-menu :is(.menu-items, .menu-panel))::after { display: none; } }
+  @media (prefers-reduced-motion: reduce) { :where(.top-menu .menu-desktop)::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.top-menu .menu-desktop)::after { display: none; } }
 }
 
 /* Desktop top-level navigation uses a gliding surface rather than an underline. */
