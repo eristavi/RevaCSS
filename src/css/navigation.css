@@ -269,7 +269,7 @@
         bottom var(--re-duration, 140ms) ease;
     }
     :where(.top-menu .menu-desktop > li > :is(a, button)) {
-      position: relative; z-index: 1; background: transparent;
+      background: transparent;
     }
     :where(.top-menu .menu-desktop > li > a[aria-current=page]) {
       text-decoration: none; font-weight: 700;
@@ -277,6 +277,13 @@
   }
 }
 @layer re.utilities {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+    :where(.top-menu .menu-desktop) { isolation: isolate; }
+    /* Keep labels above the gliding surface even when edge rules position buttons. */
+    :where(.top-menu .menu-desktop > li > :is(a, button)) {
+      position: relative; z-index: 1;
+    }
+  }
   @media (forced-colors: active) {
     :where(.top-menu .menu-desktop > li > :is(a, button):hover) {
       color: HighlightText; background-color: Highlight;
