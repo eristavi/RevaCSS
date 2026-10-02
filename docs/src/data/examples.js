@@ -298,7 +298,8 @@ export const topics = [
       "The visual presentation is a tab bar, while the underlying interaction retains radio semantics. Do not add tablist/tab roles or manually maintained aria-selected attributes. Applications requiring the ARIA tabs interaction contract need a separate behaviour layer.",
       "Give the fieldset a legend and every radio a label. Use one unique radio name per instance and mark exactly one radio checked. Tab enters the radio group; arrow keys select its native choices.",
       "Keep each tab-panel immediately after its label. Panels may contain ordinary headings, links and controls. CSS :has selects the checked radio's following panel. Without :has support, all panels remain readable; print also shows all panels.",
-      "Theme, shape, size, density, gap, borders and fieldset material follow the parent. Radio controls are visually hidden, not removed from the focus order. Focus appears on the tab label, and native disabled choices remain unavailable. Included in complete, scoped and components builds; modular use: tokens, base and reva.tabs.css."
+      "Theme, shape, size, density, gap, borders and fieldset material follow the parent. Radio controls are visually hidden, not removed from the focus order. Focus appears on the tab label, and native disabled choices remain unavailable. Included in complete, scoped and components builds; modular use: tokens, base and reva.tabs.css.",
+      "A shared underline glides between selected tabs in browsers supporting CSS anchor positioning and anchor-scope. Other browsers retain a static selected border. No extra class is needed. Parent data-motion controls duration; reduced motion removes the transition. The effect reserves ::after on .tabs."
     ],
     "examples": [
       {
@@ -465,7 +466,8 @@ export const topics = [
       "Use a labelled nav and ordered list. Give numeric links accessible names such as Page 2. Mark exactly one current page with aria-current=\"page\".",
       "Unavailable controls are spans with aria-disabled=\"true\", without href or tabindex. aria-disabled alone does not stop a link from navigating. Ellipses are text, not controls.",
       "CSS provides presentation only. It does not fetch results, calculate page counts, change the current page or restore focus after an application update.",
-      "The live demo links navigate to this page's example anchors to demonstrate native navigation. Production markup should point to actual result pages."
+      "The live demo links navigate to this page's example anchors to demonstrate native navigation. Production markup should point to actual result pages.",
+      "A decorative underline follows eligible links on hover or keyboard focus, then returns to the current page. The current page keeps its own styling throughout. CSS anchor positioning and anchor-scope enable this default enhancement; unsupported browsers retain ordinary pagination. Shared data-motion controls duration, and reduced motion removes transitions. The effect reserves ::after on the direct ol."
     ],
     "examples": [
       {
