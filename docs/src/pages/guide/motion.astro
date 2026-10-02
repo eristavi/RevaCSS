@@ -1,0 +1,111 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'installation',title:'Enable motion'},{id:'shared-motion',title:'Shared intensity'},{id:'popover-motion',title:'Native popovers'},{id:'local-motion',title:'Local overrides'},{id:'motion-boundaries',title:'Behaviour and preferences'},{id:'scoped-motion',title:'Scoped use'}];
+const installation=`<!doctype html>
+<html lang="en" data-theme="auto" data-motion="subtle">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My interface</title>
+  <link rel="stylesheet" href="/assets/reva/reva.css">
+  <!-- Optional; load after the core. -->
+  <link rel="stylesheet" href="/assets/reva/reva.motion.css">
+</head>
+<body>
+  <!-- Supported popovers inherit the page motion setting. -->
+</body>
+</html>`;
+const intensities=`<section class="row" data-motion="subtle">
+  <div>
+    <button type="button" popovertarget="motion-subtle">Subtle entrance</button>
+    <ul class="dropdown" id="motion-subtle" popover="auto"
+        role="list" aria-label="Subtle resources">
+      <li><button type="button" popovertarget="motion-subtle"
+                  popovertargetaction="hide" autofocus>Close resources</button></li>
+      <li><a href="${base}guide/">Get started</a></li>
+      <li><a href="${base}reference/">API reference</a></li>
+    </ul>
+  </div>
+  <div data-motion="expressive">
+    <button type="button" popovertarget="motion-expressive">Expressive entrance</button>
+    <ul class="dropdown" id="motion-expressive" popover="auto"
+        role="list" aria-label="Expressive resources">
+      <li><button type="button" popovertarget="motion-expressive"
+                  popovertargetaction="hide" autofocus>Close resources</button></li>
+      <li><a href="${base}components/dropdowns/">Dropdown documentation</a></li>
+      <li><a href="${base}themes/glass/">Glass material</a></li>
+    </ul>
+  </div>
+  <div data-motion="none">
+    <button type="button" popovertarget="motion-none">No entrance motion</button>
+    <ul class="dropdown" id="motion-none" popover="auto"
+        role="list" aria-label="Stationary resources">
+      <li><button type="button" popovertarget="motion-none"
+                  popovertargetaction="hide" autofocus>Close resources</button></li>
+      <li><a href="${base}guide/accessibility/">Behaviour and accessibility</a></li>
+    </ul>
+  </div>
+</section>`;
+const popover=`<section data-motion="subtle">
+  <button type="button" popovertarget="motion-information">Open information</button>
+  <aside id="motion-information" popover="auto"
+         aria-labelledby="motion-information-title">
+    <h3 id="motion-information-title">Ordinary HTML, native behaviour</h3>
+    <p>Motion adds presentation. The browser still owns opening and dismissal.</p>
+    <button type="button" popovertarget="motion-information"
+            popovertargetaction="hide" autofocus>Close information</button>
+  </aside>
+</section>`;
+const local=`<section data-motion="expressive">
+  <!-- A nearer value changes only this branch. -->
+  <div data-motion="none">
+    <button type="button" popovertarget="motion-local">Open without motion</button>
+    <ul class="dropdown" id="motion-local" popover="auto"
+        role="list" aria-label="Local resources">
+      <li><a href="${base}guide/styling/">Styling and inheritance</a></li>
+    </ul>
+  </div>
+</section>`;
+const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
+<link rel="stylesheet" href="/assets/reva/reva.motion.scoped.css">
+
+<section class="reva" data-theme="dark" data-motion="subtle">
+  <button type="button" popovertarget="scoped-motion-links">Resources</button>
+  <ul class="dropdown" id="scoped-motion-links" popover="auto"
+      role="list" aria-label="Scoped resources">
+    <li><a href="/docs/">Documentation</a></li>
+  </ul>
+</section>`;
+---
+<DocsLayout title="Motion and animations" active="motion" sections={sections}>
+  <p class="doc-kicker">LEARN / OPTIONAL MODULES</p>
+  <h1>Motion and animations</h1>
+  <p class="doc-lead">Short entrances for dropdowns, navigation panels and other native popovers. One optional CSS file follows the existing parent motion setting. No JavaScript or extra animation classes are needed.</p>
+  <Example id="installation" title="Enable the optional module" description="Load the motion extension after your core stylesheet. Put the html configuration on the opening html tag of your document, with the stylesheet links inside head." render={false} html={installation}/>
+  <p>The complete core and component bundles do not include this extension. The documentation opts in, so its top navigation also demonstrates the entrance. Glass and motion can be used together with their matching core build.</p>
+  <Example id="shared-motion" title="Compare the shared intensity settings" description="Open each dropdown to compare the entrances. The row supplies subtle motion; nearer values select expressive or none. Reduced-motion preferences override both animated settings." html={intensities}/>
+  <div class="table-scroll" role="region" aria-label="Popover motion intensity" tabindex="0"><table><thead><tr><th scope="col">Setting</th><th scope="col">Duration</th><th scope="col">Entrance</th></tr></thead><tbody>
+    <tr><th scope="row"><code>data-motion="none"</code></th><td>0ms</td><td>Immediate display; no fade, slide or scale.</td></tr>
+    <tr><th scope="row"><code>data-motion="subtle"</code></th><td>140ms</td><td>Fade, .35rem vertical offset and scale from .985 to 1. Default.</td></tr>
+    <tr><th scope="row"><code>data-motion="expressive"</code></th><td>240ms</td><td>Fade, .6rem vertical offset and scale from .97 to 1.</td></tr>
+  </tbody></table></div>
+  <Example id="popover-motion" title="Use the same motion with native popovers" description="No component class is needed to opt this panel into motion. Its existing popover attribute identifies the supported surface; its parent sets the intensity." html={popover}/>
+  <Example id="local-motion" title="Override only exceptions" description="Keep the panel inside its configured DOM parent, even though the browser paints it in the top layer. No motion attribute is repeated on individual links or buttons." html={local}/>
+  <section id="motion-boundaries">
+    <h2>Behaviour and preferences</h2>
+    <ul>
+      <li>The module animates entrances only. Closing is immediate; no display or overlay transition delays native dismissal.</li>
+      <li>Outside-click, Escape, focus and popover stacking retain native behaviour. Motion adds no focus management or ARIA application-menu interaction.</li>
+      <li><code>prefers-reduced-motion: reduce</code> removes all entrance transitions, including when a local branch requests expressive motion. Forced colours and print also disable the effect.</li>
+      <li>Browsers without <code>@starting-style</code> display popovers immediately. The regular visible state is never held transparent while waiting for JavaScript.</li>
+      <li>Only opacity, translation and scale change. This module does not animate blur, shadows, layout dimensions or backdrop filters.</li>
+      <li>Dialogs, scroll reveals, card entrances and exit effects are outside this first module. Existing spinner, skeleton and edge motion keep their own behaviour.</li>
+    </ul>
+    <p>The entrance uses <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style">CSS @starting-style</a> when a popover becomes visible. The module owns the popover's opacity, translate, scale and transition declarations; custom effects should override those deliberately rather than stacking another entrance on the same panel.</p>
+    <p class="doc-note">This is an implemented development feature. Browser, actual-device and assistive-technology validation remains deferred until the release checks are requested.</p>
+  </section>
+  <Example id="scoped-motion" title="Match the scoped build" description="Use the scoped motion extension with the scoped core. Keep each popover inside its .reva boundary and use unique target ids." render={false} html={scoped}/>
+  <p><a href={base+'components/dropdowns/'}>Dropdown markup</a> · <a href={base+'components/top-menu/'}>Top navigation</a> · <a href={base+'reference/'}>Stylesheet API</a></p>
+</DocsLayout>
