@@ -33,7 +33,7 @@ for (const theme of ['light','dark']) test(`${theme} html defaults and neutral r
 });
 for (const build of ['minified','modular','scoped']) test(`${build} builds support inherited defaults`,async({page})=>{
  const css=build==='modular'?(await Promise.all(['tokens','base','components'].map(name=>readFile(`dist/reva.${name}.css`,'utf8')))).join('\n'):await readFile(`dist/reva.${build==='minified'?'min':'scoped'}.css`,'utf8');
- await page.route('**/reva/reva.css',route=>route.fulfill({contentType:'text/css',body:css}));
+ await page.route('**/reva/reva.css*',route=>route.fulfill({contentType:'text/css',body:css}));
  await page.setViewportSize({width:1280,height:900});await page.goto('/preview/defaults/light/');
  if(build==='scoped') {
   await page.locator('main').evaluate((el,settings)=>{el.className='reva';el.dataset.theme='light';Object.assign(el.dataset,settings);const outside=document.createElement('img');outside.id='outside-image';outside.dataset.ratio='square';outside.dataset.fit='contain';el.after(outside);},rootSettings);

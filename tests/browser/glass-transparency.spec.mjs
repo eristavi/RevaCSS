@@ -48,11 +48,11 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} readable gla
  await page.addStyleTag({content:await css(scoped)});
  expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.7,2);
  expect((await rgba(page,'#action'))[3]/255).toBeCloseTo(.9,2);
- expect(await rgba(page,'#field','borderTopColor')).toEqual([24,32,45,255]);
- expect(await rgba(page,'#muted','color')).toEqual([24,32,45,255]);expect(await rgba(page,'#link','color')).toEqual([24,42,135,255]);
- expect(await rgba(page,'#dark-muted','color')).toEqual([242,245,252,255]);expect(await rgba(page,'#dark-link','color')).toEqual([234,240,255,255]);
- expect(await rgba(page,'#solid-muted','color')).toEqual([82,96,115,255]);expect(await rgba(page,'#solid-link','color')).toEqual([36,56,184,255]);expect((await rgba(page,'#solid'))[3]).toBe(255);
- expect(await rgba(page,'#reentry-link','color')).toEqual([24,42,135,255]);expect((await rgba(page,'#reentry'))[3]/255).toBeCloseTo(.7,2);
+ expect(await rgba(page,'#field','borderTopColor')).toEqual([17,17,17,255]);
+ expect(await rgba(page,'#muted','color')).toEqual([17,17,17,255]);expect(await rgba(page,'#link','color')).toEqual([17,17,17,255]);
+ expect(await rgba(page,'#dark-muted','color')).toEqual([245,245,245,255]);expect(await rgba(page,'#dark-link','color')).toEqual([245,245,245,255]);
+ expect(await rgba(page,'#solid-muted','color')).toEqual([76,76,76,255]);expect(await rgba(page,'#solid-link','color')).toEqual([17,17,17,255]);expect((await rgba(page,'#solid'))[3]).toBe(255);
+ expect(await rgba(page,'#reentry-link','color')).toEqual([17,17,17,255]);expect((await rgba(page,'#reentry'))[3]/255).toBeCloseTo(.7,2);
  await page.locator('#card').evaluate(el=>el.dataset.contrast='more');expect((await rgba(page,'#card'))[3]).toBe(255);expect(await filter(page,'#card')).toBe('none');
  await page.locator('#card').evaluate(el=>el.dataset.contrast='auto');expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.7,2);
 });
@@ -67,7 +67,7 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme 
  expect((await rgba(page,'#opaque'))[3]).toBe(255);
  expect((await rgba(page,'#solid-theme'))[3]).toBe(255);
  expect((await rgba(page,'#resume'))[3]/255).toBeCloseTo(.7,2);
- expect(await rgba(page,'#rounded','color')).toEqual([242,245,252,255]);
+ expect(await rgba(page,'#rounded','color')).toEqual([245,245,245,255]);
  const card=await page.locator('#rounded').boundingBox(), reset=await page.locator('#reset').boundingBox();
  expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(15.99);
  const samples=await pixels(page,'#rounded',[[1,1],[5,5],[20,card.height+8]]);
@@ -76,8 +76,8 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme 
 test('glass documentation separates the surface and solid reset at desktop and phone widths',async({page})=>{
  for(const width of [1280,375]) {
   await page.setViewportSize({width,height:900});await page.goto('/themes/glass/');
-  const wrapper=page.locator('#glass-surface .example-demo > section');
-  expect((await rgba(page,'#glass-surface .example-demo > section'))[3]).toBe(0);
+  const wrapper=page.locator('#glass-overrides .example-demo > section');
+  expect((await rgba(page,'#glass-overrides .example-demo > section'))[3]).toBe(0);
   const card=await wrapper.locator(':scope > .card').boundingBox();
   const reset=await wrapper.locator(':scope > section').boundingBox();
   expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(15.99);

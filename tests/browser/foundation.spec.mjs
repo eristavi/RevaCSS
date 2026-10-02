@@ -14,7 +14,7 @@ test('nested themes and local resets preserve independent settings',async({page}
  const grid=document.querySelector('.grid');grid.dataset.gap='large';const stack=document.createElement('div');stack.className='stack';stack.dataset.gap='medium';card.append(stack);
  const density=document.createElement('section');density.dataset.density='spacious';density.className='card';document.body.append(density);
  return {card:getComputedStyle(card).backgroundColor,input:(()=>{const c=document.createElement('canvas').getContext('2d');c.fillStyle=getComputedStyle(input).backgroundColor;c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data].slice(0,3)})(),grid:getComputedStyle(grid).gap,stack:getComputedStyle(stack).gap,padding:getComputedStyle(density).padding,solid:getComputedStyle(document.querySelector('[data-fill=solid] button')).backgroundImage,gradient:getComputedStyle(document.querySelector('#variants > button')).backgroundImage}; });
- expect(states.card).toBe('rgb(26, 32, 48)');expect(states.input).toEqual([26,32,48]);expect(states.grid).toBe('32px');expect(states.stack).toBe('16px');expect(states.padding).toBe('30px');expect(states.gradient).not.toBe('none');expect(states.solid).not.toBe(states.gradient);
+ expect(states.card).toBe('rgb(25, 25, 25)');expect(states.input).toEqual([25,25,25]);expect(states.grid).toBe('32px');expect(states.stack).toBe('16px');expect(states.padding).toBe('30px');expect(states.gradient).not.toBe('none');expect(states.solid).not.toBe(states.gradient);
 });
 test('keyboard disclosure, focus and native form validation',async({page})=>{
  await page.goto('/preview/light/');await page.locator('summary').focus();await page.keyboard.press('Enter');await expect(page.locator('details')).toHaveAttribute('open','');
@@ -24,7 +24,7 @@ test('keyboard disclosure, focus and native form validation',async({page})=>{
 test('mobile reflow and user preferences',async({page})=>{
  await page.setViewportSize({width:320,height:800});await page.emulateMedia({colorScheme:'dark',reducedMotion:'reduce'});await page.goto('/preview/auto/');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
- expect(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(16, 20, 31)');
+ expect(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(16, 16, 16)');
  expect(await page.locator('button').first().evaluate(el=>getComputedStyle(el).transitionDuration.split(',').every(v=>v.trim()==='0s'))).toBe(true);
  await page.emulateMedia({forcedColors:'active'});expect(await page.locator('button').first().evaluate(el=>getComputedStyle(el).backgroundImage)).toBe('none');
 });

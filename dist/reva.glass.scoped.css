@@ -70,9 +70,9 @@
   @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material="glass"]) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(*, :scope):where(:not([data-material="glass"], .menu-toggle)) {
-        --re-muted: light-dark(#526073, #b7c2d6);
-        --re-link: light-dark(#2438b8, #a9b9ff);
-        --re-control-line: light-dark(#738096, #8593ae);
+        --re-muted: var(--re-palette-muted);
+        --re-link: var(--re-palette-link);
+        --re-control-line: var(--re-palette-control-line);
       }
     }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, .button))) {

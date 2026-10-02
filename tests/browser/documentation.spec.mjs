@@ -1,9 +1,12 @@
+import {waitForPopover} from './helpers/popover.mjs';
 import { test, expect } from '@playwright/test';
 import axeSource from 'axe-core';
+import {topics} from '../../docs/src/data/examples.js';
 
-const routes = ['/', '/guide/', '/attributes/', ...['typography','buttons','forms','layouts','tables','media','disclosures','top-menu'].map(name=>`/components/${name}/`), '/themes/glass/', '/reference/'];
+const routes = ['/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
 
 test('documentation demos match their HTML and work without JavaScript', async ({ browser }) => {
+  test.setTimeout(60000);
   const context = await browser.newContext({ javaScriptEnabled:false });
   const page = await context.newPage();
   for (const route of routes) {
@@ -24,13 +27,14 @@ test('documentation demos match their HTML and work without JavaScript', async (
   await expect(page.locator('#details details')).toHaveAttribute('open','');
   await page.locator('[popovertarget="demo-popover"]').first().click();
   await expect(page.locator('#demo-popover')).toBeVisible();
+  await waitForPopover(page.locator('#demo-popover'));
   await page.locator('#demo-popover button').click();
   await expect(page.locator('#demo-popover')).toBeHidden();
   await context.close();
 });
 
 // Each route gets its own timeout and failure report as the documentation grows.
-for (const width of [375,1280]) for (const route of routes) {
+for (const width of [320,375,1280]) for (const route of routes) {
   test(`${route} documentation reflows and passes accessibility checks at ${width}px`, async ({ page }) => {
     await page.setViewportSize({width,height:900});
     await page.goto(route);

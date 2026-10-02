@@ -4,7 +4,8 @@ import { transform } from 'lightningcss';
 const data=JSON.parse(await readFile('tokens/foundation.tokens.json','utf8'));
 const options=JSON.parse(await readFile('tokens/options.json','utf8'));
 const palettes=JSON.parse(await readFile('tokens/palettes.json','utf8'));
-const paletteDeclarations = p => Object.keys(p.light).map(k=>`--re-${k}: light-dark(${p.light[k]},${p.dark[k]});`).join(' ');
+const paletteDeclarations = p => Object.keys(p.light).map(k=>`--re-${k}: light-dark(${p.light[k]},${p.dark[k]});`).join(' ')
+  + ' ' + ['muted','link','control-line'].map(k=>`--re-palette-${k}: light-dark(${p.light[k]},${p.dark[k]});`).join(' ');
 function resolve(path) { let t=path.split('.').reduce((a,k)=>a[k],data); if(!t?.$type) throw Error(`Invalid token ${path}`); let v=t.$value; if(typeof v==='string' && v.startsWith('{')) return resolve(v.slice(1,-1)); return {type:t.$type,value:v}; }
 function css(t) { if(t.type==='color') return t.value.hex; if(t.type==='dimension') return `${t.value.value}${t.value.unit}`; if(t.type==='fontFamily') return t.value.map(x=>x.includes(' ')?JSON.stringify(x):x).join(', '); throw Error(`Unknown type ${t.type}`); }
 function declarations(group) { return Object.keys(data[group]).filter(k=>k!=='font-heading').map(k=>`--re-${k}: ${css(resolve(`${group}.${k}`))};`).join('\n'); }

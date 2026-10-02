@@ -127,7 +127,7 @@ test('contrast overrides reset locally and system preferences force opaque surfa
   await expect(page.getByRole('navigation',{name:'Glass navigation'})).toBeHidden();
 });
 test('unsupported backdrop filtering falls back to opaque core surfaces',async({page})=>{
-  await page.route('**/reva.glass.css',async route=>{
+  await page.route('**/reva.glass.css*',async route=>{
     const response=await route.fetch();
     const body=(await response.text()).replace('@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)))','@supports (reva-test-unsupported: yes)');
     await route.fulfill({response,body});
@@ -138,7 +138,7 @@ test('unsupported backdrop filtering falls back to opaque core surfaces',async({
 });
 test('reduced-transparency fallback rule produces opaque surfaces',async({page})=>{
   // Playwright does not emulate this preference across all engines; exercise the rule through a media-condition substitution.
-  await page.route('**/reva.glass.css',async route=>{
+  await page.route('**/reva.glass.css*',async route=>{
     const response=await route.fetch();
     const body=(await response.text()).replace('(prefers-reduced-transparency: reduce)','(min-width: 0px)');
     await route.fulfill({response,body});
