@@ -14,7 +14,7 @@ test('highlighted HTML stays literal and wrapping works independently without Ja
  expect(await pre.evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre-wrap');expect(await code.textContent()).toBe(source);
  expect(await page.locator('#sizes pre').evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
- await page.goto('/guide/');expect(await page.locator('#installation pre code').textContent()).toContain('<!doctype html>');expect(await page.locator('#installation pre code html').count()).toBe(0);
+ await page.goto('/guide/');expect(await page.locator('#first-page pre code').textContent()).toContain('<!doctype html>');expect(await page.locator('#first-page pre code html').count()).toBe(0);
  expect(await page.locator('script').count()).toBe(0);await context.close();
 });
 

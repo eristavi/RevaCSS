@@ -36,6 +36,6 @@ test('a theme alone supplies complete defaults and switching theme preserves geo
  expect(before.radius).toBe('12px');expect(before.padding).toBe('24px');expect(before.border).toBe('1px');expect(before.background).toBe('rgb(255, 255, 255)');expect(await style(page,'#probe-button','fontSize')).toBe('16px');
  await page.locator('html').evaluate(el=>el.dataset.theme='dark');
  const after=await page.locator('#probe-card').evaluate(el=>{const s=getComputedStyle(el);return {radius:s.borderRadius,padding:s.padding,border:s.borderTopWidth,shadow:s.boxShadow,background:s.backgroundColor};});
- expect(after).toEqual({...before,background:'rgb(26, 32, 48)'});
- expect(await style(page,'#probe-input','color')).toBe('rgb(242, 245, 252)');
+ expect(after).toEqual({...before,background:'rgb(25, 25, 25)'});
+ expect(await style(page,'#probe-input','color')).toBe('rgb(245, 245, 245)');
 });

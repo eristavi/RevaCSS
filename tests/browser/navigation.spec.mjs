@@ -127,7 +127,7 @@ test.describe('native navigation without runtime JavaScript', () => {
   test('scoped navigation leaves ordinary outside navigation untouched', async ({ page }) => {
     await page.goto('/preview/menu/light/');
     await page.evaluate(() => {
-      const stylesheet = document.querySelector('link[href$="reva.css"]');
+      const stylesheet = document.querySelector('link[href*="/reva/reva.css"]');
       stylesheet.href = stylesheet.href.replace('reva.css', 'reva.scoped.css');
       const inside = document.querySelector('nav[aria-label="Main navigation"]');
       inside.classList.add('reva');
@@ -167,7 +167,7 @@ test.describe('native navigation without runtime JavaScript', () => {
   for(const build of ['minified','modular','scoped']) test(`${build} navigation dismisses on outside click in both layouts`,async({page})=>{
     const files=build==='minified'?['reva.min.css']:build==='scoped'?['reva.scoped.css']:['reva.tokens.css','reva.base.css','reva.navigation.css'];
     const stylesheet=(await Promise.all(files.map(name=>readFile('dist/'+name,'utf8')))).join('\n');
-    await page.route('**/reva.css',route=>route.fulfill({contentType:'text/css',body:stylesheet}));
+    await page.route('**/reva.css*',route=>route.fulfill({contentType:'text/css',body:stylesheet}));
     for(const width of [1280,375]) {
       await page.setViewportSize({width,height:900});await page.goto('/preview/menu/light/');
       if(build==='scoped'){await menu(page).evaluate(el=>el.classList.add('reva'));expect(await menu(page).evaluate(el=>getComputedStyle(el).anchorName)).toContain('--preview-navigation');}
@@ -178,7 +178,7 @@ test.describe('native navigation without runtime JavaScript', () => {
     }
   });
   test('popover panels remain usable without CSS anchor positioning',async({page})=>{
-    await page.route('**/reva.css',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text()).replace('@supports (position-area: block-end span-inline-start)','@supports (reva-unsupported-anchor: yes)')});});
+    await page.route('**/reva.css*',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text()).replace('@supports (position-area: block-end span-inline-start)','@supports (reva-unsupported-anchor: yes)')});});
     await page.goto('/preview/menu/light/');const nav=menu(page);
     for(const label of ['Products','Frameworks','Components']) await summary(nav,label).click();
     const link=nav.getByRole('link',{name:'Top menu',exact:true});await expect(link).toBeVisible();

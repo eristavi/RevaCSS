@@ -10,7 +10,7 @@ const isolatedDocument=`<!doctype html><html lang="en"><head><meta charset="utf-
   <p class="prose">{description}</p>
   <div class="example-frame">
     {isolated && <iframe class="example-isolated" title={`${title} demo`} srcdoc={isolatedDocument} width="640" height={isolatedHeight}/>}
-    {render && !isolated && <div class:list={["example-demo", {"glass-backdrop": glass}]} aria-label={`${title} demo`}><Fragment set:html={html}/></div>}
+    {render && !isolated && <div class:list={["example-demo", {"glass-backdrop": glass}]} role="group" aria-label={`${title} demo`}><Fragment set:html={html}/></div>}
     <div class="example-code"><CodeViewer id={id} code={html} label={`${title} HTML`} embedded/></div>
   </div>
 </section>
@@ -23,4 +23,3 @@ h2 a { color:inherit; text-decoration:none; } h2 a:hover { text-decoration:under
 .example-code { min-inline-size:0; }
 .glass-backdrop { background:radial-gradient(ellipse at top left,color-mix(in srgb,var(--re-primary) 55%,transparent),transparent 65%),radial-gradient(ellipse at bottom right,color-mix(in srgb,var(--re-primary-end) 50%,transparent),transparent 65%); }
 </style>
-

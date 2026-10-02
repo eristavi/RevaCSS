@@ -17,7 +17,8 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} badg
  expect(await style(page,'#local','borderRadius')).toBe('0px');expect(await style(page,'#local','fontSize')).toBe('11.375px');
  expect(await style(page,'#local','backgroundColor')).not.toBe(await style(page,'#one','backgroundColor'));
  expect(await style(page,'#neutral','backgroundColor')).not.toBe(await style(page,'#one','backgroundColor'));
- expect(await style(page,'#button','backgroundColor')).not.toBe(await style(page,'#one','backgroundColor'));
+ expect(await style(page,'#button','backgroundColor')).toBe(await style(page,'#one','backgroundColor'));
+ expect(await style(page,'#button','color')).toBe(await style(page,'#one','color'));
  for(const id of ['glass','reentry']) expect(await style(page,'#'+id,'backdropFilter')).toContain('16px');
  for(const id of ['solid','reset']) expect(await style(page,'#'+id,'backdropFilter')).toBe('none');
  if(build==='scoped')expect(await style(page,'#outside','display')).toBe('inline');

@@ -968,10 +968,10 @@
       border-radius: inherit;
       pointer-events: none;
       background: conic-gradient(from var(--re-edge-angle, 45deg),
-        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #07172f), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 55%, #fff)),
+        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #000), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, var(--re-action-text, var(--re-on-primary)))),
         color-mix(in srgb, var(--re-action-start, var(--re-primary)) 10%, #fff),
-        light-dark(color-mix(in srgb, var(--re-action-end, var(--re-primary-end)) 45%, #07172f), var(--re-action-end, var(--re-primary-end))),
-        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #07172f), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 55%, #fff)));
+        light-dark(color-mix(in srgb, var(--re-action-end, var(--re-primary-end)) 45%, #000), var(--re-action-end, var(--re-primary-end))),
+        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #000), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, var(--re-action-text, var(--re-on-primary)))));
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask-composite: exclude;
       animation: var(--re-edge-animation, none) 8s linear infinite;
