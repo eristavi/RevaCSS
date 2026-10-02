@@ -3,25 +3,249 @@ import { stylesheet } from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
-const sections=[{id:'installation',title:'Load and activate'},{id:'glass-example',title:'Inherited material'},{id:'coverage',title:'Supported surfaces'},{id:'glass-controls',title:'Controls and variants'},{id:'fallbacks',title:'Preferences and fallback'},{id:'scoped-glass',title:'Scoped use'}];
+const sections=[
+  {id:'material-preview',title:'Material preview'},
+  {id:'installation',title:'Load and activate'},
+  {id:'glass-example',title:'Shared defaults'},
+  {id:'glass-themes',title:'Light and dark'},
+  {id:'glass-controls',title:'Actions and forms'},
+  {id:'glass-feedback',title:'Feedback and status'},
+  {id:'glass-overrides',title:'Solid exceptions'},
+  {id:'coverage',title:'Component coverage'},
+  {id:'glass-customisation',title:'Customisation'},
+  {id:'fallbacks',title:'Preferences and fallback'},
+  {id:'scoped-glass',title:'Scoped use'}
+];
+const installation=`<!doctype html>
+<html lang="en" data-theme="dark" data-material="glass"
+      data-accent="teal" data-shape="rounded">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My glass interface</title>
+  <link rel="stylesheet" href="/assets/reva/reva.css">
+  <link rel="stylesheet" href="/assets/reva/reva.glass.css">
+</head>
+<body>
+  <main class="container">
+    <article class="card">
+      <h1>Welcome back</h1>
+      <p>Shared settings reach supported descendants.</p>
+      <button type="button">Continue</button>
+    </article>
+  </main>
+</body>
+</html>`;
+const shared=`<section class="stack" data-theme="dark" data-material="glass"
+         data-accent="teal" data-shape="rounded">
+  <article class="card">
+    <h3>One parent. A consistent surface.</h3>
+    <p>The card and its button inherit the material and accent.</p>
+    <button type="button">Primary action</button>
+  </article>
+  <article class="card">
+    <h3>Ordinary HTML underneath</h3>
+    <p>Use headings, paragraphs and links for their meaning.</p>
+    <a href="${base}guide/styling/">Read about inheritance</a>
+  </article>
+</section>`;
+const modes=`<div class="grid">
+  <section class="stack" data-theme="light" data-material="glass"
+           data-accent="violet" data-shape="rounded">
+    <article class="card">
+      <h3>Light glass</h3>
+      <p>A pale surface with a dark foreground.</p>
+      <button type="button">Continue</button>
+    </article>
+  </section>
+  <section class="stack" data-theme="dark" data-material="glass"
+           data-accent="violet" data-shape="rounded">
+    <article class="card">
+      <h3>Dark glass</h3>
+      <p>A deep surface with a light foreground.</p>
+      <button type="button">Continue</button>
+    </article>
+  </section>
+</div>`;
+const controls=`<section class="stack" data-material="glass" data-accent="teal"
+         data-shape="rounded" data-variant="primary">
+  <div class="row" role="group" aria-label="Example actions">
+    <button type="button">Continue</button>
+    <button type="button" class="secondary">Back</button>
+    <button type="button" class="outline">Outline</button>
+    <button type="button" data-variant="danger">Delete</button>
+    <button type="button" disabled>Unavailable</button>
+  </div>
+  <fieldset>
+    <legend>Notification preferences</legend>
+    <div class="form-group">
+      <label for="glass-guide-email">Email address</label>
+      <input id="glass-guide-email" type="email" name="email"
+             autocomplete="email" placeholder="you@example.com"
+             aria-describedby="glass-guide-email-help">
+      <small id="glass-guide-email-help">This field keeps its normal control backing.</small>
+    </div>
+    <label>
+      <input class="switch" type="checkbox" role="switch" checked>
+      Email notifications
+    </label>
+  </fieldset>
+</section>`;
+const feedback=`<section class="stack" data-material="glass" data-shape="rounded">
+  <div class="alert" data-variant="success">
+    <strong>Saved.</strong> Your preferences are up to date.
+  </div>
+  <article class="card">
+    <h3>Workspace status</h3>
+    <p><span class="badge" data-variant="success">Active</span> All services available</p>
+    <ul class="list-group" role="list">
+      <li>Shared colour and material settings</li>
+      <li>Native links and semantic content</li>
+    </ul>
+  </article>
+</section>`;
+const exceptions=`<section class="stack" data-theme="dark" data-material="glass">
+  <article class="card">
+    <h3>Glass by default</h3>
+    <p>The parent starts the material scope.</p>
+  </article>
+  <section class="stack" data-material="solid">
+    <article class="card">
+      <h3>A solid exception</h3>
+      <p>Only material changes. Theme and shape still inherit.</p>
+      <button type="button">Solid action</button>
+    </article>
+    <article class="card" data-material="glass">
+      <h3>Glass resumes locally</h3>
+      <p>A nearer glass value starts a new material scope.</p>
+    </article>
+  </section>
+</section>`;
+const customisation=`<section data-material="glass" data-theme="dark"
+         style="--re-glass-opacity: 80%; --re-glass-button-opacity: 95%; --re-glass-filter: blur(12px);">
+  <article class="card">
+    <h3>A stronger surface backing</h3>
+    <p>Optional custom properties apply from the parent.</p>
+    <button type="button">Continue</button>
+  </article>
+</section>`;
+const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
+<link rel="stylesheet" href="/assets/reva/reva.glass.scoped.css">
+
+<section class="reva" data-theme="dark" data-material="glass"
+         data-accent="teal" data-shape="rounded">
+  <article class="card">
+    <h2>A scoped glass interface</h2>
+    <p>Supported descendants use this boundary's settings.</p>
+    <button type="button">Continue</button>
+  </article>
+</section>`;
 ---
 <DocsLayout title="Glass material" active="glass" sections={sections}>
-<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
-<p class="doc-kicker">THEMES / MATERIAL</p><h1>Glass material</h1>
-<p class="doc-lead">An optional frosted treatment for supported surfaces. Use it with light, dark or system colours; it does not replace the theme or require JavaScript.</p>
-<Example id="installation" title="Load and activate" description="Load the matching extension after the core. Loading the file alone does not activate glass." render={false} html={'<!doctype html>\n<html lang="en" data-theme="dark" data-material="glass">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>Glass page</title>\n  <link rel="stylesheet" href="/assets/reva/reva.css">\n  <link rel="stylesheet" href="/assets/reva/reva.glass.css">\n</head>\n<body>\n  <!-- Supported descendants inherit glass. -->\n</body>\n</html>'}/>
-<Example id="glass-example" title="Glass with a solid exception" description="The parent supplies material. A nearer solid value stops it; a nested glass value can restart it." glass html={'<section class="stack" data-theme="dark" data-material="glass">\n  <article class="card">\n    <h3>A frosted surface</h3>\n    <p>Your content remains ordinary HTML.</p>\n    <button type="button">Continue</button>\n  </article>\n  <section data-material="solid">\n    <article class="card">\n      <h3>A solid exception</h3>\n      <p>This surface stays opaque.</p>\n    </article>\n  </section>\n</section>'}/>
-<section id="coverage"><h2>What receives glass?</h2><div class="table-scroll" role="region" aria-label="Glass component coverage" tabindex="0"><table><thead><tr><th scope="col">Targets</th><th scope="col">Treatment</th></tr></thead><tbody>
-<tr><th scope="row">Cards, fieldsets, disclosures, dialogs and popovers</th><td>Frosted surface backing and blur; default surface opacity is 70%.</td></tr>
-<tr><th scope="row">Top navigation and its desktop panels</th><td>Frosted surfaces; neutral menu toggles preserve navigation styling.</td></tr>
-<tr><th scope="row">Buttons, .button links and native action inputs</th><td>Stronger coloured backing; default action opacity is 90%.</td></tr>
-<tr><th scope="row">Badges, alerts, pagination items, list items and choice-panel labels</th><td>Stronger backing with blur, following the parent material scope.</td></tr>
-<tr><th scope="row">Text inputs, selects, textareas and switches</th><td>Keep their normal control backing. Glass does not make every HTML element translucent.</td></tr>
-<tr><th scope="row">Icons, breadcrumbs, toolbars and layout wrappers</th><td>Keep their foreground/layout behaviour; they do not add a glass surface of their own.</td></tr>
-</tbody></table></div></section>
-<Example id="glass-controls" title="Button variants retain their API" description="Appearance is inherited. Shared semantic variants also reach glass actions; existing classes remain supported. Material solid is the local opt-out." glass html={'<div class="row" data-material="glass" data-accent="violet" data-shape="pill">\n  <button type="button">Continue</button>\n  <button type="button" class="secondary">Back</button>\n  <button type="button" class="outline">Outline</button>\n  <button type="button" data-variant="danger">Delete</button>\n  <button type="button" data-material="solid">Solid exception</button>\n</div>'}/>
-<section id="fallbacks"><h2>Readable backing and preferences</h2><p>Default blur is 16px. Use <code>--re-glass-opacity</code> and <code>--re-glass-button-opacity</code> for percentage-based opacity overrides, and <code>--re-glass-filter</code> for the filter. Reduced opacity requires review against the actual backdrop; blur alone does not guarantee readable text.</p><p><code>data-contrast="more"</code> makes the material opaque. Supported reduced-transparency and increased-contrast preferences remove translucency; forced colours and print use their documented component fallbacks. Without backdrop filtering, the normal opaque core styles remain. Preference paint respects local material boundaries: a solid section stays outside the glass scope, even inside a glass ancestor. List items, pagination and choice labels remove blur for forced colours and print.</p><p>Shape, density, borders, depth, fill and theme retain their existing meanings. <code>data-fill="solid"</code> removes gradients; use <code>data-material="solid"</code> to remove glass. Animated edges remain opt-in decoration on buttons and cards.</p></section>
-<Example id="scoped-glass" title="Matching scoped files" description="Use the scoped core and scoped glass extension together; put the material setting on the .reva boundary or inside it." render={false} html={'<link rel="stylesheet" href="/assets/reva/reva.scoped.css">\n<link rel="stylesheet" href="/assets/reva/reva.glass.scoped.css">\n<section class="reva" data-theme="dark" data-material="glass">\n  <article class="card">A scoped frosted surface</article>\n</section>'}/>
-<p><a href={base+'preview/glass/light/'}>Light glass preview</a> · <a href={base+'preview/glass/dark/'}>Dark glass preview</a> · <a href={base+'preview/glass/auto/'}>System glass preview</a></p>
-<p class="doc-note">Backdrop filtering can create stacking and compositing constraints. Avoid unnecessary layers of blur and review your actual images, contrast and device performance. The documentation is not a completed device-validation report.</p>
+  <link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+  <p class="doc-kicker">THEMES / MATERIAL</p>
+  <h1>Glass material</h1>
+  <p class="doc-lead">Frosted surfaces, coloured actions and a visible backdrop. Configure the material once on a parent, then build with native HTML and minimal component classes.</p>
+
+  <section id="material-preview" class="material-preview" data-theme="dark" data-material="glass" data-accent="teal" data-shape="rounded" aria-label="Dark glass material preview">
+    <div class="preview-intro">
+      <p class="preview-eyebrow">DARK GLASS / LIVE COMPONENTS</p>
+      <h2>A surface, with depth.</h2>
+      <p>Colour and detail sit behind the frosted layer. Your content stays clear in front.</p>
+      <div class="row"><a class="button" href="#installation">Use glass</a><a href={base+'preview/glass/dark/'}>Open full preview</a></div>
+    </div>
+    <article class="card preview-card">
+      <span class="badge" data-variant="success">Ready to build</span>
+      <h3>Native by design</h3>
+      <p>One shared material. Your existing theme, accent and shape.</p>
+      <dl><dt>Surface backing</dt><dd>70%</dd><dt>Action backing</dt><dd>90%</dd><dt>Backdrop blur</dt><dd>16px</dd></dl>
+      <a href="#glass-example">See the HTML below</a>
+    </article>
+  </section>
+  <p class="preview-caption">This preview sets dark colours locally. The examples below show light, dark and solid exceptions.</p>
+  <div class="preview-links" role="group" aria-label="Full glass previews">
+    <a href={base+'preview/glass/light/'}>Light preview</a>
+    <a href={base+'preview/glass/dark/'}>Dark preview</a>
+    <a href={base+'preview/glass/auto/'}>System preview</a>
+  </div>
+
+  <Example id="installation" title="1. Load the material extension" description="Load the core first, then the optional glass stylesheet. Set material and theme on html for site-wide defaults, or on a section for a local interface." render={false} html={installation}/>
+  <p>The extension changes supported surfaces; it does not add a background image. Supply the page background in your own CSS. Glass needs colour or detail behind it to show its translucent treatment. The coloured backdrops here belong to the documentation demos.</p>
+
+  <Example id="glass-example" title="2. Define shared defaults once" description="The cards and actions inherit their parent settings. No repeated material attributes are needed on each component." glass html={shared}/>
+  <Example id="glass-themes" title="3. Use light or dark colours" description="Glass is a material, not a separate colour mode. Use light, dark or auto with the same HTML. Explicit local themes remain independent of the documentation theme switch." glass html={modes}/>
+  <Example id="glass-controls" title="4. Keep actions and forms consistent" description="Actions use stronger backing. The fieldset receives glass; text fields and switches keep their normal control backing. These example buttons do not perform application actions." glass html={controls}/>
+  <p><code>data-variant</code> keeps its shared meaning for actions, badges and alerts. A local variant changes an exception. <code>outline</code> and <code>ghost</code> are button presentation classes; <code>data-appearance</code> remains specific to badges and alerts.</p>
+  <Example id="glass-feedback" title="5. Add feedback and status" description="Existing alerts, badges and list groups follow the material scope. Use visible status text; a static message needs no automatic live-region role." glass html={feedback}/>
+  <Example id="glass-overrides" title="6. Make deliberate solid exceptions" description="A nearer solid value ends glass treatment without resetting other settings. A nested glass value can restart it. Avoid stacking several blurred surfaces directly over one another." glass html={exceptions}/>
+
+  <section id="coverage">
+    <h2>Component coverage</h2>
+    <div class="table-scroll" role="region" aria-label="Glass material coverage" tabindex="0">
+      <table><caption>What changes when the parent uses glass</caption><thead><tr><th scope="col">Components</th><th scope="col">Material treatment</th></tr></thead><tbody>
+        <tr><th scope="row">Cards, fieldsets, details, dialogs and popovers</th><td>Frosted surface backing and blur. Surface opacity defaults to 70%.</td></tr>
+        <tr><th scope="row">Top navigation, its panels and standalone dropdown panels</th><td>Frosted surfaces. Menu toggles and dropdown rows keep neutral navigation styling.</td></tr>
+        <tr><th scope="row">Buttons, .button links and native action inputs</th><td>Stronger coloured backing and blur. Action opacity defaults to 90%.</td></tr>
+        <tr><th scope="row">Badges, alerts, pagination items, list items and choice-panel labels</th><td>Stronger backing and blur, with their existing states and semantic variants.</td></tr>
+        <tr><th scope="row">Text fields, selects, textareas and switches</th><td>Keep their normal control backing and native behaviour.</td></tr>
+        <tr><th scope="row">Icons, breadcrumbs, toolbars and layout wrappers</th><td>Keep their normal foreground or layout behaviour; no extra glass surface is painted.</td></tr>
+      </tbody></table>
+    </div>
+    <p>Core and glass must use matching global or scoped builds. The extension alone does not supply component structure or interaction.</p>
+  </section>
+
+  <section aria-labelledby="material-settings-title">
+    <h2 id="material-settings-title">Keep the shared API</h2>
+    <ul>
+      <li><code>data-theme</code> selects light, dark or system colours.</li>
+      <li><code>data-material</code> selects glass or solid surface treatment.</li>
+      <li><code>data-shape</code>, <code>data-density</code>, <code>data-border</code> and <code>data-depth</code> retain their existing meanings.</li>
+      <li><code>data-fill="solid"</code> removes decorative gradients; it does not remove translucency. Use <code>data-material="solid"</code> for that.</li>
+      <li>Animated edges remain optional button/card decoration. Glass does not enable animation by default.</li>
+    </ul>
+  </section>
+  <Example id="glass-customisation" title="7. Adjust only what you need" description="Defaults are a starting point. This example increases surface and action backing instead of making the material more transparent." glass html={customisation}/>
+  <div class="table-scroll" role="region" aria-label="Glass custom properties" tabindex="0"><table><thead><tr><th scope="col">Property</th><th scope="col">Default</th><th scope="col">Meaning</th></tr></thead><tbody>
+    <tr><th scope="row"><code>--re-glass-opacity</code></th><td>70%</td><td>Surface backing. Use a percentage, not a decimal alpha.</td></tr>
+    <tr><th scope="row"><code>--re-glass-button-opacity</code></th><td>90%</td><td>Action and supporting small-surface backing.</td></tr>
+    <tr><th scope="row"><code>--re-glass-filter</code></th><td>blur(16px)</td><td>Backdrop filter on supported glass surfaces.</td></tr>
+  </tbody></table></div>
+
+  <section id="fallbacks">
+    <h2>Preferences and fallback</h2>
+    <p><code>data-contrast="more"</code> requests opaque backing. Supported reduced-transparency and increased-contrast preferences also remove translucency. Forced colours use system colours; print uses opaque component fallbacks and hides navigation popovers.</p>
+    <p>Without backdrop-filter support, surfaces retain the normal opaque core styling. Preference treatment respects local solid boundaries. Shared motion settings and reduced-motion preferences still apply to any optional decoration.</p>
+    <p class="doc-note">Readability depends on the actual backdrop, foreground and opacity together. Blur alone cannot guarantee contrast. Keep essential content readable, avoid unnecessary nested blur, and review real-device performance before release. Browser and assistive-technology validation remains pending.</p>
+  </section>
+  <Example id="scoped-glass" title="8. Use a scoped boundary when needed" description="Choose the scoped core and its matching glass extension. Keep overlay markup inside the configured .reva boundary so inheritance is preserved." render={false} html={scoped}/>
+  <p><a href={base+'reference/tokens/'}>CSS token reference</a> · <a href={base+'guide/styling/'}>Inheritance and local overrides</a> · <a href={base+'guide/accessibility/'}>Behaviour and accessibility</a></p>
 </DocsLayout>
+<style>
+.material-preview {
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+  align-items:center;
+  gap:clamp(1.25rem,3vw,2.5rem);
+  padding:clamp(1.25rem,4vw,2.5rem);
+  margin-block:2rem .75rem;
+  border:1px solid rgb(255 255 255 / 18%);
+  border-radius:1.25rem;
+  background-color:#111c30;
+  background-image:radial-gradient(ellipse at 5% 15%,rgb(20 184 166 / 75%),transparent 60%),radial-gradient(ellipse at 100% 90%,rgb(139 92 246 / 75%),transparent 60%),repeating-linear-gradient(135deg,transparent 0 2rem,rgb(255 255 255 / 8%) 2rem 2.1rem);
+  color:#f2f5fa;
+  min-inline-size:0;
+}
+.preview-intro,.preview-card { min-inline-size:0; }
+.preview-intro h2 { font-size:clamp(1.8rem,3.5vw,2.8rem); line-height:1.1; max-inline-size:12ch; margin-block:.5rem 1rem; }
+.preview-intro > p { max-inline-size:38ch; }
+.preview-eyebrow { font-size:.7rem; font-weight:750; letter-spacing:.12em; }
+.preview-card > h3 { margin-block-start:1rem; }
+.preview-card dl { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.4rem 1rem; }
+.preview-card dd { margin:0; }
+.preview-caption { font-size:.875rem; color:var(--re-muted); }
+.preview-links { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; }
+.preview-links a { display:inline-flex; align-items:center; min-block-size:2.75rem; }
+@media (width < 45rem) { .material-preview { grid-template-columns:minmax(0,1fr); } }
+@media (forced-colors: active) { .material-preview { background:Canvas; color:CanvasText; border-color:CanvasText; } }
+@media print { .material-preview { background:#fff; color:#000; border-color:#000; } .preview-links { display:none; } }
+</style>
