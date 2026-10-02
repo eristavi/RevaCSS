@@ -1,0 +1,45 @@
+---
+import {demoOptions, demoHref, sourceHref, configurationHTML, defaultDemo} from '../../data/demo-configurations.js';
+const {config}=Astro.props;
+const base=import.meta.env.BASE_URL;
+const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'};
+---
+<section class="demo-customizer" id="customize" aria-labelledby="customize-title">
+  <details open>
+    <summary id="customize-title">Customize this demo</summary>
+    <div class="customizer-body">
+      <p>Choose the page defaults. Each option opens the matching configuration and preserves your other choices.</p>
+      <div class="customizer-options">
+        {Object.entries(demoOptions).map(([key,values])=><fieldset>
+          <legend>{labels[key]}</legend>
+          <div class="row">{values.map(value=><a class="configuration-choice" href={demoHref(base,{...config,[key]:value})+'#customize'} aria-current={config[key]===value?'true':undefined}>{value[0].toUpperCase()+value.slice(1)}</a>)}</div>
+        </fieldset>)}
+      </div>
+      <div class="configuration-summary">
+        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code>{configurationHTML(config)}</code></pre>
+        <div class="stack"><a class="button" href="#demo-site">Explore the website</a><a href={sourceHref(base,config)} download={`forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download this configuration’s HTML</a><a href={demoHref(base,defaultDemo)+'#customize'}>Reset to defaults</a></div>
+      </div>
+      <p class="customizer-note">HTML/CSS only. Switching configurations reloads the page; open menus, selected tabs and form edits reset. The preview inherits these settings from one parent. The download applies them to <code>&lt;html&gt;</code>.</p>
+    </div>
+  </details>
+</section>
+<style>
+.demo-customizer { scroll-margin-block:1rem; margin-block:1.5rem 2rem; }
+.demo-customizer details { margin:0; }
+.demo-customizer summary { font-size:1rem; }
+.customizer-body { padding:clamp(.75rem,2vw,1.5rem); }
+.customizer-body > p { max-inline-size:80ch; }
+.customizer-options { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:1rem; }
+.customizer-options fieldset { margin:0; min-inline-size:0; padding:.75rem; }
+.customizer-options legend { font-size:.85rem; font-weight:700; }
+.customizer-options .row { gap:.35rem; }
+.configuration-choice { display:inline-flex; align-items:center; min-block-size:2.75rem; padding:.4rem .65rem; border:1px solid var(--re-line); border-radius:.4rem; text-decoration:none; }
+.configuration-choice:hover { background:var(--re-surface-alt); }
+.configuration-choice[aria-current] { background:var(--re-primary); color:var(--re-on-primary); border-color:var(--re-primary); font-weight:700; }
+.configuration-summary { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; align-items:center; margin-block-start:1rem; }
+.configuration-summary pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
+.customizer-note { font-size:.85rem; color:var(--re-muted); margin-block:1rem 0; }
+@media (width < 40rem) { .configuration-summary { grid-template-columns:1fr; } }
+@media (forced-colors:active) { .configuration-choice[aria-current] { color:HighlightText; background:Highlight; } }
+@media print { .demo-customizer { display:none; } }
+</style>
