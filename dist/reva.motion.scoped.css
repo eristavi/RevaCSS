@@ -1,0 +1,56 @@
+@scope (.reva) {
+/* Optional entrance motion. Load after the matching global or scoped core. */
+@layer re.tokens {
+  :where(:scope, .reva, :scope.reva) {
+    --re-popover-offset: .35rem;
+    --re-popover-scale: .985;
+    --re-popover-start-opacity: 0;
+  }
+  :where([data-motion="none"], :scope[data-motion="none"]) {
+    --re-popover-offset: 0rem;
+    --re-popover-scale: 1;
+    --re-popover-start-opacity: 1;
+  }
+  :where([data-motion="subtle"], :scope[data-motion="subtle"]) {
+    --re-popover-offset: .35rem;
+    --re-popover-scale: .985;
+    --re-popover-start-opacity: 0;
+  }
+  :where([data-motion="expressive"], :scope[data-motion="expressive"]) {
+    --re-popover-offset: .6rem;
+    --re-popover-scale: .97;
+    --re-popover-start-opacity: 0;
+  }
+}
+@layer re.components {
+  :where([popover], :scope[popover]) {
+    opacity: 1;
+    translate: none;
+    scale: 1;
+    transition: opacity var(--re-duration, 140ms) ease-out,
+      translate var(--re-duration, 140ms) ease-out,
+      scale var(--re-duration, 140ms) ease-out;
+  }
+  /* Closed-state display and top-layer removal stay entirely native.
+     Without starting-style support, opening is immediate and content visible. */
+  @starting-style {
+    :where([popover]:popover-open, :scope[popover]:popover-open) {
+      opacity: var(--re-popover-start-opacity, 0);
+      translate: 0 var(--re-popover-offset, .35rem);
+      scale: var(--re-popover-scale, .985);
+    }
+  }
+}
+@layer re.utilities {
+  /* These also cover standalone modular use and local expressive overrides. */
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where([popover], :scope[popover]) {
+      opacity: 1;
+      translate: none;
+      scale: 1;
+      transition: none;
+    }
+  }
+}
+
+}
