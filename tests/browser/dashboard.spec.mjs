@@ -38,5 +38,5 @@ test('dashboard accessibility and reduced motion',async({page})=>{
  await page.goto(route);await page.addScriptTag({path:require.resolve('axe-core')});
  const violations=await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})));
  expect(violations).toEqual([]);
- await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('.dash-line').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+ await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('.chart > svg > polyline').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
 });

@@ -158,3 +158,7 @@ At 60rem the persistent desktop sidebar becomes a native mobile popover drawer. 
 ## Metric cards
 
 Use the existing `.card` class with a native `dl`: `dt` labels the value, `dd > output` displays it, and further `dd` elements provide comparisons or targets. Existing shared attributes and materials apply. No additional classes or attributes. [Examples](https://eristavi.github.io/RevaCSS/components/metrics/).
+
+## Dashboard components
+
+Activity history uses one `ol.timeline` class with native timestamps. Existing line/area and doughnut charts use `figure.chart`; SVG data and accessible descriptions come from the backend. Compact navigation uses one `nav.nav-rail` class with visible link labels. Missing-data examples reuse `.empty-state` and the metric-card pattern rather than introducing another component. Standalone stylesheets: `reva.timeline.css`, `reva.charts.css`, `reva.navigation-rail.css`.

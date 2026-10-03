@@ -1,96 +1,158 @@
 export const topics = [
-{
-  "slug": "metrics",
-  "title": "Metric cards",
-  "intro": "Use the existing card class and native term/value pairs for readable values, trends and comparisons. No metric-specific classes or data attributes.",
-  "notes": [
-    "Use .card on an article, with a direct dl containing dt for the metric label and dd > output for its value. Further dd elements contain comparison text, context or a native progress/meter.",
-    "Theme, palette, shape, density, typography, border, depth, decorative edges and optional materials reuse the existing card contract. Place shared attributes on html, a parent or the card.",
-    "Write the trend and comparison period in words. An increase is not always good: costs and incidents can rise. Colour and arrows are never the only explanation.",
-    "The backend supplies formatted values, comparison text and native progress/meter values. CSS does not calculate statistics, animate counters, fetch data or announce updates on a timer.",
-    "Use the existing grid layout to arrange multiple cards. Long values wrap, the DOM reading order stays unchanged and no chart or icon is required.",
-    "Load the complete/scoped build, or tokens, base, components and reva.card-patterns.css. Materials and motion remain optional."
-  ],
-  "examples": [
-    {
-      "id": "metric-revenue",
-      "title": "Value and comparison",
-      "description": "One existing class; label, value and comparison stay readable in HTML.",
-      "html": "<article class=\"card\">\n  <dl>\n    <dt>Total revenue</dt>\n    <dd><output>\u20ac42,500</output></dd>\n    <dd>Up 8.4% versus August</dd>\n    <dd><small>Recognised revenue in September.</small></dd>\n  </dl>\n</article>"
-    },
-    {
-      "id": "metric-cost",
-      "title": "Decrease with context",
-      "description": "Explicit language separates the direction from its business meaning.",
-      "html": "<article class=\"card\">\n  <dl>\n    <dt>Support incidents</dt>\n    <dd><output>12</output></dd>\n    <dd>Down 25% versus August</dd>\n    <dd><small>Fewer incidents this month.</small></dd>\n  </dl>\n</article>"
-    },
-    {
-      "id": "metric-target",
-      "title": "Value and target",
-      "description": "A labelled native meter shows a bounded value; the number and target remain visible.",
-      "html": "<article class=\"card\">\n  <dl>\n    <dt>Team utilisation</dt>\n    <dd><output>78%</output></dd>\n    <dd>Target range: 70\u201385%</dd>\n    <dd><label>Utilisation <meter min=\"0\" max=\"100\" low=\"70\" high=\"85\" optimum=\"78\" value=\"78\">78%</meter></label></dd>\n  </dl>\n</article>"
-    }
-  ]
-},
-{
-  "slug": "drawers",
-  "title": "Drawer / inspector",
-  "intro": "One drawer class turns a native popover into a viewport-edge inspector. Use semantic children and inherited data attributes for details, filters or settings.",
-  "notes": [
-    "Use an aside.drawer with popover=auto and a unique id. Native button popovertarget opens it; popovertargetaction=hide closes it. Label the panel with aria-labelledby and give its heading a unique id.",
-    "Direct header, section and footer children identify the regions. No drawer-header, drawer-body or drawer-footer classes are needed. The panel scrolls as a whole, keeping all content reachable at small heights and zoom.",
-    "Default width is 28rem, bounded by the viewport, on the logical end edge. Customise with inherited CSS variables --re-drawer-width, --re-drawer-start and --re-drawer-end. No component-specific data attributes are required.",
-    "Theme, palette, density, shape, depth, border and optional materials inherit from the actual DOM parent. Opening in the top layer does not move that DOM boundary. Keep drawers inside .reva for scoped builds. Existing optional motion styles apply; data-motion=none and reduced-motion preferences suppress entrance motion.",
-    "This is a non-modal overlay, not a permanent split-pane layout: no focus trap, page inertness or scroll lock. Outside-click and Escape dismiss it natively. Ordinary links and form actions do not close it automatically; the browser restores focus according to native popover behavior. Native popover support is required.",
-    "Load tokens, base and reva.drawers.css for modular use, or the complete/components/scoped builds. Optional glass and veil modules already style popover surfaces. Forced colours retain boundaries; print hides drawers.",
-    "Application code or the server supplies details, filter results and saved settings. The component does not fetch, filter or save records."
-  ],
-  "examples": [
-    {
-      "id": "project-inspector-example",
-      "title": "Project inspector",
-      "description": "One structural class and inherited appearance. Open, close, click outside or press Escape.",
-      "html": "<section>\n  <button type=\"button\" popovertarget=\"drawer-end\">Open project inspector</button>\n  <aside class=\"drawer\" id=\"drawer-end\" popover=\"auto\" aria-labelledby=\"drawer-end-title\">\n    <header><h2 id=\"drawer-end-title\">Project inspector</h2><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><p>Review the project without leaving this page.</p><dl><dt>Owner</dt><dd>Alex Morgan</dd><dt>Status</dt><dd>In progress</dd></dl><label>Completion <progress value=\"72\" max=\"100\">72%</progress></label></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
-    },
-    {
-      "id": "filter-drawer-example",
-      "title": "Filter drawer",
-      "description": "One structural class and inherited appearance. Open, close, click outside or press Escape.",
-      "html": "<section style=\"--re-drawer-start: 0; --re-drawer-end: auto; --re-drawer-width: 20rem\">\n  <button type=\"button\" popovertarget=\"drawer-start\">Open filter drawer</button>\n  <aside class=\"drawer\" id=\"drawer-start\" popover=\"auto\" aria-labelledby=\"drawer-start-title\">\n    <header><h2 id=\"drawer-start-title\">Filter drawer</h2><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><fieldset><legend>Project status</legend><label><input type=\"checkbox\" checked> In progress</label><label><input type=\"checkbox\"> Complete</label></fieldset><p>A backend supplies and applies the filter values.</p></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
-    }
-  ]
-},
-{
-  "slug": "app-shell",
-  "title": "Sidebar and app shell",
-  "intro": "One app-shell class arranges a native aside, header and main. Sidebar links, expandable groups and profile regions use semantic HTML, with inherited theme styling and zero browser JavaScript.",
-  "notes": [
-    "Use .app-shell on one wrapper. Direct aside, header and main children identify the regions. No shell-header, sidebar-item or sidebar-link classes are required. A direct section can replace main when the shell is embedded inside a document that already has a main landmark.",
-    "At 60rem and wider the desktop aside occupies the left column, with a sticky, independently scrollable sidebar. Below 60rem the header and content form one column; a separate aside[popover=auto] provides a viewport-bounded drawer. The layout uses viewport media queries, including when embedded in a demo.",
-    "The desktop sidebar and mobile drawer share navigation content through your template. Keep destinations consistent and use unique IDs for every drawer and any repeated form controls. The shell itself needs only one class; a standalone aside.sidebar needs one class when used without the shell.",
-    "Only the direct sidebar nav is styled. Native details/summary handles expandable groups at any depth, aria-current=page marks the current destination, and ordinary anchors navigate. Label navigation landmarks; retain native Tab, Enter, Space and Escape behaviour.",
-    "Use a direct header button with popovertarget matching the drawer id, and a drawer close button with popovertargetaction=hide. Direct header popover buttons are reserved for the mobile drawer; put other header popover controls inside a group. Native popover support is required.",
-    "The drawer is non-modal: it does not trap focus, make the page inert or lock body scrolling. Outside-click and Escape dismiss it natively. In-page links do not automatically close it. Closing and focus restoration follow native browser behaviour. Resizing to desktop hides an open drawer; returning to mobile can restore its open state.",
-    "Palette, material, shape, density, depth, border, size and motion inherit from html or a parent. No data-sidebar preset is needed in this first version. data-navbar still configures only top menus. Glass and Veil modules include sidebar and shell-header surfaces with their existing accessibility fallbacks.",
-    "Load tokens, base and reva.app-shell.css for modular use, or use the complete/components/scoped builds. --re-sidebar-width defaults to 16rem; mobile width remains viewport-bounded. More contrast and forced colours retain boundaries; reduced motion disables chevron transitions. Print omits navigation and keeps content."
-  ],
-  "examples": [
-    {
-      "id": "responsive-shell",
-      "title": "One-class responsive app shell",
-      "description": "Resize this isolated preview: desktop sidebar becomes a Menu button and native drawer below 60rem. Expand Settings, then Team.",
-      "html": "<div class=\"app-shell\">\n  <aside aria-label=\"Desktop workspace navigation\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <aside id=\"workspace-drawer\" popover=\"auto\" aria-label=\"Mobile workspace navigation\">\n    <button type=\"button\" popovertarget=\"workspace-drawer\" popovertargetaction=\"hide\">Close sidebar</button>\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <header>\n    <button type=\"button\" popovertarget=\"workspace-drawer\">Menu</button>\n    <strong>Workspace overview</strong>\n  </header>\n  <main id=\"overview\">\n    <h1>Overview</h1>\n    <p>Your application content goes here.</p>\n    <section id=\"projects\"><h2>Projects</h2><p>Reusable layout, native navigation, shared theme.</p></section>\n    <section id=\"general\"><h2>General settings</h2><p>A real application supplies settings forms.</p></section>\n    <section id=\"members\"><h2>Team members</h2><p>A real application supplies member records.</p></section>\n  </main>\n</div>",
-      "isolated": true,
-      "isolatedHeight": 480
-    },
-    {
-      "id": "standalone-sidebar",
-      "title": "Sidebar outside an app shell",
-      "description": "One sidebar class establishes the same native navigation styling without the surrounding application layout.",
-      "html": "<aside class=\"sidebar\" aria-label=\"Workspace sidebar\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n</aside>"
-    }
-  ]
-},
+  {
+    "slug": "timeline",
+    "title": "Activity timeline",
+    "intro": "One class on an ordered list presents events and audit history with native timestamps.",
+    "notes": [
+      "Use ol.timeline with one li per event. Ordinary headings or paragraphs describe the event; time with datetime supplies an unambiguous timestamp.",
+      "Keep chronological or reverse chronological DOM order explicit. CSS does not reorder, group, fetch or announce events.",
+      "Spacing, typography, palette and border thickness inherit. Markers are decorative: event meaning must remain visible in text. Logical properties support RTL."
+    ],
+    "examples": [
+      {
+        "id": "activity-timeline",
+        "title": "Recent activity",
+        "description": "One structural class and ordinary event text.",
+        "html": "<ol class=\"timeline\">\n  <li><p><strong>Workspace refresh shared</strong></p><p>Ready for review.</p><time datetime=\"2026-10-03T09:40:00+03:00\">October 3 · 09:40</time></li>\n  <li><p><strong>Report completed</strong></p><time datetime=\"2026-10-02T16:30:00+03:00\">October 2 · 16:30</time></li>\n</ol>"
+      }
+    ]
+  },
+  {
+    "slug": "charts",
+    "title": "Charts",
+    "intro": "The dashboard’s existing line/area and doughnut charts now share a reusable figure class and stylesheet. No additional chart types or duplicate dashboard charts.",
+    "notes": [
+      "Use figure.chart with a direct SVG and figcaption. Supply a viewBox, role=img and unique title/desc IDs connected with aria-labelledby. Provide exact data in visible HTML or a linked table.",
+      "Direct polyline is the line, polygon is the area, circles without pathLength are points; g > line draws the grid and SVG text supplies labels. Coordinates and scales are calculated by your backend, not by CSS.",
+      "Doughnut segments are circles with pathLength=100. The backend supplies stroke-dasharray and stroke-dashoffset. --re-chart-color selects each segment colour; --re-chart-ring-width controls the stroke (22 by default). SVG rotates segments around the viewBox centre.",
+      "Always identify series and values in text. Forced colours and print can remove colour distinctions; descriptions and tables preserve meaning. No automatic legends, tooltips or data fetching.",
+      "The full/components/scoped builds include chart presentation. Modular consumers can load reva.charts.css with tokens and base. Existing chart geometry is reused; no new chart types are introduced."
+    ],
+    "examples": [
+      {
+        "id": "existing-revenue-chart",
+        "title": "Existing revenue chart",
+        "description": "The same line/area chart already used by the dashboard, now without demo-only chart classes.",
+        "html": "<figure class=\"chart\"><svg viewBox=\"0 0 540 210\" role=\"img\" aria-labelledby=\"revenue-svg-title revenue-svg-desc\"><title id=\"revenue-svg-title\">Monthly revenue, April to September 2026</title><desc id=\"revenue-svg-desc\">Revenue rises from 28,400 euros in April to 42,500 euros in September, with a dip in June. April 28,400; May 32,100; June 29,700; July 36,800; August 39,200; September 42,500 euros.</desc><g><line x1=\"50\" x2=\"500\" y1=\"150\" y2=\"150\"></line><text x=\"0\" y=\"154\">10k</text></g><g><line x1=\"50\" x2=\"500\" y1=\"110\" y2=\"110\"></line><text x=\"0\" y=\"114\">20k</text></g><g><line x1=\"50\" x2=\"500\" y1=\"70\" y2=\"70\"></line><text x=\"0\" y=\"74\">30k</text></g><g><line x1=\"50\" x2=\"500\" y1=\"30\" y2=\"30\"></line><text x=\"0\" y=\"34\">40k</text></g><polygon points=\"50,190 50,76.4 140,61.599999999999994 230,71.2 320,42.80000000000001 410,33.19999999999999 500,20 500,190\"></polygon><polyline points=\"50,76.4 140,61.599999999999994 230,71.2 320,42.80000000000001 410,33.19999999999999 500,20\"></polyline><circle cx=\"50\" cy=\"76.4\" r=\"4\"></circle><circle cx=\"140\" cy=\"61.599999999999994\" r=\"4\"></circle><circle cx=\"230\" cy=\"71.2\" r=\"4\"></circle><circle cx=\"320\" cy=\"42.80000000000001\" r=\"4\"></circle><circle cx=\"410\" cy=\"33.19999999999999\" r=\"4\"></circle><circle cx=\"500\" cy=\"20\" r=\"4\"></circle><text x=\"50\" y=\"208\" text-anchor=\"middle\">Apr</text><text x=\"140\" y=\"208\" text-anchor=\"middle\">May</text><text x=\"230\" y=\"208\" text-anchor=\"middle\">Jun</text><text x=\"320\" y=\"208\" text-anchor=\"middle\">Jul</text><text x=\"410\" y=\"208\" text-anchor=\"middle\">Aug</text><text x=\"500\" y=\"208\" text-anchor=\"middle\">Sep</text></svg><figcaption>Six months of recognised revenue.</figcaption></figure>"
+      },
+      {
+        "id": "existing-channel-chart",
+        "title": "Existing channel chart",
+        "description": "The same doughnut chart already used by the dashboard, with all shares in its accessible description.",
+        "html": "<figure class=\"chart\"><svg viewBox=\"0 0 160 160\" role=\"img\" aria-labelledby=\"channels-svg-title channels-svg-desc\"><title id=\"channels-svg-title\">Revenue share by channel</title><desc id=\"channels-svg-desc\">Direct 55 percent, partners 30 percent, referrals 15 percent.</desc><circle style=\"--re-chart-color: var(--re-primary)\" cx=\"80\" cy=\"80\" r=\"58\" pathLength=\"100\" stroke-dasharray=\"55 45\" stroke-dashoffset=\"0\"></circle><circle style=\"--re-chart-color: color-mix(in srgb,var(--re-primary) 55%,var(--re-surface))\" cx=\"80\" cy=\"80\" r=\"58\" pathLength=\"100\" stroke-dasharray=\"30 70\" stroke-dashoffset=\"-55\"></circle><circle style=\"--re-chart-color: color-mix(in srgb,var(--re-primary) 25%,var(--re-surface))\" cx=\"80\" cy=\"80\" r=\"58\" pathLength=\"100\" stroke-dasharray=\"15 85\" stroke-dashoffset=\"-85\"></circle><text x=\"80\" y=\"77\" text-anchor=\"middle\" style=\"font-size:19px\">€42.5k</text><text x=\"80\" y=\"96\" text-anchor=\"middle\" style=\"font-size:7px;letter-spacing:.6px\">TOTAL REVENUE</text></svg><figcaption>Share of September revenue</figcaption></figure>"
+      }
+    ]
+  },
+  {
+    "slug": "navigation-rail",
+    "title": "Navigation rail",
+    "intro": "A compact native nav with visible labels and optional existing SVG icons. One structural class, no additional attributes.",
+    "notes": [
+      "Use nav.nav-rail with direct anchors and an accessible navigation label. Use aria-current=page only for an actual current page; ordinary fragment links are not automatically tracked by CSS.",
+      "Labels stay visible. Existing SVG icons are decorative and should use aria-hidden=true. Navigation uses ordinary browser keyboard and link behaviour.",
+      "The rail is vertical on wider viewports and wraps horizontally below 40rem. It does not change the app shell or sidebar. Place it as an alternative navigation layout, not a second set of required sidebar controls."
+    ],
+    "examples": [
+      {
+        "id": "compact-navigation",
+        "title": "Compact navigation",
+        "description": "Native anchors with visible text.",
+        "html": "<nav class=\"nav-rail\" aria-label=\"Workspace\">\n  <a href=\"#rail-overview\">Overview</a>\n  <a href=\"#rail-projects\">Projects</a>\n  <a href=\"#rail-activity\">Activity</a>\n</nav>\n<section id=\"rail-overview\"><h3>Overview</h3></section>\n<section id=\"rail-projects\"><h3>Projects</h3></section>\n<section id=\"rail-activity\"><h3>Activity</h3></section>"
+      }
+    ]
+  },
+  {
+    "slug": "metrics",
+    "title": "Metric cards",
+    "intro": "Use the existing card class and native term/value pairs for readable values, trends and comparisons. No metric-specific classes or data attributes.",
+    "notes": [
+      "Use .card on an article, with a direct dl containing dt for the metric label and dd > output for its value. Further dd elements contain comparison text, context or a native progress/meter.",
+      "Theme, palette, shape, density, typography, border, depth, decorative edges and optional materials reuse the existing card contract. Place shared attributes on html, a parent or the card.",
+      "Write the trend and comparison period in words. An increase is not always good: costs and incidents can rise. Colour and arrows are never the only explanation.",
+      "The backend supplies formatted values, comparison text and native progress/meter values. CSS does not calculate statistics, animate counters, fetch data or announce updates on a timer.",
+      "Use the existing grid layout to arrange multiple cards. Long values wrap, the DOM reading order stays unchanged and no chart or icon is required.",
+      "Load the complete/scoped build, or tokens, base, components and reva.card-patterns.css. Materials and motion remain optional."
+    ],
+    "examples": [
+      {
+        "id": "metric-revenue",
+        "title": "Value and comparison",
+        "description": "One existing class; label, value and comparison stay readable in HTML.",
+        "html": "<article class=\"card\">\n  <dl>\n    <dt>Total revenue</dt>\n    <dd><output>€42,500</output></dd>\n    <dd>Up 8.4% versus August</dd>\n    <dd><small>Recognised revenue in September.</small></dd>\n  </dl>\n</article>"
+      },
+      {
+        "id": "metric-cost",
+        "title": "Decrease with context",
+        "description": "Explicit language separates the direction from its business meaning.",
+        "html": "<article class=\"card\">\n  <dl>\n    <dt>Support incidents</dt>\n    <dd><output>12</output></dd>\n    <dd>Down 25% versus August</dd>\n    <dd><small>Fewer incidents this month.</small></dd>\n  </dl>\n</article>"
+      },
+      {
+        "id": "metric-target",
+        "title": "Value and target",
+        "description": "A labelled native meter shows a bounded value; the number and target remain visible.",
+        "html": "<article class=\"card\">\n  <dl>\n    <dt>Team utilisation</dt>\n    <dd><output>78%</output></dd>\n    <dd>Target range: 70–85%</dd>\n    <dd><label>Utilisation <meter min=\"0\" max=\"100\" low=\"70\" high=\"85\" optimum=\"78\" value=\"78\">78%</meter></label></dd>\n  </dl>\n</article>"
+      }
+    ]
+  },
+  {
+    "slug": "drawers",
+    "title": "Drawer / inspector",
+    "intro": "One drawer class turns a native popover into a viewport-edge inspector. Use semantic children and inherited data attributes for details, filters or settings.",
+    "notes": [
+      "Use an aside.drawer with popover=auto and a unique id. Native button popovertarget opens it; popovertargetaction=hide closes it. Label the panel with aria-labelledby and give its heading a unique id.",
+      "Direct header, section and footer children identify the regions. No drawer-header, drawer-body or drawer-footer classes are needed. The panel scrolls as a whole, keeping all content reachable at small heights and zoom.",
+      "Default width is 28rem, bounded by the viewport, on the logical end edge. Customise with inherited CSS variables --re-drawer-width, --re-drawer-start and --re-drawer-end. No component-specific data attributes are required.",
+      "Theme, palette, density, shape, depth, border and optional materials inherit from the actual DOM parent. Opening in the top layer does not move that DOM boundary. Keep drawers inside .reva for scoped builds. Existing optional motion styles apply; data-motion=none and reduced-motion preferences suppress entrance motion.",
+      "This is a non-modal overlay, not a permanent split-pane layout: no focus trap, page inertness or scroll lock. Outside-click and Escape dismiss it natively. Ordinary links and form actions do not close it automatically; the browser restores focus according to native popover behavior. Native popover support is required.",
+      "Load tokens, base and reva.drawers.css for modular use, or the complete/components/scoped builds. Optional glass and veil modules already style popover surfaces. Forced colours retain boundaries; print hides drawers.",
+      "Application code or the server supplies details, filter results and saved settings. The component does not fetch, filter or save records."
+    ],
+    "examples": [
+      {
+        "id": "project-inspector-example",
+        "title": "Project inspector",
+        "description": "One structural class and inherited appearance. Open, close, click outside or press Escape.",
+        "html": "<section>\n  <button type=\"button\" popovertarget=\"drawer-end\">Open project inspector</button>\n  <aside class=\"drawer\" id=\"drawer-end\" popover=\"auto\" aria-labelledby=\"drawer-end-title\">\n    <header><h2 id=\"drawer-end-title\">Project inspector</h2><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><p>Review the project without leaving this page.</p><dl><dt>Owner</dt><dd>Alex Morgan</dd><dt>Status</dt><dd>In progress</dd></dl><label>Completion <progress value=\"72\" max=\"100\">72%</progress></label></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
+      },
+      {
+        "id": "filter-drawer-example",
+        "title": "Filter drawer",
+        "description": "One structural class and inherited appearance. Open, close, click outside or press Escape.",
+        "html": "<section style=\"--re-drawer-start: 0; --re-drawer-end: auto; --re-drawer-width: 20rem\">\n  <button type=\"button\" popovertarget=\"drawer-start\">Open filter drawer</button>\n  <aside class=\"drawer\" id=\"drawer-start\" popover=\"auto\" aria-labelledby=\"drawer-start-title\">\n    <header><h2 id=\"drawer-start-title\">Filter drawer</h2><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><fieldset><legend>Project status</legend><label><input type=\"checkbox\" checked> In progress</label><label><input type=\"checkbox\"> Complete</label></fieldset><p>A backend supplies and applies the filter values.</p></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
+      }
+    ]
+  },
+  {
+    "slug": "app-shell",
+    "title": "Sidebar and app shell",
+    "intro": "One app-shell class arranges a native aside, header and main. Sidebar links, expandable groups and profile regions use semantic HTML, with inherited theme styling and zero browser JavaScript.",
+    "notes": [
+      "Use .app-shell on one wrapper. Direct aside, header and main children identify the regions. No shell-header, sidebar-item or sidebar-link classes are required. A direct section can replace main when the shell is embedded inside a document that already has a main landmark.",
+      "At 60rem and wider the desktop aside occupies the left column, with a sticky, independently scrollable sidebar. Below 60rem the header and content form one column; a separate aside[popover=auto] provides a viewport-bounded drawer. The layout uses viewport media queries, including when embedded in a demo.",
+      "The desktop sidebar and mobile drawer share navigation content through your template. Keep destinations consistent and use unique IDs for every drawer and any repeated form controls. The shell itself needs only one class; a standalone aside.sidebar needs one class when used without the shell.",
+      "Only the direct sidebar nav is styled. Native details/summary handles expandable groups at any depth, aria-current=page marks the current destination, and ordinary anchors navigate. Label navigation landmarks; retain native Tab, Enter, Space and Escape behaviour.",
+      "Use a direct header button with popovertarget matching the drawer id, and a drawer close button with popovertargetaction=hide. Direct header popover buttons are reserved for the mobile drawer; put other header popover controls inside a group. Native popover support is required.",
+      "The drawer is non-modal: it does not trap focus, make the page inert or lock body scrolling. Outside-click and Escape dismiss it natively. In-page links do not automatically close it. Closing and focus restoration follow native browser behaviour. Resizing to desktop hides an open drawer; returning to mobile can restore its open state.",
+      "Palette, material, shape, density, depth, border, size and motion inherit from html or a parent. No data-sidebar preset is needed in this first version. data-navbar still configures only top menus. Glass and Veil modules include sidebar and shell-header surfaces with their existing accessibility fallbacks.",
+      "Load tokens, base and reva.app-shell.css for modular use, or use the complete/components/scoped builds. --re-sidebar-width defaults to 16rem; mobile width remains viewport-bounded. More contrast and forced colours retain boundaries; reduced motion disables chevron transitions. Print omits navigation and keeps content."
+    ],
+    "examples": [
+      {
+        "id": "responsive-shell",
+        "title": "One-class responsive app shell",
+        "description": "Resize this isolated preview: desktop sidebar becomes a Menu button and native drawer below 60rem. Expand Settings, then Team.",
+        "html": "<div class=\"app-shell\">\n  <aside aria-label=\"Desktop workspace navigation\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <aside id=\"workspace-drawer\" popover=\"auto\" aria-label=\"Mobile workspace navigation\">\n    <button type=\"button\" popovertarget=\"workspace-drawer\" popovertargetaction=\"hide\">Close sidebar</button>\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <header>\n    <button type=\"button\" popovertarget=\"workspace-drawer\">Menu</button>\n    <strong>Workspace overview</strong>\n  </header>\n  <main id=\"overview\">\n    <h1>Overview</h1>\n    <p>Your application content goes here.</p>\n    <section id=\"projects\"><h2>Projects</h2><p>Reusable layout, native navigation, shared theme.</p></section>\n    <section id=\"general\"><h2>General settings</h2><p>A real application supplies settings forms.</p></section>\n    <section id=\"members\"><h2>Team members</h2><p>A real application supplies member records.</p></section>\n  </main>\n</div>",
+        "isolated": true,
+        "isolatedHeight": 480
+      },
+      {
+        "id": "standalone-sidebar",
+        "title": "Sidebar outside an app shell",
+        "description": "One sidebar class establishes the same native navigation styling without the surrounding application layout.",
+        "html": "<aside class=\"sidebar\" aria-label=\"Workspace sidebar\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n</aside>"
+      }
+    ]
+  },
   {
     "slug": "dropdowns",
     "title": "Dropdowns",
@@ -459,6 +521,18 @@ export const topics = [
         "title": "A useful next step",
         "description": "Combine existing card and button styles with the empty-state layout.",
         "html": "<section class=\"card empty-state\" aria-labelledby=\"empty-start-heading\">\n  <h3 id=\"empty-start-heading\">Start your first project</h3>\n  <p>Explore the guide to choose your page defaults and components.</p>\n  <a class=\"button\" href=\"__BASE__guide/\">Read the guide</a>\n</section>"
+      },
+      {
+        "id": "empty-chart",
+        "title": "No chart data",
+        "description": "Reuse the existing empty-state instead of drawing a misleading empty or zero chart.",
+        "html": "<section class=\"empty-state\" aria-labelledby=\"empty-chart-title\"><h3 id=\"empty-chart-title\">No revenue data yet</h3><p>The chart will appear after a reporting period is available.</p></section>"
+      },
+      {
+        "id": "unavailable-metric",
+        "title": "Unavailable metric",
+        "description": "Missing values are distinct from a measured zero.",
+        "html": "<article class=\"card\"><dl><dt>Forecast revenue</dt><dd><output>Unavailable</output></dd><dd><small>No forecast has been supplied.</small></dd></dl></article>"
       }
     ]
   },

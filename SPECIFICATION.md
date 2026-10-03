@@ -70,3 +70,7 @@ One .drawer structural class on aside[popover=auto], with semantic header, secti
 ## Metric card contract
 
 Reuse .card with a direct dl containing dt and dd > output; further dd elements provide visible comparison/context and optional labelled native meter/progress. No new classes or data attributes. The existing card appearance, materials, edges and shared attributes apply. Backend supplies data and formatting; CSS does not calculate metrics. Included in card-patterns, full, components and scoped builds.
+
+## Dashboard composition contract
+
+Timeline: one ol.timeline class, native li content and time[datetime], DOM event order retained, logical geometry and inherited shared tokens. Navigation rail: one nav.nav-rail class with direct native anchors and visible labels; vertical by default, wrapping horizontal below 40rem; no implicit app-shell changes. Charts: one figure.chart class wrapping SVG and figcaption; existing line/area and doughnut patterns are reused. Geometry and data are server-supplied; exact values and series remain accessible through descriptions/tables. Local CSS variables --re-chart-color and --re-chart-ring-width configure series strokes. These modules ship standalone and in full/components/scoped builds. Missing chart/metric data reuses empty-state or an explicit unavailable metric; absence is not represented as zero. No new data attributes, JavaScript, chart types or client-side data engine.

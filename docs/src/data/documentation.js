@@ -27,6 +27,7 @@ export const componentGroups = [
     "title": "Navigation and disclosure",
     "slugs": [
       "app-shell",
+      "navigation-rail",
       "drawers",
       "top-menu",
       "dropdowns",
@@ -55,12 +56,17 @@ export const componentGroups = [
     "slugs": [
       "card-patterns",
       "metrics",
+      "timeline",
+      "charts",
       "lists",
       "avatars"
     ]
   }
 ];
 export const componentContracts = {
+  "timeline": ["ol.timeline > li", "Semantic time and event text; inherited shared appearance.", "reva.timeline.css", "Server supplies ordered events; no JavaScript."],
+  "charts": ["figure.chart > svg, figcaption", "Backend supplies coordinates, title/description and exact data.", "reva.charts.css", "Existing line/area and doughnut patterns; no new chart types."],
+  "navigation-rail": ["nav.nav-rail > a", "Native links with visible labels and aria-current where applicable.", "reva.navigation-rail.css", "Vertical rail becomes a wrapping horizontal layout below 40rem."],
   "metrics": [".card > dl > dt, dd > output", "Existing shared attributes; visible trend and comparison text.", "reva.card-patterns.css", "Backend supplies values; native meter/progress optional. No JavaScript or new attributes."],
   "drawers": [
     ".drawer[popover=auto] > header, section, footer",

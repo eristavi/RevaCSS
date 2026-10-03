@@ -1435,6 +1435,82 @@
   }
   @media print { :where(.drawer[popover], .drawer[popover]:popover-open) { display: none; } }
 }
+/* One class on an ordered list; timestamps and event content remain native. */
+@layer re.components {
+  :where(ol.timeline) { list-style: none; padding: 0; margin: 0; }
+  :where(.timeline > li) {
+    position: relative; margin-inline-start: .5rem;
+    padding-inline-start: calc(var(--re-space) * 1.5);
+    padding-block: 0 var(--re-space); min-inline-size: 0; overflow-wrap: anywhere;
+    border-inline-start: var(--re-surface-border) solid var(--re-line);
+  }
+  :where(.timeline > li:last-child) { border-inline-start-color: transparent; padding-block-end: 0; }
+  :where(.timeline > li)::before {
+    content: ""; position: absolute; inset-inline-start: calc(-.3rem - var(--re-surface-border) / 2);
+    inset-block-start: .35em; inline-size: .6rem; block-size: .6rem;
+    border-radius: 50%; background: var(--re-primary);
+  }
+  :where(.timeline > li > :is(p,h3,h4)) { margin-block: 0 .35em; }
+  :where(.timeline > li > time) { display: block; color: var(--re-muted); font-size: .875em; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.timeline > li) { border-inline-start-color: CanvasText; }
+    :where(.timeline > li:last-child) { border-inline-start-color: transparent; }
+    :where(.timeline > li)::before { background: CanvasText; }
+  }
+}
+/* One figure class. Coordinates and series values are supplied in SVG/HTML. */
+@layer re.components {
+  :where(figure.chart) { margin: var(--re-space) 0; min-inline-size: 0; }
+  :where(.chart > svg) { display: block; inline-size: 100%; block-size: auto; }
+  :where(.chart > svg text) { fill: var(--re-text); font-family: inherit; font-size: 12px; }
+  :where(.chart > svg > g > line) { stroke: var(--re-line); stroke-dasharray: 3 5; }
+  :where(.chart > svg > polygon) { fill: var(--re-primary); fill-opacity: .12; }
+  :where(.chart > svg > polyline) { fill: none; stroke: var(--re-primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  :where(.chart > svg > circle:not([pathLength])) { fill: var(--re-surface); stroke: var(--re-primary); stroke-width: 2; }
+  :where(.chart > svg > circle[pathLength]) {
+    fill: none; stroke: var(--re-chart-color, var(--re-primary)); stroke-width: var(--re-chart-ring-width, 22);
+    transform: rotate(-90deg); transform-box: view-box; transform-origin: center;
+  }
+  :where(.chart > svg:has(> circle[pathLength])) { max-inline-size: 11rem; margin-inline: auto; }
+  :where(.chart > svg:has(> circle[pathLength]) > text:first-of-type) { font-weight: 750; }
+  :where(.chart > figcaption) { margin-block-start: .5rem; color: var(--re-muted); font-size: .875em; overflow-wrap: anywhere; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: CanvasText; }
+    :where(.chart > svg > polygon) { fill: CanvasText; }
+    :where(.chart > svg text) { fill: CanvasText; }
+  }
+  @media print {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: #000; }
+    :where(.chart > svg > polygon, .chart > svg text) { fill: #000; }
+  }
+}
+/* One class on native navigation. Labels remain visible at every width. */
+@layer re.components {
+  :where(nav.nav-rail) { display: flex; flex-direction: column; gap: .25rem; inline-size: fit-content; max-inline-size: 100%; }
+  :where(.nav-rail > a) {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: .35em; min-block-size: 2.75rem; min-inline-size: 2.75rem;
+    padding: calc(.6rem * var(--re-density)); border-radius: var(--re-radius);
+    color: var(--re-text); font-size: calc(var(--re-type) * .875);
+    text-decoration: none; text-align: center; overflow-wrap: anywhere;
+  }
+  :where(.nav-rail > a:hover, .nav-rail > a[aria-current]:not([aria-current="false"])) { background: var(--re-surface-alt); }
+  :where(.nav-rail > a[aria-current]:not([aria-current="false"])) { font-weight: 750; }
+  @media (width < 40rem) {
+    :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
+    :where(.nav-rail > a) { flex: 1 1 4rem; }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.nav-rail > a) { color: LinkText; }
+    :where(.nav-rail > a[aria-current]:not([aria-current="false"])) { outline: 1px solid Highlight; }
+  }
+}
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
   @supports (mask-composite: exclude) {

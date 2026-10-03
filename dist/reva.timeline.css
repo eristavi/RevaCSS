@@ -1,0 +1,25 @@
+/* One class on an ordered list; timestamps and event content remain native. */
+@layer re.components {
+  :where(ol.timeline) { list-style: none; padding: 0; margin: 0; }
+  :where(.timeline > li) {
+    position: relative; margin-inline-start: .5rem;
+    padding-inline-start: calc(var(--re-space) * 1.5);
+    padding-block: 0 var(--re-space); min-inline-size: 0; overflow-wrap: anywhere;
+    border-inline-start: var(--re-surface-border) solid var(--re-line);
+  }
+  :where(.timeline > li:last-child) { border-inline-start-color: transparent; padding-block-end: 0; }
+  :where(.timeline > li)::before {
+    content: ""; position: absolute; inset-inline-start: calc(-.3rem - var(--re-surface-border) / 2);
+    inset-block-start: .35em; inline-size: .6rem; block-size: .6rem;
+    border-radius: 50%; background: var(--re-primary);
+  }
+  :where(.timeline > li > :is(p,h3,h4)) { margin-block: 0 .35em; }
+  :where(.timeline > li > time) { display: block; color: var(--re-muted); font-size: .875em; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.timeline > li) { border-inline-start-color: CanvasText; }
+    :where(.timeline > li:last-child) { border-inline-start-color: transparent; }
+    :where(.timeline > li)::before { background: CanvasText; }
+  }
+}

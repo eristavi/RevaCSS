@@ -1,4 +1,6 @@
 export const publicTokens = [
+  ["Charts", "--re-chart-color", "Colour", "Local SVG series stroke; defaults to the primary colour."],
+  ["Charts", "--re-chart-ring-width", "SVG user units", "Doughnut stroke width; default 22."],
   ["Drawer", "--re-drawer-width", "Length", "Inspector width; default 28rem, customisable with ordinary CSS. Bounded by the viewport."],
   ["Application layout", "--re-sidebar-width", "Length", "Sidebar and mobile drawer width; 16rem fallback, bounded by viewport."],
   ["Navigation", "--re-navbar-width", "Length or percentage", "Navbar width; standard 100%, floating min(100% - 2rem, page width)."],

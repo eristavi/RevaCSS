@@ -1,0 +1,28 @@
+/* One figure class. Coordinates and series values are supplied in SVG/HTML. */
+@layer re.components {
+  :where(figure.chart) { margin: var(--re-space) 0; min-inline-size: 0; }
+  :where(.chart > svg) { display: block; inline-size: 100%; block-size: auto; }
+  :where(.chart > svg text) { fill: var(--re-text); font-family: inherit; font-size: 12px; }
+  :where(.chart > svg > g > line) { stroke: var(--re-line); stroke-dasharray: 3 5; }
+  :where(.chart > svg > polygon) { fill: var(--re-primary); fill-opacity: .12; }
+  :where(.chart > svg > polyline) { fill: none; stroke: var(--re-primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  :where(.chart > svg > circle:not([pathLength])) { fill: var(--re-surface); stroke: var(--re-primary); stroke-width: 2; }
+  :where(.chart > svg > circle[pathLength]) {
+    fill: none; stroke: var(--re-chart-color, var(--re-primary)); stroke-width: var(--re-chart-ring-width, 22);
+    transform: rotate(-90deg); transform-box: view-box; transform-origin: center;
+  }
+  :where(.chart > svg:has(> circle[pathLength])) { max-inline-size: 11rem; margin-inline: auto; }
+  :where(.chart > svg:has(> circle[pathLength]) > text:first-of-type) { font-weight: 750; }
+  :where(.chart > figcaption) { margin-block-start: .5rem; color: var(--re-muted); font-size: .875em; overflow-wrap: anywhere; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: CanvasText; }
+    :where(.chart > svg > polygon) { fill: CanvasText; }
+    :where(.chart > svg text) { fill: CanvasText; }
+  }
+  @media print {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: #000; }
+    :where(.chart > svg > polygon, .chart > svg text) { fill: #000; }
+  }
+}
