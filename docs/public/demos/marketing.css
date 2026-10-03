@@ -151,3 +151,21 @@ html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
 .demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site::before,
 html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
+
+/* The hero card must see the page backdrop rather than an opaque figure. */
+@media screen {
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .demo-workbench:has(#demo-material-glass:checked) .forma-workspace,
+    html.forma-site[data-material="glass"] .forma-workspace {
+      background: transparent;
+    }
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .demo-workbench:has(#demo-material-glass:checked) .forma-workspace,
+  html.forma-site[data-material="glass"] .forma-workspace { background: var(--re-bg); }
+}
+@media (forced-colors: active) {
+  .demo-workbench:has(#demo-material-glass:checked) .forma-workspace,
+  html.forma-site[data-material="glass"] .forma-workspace { background: Canvas; }
+}
