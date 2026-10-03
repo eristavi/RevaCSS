@@ -27,6 +27,7 @@ export const componentGroups = [
     "title": "Navigation and disclosure",
     "slugs": [
       "app-shell",
+      "drawers",
       "top-menu",
       "dropdowns",
       "breadcrumbs",
@@ -59,6 +60,12 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "drawers": [
+    ".drawer[popover=auto] > header, section, footer",
+    "Unique id and native popovertarget; data-drawer-position and data-drawer-size inherit.",
+    "reva.drawers.css",
+    "Non-modal native popover. Outside-click/Escape dismissal; ordinary Tab navigation. No focus trap, body-scroll lock or JavaScript."
+  ],
   "app-shell": [
     ".app-shell > aside, header, main; standalone aside.sidebar",
     "Native nav links, details/summary and aria-current; unique drawer id with popover=auto and popovertarget.",

@@ -1,0 +1,53 @@
+/* One structural class; native popovers own interaction and visibility. */
+@layer re.components {
+  :where(.drawer[popover], :scope.drawer[popover]) {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: var(--re-drawer-start, auto);
+    inset-inline-end: var(--re-drawer-end, 0);
+    margin: 0;
+    inline-size: min(var(--re-drawer-width, 28rem), 100dvw);
+    max-inline-size: 100dvw;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    padding: var(--re-space);
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.drawer[popover]:not(:popover-open)) { display: none; }
+  :where(.drawer[popover]:popover-open) {
+    display: flex; flex-direction: column; gap: var(--re-space);
+  }
+  :where(.drawer[popover])::backdrop { background: rgb(0 0 0 / 20%); }
+  @scope (.drawer) to (.drawer) {
+    :scope > :is(header, section, footer) { min-inline-size: 0; overflow-wrap: anywhere; }
+    :scope > header {
+      display: flex; flex-wrap: wrap; align-items: start;
+      justify-content: space-between; gap: var(--re-space);
+      padding-block-end: var(--re-space);
+      border-block-end: var(--re-surface-border) solid var(--re-line);
+    }
+    :scope > header > :is(h2, h3, div) { flex: 1 1 10rem; margin: 0; }
+    :scope > section { flex: 1 0 auto; }
+    :scope > footer {
+      display: flex; flex-wrap: wrap; gap: var(--re-space);
+      margin-block-start: auto; padding-block-start: var(--re-space);
+      border-block-start: var(--re-surface-border) solid var(--re-line);
+    }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.drawer[popover]) {
+      border: 1px solid CanvasText; background: Canvas; color: CanvasText;
+      box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    :where(.drawer[popover])::backdrop { background: transparent; }
+  }
+  @media print { :where(.drawer[popover], .drawer[popover]:popover-open) { display: none; } }
+}

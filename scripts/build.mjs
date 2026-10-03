@@ -16,6 +16,7 @@ let tokens='@layer re.tokens, re.base, re.components, re.utilities;\n@layer re.t
 tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0;
+--re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
@@ -42,6 +43,8 @@ presets.navbar={
  floating:navbarDefaults+' --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem;',
  split:navbarDefaults+' --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0;'
 };
+presets['drawer-position']={end:'--re-drawer-start: auto; --re-drawer-end: 0;',start:'--re-drawer-start: 0; --re-drawer-end: auto;'};
+presets['drawer-size']={small:'--re-drawer-width: 20rem;',medium:'--re-drawer-width: 28rem;',large:'--re-drawer-width: 40rem;'};
 presets.edge={
  plain:'--re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite;',
  gradient:'--re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite;',
@@ -78,14 +81,15 @@ const cardPatterns=await readFile('src/css/card-patterns.css','utf8');
 const dropdowns=await readFile('src/css/dropdowns.css','utf8');
 const navigation=await readFile('src/css/navigation.css','utf8');
 const appShell=await readFile('src/css/app-shell.css','utf8');
+const drawers=await readFile('src/css/drawers.css','utf8');
 const motion=await readFile('src/css/motion.css','utf8');
 const glass=await readFile('src/css/glass.css','utf8');
 const veil=await readFile('src/css/veil.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+edges+contrast;
-for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.icons.css',icons],['reva.switches.css',switches],['reva.input-groups.css',inputGroups],['reva.skeletons.css',skeletons],['reva.toolbars.css',toolbars],['reva.description-lists.css',descriptionLists],['reva.card-patterns.css',cardPatterns],['reva.dropdowns.css',dropdowns],['reva.navigation.css',navigation],['reva.app-shell.css',appShell],['reva.motion.css',motion],['reva.motion.scoped.css',`@scope (.reva) {\n${motion.replaceAll(':root', ':scope')}\n}\n`],['reva.veil.css',veil],['reva.veil.scoped.css',`@scope (.reva) {\n${veil}\n}\n`],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
+const full=edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+edges+contrast;
+for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.icons.css',icons],['reva.switches.css',switches],['reva.input-groups.css',inputGroups],['reva.skeletons.css',skeletons],['reva.toolbars.css',toolbars],['reva.description-lists.css',descriptionLists],['reva.card-patterns.css',cardPatterns],['reva.dropdowns.css',dropdowns],['reva.navigation.css',navigation],['reva.app-shell.css',appShell],['reva.drawers.css',drawers],['reva.motion.css',motion],['reva.motion.scoped.css',`@scope (.reva) {\n${motion.replaceAll(':root', ':scope')}\n}\n`],['reva.veil.css',veil],['reva.veil.scoped.css',`@scope (.reva) {\n${veil}\n}\n`],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }

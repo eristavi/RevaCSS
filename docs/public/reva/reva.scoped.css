@@ -19,6 +19,7 @@
 --re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#111111,#F5F5F5); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#000000,#DEDEDE); --re-link: light-dark(#111111,#F5F5F5); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#111111,#F5F5F5); --re-palette-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0;
+--re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
@@ -94,6 +95,11 @@
 :where([data-navbar="centered"], :scope[data-navbar="centered"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-layout: grid; --re-navbar-links-align: center; --re-navbar-brand-margin: 0; }
 :where([data-navbar="floating"], :scope[data-navbar="floating"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem; }
 :where([data-navbar="split"], :scope[data-navbar="split"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0; }
+:where([data-drawer-position="end"], :scope[data-drawer-position="end"]) { --re-drawer-start: auto; --re-drawer-end: 0; }
+:where([data-drawer-position="start"], :scope[data-drawer-position="start"]) { --re-drawer-start: 0; --re-drawer-end: auto; }
+:where([data-drawer-size="small"], :scope[data-drawer-size="small"]) { --re-drawer-width: 20rem; }
+:where([data-drawer-size="medium"], :scope[data-drawer-size="medium"]) { --re-drawer-width: 28rem; }
+:where([data-drawer-size="large"], :scope[data-drawer-size="large"]) { --re-drawer-width: 40rem; }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
@@ -1357,6 +1363,59 @@
     :where(.app-shell, :scope.app-shell) { display: block; min-block-size: 0; }
     :where(.sidebar, .app-shell > aside, .app-shell > aside[popover]:popover-open, .app-shell > header) { display: none; }
   }
+}
+/* One structural class; native popovers own interaction and visibility. */
+@layer re.components {
+  :where(.drawer[popover], :scope.drawer[popover]) {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: var(--re-drawer-start, auto);
+    inset-inline-end: var(--re-drawer-end, 0);
+    margin: 0;
+    inline-size: min(var(--re-drawer-width, 28rem), 100dvw);
+    max-inline-size: 100dvw;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    padding: var(--re-space);
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.drawer[popover]:not(:popover-open)) { display: none; }
+  :where(.drawer[popover]:popover-open) {
+    display: flex; flex-direction: column; gap: var(--re-space);
+  }
+  :where(.drawer[popover])::backdrop { background: rgb(0 0 0 / 20%); }
+  @scope (.drawer) to (.drawer) {
+    :scope > :is(header, section, footer) { min-inline-size: 0; overflow-wrap: anywhere; }
+    :scope > header {
+      display: flex; flex-wrap: wrap; align-items: start;
+      justify-content: space-between; gap: var(--re-space);
+      padding-block-end: var(--re-space);
+      border-block-end: var(--re-surface-border) solid var(--re-line);
+    }
+    :scope > header > :is(h2, h3, div) { flex: 1 1 10rem; margin: 0; }
+    :scope > section { flex: 1 0 auto; }
+    :scope > footer {
+      display: flex; flex-wrap: wrap; gap: var(--re-space);
+      margin-block-start: auto; padding-block-start: var(--re-space);
+      border-block-start: var(--re-surface-border) solid var(--re-line);
+    }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.drawer[popover]) {
+      border: 1px solid CanvasText; background: Canvas; color: CanvasText;
+      box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    :where(.drawer[popover])::backdrop { background: transparent; }
+  }
+  @media print { :where(.drawer[popover], .drawer[popover]:popover-open) { display: none; } }
 }
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
