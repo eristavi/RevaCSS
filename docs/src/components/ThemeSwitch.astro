@@ -3,7 +3,7 @@ const { theme='auto' }=Astro.props;
 ---
 <button type="button" class="menu-toggle theme-toggle" popovertarget="docs-theme-panel">Theme</button>
 <ul id="docs-theme-panel" class="menu-panel theme-options" popover="auto">
-  <li class="menu-back"><button type="button" class="menu-toggle" popovertarget="docs-theme-panel" popovertargetaction="hide" autofocus>Close theme menu</button></li>
+  <li class="menu-back"><button type="button" class="menu-toggle" popovertarget="docs-theme-panel" popovertargetaction="hide">Close theme menu</button></li>
   {['auto','light','dark'].map(value=><li><label for={`docs-theme-${value}`}><input id={`docs-theme-${value}`} type="radio" name="docs-theme" value={value} checked={theme===value}/>{value==='auto'?'System':value==='light'?'Light':'Dark'}</label></li>)}
   <li><p class="theme-help">Applies to this page. New pages use their default theme.</p></li>
 </ul>
