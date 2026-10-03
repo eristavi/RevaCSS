@@ -66,9 +66,9 @@
 @media (forced-colors: active) { .forma-site, .forma-workspace { background: Canvas; } .forma-feature-icon { border-color: CanvasText; } .forma-featured { border-color: Highlight; } }
 @media print { .forma-site, .forma-workspace { background: #fff; color: #000; } .forma-hero { grid-template-columns: 1fr; padding-block: 1rem; } .forma-section { padding-block: 1rem; } .forma-header, .forma-contact form { display: none; } }
 
-/* Colourful demo-only backdrop for Glass and Veil. A clipped fixed layer
+/* Palette-driven demo-only backdrop for Glass and Veil. A clipped fixed layer
    stays stationary on touch devices too, without covering the workbench.
-   Component colours continue to follow the selected palette. */
+   The mesh inherits palette tokens, including custom token overrides. */
 .demo-workbench:has(#demo-material-glass:checked) .forma-site,
 html.forma-site[data-material="glass"] > body,
 .demo-workbench:has(#demo-material-veil:checked) .forma-site,
@@ -88,10 +88,10 @@ html.forma-site[data-material="veil"] > body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 92% 18%, light-dark(#ffe0b3, #645039), transparent 62%),
-    radial-gradient(ellipse at 62% 82%, light-dark(#f9c2df, #613957), transparent 66%),
-    radial-gradient(ellipse at 12% 26%, light-dark(#b8cbff, #293c74), transparent 65%),
-    linear-gradient(145deg, light-dark(#c9c3ff, #302651), light-dark(#e5d5ed, #2e293f));
+    radial-gradient(ellipse at 92% 18%, color-mix(in srgb, var(--re-primary) 35%, var(--re-bg)), transparent 62%),
+    radial-gradient(ellipse at 62% 82%, color-mix(in srgb, var(--re-primary-end) 24%, var(--re-bg)), transparent 66%),
+    radial-gradient(ellipse at 12% 26%, color-mix(in srgb, var(--re-surface-alt) 65%, var(--re-bg)), transparent 65%),
+    linear-gradient(145deg, color-mix(in srgb, var(--re-primary) 14%, var(--re-bg)), var(--re-bg));
 }
 .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site::before,
 html.forma-site[data-material="glass"][data-contrast="more"] > body::before,

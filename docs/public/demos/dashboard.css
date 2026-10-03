@@ -77,9 +77,9 @@
 @media (forced-colors:active) { .dash-line,.dash-point,.dash-segment { stroke:CanvasText; } .dash-area { fill:CanvasText; } .dash-donut-value,.dash-donut-label,.dash-axis,.dash-gridline text { fill:CanvasText; } }
 @media print { .dash-sidebar,.dash-main .top-menu,.dash-footer { display:none; } .dash-shell { display:block; } .dash-charts,.dash-bottom { grid-template-columns:1fr; } .dash-main #dashboard-projects table { min-inline-size:0; } }
 
-/* Colourful demo-only backdrop for Glass and Veil. A clipped fixed layer
+/* Palette-driven demo-only backdrop for Glass and Veil. A clipped fixed layer
    stays stationary on touch devices too, without covering the workbench.
-   Component colours continue to follow the selected palette. */
+   The mesh inherits palette tokens, including custom token overrides. */
 .demo-workbench:has(#demo-material-glass:checked) .dash-site,
 html[data-material="glass"] .dash-site,
 .demo-workbench:has(#demo-material-veil:checked) .dash-site,
@@ -99,10 +99,10 @@ html[data-material="veil"] .dash-site::before {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 92% 18%, light-dark(#ffe0b3, #645039), transparent 62%),
-    radial-gradient(ellipse at 62% 82%, light-dark(#f9c2df, #613957), transparent 66%),
-    radial-gradient(ellipse at 12% 26%, light-dark(#b8cbff, #293c74), transparent 65%),
-    linear-gradient(145deg, light-dark(#c9c3ff, #302651), light-dark(#e5d5ed, #2e293f));
+    radial-gradient(ellipse at 92% 18%, color-mix(in srgb, var(--re-primary) 35%, var(--re-bg)), transparent 62%),
+    radial-gradient(ellipse at 62% 82%, color-mix(in srgb, var(--re-primary-end) 24%, var(--re-bg)), transparent 66%),
+    radial-gradient(ellipse at 12% 26%, color-mix(in srgb, var(--re-surface-alt) 65%, var(--re-bg)), transparent 65%),
+    linear-gradient(145deg, color-mix(in srgb, var(--re-primary) 14%, var(--re-bg)), var(--re-bg));
 }
 .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site::before,
 html[data-material="glass"][data-contrast="more"] .dash-site::before,
