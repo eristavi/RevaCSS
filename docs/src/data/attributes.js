@@ -1,4 +1,18 @@
 export const attributes = [
+{
+  "id": "drawer-position",
+  "title": "data-drawer-position",
+  "description": "Logical viewport edge. End is right in LTR and left in RTL; start reverses it. Default: end. Inherits from html or a parent; local values reset it. See Components / Drawer inspector for interactive examples.",
+  "html": "<section data-drawer-position=\"end\" data-drawer-size=\"medium\">\n  <button type=\"button\" popovertarget=\"drawer-end\">Open project inspector</button>\n  <aside class=\"drawer\" id=\"drawer-end\" popover=\"auto\" aria-labelledby=\"drawer-end-title\">\n    <header><h2 id=\"drawer-end-title\">Project inspector</h2><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><p>Review the project without leaving this page.</p><dl><dt>Owner</dt><dd>Alex Morgan</dd><dt>Status</dt><dd>In progress</dd></dl><label>Completion <progress value=\"72\" max=\"100\">72%</progress></label></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>",
+  "glass": false
+},
+{
+  "id": "drawer-size",
+  "title": "data-drawer-size",
+  "description": "20rem, 28rem or 40rem width, bounded by the viewport. Default: medium. Inherits from html or a parent; local values reset it. See Components / Drawer inspector for interactive examples.",
+  "html": "<section data-drawer-position=\"end\" data-drawer-size=\"medium\">\n  <button type=\"button\" popovertarget=\"drawer-size-inspector\">Open project inspector</button>\n  <aside class=\"drawer\" id=\"drawer-size-inspector\" popover=\"auto\" aria-labelledby=\"drawer-size-inspector-title\">\n    <header><h2 id=\"drawer-size-inspector-title\">Project inspector</h2><button type=\"button\" popovertarget=\"drawer-size-inspector\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><p>Review the project without leaving this page.</p><dl><dt>Owner</dt><dd>Alex Morgan</dd><dt>Status</dt><dd>In progress</dd></dl><label>Completion <progress value=\"72\" max=\"100\">72%</progress></label></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-size-inspector\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>",
+  "glass": false
+},
   {
     id: 'navbar', title: 'data-navbar',
     description: 'Top-menu layout. Values: standard, centered, floating, split. Default: standard. Inherits from html or a parent; a local value resets it. Sidebars are unaffected. See Components / Top menu for complete responsive examples and split groups.',

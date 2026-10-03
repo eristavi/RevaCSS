@@ -23,6 +23,7 @@ export const stylesheets = [
   "reva.card-patterns.css",
   "reva.navigation.css",
   "reva.app-shell.css",
+  "reva.drawers.css",
   "reva.dropdowns.css",
   "reva.motion.css",
   "reva.motion.scoped.css",

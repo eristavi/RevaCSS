@@ -1,5 +1,33 @@
 export const topics = [
 {
+  "slug": "drawers",
+  "title": "Drawer / inspector",
+  "intro": "One drawer class turns a native popover into a viewport-edge inspector. Use semantic children and inherited data attributes for details, filters or settings.",
+  "notes": [
+    "Use an aside.drawer with popover=auto and a unique id. Native button popovertarget opens it; popovertargetaction=hide closes it. Label the panel with aria-labelledby and give its heading a unique id.",
+    "Direct header, section and footer children identify the regions. No drawer-header, drawer-body or drawer-footer classes are needed. The panel scrolls as a whole, keeping all content reachable at small heights and zoom.",
+    "data-drawer-position=end (default) or start uses logical edges and follows RTL. data-drawer-size=small, medium (default) or large selects 20rem, 28rem or 40rem, capped at viewport width. Put settings on html, a parent or the drawer; a local value resets the inherited preset.",
+    "Theme, palette, density, shape, depth, border and optional materials inherit from the actual DOM parent. Opening in the top layer does not move that DOM boundary. Keep drawers inside .reva for scoped builds. Existing optional motion styles apply; data-motion=none and reduced-motion preferences suppress entrance motion.",
+    "This is a non-modal overlay, not a permanent split-pane layout: no focus trap, page inertness or scroll lock. Outside-click and Escape dismiss it natively. Ordinary links and form actions do not close it automatically; the browser restores focus according to native popover behavior. Native popover support is required.",
+    "Load tokens, base and reva.drawers.css for modular use, or the complete/components/scoped builds. Optional glass and veil modules already style popover surfaces. Forced colours retain boundaries; print hides drawers.",
+    "Application code or the server supplies details, filter results and saved settings. The component does not fetch, filter or save records."
+  ],
+  "examples": [
+    {
+      "id": "project-inspector-example",
+      "title": "Project inspector",
+      "description": "Inherited placement and size; one structural class. Open, close, click outside or press Escape.",
+      "html": "<section data-drawer-position=\"end\" data-drawer-size=\"medium\">\n  <button type=\"button\" popovertarget=\"drawer-end\">Open project inspector</button>\n  <aside class=\"drawer\" id=\"drawer-end\" popover=\"auto\" aria-labelledby=\"drawer-end-title\">\n    <header><h2 id=\"drawer-end-title\">Project inspector</h2><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><p>Review the project without leaving this page.</p><dl><dt>Owner</dt><dd>Alex Morgan</dd><dt>Status</dt><dd>In progress</dd></dl><label>Completion <progress value=\"72\" max=\"100\">72%</progress></label></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-end\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
+    },
+    {
+      "id": "filter-drawer-example",
+      "title": "Filter drawer",
+      "description": "Inherited placement and size; one structural class. Open, close, click outside or press Escape.",
+      "html": "<section data-drawer-position=\"start\" data-drawer-size=\"small\">\n  <button type=\"button\" popovertarget=\"drawer-start\">Open filter drawer</button>\n  <aside class=\"drawer\" id=\"drawer-start\" popover=\"auto\" aria-labelledby=\"drawer-start-title\">\n    <header><h2 id=\"drawer-start-title\">Filter drawer</h2><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><fieldset><legend>Project status</legend><label><input type=\"checkbox\" checked> In progress</label><label><input type=\"checkbox\"> Complete</label></fieldset><p>A backend supplies and applies the filter values.</p></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
+    }
+  ]
+},
+{
   "slug": "app-shell",
   "title": "Sidebar and app shell",
   "intro": "One app-shell class arranges a native aside, header and main. Sidebar links, expandable groups and profile regions use semantic HTML, with inherited theme styling and zero browser JavaScript.",

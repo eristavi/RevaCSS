@@ -9,6 +9,10 @@ A new default for the web. Native HTML and CSS, token-driven design, easy overri
 <button>Get started</button>
 ```
 
+## Drawer / inspector
+
+Use one `.drawer` class on a native `aside[popover="auto"]`. Semantic `header`, `section` and `footer` children define its regions. Configure inherited `data-drawer-position="end|start"` and `data-drawer-size="small|medium|large"`; theme and other design attributes stay inherited. Opening, outside-click and Escape dismissal use native HTML, with no JavaScript. See [drawer documentation](https://eristavi.github.io/RevaCSS/components/drawers/) and the [dashboard](https://eristavi.github.io/RevaCSS/demos/dashboard/).
+
 ## Develop and validate
 
 Use Node 22.12+ (Node 24 recommended). Python 3 is required for the browser-test server.

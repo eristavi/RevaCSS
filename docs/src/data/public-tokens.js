@@ -1,4 +1,5 @@
 export const publicTokens = [
+  ["Drawer", "--re-drawer-width", "Length", "Inspector width; medium 28rem, small 20rem, large 40rem. Bounded by the viewport."],
   ["Application layout", "--re-sidebar-width", "Length", "Sidebar and mobile drawer width; 16rem fallback, bounded by viewport."],
   ["Navigation", "--re-navbar-width", "Length or percentage", "Navbar width; standard 100%, floating min(100% - 2rem, page width)."],
   ["Navigation", "--re-navbar-margin", "Length", "Navbar block margin; standard 0, floating 1rem."],
