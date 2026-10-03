@@ -1,0 +1,15 @@
+---
+import catalog from '../../../../src/icons/catalog.json';
+const {base='/'}=Astro.props;
+const icon=name=>`<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${catalog.find(item=>item.name===name).body}</svg>`;
+---
+<header><a href="#dashboard-title">forma.</a><small>Studio workspace</small></header>
+<nav aria-label="Dashboard sections">
+  <a href="#dashboard-title" aria-current="page"><Fragment set:html={icon('home')}/>Overview</a>
+  <a href="#dashboard-revenue"><Fragment set:html={icon('calendar')}/>Performance</a>
+  <a href="#dashboard-projects"><Fragment set:html={icon('folder')}/>Projects</a>
+  <a href="#dashboard-activity"><Fragment set:html={icon('clock')}/>Activity</a>
+  <details><summary>Workspace</summary><a href="#dashboard-projects">Project overview</a><a href="#dashboard-activity">Team activity</a></details>
+</nav>
+<article class="card dash-note"><p class="dash-eyebrow">A LITTLE MORE FOCUS</p><h2>Room for good work.</h2><p>A clear view of your team’s next steps.</p><a href={base+'demos/marketing/'}>Explore Forma <span aria-hidden="true">↗</span></a></article>
+<footer><strong>Alex Morgan</strong><br/><small>Workspace admin</small></footer>
