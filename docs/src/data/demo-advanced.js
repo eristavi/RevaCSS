@@ -3,6 +3,7 @@ import tokens from '../../../dist/reva.tokens.css?raw';
 import core from '../../../dist/reva.css?raw';
 import motion from '../../../src/css/motion.css?raw';
 import glass from '../../../src/css/glass.css?raw';
+import veil from '../../../src/css/veil.css?raw';
 
 const labels={motion:'Motion',edge:'Decorative edges',density:'Density',depth:'Shadows',fill:'Fill',type:'Typography',size:'Control size',border:'Borders',width:'Page width',contrast:'Contrast'};
 export const advancedOptions=Object.entries(labels).map(([key,label])=>({key,label,...options[key]}));
@@ -21,7 +22,7 @@ for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
   let decl=declaration(key==='contrast'?core:tokens,key,value);
   if(key==='motion') decl+=' '+declaration(motion,key,value);
-  if(key==='contrast') decl+=' '+declaration(glass,key,value);
+  if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
   css+=`.demo-workbench:has(#demo-${key}-${value}:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }

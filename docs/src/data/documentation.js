@@ -235,7 +235,8 @@ export const themeLinks = [
  { key:'light', title:'Light', path:'themes/light/' },
  { key:'dark', title:'Dark', path:'themes/dark/' },
  { key:'auto', title:'System', path:'themes/auto/' },
- { key:'glass', title:'Glass material', path:'themes/glass/' }
+ { key:'glass', title:'Glass material', path:'themes/glass/' },
+ { key:'veil', title:'Veil material', path:'themes/veil/' }
 ];
 export const referenceLinks = [
  { key:'reference', title:'API overview', path:'reference/' },

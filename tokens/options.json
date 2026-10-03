@@ -199,11 +199,12 @@
   "material": {
     "values": [
       "solid",
-      "glass"
+      "glass",
+      "veil"
     ],
     "default": "solid",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Supported glass surfaces and actions; requires the optional matching glass extension. A solid scope stops inherited glass."
+    "affects": "Solid surfaces by default; optional glass or Veil surfaces and actions use their matching extension. Explicit material boundaries stop another inherited material."
   },
   "edge": {
     "values": [

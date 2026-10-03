@@ -1,0 +1,1043 @@
+{
+  "options": {
+    "palette": {
+      "values": [
+        "mono",
+        "sand",
+        "ocean",
+        "cobalt",
+        "citrus",
+        "violet",
+        "forest"
+      ],
+      "default": "mono",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Coordinated page, surface, foreground, border, link and primary colours. Light/dark follows data-theme. Success, warning and error colours stay semantic."
+    },
+    "theme": {
+      "values": [
+        "auto",
+        "light",
+        "dark"
+      ],
+      "default": "auto",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Page and component colour scheme: auto follows the visitor's preference."
+    },
+    "accent": {
+      "values": [
+        "blue",
+        "violet",
+        "teal",
+        "green",
+        "orange",
+        "rose"
+      ],
+      "default": "Palette primary",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour. Explicit accents reset their foreground; omitted accents follow data-palette."
+    },
+    "shape": {
+      "values": [
+        "square",
+        "subtle",
+        "rounded",
+        "pill"
+      ],
+      "default": "rounded",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders."
+    },
+    "fill": {
+      "values": [
+        "gradient",
+        "solid"
+      ],
+      "default": "gradient",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Button, badge and alert gradients; optional glass sheen. Does not change material."
+    },
+    "density": {
+      "values": [
+        "compact",
+        "comfortable",
+        "spacious"
+      ],
+      "default": "comfortable",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Control and surface padding, list and description spacing, card sections and layout spacing."
+    },
+    "depth": {
+      "values": [
+        "flat",
+        "subtle",
+        "pronounced"
+      ],
+      "default": "subtle",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Action and surface shadows. Text-control inset shadows are configured with data-controls."
+    },
+    "motion": {
+      "values": [
+        "none",
+        "subtle",
+        "expressive"
+      ],
+      "default": "subtle",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Action transitions, press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned."
+    },
+    "type": {
+      "values": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "default": "standard",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Page or subtree typography."
+    },
+    "border": {
+      "values": [
+        "subtle",
+        "defined",
+        "none"
+      ],
+      "default": "subtle",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Styled control and surface borders, table rules and navigation boundaries. Invalid-state and forced-colour boundaries take priority."
+    },
+    "contrast": {
+      "values": [
+        "auto",
+        "more"
+      ],
+      "default": "auto",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Foreground and boundary contrast; optional glass becomes opaque. System preferences retain their component-specific priority."
+    },
+    "tone": {
+      "values": [
+        "neutral",
+        "cool",
+        "warm"
+      ],
+      "default": "Palette surfaces",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Override page and surface temperature without resetting the palette accent, links or foregrounds."
+    },
+    "controls": {
+      "values": [
+        "styled",
+        "minimal"
+      ],
+      "default": "styled",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Text input, select and textarea backing and inset shadow."
+    },
+    "width": {
+      "values": [
+        "narrow",
+        "standard",
+        "wide"
+      ],
+      "default": "standard",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Maximum width of .container."
+    },
+    "table": {
+      "values": [
+        "plain",
+        "striped",
+        "bordered"
+      ],
+      "default": "plain",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Table stripes and grid lines; rule thickness follows data-border."
+    },
+    "size": {
+      "values": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination, form labels, choice labels, spinners and avatars."
+    },
+    "ratio": {
+      "values": [
+        "auto",
+        "square",
+        "landscape",
+        "portrait",
+        "wide"
+      ],
+      "default": "auto",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Image and video aspect ratio; auto retains natural proportions."
+    },
+    "fit": {
+      "values": [
+        "cover",
+        "contain"
+      ],
+      "default": "cover",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Image, video and avatar content within constrained dimensions."
+    },
+    "gap": {
+      "values": [
+        "none",
+        "small",
+        "medium",
+        "large"
+      ],
+      "default": "medium",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Spacing in .grid, .row, .stack, .accordion, .pagination, .tabs and .toolbar; combines with density."
+    },
+    "material": {
+      "values": [
+        "solid",
+        "glass",
+        "veil"
+      ],
+      "default": "solid",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Solid surfaces by default; optional glass or Veil surfaces and actions use their matching extension. Explicit material boundaries stop another inherited material."
+    },
+    "edge": {
+      "values": [
+        "plain",
+        "gradient",
+        "shine",
+        "animated"
+      ],
+      "default": "plain",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Decorative borders on buttons, .button links and cards. Shine sweeps on interaction; animated turns continuously. Native action inputs keep regular borders."
+    },
+    "variant": {
+      "values": [
+        "primary",
+        "success",
+        "warning",
+        "danger",
+        "neutral"
+      ],
+      "default": "primary",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Button, action-input, .button link, badge and alert semantic colour. Primary uses the inherited accent; local legacy button classes override inherited variants, while a valid action-level attribute takes precedence."
+    },
+    "appearance": {
+      "values": [
+        "tinted",
+        "solid",
+        "outline"
+      ],
+      "default": "tinted",
+      "scope": "Inherited; applies to supported targets",
+      "affects": "Badge and alert backing and border treatment. Does not configure buttons."
+    }
+  },
+  "tokens": {
+    "$description": "RevaCSS foundation tokens. DTCG 2025.10. Public names use --re-.",
+    "primitive": {
+      "accent": {
+        "blue": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.20784314,
+                0.30196078,
+                0.90980392
+              ],
+              "alpha": 1,
+              "hex": "#354de8"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.14117647,
+                0.21960784,
+                0.72156863
+              ],
+              "alpha": 1,
+              "hex": "#2438b8"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.09411765,
+                0.16470588,
+                0.52941176
+              ],
+              "alpha": 1,
+              "hex": "#182a87"
+            }
+          }
+        },
+        "violet": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.43921569,
+                0.25490196,
+                0.81176471
+              ],
+              "alpha": 1,
+              "hex": "#7041cf"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.32156863,
+                0.15686275,
+                0.64313725
+              ],
+              "alpha": 1,
+              "hex": "#5228a4"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.22352941,
+                0.10588235,
+                0.46666667
+              ],
+              "alpha": 1,
+              "hex": "#391b77"
+            }
+          }
+        },
+        "teal": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.03137255,
+                0.48627451,
+                0.50196078
+              ],
+              "alpha": 1,
+              "hex": "#087c80"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.02745098,
+                0.35686275,
+                0.37647059
+              ],
+              "alpha": 1,
+              "hex": "#075b60"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.03137255,
+                0.26666667,
+                0.28627451
+              ],
+              "alpha": 1,
+              "hex": "#084449"
+            }
+          }
+        },
+        "green": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.1372549,
+                0.47843137,
+                0.31372549
+              ],
+              "alpha": 1,
+              "hex": "#237a50"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.07843137,
+                0.32941176,
+                0.20392157
+              ],
+              "alpha": 1,
+              "hex": "#145434"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.07058824,
+                0.24313725,
+                0.16078431
+              ],
+              "alpha": 1,
+              "hex": "#123e29"
+            }
+          }
+        },
+        "orange": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.67843137,
+                0.29411765,
+                0.04705882
+              ],
+              "alpha": 1,
+              "hex": "#ad4b0c"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.52941176,
+                0.21960784,
+                0.03137255
+              ],
+              "alpha": 1,
+              "hex": "#873808"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.38823529,
+                0.16862745,
+                0.03137255
+              ],
+              "alpha": 1,
+              "hex": "#632b08"
+            }
+          }
+        },
+        "rose": {
+          "start": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.7372549,
+                0.15686275,
+                0.32941176
+              ],
+              "alpha": 1,
+              "hex": "#bc2854"
+            }
+          },
+          "end": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.57254902,
+                0.1254902,
+                0.24705882
+              ],
+              "alpha": 1,
+              "hex": "#92203f"
+            }
+          },
+          "deep": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.41960784,
+                0.09019608,
+                0.18823529
+              ],
+              "alpha": 1,
+              "hex": "#6b1730"
+            }
+          }
+        }
+      },
+      "danger": {
+        "start": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.74509804,
+              0.18823529,
+              0.23529412
+            ],
+            "alpha": 1,
+            "hex": "#be303c"
+          }
+        },
+        "end": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.56078431,
+              0.1254902,
+              0.18823529
+            ],
+            "alpha": 1,
+            "hex": "#8f2030"
+          }
+        }
+      },
+      "warning": {
+        "start": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.96078431,
+              0.8,
+              0.38039216
+            ],
+            "alpha": 1,
+            "hex": "#f5cc61"
+          }
+        },
+        "end": {
+          "$type": "color",
+          "$value": {
+            "colorSpace": "srgb",
+            "components": [
+              0.90980392,
+              0.69803922,
+              0.24313725
+            ],
+            "alpha": 1,
+            "hex": "#e8b23e"
+          }
+        }
+      },
+      "warningText": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.2,
+            0.14117647,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#332400"
+        }
+      }
+    },
+    "light": {
+      "bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.98039216,
+            0.98039216,
+            0.98039216
+          ],
+          "alpha": 1,
+          "hex": "#fafafa"
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#ffffff"
+        }
+      },
+      "surface-alt": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.92941176,
+            0.92941176,
+            0.92941176
+          ],
+          "alpha": 1,
+          "hex": "#ededed"
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.06666667,
+            0.06666667,
+            0.06666667
+          ],
+          "alpha": 1,
+          "hex": "#111111"
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.29803922,
+            0.29803922,
+            0.29803922
+          ],
+          "alpha": 1,
+          "hex": "#4c4c4c"
+        }
+      },
+      "line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.83137255,
+            0.83137255,
+            0.83137255
+          ],
+          "alpha": 1,
+          "hex": "#d4d4d4"
+        }
+      },
+      "control-line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.48627451,
+            0.48627451,
+            0.48627451
+          ],
+          "alpha": 1,
+          "hex": "#7c7c7c"
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.06666667,
+            0.06666667,
+            0.06666667
+          ],
+          "alpha": 1,
+          "hex": "#111111"
+        }
+      }
+    },
+    "dark": {
+      "bg": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0627451,
+            0.0627451,
+            0.0627451
+          ],
+          "alpha": 1,
+          "hex": "#101010"
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.09803922,
+            0.09803922,
+            0.09803922
+          ],
+          "alpha": 1,
+          "hex": "#191919"
+        }
+      },
+      "surface-alt": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.16078431,
+            0.16078431,
+            0.16078431
+          ],
+          "alpha": 1,
+          "hex": "#292929"
+        }
+      },
+      "text": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.96078431,
+            0.96078431,
+            0.96078431
+          ],
+          "alpha": 1,
+          "hex": "#f5f5f5"
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.74509804,
+            0.74509804,
+            0.74509804
+          ],
+          "alpha": 1,
+          "hex": "#bebebe"
+        }
+      },
+      "line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.25490196,
+            0.25490196,
+            0.25490196
+          ],
+          "alpha": 1,
+          "hex": "#414141"
+        }
+      },
+      "control-line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.57254902,
+            0.57254902,
+            0.57254902
+          ],
+          "alpha": 1,
+          "hex": "#929292"
+        }
+      },
+      "link": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.96078431,
+            0.96078431,
+            0.96078431
+          ],
+          "alpha": 1,
+          "hex": "#f5f5f5"
+        }
+      }
+    },
+    "semantic": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.06666667,
+            0.06666667,
+            0.06666667
+          ],
+          "alpha": 1,
+          "hex": "#111111"
+        }
+      },
+      "primary-end": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0,
+            0,
+            0
+          ],
+          "alpha": 1,
+          "hex": "#000000"
+        }
+      },
+      "on-primary": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1,
+          "hex": "#ffffff"
+        }
+      },
+      "radius": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        }
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        }
+      },
+      "font": {
+        "$type": "fontFamily",
+        "$value": [
+          "Manrope",
+          "system-ui",
+          "sans-serif"
+        ]
+      },
+      "font-heading": {
+        "$type": "fontFamily",
+        "$value": "{semantic.font}"
+      }
+    }
+  },
+  "palettes": {
+    "mono": {
+      "light": {
+        "bg": "#FAFAFA",
+        "surface": "#FFFFFF",
+        "text": "#111111",
+        "surface-alt": "#EDEDED",
+        "primary": "#111111",
+        "on-primary": "#FFFFFF",
+        "line": "#D4D4D4",
+        "primary-end": "#000000",
+        "link": "#111111",
+        "muted": "#4C4C4C",
+        "control-line": "#7C7C7C"
+      },
+      "dark": {
+        "bg": "#101010",
+        "surface": "#191919",
+        "text": "#F5F5F5",
+        "surface-alt": "#292929",
+        "primary": "#F5F5F5",
+        "on-primary": "#111111",
+        "line": "#414141",
+        "primary-end": "#DEDEDE",
+        "link": "#F5F5F5",
+        "muted": "#BEBEBE",
+        "control-line": "#929292"
+      }
+    },
+    "sand": {
+      "light": {
+        "bg": "#F7F5EF",
+        "surface": "#FFFEFA",
+        "text": "#383329",
+        "surface-alt": "#EBE6DA",
+        "primary": "#665842",
+        "on-primary": "#FFFFFF",
+        "line": "#D4CBBB",
+        "primary-end": "#514632",
+        "link": "#665842",
+        "muted": "#6A665D",
+        "control-line": "#8E8779"
+      },
+      "dark": {
+        "bg": "#1D1A15",
+        "surface": "#2A261F",
+        "text": "#F4EFE4",
+        "surface-alt": "#3C362C",
+        "primary": "#D5C2A2",
+        "on-primary": "#292116",
+        "line": "#5B5142",
+        "primary-end": "#C3AE8D",
+        "link": "#D5C2A2",
+        "muted": "#C2BDB3",
+        "control-line": "#A0988B"
+      }
+    },
+    "ocean": {
+      "light": {
+        "bg": "#F4F8FB",
+        "surface": "#FFFFFF",
+        "text": "#142E3D",
+        "surface-alt": "#DFEFF2",
+        "primary": "#08657A",
+        "on-primary": "#FFFFFF",
+        "line": "#B9D1DA",
+        "primary-end": "#075468",
+        "link": "#08657A",
+        "muted": "#4F626E",
+        "control-line": "#6F8893"
+      },
+      "dark": {
+        "bg": "#0B1922",
+        "surface": "#132833",
+        "text": "#E5F3F8",
+        "surface-alt": "#203C49",
+        "primary": "#67D1DE",
+        "on-primary": "#08252C",
+        "line": "#385967",
+        "primary-end": "#50B9C6",
+        "link": "#67D1DE",
+        "muted": "#B0C0C7",
+        "control-line": "#869EA8"
+      }
+    },
+    "cobalt": {
+      "light": {
+        "bg": "#F5F7FC",
+        "surface": "#FFFFFF",
+        "text": "#1A2744",
+        "surface-alt": "#E5EBFC",
+        "primary": "#2455BE",
+        "on-primary": "#FFFFFF",
+        "line": "#C5CFE4",
+        "primary-end": "#1E459F",
+        "link": "#2455BE",
+        "muted": "#535D73",
+        "control-line": "#78839C"
+      },
+      "dark": {
+        "bg": "#10172A",
+        "surface": "#1A2440",
+        "text": "#EDF2FF",
+        "surface-alt": "#29385A",
+        "primary": "#92B4FF",
+        "on-primary": "#14264B",
+        "line": "#43557B",
+        "primary-end": "#7DA0EB",
+        "link": "#92B4FF",
+        "muted": "#B8BECF",
+        "control-line": "#909CB6"
+      }
+    },
+    "citrus": {
+      "light": {
+        "bg": "#FAFAF3",
+        "surface": "#FFFFFF",
+        "text": "#30321C",
+        "surface-alt": "#EFEFCF",
+        "primary": "#D8D94A",
+        "on-primary": "#272A0C",
+        "line": "#D4D5B4",
+        "primary-end": "#B7B938",
+        "link": "#666A13",
+        "muted": "#646555",
+        "control-line": "#8A8C70"
+      },
+      "dark": {
+        "bg": "#191C10",
+        "surface": "#272B19",
+        "text": "#F4F6E3",
+        "surface-alt": "#3B4025",
+        "primary": "#E6E875",
+        "on-primary": "#282D0C",
+        "line": "#5A6240",
+        "primary-end": "#D3D561",
+        "link": "#E6E875",
+        "muted": "#C1C3B0",
+        "control-line": "#9FA589"
+      }
+    },
+    "violet": {
+      "light": {
+        "bg": "#F9F6FC",
+        "surface": "#FFFFFF",
+        "text": "#33233F",
+        "surface-alt": "#EEE5F6",
+        "primary": "#7045A1",
+        "on-primary": "#FFFFFF",
+        "line": "#D6C7E3",
+        "primary-end": "#5B3687",
+        "link": "#7045A1",
+        "muted": "#665A6F",
+        "control-line": "#8D7D99"
+      },
+      "dark": {
+        "bg": "#1A1423",
+        "surface": "#281E35",
+        "text": "#F3ECFA",
+        "surface-alt": "#3D2D4D",
+        "primary": "#C5A2EF",
+        "on-primary": "#2A1742",
+        "line": "#5D486F",
+        "primary-end": "#B18BDC",
+        "link": "#C5A2EF",
+        "muted": "#C0B8C9",
+        "control-line": "#A092AE"
+      }
+    },
+    "forest": {
+      "light": {
+        "bg": "#F5F8F3",
+        "surface": "#FFFFFF",
+        "text": "#223329",
+        "surface-alt": "#E4EDDF",
+        "primary": "#326344",
+        "on-primary": "#FFFFFF",
+        "line": "#C4D2BE",
+        "primary-end": "#285236",
+        "link": "#326344",
+        "muted": "#59665E",
+        "control-line": "#7B8A7B"
+      },
+      "dark": {
+        "bg": "#101B14",
+        "surface": "#1B2A20",
+        "text": "#ECF3E8",
+        "surface-alt": "#2C3F2E",
+        "primary": "#A0CEA4",
+        "on-primary": "#15291B",
+        "line": "#435C46",
+        "primary-end": "#88B98D",
+        "link": "#A0CEA4",
+        "muted": "#B8C1B6",
+        "control-line": "#8FA08F"
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@
   :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 70%; --re-glass-button-opacity: 90%; --re-glass-filter: blur(16px); }
 }
 @layer re.components {
-  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
     :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
       border-width: var(--re-surface-border);
       border-color: var(--re-line);
@@ -66,7 +66,7 @@
   }
 }
 @layer re.components {
-  @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material="glass"]) {
+  @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material]:not([data-material="solid"])) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(*, :scope):where(:not([data-material="glass"], .menu-toggle)) {
         --re-muted: var(--re-palette-muted);
@@ -91,7 +91,7 @@
   /* System preferences win over local contrast resets. */
   @media (prefers-reduced-transparency: reduce) {
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
@@ -103,7 +103,7 @@
   }
   @media (prefers-contrast: more) {
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
@@ -115,7 +115,7 @@
   }
   @media (forced-colors: active) {
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
@@ -127,7 +127,7 @@
   }
   @media print {
     :where(*, :scope) { --re-glass-opacity: 100%; --re-glass-filter: none; }
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
@@ -138,7 +138,7 @@
     }
   }
   @media (forced-colors: active) {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, .top-menu .menu-panel)) {
         background-color: Canvas;
         color: CanvasText;
@@ -148,7 +148,7 @@
     }
   }
   @media print {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover])) {
         background-color: #fff;
         color: #000;
@@ -161,7 +161,7 @@
 /* Preference paint respects the same material boundaries as normal paint. */
 @layer re.utilities {
   @media (prefers-reduced-transparency: reduce) {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
         background-color: var(--re-glass-button-fill, var(--re-action-start));
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -169,7 +169,7 @@
     }
   }
   @media (prefers-contrast: more) {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
         background-color: var(--re-glass-button-fill, var(--re-action-start));
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -177,7 +177,7 @@
     }
   }
   @media (forced-colors: active) {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
         background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none;
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -185,7 +185,7 @@
     }
   }
   @media print {
-    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
       :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
         background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none;
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -196,7 +196,7 @@
 
 /* Badges use the action backing opacity to preserve small-label contrast. */
 @layer re.components {
-  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.badge, :scope.badge):where(:not([data-material="solid"])) {
         background-color: color-mix(in srgb, var(--re-badge-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
@@ -210,7 +210,7 @@
 
 /* Alerts retain strong backing for readable multi-line content. */
 @layer re.components {
-  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.alert, :scope.alert):where(:not([data-material="solid"])) {
         background-color: color-mix(in srgb, var(--re-alert-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
@@ -224,7 +224,7 @@
 
 /* Pagination follows material defaults without frosting the navigation wrapper. */
 @layer re.components {
-  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.pagination > ol > li > :is(a,span)) {
         background-color: color-mix(in srgb, var(--re-pagination-fill) var(--re-glass-button-opacity, 90%), transparent);
@@ -237,7 +237,7 @@
 
 /* Lists and choice controls receive material from their shared parent. */
 @layer re.components {
-  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material="solid"]) {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.list-group > li, .tabs > label) {
         background-color: color-mix(in srgb, var(--re-choice-fill, var(--re-surface)) var(--re-glass-button-opacity, 90%), transparent);

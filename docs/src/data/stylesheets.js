@@ -27,5 +27,7 @@ export const stylesheets = [
   "reva.motion.scoped.css",
   "reva.glass.css",
   "reva.glass.scoped.css",
+  "reva.veil.css",
+  "reva.veil.scoped.css",
   "reva.scoped.css"
 ];

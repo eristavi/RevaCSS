@@ -15,7 +15,9 @@ function fileDescription(file) {
     'reva.motion.css':'Optional entrance motion for native popovers; load after the global core.',
     'reva.motion.scoped.css':'Optional scoped entrance motion; load after reva.scoped.css.',
     'reva.glass.css':'Optional global glass extension; load after the global core.',
-    'reva.glass.scoped.css':'Optional scoped glass extension; load after reva.scoped.css.'
+    'reva.glass.scoped.css':'Optional scoped glass extension; load after reva.scoped.css.',
+    'reva.veil.css':'Optional Veil material: diffused perimeter colour and contained contours without blur. Load after the global core.',
+    'reva.veil.scoped.css':'Optional scoped Veil material; load after reva.scoped.css.'
   };
   return descriptions[file] || 'Component-specific styling. Load its token/base dependencies and any required shared utilities.';
 }
@@ -24,7 +26,7 @@ function fileDescription(file) {
 <p class="doc-kicker">REFERENCE</p><h1>API reference</h1>
 <p class="doc-lead">The current CSS and HTML interface for RevaCSS {pkg.version}. Attribute values below come from the option manifest used by the build.</p>
 <p>Use the <a href={base+'guide/'}>guide</a> for setup and the <a href={base+'reference/components/'}>component API</a> for exact hooks. The API describes implemented features, not a release-validation guarantee.</p>
-<section id="files"><h2>Stylesheet files</h2><p>Start with one complete build: global or scoped. Do not combine both. Load the matching glass extension afterward when needed.</p>
+<section id="files"><h2>Stylesheet files</h2><p>Start with one complete build: global or scoped. Do not combine both. Load the matching Glass or Veil extension afterward when needed.</p>
 <div class="table-scroll" role="region" aria-label="Stylesheet entry points" tabindex="0"><table><caption>Generated CSS files</caption><thead><tr><th scope="col">File</th><th scope="col">Purpose</th></tr></thead><tbody>
 <tr><th scope="row"><code>reva.min.css</code></th><td>Minified equivalent of the complete global stylesheet.</td></tr>
 {stylesheets.map(file=><tr><th scope="row"><code>{file}</code></th><td>{fileDescription(file)}</td></tr>)}
