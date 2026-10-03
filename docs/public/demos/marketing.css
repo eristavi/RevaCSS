@@ -36,6 +36,20 @@
 .forma-plans footer { margin-block-start: auto; }
 .forma-plans footer button { inline-size: 100%; }
 .forma-featured { border-color: var(--re-primary); }
+/* Plan previews live inside .stack cards, whose child margins override the
+   native popover centring. Keep the preview centred in the viewport. */
+@supports selector(:popover-open) {
+  .forma-plans [popover] {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    inline-size: min(32rem, calc(100% - 2rem));
+    max-inline-size: calc(100% - 2rem);
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+}
 .forma-price { font-size: 3rem; font-weight: 700; letter-spacing: -.05em; line-height: 1.2; }
 .forma-price small { font-size: .9rem; font-weight: 400; letter-spacing: 0; color: var(--re-muted); }
 .forma-faq { max-inline-size: 54rem; margin-inline: auto; }
