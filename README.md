@@ -162,3 +162,7 @@ Use the existing `.card` class with a native `dl`: `dt` labels the value, `dd > 
 ## Dashboard components
 
 Activity history uses one `ol.timeline` class with native timestamps. Existing line/area and doughnut charts use `figure.chart`; SVG data and accessible descriptions come from the backend. Compact navigation uses one `nav.nav-rail` class with visible link labels. Missing-data examples reuse `.empty-state` and the metric-card pattern rather than introducing another component. Standalone stylesheets: `reva.timeline.css`, `reva.charts.css`, `reva.navigation-rail.css`.
+
+## Native select enhancement
+
+Load optional `reva.selects.css` (or its scoped counterpart) to style ordinary single-select option lists in supporting browsers. Existing shared tokens control the surface, shape, border, spacing and typography. Unsupported browsers retain native pickers; multiple/listbox selects are unchanged. No classes or JavaScript. [Examples](https://eristavi.github.io/RevaCSS/components/selects/).

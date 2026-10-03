@@ -16,6 +16,7 @@ export const componentGroups = [
     "slugs": [
       "buttons",
       "forms",
+      "selects",
       "form-groups",
       "input-groups",
       "switches",
@@ -64,6 +65,7 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "selects": ["Native select and option elements; no classes.", "Existing shared tokens and native form attributes.", "Optional reva.selects.css / reva.selects.scoped.css", "Support-gated customizable dropdown; native fallback. Multiple/listbox selects unchanged."],
   "timeline": ["ol.timeline > li", "Semantic time and event text; inherited shared appearance.", "reva.timeline.css", "Server supplies ordered events; no JavaScript."],
   "charts": ["figure.chart > svg, figcaption", "Backend supplies coordinates, title/description and exact data.", "reva.charts.css", "Existing line/area and doughnut patterns; no new chart types."],
   "navigation-rail": ["nav.nav-rail > a", "Native links with visible labels and aria-current where applicable.", "reva.navigation-rail.css", "Vertical rail becomes a wrapping horizontal layout below 40rem."],

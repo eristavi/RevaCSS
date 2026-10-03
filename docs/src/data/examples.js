@@ -1,4 +1,36 @@
 export const topics = [
+{
+  "slug": "selects",
+  "title": "Native select dropdowns",
+  "intro": "An optional CSS-only enhancement styles ordinary select option lists with the existing framework tokens. No classes, extra wrappers or new data attributes.",
+  "notes": [
+    "Load reva.selects.css after the global core, or reva.selects.scoped.css after the scoped core. The documentation loads the extension for its live examples.",
+    "The enhancement is guarded by support for appearance:base-select and ::picker(select). Unsupported browsers retain their ordinary native picker. Supported browsers use an in-page picker rather than the operating-system mobile selection sheet.",
+    "Only single-selection dropdowns are enhanced. Multiple selects and size greater than one keep their native listbox treatment. Labels, names, values, required validation and disabled options remain native HTML.",
+    "Theme, palette, typography, size, density, shape, border and depth use existing tokens. The option surface stays opaque for readability, including inside a glass parent. Selected options keep the browser checkmark; disabled options remain unavailable.",
+    "Picker icons respect motion and reduced-motion preferences. Forced colours use system colours and visible selection states. Browser keyboard behaviour and form submission are retained; CSS does not search or fetch options."
+  ],
+  "examples": [
+    {
+      "id": "native-select-basic",
+      "title": "Ordinary select, framework option list",
+      "description": "The same simple HTML works with and without the optional stylesheet.",
+      "html": "<label for=\"native-select-project\">Project status</label>\n<select id=\"native-select-project\" name=\"status\">\n  <option value=\"active\">In progress</option>\n  <option value=\"review\">In review</option>\n  <option value=\"complete\">Complete</option>\n</select>"
+    },
+    {
+      "id": "native-select-groups",
+      "title": "Groups and disabled options",
+      "description": "Native groups, disabled options and a longer label.",
+      "html": "<label for=\"native-select-team\">Assign a team</label>\n<select id=\"native-select-team\" name=\"team\">\n  <option value=\"\" disabled selected>Choose a team</option>\n  <optgroup label=\"Available teams\">\n    <option value=\"operations\">Operations and service delivery</option>\n    <option value=\"design\">Design</option>\n  </optgroup>\n  <optgroup label=\"Unavailable\">\n    <option value=\"finance\" disabled>Finance \u2014 assignment unavailable</option>\n  </optgroup>\n</select>"
+    },
+    {
+      "id": "native-select-listbox",
+      "title": "Native listbox retained",
+      "description": "Multiple selection is deliberately outside the enhanced dropdown contract.",
+      "html": "<label for=\"native-select-members\">Team members</label>\n<select id=\"native-select-members\" name=\"members\" multiple size=\"3\">\n  <option value=\"alex\">Alex</option>\n  <option value=\"sam\">Sam</option>\n  <option value=\"jamie\">Jamie</option>\n</select>"
+    }
+  ]
+},
   {
     "slug": "timeline",
     "title": "Activity timeline",

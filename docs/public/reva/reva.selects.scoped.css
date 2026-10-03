@@ -1,0 +1,54 @@
+@scope (.reva) {
+/* Optional native-select enhancement. No classes, scripts or new attributes. */
+@supports (appearance: base-select) and selector(::picker(select)) {
+  @layer re.base {
+    :where(select:not([multiple]):is(:not([size]), [size="0"], [size="1"])) {
+      appearance: base-select; display: flex; align-items: center; gap: .75em;
+    }
+    :where(select:not([multiple]):is(:not([size]), [size="0"], [size="1"]))::picker(select) {
+      appearance: base-select;
+      padding: calc(var(--re-space) * .35);
+      margin-block: .25rem;
+      max-inline-size: calc(100dvw - 2rem);
+      max-block-size: min(24rem, 60dvh); overflow: auto; overscroll-behavior: contain;
+      border: var(--re-surface-border) solid var(--re-line);
+      border-radius: var(--re-radius); background: var(--re-surface);
+      color: var(--re-text); box-shadow: var(--re-shadow); font: inherit;
+    }
+    :where(select:not([multiple]):is(:not([size]), [size="0"], [size="1"]))::picker-icon {
+      color: var(--re-muted); margin-inline-start: auto;
+      transition: rotate var(--re-duration, 140ms) ease;
+    }
+    :where(select:not([multiple]):is(:not([size]), [size="0"], [size="1"]):open)::picker-icon { rotate: 180deg; }
+    @scope (select:not([multiple]):is(:not([size]), [size="0"], [size="1"])) {
+      :where(option) {
+        display: flex; align-items: center; gap: .75em;
+        min-block-size: 2.75rem;
+        padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+        border: 0; border-radius: calc(var(--re-radius) * .6);
+        font: inherit; color: var(--re-text); background: var(--re-surface);
+        white-space: normal; overflow-wrap: anywhere;
+      }
+      :where(option:enabled:hover, option:enabled:focus) { background: var(--re-surface-alt); }
+      :where(option:checked) { font-weight: 650; background: var(--re-surface-alt); }
+      :where(option:disabled) { color: var(--re-muted); cursor: not-allowed; }
+      :where(option:focus-visible) { outline: 2px solid var(--re-text); outline-offset: -2px; }
+      :where(optgroup) { font: inherit; font-weight: 650; color: var(--re-muted); }
+    }
+  }
+  @layer re.utilities {
+    @media (prefers-reduced-motion: reduce) {
+      :where(select)::picker-icon { transition: none; }
+    }
+    @media (forced-colors: active) {
+      :where(select)::picker(select) { color: CanvasText; background: Canvas; border: 1px solid CanvasText; box-shadow: none; }
+      :where(select option) { color: CanvasText; background: Canvas; }
+      :where(select option:checked, select option:enabled:hover, select option:enabled:focus) { color: HighlightText; background: Highlight; }
+      :where(select option:disabled) { color: GrayText; }
+      :where(select option:focus-visible) { outline-color: Highlight; }
+      :where(select)::picker-icon { color: ButtonText; }
+    }
+  }
+}
+
+}
