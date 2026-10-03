@@ -154,3 +154,7 @@ Set `data-navbar="standard|centered|floating|split"` on `html`, a parent, or `.t
 One `.app-shell` class arranges direct native `aside`, `header` and `main` regions. Sidebar links and nested `details` groups need no item classes. A standalone sidebar uses `aside.sidebar`. Theme settings inherit from the parent, including optional Glass and Veil.
 
 At 60rem the persistent desktop sidebar becomes a native mobile popover drawer. Render both navigation copies from one template, with unique drawer IDs and native `popovertarget` buttons. The drawer is non-modal and keeps browser-owned outside-click/Escape dismissal. Load `reva.app-shell.css` with tokens/base, or use the complete build. See [sidebar and app shell examples](https://eristavi.github.io/RevaCSS/components/app-shell/).
+
+## Metric cards
+
+Use the existing `.card` class with a native `dl`: `dt` labels the value, `dd > output` displays it, and further `dd` elements provide comparisons or targets. Existing shared attributes and materials apply. No additional classes or attributes. [Examples](https://eristavi.github.io/RevaCSS/components/metrics/).

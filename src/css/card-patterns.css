@@ -7,3 +7,26 @@
   :where(.card > figure > :is(img,video)) { display: block; inline-size: 100%; }
   :where(.card > footer.row) { flex-wrap: wrap; }
 }
+
+/* A metric is an existing card with a native term/value pair, not another class. */
+@layer re.components {
+  :where(.card > dl:has(> dd > output)) { margin: 0; min-inline-size: 0; }
+  :where(.card > dl:has(> dd > output) > :is(dt,dd)) {
+    margin: 0; min-inline-size: 0; overflow-wrap: anywhere;
+  }
+  :where(.card > dl:has(> dd > output) > dt) {
+    font-size: var(--re-type); font-weight: 600; margin-block-end: calc(var(--re-space) * .5);
+  }
+  :where(.card > dl > dd > output) {
+    display: block; font-size: calc(var(--re-type) * 2.25); line-height: 1.15;
+    font-weight: 750; font-variant-numeric: tabular-nums; letter-spacing: -.035em;
+    overflow-wrap: anywhere;
+  }
+  :where(.card > dl:has(> dd > output) > dd + dd) {
+    margin-block-start: calc(var(--re-space) * .5); font-size: calc(var(--re-type) * .875);
+  }
+  :where(.card > dl:has(> dd > output) > dd > small) { color: var(--re-muted); }
+  :where(.card > dl:has(> dd > output) > dd > :is(progress,meter)) {
+    display: block; inline-size: 100%; margin-block-start: calc(var(--re-space) * .5);
+  }
+}

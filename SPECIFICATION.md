@@ -66,3 +66,7 @@ Decorative edges preserve the component interior and keyboard focus. They follow
 ## Drawer / inspector contract
 
 One .drawer structural class on aside[popover=auto], with semantic header, section and footer. Default width 28rem, bounded by the viewport, on the logical end edge. Optional inherited CSS variables --re-drawer-width, --re-drawer-start and --re-drawer-end allow ordinary CSS customisation. No component-specific attributes. Existing shared attribute contracts remain unchanged. Native opening and dismissal; non-modal overlay, no focus trap or scroll lock. Theme and optional materials inherit within the DOM/scoped boundary. Whole-panel scrolling, forced-colour borders, reduced-motion support and print omission. Included in full, components, scoped and standalone reva.drawers.css builds.
+
+## Metric card contract
+
+Reuse .card with a direct dl containing dt and dd > output; further dd elements provide visible comparison/context and optional labelled native meter/progress. No new classes or data attributes. The existing card appearance, materials, edges and shared attributes apply. Backend supplies data and formatting; CSS does not calculate metrics. Included in card-patterns, full, components and scoped builds.

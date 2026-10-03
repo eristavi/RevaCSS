@@ -31,10 +31,10 @@ const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
   <Content aria-label="Dashboard content">
     <header class="dash-heading row justify-between"><div><p class="dash-eyebrow">YOUR WORK, AT A GLANCE</p><h1 id="dashboard-title">A little clarity goes a long way.</h1><p>Welcome back, Alex. Here’s how September came together.</p></div><span class="badge">September 2026</span></header>
     <section class="dash-metrics" aria-label="September metrics">
-      <article class="card dash-metric"><h2>Total revenue</h2><strong class="dash-value">€42,500</strong><p class="dash-comparison"><span>↑ 8.4%</span> versus August</p><small>Recognised revenue this month</small></article>
-      <article class="card dash-metric"><h2>Active projects</h2><strong class="dash-value">24</strong><p class="dash-comparison"><span>+4</span> versus August</p><small>Across 6 working teams</small></article>
-      <article class="card dash-metric"><h2>Completed tasks</h2><strong class="dash-value">186</strong><p class="dash-comparison"><span>↑ 12.0%</span> versus August</p><small>166 completed in August</small></article>
-      <article class="card dash-metric"><h2>Team utilisation</h2><strong class="dash-value">78%</strong><p class="dash-comparison">Target range: 70–85%</p><small>Room for the next opportunity</small></article>
+      <article class="card"><dl><dt>Total revenue</dt><dd><output>€42,500</output></dd><dd>Up 8.4% versus August</dd><dd><small>Recognised revenue this month</small></dd></dl></article>
+      <article class="card"><dl><dt>Active projects</dt><dd><output>24</output></dd><dd>4 more versus August</dd><dd><small>Across 6 working teams</small></dd></dl></article>
+      <article class="card"><dl><dt>Completed tasks</dt><dd><output>186</output></dd><dd>Up 12.0% versus August</dd><dd><small>166 completed in August</small></dd></dl></article>
+      <article class="card"><dl><dt>Team utilisation</dt><dd><output>78%</output></dd><dd>Target range: 70–85%</dd><dd><small>Room for the next opportunity</small></dd></dl></article>
     </section>
     <div class="dash-charts">
       <section class="card" id="dashboard-revenue" aria-labelledby="revenue-heading"><header class="row justify-between"><div><p class="dash-eyebrow">STEADY MOMENTUM</p><h2 id="revenue-heading">Revenue over time</h2></div><span class="badge">EUR · Apr–Sep</span></header>

@@ -1,5 +1,38 @@
 export const topics = [
 {
+  "slug": "metrics",
+  "title": "Metric cards",
+  "intro": "Use the existing card class and native term/value pairs for readable values, trends and comparisons. No metric-specific classes or data attributes.",
+  "notes": [
+    "Use .card on an article, with a direct dl containing dt for the metric label and dd > output for its value. Further dd elements contain comparison text, context or a native progress/meter.",
+    "Theme, palette, shape, density, typography, border, depth, decorative edges and optional materials reuse the existing card contract. Place shared attributes on html, a parent or the card.",
+    "Write the trend and comparison period in words. An increase is not always good: costs and incidents can rise. Colour and arrows are never the only explanation.",
+    "The backend supplies formatted values, comparison text and native progress/meter values. CSS does not calculate statistics, animate counters, fetch data or announce updates on a timer.",
+    "Use the existing grid layout to arrange multiple cards. Long values wrap, the DOM reading order stays unchanged and no chart or icon is required.",
+    "Load the complete/scoped build, or tokens, base, components and reva.card-patterns.css. Materials and motion remain optional."
+  ],
+  "examples": [
+    {
+      "id": "metric-revenue",
+      "title": "Value and comparison",
+      "description": "One existing class; label, value and comparison stay readable in HTML.",
+      "html": "<article class=\"card\">\n  <dl>\n    <dt>Total revenue</dt>\n    <dd><output>\u20ac42,500</output></dd>\n    <dd>Up 8.4% versus August</dd>\n    <dd><small>Recognised revenue in September.</small></dd>\n  </dl>\n</article>"
+    },
+    {
+      "id": "metric-cost",
+      "title": "Decrease with context",
+      "description": "Explicit language separates the direction from its business meaning.",
+      "html": "<article class=\"card\">\n  <dl>\n    <dt>Support incidents</dt>\n    <dd><output>12</output></dd>\n    <dd>Down 25% versus August</dd>\n    <dd><small>Fewer incidents this month.</small></dd>\n  </dl>\n</article>"
+    },
+    {
+      "id": "metric-target",
+      "title": "Value and target",
+      "description": "A labelled native meter shows a bounded value; the number and target remain visible.",
+      "html": "<article class=\"card\">\n  <dl>\n    <dt>Team utilisation</dt>\n    <dd><output>78%</output></dd>\n    <dd>Target range: 70\u201385%</dd>\n    <dd><label>Utilisation <meter min=\"0\" max=\"100\" low=\"70\" high=\"85\" optimum=\"78\" value=\"78\">78%</meter></label></dd>\n  </dl>\n</article>"
+    }
+  ]
+},
+{
   "slug": "drawers",
   "title": "Drawer / inspector",
   "intro": "One drawer class turns a native popover into a viewport-edge inspector. Use semantic children and inherited data attributes for details, filters or settings.",

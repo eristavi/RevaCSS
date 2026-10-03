@@ -13,12 +13,6 @@
 .dash-heading p { margin:0; }
 .dash-eyebrow { font-size:.65rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); margin-block:0 .4rem; }
 .dash-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--re-space); }
-.dash-metric { --re-card-padding:var(--re-space); }
-.dash-metric h2 { font-size:.8rem; font-weight:650; margin-block:0 .7rem; }
-.dash-value { display:block; font-size:clamp(1.7rem,2.4vw,2.4rem); line-height:1.15; letter-spacing:-.045em; }
-.dash-comparison { font-size:.75rem; margin-block:.8rem .4rem; }
-.dash-comparison span { color:var(--re-link); font-weight:750; }
-.dash-metric small { font-size:.7rem; color:var(--re-muted); }
 .dash-charts { display:grid; grid-template-columns:minmax(0,1.8fr) minmax(0,1fr); gap:var(--re-space); }
 .dash-site > .app-shell > :is(main,section) section > h2,.dash-site > .app-shell > :is(main,section) section > header h2 { font-size:1.1rem; margin-block:.25rem .8rem; }
 .dash-chart { margin:1.5rem 0; }

@@ -54,12 +54,14 @@ export const componentGroups = [
     "title": "Content and identity",
     "slugs": [
       "card-patterns",
+      "metrics",
       "lists",
       "avatars"
     ]
   }
 ];
 export const componentContracts = {
+  "metrics": [".card > dl > dt, dd > output", "Existing shared attributes; visible trend and comparison text.", "reva.card-patterns.css", "Backend supplies values; native meter/progress optional. No JavaScript or new attributes."],
   "drawers": [
     ".drawer[popover=auto] > header, section, footer",
     "Unique id and native popovertarget; shared appearance attributes inherit. CSS variables customise width and logical placement.",
