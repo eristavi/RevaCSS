@@ -1,4 +1,6 @@
 export const publicTokens = [
+  ["Veil", "--re-veil-opacity", "Percentage", "Surface backing; 94% default. Accessibility fallbacks use opaque backing."],
+  ["Veil", "--re-veil-strength", "Number, 0–1", "Perimeter colour and contour strength; 1 default. More contrast removes decoration."],
   ["Navigation", "--re-dropdown-width", "Length", "Standalone dropdown width; 18rem fallback, bounded by viewport"],
   [
     "Palette",

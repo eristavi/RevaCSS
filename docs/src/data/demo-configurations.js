@@ -2,7 +2,7 @@
 export const demoOptions = {
   theme: ['auto', 'light', 'dark'],
   palette: ['mono', 'sand', 'ocean', 'cobalt', 'citrus', 'violet', 'forest'],
-  material: ['solid', 'glass'],
+  material: ['solid', 'glass', 'veil'],
   shape: ['square', 'subtle', 'rounded', 'pill']
 };
 export const defaultDemo = { theme: 'light', palette: 'mono', material: 'solid', shape: 'rounded' };

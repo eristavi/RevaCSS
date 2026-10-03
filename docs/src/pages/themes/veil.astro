@@ -1,0 +1,98 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+import TopMenu from '../../components/TopMenu.astro';
+import {stylesheet} from '../../data/assets.js';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'veil-preview',title:'The material'},{id:'veil-install',title:'Load and activate'},{id:'veil-elements',title:'Actions and forms'},{id:'veil-boundaries',title:'Material boundaries'},{id:'veil-contract',title:'Shared settings and preferences'}];
+const install=`<!doctype html>
+<html lang="en" data-theme="light" data-palette="ocean"
+      data-material="veil" data-shape="rounded">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Veil interface</title>
+  <link rel="stylesheet" href="/assets/reva/reva.css">
+  <link rel="stylesheet" href="/assets/reva/reva.veil.css">
+</head>
+<body>
+  <main class="container">
+    <article class="card">
+      <h1>A clearer space</h1>
+      <p>One parent sets the material for supported descendants.</p>
+      <button type="button">Continue</button>
+    </article>
+  </main>
+</body>
+</html>`;
+const actions=`<section class="stack" data-theme="dark" data-palette="ocean"
+         data-material="veil" data-shape="rounded">
+  <article class="card">
+    <h3>Room for the next idea.</h3>
+    <p>A calm centre, with softly layered edges.</p>
+    <div class="row">
+      <button type="button" popovertarget="veil-response">Open preview</button>
+      <a class="button outline" href="${base}guide/styling/">Read the guide</a>
+      <button type="button" disabled>Unavailable</button>
+    </div>
+    <div id="veil-response" popover>
+      <h4>A shared material</h4>
+      <p>This native popover inherits Veil too.</p>
+      <button type="button" popovertarget="veil-response"
+              popovertargetaction="hide">Close preview</button>
+    </div>
+  </article>
+  <fieldset>
+    <legend>Project details</legend>
+    <div class="form-group">
+      <label for="veil-project">Project name</label>
+      <input id="veil-project" value="Spring collection">
+    </div>
+    <div class="form-group">
+      <label for="veil-stage">Stage</label>
+      <select id="veil-stage"><option>Planning</option><option>Creating</option></select>
+    </div>
+  </fieldset>
+  <p><span class="badge" data-variant="success">Ready for review</span></p>
+  <div class="alert" data-variant="warning">Review your project details before continuing.</div>
+</section>`;
+const boundaries=`<section class="stack" data-theme="light" data-palette="ocean" data-material="veil">
+  <article class="card"><h3>Inherited Veil</h3><p>The parent supplies the material.</p></article>
+  <section class="stack" data-material="solid">
+    <article class="card"><h3>Solid exception</h3><button type="button">Solid action</button></article>
+    <article class="card" data-material="veil"><h3>Veil re-entry</h3><p>A local material can resume inside the solid section.</p></article>
+  </section>
+  <section data-material="glass">
+    <article class="card"><h3>Glass exception</h3><p>Load reva.glass.css as well to activate blur here.</p></article>
+  </section>
+</section>`;
+---
+<DocsLayout title="Veil material" active="veil" sections={sections}>
+<link rel="stylesheet" href={stylesheet('reva.veil.css')}/>
+<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+<p class="doc-kicker">MATERIAL / DEVELOPMENT PREVIEW</p><h1>Veil</h1>
+<p class="doc-lead">Diffused perimeter colour. Two quiet contours. A clear place for your content. Veil suggests thin, layered sheets without glass blur or continuously moving decoration.</p>
+<section id="veil-preview"><h2>A material for the whole interface</h2>
+<p>Light and dark follow the selected palette. Change the parent once; supported surfaces and actions inherit its finish.</p>
+<div class="grid">
+{['light','dark'].map(theme=><section class="veil-backdrop stack" data-theme={theme} data-palette="ocean" data-material="veil" data-shape="rounded" aria-label={`${theme} Veil preview`}>
+  <TopMenu id={`veil-${theme}`} label={`${theme} Veil navigation`} brand="forma." brandHref={base+'demos/marketing/'+theme+'/ocean/veil/rounded/'} current="none" items={[{key:'demo',label:'Explore the website',href:base+'demos/marketing/'+theme+'/ocean/veil/rounded/'}]}/>
+  <article class="card"><p><span class="badge">A little more together</span></p><h3>Make room for good work.</h3><p>Soft colour collects near the perimeter. A mostly opaque backing keeps the centre calm.</p><a class="button" href={base+'demos/marketing/'+theme+'/ocean/veil/rounded/'}>Explore this demo</a></article>
+  <div class="accordion"><details><summary>What creates the layers?</summary><p>CSS backgrounds and two contained inset contours. No extra wrapper, image texture or decorative pseudo-element is needed.</p></details></div>
+</section>)}
+</div><p><a href={base+'demos/marketing/light/ocean/veil/rounded/'}>Open the complete Ocean / Veil marketing website</a></p>
+</section>
+<section id="veil-install"><h2>Load and activate</h2><p>Load the optional extension after the core. Veil is not bundled into the core stylesheet.</p><CodeViewer id="veil-install-code" code={install}/><h3>Scoped applications</h3><CodeViewer id="veil-scoped-code" code={'<link rel="stylesheet" href="/assets/reva/reva.scoped.css">\n<link rel="stylesheet" href="/assets/reva/reva.veil.scoped.css">\n<section class="reva" data-material="veil" data-theme="dark"\n         data-palette="ocean" data-shape="rounded">\n  <article class="card"><h2>A contained interface</h2></article>\n</section>'}/></section>
+<Example id="veil-elements" title="Actions, controls and semantic colours" description="The parent configures the material. Warning and success remain local meanings; native controls retain their interaction and validation." html={actions}/>
+<Example id="veil-boundaries" title="Solid, Glass and Veil boundaries" description="A different explicit material stops the inherited treatment. Local re-entry works without resetting the palette." html={boundaries}/>
+<section id="veil-contract"><h2>Shared settings and preferences</h2>
+<ul><li><strong>Theme and palette:</strong> all seven palettes, light, dark and System. Veil derives its colour from existing surface/action tokens.</li><li><strong>Shape, density, size, borders and depth:</strong> retain their shared values. The two inset contours scale with border width; border none removes them. Outer shadows follow depth.</li><li><strong>Fill:</strong> solid disables perimeter colour gradients; contained contours remain part of the material.</li><li><strong>Motion:</strong> hover/focus gently shifts card and action highlights. Reduced motion stops transitions. There is no continuous material animation.</li><li><strong>Edges:</strong> plain, gradient, shine and animated remain separate. Veil uses backgrounds and shadows, leaving the edge pseudo-element available.</li><li><strong>Contrast/transparency:</strong> More Contrast removes tint contours and uses opaque backing. System reduced-transparency/increased-contrast preferences remove decorative sheen and shadows. Forced colours and print use plain readable paint.</li></ul>
+<p>Coverage: cards, fieldsets, disclosures, popovers/dialog surfaces, navigation, action controls, text fields, badges, alerts, list rows, tab labels and pagination items. Native checkboxes, radios, switches, progress and meter keep their existing treatment.</p>
+<p>Veil requires the modern CSS features already used by RevaCSS, including scope and colour mixing. Unsupported treatment leaves core styling available. The stylesheet adds no modal behavior or ARIA tab interaction.</p>
+<p class="doc-note">New development material. The image concept guided this implementation; it is not a pixel-for-pixel reproduction. Browser and physical-device validation are deferred until requested. Existing Glass fixture passes do not validate Veil.</p>
+</section>
+</DocsLayout>
+<style>
+.veil-backdrop { padding:clamp(1rem,3vw,2rem); border-radius:var(--re-radius); background:radial-gradient(ellipse at top left,color-mix(in srgb,var(--re-primary) 28%,var(--re-bg)),transparent 65%),radial-gradient(ellipse at bottom right,color-mix(in srgb,var(--re-primary-end) 20%,var(--re-bg)),transparent 65%),var(--re-bg); }
+</style>
