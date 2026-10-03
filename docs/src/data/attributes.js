@@ -1,5 +1,11 @@
 export const attributes = [
   {
+    id: 'navbar', title: 'data-navbar',
+    description: 'Top-menu layout. Values: standard, centered, floating, split. Default: standard. Inherits from html or a parent; a local value resets it. Sidebars are unaffected. See Components / Top menu for complete responsive examples and split groups.',
+    html: '<section data-navbar="centered">\n  <nav class="top-menu" aria-label="Centered example">\n    <a class="menu-brand" href="#navbar">Studio</a>\n    <ul class="menu-items menu-desktop"><li><a href="#navbar">Overview</a></li><li><a href="#navbar">Projects</a></li></ul>\n    <div class="menu-actions"><a href="#navbar">Contact</a></div>\n  </nav>\n</section>',
+    glass: false
+  },
+  {
     id: "palette",
     title: "data-palette",
     description: "Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: mono, sand, ocean, cobalt, citrus, violet, forest. Default: mono. Scope: inherited. See Themes / Colour palettes for every light and dark example.",
