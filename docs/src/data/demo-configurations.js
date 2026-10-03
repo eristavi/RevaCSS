@@ -1,11 +1,11 @@
 // Static routes initialize the live customizer and its starting HTML download.
 export const demoOptions = {
   theme: ['auto', 'light', 'dark'],
-  palette: ['mono', 'sand', 'ocean', 'cobalt', 'citrus', 'violet', 'forest'],
+  palette: ['default', 'mono', 'sand', 'ocean', 'cobalt', 'citrus', 'violet', 'forest'],
   material: ['solid', 'glass', 'veil'],
   shape: ['square', 'subtle', 'rounded', 'pill']
 };
-export const defaultDemo = { theme: 'auto', palette: 'mono', material: 'solid', shape: 'rounded' };
+export const defaultDemo = { theme: 'auto', palette: 'default', material: 'solid', shape: 'rounded' };
 export const configurationKey = config => Object.keys(demoOptions).map(key => config[key]).join('/');
 export const demoConfigurations = demoOptions.theme.flatMap(theme =>
   demoOptions.palette.flatMap(palette => demoOptions.material.flatMap(material =>

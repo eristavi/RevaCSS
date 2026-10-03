@@ -13,7 +13,7 @@ function css(t) { if(t.type==='color') return t.value.hex; if(t.type==='dimensio
 function declarations(group) { return Object.keys(data[group]).filter(k=>k!=='font-heading').map(k=>`--re-${k}: ${css(resolve(`${group}.${k}`))};`).join('\n'); }
 const tones={neutral:{light:{},dark:{}},cool:{light:{bg:'#f5f8ff',surface:'#ffffff','surface-alt':'#eaf0fc'},dark:{bg:'#0e1424',surface:'#182239','surface-alt':'#24314b'}},warm:{light:{bg:'#faf8f3',surface:'#fffdf8','surface-alt':'#f0ece3'},dark:{bg:'#1a1714',surface:'#28231e','surface-alt':'#352e26'}}};
 const rule=(sel,decl)=>`${sel} { ${decl} }\n`;
-const adaptive=paletteDeclarations(palettes.mono);
+const adaptive=paletteDeclarations(palettes.default);
 let tokens='@layer re.tokens, re.base, re.components, re.utilities;\n@layer re.tokens {\n';
 tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;

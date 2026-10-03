@@ -131,13 +131,13 @@ Load `reva.motion.css` after the global core, or `reva.motion.scoped.css` after 
 
 ### Coordinated colour palettes
 
-Mono is the default in light, dark and system modes: white and black foundations with Blue Teal primary actions and main headings. Primary fills use #1F6E8C in light mode and #2E8A99 in dark mode. Dark links use the lighter #65BBC7 for readable contrast. Secondary, success, warning and danger fills adapt with the shared role tokens in `tokens/roles.json`. Select one of seven coordinated colour families once on a parent:
+The `default` palette is used in light, dark and system modes: white and black foundations with Blue Teal primary actions and main headings. Primary fills use #1F6E8C in light mode and #2E8A99 in dark mode. Dark links use the lighter #65BBC7 for readable contrast. Secondary, success, warning and danger fills adapt with the shared role tokens in `tokens/roles.json`. Select one of eight coordinated colour families once on a parent:
 
 ```html
 <html data-theme="auto" data-palette="ocean">
 ```
 
-Accepted palettes: `mono`, `sand`, `ocean`, `cobalt`, `citrus`, `violet`, `forest`. They supply page and surface colours, text, links, borders and primary actions. Semantic success, warning and error colours retain their meanings. Glass uses the same palette tokens; load the optional glass extension as usual.
+Accepted palettes: `default`, `mono`, `sand`, `ocean`, `cobalt`, `citrus`, `violet`, `forest`. Mono remains an optional palette with monochrome primary actions and links. They supply page and surface colours, text, links, borders and primary actions. Semantic success, warning and error colours retain their meanings. Glass uses the same palette tokens; load the optional glass extension as usual.
 
 A nearer palette installs a complete colour set. On the same element, explicit `data-accent` overrides the primary stops and their foreground; `data-tone` overrides surfaces while preserving palette foregrounds and links. Omitted accent and tone settings follow the selected palette. Theme, material and other shared options inherit independently. Scoped builds accept palettes on `.reva` boundaries. [Compare palettes and HTML examples](https://eristavi.github.io/RevaCSS/themes/palettes/).
 

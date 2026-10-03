@@ -1,6 +1,7 @@
 {
   "palette": {
     "values": [
+      "default",
       "mono",
       "sand",
       "ocean",
@@ -9,7 +10,7 @@
       "violet",
       "forest"
     ],
-    "default": "mono",
+    "default": "default",
     "scope": "Inherited; applies to supported targets",
     "affects": "Coordinated page, surface, foreground, border, link and primary colours. Light/dark follows data-theme. Success, warning and error colours stay semantic."
   },

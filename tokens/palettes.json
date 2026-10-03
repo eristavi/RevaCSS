@@ -1,5 +1,5 @@
 {
-  "mono": {
+  "default": {
     "light": {
       "bg": "#FAFAFA",
       "surface": "#FFFFFF",
@@ -23,6 +23,34 @@
       "line": "#414141",
       "primary-end": "#57ACB8",
       "link": "#65BBC7",
+      "muted": "#BEBEBE",
+      "control-line": "#929292"
+    }
+  },
+  "mono": {
+    "light": {
+      "bg": "#FAFAFA",
+      "surface": "#FFFFFF",
+      "text": "#111111",
+      "surface-alt": "#EDEDED",
+      "primary": "#111111",
+      "on-primary": "#FFFFFF",
+      "line": "#D4D4D4",
+      "primary-end": "#000000",
+      "link": "#111111",
+      "muted": "#4C4C4C",
+      "control-line": "#7C7C7C"
+    },
+    "dark": {
+      "bg": "#101010",
+      "surface": "#191919",
+      "text": "#F5F5F5",
+      "surface-alt": "#292929",
+      "primary": "#F5F5F5",
+      "on-primary": "#111111",
+      "line": "#414141",
+      "primary-end": "#DEDEDE",
+      "link": "#F5F5F5",
       "muted": "#BEBEBE",
       "control-line": "#929292"
     }
