@@ -29,7 +29,10 @@ for(const [key,values] of Object.entries(demoOptions)) for(const value of values
 function liveMaterial(source,names) {
   for(const name of names) {
     const original=`@scope ([data-material="${name}"], :scope[data-material="${name}"])`;
-    source=source.replaceAll(original,`@scope (${scope('material',name)}, [data-material="${name}"], :scope[data-material="${name}"])`);
+    // Inner scope roots are relative to the outer workbench scope. Repeating
+    // .demo-workbench here would look for a second nested workbench.
+    const previewRoot=`:scope:has(#demo-material-${name}:checked) .demo-preview`;
+    source=source.replaceAll(original,`@scope (${previewRoot}, [data-material="${name}"], :scope[data-material="${name}"])`);
   }
   return `@scope (.demo-workbench) { ${source} }\n`;
 }
