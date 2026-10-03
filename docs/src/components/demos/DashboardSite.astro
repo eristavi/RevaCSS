@@ -1,7 +1,9 @@
 ---
 import TopMenu from '../TopMenu.astro';
+import DashboardSidebar from './DashboardSidebar.astro';
 import catalog from '../../../../src/icons/catalog.json';
-const {base='/'}=Astro.props;
+const {base='/',embedded=true}=Astro.props;
+const Content=embedded?'section':'main';
 const icon=name=>`<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${catalog.find(item=>item.name===name).body}</svg>`;
 const months=['Apr','May','Jun','Jul','Aug','Sep'];
 const revenue=[28400,32100,29700,36800,39200,42500];
@@ -14,23 +16,19 @@ const projects=[
 ];
 const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
 ---
-<div class="dash-shell container">
-  <aside class="dash-sidebar" aria-label="Workspace sidebar">
-    <a class="dash-brand" href="#dashboard-title">forma<span>.</span></a>
-    <p class="dash-workspace">Studio workspace <span class="badge">Demo</span></p>
-    <nav aria-label="Dashboard sections" class="dash-nav">
-      <a href="#dashboard-title"><Fragment set:html={icon('home')}/>Overview</a>
-      <a href="#dashboard-revenue"><Fragment set:html={icon('calendar')}/>Performance</a>
-      <a href="#dashboard-projects"><Fragment set:html={icon('folder')}/>Projects <span class="badge">4</span></a>
-      <a href="#dashboard-activity"><Fragment set:html={icon('clock')}/>Activity</a>
-    </nav>
-    <article class="card dash-note"><p class="dash-eyebrow">A LITTLE MORE FOCUS</p><h2>Room for good work.</h2><p>A clear view of your team’s next steps.</p><a href={base+'demos/marketing/'}>Explore Forma <span aria-hidden="true">↗</span></a></article>
-    <div class="row dash-profile"><span class="avatar" aria-hidden="true">AM</span><div><strong>Alex Morgan</strong><small>Workspace admin</small></div></div>
+<div class="app-shell">
+  <aside aria-label="Workspace sidebar"><DashboardSidebar base={base}/></aside>
+  <aside id="dashboard-sidebar" popover="auto" aria-label="Workspace drawer">
+    <button type="button" popovertarget="dashboard-sidebar" popovertargetaction="hide">Close sidebar</button>
+    <DashboardSidebar base={base}/>
   </aside>
-  <div class="dash-main stack">
+  <header>
+    <button type="button" popovertarget="dashboard-sidebar">Menu</button>
     <TopMenu id="dashboard" label="Dashboard navigation" brand="Workspace overview" brandHref="#dashboard-title" current="none" items={[{key:'projects',label:'Projects',href:'#dashboard-projects'},{key:'activity',label:'Activity',href:'#dashboard-activity'}]}>
       <a slot="actions" class="button outline" href="#dashboard-report">View report <Fragment set:html={icon('arrow-right')}/></a>
     </TopMenu>
+  </header>
+  <Content aria-label="Dashboard content">
     <header class="dash-heading row justify-between"><div><p class="dash-eyebrow">YOUR WORK, AT A GLANCE</p><h1 id="dashboard-title">A little clarity goes a long way.</h1><p>Welcome back, Alex. Here’s how September came together.</p></div><span class="badge">September 2026</span></header>
     <section class="dash-metrics" aria-label="September metrics">
       <article class="card dash-metric"><h2>Total revenue</h2><strong class="dash-value">€42,500</strong><p class="dash-comparison"><span>↑ 8.4%</span> versus August</p><small>Recognised revenue this month</small></article>
@@ -57,5 +55,5 @@ const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
     <section class="card" id="dashboard-projects" aria-labelledby="projects-heading"><header class="row justify-between"><div><p class="dash-eyebrow">KEEP THE NEXT STEP CLOSE</p><h2 id="projects-heading">Projects in focus</h2></div><span class="badge">4 highlighted projects</span></header><div class="table-scroll" tabindex="0" role="region" aria-label="Projects table"><table><caption>Sample projects · progress and upcoming deadlines</caption><thead><tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Progress</th><th scope="col">Due</th></tr></thead><tbody>{projects.map(project=><tr><th scope="row">{project.name}</th><td><span class="row dash-owner"><span class="avatar" aria-hidden="true">{project.initials}</span>{project.owner}</span></td><td><span class="badge" data-variant={project.variant}>{project.status}</span></td><td><div class="dash-progress"><progress value={project.progress} max="100" aria-label={`${project.name} completion`}>{project.progress}%</progress><span>{project.progress}%</span></div></td><td><time datetime={project.date}>{project.due}</time></td></tr>)}</tbody></table></div></section>
     <div class="dash-bottom"><section class="card" id="dashboard-activity" aria-labelledby="activity-heading"><p class="dash-eyebrow">THE SMALL STEPS ADD UP</p><h2 id="activity-heading">Latest activity</h2><ol class="dash-activity"><li><span class="avatar" aria-hidden="true">SR</span><div><strong>Sam shared the workspace refresh.</strong><p>Ready for the team’s review.</p><small>October 3 · 09:40</small></div></li><li><span class="avatar" aria-hidden="true">JC</span><div><strong>Jamie welcomed two new partners.</strong><p>Onboarding has started.</p><small>October 3 · 08:15</small></div></li><li><span class="avatar" aria-hidden="true">TR</span><div><strong>Taylor completed the September report.</strong><p>The month’s results are ready.</p><small>October 2 · 16:30</small></div></li></ol></section><section class="card dash-summary" aria-labelledby="next-heading"><p class="dash-eyebrow">LOOKING AHEAD</p><h2 id="next-heading">A good week starts with a clear plan.</h2><p>The workspace refresh is ready for review. Make room for feedback before Thursday.</p><a class="button" href="#dashboard-projects">Review the projects <Fragment set:html={icon('arrow-right')}/></a><p><small>All names, figures and activity are fictional demonstration data.</small></p></section></div>
     <footer class="dash-footer row justify-between"><small>Forma Studio · Sample workspace</small><a href={base+'reference/components/'}>Built with RevaCSS</a></footer>
-  </div>
+  </Content>
 </div>

@@ -1,4 +1,35 @@
 export const topics = [
+{
+  "slug": "app-shell",
+  "title": "Sidebar and app shell",
+  "intro": "One app-shell class arranges a native aside, header and main. Sidebar links, expandable groups and profile regions use semantic HTML, with inherited theme styling and zero browser JavaScript.",
+  "notes": [
+    "Use .app-shell on one wrapper. Direct aside, header and main children identify the regions. No shell-header, sidebar-item or sidebar-link classes are required. A direct section can replace main when the shell is embedded inside a document that already has a main landmark.",
+    "At 60rem and wider the desktop aside occupies the left column, with a sticky, independently scrollable sidebar. Below 60rem the header and content form one column; a separate aside[popover=auto] provides a viewport-bounded drawer. The layout uses viewport media queries, including when embedded in a demo.",
+    "The desktop sidebar and mobile drawer share navigation content through your template. Keep destinations consistent and use unique IDs for every drawer and any repeated form controls. The shell itself needs only one class; a standalone aside.sidebar needs one class when used without the shell.",
+    "Only the direct sidebar nav is styled. Native details/summary handles expandable groups at any depth, aria-current=page marks the current destination, and ordinary anchors navigate. Label navigation landmarks; retain native Tab, Enter, Space and Escape behaviour.",
+    "Use a direct header button with popovertarget matching the drawer id, and a drawer close button with popovertargetaction=hide. Direct header popover buttons are reserved for the mobile drawer; put other header popover controls inside a group. Native popover support is required.",
+    "The drawer is non-modal: it does not trap focus, make the page inert or lock body scrolling. Outside-click and Escape dismiss it natively. In-page links do not automatically close it. Closing and focus restoration follow native browser behaviour. Resizing to desktop hides an open drawer; returning to mobile can restore its open state.",
+    "Palette, material, shape, density, depth, border, size and motion inherit from html or a parent. No data-sidebar preset is needed in this first version. data-navbar still configures only top menus. Glass and Veil modules include sidebar and shell-header surfaces with their existing accessibility fallbacks.",
+    "Load tokens, base and reva.app-shell.css for modular use, or use the complete/components/scoped builds. --re-sidebar-width defaults to 16rem; mobile width remains viewport-bounded. More contrast and forced colours retain boundaries; reduced motion disables chevron transitions. Print omits navigation and keeps content."
+  ],
+  "examples": [
+    {
+      "id": "responsive-shell",
+      "title": "One-class responsive app shell",
+      "description": "Resize this isolated preview: desktop sidebar becomes a Menu button and native drawer below 60rem. Expand Settings, then Team.",
+      "html": "<div class=\"app-shell\">\n  <aside aria-label=\"Desktop workspace navigation\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <aside id=\"workspace-drawer\" popover=\"auto\" aria-label=\"Mobile workspace navigation\">\n    <button type=\"button\" popovertarget=\"workspace-drawer\" popovertargetaction=\"hide\">Close sidebar</button>\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n  </aside>\n  <header>\n    <button type=\"button\" popovertarget=\"workspace-drawer\">Menu</button>\n    <strong>Workspace overview</strong>\n  </header>\n  <main id=\"overview\">\n    <h1>Overview</h1>\n    <p>Your application content goes here.</p>\n    <section id=\"projects\"><h2>Projects</h2><p>Reusable layout, native navigation, shared theme.</p></section>\n    <section id=\"general\"><h2>General settings</h2><p>A real application supplies settings forms.</p></section>\n    <section id=\"members\"><h2>Team members</h2><p>A real application supplies member records.</p></section>\n  </main>\n</div>",
+      "isolated": true,
+      "isolatedHeight": 480
+    },
+    {
+      "id": "standalone-sidebar",
+      "title": "Sidebar outside an app shell",
+      "description": "One sidebar class establishes the same native navigation styling without the surrounding application layout.",
+      "html": "<aside class=\"sidebar\" aria-label=\"Workspace sidebar\">\n<header><a href=\"#overview\">Studio</a><small>Team workspace</small></header>\n<nav aria-label=\"Workspace navigation\">\n  <a href=\"#overview\" aria-current=\"page\">Overview</a>\n  <a href=\"#projects\">Projects</a>\n  <details>\n    <summary>Settings</summary>\n    <a href=\"#general\">General</a>\n    <details><summary>Team</summary><a href=\"#members\">Members</a></details>\n  </details>\n</nav>\n<footer><strong>Alex Morgan</strong><br><small>Workspace admin</small></footer>\n</aside>"
+    }
+  ]
+},
   {
     "slug": "dropdowns",
     "title": "Dropdowns",

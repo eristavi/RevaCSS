@@ -7,5 +7,5 @@ const {config,assetBase}=Astro.props;
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Forma Studio · RevaCSS dashboard demo</title><meta name="description" content="A fictional team workspace dashboard built with native HTML, CSS and SVG."/>
 {['reva-fonts.css','reva.css','reva.motion.css','reva.glass.css','reva.veil.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}
 <link rel="stylesheet" href={assetBase+'demos/dashboard.css'}/></head>
-<body class="dash-site"><a class="skip-link" href="#dashboard-title">Skip to dashboard</a><main><DashboardSite base={assetBase}/></main></body>
+<body class="dash-site"><a class="skip-link" href="#dashboard-title">Skip to dashboard</a><DashboardSite base={assetBase} embedded={false}/></body>
 </html>

@@ -26,6 +26,7 @@ export const componentGroups = [
     "key": "navigation",
     "title": "Navigation and disclosure",
     "slugs": [
+      "app-shell",
       "top-menu",
       "dropdowns",
       "breadcrumbs",
@@ -58,6 +59,12 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "app-shell": [
+    ".app-shell > aside, header, main; standalone aside.sidebar",
+    "Native nav links, details/summary and aria-current; unique drawer id with popover=auto and popovertarget.",
+    "reva.app-shell.css",
+    "Responsive at 60rem. Mobile drawer is a non-modal native popover, with outside-click/Escape dismissal and ordinary Tab navigation. Applications supply destinations and data."
+  ],
   "dropdowns": [
     "ul.dropdown[popover=auto] > li > a or button",
     "Unique id and native popovertarget; role=list and a panel label.",
