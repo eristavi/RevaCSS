@@ -227,9 +227,11 @@
   @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
 
   :where(.top-menu .menu-desktop) { anchor-scope: --re-nav-highlight; }
-  :where(.top-menu .menu-desktop) { position: relative; }
+  /* Contiguous item hit areas preserve the glide while crossing the old gap. */
+  :where(.top-menu .menu-desktop) { position: relative; gap: 0; }
+  :where(.top-menu .menu-desktop > li) { padding-inline: .125rem; }
   :where(.top-menu .menu-desktop)::after {
-    content: ""; position: absolute; position-anchor: --re-nav-highlight;
+    content: ""; display: none; position: absolute; position-anchor: --re-nav-highlight;
     inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
     top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
     background: var(--re-primary); border-radius: 999px;
@@ -239,13 +241,15 @@
       top var(--re-duration, 140ms) ease;
   }
 
+    /* First entry is displayed at its resolved anchor without an entry transition.
+       Subsequent item changes transition the already rendered highlight. */
     /* Preserve the root branch anchor used to position its dropdown panels. */
-    :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover)) > li > a[aria-current=page],
+    :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li:hover > :is(a, button):not(:disabled))) > li > a[aria-current=page],
       .top-menu .menu-desktop > li > :is(a, button):focus-visible,
-      .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li > :is(a, button):not(:disabled):hover) {
+      .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li:hover > :is(a, button):not(:disabled)) {
       anchor-name: var(--re-menu-branch-anchor, --re-unused-navigation-anchor), --re-nav-highlight;
     }
-    :where(.top-menu .menu-desktop:has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li > :is(a, button):not(:disabled):hover))::after { opacity: 1; }
+    :where(.top-menu .menu-desktop:has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li:hover > :is(a, button):not(:disabled)))::after { display: block; opacity: 1; }
   }
 }
 @layer re.utilities {
