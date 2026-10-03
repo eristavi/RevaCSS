@@ -20,7 +20,7 @@
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
---re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px;
+--re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px; --re-accordion-closed-opacity: 1;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-success: #237a50; --re-success-end: #145434;
@@ -77,9 +77,9 @@
 :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-shadow: none; }
 :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); }
 :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-shadow: 0 8px 24px rgb(0 0 0 / 18%); }
-:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; }
-:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; }
-:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; }
+:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; --re-accordion-closed-opacity: 1; }
+:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; --re-accordion-closed-opacity: 1; }
+:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; --re-accordion-closed-opacity: 0; }
 :where([data-type="compact"], :scope[data-type="compact"]) { --re-type: .9375rem; }
 :where([data-type="standard"], :scope[data-type="standard"]) { --re-type: 1rem; }
 :where([data-type="large"], :scope[data-type="large"]) { --re-type: 1.125rem; }
@@ -424,8 +424,57 @@
 @layer re.components {
   :where(.accordion) { display: grid; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
   :where(.accordion > details) { margin-block: 0; min-inline-size: 0; }
-  :where(.accordion > details > summary) { font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.accordion > details > summary) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--re-space);
+    list-style: none;
+    font-size: calc(1em * var(--re-control-scale, 1));
+  }
+  :where(.accordion > details > summary)::-webkit-details-marker { display: none; }
+  :where(.accordion > details > summary)::after {
+    content: "";
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    margin-inline-end: .2em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--re-duration, 140ms) ease;
+  }
+  :where(.accordion > details[open] > summary)::after { transform: rotate(225deg); }
   :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
+
+  /* Enhance native disclosure without wrappers or a guessed maximum height. */
+  @supports selector(::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    :where(.accordion > details > summary) { margin-block-end: 0; }
+    :where(.accordion > details)::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      padding-block-start: 0;
+      overflow: clip;
+      overflow-clip-margin: .25rem;
+      opacity: var(--re-accordion-closed-opacity, 1);
+      transition:
+        block-size var(--re-duration, 140ms) ease,
+        padding-block-start var(--re-duration, 140ms) ease,
+        opacity var(--re-duration, 140ms) ease,
+        content-visibility var(--re-duration, 140ms) allow-discrete;
+    }
+    :where(.accordion > details[open])::details-content {
+      block-size: auto;
+      padding-block-start: var(--re-space);
+      opacity: 1;
+    }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(.accordion > details > summary)::after { transition: none; }
+    :where(.accordion > details)::details-content { transition: none; opacity: 1; }
+  }
 }
 /* Ordered navigation; separators are decorative, not spoken text. */
 @layer re.components {

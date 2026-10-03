@@ -85,7 +85,7 @@
       ],
       "default": "subtle",
       "scope": "Inherited; applies to supported targets",
-      "affects": "Action transitions, press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned."
+      "affects": "Action transitions, accordion expansion and chevron rotation (expressive adds a fade), press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned."
     },
     "type": {
       "values": [

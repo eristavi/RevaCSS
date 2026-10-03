@@ -405,11 +405,12 @@ export const topics = [
     "slug": "accordions",
     "title": "Accordions",
     "glass": true,
-    "intro": "Native details and summary elements provide the interaction. One accordion wrapper arranges the group; theme, shape, density, spacing, borders, depth and material inherit from the parent.",
+    "intro": "Native details and summary elements provide the interaction. One accordion wrapper arranges the group; theme, shape, density, spacing, borders, depth, material and motion inherit from the parent.",
     "notes": [
-      "Keep summary as the first child of details. Its native marker and keyboard behavior remain intact; do not add button roles or manually maintained aria-expanded attributes.",
+      "Keep summary as the first child of details. A rotating CSS chevron replaces the visual marker; native keyboard behavior remains intact; do not add button roles or manually maintained aria-expanded attributes.",
       "Omit name to allow multiple items to stay open. Give details a shared, unique name for native exclusive groups. Browsers without exclusive-group support still provide independent disclosure toggles. Names are document-wide, so separate accordion instances need different names.",
-      "Use open on at most one item in an exclusive group. CSS does not add custom arrow-key navigation, opening animations or force collapsed content to print."
+      "Use open on at most one item in an exclusive group. CSS does not add custom arrow-key navigation or force collapsed content to print.",
+      "Motion is included in the core and accordion module: none opens instantly, subtle expands and rotates the chevron over 140ms, and expressive adds a content fade over 240ms. Height transitions require ::details-content, interpolate-size and discrete transitions; other browsers use instant native disclosure. Reduced-motion preferences disable transitions."
     ],
     "examples": [
       {
@@ -423,6 +424,12 @@ export const topics = [
         "title": "One item open at a time",
         "description": "Matching name attributes request an exclusive group. Use a different name for every group in your document.",
         "html": "<div class=\"accordion\">\n  <details name=\"account-faq\" open>\n    <summary>How do I create an account?</summary>\n    <p>Complete the registration form.</p>\n  </details>\n  <details name=\"account-faq\">\n    <summary>How do I change my details?</summary>\n    <p>Open your profile settings.</p>\n  </details>\n</div>"
+      },
+      {
+        "id": "accordion-motion",
+        "title": "Inherited motion intensity",
+        "description": "Choose motion once on a parent. Open and close each section to compare instant, subtle and expressive behaviour. Reduced motion wins; browsers without intrinsic-size transitions retain native disclosure.",
+        "html": "<section data-motion=\"none\">\n  <h3>None</h3>\n  <div class=\"accordion\">\n    <details>\n      <summary>How does none motion work?</summary>\n      <p>The content and indicator change immediately.</p>\n      <p>The browser owns the open state and keyboard behaviour.</p>\n    </details>\n  </div>\n</section>\n<section data-motion=\"subtle\">\n  <h3>Subtle</h3>\n  <div class=\"accordion\">\n    <details>\n      <summary>How does subtle motion work?</summary>\n      <p>Content expands smoothly and the indicator rotates.</p>\n      <p>The browser owns the open state and keyboard behaviour.</p>\n    </details>\n  </div>\n</section>\n<section data-motion=\"expressive\">\n  <h3>Expressive</h3>\n  <div class=\"accordion\">\n    <details>\n      <summary>How does expressive motion work?</summary>\n      <p>Content expands with a gentle fade and a rotating indicator.</p>\n      <p>The browser owns the open state and keyboard behaviour.</p>\n    </details>\n  </div>\n</section>"
       },
       {
         "id": "accordion-glass",
