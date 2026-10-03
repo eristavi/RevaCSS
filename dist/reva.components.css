@@ -1226,8 +1226,8 @@
       display: var(--re-edge-display, block);
       position: absolute;
       inset: calc(-1 * var(--re-surface-border));
-      /* Two border widths keep the accent readable without changing layout. */
-      padding: calc(2 * var(--re-surface-border));
+      /* Paint exactly the existing border width; preserve its outer edge. */
+      padding: var(--re-surface-border);
       border-radius: inherit;
       pointer-events: none;
       background: conic-gradient(from var(--re-edge-angle, 45deg),

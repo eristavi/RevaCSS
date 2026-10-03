@@ -10,7 +10,7 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} edge
  const root=build==='scoped'?'main':'html';
  const before=await page.locator('#action').boundingBox();expect(await pseudo(page,'#action','content')).toBe('none');
  await page.locator(root).evaluate(el=>{el.dataset.edge='animated';el.dataset.shape='pill';el.dataset.border='defined';el.dataset.accent='teal';});
- for(const id of ['action','link','card']) {expect(await pseudo(page,'#'+id,'content')).toBe('""');expect(await pseudo(page,'#'+id,'animation-name')).toBe('re-edge-turn');expect(await pseudo(page,'#'+id,'padding-top')).toBe('4px');expect(await pseudo(page,'#'+id,'pointer-events')).toBe('none');expect(await pseudo(page,'#'+id,'mask-composite')).toContain('exclude');}
+ for(const id of ['action','link','card']) {expect(await pseudo(page,'#'+id,'content')).toBe('""');expect(await pseudo(page,'#'+id,'animation-name')).toBe('re-edge-turn');expect(await pseudo(page,'#'+id,'padding-top')).toBe('2px');expect(await pseudo(page,'#'+id,'pointer-events')).toBe('none');expect(await pseudo(page,'#'+id,'mask-composite')).toContain('exclude');}
  expect(await pseudo(page,'#action','border-top-left-radius')).toBe('999px');expect(await pseudo(page,'#card','border-top-left-radius')).toBe('24px');
  expect(await pseudo(page,'#plain','content')).toBe('none');expect(await pseudo(page,'#disabled','animation-name')).toBe('none');
  if(build==='scoped') expect(await pseudo(page,'#outside','content')).toBe('none');
