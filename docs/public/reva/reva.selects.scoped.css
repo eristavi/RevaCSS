@@ -32,7 +32,7 @@
       :where(option:enabled:hover, option:enabled:focus) { background: var(--re-surface-alt); }
       :where(option:checked) { font-weight: 650; background: var(--re-surface-alt); }
       :where(option:disabled) { color: var(--re-muted); cursor: not-allowed; }
-      :where(option:focus-visible) { outline: 2px solid var(--re-text); outline-offset: -2px; }
+      :where(option:focus-visible) { outline: 2px solid var(--re-palette-link, var(--re-link)); outline-offset: -2px; }
       :where(optgroup) { font: inherit; font-weight: 650; color: var(--re-muted); }
     }
   }

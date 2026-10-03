@@ -15,7 +15,7 @@
   :where(p,li,dd) { overflow-wrap: anywhere; }
   :where(a) { color: var(--re-link); text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: .08em; }
   :where(a:hover) { text-decoration-thickness: .14em; }
-  :where(:focus-visible) { outline: 3px solid var(--re-text); outline-offset: 4px; scroll-margin-block: 5rem; }
+  :where(:focus-visible) { outline: 2px solid var(--re-palette-link, var(--re-link)); outline-offset: 2px; scroll-margin-block: 5rem; }
   :where(strong,b,dt) { font-weight: 700; }
   :where(small,figcaption) { font-size: .875em; }
   :where(figcaption) { color: var(--re-muted); margin-block-start: .5em; }
