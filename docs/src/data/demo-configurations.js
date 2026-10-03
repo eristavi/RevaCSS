@@ -5,7 +5,7 @@ export const demoOptions = {
   material: ['solid', 'glass', 'veil'],
   shape: ['square', 'subtle', 'rounded', 'pill']
 };
-export const defaultDemo = { theme: 'light', palette: 'mono', material: 'solid', shape: 'rounded' };
+export const defaultDemo = { theme: 'auto', palette: 'mono', material: 'solid', shape: 'rounded' };
 export const configurationKey = config => Object.keys(demoOptions).map(key => config[key]).join('/');
 export const demoConfigurations = demoOptions.theme.flatMap(theme =>
   demoOptions.palette.flatMap(palette => demoOptions.material.flatMap(material =>

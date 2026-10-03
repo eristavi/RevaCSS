@@ -10,7 +10,7 @@ import {dashboardSource} from '../../../data/dashboard-source.js';
 const base=import.meta.env.BASE_URL;
 const source=await dashboardSource(defaultDemo);
 ---
-<Layout title="Dashboard demo" current="dashboard-demo" theme="light" fullWidth>
+<Layout title="Dashboard demo" current="dashboard-demo" theme="auto" fullWidth>
   <Fragment set:html={`<style>${advancedCSS}</style>`}/>
   <link rel="stylesheet" href={stylesheet('reva.glass.css')}/><link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={base+'demos/dashboard.css'}/>
   <div class="container"><p class="doc-kicker">REVACSS / COMPLETE WEBSITES</p><h1>A clearer view of your workspace.</h1><p class="doc-lead">A responsive dashboard with metrics, native SVG charts, project progress and activity. Explore the same shared defaults as the marketing demo.</p></div>
