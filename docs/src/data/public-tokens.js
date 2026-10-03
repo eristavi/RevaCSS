@@ -114,7 +114,7 @@ export const publicTokens = [
     "Material",
     "--re-glass-opacity",
     "Percentage",
-    "Glass surfaces; 70% default"
+    "Glass surfaces; 32% default"
   ],
   [
     "Material",
@@ -124,9 +124,15 @@ export const publicTokens = [
   ],
   [
     "Material",
+    "--re-glass-shadow",
+    "Shadow list or none",
+    "Glass elevation and rim shadows; follows shared data-depth"
+  ],
+  [
+    "Material",
     "--re-glass-filter",
     "Filter value",
-    "blur(16px) default"
+    "blur(12px) saturate(145%) default"
   ],
   [
     "Assets",

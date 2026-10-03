@@ -2,7 +2,7 @@
 /* Optional material extension. Load after the matching global or scoped core. */
 @layer re.tokens {
   :where([data-contrast="more"], :scope[data-contrast="more"]) { --re-glass-opacity: 100%; --re-glass-button-opacity: 100%; --re-glass-filter: none; }
-  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 70%; --re-glass-button-opacity: 90%; --re-glass-filter: blur(16px); }
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-glass-opacity: 32%; --re-glass-button-opacity: 90%; --re-glass-filter: blur(12px) saturate(145%); }
 }
 @layer re.components {
   @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
@@ -40,8 +40,8 @@
         background-image: linear-gradient(to bottom, transparent,
           color-mix(in srgb, var(--re-glass-button-end) calc(var(--re-gradient) * 28%), transparent));
         border-block-start-color: color-mix(in srgb, currentColor 32%, transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
       :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
         --re-glass-button-fill: var(--re-surface);
@@ -50,17 +50,27 @@
       :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) { border-block-start-color: currentColor; }
       :where(button.ghost, input:is([type=button],[type=submit],[type=reset]).ghost, .button.ghost, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).ghost):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) { border-block-start-color: transparent; }
       :where(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
-        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 70%), transparent);
-        background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 6%), transparent), transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 32%), transparent);
+        background-image: linear-gradient(135deg,
+          rgb(255 255 255 / calc(var(--re-gradient) * 14%)),
+          transparent 42%, rgb(0 0 0 / calc(var(--re-gradient) * 4%)));
+        border-block-start-color: color-mix(in srgb, var(--re-line) 45%, rgb(255 255 255 / 55%));
+        border-block-end-color: color-mix(in srgb, var(--re-line) 65%, rgb(0 0 0 / 15%));
+        box-shadow: var(--re-glass-shadow, var(--re-shadow));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
       @media (width >= 48rem) {
         :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
-          background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 70%), transparent);
-          background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-surface) calc(var(--re-gradient) * 6%), transparent), transparent);
-          -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-          backdrop-filter: var(--re-glass-filter, blur(16px));
+          background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 32%), transparent);
+          background-image: linear-gradient(135deg,
+          rgb(255 255 255 / calc(var(--re-gradient) * 14%)),
+          transparent 42%, rgb(0 0 0 / calc(var(--re-gradient) * 4%)));
+        border-block-start-color: color-mix(in srgb, var(--re-line) 45%, rgb(255 255 255 / 55%));
+        border-block-end-color: color-mix(in srgb, var(--re-line) 65%, rgb(0 0 0 / 15%));
+        box-shadow: var(--re-glass-shadow, var(--re-shadow));
+          -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+          backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
         }
       }
     }
@@ -97,6 +107,8 @@
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
         background-image: none;
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
@@ -109,6 +121,8 @@
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
         background-image: none;
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
@@ -121,6 +135,8 @@
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
         background-image: none;
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
@@ -133,6 +149,8 @@
         /* Opaque preference paint must not depend on a local alpha override. */
         background-color: var(--re-surface);
         background-image: none;
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
@@ -202,8 +220,8 @@
       :where(.badge, :scope.badge):where(:not([data-material="solid"])) {
         background-color: color-mix(in srgb, var(--re-badge-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
         background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-badge-fill-end) calc(var(--re-gradient) * 6%), transparent), transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
     }
   }
@@ -216,8 +234,8 @@
       :where(.alert, :scope.alert):where(:not([data-material="solid"])) {
         background-color: color-mix(in srgb, var(--re-alert-glass-fill) var(--re-glass-button-opacity, 90%), transparent);
         background-image: linear-gradient(135deg, color-mix(in srgb, var(--re-alert-fill-end) calc(var(--re-gradient) * 6%), transparent), transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
     }
   }
@@ -229,8 +247,8 @@
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.pagination > ol > li > :is(a,span)) {
         background-color: color-mix(in srgb, var(--re-pagination-fill) var(--re-glass-button-opacity, 90%), transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
     }
   }
@@ -242,8 +260,8 @@
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.list-group > li, .tabs > label) {
         background-color: color-mix(in srgb, var(--re-choice-fill, var(--re-surface)) var(--re-glass-button-opacity, 90%), transparent);
-        -webkit-backdrop-filter: var(--re-glass-filter, blur(16px));
-        backdrop-filter: var(--re-glass-filter, blur(16px));
+        -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
     }
   }

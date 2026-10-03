@@ -145,7 +145,7 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
   <link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
   <p class="doc-kicker">THEMES / MATERIAL</p>
   <h1>Glass material</h1>
-  <p class="doc-lead">Frosted surfaces, coloured actions and a visible backdrop. Configure the material once on a parent, then build with native HTML and minimal component classes.</p>
+  <p class="doc-lead">Translucent surfaces with directional highlights, soft elevation and a visible backdrop. Configure the material once on a parent, then build with native HTML and minimal component classes.</p>
 
   <section id="material-preview" class="material-preview" data-theme="dark" data-material="glass" data-accent="teal" data-shape="rounded" aria-label="Dark glass material preview">
     <div class="preview-intro">
@@ -158,10 +158,11 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
       <span class="badge" data-variant="success">Ready to build</span>
       <h3>Native by design</h3>
       <p>One shared material. Your existing theme, accent and shape.</p>
-      <dl><dt>Surface backing</dt><dd>70%</dd><dt>Action backing</dt><dd>90%</dd><dt>Backdrop blur</dt><dd>16px</dd></dl>
+      <dl><dt>Surface backing</dt><dd>32%</dd><dt>Action backing</dt><dd>90%</dd><dt>Backdrop blur</dt><dd>12px + 145% saturation</dd></dl>
       <a href="#glass-example">See the HTML below</a>
     </article>
   </section>
+  <p>Glass surfaces now use 32% tint with 12px blur and 145% saturation. Directional highlights and inset rim lighting suggest thickness without changing the HTML. Shared <code>data-depth</code> selects flat, subtle or pronounced elevation; <code>data-border</code> still controls border width and <code>data-fill</code> controls the decorative surface sheen. Buttons and small status surfaces retain 90% backing in this first refinement; text controls retain their existing backing.</p>
   <p class="preview-caption">This preview sets dark colours locally. The examples below show light, dark and solid exceptions.</p>
   <div class="preview-links" role="group" aria-label="Full glass previews">
     <a href={base+'preview/glass/light/'}>Light preview</a>
@@ -183,7 +184,7 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
     <h2>Component coverage</h2>
     <div class="table-scroll" role="region" aria-label="Glass material coverage" tabindex="0">
       <table><caption>What changes when the parent uses glass</caption><thead><tr><th scope="col">Components</th><th scope="col">Material treatment</th></tr></thead><tbody>
-        <tr><th scope="row">Cards, fieldsets, details, dialogs and popovers</th><td>Frosted surface backing and blur. Surface opacity defaults to 70%.</td></tr>
+        <tr><th scope="row">Cards, fieldsets, details, dialogs and popovers</th><td>Frosted surface backing and blur. Surface opacity defaults to 32%.</td></tr>
         <tr><th scope="row">Top navigation, its panels and standalone dropdown panels</th><td>Frosted surfaces. Menu toggles and dropdown rows keep neutral navigation styling.</td></tr>
         <tr><th scope="row">Buttons, .button links and native action inputs</th><td>Stronger coloured backing and blur. Action opacity defaults to 90%.</td></tr>
         <tr><th scope="row">Badges, alerts, pagination items, list items and choice-panel labels</th><td>Stronger backing and blur, with their existing states and semantic variants.</td></tr>
@@ -206,9 +207,10 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
   </section>
   <Example id="glass-customisation" title="7. Adjust only what you need" description="Defaults are a starting point. This example increases surface and action backing instead of making the material more transparent." glass html={customisation}/>
   <div class="table-scroll" role="region" aria-label="Glass custom properties" tabindex="0"><table><thead><tr><th scope="col">Property</th><th scope="col">Default</th><th scope="col">Meaning</th></tr></thead><tbody>
-    <tr><th scope="row"><code>--re-glass-opacity</code></th><td>70%</td><td>Surface backing. Use a percentage, not a decimal alpha.</td></tr>
+    <tr><th scope="row"><code>--re-glass-opacity</code></th><td>32%</td><td>Surface backing. Use a percentage, not a decimal alpha.</td></tr>
     <tr><th scope="row"><code>--re-glass-button-opacity</code></th><td>90%</td><td>Action and supporting small-surface backing.</td></tr>
-    <tr><th scope="row"><code>--re-glass-filter</code></th><td>blur(16px)</td><td>Backdrop filter on supported glass surfaces.</td></tr>
+    <tr><th scope="row"><code>--re-glass-shadow</code></th><td>Shared subtle depth</td><td>Outer elevation and inset rim shadows. Follows data-depth; flat removes shadows.</td></tr>
+    <tr><th scope="row"><code>--re-glass-filter</code></th><td>blur(12px) saturate(145%)</td><td>Backdrop filter on supported glass surfaces.</td></tr>
   </tbody></table></div>
 
   <section id="fallbacks">
