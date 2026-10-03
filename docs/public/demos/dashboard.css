@@ -1,0 +1,78 @@
+/* Dashboard composition. Shared surfaces and controls remain owned by RevaCSS. */
+.dash-site { background: var(--re-bg); color: var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
+.dash-site [id] { scroll-margin-block-start:2rem; }
+.dash-shell { display:grid; grid-template-columns:14rem minmax(0,1fr); gap:clamp(1.25rem,3vw,3rem); padding-block:2rem; }
+.dash-sidebar { display:flex; flex-direction:column; gap:1.5rem; border-inline-end:1px solid var(--re-line); padding-inline-end:1.5rem; }
+.dash-brand { font-size:2.5rem; font-weight:800; letter-spacing:-.07em; color:var(--re-text); text-decoration:none; line-height:1; }
+.dash-brand span { color:var(--re-primary); }
+.dash-workspace { font-size:.8rem; margin:0; }
+.dash-nav { display:grid; gap:.4rem; }
+.dash-nav a { display:flex; gap:.7rem; align-items:center; padding:.65rem .8rem; border-radius:var(--re-radius); text-decoration:none; color:var(--re-text); min-block-size:2.75rem; }
+.dash-nav a:first-child { background:var(--re-surface-alt); font-weight:700; }
+.dash-nav a:hover { background:var(--re-surface-alt); }
+.dash-nav .badge { margin-inline-start:auto; }
+.dash-note { margin-block-start:1rem; font-size:.85rem; }
+.dash-note h2 { font-size:1.2rem; }
+.dash-profile { margin-block-start:auto; font-size:.8rem; }
+.dash-profile small { display:block; color:var(--re-muted); }
+.dash-main { gap:calc(var(--re-space) * 1.5); min-inline-size:0; }
+.dash-main .top-menu { padding:.6rem 1rem; }
+.dash-main .menu-brand { font-size:.85rem; }
+.dash-heading { gap:1rem; padding-block:.75rem; }
+.dash-heading h1 { font-size:clamp(1.7rem,2.7vw,2.65rem); margin:.25rem 0 .6rem; letter-spacing:-.045em; max-inline-size:24ch; }
+.dash-heading p { margin:0; }
+.dash-eyebrow { font-size:.65rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); margin-block:0 .4rem; }
+.dash-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--re-space); }
+.dash-metric { --re-card-padding:var(--re-space); }
+.dash-metric h2 { font-size:.8rem; font-weight:650; margin-block:0 .7rem; }
+.dash-value { display:block; font-size:clamp(1.7rem,2.4vw,2.4rem); line-height:1.15; letter-spacing:-.045em; }
+.dash-comparison { font-size:.75rem; margin-block:.8rem .4rem; }
+.dash-comparison span { color:var(--re-link); font-weight:750; }
+.dash-metric small { font-size:.7rem; color:var(--re-muted); }
+.dash-charts { display:grid; grid-template-columns:minmax(0,1.8fr) minmax(0,1fr); gap:var(--re-space); }
+.dash-main section > h2,.dash-main section > header h2 { font-size:1.1rem; margin-block:.25rem .8rem; }
+.dash-chart { margin:1.5rem 0; }
+.dash-chart svg { display:block; inline-size:100%; overflow:visible; }
+.dash-chart figcaption,.dash-donut figcaption { font-size:.75rem; color:var(--re-muted); }
+.dash-gridline line { stroke:var(--re-line); stroke-dasharray:3 5; }
+.dash-gridline text,.dash-axis { fill:var(--re-text); font-size:12px; }
+.dash-area { fill:var(--re-primary); fill-opacity:.12; }
+.dash-line { fill:none; stroke:var(--re-primary); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.dash-point { fill:var(--re-surface); stroke:var(--re-primary); stroke-width:2; }
+.dash-donut { text-align:center; margin:1rem 0; }
+.dash-donut svg { inline-size:min(100%,11rem); }
+.dash-segment { fill:none; stroke-width:22; transform:rotate(-90deg); transform-origin:80px 80px; }
+.dash-series-1 { --dash-series:var(--re-primary); }
+.dash-series-2 { --dash-series:color-mix(in srgb,var(--re-primary) 55%,var(--re-surface)); }
+.dash-series-3 { --dash-series:color-mix(in srgb,var(--re-primary) 25%,var(--re-surface)); }
+.dash-segment { stroke:var(--dash-series); }
+.dash-donut-value { fill:var(--re-text); font-size:19px; font-weight:750; }
+.dash-donut-label { fill:var(--re-text); font-size:7px; letter-spacing:.6px; }
+.dash-legend { margin:0; font-size:.8rem; }
+.dash-legend > div { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-block:.4rem; }
+.dash-legend dt { display:flex; align-items:center; gap:.6rem; font-weight:500; }
+.dash-legend dd { margin:0; font-weight:700; }
+.dash-swatch { inline-size:.65rem; block-size:.65rem; border-radius:50%; background:var(--dash-series); }
+.dash-main table { font-size:.8rem; }
+.dash-main table caption { font-size:.75rem; }
+.dash-main #dashboard-projects table { min-inline-size:40rem; }
+.dash-owner { flex-wrap:nowrap; gap:.5rem; }
+.dash-owner .avatar { inline-size:1.8rem; block-size:1.8rem; font-size:.65rem; }
+.dash-progress { display:flex; align-items:center; gap:.5rem; min-inline-size:6rem; }
+.dash-progress progress { inline-size:4rem; block-size:.45rem; }
+.dash-bottom { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:var(--re-space); }
+.dash-activity { list-style:none; padding:0; margin:0; }
+.dash-activity li { display:flex; gap:.8rem; padding-block:.8rem; border-block-end:1px solid var(--re-line); font-size:.8rem; }
+.dash-activity li:last-child { border:0; }
+.dash-activity .avatar { flex-shrink:0; }
+.dash-activity p { margin:0; }
+.dash-activity small { color:var(--re-muted); }
+.dash-summary { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+.dash-summary p { font-size:.85rem; }
+.dash-footer { color:var(--re-muted); font-size:.75rem; padding-block:1rem; }
+@media (width < 75rem) { .dash-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (width < 60rem) { .dash-shell { grid-template-columns:minmax(0,1fr); } .dash-sidebar { border:0; padding:0; } .dash-nav { grid-template-columns:repeat(4,minmax(0,1fr)); } .dash-nav a { font-size:.75rem; justify-content:center; } .dash-nav .badge,.dash-note,.dash-profile,.dash-workspace { display:none; } }
+@media (width < 42rem) { .dash-charts,.dash-bottom { grid-template-columns:minmax(0,1fr); } .dash-nav { grid-template-columns:repeat(2,minmax(0,1fr)); } .dash-heading h1 { max-inline-size:none; } .dash-main .menu-brand { max-inline-size:12ch; } }
+@media (prefers-reduced-motion:no-preference) { .dash-line { animation:dash-reveal 500ms ease-out both; } @keyframes dash-reveal { from { opacity:0; } to { opacity:1; } } }
+@media (forced-colors:active) { .dash-line,.dash-point,.dash-segment { stroke:CanvasText; } .dash-area { fill:CanvasText; } .dash-donut-value,.dash-donut-label,.dash-axis,.dash-gridline text { fill:CanvasText; } }
+@media print { .dash-sidebar,.dash-main .top-menu,.dash-footer { display:none; } .dash-shell { display:block; } .dash-charts,.dash-bottom { grid-template-columns:1fr; } .dash-main #dashboard-projects table { min-inline-size:0; } }

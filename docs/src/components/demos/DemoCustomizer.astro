@@ -1,7 +1,7 @@
 ---
 import {demoOptions, sourceHref} from '../../data/demo-configurations.js';
 import {advancedOptions,optionLabel} from '../../data/demo-advanced.js';
-const {config}=Astro.props;
+const {config,downloadHref,downloadName}=Astro.props;
 const base=import.meta.env.BASE_URL;
 const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'};
 ---
@@ -29,7 +29,7 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
       </form>
       <div class="configuration-summary">
         <pre tabindex="0" role="region" aria-label="Selected page attributes"><code>{'<html lang="en"'}{Object.entries(demoOptions).map(([key,values])=>values.map(value=><span class={`selected-attribute attribute-${key}-${value}`}>{`\n  data-${key}="${value}"`}</span>))}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
-        <div class="stack"><button type="button" popovertarget="demo-customizer-popup" popovertargetaction="hide">View the website</button><a href={sourceHref(base,config)} download={`forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a><button type="reset" form="demo-customizer-form" class="outline">Reset all options</button></div>
+        <div class="stack"><button type="button" popovertarget="demo-customizer-popup" popovertargetaction="hide">View the website</button><a href={downloadHref || sourceHref(base,config)} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a><button type="reset" form="demo-customizer-form" class="outline">Reset all options</button></div>
       </div>
       <p class="customizer-note">Copy the selected attributes above into the downloaded HTML to keep your choices. The download retains this page’s starting configuration; CSS cannot rewrite its HTML or save selections across visits. Reset restores this page’s initial settings.</p>
     </div>
