@@ -78,3 +78,5 @@ Timeline: one ol.timeline class, native li content and time[datetime], DOM event
 ## Optional native select enhancement
 
 Separate reva.selects.css and reva.selects.scoped.css extensions, excluded from core/full budgets. @supports guards appearance:base-select and ::picker(select). Ordinary single dropdowns reuse existing shared tokens with opaque option surfaces. No new attributes/classes/markup. Multiple selects and explicit listboxes remain native. Unsupported browsers retain the native picker. Supporting browsers use an in-page picker rather than the mobile OS sheet. Keyboard operation, values and validation remain native; forced colours and reduced motion constrain presentation.
+
+Default colour direction: Mono white/black surfaces with Blue Teal primary actions (#1F6E8C light / #2E8A99 dark). Main headings and links use the readable palette link shade (#65BBC7 dark). Secondary (#4B5563 / #BFC8CD), success (#256B4E / #78B99B), warning (#E6BC63 both), and danger (#A63D4F / #D98B97) use adaptive foregrounds. Gradient endpoints remain subtle companion shades; solid fills use the exact approved values.

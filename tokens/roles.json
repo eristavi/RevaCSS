@@ -1,0 +1,34 @@
+{
+  "light": {
+    "secondary": "#4B5563",
+    "secondary-end": "#3D4652",
+    "on-secondary": "#FFFFFF",
+    "secondary-link": "#4B5563",
+    "success": "#256B4E",
+    "success-end": "#1D573F",
+    "on-success": "#FFFFFF",
+    "danger": "#A63D4F",
+    "danger-end": "#8C3041",
+    "on-danger": "#FFFFFF",
+    "danger-link": "#A63D4F",
+    "warning": "#E6BC63",
+    "warning-end": "#D5A94E",
+    "on-warning": "#111111"
+  },
+  "dark": {
+    "secondary": "#BFC8CD",
+    "secondary-end": "#CDD5D9",
+    "on-secondary": "#111111",
+    "secondary-link": "#BFC8CD",
+    "success": "#78B99B",
+    "success-end": "#8EC9AD",
+    "on-success": "#111111",
+    "danger": "#D98B97",
+    "danger-end": "#E39EAA",
+    "on-danger": "#111111",
+    "danger-link": "#D98B97",
+    "warning": "#E6BC63",
+    "warning-end": "#F0CB7C",
+    "on-warning": "#111111"
+  }
+}

@@ -4,6 +4,8 @@ import { transform } from 'lightningcss';
 const data=JSON.parse(await readFile('tokens/foundation.tokens.json','utf8'));
 const options=JSON.parse(await readFile('tokens/options.json','utf8'));
 const palettes=JSON.parse(await readFile('tokens/palettes.json','utf8'));
+const roles=JSON.parse(await readFile('tokens/roles.json','utf8'));
+const roleDeclarations=Object.keys(roles.light).map(k=>`--re-${k}: light-dark(${roles.light[k]},${roles.dark[k]});`).join(' ');
 const paletteDeclarations = p => Object.keys(p.light).map(k=>`--re-${k}: light-dark(${p.light[k]},${p.dark[k]});`).join(' ')
   + ' ' + ['muted','link','control-line'].map(k=>`--re-palette-${k}: light-dark(${p.light[k]},${p.dark[k]});`).join(' ');
 function resolve(path) { let t=path.split('.').reduce((a,k)=>a[k],data); if(!t?.$type) throw Error(`Invalid token ${path}`); let v=t.$value; if(typeof v==='string' && v.startsWith('{')) return resolve(v.slice(1,-1)); return {type:t.$type,value:v}; }
@@ -23,9 +25,7 @@ tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px; --re-accordion-closed-opacity: 1;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
---re-success: ${css(resolve('primitive.accent.green.start'))}; --re-success-end: ${css(resolve('primitive.accent.green.end'))};
---re-danger: ${css(resolve('primitive.danger.start'))}; --re-danger-end: ${css(resolve('primitive.danger.end'))};
---re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: ${css(resolve('primitive.warning.start'))}; --re-warning-end: ${css(resolve('primitive.warning.end'))}; --re-on-warning: ${css(resolve('primitive.warningText'))}; color-scheme: light dark;`);
+${roleDeclarations} color-scheme: light dark;`);
 for(const mode of ['light','dark','auto']) tokens+=rule(`:where([data-theme="${mode}"], :scope[data-theme="${mode}"])`,`color-scheme: ${mode==='auto'?'light dark':mode};`);
 for(const [name,palette] of Object.entries(palettes)) tokens+=rule(`:where([data-palette="${name}"], :scope[data-palette="${name}"])`,paletteDeclarations(palette));
 // Explicit temperature overrides change surfaces only; palette foregrounds remain inherited.
@@ -97,7 +97,7 @@ for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva
 }
 const min=transform({filename:'reva.css',code:Buffer.from(full),minify:true}).code;
 await writeFile('dist/reva.min.css',min); await copyFile('dist/reva.min.css','docs/public/reva/reva.min.css');
-await writeFile('docs/src/pages/generated-reference.json',JSON.stringify({options,tokens:data,palettes},null,2));
+await writeFile('docs/src/pages/generated-reference.json',JSON.stringify({options,tokens:data,palettes,roles},null,2));
 console.log(`Built CSS: ${Buffer.byteLength(full)} bytes; minified ${min.length} bytes.`);
 
 await mkdir('dist/fonts',{recursive:true});

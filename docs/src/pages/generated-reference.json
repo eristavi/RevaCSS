@@ -860,11 +860,11 @@
         "surface": "#FFFFFF",
         "text": "#111111",
         "surface-alt": "#EDEDED",
-        "primary": "#111111",
+        "primary": "#1F6E8C",
         "on-primary": "#FFFFFF",
         "line": "#D4D4D4",
-        "primary-end": "#000000",
-        "link": "#111111",
+        "primary-end": "#195E78",
+        "link": "#1F6E8C",
         "muted": "#4C4C4C",
         "control-line": "#7C7C7C"
       },
@@ -873,11 +873,11 @@
         "surface": "#191919",
         "text": "#F5F5F5",
         "surface-alt": "#292929",
-        "primary": "#F5F5F5",
+        "primary": "#2E8A99",
         "on-primary": "#111111",
         "line": "#414141",
-        "primary-end": "#DEDEDE",
-        "link": "#F5F5F5",
+        "primary-end": "#57ACB8",
+        "link": "#65BBC7",
         "muted": "#BEBEBE",
         "control-line": "#929292"
       }
@@ -1049,6 +1049,40 @@
         "muted": "#B8C1B6",
         "control-line": "#8FA08F"
       }
+    }
+  },
+  "roles": {
+    "light": {
+      "secondary": "#4B5563",
+      "secondary-end": "#3D4652",
+      "on-secondary": "#FFFFFF",
+      "secondary-link": "#4B5563",
+      "success": "#256B4E",
+      "success-end": "#1D573F",
+      "on-success": "#FFFFFF",
+      "danger": "#A63D4F",
+      "danger-end": "#8C3041",
+      "on-danger": "#FFFFFF",
+      "danger-link": "#A63D4F",
+      "warning": "#E6BC63",
+      "warning-end": "#D5A94E",
+      "on-warning": "#111111"
+    },
+    "dark": {
+      "secondary": "#BFC8CD",
+      "secondary-end": "#CDD5D9",
+      "on-secondary": "#111111",
+      "secondary-link": "#BFC8CD",
+      "success": "#78B99B",
+      "success-end": "#8EC9AD",
+      "on-success": "#111111",
+      "danger": "#D98B97",
+      "danger-end": "#E39EAA",
+      "on-danger": "#111111",
+      "danger-link": "#D98B97",
+      "warning": "#E6BC63",
+      "warning-end": "#F0CB7C",
+      "on-warning": "#111111"
     }
   }
 }

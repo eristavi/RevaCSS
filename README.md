@@ -131,7 +131,7 @@ Load `reva.motion.css` after the global core, or `reva.motion.scoped.css` after 
 
 ### Coordinated colour palettes
 
-Mono is the default in light, dark and system modes. Select one of seven coordinated colour families once on a parent:
+Mono is the default in light, dark and system modes: white and black foundations with Blue Teal primary actions and main headings. Primary fills use #1F6E8C in light mode and #2E8A99 in dark mode. Dark links use the lighter #65BBC7 for readable contrast. Secondary, success, warning and danger fills adapt with the shared role tokens in `tokens/roles.json`. Select one of seven coordinated colour families once on a parent:
 
 ```html
 <html data-theme="auto" data-palette="ocean">

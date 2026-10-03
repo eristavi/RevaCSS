@@ -1,4 +1,9 @@
 export const publicTokens = [
+  ["Semantic colours", "--re-secondary / --re-secondary-end / --re-on-secondary", "Colours", "Secondary action fill, gradient endpoint and foreground."],
+  ["Semantic colours", "--re-success / --re-success-end / --re-on-success", "Colours", "Success fill, gradient endpoint and foreground."],
+  ["Semantic colours", "--re-warning / --re-warning-end / --re-on-warning", "Colours", "Warning fill, gradient endpoint and foreground."],
+  ["Semantic colours", "--re-danger / --re-danger-end / --re-on-danger", "Colours", "Danger fill, gradient endpoint and foreground."],
+  ["Semantic colours", "--re-secondary-link / --re-danger-link", "Colours", "Readable secondary and danger outline/ghost text."],
   ["Charts", "--re-chart-color", "Colour", "Local SVG series stroke; defaults to the primary colour."],
   ["Charts", "--re-chart-ring-width", "SVG user units", "Doughnut stroke width; default 22."],
   ["Drawer", "--re-drawer-width", "Length", "Inspector width; default 28rem, customisable with ordinary CSS. Bounded by the viewport."],

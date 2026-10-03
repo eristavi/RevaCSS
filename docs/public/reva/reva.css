@@ -15,7 +15,7 @@
 --re-on-primary: #ffffff;
 --re-radius: 0.75rem;
 --re-gap: 1rem;
---re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#111111,#F5F5F5); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#000000,#DEDEDE); --re-link: light-dark(#111111,#F5F5F5); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#111111,#F5F5F5); --re-palette-control-line: light-dark(#7C7C7C,#929292);
+--re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#1F6E8C,#2E8A99); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#195E78,#57ACB8); --re-link: light-dark(#1F6E8C,#65BBC7); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#1F6E8C,#65BBC7); --re-palette-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
@@ -25,13 +25,11 @@
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px; --re-accordion-closed-opacity: 1;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
---re-success: #237a50; --re-success-end: #145434;
---re-danger: #be303c; --re-danger-end: #8f2030;
---re-danger-link: light-dark(#a61e31,#ffabb5); --re-warning: #f5cc61; --re-warning-end: #e8b23e; --re-on-warning: #332400; color-scheme: light dark; }
+--re-secondary: light-dark(#4B5563,#BFC8CD); --re-secondary-end: light-dark(#3D4652,#CDD5D9); --re-on-secondary: light-dark(#FFFFFF,#111111); --re-secondary-link: light-dark(#4B5563,#BFC8CD); --re-success: light-dark(#256B4E,#78B99B); --re-success-end: light-dark(#1D573F,#8EC9AD); --re-on-success: light-dark(#FFFFFF,#111111); --re-danger: light-dark(#A63D4F,#D98B97); --re-danger-end: light-dark(#8C3041,#E39EAA); --re-on-danger: light-dark(#FFFFFF,#111111); --re-danger-link: light-dark(#A63D4F,#D98B97); --re-warning: light-dark(#E6BC63,#E6BC63); --re-warning-end: light-dark(#D5A94E,#F0CB7C); --re-on-warning: light-dark(#111111,#111111); color-scheme: light dark; }
 :where([data-theme="light"], :scope[data-theme="light"]) { color-scheme: light; }
 :where([data-theme="dark"], :scope[data-theme="dark"]) { color-scheme: dark; }
 :where([data-theme="auto"], :scope[data-theme="auto"]) { color-scheme: light dark; }
-:where([data-palette="mono"], :scope[data-palette="mono"]) { --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#111111,#F5F5F5); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#000000,#DEDEDE); --re-link: light-dark(#111111,#F5F5F5); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#111111,#F5F5F5); --re-palette-control-line: light-dark(#7C7C7C,#929292); }
+:where([data-palette="mono"], :scope[data-palette="mono"]) { --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#1F6E8C,#2E8A99); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#195E78,#57ACB8); --re-link: light-dark(#1F6E8C,#65BBC7); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#1F6E8C,#65BBC7); --re-palette-control-line: light-dark(#7C7C7C,#929292); }
 :where([data-palette="sand"], :scope[data-palette="sand"]) { --re-bg: light-dark(#F7F5EF,#1D1A15); --re-surface: light-dark(#FFFEFA,#2A261F); --re-text: light-dark(#383329,#F4EFE4); --re-surface-alt: light-dark(#EBE6DA,#3C362C); --re-primary: light-dark(#665842,#D5C2A2); --re-on-primary: light-dark(#FFFFFF,#292116); --re-line: light-dark(#D4CBBB,#5B5142); --re-primary-end: light-dark(#514632,#C3AE8D); --re-link: light-dark(#665842,#D5C2A2); --re-muted: light-dark(#6A665D,#C2BDB3); --re-control-line: light-dark(#8E8779,#A0988B); --re-palette-muted: light-dark(#6A665D,#C2BDB3); --re-palette-link: light-dark(#665842,#D5C2A2); --re-palette-control-line: light-dark(#8E8779,#A0988B); }
 :where([data-palette="ocean"], :scope[data-palette="ocean"]) { --re-bg: light-dark(#F4F8FB,#0B1922); --re-surface: light-dark(#FFFFFF,#132833); --re-text: light-dark(#142E3D,#E5F3F8); --re-surface-alt: light-dark(#DFEFF2,#203C49); --re-primary: light-dark(#08657A,#67D1DE); --re-on-primary: light-dark(#FFFFFF,#08252C); --re-line: light-dark(#B9D1DA,#385967); --re-primary-end: light-dark(#075468,#50B9C6); --re-link: light-dark(#08657A,#67D1DE); --re-muted: light-dark(#4F626E,#B0C0C7); --re-control-line: light-dark(#6F8893,#869EA8); --re-palette-muted: light-dark(#4F626E,#B0C0C7); --re-palette-link: light-dark(#08657A,#67D1DE); --re-palette-control-line: light-dark(#6F8893,#869EA8); }
 :where([data-palette="cobalt"], :scope[data-palette="cobalt"]) { --re-bg: light-dark(#F5F7FC,#10172A); --re-surface: light-dark(#FFFFFF,#1A2440); --re-text: light-dark(#1A2744,#EDF2FF); --re-surface-alt: light-dark(#E5EBFC,#29385A); --re-primary: light-dark(#2455BE,#92B4FF); --re-on-primary: light-dark(#FFFFFF,#14264B); --re-line: light-dark(#C5CFE4,#43557B); --re-primary-end: light-dark(#1E459F,#7DA0EB); --re-link: light-dark(#2455BE,#92B4FF); --re-muted: light-dark(#535D73,#B8BECF); --re-control-line: light-dark(#78839C,#909CB6); --re-palette-muted: light-dark(#535D73,#B8BECF); --re-palette-link: light-dark(#2455BE,#92B4FF); --re-palette-control-line: light-dark(#78839C,#909CB6); }
@@ -107,7 +105,7 @@
   :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]) { background-color: var(--re-bg); color: var(--re-text); }
   :where([data-type], :scope[data-type]) { font-size: var(--re-type); }
   :where(h1,h2,h3,h4,h5,h6) { font-family: var(--re-font-heading, var(--re-font)); font-weight: 700; line-height: 1.2; margin-block: 1.5em .55em; overflow-wrap: anywhere; text-wrap: balance; }
-  :where(h1) { font-size: clamp(2em, 1.65em + 1.2vw, 3em); letter-spacing: -.025em; }
+  :where(h1) { color: var(--re-link); font-size: clamp(2em, 1.65em + 1.2vw, 3em); letter-spacing: -.025em; }
   :where(h2) { font-size: 1.8em; letter-spacing: -.02em; }
   :where(h3) { font-size: 1.4em; }
   :where(h4) { font-size: 1.15em; }
@@ -151,16 +149,17 @@
     box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
     transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
   }
-  :where(button.danger,.button.danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: #fff; }
+  :where(button.danger,.button.danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
   :where(button.warning,.button.warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
   :where(button.secondary,.button.secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
-    --re-action-start: color-mix(in srgb, var(--re-primary) 10%, var(--re-surface));
-    --re-action-end: color-mix(in srgb, var(--re-primary) 18%, var(--re-surface));
-    --re-action-text: var(--re-link);
+    --re-action-start: var(--re-secondary);
+    --re-action-end: var(--re-secondary-end);
+    --re-action-text: var(--re-on-secondary);
   }
   :where(button.outline,.button.outline,button.ghost,.button.ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
   :where(button.outline,.button.outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
   :where(button.danger.outline,button.danger.ghost,.button.danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
+  :where(button.secondary:is(.outline,.ghost),.button.secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
   /* Shared semantic variants. Local legacy classes override parent defaults;
      a valid attribute on the action itself overrides a legacy class. */
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
@@ -171,7 +170,7 @@
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
-      --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: #fff; --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
+      --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: var(--re-on-success); --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
     }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
@@ -183,7 +182,7 @@
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
-      --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: #fff; --re-action-link: var(--re-danger-link);
+      --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); --re-action-link: var(--re-danger-link);
     }
     :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
@@ -321,13 +320,13 @@
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-success); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-danger); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }
@@ -386,18 +385,19 @@
   :where(.alert > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.alert > :first-child) { margin-block-start: 0; }
   :where(.alert > :last-child) { margin-block-end: 0; }
+  :where(.alert h1) { color: inherit; }
   :where(.alert a:not(.button)) { color: inherit; }
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-primary); --re-alert-end: var(--re-primary-end); --re-alert-on: var(--re-on-primary); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: #fff; }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: var(--re-on-success); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-warning); --re-alert-end: var(--re-warning-end); --re-alert-on: var(--re-on-warning); --re-alert-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: #fff; }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: var(--re-on-danger); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-text); --re-alert-end: var(--re-muted); --re-alert-on: var(--re-surface); --re-alert-text: var(--re-text); }

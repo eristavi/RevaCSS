@@ -34,13 +34,13 @@
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-success); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-danger); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }

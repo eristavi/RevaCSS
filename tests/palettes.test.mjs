@@ -26,3 +26,16 @@ for(const [name,palette] of Object.entries(palettes)) for(const mode of ['light'
     }
   });
 }
+
+// Semantic status fills share adaptive foregrounds across every palette.
+const roles=JSON.parse(await readFile('tokens/roles.json','utf8'));
+for(const mode of ['light','dark']) for(const role of ['secondary','success','warning','danger']) {
+  test(`${role} ${mode}: solid, gradient and glass label contrast`,()=>{
+    const t=roles[mode], start=rgb(t[role]), end=rgb(t[`${role}-end`]), ink=rgb(t[`on-${role}`]);
+    for(const fill of [start,end]) assert.ok(contrast(ink,fill)>=4.5,'solid/endpoint foreground');
+    for(const backdrop of [[0,0,0],[1,1,1]]) for(const sheen of [0,.06,.28]) {
+      const backing=mix(mix(start,end,.65),backdrop,.9);
+      assert.ok(contrast(ink,mix(end,backing,sheen))>=4.5,'glass foreground');
+    }
+  });
+}

@@ -102,13 +102,13 @@
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-success); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: #fff; --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-danger); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }
@@ -167,18 +167,19 @@
   :where(.alert > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.alert > :first-child) { margin-block-start: 0; }
   :where(.alert > :last-child) { margin-block-end: 0; }
+  :where(.alert h1) { color: inherit; }
   :where(.alert a:not(.button)) { color: inherit; }
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-primary); --re-alert-end: var(--re-primary-end); --re-alert-on: var(--re-on-primary); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: #fff; }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: var(--re-on-success); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-warning); --re-alert-end: var(--re-warning-end); --re-alert-on: var(--re-on-warning); --re-alert-text: var(--re-text); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: #fff; }
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: var(--re-on-danger); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-text); --re-alert-end: var(--re-muted); --re-alert-on: var(--re-surface); --re-alert-text: var(--re-text); }
