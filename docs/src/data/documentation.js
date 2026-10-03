@@ -62,7 +62,7 @@ export const componentGroups = [
 export const componentContracts = {
   "drawers": [
     ".drawer[popover=auto] > header, section, footer",
-    "Unique id and native popovertarget; data-drawer-position and data-drawer-size inherit.",
+    "Unique id and native popovertarget; shared appearance attributes inherit. CSS variables customise width and logical placement.",
     "reva.drawers.css",
     "Non-modal native popover. Outside-click/Escape dismissal; ordinary Tab navigation. No focus trap, body-scroll lock or JavaScript."
   ],

@@ -250,25 +250,6 @@
       "default": "standard",
       "scope": "Inherited; applies to .top-menu only",
       "affects": "Top navigation layout: standard brand and links, centered links, inset floating surface, or central brand with links on either side. Mobile retains the shared Menu button and popovers. Does not change sidebars."
-    },
-    "drawer-position": {
-      "values": [
-        "end",
-        "start"
-      ],
-      "default": "end",
-      "scope": "Inherited; applies to .drawer[popover]",
-      "affects": "Logical viewport edge. End is right in LTR and left in RTL; start reverses it."
-    },
-    "drawer-size": {
-      "values": [
-        "small",
-        "medium",
-        "large"
-      ],
-      "default": "medium",
-      "scope": "Inherited; applies to .drawer[popover]",
-      "affects": "20rem, 28rem or 40rem width, bounded by the viewport."
     }
   },
   "tokens": {

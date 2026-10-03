@@ -7,7 +7,7 @@ import veil from '../../../src/css/veil.css?raw';
 import {demoOptions} from './demo-configurations.js';
 import {transform} from 'lightningcss';
 
-const labels={motion:'Motion',edge:'Decorative edges',density:'Density',depth:'Shadows',fill:'Fill',type:'Typography',size:'Control size',border:'Borders',width:'Page width',navbar:'Navbar layout',contrast:'Contrast','drawer-position':'Drawer placement','drawer-size':'Drawer width'};
+const labels={motion:'Motion',edge:'Decorative edges',density:'Density',depth:'Shadows',fill:'Fill',type:'Typography',size:'Control size',border:'Borders',width:'Page width',navbar:'Navbar layout',contrast:'Contrast'};
 export const advancedOptions=Object.entries(labels).map(([key,label])=>({key,label,...options[key]}));
 export const optionLabel=value=>value==='auto'?'System / auto':value[0].toUpperCase()+value.slice(1);
 

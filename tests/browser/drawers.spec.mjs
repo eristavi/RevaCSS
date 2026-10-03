@@ -16,13 +16,13 @@ test.describe('native drawer / inspector',()=>{
   if(width===1440){await trigger.click();await settle();await page.mouse.click(30,100);await expect(panel).toBeHidden();}
   await expect(page.locator('script')).toHaveCount(0);
  });
- test('inherited placement, local reset, RTL and scoped build',async({page})=>{
+ test('inherited CSS variables, local override, RTL and scoped build',async({page})=>{
   await page.goto('/components/drawers/');
   await page.getByRole('button',{name:'Open filter drawer'}).click();
   const panel=page.locator('#drawer-start');await expect(panel).toBeVisible();await expect.poll(()=>panel.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);let b=await panel.boundingBox();expect(b.x).toBe(0);expect(b.width).toBe(320);
   await page.keyboard.press('Escape');
   // Test fixtures alter configuration only, while component operation remains native.
-  await page.evaluate(()=>{document.documentElement.dir='rtl';document.querySelector('#drawer-start').setAttribute('data-drawer-size','large');});
+  await page.evaluate(()=>{document.documentElement.dir='rtl';document.querySelector('#drawer-start').style.setProperty('--re-drawer-width','40rem');});
   await page.getByRole('button',{name:'Open filter drawer'}).click();await expect.poll(()=>panel.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);b=await panel.boundingBox();expect(Math.round(b.x+b.width)).toBe(await page.evaluate(()=>innerWidth));expect(b.width).toBe(640);
   await page.keyboard.press('Escape');
   const scopedCSS=await (await page.request.get('/reva/reva.scoped.css')).text();

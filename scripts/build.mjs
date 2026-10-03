@@ -43,8 +43,6 @@ presets.navbar={
  floating:navbarDefaults+' --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem;',
  split:navbarDefaults+' --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0;'
 };
-presets['drawer-position']={end:'--re-drawer-start: auto; --re-drawer-end: 0;',start:'--re-drawer-start: 0; --re-drawer-end: auto;'};
-presets['drawer-size']={small:'--re-drawer-width: 20rem;',medium:'--re-drawer-width: 28rem;',large:'--re-drawer-width: 40rem;'};
 presets.edge={
  plain:'--re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite;',
  gradient:'--re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite;',

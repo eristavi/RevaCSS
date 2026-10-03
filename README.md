@@ -11,7 +11,7 @@ A new default for the web. Native HTML and CSS, token-driven design, easy overri
 
 ## Drawer / inspector
 
-Use one `.drawer` class on a native `aside[popover="auto"]`. Semantic `header`, `section` and `footer` children define its regions. Configure inherited `data-drawer-position="end|start"` and `data-drawer-size="small|medium|large"`; theme and other design attributes stay inherited. Opening, outside-click and Escape dismissal use native HTML, with no JavaScript. See [drawer documentation](https://eristavi.github.io/RevaCSS/components/drawers/) and the [dashboard](https://eristavi.github.io/RevaCSS/demos/dashboard/).
+Use one `.drawer` class on a native `aside[popover="auto"]`. Semantic `header`, `section` and `footer` children define its regions. Default width is 28rem at the logical end edge, bounded by the viewport. Customise with CSS variables --re-drawer-width, --re-drawer-start and --re-drawer-end; existing shared design attributes stay inherited. Opening, outside-click and Escape dismissal use native HTML, with no JavaScript. See [drawer documentation](https://eristavi.github.io/RevaCSS/components/drawers/) and the [dashboard](https://eristavi.github.io/RevaCSS/demos/dashboard/).
 
 ## Develop and validate
 
