@@ -1,12 +1,16 @@
 ---
 import TopMenuLinks from './TopMenuLinks.astro';
-const { id='demo', label='Example site', current='home', brand='RevaCSS', brandHref='#home', items } = Astro.props;
+import {demoNavigation} from '../data/navigation.js';
+const { id='demo', label='Example site', current='home', brand='RevaCSS', brandHref='#home', items=demoNavigation, navbar, endItems } = Astro.props;
 ---
-<nav class="top-menu" aria-label={label} style={`--re-menu-anchor: --${id}-navigation`}>
+<nav data-navbar={navbar} class="top-menu" aria-label={label} style={`--re-menu-anchor: --${id}-navigation`}>
   <a class="menu-brand" href={brandHref}>{brand}</a>
   <TopMenuLinks id={`${id}-desktop`} current={current} items={items} desktop />
   <button type="button" class="menu-toggle menu-collapse" popovertarget={`${id}-mobile-menu`}>Menu</button>
-  <TopMenuLinks id={`${id}-mobile`} current={current} items={items} />
-  <slot name="actions"/>
+  <TopMenuLinks id={`${id}-mobile`} current={current} items={endItems ? [...items, ...endItems] : items} />
+  {(endItems || Astro.slots.has("actions")) && <div class="menu-actions">
+    {endItems && <TopMenuLinks id={`${id}-end-desktop`} current={current} items={endItems} desktop />}
+    <slot name="actions"/>
+  </div>}
 </nav>
 

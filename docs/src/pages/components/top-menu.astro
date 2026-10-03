@@ -4,6 +4,7 @@ import Example from '../../components/Example.astro';
 import TopMenu from '../../components/TopMenu.astro';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 const base = import.meta.env.BASE_URL;
+const navbarLayouts=['standard','centered','floating','split'];
 const container = await AstroContainer.create();
 const example = (await container.renderToString(TopMenu, {props:{id:'documentation',label:'Example navigation'}})).replace(/href="#[^"]+"/g, 'href="#main"');
 // The generated navigation contains only nav/list blocks and inline links or
@@ -20,6 +21,8 @@ const formattedExample = example
     return line;
   })
   .join('\n');
+const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,html:await container.renderToString(TopMenu,{props:{id:`layout-${navbar}`,navbar,label:`${navbar} navigation`,brand:'Studio',brandHref:'#navbar-layouts',items:[{key:'overview',label:'Overview',href:'#navbar-layouts'},{key:'projects',label:'Projects',href:'#navbar-layouts'}],endItems:navbar==='split'?[{key:'team',label:'Team',href:'#navbar-layouts'},{key:'contact',label:'Contact',href:'#navbar-layouts'}]:undefined}})})));
+
 ---
 <DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"}]}>
   <p class="doc-kicker">COMPONENTS / NAVIGATION</p>
@@ -32,12 +35,25 @@ const formattedExample = example
     <a href={`${base}preview/menu/auto/`}>Device theme preview</a>
   </div>
   <p><a href={base+'reference/components/#top-menu'}>Component API summary</a> · <a href={base+'themes/glass/'}>Optional glass material</a></p>
+  <h2 id="navbar-layouts">Navbar layouts</h2>
+  <p>Set <code>data-navbar</code> on <code>html</code>, a parent section, or the navigation itself. It inherits through the page; a local <code>data-navbar="standard"</code> resets a parent choice. It only affects <code>.top-menu</code>, leaving sidebars unchanged.</p>
+  <table><thead><tr><th>Value</th><th>Layout</th></tr></thead><tbody>
+    <tr><th>standard</th><td>Default: brand left, links and actions right.</td></tr>
+    <tr><th>centered</th><td>Balanced desktop grid: brand left, links in the middle, actions right.</td></tr>
+    <tr><th>floating</th><td>Standard alignment in an inset surface with a 1rem outer margin and the shared page width limit. It scrolls normally; it is not fixed or sticky.</td></tr>
+    <tr><th>split</th><td>Central brand with the primary link group on the left and an optional second group or actions on the right.</td></tr>
+  </tbody></table>
+  {layoutExamples.map(({navbar,html})=><Example id={`navbar-${navbar}`} title={`${navbar[0].toUpperCase()+navbar.slice(1)} navbar`} html={html.replace(/></g,'>\n<')}/>)}
+  <p>Split can use a second <code>.menu-items.menu-desktop</code> list inside <code>.menu-actions</code>. Combine both groups in the single mobile list. Each desktop list keeps its own hover glide and dropdown anchors. Group additional actions in <code>.menu-actions</code> to avoid overlapping grid cells. Desktop links wrap inside their allocated column; below 48rem every preset retains the existing Menu button and native mobile popovers. Split changes visual placement, so choose a logical DOM and keyboard order for your content rather than expecting CSS to reorder focus.</p>
+  <pre><code>{'<html lang="en" data-navbar="centered">\n  <!-- All top menus inherit centered layout. -->\n  <nav class="top-menu" data-navbar="standard" aria-label="Local navigation">\n    <!-- This menu overrides the parent layout. -->\n  </nav>\n</html>'}</code></pre>
   <h2>Use the markup</h2>
   <p>Copy the example above and replace its link destinations. Keep both lists in sync. Give each navigation a unique <code>--re-menu-anchor</code> CSS identifier for mobile positioning as shown in the example. Give each desktop dropdown list item a unique <code>--re-menu-branch-anchor</code>; its descendants inherit that identifier so nested panels remain beneath the visible top-level button. Every panel needs a unique document-wide <code>id</code>, and each toggle's <code>popovertarget</code> must match that id. Generate both layouts from a shared template. Nest child panels and their toggle buttons inside the parent panel so native dismissal preserves the hierarchy.</p>
   <h2>Structure and configuration</h2>
   <div class="table-scroll" role="region" aria-label="Top menu API" tabindex="0">
     <table><thead><tr><th scope="col">Class or setting</th><th scope="col">Use</th></tr></thead><tbody>
       <tr><th scope="row"><code>.top-menu</code></th><td>Navigation landmark and containing surface.</td></tr>
+      <tr><th scope="row"><code>data-navbar</code></th><td>Inherited layout: standard (default), centered, floating, split.</td></tr>
+      <tr><th scope="row"><code>.menu-actions</code></th><td>Optional right-hand group for actions and a second desktop list.</td></tr>
       <tr><th scope="row"><code>.menu-brand</code></th><td>Optional brand link.</td></tr>
       <tr><th scope="row"><code>.menu-desktop</code></th><td>Desktop list, visible at 48rem and wider.</td></tr>
       <tr><th scope="row"><code>.menu-collapse</code></th><td>Mobile Menu button, with class menu-toggle and popovertarget.</td></tr>

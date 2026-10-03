@@ -238,5 +238,16 @@
     "default": "tinted",
     "scope": "Inherited; applies to supported targets",
     "affects": "Badge and alert backing and border treatment. Does not configure buttons."
+  },
+  "navbar": {
+    "values": [
+      "standard",
+      "centered",
+      "floating",
+      "split"
+    ],
+    "default": "standard",
+    "scope": "Inherited; applies to .top-menu only",
+    "affects": "Top navigation layout: standard brand and links, centered links, inset floating surface, or central brand with links on either side. Mobile retains the shared Menu button and popovers. Does not change sidebars."
   }
 }

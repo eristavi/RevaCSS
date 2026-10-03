@@ -1005,6 +1005,38 @@
     }
   }
 }
+
+/* Layout presets inherit from html or a parent; a local preset resets them. */
+@layer re.components {
+  :where(.top-menu, :scope.top-menu) {
+    inline-size: var(--re-navbar-width, 100%);
+    margin-inline: auto;
+    margin-block: var(--re-navbar-margin, 0);
+  }
+  :where(.top-menu .menu-actions) {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+    gap: .5rem; min-inline-size: 0;
+  }
+  @media (width >= 48rem) {
+    :where(.top-menu, :scope.top-menu) {
+      display: var(--re-navbar-layout, flex);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+    }
+    :where(.top-menu > .menu-brand) {
+      grid-column: var(--re-navbar-brand-column, 1); grid-row: 1;
+      margin-inline-end: var(--re-navbar-brand-margin, auto);
+      justify-self: var(--re-navbar-brand-align, start);
+    }
+    :where(.top-menu > .menu-desktop) {
+      grid-column: var(--re-navbar-links-column, 2); grid-row: 1;
+      justify-content: var(--re-navbar-links-align, flex-end);
+    }
+    :where(.top-menu > .menu-desktop ~ .menu-desktop) {
+      grid-column: 3; justify-content: flex-end;
+    }
+    :where(.top-menu > .menu-actions) { grid-column: 3; grid-row: 1; }
+  }
+}
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
   @supports (mask-composite: exclude) {
