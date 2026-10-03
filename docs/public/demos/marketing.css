@@ -65,3 +65,35 @@
 @media (width < 30rem) { .forma-header .top-menu { padding: .5rem; } .forma-header .menu-brand { font-size: 1.4rem; } .forma-header .button { padding-inline: .65rem; } .forma-hero h1 { font-size: 2.5rem; } }
 @media (forced-colors: active) { .forma-site, .forma-workspace { background: Canvas; } .forma-feature-icon { border-color: CanvasText; } .forma-featured { border-color: Highlight; } }
 @media print { .forma-site, .forma-workspace { background: #fff; color: #000; } .forma-hero { grid-template-columns: 1fr; padding-block: 1rem; } .forma-section { padding-block: 1rem; } .forma-header, .forma-contact form { display: none; } }
+
+/* Palette-aware demo backdrop; updates through the native radio controls.
+   Repeat down the page to reveal the material on lower surfaces too. */
+.demo-workbench:has(#demo-material-glass:checked) .forma-site,
+html.forma-site[data-material="glass"] > body {
+  background:
+    radial-gradient(ellipse at 78% 28%, color-mix(in srgb, var(--re-primary) 24%, transparent), transparent 58%),
+    radial-gradient(ellipse at 12% 72%, color-mix(in srgb, var(--re-primary-end) 20%, transparent), transparent 55%),
+    linear-gradient(135deg, var(--re-bg), var(--re-surface-alt) 50%, var(--re-bg));
+  background-size: 100% 64rem;
+  background-repeat: repeat-y;
+}
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="glass"][data-contrast="more"] > body { background: var(--re-bg); }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
+  html.forma-site[data-material="glass"] > body,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: var(--re-bg); }
+}
+@media (forced-colors: active) {
+  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
+  html.forma-site[data-material="glass"] > body,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: Canvas; }
+}
+@media print {
+  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
+  html.forma-site[data-material="glass"] > body,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: #fff; color: #000; }
+}

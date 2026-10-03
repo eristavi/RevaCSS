@@ -76,3 +76,35 @@
 @media (prefers-reduced-motion:no-preference) { .dash-line { animation:dash-reveal 500ms ease-out both; } @keyframes dash-reveal { from { opacity:0; } to { opacity:1; } } }
 @media (forced-colors:active) { .dash-line,.dash-point,.dash-segment { stroke:CanvasText; } .dash-area { fill:CanvasText; } .dash-donut-value,.dash-donut-label,.dash-axis,.dash-gridline text { fill:CanvasText; } }
 @media print { .dash-sidebar,.dash-main .top-menu,.dash-footer { display:none; } .dash-shell { display:block; } .dash-charts,.dash-bottom { grid-template-columns:1fr; } .dash-main #dashboard-projects table { min-inline-size:0; } }
+
+/* Palette-aware demo backdrop; updates through the native radio controls.
+   Repeat down the page to reveal the material on lower surfaces too. */
+.demo-workbench:has(#demo-material-glass:checked) .dash-site,
+html[data-material="glass"] .dash-site {
+  background:
+    radial-gradient(ellipse at 78% 28%, color-mix(in srgb, var(--re-primary) 24%, transparent), transparent 58%),
+    radial-gradient(ellipse at 12% 72%, color-mix(in srgb, var(--re-primary-end) 20%, transparent), transparent 55%),
+    linear-gradient(135deg, var(--re-bg), var(--re-surface-alt) 50%, var(--re-bg));
+  background-size: 100% 64rem;
+  background-repeat: repeat-y;
+}
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+html[data-material="glass"][data-contrast="more"] .dash-site { background: var(--re-bg); }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .demo-workbench:has(#demo-material-glass:checked) .dash-site,
+  html[data-material="glass"] .dash-site,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+  html[data-material="glass"][data-contrast="more"] .dash-site { background: var(--re-bg); }
+}
+@media (forced-colors: active) {
+  .demo-workbench:has(#demo-material-glass:checked) .dash-site,
+  html[data-material="glass"] .dash-site,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+  html[data-material="glass"][data-contrast="more"] .dash-site { background: Canvas; }
+}
+@media print {
+  .demo-workbench:has(#demo-material-glass:checked) .dash-site,
+  html[data-material="glass"] .dash-site,
+  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+  html[data-material="glass"][data-contrast="more"] .dash-site { background: #fff; color: #000; }
+}
