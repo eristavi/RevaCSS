@@ -2,7 +2,7 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
-const sections=[{id:'installation',title:'Enable motion'},{id:'shared-motion',title:'Shared intensity'},{id:'popover-motion',title:'Native popovers'},{id:'local-motion',title:'Local overrides'},{id:'motion-boundaries',title:'Behaviour and preferences'},{id:'scoped-motion',title:'Scoped use'}];
+const sections=[{id:'installation',title:'Enable motion'},{id:'shared-motion',title:'Shared intensity'},{id:'popover-motion',title:'Native popovers'},{id:'accordion-motion',title:'Accordion motion'},{id:'local-motion',title:'Local overrides'},{id:'motion-boundaries',title:'Behaviour and preferences'},{id:'scoped-motion',title:'Scoped use'}];
 const installation=`<!doctype html>
 <html lang="en" data-theme="auto" data-motion="subtle">
 <head>
@@ -58,6 +58,19 @@ const popover=`<section data-motion="subtle">
             popovertargetaction="hide" autofocus>Close information</button>
   </aside>
 </section>`;
+const accordion=`<section data-motion="expressive">
+  <div class="accordion">
+    <details>
+      <summary>Does motion need JavaScript?</summary>
+      <p>No. Native details owns the open state; CSS enhances expansion,
+         collapse and the indicator.</p>
+    </details>
+    <details>
+      <summary>Can I turn it off locally?</summary>
+      <p>Put data-motion="none" on a nearer parent to remove transitions.</p>
+    </details>
+  </div>
+</section>`;
 const local=`<section data-motion="expressive">
   <!-- A nearer value changes only this branch. -->
   <div data-motion="none">
@@ -82,7 +95,7 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
 <DocsLayout title="Motion and animations" active="motion" sections={sections}>
   <p class="doc-kicker">LEARN / OPTIONAL MODULES</p>
   <h1>Motion and animations</h1>
-  <p class="doc-lead">Short entrances for dropdowns, navigation panels and other native popovers. One optional CSS file follows the existing parent motion setting. No JavaScript or extra animation classes are needed.</p>
+  <p class="doc-lead">Shared motion controls accordion expansion, rotating indicators and gliding highlights in the core. An optional CSS file adds entrances for dropdowns, navigation panels and other native popovers. No JavaScript or extra animation classes are needed.</p>
   <section><h2>Default gliding highlights</h2><p>Tabs include shared underlines; desktop top-level navigation and pagination use a gliding hover background. Submenus use static hover and focus styling. These effects are included in the core and their dedicated component modules. Tabs follow the selected choice; navigation and pagination follow hover or visible keyboard focus, returning to a current-page item when present. Pagination keeps its current-page styling throughout. This enhancement requires CSS anchor positioning and anchor-scope; other browsers keep static state styling.</p><p>No optional motion file is needed for these highlights. The existing parent <code>data-motion</code> setting controls glide duration, and reduced-motion preferences remove the transition. The optional file below adds popover entrances separately.</p></section>
   <Example id="installation" title="Enable the optional module" description="Load the motion extension after your core stylesheet. Put the html configuration on the opening html tag of your document, with the stylesheet links inside head." render={false} html={installation}/>
   <p>The complete core and component bundles do not include this extension. The documentation opts in, so its top navigation also demonstrates the entrance. Glass and motion can be used together with their matching core build.</p>
@@ -93,15 +106,18 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
     <tr><th scope="row"><code>data-motion="expressive"</code></th><td>240ms</td><td>Fade, .6rem vertical offset and scale from .97 to 1.</td></tr>
   </tbody></table></div>
   <Example id="popover-motion" title="Use the same motion with native popovers" description="No component class is needed to opt this panel into motion. Its existing popover attribute identifies the supported surface; its parent sets the intensity." html={popover}/>
+  <Example id="accordion-motion" title="Accordion expansion and collapse" description="Included in the core and accordion component module; the optional motion extension is not required. Keep the existing details and summary markup and configure the parent once." html={accordion}/>
+  <p><code>none</code> changes content and the chevron immediately. <code>subtle</code> expands and collapses with a rotating chevron over 140ms. <code>expressive</code> uses 240ms and adds a gentle content fade. Browsers supporting <code>::details-content</code>, <code>interpolate-size: allow-keywords</code> and discrete transitions animate the content; other browsers retain instant native disclosure. Reduced motion disables all accordion transitions. Ordinary details outside <code>.accordion</code> keep their existing styling.</p>
+  <p>See <a href={base+'components/accordions/'}>all accordion examples</a>. Browser and actual-device validation of this enhancement remains deferred until requested.</p>
   <Example id="local-motion" title="Override only exceptions" description="Keep the panel inside its configured DOM parent, even though the browser paints it in the top layer. No motion attribute is repeated on individual links or buttons." html={local}/>
   <section id="motion-boundaries">
     <h2>Behaviour and preferences</h2>
     <ul>
-      <li>The module animates entrances only. Closing is immediate; no display or overlay transition delays native dismissal.</li>
+      <li>The optional popover module animates entrances only. Closing is immediate; no display or overlay transition delays native dismissal.</li>
       <li>Outside-click, Escape, focus and popover stacking retain native behaviour. Motion adds no focus management or ARIA application-menu interaction.</li>
       <li><code>prefers-reduced-motion: reduce</code> removes all entrance transitions, including when a local branch requests expressive motion. Forced colours and print also disable the effect.</li>
       <li>Browsers without <code>@starting-style</code> display popovers immediately. The regular visible state is never held transparent while waiting for JavaScript.</li>
-      <li>Only opacity, translation and scale change. This module does not animate blur, shadows, layout dimensions or backdrop filters.</li>
+      <li>Only opacity, translation and scale change in the optional popover extension. This module does not animate blur, shadows, layout dimensions or backdrop filters.</li>
       <li>Dialogs, scroll reveals, card entrances and exit effects are outside this first module. Existing spinner, skeleton and edge motion keep their own behaviour.</li>
     </ul>
     <p>The entrance uses <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style">CSS @starting-style</a> when a popover becomes visible. The module owns the popover's opacity, translate, scale and transition declarations; custom effects should override those deliberately rather than stacking another entrance on the same panel.</p>

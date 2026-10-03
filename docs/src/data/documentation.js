@@ -152,7 +152,7 @@ export const componentContracts = {
     ".accordion > details > summary",
     "Optional shared unique name; native open attribute.",
     "reva.accordions.css",
-    "Exclusive groups depend on native details name support."
+    "Exclusive groups depend on native details name support. Inherited motion enhances expansion where intrinsic-size transitions are supported; native instant disclosure is the fallback."
   ],
   "tabs": [
     "fieldset.tabs, radio labels, .tab-panel",

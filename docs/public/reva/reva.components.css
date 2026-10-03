@@ -211,8 +211,57 @@
 @layer re.components {
   :where(.accordion) { display: grid; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
   :where(.accordion > details) { margin-block: 0; min-inline-size: 0; }
-  :where(.accordion > details > summary) { font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.accordion > details > summary) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--re-space);
+    list-style: none;
+    font-size: calc(1em * var(--re-control-scale, 1));
+  }
+  :where(.accordion > details > summary)::-webkit-details-marker { display: none; }
+  :where(.accordion > details > summary)::after {
+    content: "";
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    margin-inline-end: .2em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--re-duration, 140ms) ease;
+  }
+  :where(.accordion > details[open] > summary)::after { transform: rotate(225deg); }
   :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
+
+  /* Enhance native disclosure without wrappers or a guessed maximum height. */
+  @supports selector(::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    :where(.accordion > details > summary) { margin-block-end: 0; }
+    :where(.accordion > details)::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      padding-block-start: 0;
+      overflow: clip;
+      overflow-clip-margin: .25rem;
+      opacity: var(--re-accordion-closed-opacity, 1);
+      transition:
+        block-size var(--re-duration, 140ms) ease,
+        padding-block-start var(--re-duration, 140ms) ease,
+        opacity var(--re-duration, 140ms) ease,
+        content-visibility var(--re-duration, 140ms) allow-discrete;
+    }
+    :where(.accordion > details[open])::details-content {
+      block-size: auto;
+      padding-block-start: var(--re-space);
+      opacity: 1;
+    }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(.accordion > details > summary)::after { transition: none; }
+    :where(.accordion > details)::details-content { transition: none; opacity: 1; }
+  }
 }
 /* Ordered navigation; separators are decorative, not spoken text. */
 @layer re.components {
