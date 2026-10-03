@@ -4,6 +4,8 @@ import core from '../../../dist/reva.css?raw';
 import motion from '../../../src/css/motion.css?raw';
 import glass from '../../../src/css/glass.css?raw';
 import veil from '../../../src/css/veil.css?raw';
+import {demoOptions} from './demo-configurations.js';
+import {transform} from 'lightningcss';
 
 const labels={motion:'Motion',edge:'Decorative edges',density:'Density',depth:'Shadows',fill:'Fill',type:'Typography',size:'Control size',border:'Borders',width:'Page width',contrast:'Contrast'};
 export const advancedOptions=Object.entries(labels).map(([key,label])=>({key,label,...options[key]}));
@@ -18,6 +20,20 @@ function declaration(source,key,value) {
 }
 const scope=(key,value)=>`.demo-workbench:has(#demo-${key}-${value}:checked) .demo-preview`;
 let css='';
+for(const [key,values] of Object.entries(demoOptions)) for(const value of values) {
+  if(key!=='material') css+=`@scope (${scope(key,value)}) { @layer re.tokens { :where(:scope) { ${declaration(tokens,key,value)} } } }\n`;
+  css+=`.demo-workbench:has(#demo-${key}-${value}:checked) .attribute-${key}-${value} { display:inline; }\n`;
+}
+// Rebind the existing material scopes to checked controls. Descendant explicit
+// data-material boundaries and preference rules remain the extension's own rules.
+function liveMaterial(source,names) {
+  for(const name of names) {
+    const original=`@scope ([data-material="${name}"], :scope[data-material="${name}"])`;
+    source=source.replaceAll(original,`@scope (${scope('material',name)}, [data-material="${name}"], :scope[data-material="${name}"])`);
+  }
+  return `@scope (.demo-workbench) { ${source} }\n`;
+}
+css+=liveMaterial(glass,['glass','solid'])+liveMaterial(veil,['veil']);
 for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
   let decl=declaration(key==='contrast'?core:tokens,key,value);
@@ -32,4 +48,5 @@ css+=`@scope (${scope('contrast','more')}) { @layer re.utilities { :where(*, :sc
 css+='@layer re.utilities { @media (prefers-reduced-motion:reduce) { :where(.demo-preview,.demo-preview *) { --re-duration:0ms; --re-press:0px; --re-edge-play:paused; } }\n';
 css+=`@media (prefers-contrast:more) { :where(.demo-preview,.demo-preview *) { ${declaration(core,'contrast','more')} } }\n`;
 css+='@media (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active), print { :where(.demo-preview,.demo-preview *) { --re-glass-opacity:100%; --re-glass-button-opacity:100%; --re-glass-filter:none; } } }\n';
-export const advancedCSS=css;
+// Validate generated selectors/material scopes as part of stylesheet compilation.
+export const advancedCSS=transform({filename:'demo-customizer.css',code:Buffer.from(css),minify:false}).code.toString();

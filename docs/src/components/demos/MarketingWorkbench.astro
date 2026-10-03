@@ -20,14 +20,14 @@ const source=await marketingSource(config);
   <p class="doc-lead">Forma is a fictional workspace product built from existing RevaCSS components. Explore a complete marketing website, change its appearance and take the HTML into your own project.</p>
   <div class="demo-workbench">
   <DemoCustomizer config={config}/>
-  <section class="forma-site demo-preview" id="demo-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape} aria-label="Forma marketing website preview">
+  <section class="forma-site demo-preview" id="demo-site" aria-label="Forma marketing website preview">
     <MarketingSite base={base} contactHref={Astro.url.pathname+'#contact-confirmation'}/>
   </section>
   <section class="demo-source" aria-labelledby="demo-source-title">
     <h2 id="demo-source-title">Make it yours.</h2>
-    <p>The HTML below is a complete standalone website for this configuration, including the shared navigation. It links to the hosted RevaCSS files and <a href={base+'demos/marketing.css'}>the demo’s composition CSS</a>. Download those assets and update their paths for a self-hosted project.</p>
+    <p>The HTML below is a complete standalone website for this page’s starting configuration, including the shared navigation. It links to the hosted RevaCSS files and <a href={base+'demos/marketing.css'}>the demo’s composition CSS</a>. Download those assets and update their paths for a self-hosted project.</p>
     <details><summary>View complete base HTML</summary><CodeViewer id="marketing-source" code={source} label="Complete base marketing website HTML"/></details>
-    <p>Advanced selections are shown in the configuration snippet above. Copy those attributes onto this HTML’s opening <code>&lt;html&gt;</code> tag; the base source and download do not change when CSS-only radio controls change.</p>
+    <p>All current selections are shown in the configuration snippet above. Copy those attributes onto this HTML’s opening <code>&lt;html&gt;</code> tag; the starting source and download do not change when CSS-only radio controls change.</p>
     <p>The core owns component styling and behavior. Demo CSS adds the hero composition, section spacing, backdrop and pricing layout. The contact form is a validation preview: add control names and your own submission endpoint when adapting it.</p>
     <p><a href={base+'reference/components/'}>Component API</a> · <a href={base+'guide/styling/'}>How shared defaults inherit</a> · <a href={base+'guide/device-checks/'}>Deferred device and accessibility checks</a></p>
   </section>

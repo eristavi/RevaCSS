@@ -1,4 +1,4 @@
-// Static routes keep the demo's actual data attributes and copyable HTML aligned.
+// Static routes initialize the live customizer and its starting HTML download.
 export const demoOptions = {
   theme: ['auto', 'light', 'dark'],
   palette: ['mono', 'sand', 'ocean', 'cobalt', 'citrus', 'violet', 'forest'],

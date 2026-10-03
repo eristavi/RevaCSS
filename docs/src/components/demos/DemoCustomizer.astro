@@ -1,5 +1,5 @@
 ---
-import {demoOptions, demoHref, sourceHref, configurationHTML, defaultDemo} from '../../data/demo-configurations.js';
+import {demoOptions, sourceHref} from '../../data/demo-configurations.js';
 import {advancedOptions,optionLabel} from '../../data/demo-advanced.js';
 const {config}=Astro.props;
 const base=import.meta.env.BASE_URL;
@@ -9,14 +9,14 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
   <details open>
     <summary id="customize-title">Customize this demo</summary>
     <div class="customizer-body">
-      <p>Choose the page defaults. Theme, palette, material and shape open a matching page. Advanced options update this preview without reloading.</p>
+      <p>Choose your page defaults. Every setting updates the website below immediately, without reloading or clearing your other choices.</p>
+      <form id="demo-customizer-form">
       <div class="customizer-options">
         {Object.entries(demoOptions).map(([key,values])=><fieldset>
           <legend>{labels[key]}</legend>
-          <div class="row">{values.map(value=><a class="configuration-choice" href={demoHref(base,{...config,[key]:value})+'#customize'} aria-current={config[key]===value?'true':undefined}>{value==='auto'?'System':optionLabel(value)}</a>)}</div>
+          <div class="row">{values.map(value=><label class="configuration-choice" for={`demo-${key}-${value}`}><input id={`demo-${key}-${value}`} type="radio" name={`demo-${key}`} value={value} checked={config[key]===value}/>{value==='auto'?'System':optionLabel(value)}</label>)}</div>
         </fieldset>)}
       </div>
-      <form id="demo-advanced-form">
       <details class="advanced-settings"><summary>Advanced options · motion, spacing and more</summary>
         <div class="customizer-options advanced-grid">{advancedOptions.map(option=><fieldset aria-describedby={`demo-${option.key}-help`}>
           <legend>{option.label}</legend>
@@ -27,10 +27,10 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
       </details>
       </form>
       <div class="configuration-summary">
-        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code>{configurationHTML(config).slice(0,-1)}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
-        <div class="stack"><a class="button" href="#demo-site">Explore the website</a><a href={sourceHref(base,config)} download={`forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download base HTML</a><button type="reset" form="demo-advanced-form" class="outline">Reset advanced options</button><form action={demoHref(base,defaultDemo)+'#customize'} method="get"><button type="submit" class="outline">Reset all to defaults</button></form></div>
+        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code>{'<html lang="en"'}{Object.entries(demoOptions).map(([key,values])=>values.map(value=><span class={`selected-attribute attribute-${key}-${value}`}>{`\n  data-${key}="${value}"`}</span>))}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
+        <div class="stack"><a class="button" href="#demo-site">Explore the website</a><a href={sourceHref(base,config)} download={`forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a><button type="reset" form="demo-customizer-form" class="outline">Reset all options</button></div>
       </div>
-      <p class="customizer-note">Copy the selected attributes above into the downloaded HTML to include your advanced choices. CSS cannot rewrite the download or its HTML attributes. Advanced controls preview the same framework tokens; the download contains the four base settings. Changing a base setting reloads the page and resets advanced choices, open menus, tabs and form edits.</p>
+      <p class="customizer-note">Copy the selected attributes above into the downloaded HTML to keep your choices. The download retains this page’s starting configuration; CSS cannot rewrite its HTML or save selections across visits. Reset restores this page’s initial settings.</p>
     </div>
   </details>
 </section>
@@ -44,9 +44,10 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
 .customizer-options fieldset { margin:0; min-inline-size:0; padding:.75rem; }
 .customizer-options legend { font-size:.85rem; font-weight:700; }
 .customizer-options .row { gap:.35rem; }
-.configuration-choice { display:inline-flex; align-items:center; min-block-size:2.75rem; padding:.4rem .65rem; border:1px solid var(--re-line); border-radius:.4rem; text-decoration:none; }
+.configuration-choice { display:inline-flex; align-items:center; gap:.4rem; min-block-size:2.75rem; padding:.4rem .65rem; border:1px solid var(--re-line); border-radius:.4rem; margin:0; cursor:pointer; }
+.configuration-choice input { inline-size:1rem; block-size:1rem; margin:0; }
 .configuration-choice:hover { background:var(--re-surface-alt); }
-.configuration-choice[aria-current] { background:var(--re-primary); color:var(--re-on-primary); border-color:var(--re-primary); font-weight:700; }
+.configuration-choice:has(input:checked) { background:var(--re-surface-alt); color:var(--re-text); border-color:var(--re-text); font-weight:700; }
 .configuration-summary { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; align-items:center; margin-block-start:1rem; }
 .configuration-summary pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
 .customizer-note { font-size:.85rem; color:var(--re-muted); margin-block:1rem 0; }
@@ -59,6 +60,6 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
 .advanced-grid small { display:block; color:var(--re-muted); font-size:.8rem; }
 .selected-attribute { display:none; }
 @media (width < 40rem) { .configuration-summary { grid-template-columns:1fr; } }
-@media (forced-colors:active) { .configuration-choice[aria-current] { color:HighlightText; background:Highlight; } }
+@media (forced-colors:active) { .configuration-choice:has(input:checked) { border-color:Highlight; } }
 @media print { .demo-customizer { display:none; } }
 </style>
