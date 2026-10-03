@@ -66,34 +66,88 @@
 @media (forced-colors: active) { .forma-site, .forma-workspace { background: Canvas; } .forma-feature-icon { border-color: CanvasText; } .forma-featured { border-color: Highlight; } }
 @media print { .forma-site, .forma-workspace { background: #fff; color: #000; } .forma-hero { grid-template-columns: 1fr; padding-block: 1rem; } .forma-section { padding-block: 1rem; } .forma-header, .forma-contact form { display: none; } }
 
-/* Palette-aware demo backdrop; updates through the native radio controls.
-   Repeat down the page to reveal the material on lower surfaces too. */
+/* Colourful demo-only backdrop for Glass and Veil. A clipped fixed layer
+   stays stationary on touch devices too, without covering the workbench.
+   Component colours continue to follow the selected palette. */
 .demo-workbench:has(#demo-material-glass:checked) .forma-site,
-html.forma-site[data-material="glass"] > body {
-  background:
-    radial-gradient(ellipse at 78% 28%, color-mix(in srgb, var(--re-primary) 24%, transparent), transparent 58%),
-    radial-gradient(ellipse at 12% 72%, color-mix(in srgb, var(--re-primary-end) 20%, transparent), transparent 55%),
-    linear-gradient(135deg, var(--re-bg), var(--re-surface-alt) 50%, var(--re-bg));
-  background-size: 100% 64rem;
-  background-repeat: repeat-y;
+html.forma-site[data-material="glass"] > body,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site,
+html.forma-site[data-material="veil"] > body {
+  position: relative;
+  isolation: isolate;
+  clip-path: inset(0);
+  background: var(--re-bg);
 }
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
-html.forma-site[data-material="glass"][data-contrast="more"] > body { background: var(--re-bg); }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site::before,
+html.forma-site[data-material="glass"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site::before,
+html.forma-site[data-material="veil"] > body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 92% 18%, light-dark(#ffe0b3, #645039), transparent 62%),
+    radial-gradient(ellipse at 62% 82%, light-dark(#f9c2df, #613957), transparent 66%),
+    radial-gradient(ellipse at 12% 26%, light-dark(#b8cbff, #293c74), transparent 65%),
+    linear-gradient(145deg, light-dark(#c9c3ff, #302651), light-dark(#e5d5ed, #2e293f));
+}
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
-  html.forma-site[data-material="glass"] > body,
-  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
-  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: var(--re-bg); }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site,
+html.forma-site[data-material="glass"] > body,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site,
+html.forma-site[data-material="veil"] > body,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="glass"][data-contrast="more"] > body,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="veil"][data-contrast="more"] > body { background: var(--re-bg); }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site::before,
+html.forma-site[data-material="glass"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site::before,
+html.forma-site[data-material="veil"] > body::before,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
 @media (forced-colors: active) {
-  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
-  html.forma-site[data-material="glass"] > body,
-  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
-  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: Canvas; }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site,
+html.forma-site[data-material="glass"] > body,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site,
+html.forma-site[data-material="veil"] > body,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="glass"][data-contrast="more"] > body,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="veil"][data-contrast="more"] > body { background: Canvas; }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site::before,
+html.forma-site[data-material="glass"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site::before,
+html.forma-site[data-material="veil"] > body::before,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
 @media print {
-  .demo-workbench:has(#demo-material-glass:checked) .forma-site,
-  html.forma-site[data-material="glass"] > body,
-  .demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
-  html.forma-site[data-material="glass"][data-contrast="more"] > body { background: #fff; color: #000; }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site,
+html.forma-site[data-material="glass"] > body,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site,
+html.forma-site[data-material="veil"] > body,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="glass"][data-contrast="more"] > body,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site,
+html.forma-site[data-material="veil"][data-contrast="more"] > body { background: #fff; color: #000; }
+.demo-workbench:has(#demo-material-glass:checked) .forma-site::before,
+html.forma-site[data-material="glass"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked) .forma-site::before,
+html.forma-site[data-material="veil"] > body::before,
+.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
+.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .forma-site::before,
+html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
