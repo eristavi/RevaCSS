@@ -1,0 +1,33 @@
+---
+import TopMenu from '../TopMenu.astro';
+import BlogCover from './BlogCover.astro';
+import {blogPosts,blogAuthor} from '../../data/blog-posts.js';
+const {base='/',slug,embedded=true,standalone=false}=Astro.props;
+const post=blogPosts.find(p=>p.slug===slug);
+const Content=embedded?'section':'main';
+const home=base+'demos/blog/'+(standalone?'source.html':'');
+const href=p=>base+'demos/blog/'+(standalone?'source/'+p.slug+'.html':p.slug+'/');
+const items=[{key:'journal',label:'Journal',href:home},{key:'latest',label:'Latest stories',href:home+'#latest'},{key:'about',label:'About the author',href:home+'#about'}];
+const related=blogPosts.filter(p=>p.slug!==slug).slice(0,3);
+---
+<header class="container"><TopMenu id="fieldnotes" label="Fieldnotes journal" brand="fieldnotes." brandHref={home} items={items} current={post?'none':'journal'}><a slot="actions" class="button outline" href={home+'#latest'}>Explore the journal</a></TopMenu></header>
+<Content class="container" aria-label={post?'Article':'Journal'}>
+{post ? <>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Journal</a></li><li><span aria-current="page">{post.category}</span></li></ol></nav>
+  <article aria-labelledby="blog-title">
+    <header class="blog-intro"><p class="blog-kicker">{post.category} / FIELDNOTES</p><h1 id="blog-title">{post.title}</h1><p>{post.summary}</p><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><a href="#article-author">{blogAuthor.name}</a><p class="blog-meta"><time datetime={post.date}>{post.dateLabel}</time> · {post.minutes} min read</p></div></div></header>
+    <figure><BlogCover index={blogPosts.indexOf(post)}/><figcaption>An abstract study in space and balance.</figcaption></figure>
+    <div class="blog-reading">
+      <aside aria-labelledby="article-contents"><nav><h2 id="article-contents">In this story</h2><ol>{post.sections.map((section,i)=><li><a href={'#story-'+i}>{section.title}</a></li>)}</ol></nav><p class="blog-meta">An independent perspective on everyday work.</p></aside>
+      <div>{post.sections.map((section,i)=><section aria-labelledby={'story-'+i}><h2 id={'story-'+i}>{section.title}</h2>{section.text.map(paragraph=><p>{paragraph}</p>)}</section>)}<blockquote><p>Give the important things a clear place, and enough room to be understood.</p></blockquote><footer class="card" id="article-author"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2>Written by {blogAuthor.name}</h2><p>{blogAuthor.bio}</p><a href={home}>More from the journal</a></div></div></footer></div>
+    </div>
+  </article>
+  <section aria-labelledby="related-heading"><header class="row justify-between"><h2 id="related-heading">Keep exploring.</h2><a href={home+'#latest'}>All stories</a></header><div class="grid">{related.map(p=><article class="card stack"><p class="blog-kicker">{p.category}</p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta">{p.minutes} min read</p></article>)}</div></section>
+</> : <>
+  <header class="blog-intro"><p class="blog-kicker">AN INDEPENDENT JOURNAL</p><h1 id="blog-title">Thoughtful ideas.<br/>A little room to grow.</h1><p>Notes on design, everyday work and the small choices that make things better.</p></header>
+  <article class="card blog-feature" aria-labelledby="featured-title"><a href={href(blogPosts[0])} tabindex="-1" aria-hidden="true"><BlogCover/></a><div class="stack"><p class="blog-kicker">FEATURED STORY / {blogPosts[0].category}</p><h2 id="featured-title"><a href={href(blogPosts[0])}>{blogPosts[0].title}</a></h2><p>{blogPosts[0].summary}</p><p class="blog-meta"><time datetime={blogPosts[0].date}>{blogPosts[0].dateLabel}</time> · {blogPosts[0].minutes} min read</p><a class="button" href={href(blogPosts[0])}>Read the story</a></div></article>
+  <section id="latest" aria-labelledby="latest-title"><header class="row justify-between"><h2 id="latest-title">Fresh perspectives.</h2><p class="blog-meta">Design · Practice · Notes</p></header><div class="grid">{blogPosts.slice(1).map((p,i)=><article class="card stack"><BlogCover index={i+1}/><p class="blog-kicker">{p.category}</p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta"><time datetime={p.date}>{p.dateLabel}</time> · {p.minutes} min read</p></article>)}</div></section>
+  <aside class="card" id="about" aria-labelledby="about-title"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2 id="about-title">A journal by {blogAuthor.name}.</h2><p>{blogAuthor.bio}</p><p>New perspectives, one considered story at a time.</p></div></div></aside>
+</>}
+</Content>
+<footer class="container"><div class="row justify-between"><p><strong>fieldnotes.</strong> · A fictional journal.</p><a href="#blog-title">Back to top</a></div><p class="blog-meta">Built with <a href={base}>RevaCSS</a> · Native HTML and CSS.</p></footer>

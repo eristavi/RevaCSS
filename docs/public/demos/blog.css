@@ -1,0 +1,57 @@
+/* Demo composition only. Components and appearance belong to RevaCSS. */
+.blog-site { background:var(--re-bg); color:var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
+.blog-site > header { padding-block:1.25rem; border-block-end:var(--re-surface-border) solid var(--re-line); }
+.blog-site > :is(main,section) { padding-block:clamp(1.5rem,4vw,4rem); }
+.blog-site > footer { padding-block:2rem; border-block-start:var(--re-surface-border) solid var(--re-line); }
+.blog-site :is(article,section,aside) { min-inline-size:0; }
+.blog-site :is(main,section)[aria-label] > :is(section,aside) { margin-block-start:3rem; }
+.blog-site .blog-intro { max-inline-size:52rem; margin-block:1rem 3rem; }
+.blog-site h1 { font-size:clamp(2.3rem,1.7rem + 3vw,4.5rem); line-height:1.08; margin-block:.3em; }
+.blog-site h2 { font-size:clamp(1.5rem,1.2rem + .8vw,2.1rem); }
+.blog-site h3 { font-size:1.35rem; }
+.blog-site :is(h2,h3) a { color:inherit; text-decoration:none; }
+.blog-site :is(h2,h3) a:hover { text-decoration:underline; }
+.blog-site .blog-intro > p:not(.blog-kicker) { max-inline-size:48ch; font-size:1.2em; }
+.blog-site .blog-kicker { font-size:.75em; letter-spacing:.1em; font-weight:700; color:var(--re-muted); margin:0; }
+.blog-site .blog-meta { font-size:.85em; color:var(--re-muted); margin:0; }
+.blog-site .blog-feature { display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(1rem,3vw,3rem); align-items:center; }
+.blog-site .blog-feature .button { justify-self:start; align-self:start; }
+.blog-site .blog-cover { display:block; inline-size:100%; block-size:auto; border-radius:var(--re-radius); }
+.blog-site .grid { --re-column:19rem; }
+.blog-site .card h3 { margin-block:.25em; }
+.blog-site figure { margin-block:0 3rem; }
+.blog-site .blog-reading { display:grid; grid-template-columns:minmax(10rem,1fr) minmax(0,42rem); gap:clamp(1.5rem,5vw,5rem); max-inline-size:65rem; margin-inline:auto; }
+.blog-site .blog-reading > aside { border-inline-end:var(--re-surface-border) solid var(--re-line); padding-inline-end:1.5rem; }
+.blog-site .blog-reading > aside h2 { font-size:1em; margin-block:0 1rem; }
+.blog-site .blog-reading > aside ol { padding-inline-start:1.2em; font-size:.9em; }
+.blog-site .blog-reading > div > section:first-child h2 { margin-block-start:0; }
+.blog-site #article-author { margin-block:2.5rem; }
+.blog-site #article-author h2 { font-size:1.1em; margin-block:0 .5rem; }
+.blog-site #about .row { align-items:flex-start; flex-wrap:nowrap; }
+.blog-site #about h2 { margin-block-start:0; }
+/* A subdued palette backdrop gives translucent materials a visible setting. */
+.demo-workbench:has(#demo-material-glass:checked) .blog-site,
+.demo-workbench:has(#demo-material-veil:checked) .blog-site,
+html:is([data-material="glass"],[data-material="veil"]) .blog-site {
+ background:radial-gradient(ellipse at 100% 0,color-mix(in srgb,var(--re-primary) 10%,transparent),transparent 50%),var(--re-bg);
+}
+@media (max-width:45rem) {
+ .blog-site .blog-feature,.blog-site .blog-reading { grid-template-columns:minmax(0,1fr); }
+ .blog-site .blog-reading > aside { border-inline-end:0; border-block-end:var(--re-surface-border) solid var(--re-line); padding:0 0 1rem; }
+ .blog-site .blog-feature h2 { margin-block-start:0; }
+ .blog-site .row { gap:.75rem; }
+}
+@media (prefers-contrast:more),(prefers-reduced-transparency:reduce) {
+ .blog-site { background:var(--re-bg)!important; }
+}
+@media (forced-colors:active) {
+ .blog-site { background:Canvas!important; color:CanvasText; }
+ .blog-site .blog-cover { display:none; }
+}
+@media print {
+ .blog-site { background:#fff!important; color:#000; }
+ .blog-site > header,.blog-site .blog-reading > aside { display:none; }
+ .blog-site .blog-reading { display:block; }
+ .blog-site h1 { color:inherit; }
+ .blog-site .blog-cover { max-block-size:12rem; }
+}

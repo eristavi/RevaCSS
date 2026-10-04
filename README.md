@@ -166,3 +166,7 @@ Activity history uses one `ol.timeline` class with native timestamps. Existing l
 ## Native select enhancement
 
 Load optional `reva.selects.css` (or its scoped counterpart) to style ordinary single-select option lists in supporting browsers. Existing shared tokens control the surface, shape, border, spacing and typography. Unsupported browsers retain native pickers; multiple/listbox selects are unchanged. No classes or JavaScript. [Examples](https://eristavi.github.io/RevaCSS/components/selects/).
+
+## Blog demos
+
+[Fieldnotes blog](https://eristavi.github.io/RevaCSS/demos/blog/) and [article demo](https://eristavi.github.io/RevaCSS/demos/blog/room-for-better-work/) reuse existing navigation, cards, breadcrumbs, avatars and typography. Six fictional articles share a responsive editorial layout, native reading anchors, author details and related posts. The shared customizer starts with system theme and the Default palette; each page offers complete starting HTML. Demo-only `blog.css` handles composition; no core API additions or browser JavaScript are introduced.

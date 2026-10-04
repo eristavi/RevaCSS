@@ -1,0 +1,7 @@
+---
+import BlogWorkbench from '../../../components/demos/BlogWorkbench.astro';
+import {blogPosts} from '../../../data/blog-posts.js';
+export function getStaticPaths(){return blogPosts.map(post=>({params:{slug:post.slug}}));}
+const {slug}=Astro.params;
+---
+<BlogWorkbench slug={slug}/>

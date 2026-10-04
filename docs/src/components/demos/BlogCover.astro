@@ -1,0 +1,11 @@
+---
+const {index=0}=Astro.props;
+---
+<svg class="blog-cover" viewBox="0 0 640 400" aria-hidden="true" focusable="false">
+  <rect width="640" height="400" fill="var(--re-surface-alt)"/>
+  <circle cx={index%2?470:165} cy="200" r="145" fill="var(--re-primary)" opacity=".18"/>
+  <path d={index%2?'M100 305V95h230v210z M155 305V155h230v150z':'M280 310V90h180v220z M330 310V150h180v160z'} fill="var(--re-primary)" opacity=".45"/>
+  <path d="M65 325H575 M65 340H575" stroke="var(--re-text)" stroke-width="2" opacity=".22"/>
+  <circle cx={index%2?220:395} cy="210" r="65" fill="var(--re-surface)"/>
+  <path d="M80 80h65 M80 80v65 M560 320h-65 M560 320v-65" fill="none" stroke="var(--re-primary)" stroke-width="3"/>
+</svg>
