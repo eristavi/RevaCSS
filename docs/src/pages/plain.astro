@@ -1,8 +1,9 @@
 ---
+import SettingsHead from '../components/SettingsHead.astro';
 import { stylesheet } from '../data/assets.js';
 import DocumentationHeader from '../components/DocumentationHeader.astro';
 const base=import.meta.env.BASE_URL;
 ---
-<!doctype html><html lang="en" data-theme="auto"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>RevaCSS plain HTML acceptance page</title><link rel="stylesheet" href={stylesheet('reva.css')}/></head><body>
+<!doctype html><html lang="en" data-theme="auto"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>RevaCSS plain HTML acceptance page</title><SettingsHead/><link rel="stylesheet" href={stylesheet('reva.css')}/></head><body>
 <a class="skip-link" href="#main">Skip to content</a><DocumentationHeader/><header><h1>Plain HTML, styled by RevaCSS</h1><p>The acceptance content below uses native HTML without layout or component classes.</p></header><main id="main"><article><h2>A native article</h2><p>Structural HTML remains neutral. <a href="#form">Links are identifiable</a> and text is comfortable to read.</p><blockquote><p>The framework supplies a starting point.</p></blockquote><h3>A list</h3><ol><li>Write HTML</li><li>Import one stylesheet</li><li>Customise what you need</li></ol><details><summary>Read more</summary><p>Native disclosure behaviour, with no script.</p></details></article><section id="form"><h2>A native form</h2><form action="#form"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required/><label for="notes">Notes</label><textarea id="notes" name="notes"></textarea><button type="submit">Submit</button></form></section><section><h2>A native table</h2><table><caption>Example settings</caption><thead><tr><th scope="col">Setting</th><th scope="col">Default</th></tr></thead><tbody><tr><th scope="row">Theme</th><td>Device preference</td></tr><tr><th scope="row">Shape</th><td>Rounded</td></tr></tbody></table></section></main><footer><p>MIT · RevaCSS</p></footer></body></html>
 

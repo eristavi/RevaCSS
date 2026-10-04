@@ -21,6 +21,21 @@ test('all button preset endpoints meet normal-text contrast',()=>{
  for(const stop of ['start','end']) { assert.ok(contrast([1,1,1],color(tokens.primitive.danger[stop]))>=4.5); assert.ok(contrast(color(tokens.primitive.warningText),color(tokens.primitive.warning[stop]))>=4.5); }
 });
 test('core remains within 15 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<15*1024));
-test('generated site ships no browser scripts',async()=>{
- async function visit(dir) { for(const f of await readdir(dir,{withFileTypes:true})) { const path=dir+'/'+f.name; if(f.isDirectory()) await visit(path); else if(f.name.endsWith('.html')) assert.ok(!/<script\b/i.test(await readFile(path,'utf8')),path); else assert.ok(!f.name.endsWith('.js'),path); } } await visit('docs/dist');
+test('only optional settings scripts ship in the documentation; core remains CSS-only',async()=>{
+ async function visit(dir) {
+  for(const f of await readdir(dir,{withFileTypes:true})) {
+   const path=dir+'/'+f.name;
+   if(f.isDirectory())await visit(path);
+   else if(f.name.endsWith('.html')){
+    const html=await readFile(path,'utf8');
+    for(const [,attributes,content] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
+     if(attributes.includes('id="reva-settings-schema"')){assert.ok(attributes.includes('application/json'),path);JSON.parse(content);}
+     else if(attributes.includes('id="reva-settings-runtime"')){assert.match(attributes,/src="[^"]*settings\.js\?v=[^"]+"/);assert.equal(content.trim(),'');}
+     else assert.match(content.trim(),/^window\.RevaSettings\?\.init(?:Customizer|Theme)\(\);$/,path);
+    }
+   }else if(f.name.endsWith('.js'))assert.equal(f.name,'settings.js',path);
+  }
+ }
+ await visit('docs/dist');
+ assert.ok(!(await readdir('dist')).some(file=>file.endsWith('.js')));
 });

@@ -1,21 +1,25 @@
 ---
+import options from '../../../tokens/options.json';
+import {optionLabel} from '../data/demo-settings.js';
 const { theme='auto' }=Astro.props;
 ---
 <button type="button" class="menu-toggle theme-toggle" popovertarget="docs-theme-panel">Theme</button>
 <ul id="docs-theme-panel" class="menu-panel theme-options" popover="auto">
   <li class="menu-back"><button type="button" class="menu-toggle" popovertarget="docs-theme-panel" popovertargetaction="hide">Close theme menu</button></li>
-  {['auto','light','dark'].map(value=><li><label for={`docs-theme-${value}`}><input id={`docs-theme-${value}`} type="radio" name="docs-theme" value={value} checked={theme===value}/>{value==='auto'?'System':value==='light'?'Light':'Dark'}</label></li>)}
-  <li><p class="theme-help">Applies to this page. New pages use their default theme.</p></li>
+  <li><label for="docs-theme">Colour mode</label><select id="docs-theme" name="docs-theme">{options.theme.values.map(value=><option value={value} selected={theme===value}>{optionLabel(value)}</option>)}</select></li>
+  <li><p class="theme-help">Remembered across documentation pages. Demo settings are saved separately.</p></li>
 </ul>
+<script is:inline>window.RevaSettings?.initTheme();</script>
 <style>
 .theme-toggle { inline-size:auto; flex:0 0 auto; }
-.theme-options label { display:flex; align-items:center; gap:.75rem; min-block-size:2.75rem; padding:.4rem .8rem; margin:0; border-radius:calc(var(--re-radius) * .6); cursor:pointer; }
+.theme-options label { padding:.4rem .8rem; }
+.theme-options select { inline-size:calc(100% - 1.6rem); margin-inline:.8rem; }
 .theme-options label:hover { background:var(--re-surface-alt); }
 .theme-help { padding-inline:.8rem; font-size:.8rem; color:var(--re-muted); }
 @media print { .theme-toggle { display:none; } }
 </style>
 <style is:global>
-html:has(#docs-theme-light:checked) { color-scheme:light; }
-html:has(#docs-theme-dark:checked) { color-scheme:dark; }
-html:has(#docs-theme-auto:checked) { color-scheme:light dark; }
+html:has(#docs-theme option[value="light"]:checked) { color-scheme:light; }
+html:has(#docs-theme option[value="dark"]:checked) { color-scheme:dark; }
+html:has(#docs-theme option[value="auto"]:checked) { color-scheme:light dark; }
 </style>

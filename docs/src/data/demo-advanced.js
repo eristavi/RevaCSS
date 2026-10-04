@@ -1,4 +1,3 @@
-import options from '../../../tokens/options.json';
 import tokens from '../../../dist/reva.tokens.css?raw';
 import core from '../../../dist/reva.css?raw';
 import motion from '../../../src/css/motion.css?raw';
@@ -7,9 +6,8 @@ import veil from '../../../src/css/veil.css?raw';
 import {demoOptions} from './demo-configurations.js';
 import {transform} from 'lightningcss';
 
-const labels={motion:'Motion',edge:'Decorative edges',density:'Density',depth:'Shadows',fill:'Fill',type:'Typography',size:'Control size',border:'Borders',width:'Page width',navbar:'Navbar layout',contrast:'Contrast'};
-export const advancedOptions=Object.entries(labels).map(([key,label])=>({key,label,...options[key]}));
-export const optionLabel=value=>value==='auto'?'System / auto':value[0].toUpperCase()+value.slice(1);
+import {advancedOptions} from './demo-settings.js';
+export {advancedOptions,optionLabel} from './demo-settings.js';
 
 // Reuse the built framework declarations rather than maintain another token map.
 function declaration(source,key,value) {
@@ -18,11 +16,11 @@ function declaration(source,key,value) {
   if(start<0) throw new Error(`Missing demo preset: data-${key}="${value}"`);
   return source.slice(source.indexOf('{',start)+1,source.indexOf('}',start)).trim();
 }
-const scope=(key,value)=>`.demo-workbench:has(#demo-${key}-${value}:checked) .demo-preview`;
+const scope=(key,value)=>`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .demo-preview`;
 let css='';
 for(const [key,values] of Object.entries(demoOptions)) for(const value of values) {
   if(key!=='material') css+=`@scope (${scope(key,value)}) { @layer re.tokens { :where(:scope) { ${declaration(tokens,key,value)} } } }\n`;
-  css+=`.demo-workbench:has(#demo-${key}-${value}:checked) .attribute-${key}-${value} { display:inline; }\n`;
+  css+=`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }
 // Rebind the existing material scopes to checked controls. Descendant explicit
 // data-material boundaries and preference rules remain the extension's own rules.
@@ -31,7 +29,7 @@ function liveMaterial(source,names) {
     const original=`@scope ([data-material="${name}"], :scope[data-material="${name}"])`;
     // Inner scope roots are relative to the outer workbench scope. Repeating
     // .demo-workbench here would look for a second nested workbench.
-    const previewRoot=`:scope:has(#demo-material-${name}:checked) .demo-preview`;
+    const previewRoot=`:scope:has(#demo-material option[value="${name}"]:checked) .demo-preview`;
     source=source.replaceAll(original,`@scope (${previewRoot}, [data-material="${name}"], :scope[data-material="${name}"])`);
   }
   return `@scope (.demo-workbench) { ${source} }\n`;
@@ -43,7 +41,7 @@ for(const option of advancedOptions) for(const value of option.values) {
   if(key==='motion') decl+=' '+declaration(motion,key,value);
   if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
-  css+=`.demo-workbench:has(#demo-${key}-${value}:checked) .attribute-${key}-${value} { display:inline; }\n`;
+  css+=`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }
 // Solid/glass paint may set these on descendants; explicit contrast still wins.
 css+=`@scope (${scope('contrast','more')}) { @layer re.utilities { :where(*, :scope) { ${declaration(core,'contrast','more')} } } }\n`;

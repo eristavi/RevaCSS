@@ -10,14 +10,14 @@ test.describe('dashboard native operation',()=>{
  test.use({javaScriptEnabled:false});
  for(const width of [320,390,1440]) test(`dashboard reflows and customises without JavaScript at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.goto(route);
-  expect(await page.locator('script').count()).toBe(0);
+  await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  await expect(page.locator('.dash-metric')).toHaveCount(4);
+  await expect(page.locator('.dash-metrics > .card')).toHaveCount(4);
   await expect(page.getByRole('img',{name:'Monthly revenue, April to September 2026'})).toBeVisible();
   await expect(page.getByRole('img',{name:'Revenue share by channel'})).toBeVisible();
   await page.getByRole('button',{name:'Customize this demo',exact:true}).click();await settle(page.locator('#demo-customizer-popup')); 
-  await page.locator('#demo-theme-dark').check();await page.locator('#demo-palette-ocean').check();
-  await page.locator('#demo-material-glass').check();
+  await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('ocean');
+  await page.locator('#demo-material').selectOption('glass');
   await page.locator('#demo-customizer-popup').getByRole('button',{name:'View the website',exact:true}).click();
   await expect(page.locator('#demo-customizer-popup')).toBeHidden();
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
@@ -25,13 +25,13 @@ test.describe('dashboard native operation',()=>{
   await page.locator('#dashboard-report > summary').click();
   await expect(page.getByRole('cell',{name:'€42,500',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Customize this demo',exact:true}).click();await settle(page.locator('#demo-customizer-popup')); 
-  await page.locator('#demo-material-veil').check();await page.locator('#demo-theme-light').check();
+  await page.locator('#demo-material').selectOption('veil');await page.locator('#demo-theme').selectOption('light');
   await page.locator('#demo-customizer-popup').getByRole('button',{name:'View the website',exact:true}).click();
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('light');
  });
  test('starting HTML contains a complete standalone dashboard',async({request})=>{
   const response=await request.get('/demos/dashboard/source.html');expect(response.ok()).toBe(true);
-  const html=await response.text();expect(html.toLowerCase()).toContain('<!doctype html>');expect(html).toContain('Revenue by channel');expect(html).toContain('dashboard.css');expect(html).not.toMatch(/<script\b/);
+  const html=await response.text();expect(html.toLowerCase()).toContain('<!doctype html>');expect(html).toContain('Revenue by channel');expect(html).toContain('dashboard.css');expect(html).toContain('reva-settings-runtime');
  });
 });
 test('dashboard accessibility and reduced motion',async({page})=>{

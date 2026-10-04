@@ -1,0 +1,8 @@
+---
+import {demoSettingsSchema} from '../data/demo-settings.js';
+const {kind='docs',assetBase=import.meta.env.BASE_URL}=Astro.props;
+const revision=encodeURIComponent(import.meta.env.GITHUB_SHA || process.env.GITHUB_SHA || 'local');
+const schema=JSON.stringify({kind,values:demoSettingsSchema}).replace(/</g,'\\u003c');
+---
+<script id="reva-settings-schema" type="application/json" is:inline set:html={schema}/>
+<script id="reva-settings-runtime" is:inline src={assetBase+'settings.js?v='+revision}></script>

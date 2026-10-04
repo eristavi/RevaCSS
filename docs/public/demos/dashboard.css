@@ -42,18 +42,18 @@
 /* Palette-driven demo-only backdrop for Glass and Veil. A clipped fixed layer
    stays stationary on touch devices too, without covering the workbench.
    The mesh inherits palette tokens, including custom token overrides. */
-.demo-workbench:has(#demo-material-glass:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site,
 html[data-material="glass"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site,
 html[data-material="veil"] .dash-site {
   position: relative;
   isolation: isolate;
   clip-path: inset(0);
   background: var(--re-bg);
 }
-.demo-workbench:has(#demo-material-glass:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site::before,
 html[data-material="glass"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site::before,
 html[data-material="veil"] .dash-site::before {
   content: "";
   position: fixed;
@@ -66,61 +66,61 @@ html[data-material="veil"] .dash-site::before {
     radial-gradient(ellipse at 12% 26%, color-mix(in srgb, var(--re-surface-alt) 65%, var(--re-bg)), transparent 65%),
     linear-gradient(145deg, color-mix(in srgb, var(--re-primary) 14%, var(--re-bg)), var(--re-bg));
 }
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="glass"][data-contrast="more"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="veil"][data-contrast="more"] .dash-site::before { display: none; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-.demo-workbench:has(#demo-material-glass:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site,
 html[data-material="glass"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site,
 html[data-material="veil"] .dash-site,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="glass"][data-contrast="more"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="veil"][data-contrast="more"] .dash-site { background: var(--re-bg); }
-.demo-workbench:has(#demo-material-glass:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site::before,
 html[data-material="glass"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site::before,
 html[data-material="veil"] .dash-site::before,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="glass"][data-contrast="more"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="veil"][data-contrast="more"] .dash-site::before { display: none; }
 }
 @media (forced-colors: active) {
-.demo-workbench:has(#demo-material-glass:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site,
 html[data-material="glass"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site,
 html[data-material="veil"] .dash-site,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="glass"][data-contrast="more"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="veil"][data-contrast="more"] .dash-site { background: Canvas; }
-.demo-workbench:has(#demo-material-glass:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site::before,
 html[data-material="glass"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site::before,
 html[data-material="veil"] .dash-site::before,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="glass"][data-contrast="more"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="veil"][data-contrast="more"] .dash-site::before { display: none; }
 }
 @media print {
-.demo-workbench:has(#demo-material-glass:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site,
 html[data-material="glass"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site,
 html[data-material="veil"] .dash-site,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="glass"][data-contrast="more"] .dash-site,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site,
 html[data-material="veil"][data-contrast="more"] .dash-site { background: #fff; color: #000; }
-.demo-workbench:has(#demo-material-glass:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .dash-site::before,
 html[data-material="glass"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .dash-site::before,
 html[data-material="veil"] .dash-site::before,
-.demo-workbench:has(#demo-material-glass:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="glass"][data-contrast="more"] .dash-site::before,
-.demo-workbench:has(#demo-material-veil:checked):has(#demo-contrast-more:checked) .dash-site::before,
+.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .dash-site::before,
 html[data-material="veil"][data-contrast="more"] .dash-site::before { display: none; }
 }

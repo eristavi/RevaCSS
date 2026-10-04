@@ -17,24 +17,24 @@ test.describe('shared documentation header without browser JavaScript',()=>{
    const entries=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));
    if(!expected)expected=entries;expect(entries,route).toEqual(expected);
    expect(await nav(page).locator('details').count()).toBe(0);
-   expect(await nav(page).locator('input[name="docs-theme"]').count()).toBe(3);
+   expect(await nav(page).locator('#docs-theme option').count()).toBe(3);
    const invalid=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(el=>el.id);return {duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),targets:[...document.querySelectorAll('[popovertarget]')].filter(el=>!document.getElementById(el.getAttribute('popovertarget'))).map(el=>el.outerHTML)};});
-   expect(invalid,route).toEqual({duplicates:[],targets:[]});expect(await page.locator('script').count()).toBe(0);
+   expect(invalid,route).toEqual({duplicates:[],targets:[]});await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   }
  });
  for(const width of [1280,375])test(`theme choices update the page and code while preserving local overrides at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.emulateMedia({colorScheme:'light'});await page.goto('/components/buttons/');
   const colours=()=>page.locator('#variants pre').evaluate(el=>({body:getComputedStyle(document.body).backgroundColor,code:getComputedStyle(el).backgroundColor}));
   const light=await colours();await openTheme(page);
-  await page.getByLabel('Dark',{exact:true}).check();const dark=await colours();expect(dark.body).not.toBe(light.body);expect(dark.code).not.toBe(light.code);
+  await page.locator('#docs-theme').selectOption('dark');const dark=await colours();expect(dark.body).not.toBe(light.body);expect(dark.code).not.toBe(light.code);
   await page.mouse.click(2,800);await expect(page.locator('#docs-theme-panel')).toBeHidden();
-  await openTheme(page);await page.getByLabel('Light',{exact:true}).check();expect(await colours()).toEqual(light);
-  await page.getByLabel('System',{exact:true}).check();await page.emulateMedia({colorScheme:'dark'});expect(await colours()).toEqual(dark);
+  await openTheme(page);await page.locator('#docs-theme').selectOption('light');expect(await colours()).toEqual(light);
+  await page.locator('#docs-theme').selectOption('auto');await page.emulateMedia({colorScheme:'dark'});expect(await colours()).toEqual(dark);
   await page.keyboard.press('Escape');
   if(width<768)await openMenu(page,'Menu');
   await openMenu(page,'Components');await openMenu(page,'Forms and actions');await nav(page).getByRole('link',{name:'Forms',exact:true}).click();
-  await expect(page).toHaveURL(/\/components\/forms\/$/);await expect(page.locator('#docs-theme-auto')).toBeChecked();
-  await page.goto('/preview/light/');await openTheme(page);await page.getByLabel('Dark',{exact:true}).check();
+  await expect(page).toHaveURL(/\/components\/forms\/$/);await expect(page.locator('#docs-theme')).toHaveValue('auto');
+  await page.goto('/preview/light/');await openTheme(page);await page.locator('#docs-theme').selectOption('dark');
   expect(await page.locator('body').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(16, 16, 16)');
   expect(await page.locator('.card[data-theme=light]').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe('rgb(255, 253, 248)');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -51,7 +51,7 @@ test.describe('shared documentation header without browser JavaScript',()=>{
 });
 test('theme panel and documentation navigation pass accessibility checks in light and dark',async({page})=>{
  for(const width of [1280,375])for(const theme of ['Light','Dark']){
-  await page.setViewportSize({width,height:900});await page.goto('/guide/');await openTheme(page);await page.getByLabel(theme,{exact:true}).check();
+  await page.setViewportSize({width,height:900});await page.goto('/guide/');await openTheme(page);await page.locator('#docs-theme').selectOption(theme.toLowerCase());
   // Reopen in the selected theme: Firefox's anchor-positioned computed background
   // can retain the previous colour scheme while the already-open panel paints correctly.
   await page.keyboard.press('Escape');await openTheme(page);

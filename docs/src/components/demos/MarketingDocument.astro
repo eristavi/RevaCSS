@@ -1,4 +1,5 @@
 ---
+import SettingsHead from '../SettingsHead.astro';
 import MarketingSite from './MarketingSite.astro';
 const {config,assetBase}=Astro.props;
 ---
@@ -8,7 +9,7 @@ const {config,assetBase}=Astro.props;
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="description" content="Forma: a fictional workspace product demonstrating a complete RevaCSS marketing website."/>
-  <title>Forma · RevaCSS marketing demo</title>
+  <title>Forma · RevaCSS marketing demo</title><SettingsHead kind="demo"/>
   <link rel="stylesheet" href={assetBase+'reva/reva-fonts.css'}/>
   <link rel="stylesheet" href={assetBase+'reva/reva.css'}/>
   <link rel="stylesheet" href={assetBase+'reva/reva.motion.css'}/>

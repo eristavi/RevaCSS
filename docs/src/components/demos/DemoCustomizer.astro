@@ -1,6 +1,6 @@
 ---
 import {demoOptions, sourceHref} from '../../data/demo-configurations.js';
-import {advancedOptions,optionLabel} from '../../data/demo-advanced.js';
+import {advancedOptions,optionLabel} from '../../data/demo-settings.js';
 const {config,downloadHref,downloadName}=Astro.props;
 const base=import.meta.env.BASE_URL;
 const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'};
@@ -10,31 +10,33 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
   <div id="demo-customizer-popup" class="customizer-popup" data-material="glass" popover="auto" role="dialog" aria-labelledby="customize-title" aria-describedby="customize-description">
     <header class="customizer-header"><h2 id="customize-title">Customize this demo</h2><button type="button" class="outline" popovertarget="demo-customizer-popup" popovertargetaction="hide" autofocus>Close</button></header>
     <div class="customizer-body">
-      <p id="customize-description">Every setting updates the website immediately. Close this panel to explore it; your choices stay selected. You can also close with Escape or a click outside.</p>
+      <p id="customize-description">Every setting updates the website immediately. Your choices are remembered across demo pages when browser storage is available. You can also close with Escape or a click outside.</p>
       <form id="demo-customizer-form">
       <div class="customizer-options">
-        {Object.entries(demoOptions).map(([key,values])=><fieldset>
-          <legend>{labels[key]}</legend>
-          <div class="row">{values.map(value=><label class="configuration-choice" for={`demo-${key}-${value}`}><input id={`demo-${key}-${value}`} type="radio" name={`demo-${key}`} value={value} checked={config[key]===value}/>{value==='auto'?'System':optionLabel(value)}</label>)}</div>
-        </fieldset>)}
+        {Object.entries(demoOptions).map(([key,values])=><div>
+          <label for={`demo-${key}`}>{labels[key]}</label>
+          <select id={`demo-${key}`} name={`demo-${key}`}>{values.map(value=><option value={value} selected={config[key]===value}>{optionLabel(value)}</option>)}</select>
+        </div>)}
       </div>
       <details class="advanced-settings"><summary>Advanced options · motion, spacing and more</summary>
-        <div class="customizer-options advanced-grid">{advancedOptions.map(option=><fieldset aria-describedby={`demo-${option.key}-help`}>
-          <legend>{option.label}</legend>
-          <div class="advanced-choices">{option.values.map(value=><label class="advanced-choice" for={`demo-${option.key}-${value}`}><input id={`demo-${option.key}-${value}`} type="radio" name={`demo-${option.key}`} value={value} checked={value===option.default}/>{optionLabel(value)}</label>)}</div>
+        <div class="customizer-options advanced-grid">{advancedOptions.map(option=><div>
+          <label for={`demo-${option.key}`}>{option.label}</label>
+          <select id={`demo-${option.key}`} name={`demo-${option.key}`} aria-describedby={`demo-${option.key}-help`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select>
           <small id={`demo-${option.key}-help`}>{option.affects}</small>
-        </fieldset>)}</div>
+        </div>)}</div>
         <p class="customizer-note">Motion changes transitions and popover entrances; edges can animate continuously or shine on interaction. Device accessibility preferences take priority.</p>
       </details>
       </form>
       <div class="configuration-summary">
-        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code>{'<html lang="en"'}{Object.entries(demoOptions).map(([key,values])=>values.map(value=><span class={`selected-attribute attribute-${key}-${value}`}>{`\n  data-${key}="${value}"`}</span>))}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
+        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.entries(demoOptions).map(([key,values])=>values.map(value=><span class={`selected-attribute attribute-${key}-${value}`}>{`\n  data-${key}="${value}"`}</span>))}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
         <div class="stack"><button type="button" popovertarget="demo-customizer-popup" popovertargetaction="hide">View the website</button><a href={downloadHref || sourceHref(base,config)} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a><button type="reset" form="demo-customizer-form" class="outline">Reset all options</button></div>
       </div>
-      <p class="customizer-note">Copy the selected attributes above into the downloaded HTML to keep your choices. The download retains this page’s starting configuration; CSS cannot rewrite its HTML or save selections across visits. Reset restores this page’s initial settings.</p>
+      <p class="customizer-note">Downloads include your current settings with the optional helper enabled. Without JavaScript, the preview still works; copy the selected attributes into the starting HTML. Reset clears saved demo choices and restores this page’s defaults.</p>
+      <p id="demo-settings-status" class="customizer-note" role="status" aria-live="polite"></p>
     </div>
   </div>
 </section>
+<script is:inline>window.RevaSettings?.initCustomizer();</script>
 <style>
 .demo-customizer { scroll-margin-block:1rem; margin-block:1.5rem 2rem; }
 .customizer-popup { padding:0; }
@@ -50,25 +52,16 @@ const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}
 .customizer-body { padding:clamp(.75rem,2vw,1.5rem); }
 .customizer-body > p { max-inline-size:80ch; }
 .customizer-options { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:1rem; }
-.customizer-options fieldset { margin:0; min-inline-size:0; padding:.75rem; }
-.customizer-options legend { font-size:.85rem; font-weight:700; }
-.customizer-options .row { gap:.35rem; }
-.configuration-choice { display:inline-flex; align-items:center; gap:.4rem; min-block-size:2.75rem; padding:.4rem .65rem; border:1px solid var(--re-line); border-radius:.4rem; margin:0; cursor:pointer; }
-.configuration-choice input { inline-size:1rem; block-size:1rem; margin:0; }
-.configuration-choice:hover { background:var(--re-surface-alt); }
-.configuration-choice:has(input:checked) { background:var(--re-surface-alt); color:var(--re-text); border-color:var(--re-text); font-weight:700; }
+.customizer-options > div { min-inline-size:0; }
+.customizer-options label { font-size:.85rem; font-weight:700; }
+.customizer-options select { inline-size:100%; }
 .configuration-summary { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; align-items:center; margin-block-start:1rem; }
 .configuration-summary pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
 .customizer-note { font-size:.85rem; color:var(--re-muted); margin-block:1rem 0; }
 .advanced-settings { margin-block-start:1rem !important; }
 .advanced-grid { padding:1rem; }
-.advanced-choices { display:flex; flex-wrap:wrap; gap:.35rem; margin-block-end:.75rem; }
-.advanced-choice { display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .6rem; min-block-size:2.75rem; border:1px solid var(--re-line); border-radius:.4rem; margin:0; cursor:pointer; font-size:.85rem; }
-.advanced-choice:has(input:checked) { border-color:var(--re-text); background:var(--re-surface-alt); font-weight:700; }
-.advanced-choice input { inline-size:1rem; block-size:1rem; margin:0; }
 .advanced-grid small { display:block; color:var(--re-muted); font-size:.8rem; }
 .selected-attribute { display:none; }
 @media (width < 40rem) { .configuration-summary { grid-template-columns:1fr; } }
-@media (forced-colors:active) { .configuration-choice:has(input:checked) { border-color:Highlight; } }
 @media print { .demo-customizer { display:none; } }
 </style>
