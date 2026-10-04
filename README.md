@@ -60,7 +60,7 @@ Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.0.
 
 Native elements receive useful defaults. A structural class, such as `.card` or `.container`, identifies a pattern where one is needed. See the [getting-started guide](https://eristavi.github.io/RevaCSS/guide/) for installation and stylesheet choices.
 
-The npm package is prepared for local tarball installation. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for bundler imports, scoped styles, assets, and publishing requirements. Registry and CDN installation become available after npm publication.
+Install the npm package with `npm install revacss@1.0.0`, then import `revacss` in your application's CSS-capable bundler. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for scoped styles, fonts, icons, and CDN installation.
 
 ## Configure once, refine locally
 
@@ -104,7 +104,7 @@ Complete, scoped, and modular builds are available in [`dist/`](https://github.c
 
 **RevaCSS 1.0.0 — Erisian** is the first public GitHub release. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.
 
-Automated validation and known limits are recorded in the [release notes](https://github.com/eristavi/RevaCSS/blob/v1.0.0/RELEASE_NOTES.md) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.0.0/quality/releases/v1.0.0.md). Six manual checks remain open; npm publication stays disabled while that work is completed. The package remains private.
+Automated validation and known limits are recorded in the [release notes](https://github.com/eristavi/RevaCSS/blob/v1.0.0/RELEASE_NOTES.md) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.0.0/quality/releases/v1.0.0.md). Six manual checks remain open. The maintainer has authorized the first npm release with these limitations disclosed; this does not certify completion of manual acceptance.
 
 The current implementation targets modern browsers. Native popover patterns require browser support; individual enhancements document their fallbacks. Accessibility also depends on your markup and application behavior. See the [behavior and accessibility guide](https://eristavi.github.io/RevaCSS/guide/accessibility/).
 

@@ -2,7 +2,7 @@
 
 ## 1.0.0 — Erisian · 4 October 2026
 
-The first public GitHub distribution includes compiled downloads, licenses, checksums, a native starter page, and recorded automated validation. The accepted component and Glass designs are preserved. The scrolling top-menu documentation example gains the existing named-region keyboard pattern. Automated expectations now reflect accepted materials, adaptive semantic roles, and the optional documentation helper. Six manual quality entries remain open and npm stays private. Earlier implementation entries below are historical evidence for their recorded revisions.
+The first public GitHub distribution includes compiled downloads, licenses, checksums, a native starter page, and recorded automated validation. The accepted component and Glass designs are preserved. The scrolling top-menu documentation example gains the existing named-region keyboard pattern. Automated expectations now reflect accepted materials, adaptive semantic roles, and the optional documentation helper. Six manual quality entries remain open. The maintainer subsequently authorized first npm publication with those limitations disclosed; the `1.0.0` exception is recorded in `quality/npm-publication-v1.0.0.json`. Earlier implementation entries below are historical evidence for their recorded revisions.
 
 ## Implemented
 - Frozen specification, 19 core options plus the optional material manifest entry, MIT licence, pinned tooling and lockfile.

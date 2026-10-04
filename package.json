@@ -16,7 +16,6 @@
     "url": "https://github.com/eristavi/RevaCSS/issues"
   },
   "homepage": "https://eristavi.github.io/RevaCSS/",
-  "private": true,
   "devEngines": {
     "runtime": {
       "name": "node",
@@ -71,7 +70,7 @@
     "release:package": "python3 scripts/package-release.py",
     "check:package": "node scripts/check-package.mjs",
     "prepack": "npm run build:css && npm run check:package",
-    "prepublishOnly": "npm run check:release-quality",
+    "prepublishOnly": "npm run check:release-quality -- --npm",
     "pretest:package": "npm run prepack",
     "test:package": "node --test tests/package/package.test.mjs",
     "pretest:package:browser": "npm run prepack",

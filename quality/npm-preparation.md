@@ -2,7 +2,7 @@
 
 Validation date: 4 October 2026 (Asia/Nicosia).
 
-Scope: prepare an installable npm candidate from the released framework. The package remains private and has not been published to npm. The existing GitHub release tag and downloads remain unchanged.
+Scope: initial preparation of an installable npm candidate from the released framework. At this preparation stage the package remained private and had not been published to npm. The existing GitHub release tag and downloads remain unchanged. The subsequent maintainer-authorized first npm release is recorded in [the publication record](npm-publication.md).
 
 ## Distribution
 
@@ -42,6 +42,6 @@ The `Check npm package` workflow installs locked development dependencies, runs 
 
 ## Publication status
 
-`private: true` remains in place. `prepublishOnly` invokes `check:release-quality`; the six open manual entries in `quality/blockers.json` still block that gate. No manual item was closed by packaging work.
+At initial preparation, `private: true` remained in place and `prepublishOnly` invoked the ordinary `check:release-quality` gate. The six open manual entries in `quality/blockers.json` blocked publication. No manual item was closed by packaging work.
 
 The registry returned no public `revacss` package during preparation. This observation does not reserve the name. After acceptance is recorded, publication requires a reviewed change to remove `private`, the full validation, and authentication to the intended npm account. See [the npm guide](../NPM.md) for the commands.

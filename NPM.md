@@ -1,6 +1,10 @@
 # RevaCSS on npm
 
-The npm package for **RevaCSS 1.0.0 — Erisian** is prepared for local testing. It has not been published to the registry. The public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0) is available now.
+**RevaCSS 1.0.0 — Erisian** is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0).
+
+```sh
+npm install revacss@1.0.0
+```
 
 ## Install the local package
 
@@ -58,9 +62,7 @@ Global, minified, modular, and component files retain their existing `revacss/di
 
 For plain HTML, copy the required stylesheets from `node_modules/revacss/dist/` to your public assets. Keep `fonts/` beside `reva-fonts.css` when using Manrope.
 
-## Registry and CDN use after publication
-
-These commands and URLs become available after the package is published:
+## Registry and CDN use
 
 ```sh
 npm install revacss@1.0.0
@@ -82,6 +84,8 @@ npm run check:release-quality
 
 Package tests install an actual tarball in a clean project, verify public paths and distribution bytes, and build global/scoped consumer pages with Vite. Browser checks exercise the bundled pages without JavaScript in Chromium, Firefox, and WebKit. Use the browser installation steps in the main README first.
 
-Six manual acceptance items remain open in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json). The package stays `private: true`, and `prepublishOnly` runs the existing quality gate. Preparation does not close those items or enable publication.
+Six manual acceptance items remain open in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json). The maintainer has authorized first publication of `revacss@1.0.0` with these limitations disclosed. The [recorded exception](https://github.com/eristavi/RevaCSS/blob/main/quality/npm-publication-v1.0.0.json) applies only to this version and these six manual items. It does not certify manual acceptance.
 
-Once recorded acceptance is complete, verify the npm account with `npm whoami`, remove `private` in a reviewed change, run the complete build and validation, and publish from the checkout with `npm publish --access public`. npm authentication and any required two-factor confirmation belong to that publishing step. Package names are claimed by successful publication; the current absence of a public `revacss` entry does not reserve the name.
+`prepublishOnly` invokes the quality gate with `--npm` to apply the exception. The ordinary `check:release-quality` command still reports the open items. Any new blocker and future versions remain gated.
+
+For the authorized first publication, verify the npm account with `npm whoami`, run build and validation, and publish from the checkout with `npm publish --access public`. npm authentication and any required two-factor confirmation belong to that publishing step. Package names are claimed by successful publication; the current absence of a public `revacss` entry does not reserve the name.

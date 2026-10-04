@@ -68,7 +68,7 @@ npm run test:quality -- --project=chromium
 npm run check:release-quality
 ```
 
-`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. npm publication remains gated: keep `private: true` until this gate, the agreed component scope, and the npm release requirements in SPECIFICATION.md are complete. No npm publishing workflow is introduced.
+`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. The maintainer has authorized first npm publication of `revacss@1.0.0` with the six already disclosed manual items still open, recorded in `quality/npm-publication-v1.0.0.json`. The npm lifecycle invokes the gate with `--npm` to apply that version-specific exception; the ordinary gate still fails. Future versions and any new blocker remain gated. No npm publishing workflow is introduced.
 
 Record browser/device versions, fixture, result, reviewer/date and evidence when resolving manual gates. Root-font scaling and viewport checks do not replace actual zoom; axe does not replace screen readers; headless WebKit does not replace Safari/iPhone; native blur capture omissions remain unverified device behavior.
 
