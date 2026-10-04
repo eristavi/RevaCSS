@@ -1,6 +1,6 @@
 # RevaCSS component quality standard
 
-Status: acceptance contract for the existing foundation alpha. This document does not certify accessibility or release readiness. No component redesign is included in this step.
+Status: acceptance contract for the framework. RevaCSS 1.0.0 — Erisian is a public GitHub distribution with its validation status disclosed. The six manual acceptance items remain open; this document does not certify their completion or accessibility conformance. The component design is preserved.
 
 ## Required acceptance gates
 
@@ -68,7 +68,7 @@ npm run test:quality -- --project=chromium
 npm run check:release-quality
 ```
 
-`check:release-quality` deliberately exits nonzero while any registry item remains open. Alpha documentation CI reports that status without blocking documentation deployment. A green alpha CI run does not make a blocked release ready. Publication stays prohibited: keep `private: true`, complete this gate plus the agreed component scope and all existing release requirements in SPECIFICATION.md. No publishing workflow is introduced.
+`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. npm publication remains gated: keep `private: true` until this gate, the agreed component scope, and the npm release requirements in SPECIFICATION.md are complete. No npm publishing workflow is introduced.
 
 Record browser/device versions, fixture, result, reviewer/date and evidence when resolving manual gates. Root-font scaling and viewport checks do not replace actual zoom; axe does not replace screen readers; headless WebKit does not replace Safari/iPhone; native blur capture omissions remain unverified device behavior.
 

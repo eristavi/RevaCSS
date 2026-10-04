@@ -2,6 +2,7 @@
 import SettingsHead from '../components/SettingsHead.astro';
 import { stylesheet } from '../data/assets.js';
 import DocumentationHeader from '../components/DocumentationHeader.astro';
+import { version, releaseName } from '../data/release.js';
 const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto', current, fullWidth=false }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
@@ -11,7 +12,7 @@ const base=import.meta.env.BASE_URL;
 <body><a class="skip-link" href="#main">Skip to content</a>
 <DocumentationHeader theme={theme} current={current}/>
 <main id="main" class:list={{container:!fullWidth}}><slot/></main>
-<footer class="container site-footer"><p>RevaCSS · Development preview · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p></footer>
+<footer class="container site-footer"><p>RevaCSS {version} · {releaseName} · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p></footer>
 </body></html>
 <style is:global>
 .doc-kicker { font-size:.75rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); }

@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -36,5 +37,5 @@ test('all glass button variants and accent palettes have readable light/dark exa
  await page.addScriptTag({path:require.resolve('axe-core')});const violations=await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));expect(violations).toEqual([]);
 });
 test('glass action links work without browser JavaScript',async({browser})=>{
- const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:900}});const page=await context.newPage();await page.goto('/preview/glass/light/');await page.getByRole('link',{name:'Explore the controls'}).click();await expect(page).toHaveURL(/#forms$/);expect(await page.locator('script').count()).toBe(0);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await context.close();
+ const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:900}});const page=await context.newPage();await page.goto('/preview/glass/light/');await page.getByRole('link',{name:'Explore the controls'}).click();await expect(page).toHaveURL(/#forms$/);await expectOnlyOptionalSettings(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await context.close();
 });

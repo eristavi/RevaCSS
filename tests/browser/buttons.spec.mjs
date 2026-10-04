@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
+import { readFile } from 'node:fs/promises';
 const require=createRequire(import.meta.url);
+const roles=JSON.parse(await readFile('tokens/roles.json','utf8'));
 const style=(page,selector,property)=>page.locator(selector).evaluate((el,p)=>getComputedStyle(el)[p],property);
-test('primary and tinted secondary actions remain readable in every accent and theme',async({page})=>{
+test('primary accents and adaptive secondary actions remain readable in every theme',async({page})=>{
  await page.goto('/plain/');
  await page.evaluate(()=>{
   document.body.innerHTML='<main><h1>Button colours</h1></main>';
@@ -15,7 +17,12 @@ test('primary and tinted secondary actions remain readable in every accent and t
  for(const theme of ['light','dark']) {
   const buttons=page.locator(`[data-theme=${theme}] .secondary`);
   const colours=await buttons.evaluateAll(els=>els.filter(el=>el.tagName==='BUTTON').map(el=>getComputedStyle(el).backgroundColor));
-  expect(new Set(colours).size).toBe(6);
+  expect(colours).toHaveLength(6);
+  const expected=roles[theme].secondary;
+  const rgb=[1,3,5].map(i=>parseInt(expected.slice(i,i+2),16));
+  for(const colour of colours) expect(colour).toBe(`rgb(${rgb.join(', ')})`);
+  const primary=await page.locator(`section[data-theme=${theme}] > button:not(.secondary)`).evaluateAll(els=>els.map(el=>getComputedStyle(el).backgroundColor));
+  expect(primary).toHaveLength(6);expect(new Set(primary).size).toBe(6);
  }
  await page.addScriptTag({path:require.resolve('axe-core')});
  const violations=await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)})));

@@ -1,0 +1,8 @@
+/* Content decides whether an empty state is shown. */
+@layer re.components {
+  :where(.empty-state) { min-inline-size: 0; padding: calc(var(--re-space) * 2); text-align: center; overflow-wrap: anywhere; }
+  :where(.empty-state > :first-child) { margin-block-start: 0; }
+  :where(.empty-state > :last-child) { margin-block-end: 0; }
+  :where(.empty-state > p) { max-inline-size: 55ch; margin-inline: auto; }
+  :where(.empty-state > .row) { justify-content: center; }
+}

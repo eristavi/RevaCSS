@@ -1,0 +1,15 @@
+/* Labels and descriptions remain native HTML with explicit ID associations. */
+@layer re.components {
+  :where(.form-group) { display: flex; flex-direction: column; gap: calc(.4em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin-block-end: var(--re-space); }
+  :where(.form-group > *) { min-inline-size: 0; max-inline-size: 100%; margin-block: 0; }
+  :where(.form-group > label) { --re-label-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.form-group > small) { color: var(--re-muted); }
+  :where(.form-group > .field-error) { color: var(--re-danger-link); font-weight: 600; overflow-wrap: anywhere; }
+}
+@layer re.utilities {
+  /* The group label already consumed the shared size. */
+  :where(.form-group > label :is(input,select,textarea)) { font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1)); }
+
+  @media (forced-colors: active) { :where(.form-group > .field-error) { color: CanvasText; } }
+  @media print { :where(.form-group > small, .form-group > .field-error) { color: #000; } }
+}

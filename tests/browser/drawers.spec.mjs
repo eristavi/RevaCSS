@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import {test,expect} from '@playwright/test';
 test.describe('native drawer / inspector',()=>{
  test.use({javaScriptEnabled:false});
@@ -14,7 +15,7 @@ test.describe('native drawer / inspector',()=>{
   await page.keyboard.press('Escape');await expect(panel).toBeHidden();await expect(trigger).toBeFocused();
   await trigger.click();await settle();await panel.getByRole('button',{name:'Back to dashboard'}).click();await expect(panel).toBeHidden();
   if(width===1440){await trigger.click();await settle();await page.mouse.click(30,100);await expect(panel).toBeHidden();}
-  await expect(page.locator('script')).toHaveCount(0);
+  await expectOnlyOptionalSettings(page);
  });
  test('inherited CSS variables, local override, RTL and scoped build',async({page})=>{
   await page.goto('/components/drawers/');

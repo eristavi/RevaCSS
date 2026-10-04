@@ -1,0 +1,6 @@
+/* A normal labelled group; each native control keeps its own tab stop. */
+@layer re.components {
+  :where(.toolbar) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; max-inline-size: 100%; }
+  :where(.toolbar > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.toolbar > :is(.row,.input-group)) { flex: 1 1 auto; }
+}

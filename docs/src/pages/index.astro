@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Example from '../components/Example.astro';
 import { topics } from '../data/examples.js';
 import { componentGroups } from '../data/documentation.js';
+import { version, releaseName, releaseUrl } from '../data/release.js';
 const base=import.meta.env.BASE_URL;
 ---
 <Layout title="Documentation">
@@ -24,5 +25,5 @@ const base=import.meta.env.BASE_URL;
 <article class="card doc-summary"><h3>A considered shop</h3><p>Explore a responsive catalogue, real category pages, product details and a sample bag. Use the shared appearance settings and download complete HTML.</p><a class="button" href={base+'demos/shop/'}>Explore the shop demo</a></article>
 <article class="card doc-summary"><h3>An independent journal</h3><p>Explore a blog listing and complete articles with reading navigation, author details and related stories. Customize the shared appearance and download the starting HTML.</p><div class="row"><a class="button" href={base+'demos/blog/'}>Explore the blog demo</a><a href={base+'demos/blog/room-for-better-work/'}>Read an article</a></div></article>
 <p><a href={base+'icons/'}>SVG icon gallery</a> · <a href={base+'preview/light/'}>Light foundation</a> · <a href={base+'preview/dark/'}>Dark foundation</a> · <a href={base+'preview/glass/dark/'}>Glass page</a> · <a href={base+'plain/'}>Plain HTML comparison</a></p>
-<p class="doc-note">Development preview. Documentation describes the current implementation; recent components have not yet completed release validation. npm publication remains on hold.</p>
+<p class="doc-note"><a href={releaseUrl}>RevaCSS {version} — {releaseName}</a> is available as a GitHub release with downloadable assets. Automated results and known limits are recorded with the release. Manual accessibility and real-device checks remain open; npm publication stays on hold.</p>
 </Layout>

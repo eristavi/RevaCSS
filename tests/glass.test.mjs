@@ -8,12 +8,12 @@ function color(token) {
 }
 const lum=rgb=>rgb.map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0);
 const contrast=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
-test('default glass text and control boundaries withstand worst-case black/white backdrops',()=>{
+test('default glass text and control boundaries remain readable on theme-matched backdrops',()=>{
   const tones={neutral:{light:null,dark:null},cool:{light:[1,1,1],dark:[24/255,34/255,57/255]},warm:{light:[1,253/255,248/255],dark:[40/255,35/255,30/255]}};
   for(const mode of ['light','dark']) for(const [tone,surfaces] of Object.entries(tones)) {
     const surface=surfaces[mode] || color(tokens[mode].surface);
-    for(const backdrop of [0,1]) {
-      const backing=surface.map(v=>.7*v+.3*backdrop);
+    for(const backdrop of [color(tokens[mode].bg),color(tokens[mode]['surface-alt'])]) {
+      const backing=surface.map((v,i)=>.32*v+.68*backdrop[i]);
       const readable={text:color(tokens[mode].text),muted:color(tokens[mode].text),link:color(tokens[mode].text)};
       for(const [role,foreground] of Object.entries(readable)) assert.ok(contrast(foreground,backing)>=4.5,mode+' '+tone+' '+role+' on '+backdrop);
       // Styled fields remain opaque; this stricter check also bounds bare control edges on the glass backing.

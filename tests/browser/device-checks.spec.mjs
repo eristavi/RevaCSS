@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import {test,expect} from '@playwright/test';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
@@ -13,7 +14,7 @@ const settle=async panel=>{
 // These validate the fixture, not a physical-device or assistive-technology pass.
 for(const width of [320,390,1280])test(`device fixture reflows and has accessible markup at ${width}px`,async({page})=>{
  await page.setViewportSize({width,height:900});await page.goto(route);
- await expect(page.locator('h1')).toHaveCount(1);expect(await page.locator('script').count()).toBe(0);
+ await expect(page.locator('h1')).toHaveCount(1);await expectOnlyOptionalSettings(page);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  const invalid=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(el=>el.id);return{duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),targets:[...document.querySelectorAll('[popovertarget]')].filter(el=>!document.getElementById(el.getAttribute('popovertarget'))).map(el=>el.outerHTML)};});
  expect(invalid).toEqual({duplicates:[],targets:[]});
@@ -36,11 +37,13 @@ test.describe('device fixture native operation',()=>{
     await nav.getByRole('button',{name:'Back to Materials',exact:true}).click();await expect(nav.getByRole('button',{name:'Surfaces',exact:true})).toBeVisible();
     await page.mouse.click(2,850);await expect(nav.locator('[popover]:popover-open')).toHaveCount(0);
    }
-   expect(await page.locator('script').count()).toBe(0);
+   await expectOnlyOptionalSettings(page);
   }
  });
  test('glass and edge response controls work while disabled controls remain disabled',async({page})=>{
-  test.setTimeout(60000);
+   // Ten animated response panels need additional time in software-rendered WebKit.
+   // Keep their native motion and every interaction assertion enabled.
+   test.setTimeout(120000);
   await page.goto(route);
   for(const theme of ['light','dark']){
    const opener=page.getByRole('button',{name:'Open glass response',exact:true}).nth(theme==='light'?0:1);await opener.click();const panel=page.locator(`#device-glass-response-${theme}`);await settle(panel);await panel.getByRole('button',{name:'Close response',exact:true}).click();await expect(panel).toBeHidden();

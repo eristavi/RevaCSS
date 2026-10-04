@@ -6,7 +6,7 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 
 [Documentation](https://eristavi.github.io/RevaCSS/) · [Live demos](#see-it-in-action) · [Get started](#start-with-html) · [API reference](https://eristavi.github.io/RevaCSS/reference/)
 
-**Development preview · 0.1.0-alpha.1** · [Release status](#project-status) · [MIT](LICENSE)
+**Version 1.0.0 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0) · [MIT](LICENSE)
 
 [![The same RevaCSS project card rendered in Light, Dark, Glass, and Veil, using shared design settings.](.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
@@ -35,7 +35,7 @@ The demos use sample content. Commerce, form processing, and live application da
 
 ## Start with HTML
 
-Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/main/dist/reva.min.css), place it beside your HTML, and link it in the page:
+Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.0.0/dist/reva.min.css), place it beside your HTML, and link it in the page:
 
 ```html
 <!doctype html>
@@ -100,7 +100,9 @@ Complete, scoped, and modular builds are available in [`dist/`](dist/). Fonts lo
 
 ## Project status
 
-RevaCSS is a development preview at `0.1.0-alpha.1`. npm publication remains on hold until the agreed component scope and automated, manual accessibility, and real-device checks are complete. The package remains private.
+**RevaCSS 1.0.0 — Erisian** is the first public GitHub release. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.
+
+Automated validation and known limits are recorded in the [release notes](RELEASE_NOTES.md) and [validation record](quality/releases/v1.0.0.md). Six manual checks remain open; npm publication stays disabled while that work is completed. The package remains private.
 
 The current implementation targets modern browsers. Native popover patterns require browser support; individual enhancements document their fallbacks. Accessibility also depends on your markup and application behavior. See the [behavior and accessibility guide](https://eristavi.github.io/RevaCSS/guide/accessibility/).
 
@@ -108,7 +110,7 @@ The current implementation targets modern browsers. Native popover patterns requ
 
 ## Develop and validate
 
-Use Node 22.12 or newer; Node 24 is recommended. Python 3 is required for the browser-test server.
+Clone the repository for development; the release archives contain compiled assets. Use Node 22.12 or newer; Node 24 is recommended. Python 3 is required for the browser-test server.
 
 ```sh
 npm ci
@@ -128,6 +130,8 @@ npm run check:release-quality
 ```
 
 Unit checks cover tokens, contrast pairs, output budgets, documentation, and runtime boundaries. Browser tests run against the built documentation in Chromium, Firefox, and WebKit. The release-quality command reports remaining blockers separately; automated checks do not replace manual accessibility and real-device review.
+
+After building, run `npm run release:package` to reproduce the GitHub downloads in `artifacts/`, including the starter page, licenses, and SHA-256 checksum file.
 
 GitHub Pages builds and deploys documentation from `main`. The three-engine validation workflow is run manually. `REVA_SITE` and `REVA_BASE` configure the documentation origin and path.
 

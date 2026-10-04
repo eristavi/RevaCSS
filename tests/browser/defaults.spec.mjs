@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -29,7 +30,7 @@ for (const theme of ['light','dark']) test(`${theme} html defaults and neutral r
  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:1280,height:900}});
  const page=await context.newPage();await page.goto(`/preview/defaults/${theme}/`);
  for(const [key,value] of Object.entries(rootSettings)) await expect(page.locator('html')).toHaveAttribute('data-'+key,value);
- await checkDefaults(page);expect(await page.locator('script').count()).toBe(0);await context.close();
+ await checkDefaults(page);await expectOnlyOptionalSettings(page);await context.close();
 });
 for (const build of ['minified','modular','scoped']) test(`${build} builds support inherited defaults`,async({page})=>{
  const css=build==='modular'?(await Promise.all(['tokens','base','components'].map(name=>readFile(`dist/reva.${name}.css`,'utf8')))).join('\n'):await readFile(`dist/reva.${build==='minified'?'min':'scoped'}.css`,'utf8');

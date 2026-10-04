@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {readFile} from 'node:fs/promises';
 const palettes=JSON.parse(await readFile('tokens/palettes.json','utf8'));
+const roles=JSON.parse(await readFile('tokens/roles.json','utf8'));
 const rgba=async(page,selector,property)=>page.locator(selector).evaluate((el,p)=>{const c=document.createElement('canvas').getContext('2d');c.fillStyle=getComputedStyle(el)[p];c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data];},property);
 const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)).concat(255);
 for(const build of ['global','minified','modular','scoped']) test(`${build} palettes inherit across modes and local settings`,async({page})=>{
@@ -17,7 +18,7 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} pale
   expect(await rgba(page,'#badge','color')).toEqual(hex(t['on-primary']));
   expect(await rgba(page,'#nested','backgroundColor')).toEqual(hex(palette.dark.surface));expect(await rgba(page,'#nested-action','color')).toEqual(hex(palette.dark['on-primary']));
   expect(await rgba(page,'#local','backgroundColor')).toEqual(hex(palettes.mono[mode].primary));
-  expect(await rgba(page,'#success','color')).toEqual([255,255,255,255]);
+  expect(await rgba(page,'#success','color')).toEqual(hex(roles[mode]['on-success']));
  }
  await page.locator(root).evaluate(el=>{el.dataset.palette='citrus';el.dataset.accent='violet';el.dataset.tone='warm';});
  expect(await rgba(page,'#primary','color')).toEqual([255,255,255,255]);
