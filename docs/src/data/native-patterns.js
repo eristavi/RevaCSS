@@ -1,4 +1,4 @@
-import catalog from '../../../src/icons/catalog.json';
+import catalog from '../../../src/icons/catalog.json' with {type:'json'};
 const starIcon=catalog.find(icon=>icon.name==='star').body;
 const stars=(name,checked=0)=>Array.from({length:5},(_,i)=>`<label><input type="radio" name="${name}" value="${i+1}"${checked===i+1?' checked':''}><svg viewBox="0 0 24 24" aria-hidden="true">${starIcon}</svg><span>${i+1} ${i===0?'star':'stars'}</span></label>`).join('\n');
 const weekdays=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
