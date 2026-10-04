@@ -1,0 +1,12 @@
+---
+const {art}=Astro.props;
+const drawings={
+ lamp:'<ellipse cx="200" cy="271" rx="100" ry="13" fill="#000" opacity=".07"/><path d="M190 126v130" stroke="#756556" stroke-width="13"/><ellipse cx="190" cy="259" rx="60" ry="13" fill="#756556"/><path d="M113 137q15-91 77-91t77 91Z" fill="#ccb89b"/><path d="M122 137h137" stroke="#f1e6d3" stroke-width="7"/>',
+ chair:'<ellipse cx="204" cy="273" rx="127" ry="14" fill="#000" opacity=".07"/><path d="m102 259 25-124m151 124-17-99M124 182l-19 81m155-94 32 94" stroke="#9d7957" stroke-width="13" stroke-linecap="round"/><path d="m123 161 32-97 138 30-29 97Z" fill="#c4b6a0"/><path d="m112 181 37-33 134 25-26 38Z" fill="#d9cdb9"/><path d="m118 182 142 24" stroke="#9d7957" stroke-width="10"/>',
+ cup:'<ellipse cx="195" cy="266" rx="91" ry="13" fill="#000" opacity=".07"/><path d="M251 119c91-26 85 111-4 92" fill="none" stroke="#b18b70" stroke-width="19"/><path d="M118 109h143l-9 125q-62 44-125 0Z" fill="#ceb29a"/><ellipse cx="190" cy="109" rx="72" ry="17" fill="#a88268"/><ellipse cx="190" cy="111" rx="58" ry="10" fill="#745b49"/><path d="m136 135 5 83" stroke="#e6d0b8" stroke-width="8" stroke-linecap="round"/>',
+ book:'<ellipse cx="205" cy="270" rx="112" ry="12" fill="#000" opacity=".07"/><path d="m117 63 158 15 16 177-168-17Z" fill="#7b8b7c"/><path d="m123 238 168 17-3 9-168-17Z" fill="#e8e0cb"/><path d="m129 74 12 149" stroke="#647467" stroke-width="4"/><path d="m160 113 75 7m-72 9 57 6" stroke="#d2d5c6" stroke-width="2"/>',
+ vase:'<ellipse cx="200" cy="269" rx="100" ry="13" fill="#000" opacity=".07"/><path d="M175 77h50l-3 44c9 30 64 42 61 91-3 42-54 54-83 54s-80-12-83-54c-3-49 52-61 61-91Z" fill="#bd9c87"/><ellipse cx="200" cy="78" rx="25" ry="8" fill="#8e705c"/><path d="M162 164q-42 51 9 77" fill="none" stroke="#d4b7a0" stroke-width="10" stroke-linecap="round"/>',
+ tray:'<ellipse cx="200" cy="260" rx="136" ry="16" fill="#000" opacity=".07"/><path d="m63 142 216-40 58 98-216 47Z" fill="#a57e53"/><path d="m74 143 199-32 48 82-197 42Z" fill="#c69d6a"/><path d="m91 148 172-27 37 65-172 39Z" fill="#d8b682"/><path d="m130 151 114-18m-101 38 111-19m-100 39 111-20" stroke="#b58c5d" stroke-width="2" opacity=".5"/>'
+};
+---
+<svg class="shop-art" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="400" height="320" rx="12" fill="var(--re-surface-alt)"/><Fragment set:html={drawings[art]}/></svg>

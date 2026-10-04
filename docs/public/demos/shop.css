@@ -1,0 +1,42 @@
+/* Store composition; existing RevaCSS components own surfaces and controls. */
+.shop-site { background:var(--re-bg); color:var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
+.shop-site > header { padding-block:1.25rem; }
+.shop-site > :is(main,section) { padding-block:1.5rem 4rem; }
+.shop-site > footer { padding-block:2rem; border-block-start:var(--re-surface-border) solid var(--re-line); }
+.shop-site :is(article,section,aside) { min-inline-size:0; }
+.shop-site [id] { scroll-margin-block-start:1rem; }
+.shop-site h1 { font-size:clamp(2.3rem,1.5rem + 3.5vw,4.7rem); line-height:1.08; letter-spacing:-.055em; white-space:pre-line; margin-block:.3em; }
+.shop-site h2 { font-size:1.25rem; margin-block:.5rem; }
+.shop-site h2 a { color:inherit; text-decoration:none; }
+.shop-site h2 a:hover { text-decoration:underline; }
+.shop-kicker { font-size:.7em; font-weight:750; letter-spacing:.1em; color:var(--re-muted); margin-block:0 .5rem; }
+.shop-feature { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:clamp(1.5rem,5vw,4rem); margin-block:1rem 3rem; }
+.shop-feature figure { margin:0; }
+.shop-feature figcaption { margin-block-start:.75rem; font-size:.85em; color:var(--re-muted); }
+.shop-feature p:not(.shop-kicker) { max-inline-size:40ch; }
+.shop-feature .button { margin-block:1rem; }
+.shop-art { display:block; inline-size:100%; block-size:auto; border-radius:var(--re-radius); }
+.shop-collection { justify-content:space-between; gap:1rem; margin-block:2rem; }
+.shop-collection nav a { color:var(--re-muted); padding:.5rem .75rem; text-decoration:none; border-radius:var(--re-radius); min-block-size:2.75rem; display:flex; align-items:center; }
+.shop-collection nav a[aria-current] { color:var(--re-link); background:var(--re-surface-alt); font-weight:700; }
+.shop-products { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:var(--re-space); }
+.shop-products .card > .row { gap:.5rem; margin-block-start:1rem; }
+.shop-products .badge { font-size:.65em; }
+.shop-products .shop-kicker { margin:0; }
+.shop-products .card > p { margin-block:.5rem 0; }
+.shop-price { font-size:1.5em; font-weight:650; }
+.shop-story { margin-block:4rem; padding-block:3rem; border-block:var(--re-surface-border) solid var(--re-line); }
+.shop-story > h2 { font-size:clamp(2rem,4vw,3rem); letter-spacing:-.035em; }
+.shop-story > p:not(.shop-kicker) { max-inline-size:58ch; }
+.shop-story .grid { margin-block-start:2rem; --re-column:15rem; }
+.shop-bag { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:var(--re-space); align-items:start; }
+.shop-bag > section { display:grid; gap:var(--re-space); }
+.shop-bag > section > .card { display:grid; grid-template-columns:minmax(0,8rem) minmax(0,1fr); gap:1rem; align-items:center; }
+.shop-bag dl > div { display:flex; justify-content:space-between; gap:1rem; padding-block:.5rem; }
+.shop-bag dd { margin:0; }
+.demo-workbench:has(#demo-material option[value="glass"]:checked) .shop-site,
+.demo-workbench:has(#demo-material option[value="veil"]:checked) .shop-site,
+html:is([data-material="glass"],[data-material="veil"]) .shop-site { background:radial-gradient(ellipse at 100% 0,color-mix(in srgb,var(--re-primary) 12%,transparent),transparent 55%),var(--re-bg); }
+@media (width < 60rem) { .shop-products { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (width < 42rem) { .shop-feature,.shop-bag { grid-template-columns:minmax(0,1fr); } .shop-products { grid-template-columns:minmax(0,1fr); } .shop-feature { gap:1.5rem; } .shop-bag > section > .card { grid-template-columns:minmax(0,6rem) minmax(0,1fr); } }
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more),(forced-colors:active),print { .shop-site { background:var(--re-bg) !important; } }

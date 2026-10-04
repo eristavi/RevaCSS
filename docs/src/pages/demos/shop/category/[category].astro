@@ -1,0 +1,6 @@
+---
+import ShopWorkbench from '../../../../components/demos/ShopWorkbench.astro';
+import {shopCategories} from '../../../../data/shop-products.js';
+export function getStaticPaths(){return shopCategories.map(c=>({params:{category:c.slug}}));}
+---
+<ShopWorkbench view={{kind:'catalogue',category:Astro.params.category}}/>

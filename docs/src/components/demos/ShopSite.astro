@@ -1,0 +1,34 @@
+---
+import TopMenu from '../TopMenu.astro';
+import ShopProductArt from './ShopProductArt.astro';
+import {shopProducts,shopCategories,money,shopHref} from '../../data/shop-products.js';
+const {base='/',view={kind:'catalogue'},embedded=true,standalone=false}=Astro.props;
+const Content=embedded?'section':'main';
+const href=v=>shopHref(base,v,standalone);
+const home=href({});
+const product=shopProducts.find(p=>p.slug===view.slug);
+const category=shopCategories.find(c=>c.slug===view.category);
+const collection=category?shopProducts.filter(p=>p.category===category.slug):shopProducts;
+const bag=[shopProducts[0],shopProducts[4]];
+const subtotal=bag.reduce((sum,p)=>sum+p.price,0),delivery=8;
+const cards=product?shopProducts.filter(p=>p.slug!==product.slug).slice(0,3):collection;
+---
+<header class="container"><TopMenu id="still" label="Still shop navigation" brand="still." brandHref={home} current={view.kind==='bag'?'bag':'shop'} items={[{key:'shop',label:'Shop',href:home},{key:'collection',label:'Collections',children:shopCategories.map(c=>({key:c.slug,label:c.name,href:href({category:c.slug})}))},{key:'story',label:'Our story',href:home+'#shop-story'},{key:'bag',label:'Bag',href:href({kind:'bag'})}]}/></header>
+<Content class="container" aria-label="Still shop">
+{product ? <>
+ <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Shop</a></li><li><a href={href({category:product.category})}>{shopCategories.find(c=>c.slug===product.category).name}</a></li><li><span aria-current="page">{product.name}</span></li></ol></nav>
+ <article class="shop-feature" aria-labelledby="shop-title"><ShopProductArt art={product.art}/><div><p class="shop-kicker">OBJECTS WITH PURPOSE</p><h1 id="shop-title">{product.name}</h1><p class="shop-price">{money(product.price)}</p><p>{product.description}</p><p><span class="badge" data-variant="success">In stock</span></p><dl><dt>Material</dt><dd>{product.material}</dd><dt>Dimensions</dt><dd>{product.dimensions}</dd></dl><a class="button" href={href({kind:'bag'})}>View bag <span aria-hidden="true">↗</span></a><details><summary>Care instructions</summary><p>{product.care}</p></details></div></article>
+ <section aria-labelledby="shop-related"><h2 id="shop-related">Good things, together.</h2></section>
+</> : view.kind==='bag' ? <>
+ <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Shop</a></li><li><span aria-current="page">Bag</span></li></ol></nav>
+ <header class="shop-intro"><p class="shop-kicker">A FEW GOOD CHOICES</p><h1 id="shop-title">Your bag.</h1><p>Two thoughtful additions to your everyday.</p></header>
+ <div class="shop-bag"><section aria-label="Items in your bag">{bag.map(p=><article class="card"><ShopProductArt art={p.art}/><div><h2><a href={href({kind:'product',slug:p.slug})}>{p.name}</a></h2><p>{p.material}</p><p>Quantity: 1</p><strong>{money(p.price)}</strong></div></article>)}</section><aside class="card" aria-labelledby="shop-summary"><h2 id="shop-summary">Order summary</h2><dl><div><dt>Subtotal</dt><dd>{money(subtotal)}</dd></div><div><dt>Delivery</dt><dd>{money(delivery)}</dd></div><div><dt><strong>Total</strong></dt><dd><strong>{money(subtotal+delivery)}</strong></dd></div></dl><p><small>Sample order · checkout is not available in this demo.</small></p><a class="button" href={home}>Continue shopping</a></aside></div>
+</> : <>
+ <header class="shop-intro shop-feature"><div><p class="shop-kicker">LESS, BUT LOVELIER.</p><h1 id="shop-title">{category?category.name+'.':'Good objects.\nEveryday rituals.'}</h1><p>{category?'Considered pieces for the spaces you make your own.':'A small collection of useful, lasting things. Made to feel at home, wherever you are.'}</p><a class="button" href="#shop-products">Explore the collection <span aria-hidden="true">↘</span></a></div><figure><ShopProductArt art={category?.slug==='furniture'?'chair':category?.slug==='accessories'?'vase':'lamp'}/><figcaption>Simple forms. A little warmth. Room to breathe.</figcaption></figure></header>
+ <div class="toolbar shop-collection"><nav class="toolbar" aria-label="Shop categories"><a href={home} aria-current={!category?'page':undefined}>All objects</a>{shopCategories.map(c=><a href={href({category:c.slug})} aria-current={category?.slug===c.slug?'page':undefined}>{c.name}</a>)}</nav><span>{collection.length} objects</span></div>
+</>}
+{view.kind!=='bag' && <section class="shop-products" id="shop-products" aria-label={product?'Related products':'Products'}>{cards.map(p=><article class="card"><a href={href({kind:'product',slug:p.slug})} aria-label={`View ${p.name}`}><ShopProductArt art={p.art}/></a><div class="row justify-between"><p class="shop-kicker">{shopCategories.find(c=>c.slug===p.category).name}</p>{p.tag&&<span class="badge">{p.tag}</span>}</div><h2><a href={href({kind:'product',slug:p.slug})}>{p.name}</a></h2><p>{money(p.price)}</p></article>)}</section>}
+<section class="shop-story" id="shop-story" aria-labelledby="shop-story-title"><p class="shop-kicker">THE STILL APPROACH</p><h2 id="shop-story-title">Keep what matters.</h2><p>We believe the things you use every day deserve a little more thought. Familiar materials, useful shapes, and details that make you want to keep them.</p><div class="grid"><article><h3>Honest materials</h3><p>Natural textures and carefully chosen finishes.</p></article><article><h3>A considered collection</h3><p>Fewer objects, with more room for each one.</p></article><article><h3>Made for everyday</h3><p>Useful pieces that belong in your daily rituals.</p></article></div></section>
+<section aria-label="Shop information"><details><summary>Delivery and returns</summary><p>This fictional collection illustrates a store with €8 delivery and returns within 30 days. No orders or payments are processed.</p></details></section>
+</Content>
+<footer class="container row justify-between"><strong>still.</strong><small>Objects for everyday · Fictional shop demonstration</small><a href={home}>Back to the collection</a></footer>
