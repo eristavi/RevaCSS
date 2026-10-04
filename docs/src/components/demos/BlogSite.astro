@@ -2,32 +2,62 @@
 import TopMenu from '../TopMenu.astro';
 import BlogCover from './BlogCover.astro';
 import {blogPosts,blogAuthor} from '../../data/blog-posts.js';
-const {base='/',slug,embedded=true,standalone=false}=Astro.props;
+import {blogCategories,archivePageSize,archivePageCount,blogViewHref} from '../../data/blog-pages.js';
+const {base='/',slug,view={kind:'journal'},embedded=true,standalone=false}=Astro.props;
 const post=blogPosts.find(p=>p.slug===slug);
 const Content=embedded?'section':'main';
 const home=base+'demos/blog/'+(standalone?'source.html':'');
 const href=p=>base+'demos/blog/'+(standalone?'source/'+p.slug+'.html':p.slug+'/');
-const items=[{key:'journal',label:'Journal',href:home},{key:'latest',label:'Latest stories',href:home+'#latest'},{key:'about',label:'About the author',href:home+'#about'}];
+const authorHref=blogViewHref(base,{kind:'author'},standalone);
+const archiveHref=blogViewHref(base,{kind:'archive'},standalone);
+const categoryHref=name=>blogViewHref(base,{kind:'archive',category:name.toLowerCase()},standalone);
+const category=blogCategories.find(item=>item.slug===view.category);
+const page=view.page || 1;
+const collection=category?blogPosts.filter(p=>p.category===category.name):blogPosts;
+const visible=view.kind==='archive'&&!category?collection.slice((page-1)*archivePageSize,page*archivePageSize):collection;
+const postIndex=blogPosts.indexOf(post);
+const previous=blogPosts[postIndex-1],next=blogPosts[postIndex+1];
+const items=[{key:'journal',label:'Journal',href:home},{key:'archive',label:'Archive',href:archiveHref},{key:'categories',label:'Categories',children:blogCategories.map(item=>({key:item.slug,label:item.name,href:categoryHref(item.name)}))},{key:'author',label:'Author',href:authorHref}];
 const related=blogPosts.filter(p=>p.slug!==slug).slice(0,3);
 ---
-<header class="container"><TopMenu id="fieldnotes" label="Fieldnotes journal" brand="fieldnotes." brandHref={home} items={items} current={post?'none':'journal'}><a slot="actions" class="button outline" href={home+'#latest'}>Explore the journal</a></TopMenu></header>
-<Content class="container" aria-label={post?'Article':'Journal'}>
+<header class="container"><TopMenu id="fieldnotes" label="Fieldnotes journal" brand="fieldnotes." brandHref={home} items={items} current={post?'none':view.kind==='journal'?'journal':view.kind==='author'?'author':category?'none':'archive'}><a slot="actions" class="button outline" href={home+'#latest'}>Explore the journal</a></TopMenu></header>
+<Content class="container" aria-label={post?'Article':view.kind==='author'?'Author':view.kind==='archive'?'Archive':'Journal'}>
 {post ? <>
-  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Journal</a></li><li><span aria-current="page">{post.category}</span></li></ol></nav>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Journal</a></li><li><a href={categoryHref(post.category)}>{post.category}</a></li><li><span aria-current="page">{post.title}</span></li></ol></nav>
   <article aria-labelledby="blog-title">
-    <header class="blog-intro"><p class="blog-kicker">{post.category} / FIELDNOTES</p><h1 id="blog-title">{post.title}</h1><p>{post.summary}</p><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><a href="#article-author">{blogAuthor.name}</a><p class="blog-meta"><time datetime={post.date}>{post.dateLabel}</time> · {post.minutes} min read</p></div></div></header>
+    <header class="blog-intro"><p class="blog-kicker">{post.category} / FIELDNOTES</p><h1 id="blog-title">{post.title}</h1><p>{post.summary}</p><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><a href={authorHref}>{blogAuthor.name}</a><p class="blog-meta"><time datetime={post.date}>{post.dateLabel}</time> · {post.minutes} min read</p></div></div></header>
     <figure><BlogCover index={blogPosts.indexOf(post)}/><figcaption>An abstract study in space and balance.</figcaption></figure>
     <div class="blog-reading">
       <aside aria-labelledby="article-contents"><nav><h2 id="article-contents">In this story</h2><ol>{post.sections.map((section,i)=><li><a href={'#story-'+i}>{section.title}</a></li>)}</ol></nav><p class="blog-meta">An independent perspective on everyday work.</p></aside>
-      <div>{post.sections.map((section,i)=><section aria-labelledby={'story-'+i}><h2 id={'story-'+i}>{section.title}</h2>{section.text.map(paragraph=><p>{paragraph}</p>)}</section>)}<blockquote><p>Give the important things a clear place, and enough room to be understood.</p></blockquote><footer class="card" id="article-author"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2>Written by {blogAuthor.name}</h2><p>{blogAuthor.bio}</p><a href={home}>More from the journal</a></div></div></footer></div>
+      <div>{post.sections.map((section,i)=><section aria-labelledby={'story-'+i}><h2 id={'story-'+i}>{section.title}</h2>{section.text.map(paragraph=><p>{paragraph}</p>)}</section>)}<blockquote><p>Give the important things a clear place, and enough room to be understood.</p></blockquote><footer class="card" id="article-author"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2>Written by {blogAuthor.name}</h2><p>{blogAuthor.bio}</p><a href={authorHref}>All stories by {blogAuthor.name}</a></div></div></footer></div>
     </div>
   </article>
-  <section aria-labelledby="related-heading"><header class="row justify-between"><h2 id="related-heading">Keep exploring.</h2><a href={home+'#latest'}>All stories</a></header><div class="grid">{related.map(p=><article class="card stack"><p class="blog-kicker">{p.category}</p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta">{p.minutes} min read</p></article>)}</div></section>
+  <nav aria-label="Adjacent articles"><div class="grid">
+    {previous && <a class="card stack" href={href(previous)} rel="prev"><small>Previous story · Newer</small><strong>{previous.title}</strong></a>}
+    {next && <a class="card stack" href={href(next)} rel="next"><small>Next story · Older</small><strong>{next.title}</strong></a>}
+  </div></nav>
+  <section aria-labelledby="related-heading"><header class="row justify-between"><h2 id="related-heading">Keep exploring.</h2><a href={home+'#latest'}>All stories</a></header><div class="grid">{related.map(p=><article class="card stack"><p class="blog-kicker"><a href={categoryHref(p.category)}>{p.category}</a></p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta">{p.minutes} min read</p></article>)}</div></section>
+</> : view.kind!=='journal' ? <>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Journal</a></li><li><span aria-current="page">{view.kind==='author'?blogAuthor.name:category?category.name:'Archive'}</span></li></ol></nav>
+  <header class="blog-intro">
+    <p class="blog-kicker">{view.kind==='author'?'MEET THE AUTHOR':category?'EXPLORE A CATEGORY':'FROM THE JOURNAL'}</p>
+    <h1 id="blog-title">{view.kind==='author'?blogAuthor.name:category?category.name+' stories.':'Every story has a place.'}</h1>
+    {view.kind==='author'?<><div class="row"><span class="avatar" style="--re-avatar-size:4rem" aria-hidden="true">{blogAuthor.initials}</span><p>{blogAuthor.bio}</p></div><p>Interested in simple tools, clear language and the everyday practice of thoughtful design.</p></>:<p>{category?'A collection of perspectives on '+category.name.toLowerCase()+'.':'Browse every Fieldnotes story, from the latest perspectives to earlier notes.'}</p>}
+  </header>
+  <nav aria-label="Story categories"><div class="row"><a href={archiveHref} aria-current={view.kind==='archive'&&!category?'page':undefined}>All stories</a>{blogCategories.map(item=><a href={categoryHref(item.name)} aria-current={category?.slug===item.slug?'page':undefined}>{item.name}</a>)}</div></nav>
+  <section aria-labelledby="collection-title"><header class="row justify-between"><h2 id="collection-title">{view.kind==='author'?'Stories by '+blogAuthor.name:category?'In '+category.name:'The story archive'}</h2><p class="blog-meta">{view.kind==='archive'&&!category?`${(page-1)*archivePageSize+1}–${Math.min(page*archivePageSize,collection.length)} of ${collection.length} stories`:`${collection.length} ${collection.length===1?'story':'stories'}`}</p></header>
+    <div class="grid">{visible.map(p=><article class="card stack"><BlogCover index={blogPosts.indexOf(p)}/><p class="blog-kicker"><a href={categoryHref(p.category)}>{p.category}</a></p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta"><time datetime={p.date}>{p.dateLabel}</time> · {p.minutes} min read</p></article>)}</div>
+    {view.kind==='archive'&&!category&&archivePageCount>1&&<nav class="pagination" aria-label="Story archive pages"><ol>
+      <li>{page>1?<a href={blogViewHref(base,{kind:'archive',page:page-1},standalone)} rel="prev">Previous</a>:<span aria-disabled="true">Previous</span>}</li>
+      {Array.from({length:archivePageCount},(_,i)=>i+1).map(number=><li>{number===page?<span aria-current="page" aria-label={`Page ${number}, current page`}>{number}</span>:<a href={blogViewHref(base,{kind:'archive',page:number},standalone)} aria-label={`Page ${number}`}>{number}</a>}</li>)}
+      <li>{page<archivePageCount?<a href={blogViewHref(base,{kind:'archive',page:page+1},standalone)} rel="next">Next</a>:<span aria-disabled="true">Next</span>}</li>
+    </ol></nav>}
+  </section>
 </> : <>
   <header class="blog-intro"><p class="blog-kicker">AN INDEPENDENT JOURNAL</p><h1 id="blog-title">Thoughtful ideas.<br/>A little room to grow.</h1><p>Notes on design, everyday work and the small choices that make things better.</p></header>
   <article class="card blog-feature" aria-labelledby="featured-title"><a href={href(blogPosts[0])} tabindex="-1" aria-hidden="true"><BlogCover/></a><div class="stack"><p class="blog-kicker">FEATURED STORY / {blogPosts[0].category}</p><h2 id="featured-title"><a href={href(blogPosts[0])}>{blogPosts[0].title}</a></h2><p>{blogPosts[0].summary}</p><p class="blog-meta"><time datetime={blogPosts[0].date}>{blogPosts[0].dateLabel}</time> · {blogPosts[0].minutes} min read</p><a class="button" href={href(blogPosts[0])}>Read the story</a></div></article>
-  <section id="latest" aria-labelledby="latest-title"><header class="row justify-between"><h2 id="latest-title">Fresh perspectives.</h2><p class="blog-meta">Design · Practice · Notes</p></header><div class="grid">{blogPosts.slice(1).map((p,i)=><article class="card stack"><BlogCover index={i+1}/><p class="blog-kicker">{p.category}</p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta"><time datetime={p.date}>{p.dateLabel}</time> · {p.minutes} min read</p></article>)}</div></section>
-  <aside class="card" id="about" aria-labelledby="about-title"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2 id="about-title">A journal by {blogAuthor.name}.</h2><p>{blogAuthor.bio}</p><p>New perspectives, one considered story at a time.</p></div></div></aside>
+  <section id="latest" aria-labelledby="latest-title"><header class="row justify-between"><h2 id="latest-title">Fresh perspectives.</h2><a href={archiveHref}>Browse the archive</a></header><div class="grid">{blogPosts.slice(1).map((p,i)=><article class="card stack"><BlogCover index={i+1}/><p class="blog-kicker"><a href={categoryHref(p.category)}>{p.category}</a></p><h3><a href={href(p)}>{p.title}</a></h3><p>{p.summary}</p><p class="blog-meta"><time datetime={p.date}>{p.dateLabel}</time> · {p.minutes} min read</p></article>)}</div></section>
+  <aside class="card" id="about" aria-labelledby="about-title"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2 id="about-title">A journal by {blogAuthor.name}.</h2><p>{blogAuthor.bio}</p><p>New perspectives, one considered story at a time.</p><a href={authorHref}>Meet the author and explore all stories</a></div></div></aside>
 </>}
 </Content>
 <footer class="container"><div class="row justify-between"><p><strong>fieldnotes.</strong> · A fictional journal.</p><a href="#blog-title">Back to top</a></div><p class="blog-meta">Built with <a href={base}>RevaCSS</a> · Native HTML and CSS.</p></footer>

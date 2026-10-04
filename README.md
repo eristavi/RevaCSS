@@ -170,3 +170,5 @@ Load optional `reva.selects.css` (or its scoped counterpart) to style ordinary s
 ## Blog demos
 
 [Fieldnotes blog](https://eristavi.github.io/RevaCSS/demos/blog/) and [article demo](https://eristavi.github.io/RevaCSS/demos/blog/room-for-better-work/) reuse existing navigation, cards, breadcrumbs, avatars and typography. Six fictional articles share a responsive editorial layout, native reading anchors, author details and related posts. The shared customizer starts with system theme and the Default palette; each page offers complete starting HTML. Demo-only `blog.css` handles composition; no core API additions or browser JavaScript are introduced.
+
+The blog also includes a [paginated archive](https://eristavi.github.io/RevaCSS/demos/blog/archive/), Design/Practice/Notes category pages and an [author profile](https://eristavi.github.io/RevaCSS/demos/blog/author/alex-morgan/). Articles link to adjacent stories in publication order. All collection pages include the shared customizer and standalone HTML downloads, reusing cards, breadcrumbs, avatars and pagination without new framework components.

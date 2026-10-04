@@ -1,0 +1,7 @@
+---
+import BlogWorkbench from '../../../../components/demos/BlogWorkbench.astro';
+import {blogCategories} from '../../../../data/blog-pages.js';
+export function getStaticPaths(){return blogCategories.map(item=>({params:{category:item.slug}}));}
+const {category}=Astro.params;
+---
+<BlogWorkbench view={{kind:'archive',category}}/>

@@ -251,6 +251,8 @@ export const learnLinks = [
  { key:'dashboard-demo', title:'Dashboard demo', path:'demos/dashboard/' },
  { key:'blog-demo', title:'Blog demo', path:'demos/blog/' },
  { key:'blog-article-demo', title:'Blog article demo', path:'demos/blog/room-for-better-work/' },
+ { key:'blog-archive-demo', title:'Blog archive demo', path:'demos/blog/archive/' },
+ { key:'blog-author-demo', title:'Blog author demo', path:'demos/blog/author/alex-morgan/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
  { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },

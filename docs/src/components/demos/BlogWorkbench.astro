@@ -7,17 +7,20 @@ import {stylesheet} from '../../data/assets.js';
 import {defaultDemo} from '../../data/demo-configurations.js';
 import {advancedCSS} from '../../data/demo-advanced.js';
 import {blogSource} from '../../data/blog-source.js';
-const {slug}=Astro.props;
+import {blogSourceKey} from '../../data/blog-pages.js';
+const {slug,view={kind:'journal'}}=Astro.props;
+const collection=view.kind!=='journal';
+const title=slug?'Blog article demo':view.kind==='author'?'Blog author demo':view.kind==='archive'?'Blog archive demo':'Blog demo';
 const base=import.meta.env.BASE_URL;
-const source=await blogSource(defaultDemo,slug);
-const download=base+'demos/blog/'+(slug?'source/'+slug+'.html':'source.html');
+const source=await blogSource(defaultDemo,slug,view);
+const download=base+'demos/blog/'+(slug?'source/'+slug+'.html':collection?'source/'+blogSourceKey(view)+'.html':'source.html');
 ---
-<Layout title={slug?'Blog article demo':'Blog demo'} current={slug?'blog-article-demo':'blog-demo'} theme="auto" fullWidth>
+<Layout title={title} current={slug?'blog-article-demo':view.kind==='author'?'blog-author-demo':view.kind==='archive'?'blog-archive-demo':'blog-demo'} theme="auto" fullWidth>
   <Fragment set:html={`<style>${advancedCSS}</style>`}/>
   <link rel="stylesheet" href={stylesheet('reva.glass.css')}/><link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={base+'demos/blog.css'}/>
-  <div class="container"><p class="doc-kicker">REVACSS / COMPLETE WEBSITES</p><h1>{slug?'A story worth spending time with.':'A home for thoughtful stories.'}</h1><p class="doc-lead">{slug?'An editorial article with reading navigation, author details and related stories.':'An independent journal with a featured story, article collection and author profile.'} Explore the shared appearance settings and download the starting HTML.</p><div class="row"><a href={base+'demos/blog/'}>Blog listing</a><a href={base+'demos/blog/room-for-better-work/'}>Full article</a></div></div>
-  <div class="demo-workbench"><div class="container"><DemoCustomizer config={defaultDemo} downloadHref={download} downloadName={slug?'fieldnotes-'+slug+'.html':'fieldnotes-blog.html'}/></div>
-    <section class="demo-preview blog-site" id="demo-site" aria-label="Fieldnotes website preview"><BlogSite base={base} slug={slug}/></section>
-    <section class="container" aria-labelledby="blog-source-heading"><h2 id="blog-source-heading">Make this journal yours.</h2><p>Stories and authors are fictional. A CMS or backend can supply the same article markup. Story links open complete examples; reading navigation uses native anchors.</p><details><summary>View complete starting HTML</summary><CodeViewer id="blog-source" code={source} label="Complete blog starting HTML"/></details><p>The download retains the initial configuration. Copy your selected attributes onto its opening HTML tag to retain your choices. Download the linked CSS files and change paths when hosting your own site. Article links in downloads lead to the hosted standalone HTML examples.</p><p><a href={base+'demos/blog.css'}>blog.css</a> provides editorial composition. Cards, navigation, breadcrumbs, avatars, controls and appearance use existing RevaCSS components. No new framework classes or data attributes are introduced.</p></section>
+  <div class="container"><p class="doc-kicker">REVACSS / COMPLETE WEBSITES</p><h1>{slug?'A story worth spending time with.':view.kind==='author'?'The person behind the perspectives.':view.kind==='archive'?'A collection worth exploring.':'A home for thoughtful stories.'}</h1><p class="doc-lead">{slug?'An editorial article with reading navigation, author details and related stories.':view.kind==='author'?'A dedicated author profile with a biography and published stories.':view.kind==='archive'?'Real category collections and a paginated archive using existing components.':'An independent journal with a featured story, article collection and author profile.'} Explore the shared appearance settings and download the starting HTML.</p><div class="row"><a href={base+'demos/blog/'}>Blog listing</a><a href={base+'demos/blog/room-for-better-work/'}>Full article</a><a href={base+'demos/blog/archive/'}>Archive</a><a href={base+'demos/blog/author/alex-morgan/'}>Author profile</a></div></div>
+  <div class="demo-workbench"><div class="container"><DemoCustomizer config={defaultDemo} downloadHref={download} downloadName={slug?'fieldnotes-'+slug+'.html':collection?'fieldnotes-'+view.kind+'.html':'fieldnotes-blog.html'}/></div>
+    <section class="demo-preview blog-site" id="demo-site" aria-label="Fieldnotes website preview"><BlogSite base={base} slug={slug} view={view}/></section>
+    <section class="container" aria-labelledby="blog-source-heading"><h2 id="blog-source-heading">Make this journal yours.</h2><p>Stories and authors are fictional. A CMS or backend can supply the same article markup. Story, category, author and archive links open complete examples; reading navigation uses native anchors.</p><details><summary>View complete starting HTML</summary><CodeViewer id="blog-source" code={source} label="Complete blog starting HTML"/></details><p>The download retains the initial configuration. Copy your selected attributes onto its opening HTML tag to retain your choices. Download the linked CSS files and change paths when hosting your own site. Article links in downloads lead to the hosted standalone HTML examples.</p><p><a href={base+'demos/blog.css'}>blog.css</a> provides editorial composition. Cards, navigation, breadcrumbs, pagination, avatars, controls and appearance use existing RevaCSS components. No new framework classes or data attributes are introduced.</p></section>
   </div>
 </Layout>

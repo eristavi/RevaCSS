@@ -1,0 +1,7 @@
+---
+import BlogWorkbench from '../../../../../components/demos/BlogWorkbench.astro';
+import {archivePageCount} from '../../../../../data/blog-pages.js';
+export function getStaticPaths(){return Array.from({length:archivePageCount-1},(_,i)=>({params:{page:String(i+2)}}));}
+const page=Number(Astro.params.page);
+---
+<BlogWorkbench view={{kind:'archive',page}}/>
