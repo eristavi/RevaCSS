@@ -1,0 +1,61 @@
+name: Upload verified release downloads
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag (for example v1.0.0)
+        required: true
+        type: string
+      checksums:
+        description: Exact SHA256SUMS.txt contents from the verified local package
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-downloads-${{ inputs.tag }}
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+      EXPECTED_CHECKSUMS: ${{ inputs.checksums }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ inputs.tag }}
+      - name: Verify the tag and draft release
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+          tag = os.environ['RELEASE_TAG']
+          metadata = json.loads(Path('package.json').read_text())
+          assert re.fullmatch(r'v\d+\.\d+\.\d+', tag), 'Use a semantic version tag.'
+          assert tag == 'v' + metadata['version'], 'Tag and package version differ.'
+          PY
+          test "$(gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = true
+      - name: Package and verify the downloads
+        run: |
+          python3 scripts/package-release.py
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          expected = os.environ['EXPECTED_CHECKSUMS'].replace('\r\n', '\n').strip() + '\n'
+          actual = Path('artifacts/SHA256SUMS.txt').read_text()
+          assert actual == expected, 'Generated downloads differ from the verified local package.'
+          print('All generated hashes match the verified local package.')
+          PY
+          cd artifacts
+          sha256sum --check SHA256SUMS.txt
+      - name: Upload the verified downloads
+        run: gh release upload "$RELEASE_TAG" artifacts/* --repo "$GITHUB_REPOSITORY"
