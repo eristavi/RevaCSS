@@ -1,0 +1,12 @@
+/* One layout class reuses existing cards and avatars for message content. */
+@layer re.components {
+  :where(ol.message-thread) { list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--re-space); }
+  :where(.message-thread > li) { display:flex; margin:0; min-inline-size:0; }
+  :where(.message-thread > li:has(> .card[data-variant="primary"])) { justify-content:flex-end; }
+  :where(.message-thread > li > .card) { inline-size:fit-content; max-inline-size:min(85%,36rem); min-inline-size:0; overflow-wrap:anywhere; }
+  :where(.message-thread > li > .card[data-variant="primary"]) { border-color:var(--re-primary); }
+  :where(.message-thread > li > .card > header) { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; padding:0; margin:0; border:0; }
+  :where(.message-thread > li > .card > header > time) { color:var(--re-muted); font-size:.8125em; margin-inline-start:auto; }
+  :where(.message-thread > li > .card > p) { margin-block:.5rem 0; }
+  :where(.message-thread > li > .card > footer) { margin:0; padding-block-start:.5rem; border:0; color:var(--re-muted); font-size:.8125em; }
+}

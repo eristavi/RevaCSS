@@ -1,0 +1,14 @@
+/* A process is an ordered list; the application supplies state and destinations. */
+@layer re.components {
+  :where(ol.steps) { display:flex; flex-wrap:wrap; gap:var(--re-space); counter-reset:re-step; list-style:none; padding:0; }
+  :where(.steps > li) { counter-increment:re-step; flex:1 1 8rem; min-inline-size:0; margin:0; padding-block-start:.75rem; border-block-start:2px solid var(--re-line); overflow-wrap:anywhere; }
+  :where(.steps > li)::before { content:counter(re-step); display:inline-grid; place-items:center; inline-size:2rem; block-size:2rem; margin-inline-end:.5rem; border-radius:50%; background:var(--re-surface-alt); color:var(--re-text); font-weight:700; }
+  :where(.steps > li:has([aria-current="step"])) { border-color:var(--re-primary); }
+  :where(.steps > li:has([aria-current="step"]))::before { background:var(--re-primary); color:var(--re-on-primary); }
+  :where(.steps > li > :is(a,span)) { display:inline-block; min-block-size:2.75rem; padding-block:.5rem; }
+  :where(.steps [aria-current="step"]) { font-weight:750; }
+  :where(.steps > li > small) { display:block; color:var(--re-muted); }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.steps > li)::before { background:Canvas; color:CanvasText; border:1px solid CanvasText; } :where(.steps > li:has([aria-current="step"])) { border-color:Highlight; } }
+}

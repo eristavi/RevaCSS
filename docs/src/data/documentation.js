@@ -20,6 +20,7 @@ export const componentGroups = [
       "form-groups",
       "input-groups",
       "switches",
+      "rating",
       "toolbars"
     ]
   },
@@ -33,6 +34,7 @@ export const componentGroups = [
       "top-menu",
       "dropdowns",
       "breadcrumbs",
+      "steps",
       "pagination",
       "accordions",
       "tabs",
@@ -58,6 +60,8 @@ export const componentGroups = [
       "card-patterns",
       "metrics",
       "timeline",
+      "calendar",
+      "message-thread",
       "charts",
       "lists",
       "avatars"
@@ -65,6 +69,10 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "steps": ["ol.steps > li > a or span", "aria-current=step; visible state text; inherited appearance.", "reva.steps.css", "Native process navigation; application supplies stage state and destinations."],
+  "rating": ["fieldset.rating > legend, label > input[type=radio], span; labelled .rating display", "Native radio name/value/checked/disabled/required and reset; accessible numeric display.", "reva.rating.css", "Integer star selection without JavaScript; backend supplies averages and submissions."],
+  "calendar": ["table.calendar > caption, thead, tbody", "Weekday headers, time[datetime], aria-current=date and native event links.", "reva.calendar.css", "Server-rendered month display; no date picker, range selection or booking engine."],
+  "message-thread": ["ol.message-thread > li > article.card", "Existing data-variant=primary marks outgoing messages; native sender/time/footer and optional avatar.", "reva.message-thread.css", "Ordered static history. Sending, real-time updates and announcements belong to the application."],
   "selects": ["Native select and option elements; no classes.", "Existing shared tokens and native form attributes.", "Optional reva.selects.css / reva.selects.scoped.css", "Support-gated customizable dropdown; native fallback. Multiple/listbox selects unchanged."],
   "timeline": ["ol.timeline > li", "Semantic time and event text; inherited shared appearance.", "reva.timeline.css", "Server supplies ordered events; no JavaScript."],
   "charts": ["figure.chart > svg, figcaption", "Backend supplies coordinates, title/description and exact data.", "reva.charts.css", "Existing line/area and doughnut patterns; no new chart types."],

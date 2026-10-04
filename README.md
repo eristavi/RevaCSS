@@ -173,6 +173,10 @@ Load optional `reva.selects.css` (or its scoped counterpart) to style ordinary s
 
 The blog also includes a [paginated archive](https://eristavi.github.io/RevaCSS/demos/blog/archive/), Design/Practice/Notes category pages and an [author profile](https://eristavi.github.io/RevaCSS/demos/blog/author/alex-morgan/). Articles link to adjacent stories in publication order. All collection pages include the shared customizer and standalone HTML downloads, reusing cards, breadcrumbs, avatars and pagination without new framework components.
 
+## Native application patterns
+
+Step navigation uses `ol.steps`, current-stage semantics and visible stage labels. Star ratings use a labelled read-only `.rating` display or `fieldset.rating` with native radio values. `table.calendar` presents server-supplied dates and linked events. `ol.message-thread` arranges existing `.card` messages and optional avatars; the existing `data-variant="primary"` aligns outgoing messages to the logical end. Each module ships in core/components/scoped builds and as a standalone stylesheet. No new data attributes or client-side state engine. [Examples and API](https://eristavi.github.io/RevaCSS/reference/components/).
+
 ## Shop demo
 
 [Still shop](https://eristavi.github.io/RevaCSS/demos/shop/) includes six fictional products, three category collections, individual product pages with thumbnail galleries and a sample bag with an order summary. Existing cards, navigation, badges, breadcrumbs, buttons and disclosures supply the components; demo-only `shop.css` supplies composition and inline SVG supplies product illustrations. Galleries reuse the existing native-radio tabs with overview, detail and dimensions views; no new core gallery component is added. Every page shares saved demo appearance settings and offers complete HTML downloads. The catalogue and navigation work without JavaScript. Cart updates, stock validation, checkout and payments require a commerce backend; this demo processes no orders.

@@ -82,3 +82,8 @@ Separate reva.selects.css and reva.selects.scoped.css extensions, excluded from 
 Default colour direction: data-palette="default" uses white/black surfaces with Blue Teal primary actions (#1F6E8C light / #2E8A99 dark). Main headings and links use the readable palette link shade (#65BBC7 dark). Secondary (#4B5563 / #BFC8CD), success (#256B4E / #78B99B), warning (#E6BC63 both), and danger (#A63D4F / #D98B97) use adaptive foregrounds. Gradient endpoints remain subtle companion shades; solid fills use the exact approved values.
 
 The optional data-palette="mono" restores monochrome primary actions and links. Demo pages and standalone HTML downloads start with the default palette and system colour mode.
+
+
+## Native application patterns
+
+One ol.steps class presents process stages with native links/spans, aria-current=step and explicit visible state text. One .rating class supports a labelled read-only star display or native fieldset/legend/radio choices; integer values, names, required/disabled states, keyboard operation and reset remain native. One table.calendar class presents server-supplied dates, scoped weekday headers, dated time elements and event links; it is not a date-picker or booking engine. One ol.message-thread class arranges existing article.card surfaces in DOM order, using the existing data-variant=primary for logical outgoing alignment and visible sender/time/status text. No component-specific attributes, JavaScript, implied live-region roles or client-side data engines. Included in core/components/scoped and standalone stylesheets.

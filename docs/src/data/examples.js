@@ -1,4 +1,6 @@
+import {nativePatternTopics} from "./native-patterns.js";
 export const topics = [
+...nativePatternTopics,
 {
   "slug": "selects",
   "title": "Native select dropdowns",

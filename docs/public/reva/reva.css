@@ -1461,6 +1461,64 @@
     :where(.timeline > li)::before { background: CanvasText; }
   }
 }
+/* A process is an ordered list; the application supplies state and destinations. */
+@layer re.components {
+  :where(ol.steps) { display:flex; flex-wrap:wrap; gap:var(--re-space); counter-reset:re-step; list-style:none; padding:0; }
+  :where(.steps > li) { counter-increment:re-step; flex:1 1 8rem; min-inline-size:0; margin:0; padding-block-start:.75rem; border-block-start:2px solid var(--re-line); overflow-wrap:anywhere; }
+  :where(.steps > li)::before { content:counter(re-step); display:inline-grid; place-items:center; inline-size:2rem; block-size:2rem; margin-inline-end:.5rem; border-radius:50%; background:var(--re-surface-alt); color:var(--re-text); font-weight:700; }
+  :where(.steps > li:has([aria-current="step"])) { border-color:var(--re-primary); }
+  :where(.steps > li:has([aria-current="step"]))::before { background:var(--re-primary); color:var(--re-on-primary); }
+  :where(.steps > li > :is(a,span)) { display:inline-block; min-block-size:2.75rem; padding-block:.5rem; }
+  :where(.steps [aria-current="step"]) { font-weight:750; }
+  :where(.steps > li > small) { display:block; color:var(--re-muted); }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.steps > li)::before { background:Canvas; color:CanvasText; border:1px solid CanvasText; } :where(.steps > li:has([aria-current="step"])) { border-color:Highlight; } }
+}
+/* Native radio choices and an explicitly labelled read-only star display. */
+@layer re.components {
+  :where(.rating:not(fieldset)) { display:inline-block; color:var(--re-link); font-size:1.5em; letter-spacing:.1em; white-space:nowrap; }
+  :where(fieldset.rating) { display:flex; flex-wrap:wrap; gap:0; border:0; padding:0; background:transparent; box-shadow:none; }
+  :where(.rating > legend) { padding:0; margin-block-end:.5rem; font-weight:650; }
+  :where(.rating > label) { display:inline-grid; place-items:center; position:relative; min-inline-size:2.75rem; min-block-size:2.75rem; margin:0; padding:.25rem; border-radius:var(--re-radius); color:var(--re-link); cursor:pointer; }
+  :where(.rating > label > svg) { inline-size:calc(var(--re-type) * 1.75); block-size:calc(var(--re-type) * 1.75); fill:none; stroke:currentColor; stroke-width:1.5; }
+  :where(.rating > label:has(input:checked) > svg,.rating > label:has(~ label input:checked) > svg) { fill:currentColor; }
+  :where(.rating > label:has(input:focus-visible)) { outline:2px solid var(--re-primary); outline-offset:2px; }
+  :where(.rating > label:has(input:disabled)) { opacity:.55; cursor:default; }
+}
+@layer re.utilities {
+  :where(.rating > label > :is(input,span)) { position:absolute; inline-size:1px; block-size:1px; margin:-1px; padding:0; border:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  @media (forced-colors:active) { :where(.rating,.rating > label) { color:CanvasText; } :where(.rating > label:has(input:focus-visible)) { outline-color:Highlight; } }
+}
+/* Native calendar table: no ARIA grid, date-picker engine or client-side state. */
+@layer re.components {
+  :where(table.calendar) { table-layout:fixed; border-spacing:.2rem; overflow:visible; }
+  :where(.calendar caption) { color:var(--re-text); font-size:1.15em; font-weight:700; }
+  :where(.calendar :is(th,td)) { padding:calc(.3rem * var(--re-density)); border:0; overflow-wrap:anywhere; }
+  :where(.calendar th) { text-align:center; font-size:.8125em; }
+  :where(.calendar td) { block-size:5rem; border:var(--re-surface-border) solid var(--re-line); border-radius:calc(var(--re-radius) * .5); background:var(--re-surface); }
+  :where(.calendar td:empty) { background:transparent; border-color:transparent; }
+  :where(.calendar td > time) { display:block; text-align:center; font-weight:650; font-size:.875em; }
+  :where(.calendar td:has(> time[aria-current="date"])) { outline:2px solid var(--re-primary); outline-offset:-2px; }
+  :where(.calendar td > ul) { list-style:none; padding:0; margin:.25rem 0 0; }
+  :where(.calendar td li) { margin:0; }
+  :where(.calendar td a) { display:flex; align-items:center; min-block-size:2.75rem; font-size:.8125em; border-radius:calc(var(--re-radius) * .4); background:var(--re-surface-alt); padding:.15rem; }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.calendar td) { background:Canvas; border-color:CanvasText; } :where(.calendar td:empty) { border-color:transparent; } :where(.calendar td:has(> time[aria-current="date"])) { outline-color:Highlight; } }
+}
+/* One layout class reuses existing cards and avatars for message content. */
+@layer re.components {
+  :where(ol.message-thread) { list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--re-space); }
+  :where(.message-thread > li) { display:flex; margin:0; min-inline-size:0; }
+  :where(.message-thread > li:has(> .card[data-variant="primary"])) { justify-content:flex-end; }
+  :where(.message-thread > li > .card) { inline-size:fit-content; max-inline-size:min(85%,36rem); min-inline-size:0; overflow-wrap:anywhere; }
+  :where(.message-thread > li > .card[data-variant="primary"]) { border-color:var(--re-primary); }
+  :where(.message-thread > li > .card > header) { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; padding:0; margin:0; border:0; }
+  :where(.message-thread > li > .card > header > time) { color:var(--re-muted); font-size:.8125em; margin-inline-start:auto; }
+  :where(.message-thread > li > .card > p) { margin-block:.5rem 0; }
+  :where(.message-thread > li > .card > footer) { margin:0; padding-block-start:.5rem; border:0; color:var(--re-muted); font-size:.8125em; }
+}
 /* One figure class. Coordinates and series values are supplied in SVG/HTML. */
 @layer re.components {
   :where(figure.chart) { margin: var(--re-space) 0; min-inline-size: 0; }

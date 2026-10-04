@@ -1,0 +1,17 @@
+/* Native calendar table: no ARIA grid, date-picker engine or client-side state. */
+@layer re.components {
+  :where(table.calendar) { table-layout:fixed; border-spacing:.2rem; overflow:visible; }
+  :where(.calendar caption) { color:var(--re-text); font-size:1.15em; font-weight:700; }
+  :where(.calendar :is(th,td)) { padding:calc(.3rem * var(--re-density)); border:0; overflow-wrap:anywhere; }
+  :where(.calendar th) { text-align:center; font-size:.8125em; }
+  :where(.calendar td) { block-size:5rem; border:var(--re-surface-border) solid var(--re-line); border-radius:calc(var(--re-radius) * .5); background:var(--re-surface); }
+  :where(.calendar td:empty) { background:transparent; border-color:transparent; }
+  :where(.calendar td > time) { display:block; text-align:center; font-weight:650; font-size:.875em; }
+  :where(.calendar td:has(> time[aria-current="date"])) { outline:2px solid var(--re-primary); outline-offset:-2px; }
+  :where(.calendar td > ul) { list-style:none; padding:0; margin:.25rem 0 0; }
+  :where(.calendar td li) { margin:0; }
+  :where(.calendar td a) { display:flex; align-items:center; min-block-size:2.75rem; font-size:.8125em; border-radius:calc(var(--re-radius) * .4); background:var(--re-surface-alt); padding:.15rem; }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.calendar td) { background:Canvas; border-color:CanvasText; } :where(.calendar td:empty) { border-color:transparent; } :where(.calendar td:has(> time[aria-current="date"])) { outline-color:Highlight; } }
+}

@@ -1,0 +1,15 @@
+/* Native radio choices and an explicitly labelled read-only star display. */
+@layer re.components {
+  :where(.rating:not(fieldset)) { display:inline-block; color:var(--re-link); font-size:1.5em; letter-spacing:.1em; white-space:nowrap; }
+  :where(fieldset.rating) { display:flex; flex-wrap:wrap; gap:0; border:0; padding:0; background:transparent; box-shadow:none; }
+  :where(.rating > legend) { padding:0; margin-block-end:.5rem; font-weight:650; }
+  :where(.rating > label) { display:inline-grid; place-items:center; position:relative; min-inline-size:2.75rem; min-block-size:2.75rem; margin:0; padding:.25rem; border-radius:var(--re-radius); color:var(--re-link); cursor:pointer; }
+  :where(.rating > label > svg) { inline-size:calc(var(--re-type) * 1.75); block-size:calc(var(--re-type) * 1.75); fill:none; stroke:currentColor; stroke-width:1.5; }
+  :where(.rating > label:has(input:checked) > svg,.rating > label:has(~ label input:checked) > svg) { fill:currentColor; }
+  :where(.rating > label:has(input:focus-visible)) { outline:2px solid var(--re-primary); outline-offset:2px; }
+  :where(.rating > label:has(input:disabled)) { opacity:.55; cursor:default; }
+}
+@layer re.utilities {
+  :where(.rating > label > :is(input,span)) { position:absolute; inline-size:1px; block-size:1px; margin:-1px; padding:0; border:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  @media (forced-colors:active) { :where(.rating,.rating > label) { color:CanvasText; } :where(.rating > label:has(input:focus-visible)) { outline-color:Highlight; } }
+}
