@@ -1,5 +1,4 @@
 ---
-import TopMenu from '../TopMenu.astro';
 import DashboardSidebar from './DashboardSidebar.astro';
 import catalog from '../../../../src/icons/catalog.json';
 const {base='/',embedded=true}=Astro.props;
@@ -23,10 +22,9 @@ const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
     <DashboardSidebar base={base}/>
   </aside>
   <header>
-    <button type="button" popovertarget="dashboard-sidebar">Menu</button>
-    <TopMenu id="dashboard" label="Dashboard navigation" brand="Workspace overview" brandHref="#dashboard-title" current="none" items={[{key:'projects',label:'Projects',href:'#dashboard-projects'},{key:'activity',label:'Activity',href:'#dashboard-activity'}]}>
-      <a slot="actions" class="button outline" href="#dashboard-report">View report <Fragment set:html={icon('arrow-right')}/></a>
-    </TopMenu>
+    <button type="button" class="outline" popovertarget="dashboard-sidebar" aria-label="Open sidebar"><Fragment set:html={icon('menu')}/></button>
+    <strong>Workspace overview</strong>
+    <a class="button outline" href="#dashboard-report" aria-label="View report"><span>View report</span><Fragment set:html={icon('arrow-right')}/></a>
   </header>
   <Content aria-label="Dashboard content">
     <header class="dash-heading row justify-between"><div><p class="dash-eyebrow">YOUR WORK, AT A GLANCE</p><h1 id="dashboard-title">A little clarity goes a long way.</h1><p>Welcome back, Alex. Here’s how September came together.</p></div><span class="badge">September 2026</span></header>

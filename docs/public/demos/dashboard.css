@@ -6,8 +6,9 @@
 .dash-note { margin-block-start:1rem; font-size:.85rem; }
 .dash-note h2 { font-size:1.2rem; }
 .dash-site > .app-shell > :is(main,section) { display:grid; align-content:start; gap:calc(var(--re-space) * 1.5); min-inline-size:0; }
-.dash-site > .app-shell > header .top-menu { padding:.6rem 1rem; }
-.dash-site > .app-shell > header .menu-brand { font-size:.85rem; }
+.dash-site > .app-shell > header { gap:.5rem; padding:.5rem; }
+.dash-site > .app-shell > header > strong { flex:1; min-inline-size:0; font-size:.85rem; }
+.dash-site > .app-shell > header > :is(button,a) { flex:none; min-inline-size:2.75rem; min-block-size:2.75rem; }
 .dash-heading { gap:1rem; padding-block:.75rem; }
 .dash-heading h1 { font-size:clamp(1.7rem,2.7vw,2.65rem); margin:.25rem 0 .6rem; letter-spacing:-.045em; max-inline-size:24ch; }
 .dash-heading p { margin:0; }
@@ -36,7 +37,11 @@
 .dash-footer { color:var(--re-muted); font-size:.75rem; padding-block:1rem; }
 @media (width < 75rem) { .dash-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
-@media (width < 42rem) { .dash-charts,.dash-bottom { grid-template-columns:minmax(0,1fr); } .dash-heading h1 { max-inline-size:none; } .dash-site > .app-shell > header .menu-brand { max-inline-size:12ch; } }
+@media (width < 42rem) { .dash-charts,.dash-bottom { grid-template-columns:minmax(0,1fr); } .dash-heading h1 { max-inline-size:none; } }
+@media (width < 60rem) {
+  .dash-site > .app-shell > header > a > span { display:none; }
+  .dash-site > .app-shell > header > :is(button,a) { padding:.5rem; }
+}
 @media print { .dash-footer { display:none; } .dash-charts,.dash-bottom { grid-template-columns:1fr; } .dash-site > .app-shell > :is(main,section) #dashboard-projects table { min-inline-size:0; } }
 
 /* Palette-driven demo-only backdrop for Glass and Veil. A clipped fixed layer

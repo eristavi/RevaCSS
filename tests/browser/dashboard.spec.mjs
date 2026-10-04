@@ -13,6 +13,17 @@ test.describe('dashboard native operation',()=>{
   await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await expect(page.locator('.dash-metrics > .card')).toHaveCount(4);
+  const header=page.locator('.dash-site > .app-shell > header');
+  expect((await header.boundingBox()).height).toBeLessThan(85);
+  await expect(header.getByRole('link',{name:'View report',exact:true})).toBeVisible();
+  if(width<960){
+   const trigger=header.getByRole('button',{name:'Open sidebar',exact:true});
+   await expect(trigger).toBeVisible();
+   await expect(header.getByRole('button')).toHaveCount(1);
+   await trigger.click();await expect(page.locator('#dashboard-sidebar')).toBeVisible();
+   await expect(page.locator('#dashboard-sidebar').getByRole('link',{name:'Projects',exact:true})).toBeVisible();
+   await page.keyboard.press('Escape');await expect(page.locator('#dashboard-sidebar')).toBeHidden();
+  }else await expect(header.getByRole('button',{name:'Open sidebar',exact:true})).toBeHidden();
   await expect(page.getByRole('img',{name:'Monthly revenue, April to September 2026'})).toBeVisible();
   await expect(page.getByRole('img',{name:'Revenue share by channel'})).toBeVisible();
   await page.getByRole('button',{name:'Customize this demo',exact:true}).click();await settle(page.locator('#demo-customizer-popup')); 
