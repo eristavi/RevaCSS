@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-palette="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RevaCSS · GitHub preview</title>
+  <link rel="stylesheet" href="../../dist/reva-fonts.css">
+  <link rel="stylesheet" href="../../dist/reva.css">
+  <link rel="stylesheet" href="../../dist/reva.glass.css">
+  <link rel="stylesheet" href="../../dist/reva.veil.css">
+  <style>
+    /* Presentation framing only. Component paint comes from the built framework. */
+    body { background:#f5f7f8; }
+    .presentation { padding:46px 52px 30px; }
+    .identity { display:flex; justify-content:space-between; align-items:center; margin-block-end:24px; }
+    .wordmark { font-size:24px; font-weight:800; letter-spacing:-.9px; color:#172d38; }
+    .identity span { font-size:12px; letter-spacing:.14em; color:#65747c; text-transform:uppercase; }
+    .heading { margin:0; font-size:54px; line-height:1.09; letter-spacing:-2.4px; color:#142d3a; }
+    .heading em { color:#1f6e8c; font-style:normal; }
+    .intro { margin:16px 0 28px; font-size:17px; color:#566a75; }
+    .previews { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .preview { border:1px solid #d9e1e5; border-radius:18px; overflow:hidden; }
+    .preview-label { display:flex; justify-content:space-between; padding:11px 19px; font-size:12px; font-weight:700; border-block-end:1px solid #d9e1e5; background:#fff; color:#254252; }
+    .preview-label span { font-weight:500; color:#76868e; }
+    .canvas { padding:19px; }
+    .canvas[data-theme="dark"] { background:#11171d; }
+    .canvas.glass-backdrop { background:radial-gradient(ellipse at 10% 15%,#b4e7e3,transparent 75%),radial-gradient(ellipse at 95% 90%,#c1d6fa,transparent 75%),#e6edf2; }
+    .card .row { justify-content:space-between; }
+    .card h2 { font-size:23px; letter-spacing:-.6px; }
+    .card p { color:var(--re-muted); font-size:14px; }
+    .card .progress-label { margin:0 0 4px; font-size:12px; }
+    .card progress { display:block; block-size:9px; }
+    .card footer { display:flex; gap:9px; }
+    .card footer button { flex:1; }
+    .caption { display:flex; justify-content:space-between; align-items:center; margin:22px 0 0; color:#5d737e; font-size:12px; }
+    .caption strong { color:#254252; font-weight:600; }
+    body[data-export="social"] .presentation { padding:28px 42px 20px; }
+    body[data-export="social"] .identity { margin-block-end:12px; }
+    body[data-export="social"] .heading { font-size:40px; }
+    body[data-export="social"] .intro { display:none; }
+    body[data-export="social"] .previews { gap:14px; }
+    body[data-export="social"] .preview-label { padding:6px 14px; }
+    body[data-export="social"] .canvas { padding:12px; }
+    body[data-export="social"] .card { --re-card-padding:16px; }
+    body[data-export="social"] .card h2 { font-size:20px; margin-block:12px 8px; }
+    body[data-export="social"] .card p { display:none; }
+    body[data-export="social"] .card footer { display:none; }
+    body[data-export="social"] .caption { margin-block-start:16px; }
+  </style>
+</head>
+<body>
+  <main class="presentation">
+    <header>
+      <div class="identity"><strong class="wordmark">RevaCSS</strong><span>Native HTML · Adaptive CSS</span></div>
+      <h1 class="heading">Start with HTML.<br><em>Set your defaults once.</em></h1>
+      <p class="intro">One interface. Four expressions. The same shared design settings.</p>
+    </header>
+    <div class="previews">
+      <section class="preview" aria-label="Light preview">
+        <div class="preview-label">Light <span>Solid material</span></div>
+        <div class="canvas" data-theme="light" data-material="solid" data-shape="rounded" data-size="small">
+          <article class="card">
+            <div class="row"><small>YOUR WORKSPACE</small><span class="badge" data-variant="success">In progress</span></div>
+            <h2>Make room for your next idea.</h2>
+            <p>A considered foundation for whatever you build.</p>
+            <div class="row progress-label"><span>Project progress</span><strong>72%</strong></div>
+            <progress value="72" max="100" aria-label="Project progress">72%</progress>
+            <footer><button type="button">Open project</button><button type="button" class="secondary">View details</button></footer>
+          </article>
+        </div>
+      </section>
+      <section class="preview" aria-label="Dark preview">
+        <div class="preview-label">Dark <span>Solid material</span></div>
+        <div class="canvas" data-theme="dark" data-material="solid" data-shape="rounded" data-size="small">
+          <article class="card">
+            <div class="row"><small>YOUR WORKSPACE</small><span class="badge" data-variant="success">In progress</span></div>
+            <h2>Make room for your next idea.</h2>
+            <p>A considered foundation for whatever you build.</p>
+            <div class="row progress-label"><span>Project progress</span><strong>72%</strong></div>
+            <progress value="72" max="100" aria-label="Project progress">72%</progress>
+            <footer><button type="button">Open project</button><button type="button" class="secondary">View details</button></footer>
+          </article>
+        </div>
+      </section>
+      <section class="preview" aria-label="Glass preview">
+        <div class="preview-label">Glass <span>Frosted surfaces</span></div>
+        <div class="canvas glass-backdrop" data-theme="light" data-material="glass" data-shape="rounded" data-size="small">
+          <article class="card">
+            <div class="row"><small>YOUR WORKSPACE</small><span class="badge" data-variant="success">In progress</span></div>
+            <h2>Make room for your next idea.</h2>
+            <p>A considered foundation for whatever you build.</p>
+            <div class="row progress-label"><span>Project progress</span><strong>72%</strong></div>
+            <progress value="72" max="100" aria-label="Project progress">72%</progress>
+            <footer><button type="button">Open project</button><button type="button" class="secondary">View details</button></footer>
+          </article>
+        </div>
+      </section>
+      <section class="preview" aria-label="Veil preview">
+        <div class="preview-label">Veil <span>Color at the edges</span></div>
+        <div class="canvas" data-theme="dark" data-material="veil" data-shape="rounded" data-size="small">
+          <article class="card">
+            <div class="row"><small>YOUR WORKSPACE</small><span class="badge" data-variant="success">In progress</span></div>
+            <h2>Make room for your next idea.</h2>
+            <p>A considered foundation for whatever you build.</p>
+            <div class="row progress-label"><span>Project progress</span><strong>72%</strong></div>
+            <progress value="72" max="100" aria-label="Project progress">72%</progress>
+            <footer><button type="button">Open project</button><button type="button" class="secondary">View details</button></footer>
+          </article>
+        </div>
+      </section>
+    </div>
+    <p class="caption"><strong>Shared defaults. Native interactions. Your own direction.</strong><span>eristavi.github.io/RevaCSS</span></p>
+  </main>
+</body>
+</html>
