@@ -3,6 +3,7 @@ import core from '../../../dist/reva.css?raw';
 import motion from '../../../src/css/motion.css?raw';
 import glass from '../../../src/css/glass.css?raw';
 import veil from '../../../src/css/veil.css?raw';
+import soft from '../../../src/css/soft.css?raw';
 import {demoOptions} from './demo-configurations.js';
 import {transform} from 'lightningcss';
 
@@ -34,12 +35,13 @@ function liveMaterial(source,names) {
   }
   return `@scope (.demo-workbench) { ${source} }\n`;
 }
-css+=liveMaterial(glass,['glass','solid'])+liveMaterial(veil,['veil']);
+css+=liveMaterial(glass,['glass','solid'])+liveMaterial(veil,['veil'])+liveMaterial(soft,['soft']);
 for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
   let decl=declaration(key==='contrast'?core:tokens,key,value);
+  if(key==='depth') decl+=' '+declaration(soft,key,value);
   if(key==='motion') decl+=' '+declaration(motion,key,value);
-  if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value);
+  if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value)+' '+declaration(soft,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
   css+=`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }

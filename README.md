@@ -81,6 +81,7 @@ Choose [shared attributes and defaults](https://eristavi.github.io/RevaCSS/attri
 | --- | --- |
 | [Palettes](https://eristavi.github.io/RevaCSS/themes/palettes/) | Eight coordinated color families across light, dark, and system themes. |
 | [Glass](https://eristavi.github.io/RevaCSS/themes/glass/) | Frosted surfaces, backdrop blur, and shared appearance settings. |
+| [Soft UI](https://eristavi.github.io/RevaCSS/themes/soft/) | Raised opaque surfaces, inset fields and pressed actions using paired shadows. |
 | [Veil](https://eristavi.github.io/RevaCSS/themes/veil/) | Diffused perimeter color and inset contours without backdrop blur. |
 | [Motion](https://eristavi.github.io/RevaCSS/guide/motion/) | Optional native-popover entrances that follow the shared motion setting. |
 | [Native selects](https://eristavi.github.io/RevaCSS/components/selects/) | An optional enhancement for single-select pickers in supporting browsers. |

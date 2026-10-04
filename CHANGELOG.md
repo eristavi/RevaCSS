@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Optional Soft UI material via inherited `data-material="soft"`, with raised surfaces, inset text controls and pressed actions.
+- Global and scoped extensions, light/dark examples, and integration with the shared persistent demo customizer.
+
+
 ## 1.0.0 — Erisian · 4 October 2026
 
 The first public GitHub release of RevaCSS, with compiled assets and a native HTML starter page.

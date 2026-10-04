@@ -1,0 +1,56 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+import {stylesheet} from '../../data/assets.js';
+const base=import.meta.env.BASE_URL;
+const install=`<link rel="stylesheet" href="reva.css">
+<link rel="stylesheet" href="reva.soft.css">
+
+<section data-material="soft" data-theme="light" data-shape="rounded">
+  <article class="card">
+    <h2>Overview</h2>
+    <p>Raised surfaces. Clear content.</p>
+    <button type="button" class="secondary">View report</button>
+  </article>
+</section>`;
+const controls=`<section class="stack" data-material="soft" data-theme="light" data-tone="cool">
+  <fieldset>
+    <legend>Project details</legend>
+    <div class="form-group"><label for="soft-name">Project name</label><input id="soft-name" value="Spring collection"></div>
+    <div class="form-group"><label for="soft-status">Status</label><select id="soft-status"><option>Planning</option><option>Creating</option></select></div>
+    <div class="form-group"><label for="soft-notes">Notes</label><textarea id="soft-notes">A little room for the next idea.</textarea></div>
+    <div class="row"><button type="button">Save project</button><button type="button" class="secondary">Preview</button><button type="button" class="outline">Cancel</button><button type="button" disabled>Unavailable</button></div>
+  </fieldset>
+</section>`;
+const boundaries=`<section class="stack" data-material="soft" data-theme="light" data-tone="cool">
+  <article class="card"><h3>Raised surface</h3><p>The parent supplies Soft UI.</p></article>
+  <article class="card" data-depth="flat"><h3>Flat depth</h3><p>The shared depth setting removes paired shadows.</p></article>
+  <section class="stack" data-material="solid">
+    <article class="card"><h3>Solid exception</h3><p>This section keeps the core finish.</p></article>
+    <article class="card" data-material="soft"><h3>Soft UI again</h3><p>A local material starts a new scope.</p></article>
+  </section>
+</section>`;
+---
+<DocsLayout title="Soft UI material" active="soft" sections={[{id:'preview',title:'Light and dark'},{id:'install',title:'Load and activate'},{id:'controls',title:'Native controls'},{id:'boundaries',title:'Shared settings'}]}>
+<link rel="stylesheet" href={stylesheet('reva.soft.css')}/>
+<p class="doc-kicker">OPTIONAL MATERIAL</p><h1>Soft UI</h1>
+<p class="doc-lead">Neumorphism for native HTML: surfaces gently rise from their background, fields sit inside it, and buttons press inward.</p>
+<section id="preview"><h2>The same interface in light and dark</h2><div class="grid">
+{['light','dark'].map(theme=><section class="soft-stage stack" data-theme={theme} data-tone="cool" data-material="soft" data-shape="rounded" data-depth="pronounced" aria-label={`${theme} Soft UI preview`}>
+  <article class="card"><p>OVERVIEW</p><h3>€24,800</h3><p>Revenue this month · +12.8%</p><div class="row"><a class="button secondary" href={base+'demos/dashboard/'}>View dashboard</a><button type="button" aria-pressed="true" class="secondary">Selected</button></div></article>
+  <article class="card"><h3>Make room for good work.</h3><p>Opaque surfaces, paired shadows, and readable text drawn from the existing palette.</p><details><summary>How is it made?</summary><p>A light shadow toward the upper left and a darker shadow toward the lower right. Text controls reverse the shadows.</p></details></article>
+</section>)}
+</div><p>Open any demo, choose <strong>Customize → Material → Soft UI</strong>, and use Shadows to adjust the depth.</p></section>
+<section id="install"><h2>Load and activate</h2><p>Load this optional stylesheet after the core, then set the existing material attribute on a parent or supported component.</p><CodeViewer id="soft-install" code={install}/><p>Scoped applications can load <code>reva.scoped.css</code> and <code>reva.soft.scoped.css</code> inside the existing <code>.reva</code> boundary.</p></section>
+<Example id="controls" title="Raised actions and inset controls" html={controls} description="Primary and semantic actions retain their colours. Secondary buttons share the surface colour. Outline and ghost actions retain their own treatment. Focus outlines, invalid borders and disabled states come from the core."/>
+<Example id="boundaries" title="Shared depth and material boundaries" html={boundaries} description="Use existing settings: no new structural classes or configuration attributes."/>
+<section><h2>Shared settings</h2><ul>
+<li>Theme, palette and tone supply the colours. Shape, borders, density and size keep their existing meaning.</li>
+<li>Depth controls raised and inset shadows: flat, subtle or pronounced. Minimal text controls remove inset shadows.</li>
+<li>More Contrast removes decorative shadows. System increased contrast, forced colours and print simplify the finish.</li>
+<li>Core focus outlines remain visible. Decoration adds no continuous animation or backdrop blur.</li>
+<li>Supported surfaces include cards, fieldsets, disclosures, dialogs, popovers, top navigation and app shell panels. Actions and text fields receive the matching finish; badges and alerts keep their semantic core styling.</li>
+</ul><p class="doc-note">This is a CSS material, not an interaction engine. Application code supplies toggle state and content. Physical-device and browser regression suites have not been run for this new material.</p></section>
+</DocsLayout>
+<style>.soft-stage { padding:clamp(1.5rem,4vw,2.5rem); border-radius:var(--re-radius); background:var(--re-bg); gap:2rem; } .soft-stage h3 { font-size:1.7rem; }</style>

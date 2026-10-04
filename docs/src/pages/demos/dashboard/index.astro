@@ -12,7 +12,7 @@ const source=await dashboardSource(defaultDemo);
 ---
 <Layout title="Dashboard demo" current="dashboard-demo" theme="auto" fullWidth>
   <Fragment set:html={`<style>${advancedCSS}</style>`}/>
-  <link rel="stylesheet" href={stylesheet('reva.glass.css')}/><link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={base+'demos/dashboard.css'}/>
+  <link rel="stylesheet" href={stylesheet('reva.glass.css')}/><link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={stylesheet('reva.soft.css')}/><link rel="stylesheet" href={base+'demos/dashboard.css'}/>
   <div class="container"><p class="doc-kicker">REVACSS / COMPLETE WEBSITES</p><h1>A clearer view of your workspace.</h1><p class="doc-lead">A responsive dashboard with metrics, native SVG charts, project progress and activity. Explore the same shared defaults as the marketing demo.</p></div>
   <div class="demo-workbench"><div class="container"><DemoCustomizer config={defaultDemo} downloadHref={base+'demos/dashboard/source.html'} downloadName="forma-dashboard.html"/></div>
     <section class="demo-preview dash-site" id="demo-site" aria-label="Forma dashboard preview"><DashboardSite base={base}/></section>

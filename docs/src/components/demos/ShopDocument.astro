@@ -5,6 +5,6 @@ const {config,assetBase,view={kind:'catalogue'}}=Astro.props;
 ---
 <!doctype html>
 <html lang="en" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape}>
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Still · RevaCSS shop demo</title><SettingsHead kind="demo"/><meta name="description" content="A fictional shop with considered objects, built with native HTML and RevaCSS."/>{['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}<link rel="stylesheet" href={assetBase+'demos/shop.css'}/></head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Still · RevaCSS shop demo</title><SettingsHead kind="demo"/><meta name="description" content="A fictional shop with considered objects, built with native HTML and RevaCSS."/>{['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}<link rel="stylesheet" href={assetBase+'demos/shop.css'}/></head>
 <body class="shop-site"><a class="skip-link" href="#shop-title">Skip to content</a><ShopSite base={assetBase} view={view} embedded={false} standalone/></body>
 </html>

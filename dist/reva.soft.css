@@ -1,0 +1,46 @@
+/* Optional Soft UI: opaque surfaces with paired raised and inset shadows.
+   Uses existing theme, palette, depth and control settings. No JavaScript. */
+@layer re.tokens {
+  :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-soft-distance: 0px; --re-soft-blur: 0px; }
+  :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-soft-distance: 4px; --re-soft-blur: 10px; }
+  :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-soft-distance: 7px; --re-soft-blur: 18px; }
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-soft-strength: 1; }
+  :where([data-contrast="more"], :scope[data-contrast="more"]) { --re-soft-strength: 0; }
+}
+@layer re.components {
+  @scope ([data-material="soft"], :scope[data-material="soft"]) to ([data-material]:not([data-material="soft"])) {
+    :where(.sidebar, .app-shell > :is(aside,header), .card, fieldset, details:not(.menu-collapse,.menu-dropdown), dialog, [popover], .top-menu, :scope:is(.sidebar,.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu), button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button), input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) {
+      --re-soft-fill: var(--re-bg);
+      --re-soft-light: light-dark(rgb(255 255 255 / 90%), rgb(255 255 255 / 7%));
+      --re-soft-dark: light-dark(rgb(0 0 0 / 14%), rgb(0 0 0 / 45%));
+      --re-soft-offset: calc(var(--re-soft-distance, 4px) * var(--re-soft-strength, 1));
+      --re-soft-radius: calc(var(--re-soft-blur, 10px) * var(--re-soft-strength, 1));
+      --re-soft-raised: calc(-1 * var(--re-soft-offset)) calc(-1 * var(--re-soft-offset)) var(--re-soft-radius) var(--re-soft-light), var(--re-soft-offset) var(--re-soft-offset) var(--re-soft-radius) var(--re-soft-dark);
+      --re-soft-inset: inset calc(var(--re-soft-offset) * .5) calc(var(--re-soft-offset) * .5) calc(var(--re-soft-radius) * .65) var(--re-soft-dark), inset calc(var(--re-soft-offset) * -.5) calc(var(--re-soft-offset) * -.5) calc(var(--re-soft-radius) * .65) var(--re-soft-light);
+      -webkit-backdrop-filter: none; backdrop-filter: none;
+    }
+    :where(.sidebar, .app-shell > :is(aside,header), .card, fieldset, details:not(.menu-collapse,.menu-dropdown), dialog, [popover], .top-menu, :scope:is(.sidebar,.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu)) { background-color:var(--re-soft-fill); background-image:none; box-shadow:var(--re-soft-raised); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle,.dropdown > li > :is(button,.button))) { box-shadow:var(--re-soft-raised); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.secondary):where(:not([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"],.outline,.ghost)) { background-color:var(--re-soft-fill); background-image:none; color:var(--re-text); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle,.outline,.ghost,.dropdown > li > :is(button,.button))):is(:active,[aria-pressed="true"]):where(:not(:disabled,[aria-disabled="true"])) { box-shadow:var(--re-soft-inset); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost) { box-shadow:none; }
+    :where(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) { background-color:color-mix(in srgb,var(--re-soft-fill) calc(var(--re-input-opacity,1) * 100%),transparent); background-image:none; box-shadow:var(--re-soft-inset); }
+    @scope ([data-controls="minimal"], :scope[data-controls="minimal"]) to ([data-controls]:not([data-controls="minimal"])) {
+      :where(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) { box-shadow:none; }
+    }
+  }
+}
+@layer re.utilities {
+  @scope ([data-material="soft"], :scope[data-material="soft"]) to ([data-material]:not([data-material="soft"])) {
+    @media (prefers-contrast:more), (forced-colors:active), print {
+      :where(.sidebar, .app-shell > :is(aside,header), .card, fieldset, details:not(.menu-collapse,.menu-dropdown), dialog, [popover], .top-menu, :scope:is(.sidebar,.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu), button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button), input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) { box-shadow:none; }
+    }
+    @media (forced-colors:active) {
+      :where(.sidebar, .app-shell > :is(aside,header), .card, fieldset, details:not(.menu-collapse,.menu-dropdown), dialog, [popover], .top-menu, :scope:is(.sidebar,.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu)) { background:Canvas; color:CanvasText; border:1px solid CanvasText; }
+      :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button), input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; }
+    }
+    @media print {
+      :where(.sidebar, .app-shell > :is(aside,header), .card, fieldset, details:not(.menu-collapse,.menu-dropdown), dialog, [popover], .top-menu, :scope:is(.sidebar,.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu), button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button), input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]), select, textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) { background:#fff; color:#000; }
+    }
+  }
+}

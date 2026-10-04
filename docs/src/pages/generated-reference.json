@@ -202,11 +202,12 @@
       "values": [
         "solid",
         "glass",
-        "veil"
+        "veil",
+        "soft"
       ],
       "default": "solid",
       "scope": "Inherited; applies to supported targets",
-      "affects": "Solid surfaces by default; optional glass or Veil surfaces and actions use their matching extension. Explicit material boundaries stop another inherited material."
+      "affects": "Solid surfaces by default; optional Glass, Veil or Soft UI surfaces and actions use their matching extension. Explicit material boundaries stop another inherited material."
     },
     "edge": {
       "values": [
