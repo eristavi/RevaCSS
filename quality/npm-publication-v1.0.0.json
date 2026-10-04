@@ -1,0 +1,14 @@
+{
+  "package": "revacss",
+  "version": "1.0.0",
+  "authorizedAt": "2026-10-04",
+  "reason": "The maintainer explicitly requested publication to npm after reviewing the preparation and disclosed manual acceptance status. This exception applies only to the first Erisian npm release; it does not resolve or certify any acceptance check.",
+  "disclosedBlockers": [
+    "Q-NAV-FOCUS",
+    "Q-EDGE-DEVICE",
+    "Q-REAL-DEVICES",
+    "Q-SCREEN-READERS",
+    "Q-ZOOM-PRINT",
+    "Q-VISUAL-BASELINES"
+  ]
+}

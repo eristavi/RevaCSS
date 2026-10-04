@@ -6,9 +6,9 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 
 [Documentation](https://eristavi.github.io/RevaCSS/) · [Live demos](#see-it-in-action) · [Get started](#start-with-html) · [API reference](https://eristavi.github.io/RevaCSS/reference/)
 
-**Version 1.0.0 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0) · [MIT](LICENSE)
+**Version 1.0.0 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0) · [MIT](https://github.com/eristavi/RevaCSS/blob/v1.0.0/LICENSE)
 
-[![The same RevaCSS project card rendered in Light, Dark, Glass, and Veil, using shared design settings.](.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
+[![The same RevaCSS project card rendered in Light, Dark, Glass, and Veil, using shared design settings.](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.0.0/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
 ## Why RevaCSS
 
@@ -60,6 +60,8 @@ Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.0.
 
 Native elements receive useful defaults. A structural class, such as `.card` or `.container`, identifies a pattern where one is needed. See the [getting-started guide](https://eristavi.github.io/RevaCSS/guide/) for installation and stylesheet choices.
 
+Install the npm package with `npm install revacss@1.0.0`, then import `revacss` in your application's CSS-capable bundler. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for scoped styles, fonts, icons, and CDN installation.
+
 ## Configure once, refine locally
 
 Appearance settings work independently. A local value changes that setting while the rest of the design continues to inherit.
@@ -96,17 +98,17 @@ Load an optional extension after the core, then configure it through the same pa
 </article>
 ```
 
-Complete, scoped, and modular builds are available in [`dist/`](dist/). Fonts load separately through `reva-fonts.css`; copy `dist/fonts/` alongside it. The [stylesheet reference](https://eristavi.github.io/RevaCSS/reference/) explains dependencies and extension choices.
+Complete, scoped, and modular builds are available in [`dist/`](https://github.com/eristavi/RevaCSS/tree/v1.0.0/dist). Fonts load separately through `reva-fonts.css`; copy `dist/fonts/` alongside it. The [stylesheet reference](https://eristavi.github.io/RevaCSS/reference/) explains dependencies and extension choices.
 
 ## Project status
 
 **RevaCSS 1.0.0 — Erisian** is the first public GitHub release. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.
 
-Automated validation and known limits are recorded in the [release notes](RELEASE_NOTES.md) and [validation record](quality/releases/v1.0.0.md). Six manual checks remain open; npm publication stays disabled while that work is completed. The package remains private.
+Automated validation and known limits are recorded in the [release notes](https://github.com/eristavi/RevaCSS/blob/v1.0.0/RELEASE_NOTES.md) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.0.0/quality/releases/v1.0.0.md). Six manual checks remain open. The maintainer has authorized the first npm release with these limitations disclosed; this does not certify completion of manual acceptance.
 
 The current implementation targets modern browsers. Native popover patterns require browser support; individual enhancements document their fallbacks. Accessibility also depends on your markup and application behavior. See the [behavior and accessibility guide](https://eristavi.github.io/RevaCSS/guide/accessibility/).
 
-[Specification](SPECIFICATION.md) · [Implementation record](IMPLEMENTATION.md) · [Component quality standard](QUALITY_STANDARD.md)
+[Specification](https://github.com/eristavi/RevaCSS/blob/v1.0.0/SPECIFICATION.md) · [Implementation record](https://github.com/eristavi/RevaCSS/blob/v1.0.0/IMPLEMENTATION.md) · [Component quality standard](https://github.com/eristavi/RevaCSS/blob/v1.0.0/QUALITY_STANDARD.md)
 
 ## Develop and validate
 
@@ -126,12 +128,16 @@ npm run build
 npm test
 npx playwright install --with-deps chromium firefox webkit
 npm run test:browser
+npm run test:package
+npm run test:package:browser
 npm run check:release-quality
 ```
 
 Unit checks cover tokens, contrast pairs, output budgets, documentation, and runtime boundaries. Browser tests run against the built documentation in Chromium, Firefox, and WebKit. The release-quality command reports remaining blockers separately; automated checks do not replace manual accessibility and real-device review.
 
 After building, run `npm run release:package` to reproduce the GitHub downloads in `artifacts/`, including the starter page, licenses, and SHA-256 checksum file.
+
+The npm package workflow validates a clean tarball installation and retains a candidate archive for review. `npm pack --pack-destination artifacts` creates the same kind of local candidate; the existing quality gate still applies to publication.
 
 GitHub Pages builds and deploys documentation from `main`. The three-engine validation workflow is run manually. `REVA_SITE` and `REVA_BASE` configure the documentation origin and path.
 
@@ -141,4 +147,4 @@ Astro builds the documentation. An optional documentation settings helper rememb
 
 ## License
 
-RevaCSS is [MIT licensed](LICENSE). The bundled Manrope font retains its [SIL Open Font License](dist/fonts/OFL.txt).
+RevaCSS is [MIT licensed](https://github.com/eristavi/RevaCSS/blob/v1.0.0/LICENSE). The bundled Manrope font retains its [SIL Open Font License](https://github.com/eristavi/RevaCSS/blob/v1.0.0/dist/fonts/OFL.txt).

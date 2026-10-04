@@ -4,7 +4,7 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 
 ## Current distribution release
 
-RevaCSS 1.0.0 — Erisian is the first public GitHub release, with compiled downloads and recorded validation. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation. This GitHub distribution does not close the six outstanding manual acceptance checks. npm publication stays disabled until those checks and the existing npm release requirements are complete.
+RevaCSS 1.0.0 — Erisian is the first public GitHub release, with compiled downloads and recorded validation. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation. The maintainer has authorized the first npm publication with the same six disclosed manual acceptance checks still open. The version-specific exception is recorded in `quality/npm-publication-v1.0.0.json`; it does not certify acceptance or change the standard for future versions.
 
 ## Contract
 - Websites and applications; beginners and experienced developers.
@@ -54,14 +54,14 @@ Foundation first: tokens, native HTML, light/dark, buttons, cards, layouts, form
 
 Global and scoped builds, complete/modular CSS, optional glass module, optional icons and fonts, print styles, RTL, multilingual packs. Docs: static Astro, Markdown, generated API tables, isolated preview pages, GitHub Actions → GitHub Pages. Downloads/npm/versioned CDN prepared before public release.
 
-No npm publication, including an alpha package, until the first fully functional release includes the agreed components and completes automated, manual accessibility and real-device testing. Keep the package private until those release gates are complete.
+The normal npm release requirement is the agreed component scope plus automated, manual accessibility and real-device acceptance. The maintainer-authorized exception above applies only to `revacss@1.0.0` and its recorded manual items. New automated or manual blockers, and future versions, remain gated.
 
 ## Accessibility and quality
 WCAG 2.2 A/AA target for shipped defaults and documented examples; not automatic conformance for consuming sites. Normal text 4.5:1, qualifying large text 3:1, applicable control/state contrast 3:1. Keyboard, focus visibility/order, target sizing and exceptions, reflow at 320 CSS pixels, zoom, text spacing, forced colours, reduced motion, semantic labels and screen readers. Essential content stays in HTML. Hidden panels must leave keyboard and accessibility navigation correctly. Glass contrast requires opaque enough backing and contextual testing.
 
 Custom primary shades do not guarantee accessible foregrounds; explicit foreground and state tokens are tested. Container queries applied deliberately. Scoped builds document inheritance/overlay limits and third-party class collisions. Public attributes/classes/tokens follow semantic versioning and migration notices.
 
-Proposed gzip CSS budgets: 15 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks are required to complete release acceptance and enable npm publication. No new attribute options until scope reviewed.
+Proposed gzip CSS budgets: 15 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks are required to complete release acceptance. The first npm release exception does not establish that acceptance. No new attribute options until scope reviewed.
 
 Shared appearance contract: shape applies to styled controls, surfaces, tables (including captioned tables), media and code. Border thickness applies to styled controls, surfaces, table separators and navigation panels. Table grid lines use the current border thickness without doubled internal edges. Depth applies to raised surfaces and actions; text-control inset shadows remain controlled by data-controls. Native invalid-field borders, focus indicators and forced-colour boundaries override decorative settings. Theme changes colours without resetting geometry or local settings. Optional material requires its matching global/scoped stylesheet.
 

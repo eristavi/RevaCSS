@@ -4,6 +4,10 @@
   "description": "A CSS framework for native HTML. Shared design defaults, adaptive themes, and native components.",
   "type": "module",
   "license": "MIT",
+  "author": {
+    "name": "Revaz Eristavi",
+    "url": "https://github.com/eristavi"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eristavi/RevaCSS.git"
@@ -12,15 +16,45 @@
     "url": "https://github.com/eristavi/RevaCSS/issues"
   },
   "homepage": "https://eristavi.github.io/RevaCSS/",
-  "private": true,
-  "engines": {
-    "node": ">=22.12.0"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.12.0",
+      "onFail": "error"
+    }
   },
+  "main": "./dist/reva.css",
+  "style": "./dist/reva.css",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./dist/reva.css"
+    },
+    "./dist/*.css": {
+      "types": "./types/index.d.ts",
+      "default": "./dist/*.css"
+    },
+    "./dist/*": "./dist/*",
+    "./tokens/*": "./tokens/*",
+    "./package.json": "./package.json"
+  },
+  "sideEffects": ["**/*.css"],
+  "unpkg": "./dist/reva.min.css",
+  "jsdelivr": "./dist/reva.min.css",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": ["css", "css-framework", "native-html", "design-tokens", "themes", "responsive", "glass"],
   "files": [
     "dist",
     "tokens",
+    "types",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "NPM.md"
   ],
   "scripts": {
     "clean": "node scripts/clean.mjs",
@@ -33,13 +67,22 @@
     "check": "npm run build && npm test && npm run test:browser",
     "test:quality": "playwright test tests/browser/quality.spec.mjs",
     "check:release-quality": "node scripts/check-release-quality.mjs",
-    "release:package": "python3 scripts/package-release.py"
+    "release:package": "python3 scripts/package-release.py",
+    "check:package": "node scripts/check-package.mjs",
+    "prepack": "npm run build:css && npm run check:package",
+    "prepublishOnly": "npm run check:release-quality -- --npm",
+    "pretest:package": "npm run prepack",
+    "test:package": "node --test tests/package/package.test.mjs",
+    "pretest:package:browser": "npm run prepack",
+    "test:package:browser": "node --test tests/package/browser.test.mjs"
   },
   "devDependencies": {
     "astro": "7.3.5",
     "lightningcss": "1.33.0",
     "@playwright/test": "1.63.0",
-    "axe-core": "4.13.0"
+    "axe-core": "4.13.0",
+    "vite": "8.3.1",
+    "typescript": "5.9.3"
   },
   "releaseName": "Erisian"
 }
