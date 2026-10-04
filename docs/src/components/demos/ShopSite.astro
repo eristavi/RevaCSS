@@ -1,6 +1,7 @@
 ---
 import TopMenu from '../TopMenu.astro';
 import ShopProductArt from './ShopProductArt.astro';
+import ShopGallery from './ShopGallery.astro';
 import {shopProducts,shopCategories,money,shopHref} from '../../data/shop-products.js';
 const {base='/',view={kind:'catalogue'},embedded=true,standalone=false}=Astro.props;
 const Content=embedded?'section':'main';
@@ -17,7 +18,7 @@ const cards=product?shopProducts.filter(p=>p.slug!==product.slug).slice(0,3):col
 <Content class="container" aria-label="Still shop">
 {product ? <>
  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Shop</a></li><li><a href={href({category:product.category})}>{shopCategories.find(c=>c.slug===product.category).name}</a></li><li><span aria-current="page">{product.name}</span></li></ol></nav>
- <article class="shop-feature" aria-labelledby="shop-title"><ShopProductArt art={product.art}/><div><p class="shop-kicker">OBJECTS WITH PURPOSE</p><h1 id="shop-title">{product.name}</h1><p class="shop-price">{money(product.price)}</p><p>{product.description}</p><p><span class="badge" data-variant="success">In stock</span></p><dl><dt>Material</dt><dd>{product.material}</dd><dt>Dimensions</dt><dd>{product.dimensions}</dd></dl><a class="button" href={href({kind:'bag'})}>View bag <span aria-hidden="true">↗</span></a><details><summary>Care instructions</summary><p>{product.care}</p></details></div></article>
+ <article class="shop-feature" aria-labelledby="shop-title"><ShopGallery product={product}/><div><p class="shop-kicker">OBJECTS WITH PURPOSE</p><h1 id="shop-title">{product.name}</h1><p class="shop-price">{money(product.price)}</p><p>{product.description}</p><p><span class="badge" data-variant="success">In stock</span></p><dl><dt>Material</dt><dd>{product.material}</dd><dt>Dimensions</dt><dd>{product.dimensions}</dd></dl><a class="button" href={href({kind:'bag'})}>View bag <span aria-hidden="true">↗</span></a><details><summary>Care instructions</summary><p>{product.care}</p></details></div></article>
  <section aria-labelledby="shop-related"><h2 id="shop-related">Good things, together.</h2></section>
 </> : view.kind==='bag' ? <>
  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Shop</a></li><li><span aria-current="page">Bag</span></li></ol></nav>

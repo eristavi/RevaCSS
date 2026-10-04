@@ -1,0 +1,11 @@
+---
+import ShopProductArt from './ShopProductArt.astro';
+const {product}=Astro.props;
+const views=[{key:'overview',name:'Overview',caption:product.name},{key:'detail',name:'Detail',caption:product.material},{key:'dimensions',name:'Dimensions',caption:product.dimensions}];
+---
+<div class="tabs shop-gallery" role="group" aria-label={`${product.name} product views`}>
+ {views.map((view,index)=><>
+  <label><input type="radio" name={`gallery-${product.slug}`} value={view.key} checked={index===0} aria-controls={`gallery-${product.slug}-${view.key}`}/><ShopProductArt art={product.art} detail={view.key==='detail'} dimensions={view.key==='dimensions'}/><span>{view.name}</span></label>
+  <figure class="tab-panel" id={`gallery-${product.slug}-${view.key}`}><ShopProductArt art={product.art} detail={view.key==='detail'} dimensions={view.key==='dimensions'}/><figcaption>{view.caption}</figcaption></figure>
+ </>)}
+</div>

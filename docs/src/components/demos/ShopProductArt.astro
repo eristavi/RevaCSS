@@ -1,5 +1,5 @@
 ---
-const {art}=Astro.props;
+const {art,detail=false,dimensions=false}=Astro.props;
 const drawings={
  lamp:'<ellipse cx="200" cy="271" rx="100" ry="13" fill="#000" opacity=".07"/><path d="M190 126v130" stroke="#756556" stroke-width="13"/><ellipse cx="190" cy="259" rx="60" ry="13" fill="#756556"/><path d="M113 137q15-91 77-91t77 91Z" fill="#ccb89b"/><path d="M122 137h137" stroke="#f1e6d3" stroke-width="7"/>',
  chair:'<ellipse cx="204" cy="273" rx="127" ry="14" fill="#000" opacity=".07"/><path d="m102 259 25-124m151 124-17-99M124 182l-19 81m155-94 32 94" stroke="#9d7957" stroke-width="13" stroke-linecap="round"/><path d="m123 161 32-97 138 30-29 97Z" fill="#c4b6a0"/><path d="m112 181 37-33 134 25-26 38Z" fill="#d9cdb9"/><path d="m118 182 142 24" stroke="#9d7957" stroke-width="10"/>',
@@ -9,4 +9,4 @@ const drawings={
  tray:'<ellipse cx="200" cy="260" rx="136" ry="16" fill="#000" opacity=".07"/><path d="m63 142 216-40 58 98-216 47Z" fill="#a57e53"/><path d="m74 143 199-32 48 82-197 42Z" fill="#c69d6a"/><path d="m91 148 172-27 37 65-172 39Z" fill="#d8b682"/><path d="m130 151 114-18m-101 38 111-19m-100 39 111-20" stroke="#b58c5d" stroke-width="2" opacity=".5"/>'
 };
 ---
-<svg class="shop-art" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="400" height="320" rx="12" fill="var(--re-surface-alt)"/><Fragment set:html={drawings[art]}/></svg>
+<svg class="shop-art" viewBox={detail?'100 65 200 160':'0 0 400 320'} xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="400" height="320" rx="12" fill="var(--re-surface-alt)"/><Fragment set:html={drawings[art]}/>{dimensions&&<g fill="none" stroke="var(--re-text)" stroke-width="1.5" opacity=".65"><path d="M65 291h270m-264-5-6 5 6 5m258-10 6 5-6 5M355 50v217m-5-211 5-6 5 6m-10 205 5 6 5-6"/></g>}</svg>

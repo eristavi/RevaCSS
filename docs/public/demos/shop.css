@@ -16,6 +16,10 @@
 .shop-feature p:not(.shop-kicker) { max-inline-size:40ch; }
 .shop-feature .button { margin-block:1rem; }
 .shop-art { display:block; inline-size:100%; block-size:auto; border-radius:var(--re-radius); }
+.shop-gallery { align-self:start; gap:.5rem; }
+.shop-gallery > label { order:1; flex:1 1 0; display:flex; flex-direction:column; gap:.5rem; padding:.5rem; font-size:.75rem; }
+.shop-gallery > label > .shop-art { inline-size:min(100%,5rem); }
+.shop-gallery > .tab-panel { order:0; margin:0 0 .5rem; border:0; padding:0; }
 .shop-collection { justify-content:space-between; gap:1rem; margin-block:2rem; }
 .shop-collection nav a { color:var(--re-muted); padding:.5rem .75rem; text-decoration:none; border-radius:var(--re-radius); min-block-size:2.75rem; display:flex; align-items:center; }
 .shop-collection nav a[aria-current] { color:var(--re-link); background:var(--re-surface-alt); font-weight:700; }

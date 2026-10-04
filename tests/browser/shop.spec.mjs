@@ -28,6 +28,19 @@ test.describe('shop without JavaScript',()=>{
   await expect(page.locator('#shop-title')).toHaveText('Your bag.');
   await expect(page.locator('.shop-bag > section > article')).toHaveCount(2);
  });
+ test('product gallery supports thumbnails and native arrow keys on a phone',async({page})=>{
+  await page.setViewportSize({width:320,height:900});await page.goto('/demos/shop/products/arc-lamp/');
+  const gallery=page.getByRole('group',{name:'Arc table lamp product views'});
+  await expect(gallery.locator('figure:visible')).toHaveCount(1);
+  await gallery.locator('label').filter({hasText:'Detail'}).click();
+  await expect(gallery.getByRole('radio',{name:'Detail',exact:true})).toBeChecked();
+  await expect(page.locator('#gallery-arc-lamp-detail')).toBeVisible();
+  await gallery.getByRole('radio',{name:'Detail',exact:true}).focus();await page.keyboard.press('ArrowRight');
+  await expect(gallery.getByRole('radio',{name:'Dimensions',exact:true})).toBeChecked();
+  await expect(page.locator('#gallery-arc-lamp-dimensions')).toContainText('32 × 18 × 42 cm');
+  await expect(gallery.locator('figure:visible')).toHaveCount(1);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ });
 });
 test('shop restores the shared appearance and passes accessibility checks',async({page})=>{
  await page.goto('/demos/shop/');await page.getByRole('button',{name:'Customize this demo',exact:true}).click();
