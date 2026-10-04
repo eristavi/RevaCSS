@@ -2,9 +2,9 @@
 
 Date: 4 October 2026 (Asia/Nicosia).
 
-The maintainer requested publication of `revacss@1.0.0` after the npm preparation and its known limitations were disclosed. The package account was verified as `eristavi`. Publication is authorized; this record will be updated after the registry upload is verified.
+The maintainer requested publication of `revacss@1.0.0` after the npm preparation and its known limitations were disclosed. Publication completed under the verified `eristavi` account, with public access and the `latest` tag pointing to `1.0.0`. The package is available at [npm](https://www.npmjs.com/package/revacss).
 
-The candidate is configured for public publication and exposes CSS, stylesheet declarations, tokens, fonts, icons, licenses, and installation documentation. It introduces no framework JavaScript or runtime dependencies. The existing GitHub release tag and downloads remain unchanged.
+The published package exposes CSS, stylesheet declarations, tokens, fonts, icons, licenses, and installation documentation. It introduces no framework JavaScript or runtime dependencies. The existing GitHub release tag and downloads remain unchanged.
 
 ## Release exception
 
@@ -18,4 +18,15 @@ The publication changes have five regression checks for the exception: authorize
 
 Before publication, a clean `npm ci` succeeded, all 60 unit tests and four package integration checks passed, the complete build generated 383 documentation pages, and the authenticated `npm publish --dry-run --access public` passed. All 44 compiled CSS files still match the reviewed GitHub release build byte for byte.
 
-Registry metadata and the installed public package are verified after publishing. npm authentication is stored outside the repository and is excluded from distribution.
+The registry download matches the reviewed tarball byte for byte, including all 93 files. Its SHA-1 and SHA-512 integrity both match registry metadata. A separate clean project installed `revacss@1.0.0` from the public registry using a fresh cache. Every distribution file, token, declaration, license, and document matched the checkout; global, scoped, and CSS-only Vite consumer pages built with fonts and icons.
+
+| Published artifact | Value |
+| --- | --- |
+| Version / latest tag | `1.0.0` |
+| Maintainer | `eristavi` |
+| Registry source commit | `5600e89c994eabdfff6f90a9c232c476ee82d915` |
+| Tarball | `https://registry.npmjs.org/revacss/-/revacss-1.0.0.tgz` |
+| SHA-1 | `fe25931b8366f40c1724fe8481fac1f9bcef33d0` |
+| SHA-256 | `767f89412726c4abba99dff7ec11497ff9f50363ee4750ee611a1e8e0c785360` |
+
+npm's publishing library uploaded the exact reviewed archive after browser publishing confirmation. Authentication was stored outside the repository and excluded from distribution. The six manual acceptance records remain open.
