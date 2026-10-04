@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import {waitForPopover} from './helpers/popover.mjs';
 import { test, expect } from '@playwright/test';
 import axeSource from 'axe-core';
@@ -20,7 +21,7 @@ test('documentation demos match their HTML and work without JavaScript', async (
       return demo.innerHTML.trim()===template.innerHTML.trim()?[]:[frame.closest('section').id];
     }));
     expect(mismatch, route).toEqual([]);
-    expect(await page.locator('script').count(),route).toBe(0);
+    await expectOnlyOptionalSettings(page);
   }
   await page.goto('/components/disclosures/');
   await page.locator('#details summary').click();

@@ -18,19 +18,19 @@ for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the 
  // Old 90% backing transmitted only about 25 RGB steps; the corrected paint
  // must visibly transmit at least a quarter of the backdrop through its sheen.
  for(let i=0;i<3;i++) expect(white[i]-black[i]).toBeGreaterThanOrEqual(64);
- expect((await rgba(page,'#paint'))[3]/255).toBeCloseTo(.7,2);expect(await filter(page,'#paint')).toContain('16px');
+ expect((await rgba(page,'#paint'))[3]/255).toBeCloseTo(.32,2);expect(await filter(page,'#paint')).toContain('12px');
  // Compare two simultaneously painted samples, rather than changing the
  // compositor filter on one sample between captures.
  await page.setContent(`<main data-material="glass" data-theme="${theme}" id="checker"><article class="card" id="blurred" aria-label="Blurred sample"></article><article class="card" id="sharp" aria-label="Sharp sample"></article><div id="oracle"></div></main>`);
  await page.addStyleTag({content:await css(false)});
- await page.addStyleTag({content:'body{margin:0}#checker{padding:48px;display:flex;gap:48px;background:repeating-linear-gradient(90deg,black 0 12px,white 12px 24px)}#checker .card{width:240px;height:120px;flex:none}#sharp{backdrop-filter:none;-webkit-backdrop-filter:none}#oracle{width:240px;height:120px;flex:none;position:relative;background:rgb(255 255 255 / 70%);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}'});
+ await page.addStyleTag({content:`body{margin:0}#checker{padding:48px;display:flex;gap:48px;background:repeating-linear-gradient(90deg,black 0 12px,white 12px 24px)}#checker .card{width:240px;height:120px;flex:none}#sharp{backdrop-filter:none;-webkit-backdrop-filter:none}#oracle{width:240px;height:120px;flex:none;position:relative;background:${theme==='light'?'rgb(255 255 255 / 32%)':'rgb(25 25 25 / 32%)'};background-image:linear-gradient(135deg,rgb(255 255 255 / 14%),transparent 42%,rgb(0 0 0 / 4%));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}`});
  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
  const blurred=await pixels(page,'#blurred',[[100,60],[112,60]]);
  const sharp=await pixels(page,'#sharp',[[100,60],[112,60]]);
  const oracle=await pixels(page,'#oracle',[[100,60],[112,60]]);
  const frameworkDifference=Math.abs(blurred[0][0]-blurred[1][0]), nativeDifference=Math.abs(oracle[0][0]-oracle[1][0]);
  expect(Math.abs(sharp[0][0]-sharp[1][0])).toBeGreaterThanOrEqual(64);
- expect(await filter(page,'#blurred')).toContain('16px');
+ expect(await filter(page,'#blurred')).toContain('12px');
  if(nativeDifference<24) {
   expect(frameworkDifference).toBeLessThan(24);
  } else {
@@ -46,15 +46,15 @@ for(const theme of ['light','dark']) test(`${theme} glass visibly transmits the 
 for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} readable glass colours inherit through local themes and material resets`,async({page})=>{
  await page.goto('/plain/');await page.setContent(`<main ${scoped?'class="reva"':''} data-material="glass" data-theme="light"><article class="card" id="card"><figure><figcaption id="muted">Supporting text</figcaption></figure><a href="#card" id="link">Link</a><input aria-label="Name" id="field"><button id="action">Continue</button><section data-theme="dark"><figure><figcaption id="dark-muted">Dark supporting text</figcaption></figure><a href="#card" id="dark-link">Dark link</a></section><section data-material="solid"><article class="card" id="solid"><figure><figcaption id="solid-muted">Normal supporting text</figcaption></figure><a href="#card" id="solid-link">Normal link</a></article><article class="card" data-material="glass" id="reentry"><a href="#card" id="reentry-link">Glass link</a></article></section></article></main>`);
  await page.addStyleTag({content:await css(scoped)});
- expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.7,2);
+ expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.32,2);
  expect((await rgba(page,'#action'))[3]/255).toBeCloseTo(.9,2);
  expect(await rgba(page,'#field','borderTopColor')).toEqual([17,17,17,255]);
  expect(await rgba(page,'#muted','color')).toEqual([17,17,17,255]);expect(await rgba(page,'#link','color')).toEqual([17,17,17,255]);
  expect(await rgba(page,'#dark-muted','color')).toEqual([245,245,245,255]);expect(await rgba(page,'#dark-link','color')).toEqual([245,245,245,255]);
- expect(await rgba(page,'#solid-muted','color')).toEqual([76,76,76,255]);expect(await rgba(page,'#solid-link','color')).toEqual([17,17,17,255]);expect((await rgba(page,'#solid'))[3]).toBe(255);
- expect(await rgba(page,'#reentry-link','color')).toEqual([17,17,17,255]);expect((await rgba(page,'#reentry'))[3]/255).toBeCloseTo(.7,2);
+ expect(await rgba(page,'#solid-muted','color')).toEqual([76,76,76,255]);expect(await rgba(page,'#solid-link','color')).toEqual([31,110,140,255]);expect((await rgba(page,'#solid'))[3]).toBe(255);
+ expect(await rgba(page,'#reentry-link','color')).toEqual([17,17,17,255]);expect((await rgba(page,'#reentry'))[3]/255).toBeCloseTo(.32,2);
  await page.locator('#card').evaluate(el=>el.dataset.contrast='more');expect((await rgba(page,'#card'))[3]).toBe(255);expect(await filter(page,'#card')).toBe('none');
- await page.locator('#card').evaluate(el=>el.dataset.contrast='auto');expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.7,2);
+ await page.locator('#card').evaluate(el=>el.dataset.contrast='auto');expect((await rgba(page,'#card'))[3]/255).toBeCloseTo(.32,2);
 });
 
 for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme wrappers leave rounded corners and layout gaps transparent`,async({page})=>{
@@ -63,10 +63,10 @@ for(const scoped of [false,true]) test(`${scoped?'scoped':'global'} glass theme 
  await page.addStyleTag({content:await css(scoped)});
  await page.addStyleTag({content:'#stage{padding:40px;background:rgb(200 80 120)}#rounded{height:160px;border-radius:32px}'});
  expect((await rgba(page,'#wrapper'))[3]).toBe(0);
- expect((await rgba(page,'#rounded'))[3]/255).toBeCloseTo(.7,2);
+ expect((await rgba(page,'#rounded'))[3]/255).toBeCloseTo(.32,2);
  expect((await rgba(page,'#opaque'))[3]).toBe(255);
  expect((await rgba(page,'#solid-theme'))[3]).toBe(255);
- expect((await rgba(page,'#resume'))[3]/255).toBeCloseTo(.7,2);
+ expect((await rgba(page,'#resume'))[3]/255).toBeCloseTo(.32,2);
  expect(await rgba(page,'#rounded','color')).toEqual([245,245,245,255]);
  const card=await page.locator('#rounded').boundingBox(), reset=await page.locator('#reset').boundingBox();
  expect(reset.y-card.y-card.height).toBeGreaterThanOrEqual(15.99);

@@ -6,3 +6,5 @@ docs/src/pages/generated-reference.json
 playwright-report/
 test-results/
 *.log
+artifacts/
+__pycache__/

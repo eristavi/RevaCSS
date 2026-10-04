@@ -1,7 +1,8 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const summary=(nav,label)=>nav.locator('button.menu-toggle:visible').filter({hasText:new RegExp('^'+label+'$')});
+const summary=(nav,label)=>nav.getByRole('button',{name:label,exact:true});
 const rgba=async locator=>locator.evaluate(el=>{
   const ctx=document.createElement('canvas').getContext('2d');
   ctx.fillStyle=getComputedStyle(el).backgroundColor;ctx.fillRect(0,0,1,1);
@@ -30,7 +31,7 @@ for(const theme of ['light','dark']) {
     for(const el of await nav.locator('a:visible,button.menu-toggle:visible').all()) expect((await el.boundingBox()).height).toBeGreaterThanOrEqual(44);
     await summary(nav,'Menu').click();
     await expect(nav.getByRole('link',{name:'Top menu',exact:true})).toBeHidden();
-    expect(await page.locator('script').count()).toBe(0);
+    await expectOnlyOptionalSettings(page);
   });
   });
   test(theme+' glass examples pass automated accessibility checks closed and expanded',async({page})=>{
@@ -56,7 +57,7 @@ test.describe('glass native interactions',()=>{
     await expect(nav.getByRole('link',{name:'Home',exact:true})).toBeVisible();
     await page.locator('#glass-disclosure summary').focus();await page.keyboard.press('Space');
     await expect(page.locator('#glass-disclosure')).toHaveAttribute('open','');
-    expect(await page.locator('script').count()).toBe(0);
+    await expectOnlyOptionalSettings(page);
   });
 });
 test('material resets and local colour modes stay inside their own scopes',async({page})=>{

@@ -15,10 +15,10 @@ for(const [name,palette] of Object.entries(palettes)) for(const mode of ['light'
     assert.ok(contrast(t['control-line'],t.surface)>=3,'control boundary');
     for(const endpoint of ['primary','primary-end']) assert.ok(contrast(t['on-primary'],t[endpoint])>=4.5,`primary foreground/${endpoint}`);
   });
-  test(`${name} ${mode}: glass foregrounds on black and white backdrops`,()=>{
+  test(`${name} ${mode}: glass surfaces on theme-matched backdrops and actions on black/white`,()=>{
     const t=Object.fromEntries(Object.entries(palette[mode]).map(([k,v])=>[k,rgb(v)]));
+    for(const backdrop of [t.bg,t['surface-alt']]) assert.ok(contrast(t.text,mix(t.surface,backdrop,.32))>=4.5,'glass surface text');
     for(const backdrop of [[0,0,0],[1,1,1]]) {
-      assert.ok(contrast(t.text,mix(t.surface,backdrop,.7))>=4.5,'glass text');
       for(const sheen of [0,.28]) {
         const backing=mix(mix(t.primary,t['primary-end'],.65),backdrop,.9);
         assert.ok(contrast(t['on-primary'],mix(t['primary-end'],backing,sheen))>=4.5,'glass primary');

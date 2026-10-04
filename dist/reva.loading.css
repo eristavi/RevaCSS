@@ -1,0 +1,22 @@
+/* Pair decorative motion with visible loading text. */
+@layer re.components {
+  :where(.spinner) {
+    display: inline-block; flex: 0 0 auto; vertical-align: middle;
+    inline-size: calc(1.25em * var(--re-control-scale, 1)); block-size: calc(1.25em * var(--re-control-scale, 1));
+    border: .15em solid var(--re-control-line); border-inline-end-color: transparent; border-radius: 50%;
+    animation: re-spinner-turn calc(var(--re-duration, 140ms) * 6) linear infinite;
+    animation-play-state: var(--re-edge-play, running);
+  }
+  @keyframes re-spinner-turn { to { transform: rotate(1turn); } }
+}
+@layer re.utilities {
+  /* Action text already consumed its size; local spinner overrides remain independent. */
+  :where(:is(button,.button) .spinner) {
+    inline-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+    block-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+  }
+
+  @media (prefers-reduced-motion: reduce) { :where(.spinner) { animation: none; } }
+  @media (forced-colors: active) { :where(.spinner) { border-color: CanvasText; border-inline-end-color: transparent; } }
+  @media print { :where(.spinner) { animation: none; } }
+}

@@ -1,3 +1,4 @@
+import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
@@ -15,7 +16,24 @@ test('highlighted HTML stays literal and wrapping works independently without Ja
  expect(await page.locator('#sizes pre').evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.goto('/guide/');expect(await page.locator('#first-page pre code').textContent()).toContain('<!doctype html>');expect(await page.locator('#first-page pre code html').count()).toBe(0);
- expect(await page.locator('script').count()).toBe(0);await context.close();
+ await expectOnlyOptionalSettings(page);await context.close();
+});
+
+for (const width of [320,375]) test(`navbar inheritance example scrolls by keyboard without JavaScript at ${width}px`,async({browser})=>{
+ const context=await browser.newContext({javaScriptEnabled:false,viewport:{width,height:900}});
+ try {
+  const page=await context.newPage();await page.goto('/components/top-menu/');
+  const pre=page.locator('.docs-content > pre'),previous=page.locator('#navbar-split pre');
+  const source=await pre.textContent();
+  expect(await pre.evaluate(el=>el.scrollWidth>el.clientWidth)).toBe(true);
+  await previous.focus();await page.keyboard.press('Tab');await expect(pre).toBeFocused();
+  await expect(pre).toHaveAccessibleName('Navbar inheritance example');
+  expect(await pre.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
+  await page.keyboard.press('ArrowRight');await expect.poll(()=>pre.evaluate(el=>el.scrollLeft)).toBeGreaterThan(0);
+  expect(await pre.textContent()).toBe(source);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.keyboard.press('Shift+Tab');await expect(previous).toBeFocused();
+ } finally { await context.close(); }
 });
 
 test('code colours follow device and local themes and print expands the source',async({page})=>{

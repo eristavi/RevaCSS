@@ -1,7 +1,7 @@
 {
   "name": "revacss",
-  "version": "0.1.0-alpha.1",
-  "description": "Native foundations, adaptive design, minimal decisions.",
+  "version": "1.0.0",
+  "description": "A CSS framework for native HTML. Shared design defaults, adaptive themes, and native components.",
   "type": "module",
   "license": "MIT",
   "repository": {
@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/eristavi/RevaCSS/issues"
   },
-  "homepage": "https://github.com/eristavi/RevaCSS#readme",
+  "homepage": "https://eristavi.github.io/RevaCSS/",
   "private": true,
   "engines": {
     "node": ">=22.12.0"
@@ -32,13 +32,14 @@
     "test:browser": "playwright test",
     "check": "npm run build && npm test && npm run test:browser",
     "test:quality": "playwright test tests/browser/quality.spec.mjs",
-    "check:release-quality": "node scripts/check-release-quality.mjs"
+    "check:release-quality": "node scripts/check-release-quality.mjs",
+    "release:package": "python3 scripts/package-release.py"
   },
   "devDependencies": {
     "astro": "7.3.5",
     "lightningcss": "1.33.0",
     "@playwright/test": "1.63.0",
     "axe-core": "4.13.0"
-  }
+  },
+  "releaseName": "Erisian"
 }
-
