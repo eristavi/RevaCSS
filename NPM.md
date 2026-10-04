@@ -88,4 +88,4 @@ Six manual acceptance items remain open in [the quality registry](https://github
 
 `prepublishOnly` invokes the quality gate with `--npm` to apply the exception. The ordinary `check:release-quality` command still reports the open items. Any new blocker and future versions remain gated.
 
-For the authorized first publication, verify the npm account with `npm whoami`, run build and validation, and publish from the checkout with `npm publish --access public`. npm authentication and any required two-factor confirmation belong to that publishing step. Package names are claimed by successful publication; the current absence of a public `revacss` entry does not reserve the name.
+For the authorized first publication, verify the npm account with `npm whoami`, run build and validation, and publish from the checkout with `npm publish --access public`. npm authentication and any required two-factor confirmation belong to that publishing step. Package names are claimed by successful publication; checking name availability does not reserve a name.
