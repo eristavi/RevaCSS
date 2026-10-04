@@ -31,7 +31,14 @@ test.describe('shared documentation header without browser JavaScript',()=>{
   await openTheme(page);await page.locator('#docs-theme').selectOption('light');expect(await colours()).toEqual(light);
   await page.locator('#docs-theme').selectOption('auto');await page.emulateMedia({colorScheme:'dark'});expect(await colours()).toEqual(dark);
   await page.keyboard.press('Escape');
-  if(width<768)await openMenu(page,'Menu');
+  if(width<768){
+   const trigger=nav(page).getByRole('button',{name:'Menu',exact:true});
+   await expect(trigger.locator('svg[aria-hidden="true"]')).toHaveCount(1);
+   expect((await trigger.textContent()).trim()).toBe('');
+   expect((await trigger.boundingBox()).width).toBeGreaterThanOrEqual(44);
+   expect(await trigger.evaluate(el=>getComputedStyle(el,'::before').content)).toBe('none');
+   await openMenu(page,'Menu');
+  }
   await openMenu(page,'Components');await openMenu(page,'Forms and actions');await nav(page).getByRole('link',{name:'Forms',exact:true}).click();
   await expect(page).toHaveURL(/\/components\/forms\/$/);await expect(page.locator('#docs-theme')).toHaveValue('auto');
   await page.goto('/preview/light/');await openTheme(page);await page.locator('#docs-theme').selectOption('dark');

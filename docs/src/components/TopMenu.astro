@@ -1,16 +1,17 @@
 ---
 import TopMenuLinks from './TopMenuLinks.astro';
 import {demoNavigation} from '../data/navigation.js';
+import catalog from '../../../src/icons/catalog.json';
+const menuIcon=catalog.find(icon=>icon.name==='menu').body;
 const { id='demo', label='Example site', current='home', brand='RevaCSS', brandHref='#home', items=demoNavigation, navbar, endItems } = Astro.props;
 ---
 <nav data-navbar={navbar} class="top-menu" aria-label={label} style={`--re-menu-anchor: --${id}-navigation`}>
   <a class="menu-brand" href={brandHref}>{brand}</a>
   <TopMenuLinks id={`${id}-desktop`} current={current} items={items} desktop />
-  <button type="button" class="menu-toggle menu-collapse" popovertarget={`${id}-mobile-menu`}>Menu</button>
+  <button type="button" class="menu-toggle menu-collapse" popovertarget={`${id}-mobile-menu`} aria-label="Menu"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={menuIcon}/></button>
   <TopMenuLinks id={`${id}-mobile`} current={current} items={endItems ? [...items, ...endItems] : items} />
   {(endItems || Astro.slots.has("actions")) && <div class="menu-actions">
     {endItems && <TopMenuLinks id={`${id}-end-desktop`} current={current} items={endItems} desktop />}
     <slot name="actions"/>
   </div>}
 </nav>
-

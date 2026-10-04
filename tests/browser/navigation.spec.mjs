@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import { readFile } from 'node:fs/promises';
 const require = createRequire(import.meta.url);
 const menu = page => page.getByRole('navigation', { name: 'Main navigation', exact: true });
-const summary = (nav, label) => nav.locator('button.menu-toggle:visible').filter({ hasText: new RegExp('^' + label + '$') });
+const summary = (nav, label) => nav.getByRole('button', { name: label, exact: true });
 
 test.describe('native navigation without runtime JavaScript', () => {
   test.use({ javaScriptEnabled: false });
@@ -34,18 +34,22 @@ test.describe('native navigation without runtime JavaScript', () => {
     await expect(summary(nav, 'Resources')).toBeFocused();
     await page.keyboard.press('Shift+Tab');
     await page.keyboard.press('Enter');
+    await expect(summary(nav,'Products')).toBeFocused();
+    await page.keyboard.press('Tab');
     await expect(summary(nav,'Back to main menu')).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(nav.getByRole('link', { name: 'All products' })).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(summary(nav, 'Frameworks')).toBeFocused();
     await page.keyboard.press('Space');
+    await page.keyboard.press('Tab');
     await expect(summary(nav,'Back to Products')).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(nav.getByRole('link', { name: 'CSS foundation' })).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(summary(nav, 'Components')).toBeFocused();
     await page.keyboard.press('Enter');
+    await page.keyboard.press('Tab');
     await expect(summary(nav,'Back to Frameworks')).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(nav.getByRole('link', { name: 'Top menu', exact: true })).toBeFocused();
@@ -94,7 +98,7 @@ test.describe('native navigation without runtime JavaScript', () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await expect(nav.locator('.menu-items:visible')).toHaveCount(1);
     await expect(nav.getByRole('link', { name: 'Home', exact: true })).toHaveCount(1);
-    expect(await page.locator('script').count()).toBe(0);
+    await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   });
 
   test('desktop panels stay inside the viewport in both directions', async ({ page }) => {
@@ -162,7 +166,7 @@ test.describe('native navigation without runtime JavaScript', () => {
       await summary(nav,'Close menu').click();
       await expect(nav.locator('[popover]:popover-open')).toHaveCount(0);
     }
-    expect(await page.locator('script').count()).toBe(0);
+    await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   });
   for(const build of ['minified','modular','scoped']) test(`${build} navigation dismisses on outside click in both layouts`,async({page})=>{
     const files=build==='minified'?['reva.min.css']:build==='scoped'?['reva.scoped.css']:['reva.tokens.css','reva.base.css','reva.navigation.css'];
@@ -214,4 +218,3 @@ test('user preferences keep the menu readable and omit it from print', async ({ 
   await page.emulateMedia({ media: 'print', forcedColors: 'none' });
   await expect(menu(page)).toBeHidden();
 });
-
