@@ -27,9 +27,21 @@
     return current;
   };
   const apply=value=>{
+    const previousMaterial=root.getAttribute('data-material');
     for(const [key,choice] of Object.entries(clean(value))){
       if(key==='tone' && choice==='default')root.removeAttribute('data-tone');
       else root.setAttribute('data-'+key,choice);
+    }
+    if(root.getAttribute('data-material')!==previousMaterial){
+      // Firefox can retain matches from the previous @scope material until
+      // hover. Re-enable the loaded material sheets to invalidate those matches
+      // without reloading the page, fetching CSS, or replacing any DOM nodes.
+      for(const sheet of document.styleSheets){
+        if(!sheet.disabled && /\/reva\.(glass|veil|soft)(\.scoped)?(\.min)?\.css(?:\?|$)/.test(sheet.href || '')){
+          sheet.disabled=true;
+          sheet.disabled=false;
+        }
+      }
     }
   };
   // Restore before styles load, reducing flashes of the wrong appearance.
