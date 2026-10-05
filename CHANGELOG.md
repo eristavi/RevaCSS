@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+Next planned package release: **1.1.0** (backward-compatible additions). See [the versioning policy](VERSIONING.md).
+
 - Optional Soft UI material via inherited `data-material="soft"`, with raised surfaces, inset text controls and pressed actions.
 - Global and scoped extensions, light/dark examples, and integration with the shared persistent demo customizer.
 

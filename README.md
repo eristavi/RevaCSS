@@ -149,3 +149,7 @@ Astro builds the documentation. An optional documentation settings helper rememb
 ## License
 
 RevaCSS is [MIT licensed](https://github.com/eristavi/RevaCSS/blob/v1.0.0/LICENSE). The bundled Manrope font retains its [SIL Open Font License](https://github.com/eristavi/RevaCSS/blob/v1.0.0/dist/fonts/OFL.txt).
+
+## Versioning
+
+RevaCSS follows [semantic versioning](VERSIONING.md): fixes and compatible visual tweaks use patch releases; new components, classes, materials and configuration options use minor releases; breaking changes use major releases. Versions are bumped once per published release, with changes recorded in [the changelog](CHANGELOG.md).
