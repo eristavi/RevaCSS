@@ -26,18 +26,18 @@ test.describe('dashboard native operation',()=>{
   }else await expect(header.getByRole('button',{name:'Open sidebar',exact:true})).toBeHidden();
   await expect(page.getByRole('img',{name:'Monthly revenue, April to September 2026'})).toBeVisible();
   await expect(page.getByRole('img',{name:'Revenue share by channel'})).toBeVisible();
-  await page.getByRole('button',{name:'Customize this demo',exact:true}).click();await settle(page.locator('#demo-customizer-popup')); 
+  await page.getByRole('button',{name:'Customize',exact:true}).click();await settle(page.locator('#demo-customizer-popup'));
   await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('ocean');
   await page.locator('#demo-material').selectOption('glass');
-  await page.locator('#demo-customizer-popup').getByRole('button',{name:'View the website',exact:true}).click();
+  await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();
   await expect(page.locator('#demo-customizer-popup')).toBeHidden();
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.locator('#dashboard-report > summary').click();
   await expect(page.getByRole('cell',{name:'€42,500',exact:true})).toBeVisible();
-  await page.getByRole('button',{name:'Customize this demo',exact:true}).click();await settle(page.locator('#demo-customizer-popup')); 
+  await page.getByRole('button',{name:'Customize',exact:true}).click();await settle(page.locator('#demo-customizer-popup'));
   await page.locator('#demo-material').selectOption('veil');await page.locator('#demo-theme').selectOption('light');
-  await page.locator('#demo-customizer-popup').getByRole('button',{name:'View the website',exact:true}).click();
+  await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('light');
  });
  test('starting HTML contains a complete standalone dashboard',async({request})=>{

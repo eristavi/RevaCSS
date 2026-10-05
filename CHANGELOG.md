@@ -6,6 +6,7 @@ Next planned package release: **1.1.0** (backward-compatible additions). See [th
 
 - Optional Soft UI material via inherited `data-material="soft"`, with raised surfaces, inset text controls and pressed actions.
 - Global and scoped extensions, light/dark examples, and integration with the shared persistent demo customizer.
+- Shared navigation Customize control on GitHub Pages replaces the separate theme menu and demo launcher; grouped settings, centred responsive popup, configuration copy and reset, with independent documentation/demo preferences.
 
 
 ## 1.0.0 — Erisian · 4 October 2026

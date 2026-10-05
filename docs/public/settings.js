@@ -6,7 +6,8 @@
   let schema;
   try{schema=JSON.parse(schemaNode.textContent);}catch{return;}
   const root=document.documentElement;
-  const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-theme:v1';
+  const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
+  const storageKey=schema.kind==='demo'?demoKey:docsKey;
   const initialTheme=root.getAttribute('data-theme') || 'auto';
   const clean=value=>{
     const result={};
@@ -20,13 +21,19 @@
   const read=key=>{try{return clean(JSON.parse(localStorage.getItem(key)));}catch{return {};}};
   const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(clean(value)));return true;}catch{return false;}};
   const clear=key=>{try{localStorage.removeItem(key);}catch{}};
-  const applyRoot=()=>{
-    if(schema.kind==='demo'){
-      for(const [key,value] of Object.entries(read(demoKey)))root.setAttribute('data-'+key,value);
-    }else root.setAttribute('data-theme',read(docsKey).theme || initialTheme);
+  const stored=()=>{
+    const current=read(storageKey);
+    if(storageKey===docsKey && !Object.keys(current).length)return read(legacyDocsKey);
+    return current;
   };
-  // The small, blocking head script restores the root before styles are loaded.
-  applyRoot();
+  const apply=value=>{
+    for(const [key,choice] of Object.entries(clean(value))){
+      if(key==='tone' && choice==='default')root.removeAttribute('data-tone');
+      else root.setAttribute('data-'+key,choice);
+    }
+  };
+  // Restore before styles load, reducing flashes of the wrong appearance.
+  apply(stored());
   let customizer;
   const initCustomizer=()=>{
     const form=document.getElementById('demo-customizer-form');
@@ -36,22 +43,38 @@
     const values=()=>clean(Object.fromEntries(controls.map(control=>[control.name.slice(5),control.value])));
     const status=document.getElementById('demo-settings-status');
     const summary=document.getElementById('demo-configuration');
-    const updateSummary=()=>{if(summary)summary.textContent='<html lang="en"'+Object.entries(values()).map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';};
+    const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([,value])=>value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
+    const update=()=>{apply(values());if(summary)summary.textContent=configuration();};
     const restore=()=>{
-      const stored=read(demoKey);
-      for(const control of controls){const key=control.name.slice(5);control.value=stored[key] || defaults[key];}
-      updateSummary();
+      const saved=stored();
+      for(const control of controls){const key=control.name.slice(5);control.value=saved[key] || defaults[key];}
+      update();
     };
     restore();
     form.addEventListener('change',()=>{
-      if(status)status.textContent=save(demoKey,values())?'Saved for all demo pages.':'Choices apply here; this browser did not allow saving them.';
-      updateSummary();
+      update();
+      if(status)status.textContent=save(storageKey,values())?'Saved for all '+(schema.kind==='demo'?'demo':'documentation')+' pages.':'Choices apply here; this browser did not allow saving them.';
     });
     form.addEventListener('reset',()=>{
-      clear(demoKey);
-      setTimeout(()=>{updateSummary();if(status)status.textContent='Saved demo choices cleared. This page’s defaults are restored.';},0);
+      clear(storageKey);
+      if(storageKey===docsKey)clear(legacyDocsKey);
+      setTimeout(()=>{update();if(status)status.textContent='Saved choices cleared. This page’s defaults are restored.';},0);
     });
     customizer={restore};
+    const copy=document.getElementById('copy-configuration');
+    if(copy){
+      copy.disabled=false;
+      copy.addEventListener('click',async()=>{
+        try{
+          await navigator.clipboard.writeText(configuration());
+          if(status)status.textContent='HTML configuration copied.';
+        }catch{
+          const details=summary?.closest('details');if(details)details.open=true;
+          if(summary){const range=document.createRange();range.selectNodeContents(summary);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);summary.closest('pre')?.focus();}
+          if(status)status.textContent='Clipboard unavailable. Select and copy the configuration shown above.';
+        }
+      });
+    }
     const link=document.querySelector('.demo-customizer a[download]');
     link?.addEventListener('click',async event=>{
       event.preventDefault();
@@ -59,8 +82,10 @@
         const response=await fetch(link.href);
         if(!response.ok)throw new Error('Download failed');
         const documentCopy=new DOMParser().parseFromString(await response.text(),'text/html');
-        for(const [key,value] of Object.entries(values()))documentCopy.documentElement.setAttribute('data-'+key,value);
-        // Export a portable, explicit configuration; do not override it with saved preferences.
+        for(const [key,value] of Object.entries(values())){
+          if(value==='default')documentCopy.documentElement.removeAttribute('data-'+key);
+          else documentCopy.documentElement.setAttribute('data-'+key,value);
+        }
         documentCopy.getElementById('reva-settings-schema')?.remove();
         documentCopy.getElementById('reva-settings-runtime')?.remove();
         const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+documentCopy.documentElement.outerHTML+'\n'],{type:'text/html'}));
@@ -70,22 +95,21 @@
       }catch{if(status)status.textContent='Could not prepare the download. Please try again when the page is available.';}
     });
   };
+  // Compatibility for standalone previews that still use the older theme panel.
   let themeControl;
   const initTheme=()=>{
     const theme=document.getElementById('docs-theme');
     if(!theme || themeControl)return;
     themeControl=theme;
-    theme.value=read(docsKey).theme || initialTheme;
-    theme.addEventListener('change',()=>{
-      root.setAttribute('data-theme',theme.value);save(docsKey,{theme:theme.value});
-    });
+    theme.value=stored().theme || initialTheme;
+    theme.addEventListener('change',()=>{root.setAttribute('data-theme',theme.value);save(storageKey,{...stored(),theme:theme.value});});
   };
   window.RevaSettings={initCustomizer,initTheme};
   document.addEventListener('DOMContentLoaded',()=>{initCustomizer();initTheme();});
   window.addEventListener('storage',event=>{
-    if(event.key===demoKey || event.key===null)customizer?.restore();
-    if(event.key===docsKey || event.key===null){
-      if(schema.kind==='docs'){applyRoot();const theme=document.getElementById('docs-theme');if(theme)theme.value=root.getAttribute('data-theme');}
+    if(event.key===storageKey || event.key===legacyDocsKey || event.key===null){
+      if(customizer)customizer.restore();
+      else{apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
     }
   });
 })();

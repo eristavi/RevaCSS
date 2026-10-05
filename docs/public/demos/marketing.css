@@ -69,18 +69,18 @@
 /* Palette-driven demo-only backdrop for Glass and Veil. A clipped fixed layer
    stays stationary on touch devices too, without covering the workbench.
    The mesh inherits palette tokens, including custom token overrides. */
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked) .forma-site,
 html.forma-site[data-material="glass"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked) .forma-site,
 html.forma-site[data-material="veil"] > body {
   position: relative;
   isolation: isolate;
   clip-path: inset(0);
   background: var(--re-bg);
 }
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"] > body::before {
   content: "";
   position: fixed;
@@ -93,79 +93,79 @@ html.forma-site[data-material="veil"] > body::before {
     radial-gradient(ellipse at 12% 26%, color-mix(in srgb, var(--re-surface-alt) 65%, var(--re-bg)), transparent 65%),
     linear-gradient(145deg, color-mix(in srgb, var(--re-primary) 14%, var(--re-bg)), var(--re-bg));
 }
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked) .forma-site,
 html.forma-site[data-material="glass"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked) .forma-site,
 html.forma-site[data-material="veil"] > body,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="glass"][data-contrast="more"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="veil"][data-contrast="more"] > body { background: var(--re-bg); }
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"] > body::before,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
 @media (forced-colors: active) {
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked) .forma-site,
 html.forma-site[data-material="glass"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked) .forma-site,
 html.forma-site[data-material="veil"] > body,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="glass"][data-contrast="more"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="veil"][data-contrast="more"] > body { background: Canvas; }
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"] > body::before,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
 @media print {
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked) .forma-site,
 html.forma-site[data-material="glass"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked) .forma-site,
 html.forma-site[data-material="veil"] > body,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="glass"][data-contrast="more"] > body,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site,
 html.forma-site[data-material="veil"][data-contrast="more"] > body { background: #fff; color: #000; }
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"] > body::before,
-.demo-workbench:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="glass"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="glass"][data-contrast="more"] > body::before,
-.demo-workbench:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
+html:has(#demo-material option[value="veil"]:checked):has(#demo-contrast option[value="more"]:checked) .forma-site::before,
 html.forma-site[data-material="veil"][data-contrast="more"] > body::before { display: none; }
 }
 
 /* The hero card must see the page backdrop rather than an opaque figure. */
 @media screen {
   @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-workspace,
+    html:has(#demo-material option[value="glass"]:checked) .forma-workspace,
     html.forma-site[data-material="glass"] .forma-workspace {
       background: transparent;
     }
   }
 }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-  .demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-workspace,
+  html:has(#demo-material option[value="glass"]:checked) .forma-workspace,
   html.forma-site[data-material="glass"] .forma-workspace { background: var(--re-bg); }
 }
 @media (forced-colors: active) {
-  .demo-workbench:has(#demo-material option[value="glass"]:checked) .forma-workspace,
+  html:has(#demo-material option[value="glass"]:checked) .forma-workspace,
   html.forma-site[data-material="glass"] .forma-workspace { background: Canvas; }
 }

@@ -1,67 +1,60 @@
 ---
-import {demoOptions, sourceHref} from '../../data/demo-configurations.js';
-import {advancedOptions,optionLabel} from '../../data/demo-settings.js';
-const {config,downloadHref,downloadName}=Astro.props;
+import {demoOptions, defaultDemo, sourceHref} from '../../data/demo-configurations.js';
+import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-settings.js';
+import catalog from '../../../../src/icons/catalog.json';
+const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
 const base=import.meta.env.BASE_URL;
-const labels={theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'};
+const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...advancedOptions].map(option=>[option.key,option]));
+const icon=catalog.find(item=>item.name==='settings') || catalog.find(item=>item.name==='sliders') || catalog.find(item=>item.name==='menu');
+const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
 ---
-<section class="demo-customizer" id="customize" aria-labelledby="customize-title">
-  <button type="button" popovertarget="demo-customizer-popup">Customize this demo</button>
-  <div id="demo-customizer-popup" class="customizer-popup" data-material="glass" popover="auto" role="dialog" aria-labelledby="customize-title" aria-describedby="customize-description">
-    <header class="customizer-header"><h2 id="customize-title">Customize this demo</h2><button type="button" class="outline" popovertarget="demo-customizer-popup" popovertargetaction="hide" autofocus>Close</button></header>
+<div class="demo-customizer">
+  <button type="button" class="menu-toggle customize-toggle" popovertarget="demo-customizer-popup" aria-label="Customize">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon.body}/><span>Customize</span>
+  </button>
+  <div id="demo-customizer-popup" class="customizer-popup" data-material="solid" data-shape="rounded" data-density="comfortable" data-size="medium" data-type="standard" data-border="subtle" data-depth="subtle" popover="auto" role="dialog" aria-labelledby="customize-title" aria-describedby="customize-description">
+    <header class="customizer-header"><div><h2 id="customize-title">Customize {kind==='docs'?'RevaCSS':'this demo'}</h2><p id="customize-description">Changes appear immediately. {kind==='docs'?'Documentation':'Demo'} choices are remembered between pages when storage is available.</p></div><button type="button" class="outline" popovertarget="demo-customizer-popup" popovertargetaction="hide" autofocus>Close</button></header>
     <div class="customizer-body">
-      <p id="customize-description">Every setting updates the website immediately. Your choices are remembered across demo pages when browser storage is available. You can also close with Escape or a click outside.</p>
       <form id="demo-customizer-form">
-      <div class="customizer-options">
-        {Object.entries(demoOptions).map(([key,values])=><div>
-          <label for={`demo-${key}`}>{labels[key]}</label>
-          <select id={`demo-${key}`} name={`demo-${key}`}>{values.map(value=><option value={value} selected={config[key]===value}>{optionLabel(value)}</option>)}</select>
-        </div>)}
-      </div>
-      <details class="advanced-settings"><summary>Advanced options · motion, spacing and more</summary>
-        <div class="customizer-options advanced-grid">{advancedOptions.map(option=><div>
-          <label for={`demo-${option.key}`}>{option.label}</label>
-          <select id={`demo-${option.key}`} name={`demo-${option.key}`} aria-describedby={`demo-${option.key}-help`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select>
-          <small id={`demo-${option.key}-help`}>{option.affects}</small>
-        </div>)}</div>
-        <p class="customizer-note">Motion changes transitions and popover entrances; edges can animate continuously or shine on interaction. Device accessibility preferences take priority.</p>
-      </details>
+        <div class="customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select></div>;})}</div></details>)}</div>
       </form>
-      <div class="configuration-summary">
-        <pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.entries(demoOptions).map(([key,values])=>values.map(value=><span class={`selected-attribute attribute-${key}-${value}`}>{`\n  data-${key}="${value}"`}</span>))}{advancedOptions.map(option=>option.values.map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre>
-        <div class="stack"><button type="button" popovertarget="demo-customizer-popup" popovertargetaction="hide">View the website</button><a href={downloadHref || sourceHref(base,config)} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a><button type="reset" form="demo-customizer-form" class="outline">Reset all options</button></div>
-      </div>
-      <p class="customizer-note">Downloads include your current settings with the optional helper enabled. Without JavaScript, the preview still works; copy the selected attributes into the starting HTML. Reset clears saved demo choices and restores this page’s defaults.</p>
-      <p id="demo-settings-status" class="customizer-note" role="status" aria-live="polite"></p>
+      <details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details>
+      <p class="customizer-note">These controls use existing RevaCSS data attributes. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>
+      {download && <p><a href={download} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a></p>}
     </div>
+    <footer class="customizer-footer"><div class="row"><button type="button" id="copy-configuration" disabled>Copy configuration</button><button type="reset" form="demo-customizer-form" class="outline">Reset to defaults</button></div><p id="demo-settings-status" role="status" aria-live="polite"></p></footer>
   </div>
-</section>
+</div>
 <script is:inline>window.RevaSettings?.initCustomizer();</script>
 <style>
-.demo-customizer { scroll-margin-block:1rem; margin-block:1.5rem 2rem; }
-.customizer-popup { padding:0; }
-.customizer-header { position:sticky; inset-block-start:0; z-index:1; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem clamp(.75rem,2vw,1.5rem); background:var(--re-surface); border-block-end:1px solid var(--re-line); }
-.customizer-header h2 { font-size:1.1rem; margin:0; }
-.customizer-header button { flex:0 0 auto; }
+.demo-customizer { flex:0 0 auto; }
+.customize-toggle { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; inline-size:auto; min-block-size:2.75rem; }
+.customizer-popup { padding:0; background:var(--re-surface); color:var(--re-text); text-align:start; font-size:1rem; line-height:1.5; }
 @supports selector(:popover-open) {
-  .customizer-popup { position:fixed; inset:1rem 1rem 1rem auto; margin:0; inline-size:min(44rem,calc(100% - 2rem)); max-inline-size:calc(100% - 2rem); max-block-size:calc(100dvh - 2rem); overflow:auto; overscroll-behavior:contain; }
-  .customizer-popup::backdrop { background:rgb(0 0 0 / 8%); }
+ .customizer-popup { position:fixed; inset:0; margin:auto; inline-size:min(48rem,calc(100% - 2rem)); max-inline-size:calc(100% - 2rem); block-size:fit-content; max-block-size:calc(100dvh - 2rem); overflow:hidden; overscroll-behavior:contain; }
+ .customizer-popup:popover-open { display:flex; flex-direction:column; }
+ .customizer-popup::backdrop { background:rgb(0 0 0 / 24%); }
 }
-.demo-customizer details { margin:0; }
-.demo-customizer summary { font-size:1rem; }
-.customizer-body { padding:clamp(.75rem,2vw,1.5rem); }
-.customizer-body > p { max-inline-size:80ch; }
-.customizer-options { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:1rem; }
+.customizer-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; padding:1rem 1.25rem; background:var(--re-surface); border-block-end:1px solid var(--re-line); flex:0 0 auto; }
+.customizer-header h2 { font-size:1.2rem; margin:0; }
+.customizer-header p { margin:.3rem 0 0; font-size:.85rem; color:var(--re-muted); max-inline-size:55ch; }
+.customizer-header button { flex:0 0 auto; }
+.customizer-body { min-block-size:0; overflow-y:auto; overscroll-behavior:contain; padding:1.25rem; }
+.customizer-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; align-items:start; }
+.customizer-group { padding:1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); margin:0; min-inline-size:0; background:var(--re-surface); }
+.customizer-group summary { font-size:.95rem; font-weight:700; }
+.customizer-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.85rem; padding-block-start:1rem; }
 .customizer-options > div { min-inline-size:0; }
-.customizer-options label { font-size:.85rem; font-weight:700; }
+.customizer-options label { font-size:.8rem; font-weight:650; margin-block-end:.25rem; }
 .customizer-options select { inline-size:100%; }
-.configuration-summary { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; align-items:center; margin-block-start:1rem; }
-.configuration-summary pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
-.customizer-note { font-size:.85rem; color:var(--re-muted); margin-block:1rem 0; }
-.advanced-settings { margin-block-start:1rem !important; }
-.advanced-grid { padding:1rem; }
-.advanced-grid small { display:block; color:var(--re-muted); font-size:.8rem; }
+.configuration-summary { margin-block:1rem 0; background:var(--re-surface); }
+.configuration-summary pre { margin-block:.8rem 0; max-inline-size:100%; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--re-surface-alt); color:var(--re-text); }
+.customizer-note { font-size:.8rem; color:var(--re-muted); margin-block:1rem 0; }
+.customizer-footer { flex:0 0 auto; padding:.85rem 1.25rem; border-block-start:1px solid var(--re-line); background:var(--re-surface); }
+.customizer-footer p { font-size:.8rem; color:var(--re-muted); margin:.4rem 0 0; }
+.customizer-footer p:empty { display:none; }
 .selected-attribute { display:none; }
-@media (width < 40rem) { .configuration-summary { grid-template-columns:1fr; } }
+@media (width < 40rem) { .customize-toggle span { display:none; } .customizer-groups { grid-template-columns:1fr; } .customizer-body,.customizer-header,.customizer-footer { padding:1rem; } .customizer-popup { inline-size:calc(100% - 1rem); max-inline-size:calc(100% - 1rem); max-block-size:calc(100dvh - 1rem); } }
+@media (width < 23rem) { .customizer-options { grid-template-columns:1fr; } }
 @media print { .demo-customizer { display:none; } }
 </style>

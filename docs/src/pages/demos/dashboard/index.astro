@@ -1,20 +1,18 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import DemoCustomizer from '../../../components/demos/DemoCustomizer.astro';
 import DashboardSite from '../../../components/demos/DashboardSite.astro';
 import CodeViewer from '../../../components/CodeViewer.astro';
 import {stylesheet} from '../../../data/assets.js';
 import {defaultDemo} from '../../../data/demo-configurations.js';
-import {advancedCSS} from '../../../data/demo-advanced.js';
 import {dashboardSource} from '../../../data/dashboard-source.js';
 const base=import.meta.env.BASE_URL;
 const source=await dashboardSource(defaultDemo);
 ---
-<Layout title="Dashboard demo" current="dashboard-demo" theme="auto" fullWidth>
-  <Fragment set:html={`<style>${advancedCSS}</style>`}/>
+<Layout title="Dashboard demo" current="dashboard-demo" theme="auto" fullWidth customizer={{config:defaultDemo,downloadHref:base+'demos/dashboard/source.html',downloadName:'forma-dashboard.html'}}>
+
   <link rel="stylesheet" href={stylesheet('reva.glass.css')}/><link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={stylesheet('reva.soft.css')}/><link rel="stylesheet" href={base+'demos/dashboard.css'}/>
   <div class="container"><p class="doc-kicker">REVACSS / COMPLETE WEBSITES</p><h1>A clearer view of your workspace.</h1><p class="doc-lead">A responsive dashboard with metrics, native SVG charts, project progress and activity. Explore the same shared defaults as the marketing demo.</p></div>
-  <div class="demo-workbench"><div class="container"><DemoCustomizer config={defaultDemo} downloadHref={base+'demos/dashboard/source.html'} downloadName="forma-dashboard.html"/></div>
+  <div class="demo-workbench">
     <section class="demo-preview dash-site" id="demo-site" aria-label="Forma dashboard preview"><DashboardSite base={base}/></section>
     <section class="container" aria-labelledby="dashboard-source-heading"><h2 id="dashboard-source-heading">Make this dashboard yours.</h2><p>All figures are fictional. A backend can render the metric values, table rows and SVG coordinates directly into this HTML. Links navigate within the demo; they do not create or change records.</p><details><summary>View complete starting HTML</summary><CodeViewer id="dashboard-source" code={source} label="Complete dashboard starting HTML"/></details><p>The optional settings helper includes your current selections in the download. Without JavaScript, copy the selected attributes onto the starting document’s opening HTML tag. Download the linked CSS assets and update paths for a self-hosted project.</p><p>Dashboard composition and chart styles live in <a href={base+'demos/dashboard.css'}>dashboard.css</a>. The existing line/area and doughnut charts now use the reusable chart module; dashboard.css only supplies page composition and legend styling.</p></section>
   </div>

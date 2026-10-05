@@ -9,10 +9,10 @@ test.describe('shop without JavaScript',()=>{
   for(const route of ['/demos/shop/','/demos/shop/products/arc-lamp/','/demos/shop/bag/']){
    await page.goto(route);await expect(page.locator('#shop-title')).toBeVisible();
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-   await page.getByRole('button',{name:'Customize this demo',exact:true}).click();
+   await page.getByRole('button',{name:'Customize',exact:true}).click();
    await waitForPopover(page.locator('#demo-customizer-popup'));
    await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-material').selectOption('glass');
-   await page.getByRole('button',{name:'View the website',exact:true}).click();
+   await page.getByRole('button',{name:'Close',exact:true}).click();
    expect(await page.locator('#demo-site').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   }
@@ -43,7 +43,7 @@ test.describe('shop without JavaScript',()=>{
  });
 });
 test('shop restores the shared appearance and passes accessibility checks',async({page})=>{
- await page.goto('/demos/shop/');await page.getByRole('button',{name:'Customize this demo',exact:true}).click();
+ await page.goto('/demos/shop/');await page.getByRole('button',{name:'Customize',exact:true}).click();
  await waitForPopover(page.locator('#demo-customizer-popup'));
  await page.locator('#demo-palette').selectOption('forest');await page.locator('#demo-theme').selectOption('dark');
  await page.goto('/demos/shop/products/pebble-vase/');await expect(page.locator('#demo-palette')).toHaveValue('forest');

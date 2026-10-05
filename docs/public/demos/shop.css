@@ -38,8 +38,8 @@
 .shop-bag > section > .card { display:grid; grid-template-columns:minmax(0,8rem) minmax(0,1fr); gap:1rem; align-items:center; }
 .shop-bag dl > div { display:flex; justify-content:space-between; gap:1rem; padding-block:.5rem; }
 .shop-bag dd { margin:0; }
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .shop-site,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .shop-site,
+html:has(#demo-material option[value="glass"]:checked) .shop-site,
+html:has(#demo-material option[value="veil"]:checked) .shop-site,
 html:is([data-material="glass"],[data-material="veil"]) .shop-site { background:radial-gradient(ellipse at 100% 0,color-mix(in srgb,var(--re-primary) 12%,transparent),transparent 55%),var(--re-bg); }
 @media (width < 60rem) { .shop-products { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (width < 42rem) { .shop-feature,.shop-bag { grid-template-columns:minmax(0,1fr); } .shop-products { grid-template-columns:minmax(0,1fr); } .shop-feature { gap:1.5rem; } .shop-bag > section > .card { grid-template-columns:minmax(0,6rem) minmax(0,1fr); } }

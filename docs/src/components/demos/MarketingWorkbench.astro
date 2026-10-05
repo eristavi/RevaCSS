@@ -1,17 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import DemoCustomizer from './DemoCustomizer.astro';
 import MarketingSite from './MarketingSite.astro';
 import CodeViewer from '../CodeViewer.astro';
 import {stylesheet} from '../../data/assets.js';
 import {marketingSource} from '../../data/marketing-source.js';
-import {advancedCSS} from '../../data/demo-advanced.js';
 const {config}=Astro.props;
 const base=import.meta.env.BASE_URL;
 const source=await marketingSource(config);
 ---
-<Layout title="Marketing website demo" current="marketing-demo" theme="auto" fullWidth>
-  <Fragment set:html={`<style>${advancedCSS}</style>`}/>
+<Layout title="Marketing website demo" current="marketing-demo" theme="auto" fullWidth customizer={{config}}>
+
   <link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
   <link rel="stylesheet" href={stylesheet('reva.veil.css')}/><link rel="stylesheet" href={stylesheet('reva.soft.css')}/>
   <link rel="stylesheet" href={base+'demos/marketing.css'}/>
@@ -21,7 +19,7 @@ const source=await marketingSource(config);
   <p class="doc-lead">Forma is a fictional workspace product built from existing RevaCSS components. Explore a complete marketing website, change its appearance and take the HTML into your own project.</p>
   </div>
   <div class="demo-workbench">
-  <div class="container"><DemoCustomizer config={config}/></div>
+
   <section class="forma-site demo-preview" id="demo-site" aria-label="Forma marketing website preview">
     <MarketingSite base={base} contactHref={Astro.url.pathname+'#contact-confirmation'}/>
   </section>

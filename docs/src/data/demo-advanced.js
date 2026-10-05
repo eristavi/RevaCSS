@@ -17,33 +17,34 @@ function declaration(source,key,value) {
   if(start<0) throw new Error(`Missing demo preset: data-${key}="${value}"`);
   return source.slice(source.indexOf('{',start)+1,source.indexOf('}',start)).trim();
 }
-const scope=(key,value)=>`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .demo-preview`;
+const scope=(key,value)=>`html:has(#demo-${key} option[value="${value}"]:checked)`;
 let css='';
 for(const [key,values] of Object.entries(demoOptions)) for(const value of values) {
   if(key!=='material') css+=`@scope (${scope(key,value)}) { @layer re.tokens { :where(:scope) { ${declaration(tokens,key,value)} } } }\n`;
-  css+=`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
+  css+=`html:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }
 // Rebind the existing material scopes to checked controls. Descendant explicit
 // data-material boundaries and preference rules remain the extension's own rules.
 function liveMaterial(source,names) {
   for(const name of names) {
     const original=`@scope ([data-material="${name}"], :scope[data-material="${name}"])`;
-    // Inner scope roots are relative to the outer workbench scope. Repeating
-    // .demo-workbench here would look for a second nested workbench.
-    const previewRoot=`:scope:has(#demo-material option[value="${name}"]:checked) .demo-preview`;
+    // The navigation customizer controls the page root. Explicit component
+    // material boundaries still stop inheritance in the generated scopes.
+    const previewRoot=`html:has(#demo-material option[value="${name}"]:checked)`;
     source=source.replaceAll(original,`@scope (${previewRoot}, [data-material="${name}"], :scope[data-material="${name}"])`);
   }
-  return `@scope (.demo-workbench) { ${source} }\n`;
+  return source+"\n";
 }
 css+=liveMaterial(glass,['glass','solid'])+liveMaterial(veil,['veil'])+liveMaterial(soft,['soft']);
 for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
+  if(value==='default') continue;
   let decl=declaration(key==='contrast'?core:tokens,key,value);
   if(key==='depth') decl+=' '+declaration(soft,key,value);
   if(key==='motion') decl+=' '+declaration(motion,key,value);
   if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value)+' '+declaration(soft,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
-  css+=`.demo-workbench:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
+  css+=`html:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }
 // Solid/glass paint may set these on descendants; explicit contrast still wins.
 css+=`@scope (${scope('contrast','more')}) { @layer re.utilities { :where(*, :scope) { ${declaration(core,'contrast','more')} } } }\n`;

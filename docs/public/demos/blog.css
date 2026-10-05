@@ -32,8 +32,8 @@
 .blog-site .pagination { margin-block-start:2rem; }
 .blog-site nav[aria-label="Adjacent articles"] { margin-block:2rem; }
 /* A subdued palette backdrop gives translucent materials a visible setting. */
-.demo-workbench:has(#demo-material option[value="glass"]:checked) .blog-site,
-.demo-workbench:has(#demo-material option[value="veil"]:checked) .blog-site,
+html:has(#demo-material option[value="glass"]:checked) .blog-site,
+html:has(#demo-material option[value="veil"]:checked) .blog-site,
 html:is([data-material="glass"],[data-material="veil"]) .blog-site {
  background:radial-gradient(ellipse at 100% 0,color-mix(in srgb,var(--re-primary) 10%,transparent),transparent 50%),var(--re-bg);
 }
