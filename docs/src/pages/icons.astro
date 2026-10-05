@@ -1,5 +1,4 @@
 ---
-import { stylesheet } from '../data/assets.js';
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
 import CodeViewer from '../components/CodeViewer.astro';
@@ -15,7 +14,7 @@ const themeDemo='<div class="grid">\n'+[
 const inlineIcon=catalog.find(i=>i.name==='check');
 ---
 <DocsLayout title="SVG icons" active="icons" sections={sections}>
-<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+
 <p class="doc-kicker">ASSETS / REVA OUTLINE</p>
 <h1>SVG icons</h1>
 <p class="prose">{catalog.length} monochrome icons built on a 24 × 24 grid with 1.75-unit rounded strokes. One icon class sets presentation; colour follows surrounding text and size follows its font. No theme or material attributes are needed on icons.</p>

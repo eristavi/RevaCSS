@@ -1,5 +1,4 @@
 ---
-import { stylesheet } from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
@@ -142,7 +141,7 @@ const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
 </section>`;
 ---
 <DocsLayout title="Glass material" active="glass" sections={sections}>
-  <link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+
   <p class="doc-kicker">THEMES / MATERIAL</p>
   <h1>Glass material</h1>
   <p class="doc-lead">Translucent surfaces with directional highlights, soft elevation and a visible backdrop. Configure the material once on a parent, then build with native HTML and minimal component classes.</p>

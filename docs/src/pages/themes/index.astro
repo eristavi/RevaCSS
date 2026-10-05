@@ -1,5 +1,4 @@
 ---
-import { stylesheet } from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
@@ -12,7 +11,7 @@ const base=import.meta.env.BASE_URL;
 {[['light','Light','An explicitly light palette.'],['dark','Dark','An explicitly dark palette.'],['auto','System','Follow the visitor’s preferred colour scheme.']].map(([key,title,description])=><article class="card"><h3><a href={base+'themes/'+key+'/'}>{title}</a></h3><p>{description}</p><code>data-theme="{key}"</code></article>)}
 </div></section>
 <Example id="material" title="Material is independent" description="Both cards use a dark palette. Only the glass section changes its supported surfaces." glass html={'<div class="grid" data-theme="dark">\n  <article class="card">\n    <h3>Solid material</h3>\n    <p>The default surface is opaque.</p>\n  </article>\n  <section data-material="glass">\n    <article class="card">\n      <h3>Glass material</h3>\n      <p>Load the optional glass stylesheet to activate this treatment.</p>\n    </article>\n  </section>\n</div>'}/>
-<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+
 <section><h2>Veil material</h2><p>A clear centre with diffused perimeter colour and two contained contours, without backdrop blur. Load <code>reva.veil.css</code> and set <code>data-material="veil"</code> on your shared parent.</p><p><a href={base+'themes/veil/'}>Veil examples and API</a> · <a href={base+'demos/marketing/light/ocean/veil/rounded/'}>Complete Veil website</a></p></section>
 <section><h2>Soft UI material</h2><p>Raised opaque surfaces, inset text controls and pressed actions. Load <code>reva.soft.css</code> and set <code>data-material="soft"</code> on a shared parent.</p><p><a href={base+'themes/soft/'}>Explore Soft UI</a></p></section>
 <section id="defaults"><h2>The same styling logic in every mode</h2><p>Light and dark select different colour tokens, not different component APIs. Rounded shape, comfortable density, medium control size, subtle depth and gradient fill are the common omitted defaults. Change them once on html or on a scoped boundary.</p><p><a href={base+'reference/#attributes'}>See all supported defaults and values.</a> Semantic meanings remain local: a warning alert can differ from a success badge inside the same theme.</p></section>

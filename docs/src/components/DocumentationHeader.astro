@@ -2,14 +2,13 @@
 import TopMenu from './TopMenu.astro';
 import DemoCustomizer from './demos/DemoCustomizer.astro';
 import {defaultDemo} from '../data/demo-configurations.js';
-import {advancedCSS} from '../data/demo-advanced.js';
-import {stylesheet} from '../data/assets.js';
+import {asset,stylesheet} from '../data/assets.js';
 import { documentationNavigation } from '../data/navigation.js';
 const { theme='auto', current, customizer={}, kind='docs' }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
 <!-- Keep the checked-option fallback out of the attribute-driven runtime. -->
-<noscript><Fragment set:html={`<style>${advancedCSS}</style>`}/></noscript>
+<noscript><link rel="stylesheet" href={asset('customizer.css')}/></noscript>
 {['reva.glass.css','reva.veil.css','reva.soft.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}
 <header class="container documentation-header">
   <TopMenu id="docs" label="Documentation" items={documentationNavigation(base)} current={current} brandHref={base}>

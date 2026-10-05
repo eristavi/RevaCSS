@@ -1,7 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import TopMenu from '../../components/TopMenu.astro';
-import {stylesheet} from '../../data/assets.js';
 const base=import.meta.env.BASE_URL;
 const revision=process.env.GITHUB_SHA || 'local preview';
 const sections=[{id:'device-plan',title:'First pass'},{id:'device-navigation',title:'Navigation'},{id:'device-glass',title:'Glass'},{id:'device-edges',title:'Edges'},{id:'device-preferences',title:'Preferences'},{id:'device-results',title:'Report results'}];
@@ -21,7 +20,7 @@ const edgeCases=['light','dark'].flatMap(theme=>['solid','glass'].map(material=>
 const resultTemplate=`Device model:\nOS version / browser version:\nPage build revision:\nDate / tester:\nOrientation: portrait / landscape\nReduce Motion / Reduce Transparency / Increase Contrast:\nLow Power Mode:\nN1–N5: pass / fail / not tested\nG1–G3: pass / fail / not tested\nE1–E3: pass / fail / not tested\nP1–P2: pass / fail / unsupported / not tested\nFailure IDs, steps and screenshots/video:\nKeyboard / VoiceOver: not tested unless separately reviewed`;
 ---
 <DocsLayout title="Real-device checks" active="device-checks" sections={sections}>
-<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+
 <p class="doc-kicker">VALIDATION</p><h1>Real-device checks</h1>
 <p class="doc-lead">One repeatable page for navigation, glass and animated edges on a physical phone or desktop browser. Start with iPhone Safari, then repeat on desktop Firefox and Edge.</p>
 <p class="doc-note"><strong>Awaiting physical-device results.</strong> These fixtures are ready to test. Automated engine checks do not establish a device pass, and this page runs without browser JavaScript.</p>

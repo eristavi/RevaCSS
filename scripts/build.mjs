@@ -107,7 +107,7 @@ console.log(`Built CSS: ${Buffer.byteLength(full)} bytes; minified ${min.length}
 
 await mkdir('dist/fonts',{recursive:true});
 await mkdir('docs/public/reva/fonts',{recursive:true});
-for(const name of ['Manrope.ttf','OFL.txt']) { await copyFile('assets/fonts/'+name,'dist/fonts/'+name); await copyFile('assets/fonts/'+name,'docs/public/reva/fonts/'+name); }
+for(const name of ['Manrope.woff2','Manrope.ttf','OFL.txt']) { await copyFile('assets/fonts/'+name,'dist/fonts/'+name); await copyFile('assets/fonts/'+name,'docs/public/reva/fonts/'+name); }
 await copyFile('assets/reva-fonts.css','dist/reva-fonts.css');
 await copyFile('assets/reva-fonts.css','docs/public/reva/reva-fonts.css');
 

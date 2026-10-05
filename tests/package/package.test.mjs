@@ -32,7 +32,7 @@ test('installed public exports resolve core, scoped extensions, nested assets, a
   const require = createRequire(join(fixture.consumer, 'package.json'));
   for (const path of ['', '/dist/reva.min.css', '/dist/reva.scoped.css',
     '/dist/reva.glass.scoped.css', '/dist/reva.veil.css', '/dist/reva.motion.css',
-    '/dist/reva.selects.css', '/dist/fonts/Manrope.ttf', '/dist/icons/reva.svg',
+    '/dist/reva.selects.css', '/dist/fonts/Manrope.woff2', '/dist/fonts/Manrope.ttf', '/dist/icons/reva.svg',
     '/tokens/foundation.tokens.json', '/package.json']) {
     const resolved = require.resolve('revacss' + path);
     assert.ok((await readFile(resolved)).length > 0, path);
@@ -47,6 +47,7 @@ test('Vite keeps global and scoped CSS imports and copies font/icon assets', asy
   const pages = await bundleConsumer(fixture);
   for (const page of pages) assert.match(page, /<link[^>]+rel="stylesheet"/);
   const assets = await readdir(join(fixture.output, 'assets'));
+  assert.ok(assets.some(path => path.endsWith('.woff2')));
   assert.ok(assets.some(path => path.endsWith('.ttf')));
   assert.ok(assets.some(path => path.endsWith('.svg')));
   const styles = (await Promise.all(assets.filter(path => path.endsWith('.css'))

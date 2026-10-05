@@ -1,5 +1,4 @@
 ---
-import { stylesheet } from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 import { topics } from '../../data/examples.js';
@@ -11,7 +10,7 @@ const base=import.meta.env.BASE_URL;
 const sections=[{id:'usage',title:'Usage'},...topic.examples];
 ---
 <DocsLayout title={topic.title} active={topic.slug} sections={sections}>
-{topic.glass && <link rel="stylesheet" href={stylesheet('reva.glass.css')}/> }
+
 <p class="doc-kicker">COMPONENTS</p><h1>{topic.title}</h1><p class="doc-lead">{topic.intro}</p>
 <section id="usage">
 <h2>Usage</h2>

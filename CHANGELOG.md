@@ -4,6 +4,9 @@
 
 Next planned package release: **1.1.0** (backward-compatible additions). See [the versioning policy](VERSIONING.md).
 
+- Documentation cleanup: shared minified CSS-only customizer stylesheet, one material stylesheet link per page, and plain selectable complete-demo source views while short component examples retain highlighting.
+- Optional self-hosted Manrope font prefers a 52 KiB WOFF2 asset; the existing TTF remains available as a fallback.
+
 - Optional Soft UI material via inherited `data-material="soft"`, with raised surfaces, inset text controls and pressed actions.
 - Global and scoped extensions, light/dark examples, and integration with the shared persistent demo customizer.
 - Shared navigation Customize control on GitHub Pages replaces the separate theme menu and demo launcher; grouped settings, centred responsive popup, configuration copy and reset, with independent documentation/demo preferences.

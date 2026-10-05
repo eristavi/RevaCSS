@@ -11,7 +11,7 @@ before(async () => {
   fixture = await createConsumer();
   await bundleConsumer(fixture);
   const types = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
-    '.svg': 'image/svg+xml', '.ttf': 'font/ttf' };
+    '.svg': 'image/svg+xml', '.ttf': 'font/ttf', '.woff2': 'font/woff2' };
   server = createServer(async (request, response) => {
     try {
       const path = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);

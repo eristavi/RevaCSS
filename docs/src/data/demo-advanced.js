@@ -53,4 +53,4 @@ css+='@layer re.utilities { @media (prefers-reduced-motion:reduce) { :where(.dem
 css+=`@media (prefers-contrast:more) { :where(.demo-preview,.demo-preview *) { ${declaration(core,'contrast','more')} } }\n`;
 css+='@media (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active), print { :where(.demo-preview,.demo-preview *) { --re-glass-opacity:100%; --re-glass-button-opacity:100%; --re-glass-filter:none; } } }\n';
 // Validate generated selectors/material scopes as part of stylesheet compilation.
-export const advancedCSS=transform({filename:'demo-customizer.css',code:Buffer.from(css),minify:false}).code.toString();
+export const advancedCSS=transform({filename:'demo-customizer.css',code:Buffer.from(css),minify:true}).code.toString();

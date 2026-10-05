@@ -1,5 +1,4 @@
 ---
-import { stylesheet } from '../data/assets.js';
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
 import { defaultSettings, defaultsHTML } from '../data/defaults.js';
@@ -7,7 +6,7 @@ import { attributes } from '../data/attributes.js';
 const base=import.meta.env.BASE_URL;
 ---
 <DocsLayout title="Data attributes" active="attributes" sections={[{id:"page-defaults",title:"Configure once"}, {id:"defaults-reference",title:"Defaults reference"}, ...attributes]}>
-<link rel="stylesheet" href={stylesheet('reva.glass.css')}/>
+
 <p class="doc-kicker">REFERENCE / EXAMPLES</p><h1>Data attributes</h1>
 <p class="prose">Choose a setting on the page or a local section. All core settings inherit through the subtree and affect their supported descendants. Set defaults once on html, then add local attributes only for exceptions.</p>
 <p class="prose">Light and dark use the same component defaults with different palettes. Configure only what you need to change. For the model behind these examples, read styling and inheritance.</p>

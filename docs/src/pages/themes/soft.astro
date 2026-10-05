@@ -2,7 +2,6 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 import CodeViewer from '../../components/CodeViewer.astro';
-import {stylesheet} from '../../data/assets.js';
 const base=import.meta.env.BASE_URL;
 const install=`<link rel="stylesheet" href="reva.css">
 <link rel="stylesheet" href="reva.soft.css">
@@ -33,7 +32,7 @@ const boundaries=`<section class="stack" data-material="soft" data-theme="light"
 </section>`;
 ---
 <DocsLayout title="Soft UI material" active="soft" sections={[{id:'preview',title:'Light and dark'},{id:'install',title:'Load and activate'},{id:'controls',title:'Native controls'},{id:'boundaries',title:'Shared settings'}]}>
-<link rel="stylesheet" href={stylesheet('reva.soft.css')}/>
+
 <p class="doc-kicker">OPTIONAL MATERIAL</p><h1>Soft UI</h1>
 <p class="doc-lead">Neumorphism for native HTML: surfaces gently rise from their background, fields sit inside it, and buttons press inward.</p>
 <section id="preview"><h2>The same interface in light and dark</h2><div class="grid">
