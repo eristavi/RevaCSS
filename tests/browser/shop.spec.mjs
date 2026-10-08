@@ -28,17 +28,19 @@ test.describe('shop without JavaScript',()=>{
   await expect(page.locator('#shop-title')).toHaveText('Your bag.');
   await expect(page.locator('.shop-bag > section > article')).toHaveCount(2);
  });
- test('product gallery supports thumbnails and native arrow keys on a phone',async({page})=>{
+ test('product gallery supports native fragment links and keyboard scrolling on a phone',async({page})=>{
   await page.setViewportSize({width:320,height:900});await page.goto('/demos/shop/products/arc-lamp/');
-  const gallery=page.getByRole('group',{name:'Arc table lamp product views'});
-  await expect(gallery.locator('figure:visible')).toHaveCount(1);
-  await gallery.locator('label').filter({hasText:'Detail'}).click();
-  await expect(gallery.getByRole('radio',{name:'Detail',exact:true})).toBeChecked();
-  await expect(page.locator('#gallery-arc-lamp-detail')).toBeVisible();
-  await gallery.getByRole('radio',{name:'Detail',exact:true}).focus();await page.keyboard.press('ArrowRight');
-  await expect(gallery.getByRole('radio',{name:'Dimensions',exact:true})).toBeChecked();
+  const gallery=page.getByRole('list',{name:'Arc table lamp product views'});
+  await expect(gallery.locator('figure')).toHaveCount(3);
+  const links=page.getByRole('navigation',{name:'Arc table lamp view links'});
+  await links.getByRole('link',{name:'Detail',exact:true}).click();
+  await expect(page).toHaveURL(/#gallery-arc-lamp-detail$/);
+  const item=page.locator('#gallery-arc-lamp-detail');
+  await expect.poll(()=>item.evaluate(el=>Math.abs(el.getBoundingClientRect().left-el.parentElement.getBoundingClientRect().left)<40)).toBe(true);
+  await links.getByRole('link',{name:'Dimensions',exact:true}).focus();await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#gallery-arc-lamp-dimensions$/);
   await expect(page.locator('#gallery-arc-lamp-dimensions')).toContainText('32 × 18 × 42 cm');
-  await expect(gallery.locator('figure:visible')).toHaveCount(1);
+  await gallery.focus();await expect(gallery).toBeFocused();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  });
 });

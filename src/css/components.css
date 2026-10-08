@@ -26,7 +26,7 @@
   :where(.skip-link:focus) { transform: none; }
 }
 @layer re.utilities {
-  :where(button,input,select,textarea,.button) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(button,input,select,textarea,:is(.button,.scroll-top)) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
   :where(.align-start) { align-items: start; }
   :where(.align-center) { align-items: center; }
   :where(.justify-between) { justify-content: space-between; }
@@ -35,8 +35,8 @@
   @media (width < 40rem) { :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
   @media (forced-colors: active) {
-    :where(button,.button,input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
-    :where(button,.button,input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(button,:is(.button,.scroll-top),input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
+    :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(:focus-visible) { outline-color: Highlight; }
   }
   @media print {
@@ -46,7 +46,7 @@
       --re-bg: #fff; --re-surface: #fff; --re-surface-alt: #fff;
       --re-text: #000; --re-muted: #000; --re-link: #000; --re-line: #000; --re-control-line: #000;
     }
-    :where(button,.button,input,select,textarea) { color: #000; accent-color: #000; background-color: #fff; background-image: none; border: 1px solid #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(button,:is(.button,.scroll-top),input,select,textarea) { color: #000; accent-color: #000; background-color: #fff; background-image: none; border: 1px solid #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(*) { box-shadow: none !important; text-shadow: none !important; }
     :where(body,[data-theme],.card,details) { color: #000; background: #fff; }
     :where(a) { color: #000; }

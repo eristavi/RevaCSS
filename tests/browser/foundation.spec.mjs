@@ -17,7 +17,7 @@ test('nested themes and local resets preserve independent settings',async({page}
  expect(states.card).toBe('rgb(25, 25, 25)');expect(states.input).toEqual([25,25,25]);expect(states.grid).toBe('32px');expect(states.stack).toBe('16px');expect(states.padding).toBe('30px');expect(states.gradient).not.toBe('none');expect(states.solid).not.toBe(states.gradient);
 });
 test('keyboard disclosure, focus and native form validation',async({page})=>{
- await page.goto('/preview/light/');await page.locator('summary').focus();await page.keyboard.press('Enter');await expect(page.locator('details')).toHaveAttribute('open','');
+ await page.goto('/preview/light/');const disclosure=page.locator('#main details').filter({hasText:'What is this preview?'});await disclosure.locator('summary').focus();await page.keyboard.press('Enter');await expect(disclosure).toHaveAttribute('open','');
  await page.locator('#email').fill('invalid');await page.locator('#subject').focus();expect(await page.locator('#email').evaluate(el=>el.matches(':user-invalid'))).toBe(true);
  expect(await page.locator('#subject').evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
 });

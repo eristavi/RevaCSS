@@ -1,0 +1,30 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'settings',title:'Setting responsibilities'},{id:'states',title:'State feedback'},{id:'decoration',title:'Decoration and content'}];
+---
+<DocsLayout title="Effects and state feedback" active="effects" sections={sections}>
+<p class="doc-kicker">LEARN / APPEARANCE</p><h1>Effects and state feedback</h1>
+<p class="doc-lead">Use effects to communicate state or structure. Existing settings cover surfaces and decoration; native HTML and accessible attributes describe the state.</p>
+<section id="settings"><h2>Give each setting one responsibility</h2>
+<table><thead><tr><th>Setting</th><th>Responsibility</th></tr></thead><tbody>
+<tr><td><code>data-motion</code></td><td>Animation intensity: none, subtle or expressive</td></tr>
+<tr><td><code>data-material</code></td><td>Solid, glass, veil or soft surfaces</td></tr>
+<tr><td><code>data-depth</code></td><td>Flat, subtle or pronounced shadows</td></tr>
+<tr><td><code>data-edge</code></td><td>Plain, gradient, shine or animated edges</td></tr>
+<tr><td><code>data-fill</code></td><td>Solid or gradient action fills</td></tr>
+</tbody></table>
+<p>Configure inherited presets on <code>html</code>, then use local exceptions and CSS custom properties for numeric control. There is no universal effect attribute or separate per-component motion attribute. Animation can be disabled while useful static feedback remains.</p>
+</section>
+<section id="states"><h2>States remain clear without animation</h2>
+<p>Keyboard focus uses a visible ring. Current navigation uses <code>aria-current</code> with a visible underline, marker or font emphasis appropriate to that component. Radio/checkbox selection remains native. Only set an accessible state when it describes the actual interface; CSS does not update ARIA or application state.</p>
+<p>Fields use native <code>:user-invalid</code> or an explicit <code>aria-invalid="true"</code> border. Include visible error text associated through <code>aria-describedby</code>; do not communicate an error only through colour. Validation messages, announcement timing and submission remain the browser or application's responsibility.</p>
+</section>
+<Example id="state-feedback" title="Associated field error and native selection" html={'<div class="form-group">\n  <label for="effects-email">Email address</label>\n  <input id="effects-email" name="email" type="email" value="alex" aria-invalid="true" aria-describedby="effects-email-error">\n  <small class="field-error" id="effects-email-error">Enter a complete email address, such as alex@example.com.</small>\n</div>\n<fieldset>\n  <legend>Delivery preference</legend>\n  <label><input type="radio" name="effects-delivery" value="standard" checked> Standard delivery</label>\n  <label><input type="radio" name="effects-delivery" value="collection"> Collect in person</label>\n</fieldset>'}/>
+<section id="decoration"><h2>Apply decoration to the right surface</h2>
+<p>Use existing depth, material and edge settings on interactive surfaces. Keep text and focus contrast visible over images or transparent backgrounds. Image-caption overlays, zoom treatments and overflow fades remain application composition, not new framework presets in 1.1.0.</p>
+<p>The native gallery retains its scrollbar, instructions and view links as overflow cues; fades must not conceal essential content. Loading indicators need visible status text. Print removes decoration and reveals every gallery item.</p>
+<p><a href={base+'guide/motion/'}>Motion behavior</a> · <a href={base+'themes/'}>Materials and palettes</a> · <a href={base+'guide/accessibility/'}>Accessibility and application responsibilities</a>.</p>
+</section>
+</DocsLayout>

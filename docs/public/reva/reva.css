@@ -24,6 +24,7 @@
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px; --re-accordion-closed-opacity: 1;
+--re-scroll-behavior: smooth; --re-target-animation: none;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-secondary: light-dark(#4B5563,#BFC8CD); --re-secondary-end: light-dark(#3D4652,#CDD5D9); --re-on-secondary: light-dark(#FFFFFF,#111111); --re-secondary-link: light-dark(#4B5563,#BFC8CD); --re-success: light-dark(#256B4E,#78B99B); --re-success-end: light-dark(#1D573F,#8EC9AD); --re-on-success: light-dark(#FFFFFF,#111111); --re-danger: light-dark(#A63D4F,#D98B97); --re-danger-end: light-dark(#8C3041,#E39EAA); --re-on-danger: light-dark(#FFFFFF,#111111); --re-danger-link: light-dark(#A63D4F,#D98B97); --re-warning: light-dark(#E6BC63,#E6BC63); --re-warning-end: light-dark(#D5A94E,#F0CB7C); --re-on-warning: light-dark(#111111,#111111); color-scheme: light dark; }
@@ -79,9 +80,9 @@
 :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-shadow: none; --re-glass-shadow: none; }
 :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); }
 :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-shadow: 0 8px 24px rgb(0 0 0 / 18%); --re-glass-shadow: 0 16px 40px rgb(0 0 0 / 22%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 50%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 12%); }
-:where([data-motion="none"], :scope[data-motion="none"]) { --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; --re-accordion-closed-opacity: 1; }
-:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; --re-accordion-closed-opacity: 1; }
-:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; --re-accordion-closed-opacity: 0; }
+:where([data-motion="none"], :scope[data-motion="none"]) { --re-scroll-behavior: auto; --re-target-animation: none; --re-duration: 0ms; --re-press: 0px; --re-edge-play: paused; --re-accordion-closed-opacity: 1; }
+:where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-scroll-behavior: smooth; --re-target-animation: none; --re-duration: 140ms; --re-press: 1px; --re-edge-play: running; --re-accordion-closed-opacity: 1; }
+:where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-scroll-behavior: smooth; --re-target-animation: re-target-emphasis var(--re-target-duration, 1.4s) ease-out; --re-duration: 240ms; --re-press: 2px; --re-edge-play: running; --re-accordion-closed-opacity: 0; }
 :where([data-type="compact"], :scope[data-type="compact"]) { --re-type: .9375rem; }
 :where([data-type="standard"], :scope[data-type="standard"]) { --re-type: 1rem; }
 :where([data-type="large"], :scope[data-type="large"]) { --re-type: 1.125rem; }
@@ -141,7 +142,7 @@
   :where(address) { font-style: normal; }
   :where(button,input,select,textarea) { font: inherit; color: inherit; }
   :where(button,input,select,textarea,summary,a) { -webkit-tap-highlight-color: transparent; }
-  :where(button, input[type=button],input[type=submit],input[type=reset], .button) {
+  :where(button, input[type=button],input[type=submit],input[type=reset], :is(.button,.scroll-top)) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
     display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
     min-inline-size: 0; max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere;
@@ -151,52 +152,52 @@
     box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
     transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
   }
-  :where(button.danger,.button.danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
-  :where(button.warning,.button.warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
-  :where(button.secondary,.button.secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
+  :where(button.danger,:is(.button,.scroll-top).danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
+  :where(button.warning,:is(.button,.scroll-top).warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
+  :where(button.secondary,:is(.button,.scroll-top).secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
     --re-action-start: var(--re-secondary);
     --re-action-end: var(--re-secondary-end);
     --re-action-text: var(--re-on-secondary);
   }
-  :where(button.outline,.button.outline,button.ghost,.button.ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
-  :where(button.outline,.button.outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
-  :where(button.danger.outline,button.danger.ghost,.button.danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
-  :where(button.secondary:is(.outline,.ghost),.button.secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
+  :where(button.outline,:is(.button,.scroll-top).outline,button.ghost,:is(.button,.scroll-top).ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
+  :where(button.outline,:is(.button,.scroll-top).outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
+  :where(button.danger.outline,button.danger.ghost,:is(.button,.scroll-top).danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
+  :where(button.secondary:is(.outline,.ghost),:is(.button,.scroll-top).secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
   /* Shared semantic variants. Local legacy classes override parent defaults;
      a valid attribute on the action itself overrides a legacy class. */
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary); --re-action-link: var(--re-link);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: var(--re-on-success); --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); --re-action-link: var(--re-text);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); --re-action-link: var(--re-danger-link);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-text); --re-action-end: var(--re-text); --re-action-text: var(--re-surface); --re-action-link: var(--re-text);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { cursor: not-allowed; opacity: .6; }
-  @media (hover: hover) { :where(button:enabled:hover,.button:hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
-  :where(button:enabled:active,.button:active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
+  @media (hover: hover) { :where(button:enabled:hover,:is(.button,.scroll-top):hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
+  :where(button:enabled:active,:is(.button,.scroll-top):active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
   :where(label) { display: block; font-weight: 600; margin-block-end: .4em; }
   :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
     display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;
@@ -265,7 +266,7 @@
   :where(.skip-link:focus) { transform: none; }
 }
 @layer re.utilities {
-  :where(button,input,select,textarea,.button) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(button,input,select,textarea,:is(.button,.scroll-top)) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
   :where(.align-start) { align-items: start; }
   :where(.align-center) { align-items: center; }
   :where(.justify-between) { justify-content: space-between; }
@@ -274,8 +275,8 @@
   @media (width < 40rem) { :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
   @media (forced-colors: active) {
-    :where(button,.button,input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
-    :where(button,.button,input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(button,:is(.button,.scroll-top),input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
+    :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(:focus-visible) { outline-color: Highlight; }
   }
   @media print {
@@ -285,7 +286,7 @@
       --re-bg: #fff; --re-surface: #fff; --re-surface-alt: #fff;
       --re-text: #000; --re-muted: #000; --re-link: #000; --re-line: #000; --re-control-line: #000;
     }
-    :where(button,.button,input,select,textarea) { color: #000; accent-color: #000; background-color: #fff; background-image: none; border: 1px solid #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(button,:is(.button,.scroll-top),input,select,textarea) { color: #000; accent-color: #000; background-color: #fff; background-image: none; border: 1px solid #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(*) { box-shadow: none !important; text-shadow: none !important; }
     :where(body,[data-theme],.card,details) { color: #000; background: #fff; }
     :where(a) { color: #000; }
@@ -353,7 +354,7 @@
   }
 }
 @layer re.utilities {
-  :where(:is(button,.button) .badge) { font-size: calc(.8125em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1)); }
+  :where(:is(button,:is(.button,.scroll-top)) .badge) { font-size: calc(.8125em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1)); }
 
   @media (prefers-contrast: more) {
     :where(.badge) { color: var(--re-text); background-color: var(--re-surface); background-image: none; border: 1px solid currentColor; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -397,7 +398,7 @@
   :where(.alert > :first-child) { margin-block-start: 0; }
   :where(.alert > :last-child) { margin-block-end: 0; }
   :where(.alert h1) { color: inherit; }
-  :where(.alert a:not(.button)) { color: inherit; }
+  :where(.alert a:not(:is(.button,.scroll-top))) { color: inherit; }
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
     :where(.alert, :scope.alert) { --re-alert-start: var(--re-primary); --re-alert-end: var(--re-primary-end); --re-alert-on: var(--re-on-primary); }
   }
@@ -599,7 +600,7 @@
 }
 @layer re.utilities {
   /* Action text already consumed its size; local spinner overrides remain independent. */
-  :where(:is(button,.button) .spinner) {
+  :where(:is(button,:is(.button,.scroll-top)) .spinner) {
     inline-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
     block-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
   }
@@ -782,7 +783,7 @@
   :where(.input-group) { display: flex; flex-wrap: wrap; align-items: stretch; gap: calc(.35em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; }
   :where(.input-group > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.input-group > :is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=hidden]),select,textarea)) { flex: 1 1 12rem; inline-size: auto; }
-  :where(.input-group > :is(button,.button,input:is([type=button],[type=submit],[type=reset]))) { flex: 0 1 auto; inline-size: auto; }
+  :where(.input-group > :is(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset]))) { flex: 0 1 auto; inline-size: auto; }
   :where(.input-group > span) {
     display: inline-flex; align-items: center; padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
     font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
@@ -1011,7 +1012,7 @@
     min-inline-size: 0;
   }
   :where(.top-menu li + li) { margin-block-start: 0; }
-  :where(.top-menu a:not(.button), .top-menu summary) {
+  :where(.top-menu a:not(:is(.button,.scroll-top)), .top-menu summary) {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1041,7 +1042,7 @@
   }
   :where(.top-menu details[open] > summary) { margin-block-end: 0; }
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
-  :where(.top-menu a:not(.button):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
+  :where(.top-menu a:not(:is(.button,.scroll-top)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
   :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
   :where(.top-menu .menu-items) { margin-block-start: .5rem; }
@@ -1636,13 +1637,44 @@
     :where(.gallery > *) { margin-block-end: var(--re-space); break-inside: avoid; }
   }
 }
+/* Fragment navigation stays native. The nearest scroll container owns motion. */
+@layer re.base {
+  :where(*) { scroll-behavior: var(--re-scroll-behavior, auto); }
+  :where([id]) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+}
+@layer re.components {
+  @keyframes re-target-emphasis {
+    from {
+      background-color: color-mix(in srgb, var(--re-link) 12%, transparent);
+      box-shadow: inset 0 0 0 2px var(--re-link);
+    }
+    to { background-color: transparent; box-shadow: inset 0 0 0 2px transparent; }
+  }
+  /* Highlight headings and gallery items, never an entire page or form control.
+     :target represents the URL fragment, not a carousel's selected state. */
+  :where(h1,h2,h3,h4,h5,h6):target,
+  :where(section,article,main):target > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(section,article,main):target > header > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(.gallery > li):target {
+    animation: var(--re-target-animation, none);
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(*) { scroll-behavior: auto; --re-target-animation: none; }
+  }
+}
+/* A native action link; shared base/action/material selectors style it. */
+@layer re.utilities {
+  @media print { :where(a.scroll-top) { display: none; } }
+}
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
   @supports (mask-composite: exclude) {
-    :where(button, .button, .card, :scope:is(button, .button, .card)) {
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card)) {
       position: var(--re-edge-position, static);
     }
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after {
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after {
       content: var(--re-edge-content, none);
       display: var(--re-edge-display, block);
       position: absolute;
@@ -1661,26 +1693,26 @@
       animation: var(--re-edge-animation, none) 8s linear infinite;
       animation-play-state: var(--re-edge-play, running);
     }
-    :where(button:enabled:hover, button:enabled:focus-visible, .button:not([aria-disabled="true"]):hover, .button:not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, .button:not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, .button:not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
+    :where(button:enabled:hover, button:enabled:focus-visible, :is(.button,.scroll-top):not([aria-disabled="true"]):hover, :is(.button,.scroll-top):not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
       animation-name: var(--re-edge-interaction, var(--re-edge-animation, none));
       animation-duration: var(--re-edge-time, 8s);
       animation-iteration-count: var(--re-edge-count, infinite);
     }
-    :where(button:disabled, .button[aria-disabled="true"], :scope:is(button:disabled, .button[aria-disabled="true"]))::after { animation: none; }
+    :where(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"], :scope:is(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"]))::after { animation: none; }
   }
 }
 @layer re.utilities {
   @media (prefers-reduced-motion: reduce) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { animation: none; }
   }
   @media (prefers-contrast: more) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
   @media (forced-colors: active) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
   @media print {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
 }
 

@@ -11,10 +11,10 @@
 @layer re.components {
   /* Native input buttons do not reliably generate pseudo-elements. */
   @supports (mask-composite: exclude) {
-    :where(button, .button, .card, :scope:is(button, .button, .card)) {
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card)) {
       position: var(--re-edge-position, static);
     }
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after {
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after {
       content: var(--re-edge-content, none);
       display: var(--re-edge-display, block);
       position: absolute;
@@ -33,26 +33,26 @@
       animation: var(--re-edge-animation, none) 8s linear infinite;
       animation-play-state: var(--re-edge-play, running);
     }
-    :where(button:enabled:hover, button:enabled:focus-visible, .button:not([aria-disabled="true"]):hover, .button:not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, .button:not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, .button:not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
+    :where(button:enabled:hover, button:enabled:focus-visible, :is(.button,.scroll-top):not([aria-disabled="true"]):hover, :is(.button,.scroll-top):not([aria-disabled="true"]):focus-visible, .card:hover, .card:focus-within, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"]), .card):hover, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"])):focus-visible, :scope.card:focus-within)::after {
       animation-name: var(--re-edge-interaction, var(--re-edge-animation, none));
       animation-duration: var(--re-edge-time, 8s);
       animation-iteration-count: var(--re-edge-count, infinite);
     }
-    :where(button:disabled, .button[aria-disabled="true"], :scope:is(button:disabled, .button[aria-disabled="true"]))::after { animation: none; }
+    :where(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"], :scope:is(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"]))::after { animation: none; }
   }
 }
 @layer re.utilities {
   @media (prefers-reduced-motion: reduce) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { animation: none; }
   }
   @media (prefers-contrast: more) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
   @media (forced-colors: active) {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
   @media print {
-    :where(button, .button, .card, :scope:is(button, .button, .card))::after { display: none; animation: none; }
+    :where(button, :is(.button,.scroll-top), .card, :scope:is(button, :is(.button,.scroll-top), .card))::after { display: none; animation: none; }
   }
 }
 

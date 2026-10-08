@@ -10,7 +10,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         launchOptions: process.env.REVA_CHROMIUM ? {
           executablePath: process.env.REVA_CHROMIUM,
-          args: ['--no-sandbox', '--disable-dev-shm-usage', '--no-zygote', '--disable-gpu', '--disable-software-rasterizer'],
+          args: ['--no-sandbox', '--disable-dev-shm-usage', '--no-zygote'],
         } : {},
       },
     },

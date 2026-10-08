@@ -1,5 +1,32 @@
 import {nativePatternTopics} from "./native-patterns.js";
 export const topics = [
+  {
+    "slug": "scroll-top",
+    "title": "Scroll to top",
+    "intro": "A labelled native link returns to a page-owned top anchor. One structural class; no JavaScript.",
+    "notes": [
+      "Included in complete and scoped builds. Modular consumers load tokens, base, reva.scroll-top.css and reva.scrolling.css.",
+      "Put a unique ID at the beginning of your page and link to it. Keep a visible label; decorative arrows are aria-hidden.",
+      "The link is in normal flow by default. It stays available without a scroll timeline or observer and is hidden in print.",
+      "Document scrolling follows data-motion on html. Local motion on the link alone cannot change the viewport scroll container.",
+      "For a floating link, application CSS can set position:fixed and physical safe-area offsets. Reserve enough space so it cannot cover content, controls or focused elements."
+    ],
+    "examples": [
+      {
+        "id": "scroll-top-basic",
+        "title": "Footer return link",
+        "description": "This example links to the top of this documentation page.",
+        "html": "<a class=\"scroll-top\" href=\"#page-top\"><span aria-hidden=\"true\">↑</span> Back to top</a>"
+      },
+      {
+        "id": "scroll-top-page",
+        "title": "Complete anchor structure",
+        "render": false,
+        "html": "<body id=\"page-top\">\n  <main>Page content</main>\n  <footer><a class=\"scroll-top\" href=\"#page-top\">Back to top</a></footer>\n</body>"
+      }
+    ]
+  },
+
 ...nativePatternTopics,
 {
   "slug": "selects",
@@ -152,7 +179,7 @@ export const topics = [
         "id": "filter-drawer-example",
         "title": "Filter drawer",
         "description": "One structural class and inherited appearance. Open, close, click outside or press Escape.",
-        "html": "<section style=\"--re-drawer-start: 0; --re-drawer-end: auto; --re-drawer-width: 20rem\">\n  <button type=\"button\" popovertarget=\"drawer-start\">Open filter drawer</button>\n  <aside class=\"drawer\" id=\"drawer-start\" popover=\"auto\" aria-labelledby=\"drawer-start-title\">\n    <header><h2 id=\"drawer-start-title\">Filter drawer</h2><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><fieldset><legend>Project status</legend><label><input type=\"checkbox\" checked> In progress</label><label><input type=\"checkbox\"> Complete</label></fieldset><p>A backend supplies and applies the filter values.</p></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
+        "html": "<section style=\"--re-drawer-start: 0; --re-drawer-end: auto; --re-drawer-direction: -1; --re-drawer-width: 20rem\">\n  <button type=\"button\" popovertarget=\"drawer-start\">Open filter drawer</button>\n  <aside class=\"drawer\" id=\"drawer-start\" popover=\"auto\" aria-labelledby=\"drawer-start-title\">\n    <header><h2 id=\"drawer-start-title\">Filter drawer</h2><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\" autofocus>Close</button></header>\n    <section><fieldset><legend>Project status</legend><label><input type=\"checkbox\" checked> In progress</label><label><input type=\"checkbox\"> Complete</label></fieldset><p>A backend supplies and applies the filter values.</p></section>\n    <footer><button type=\"button\" popovertarget=\"drawer-start\" popovertargetaction=\"hide\">Done</button></footer>\n  </aside>\n</section>"
       }
     ]
   },

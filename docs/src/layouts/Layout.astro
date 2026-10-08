@@ -2,18 +2,18 @@
 import SettingsHead from '../components/SettingsHead.astro';
 import { stylesheet } from '../data/assets.js';
 import DocumentationHeader from '../components/DocumentationHeader.astro';
-import { version, releaseName } from '../data/release.js';
-const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto', current, fullWidth=false, customizer={} }=Astro.props;
+import { version, releaseName, plannedVersion, development } from '../data/release.js';
+const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto', current, fullWidth=false, customizer={}, transitions=false }=Astro.props;
 const base=import.meta.env.BASE_URL;
 const settingsKind=Astro.url.pathname.includes('/demos/')?'demo':'docs';
 ---
 <!doctype html>
 <html lang="en" data-theme={theme} data-palette="default">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="RevaCSS documentation: live component demos, HTML examples and shared data attributes."/><title>{title} · RevaCSS</title><SettingsHead kind={settingsKind}/><link rel="stylesheet" href={stylesheet('reva-fonts.css')}/><link rel="stylesheet" href={stylesheet('reva.css')}/><link rel="stylesheet" href={stylesheet('reva.motion.css')}/><link rel="stylesheet" href={stylesheet('reva.selects.css')}/></head>
-<body class:list={{'documentation-page':settingsKind==='docs'}}><a class="skip-link" href="#main">Skip to content</a>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="RevaCSS documentation: live component demos, HTML examples and shared data attributes."/><title>{title} · RevaCSS</title><SettingsHead kind={settingsKind}/><link rel="stylesheet" href={stylesheet('reva-fonts.css')}/><link rel="stylesheet" href={stylesheet('reva.css')}/><link rel="stylesheet" href={stylesheet('reva.motion.css')}/><link rel="stylesheet" href={stylesheet('reva.selects.css')}/>{transitions && <link rel="stylesheet" href={stylesheet('reva.transitions.css')}/>}</head>
+<body id="page-top" class:list={{'documentation-page':settingsKind==='docs'}}><a class="skip-link" href="#main">Skip to content</a>
 <DocumentationHeader theme={theme} current={current} customizer={customizer} kind={settingsKind}/>
 <main id="main" class:list={{container:!fullWidth}}><slot/></main>
-<footer class="container site-footer"><p>RevaCSS {version} · {releaseName} · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p></footer>
+<footer class="container site-footer"><p>{development?`RevaCSS ${plannedVersion} development preview · Published package: ${version}`:`RevaCSS ${version} · ${releaseName}`} · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p><p><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></p></footer>
 </body></html>
 <style is:global>
 .doc-kicker { font-size:.75rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); }

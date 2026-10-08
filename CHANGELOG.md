@@ -4,6 +4,10 @@
 
 Next planned package release: **1.1.0** (backward-compatible additions). See [the versioning policy](VERSIONING.md).
 
+- Motion-aware native fragment scrolling, expressive destination emphasis and an accessible `.scroll-top` link, with local scroll-container overrides and preference handling.
+- Optional overlay motion now includes dialogs, edge-directed drawers, RTL and discrete exits/backdrop fades where supported.
+- Shop product views demonstrate native scroll snap; marketing pricing demonstrates subgrid; blog pages opt into document transitions. Updated motion/state-feedback guides and component/token references.
+
 - Viewport-safe drawer/app-shell spacing and modal bounds with inherited safe-area tokens.
 - Container-responsive three-region card grids with subgrid enhancement and a native scroll-snap gallery; core and modular stylesheets.
 - Optional global/scoped scroll-driven card entrances and document-level same-origin view transitions, with reduced-motion handling and readable fallbacks.

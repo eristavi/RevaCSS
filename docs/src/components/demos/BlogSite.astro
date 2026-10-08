@@ -60,4 +60,4 @@ const related=blogPosts.filter(p=>p.slug!==slug).slice(0,3);
   <aside class="card" id="about" aria-labelledby="about-title"><div class="row"><span class="avatar" aria-hidden="true">{blogAuthor.initials}</span><div><h2 id="about-title">A journal by {blogAuthor.name}.</h2><p>{blogAuthor.bio}</p><p>New perspectives, one considered story at a time.</p><a href={authorHref}>Meet the author and explore all stories</a></div></div></aside>
 </>}
 </Content>
-<footer class="container"><div class="row justify-between"><p><strong>fieldnotes.</strong> · A fictional journal.</p><a href="#blog-title">Back to top</a></div><p class="blog-meta">Built with <a href={base}>RevaCSS</a> · Native HTML and CSS.</p></footer>
+<footer class="container"><div class="row justify-between"><p><strong>fieldnotes.</strong> · A fictional journal.</p><a class="scroll-top" href={embedded?'#blog-title':'#page-top'}><span aria-hidden="true">↑</span> Back to top</a></div><p class="blog-meta">Built with <a href={base}>RevaCSS</a> · Native HTML and CSS.</p></footer>

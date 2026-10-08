@@ -47,7 +47,7 @@ These are coverage notes and next checks, not declarations that every component 
 | Audio/canvas/svg/iframe/object/embed | Basic sizing rules | Dedicated examples and contextual semantics/interaction checks |
 | Details/summary and exclusive groups | Native toggles and closed-state tests | Q-SUMMARY-LABEL, long content and grouped keyboard checks |
 | Standalone popovers | Native toggles/dismissal examples | Edge placement and focus recovery across engines/devices |
-| Dialog appearance | Non-modal static example only | Full modal behavior is not implemented or claimed |
+| Dialog appearance | Modal safe-area bounds and optional overlay motion instrumentation | Application-owned invocation; real-device focus, screen-reader and visual review remain required |
 | Top navigation and nested panels | Desktop/mobile, RTL, dismissal, no-script tests | Q-NAV-FOCUS and real device/screen-reader checks |
 | Glass surfaces/actions | Transmission, corners, contrast and reset checks | Real Firefox/Safari blur, busy backgrounds and device performance |
 | Decorative edges | CSS-state, inheritance and preference tests | Q-EDGE-DEVICE; visible temporal rendering across engines |
@@ -73,3 +73,5 @@ npm run check:release-quality
 Record browser/device versions, fixture, result, reviewer/date and evidence when resolving manual gates. Root-font scaling and viewport checks do not replace actual zoom; axe does not replace screen readers; headless WebKit does not replace Safari/iPhone; native blur capture omissions remain unverified device behavior.
 
 This first implementation establishes the standard and fixtures. Overflow corrections, navigation changes, edge diagnosis and expanded layout APIs are separate choices.
+
+The planned 1.1.0 effects, demo integration and selected validation are recorded in [the readiness record](quality/releases/v1.1.0.md). The six manual registry entries remain release requirements.

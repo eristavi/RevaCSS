@@ -28,7 +28,7 @@
     :where(.pagination > ol > li > :is(a,span)) { --re-veil-fill:var(--re-pagination-fill); }
     :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card, :scope.card) { transition:background-position var(--re-duration,140ms) ease; }
     :where(.card:hover,.card:focus-within, :scope.card:hover, :scope.card:focus-within) { background-position:8% 8%,92% 92%; }
-    :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle,.dropdown > li > :is(button,.button))) {
+    :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle,.dropdown > li > :is(button,:is(.button,.scroll-top)))) {
       --re-veil-action-fill:var(--re-action-start);
       background-color:var(--re-veil-action-fill);
       background-image:radial-gradient(ellipse at 0% 0%, color-mix(in srgb,var(--re-action-text) calc(var(--re-gradient,1) * var(--re-veil-strength,1) * 12%),transparent),transparent 65%), radial-gradient(ellipse at 100% 100%,color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient,1) * var(--re-veil-strength,1) * 40%),transparent),transparent 70%);
@@ -37,8 +37,8 @@
       -webkit-backdrop-filter:none; backdrop-filter:none;
       transition:background-position var(--re-duration,140ms) ease,filter var(--re-duration,140ms) ease,transform var(--re-duration,140ms) ease;
     }
-    :where(button:enabled:hover,button:enabled:focus-visible,.button:not([aria-disabled="true"]):hover,.button:not([aria-disabled="true"]):focus-visible,input:is([type=button],[type=submit],[type=reset]):enabled:hover, :scope:is(button:enabled,.button):hover):where(:not(.menu-toggle,.dropdown > li > :is(button,.button))) { background-position:8% 8%,92% 92%; }
-    :where(button:is(.outline,.ghost),.button:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), :scope:is(button,.button,input:is([type=button],[type=submit],[type=reset])):is(.outline,.ghost)) { background-color:transparent; background-image:none; box-shadow:none; }
+    :where(button:enabled:hover,button:enabled:focus-visible,:is(.button,.scroll-top):not([aria-disabled="true"]):hover,:is(.button,.scroll-top):not([aria-disabled="true"]):focus-visible,input:is([type=button],[type=submit],[type=reset]):enabled:hover, :scope:is(button:enabled,:is(.button,.scroll-top)):hover):where(:not(.menu-toggle,.dropdown > li > :is(button,:is(.button,.scroll-top)))) { background-position:8% 8%,92% 92%; }
+    :where(button:is(.outline,.ghost),:is(.button,.scroll-top):is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), :scope:is(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])):is(.outline,.ghost)) { background-color:transparent; background-image:none; box-shadow:none; }
     :where(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea, :scope:is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=color],[type=hidden]),select,textarea)) {
       background-color:color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity,1) * 100%),transparent);
       background-image:linear-gradient(135deg,color-mix(in srgb,var(--re-primary) calc(var(--re-input-opacity,1) * var(--re-gradient,1) * var(--re-veil-strength,1) * 4%),transparent),transparent 65%);
@@ -49,20 +49,20 @@
 @layer re.utilities {
   @scope ([data-material="veil"], :scope[data-material="veil"]) to ([data-material]:not([data-material="veil"])) {
     @media (prefers-reduced-motion:reduce) {
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(.card,button,.button)) { transition:none; }
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(.card,button,:is(.button,.scroll-top))) { transition:none; }
     }
     @media (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active), print {
       :where(*, :scope) { --re-veil-opacity:100%; --re-veil-strength:0; }
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,.button, :scope:is(.card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,button,input,select,textarea,.button)) {
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(.card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) {
         background-image:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none;
       }
     }
     @media (forced-colors:active) {
       :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span), :scope:is(.card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert)) { background:Canvas; color:CanvasText; border:1px solid CanvasText; }
-      :where(button,input,select,textarea,.button, :scope:is(button,input,select,textarea,.button)) { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; }
+      :where(button,input,select,textarea,:is(.button,.scroll-top), :scope:is(button,input,select,textarea,:is(.button,.scroll-top))) { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; }
     }
     @media print {
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,.button, :scope:is(.card,fieldset,details,dialog,[popover],.badge,.alert,button,input,select,textarea,.button)) { background:#fff; color:#000; }
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(.card,fieldset,details,dialog,[popover],.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) { background:#fff; color:#000; }
     }
   }
 }

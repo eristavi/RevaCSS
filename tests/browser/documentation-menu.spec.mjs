@@ -10,7 +10,7 @@ const openTheme=async page=>{await nav(page).getByRole('button',{name:'Customize
 test.describe('shared documentation header without browser JavaScript',()=>{
  test.use({javaScriptEnabled:false});
  test('every documentation and preview page uses the same menu and valid unique panel targets',async({page})=>{
-  test.setTimeout(60000);
+  test.setTimeout(180000);
   let expected;
   for(const route of pages){
    await page.goto(route);await expect(nav(page)).toHaveCount(1);

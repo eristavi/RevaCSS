@@ -11,7 +11,7 @@
 }
 @layer re.utilities {
   /* Action text already consumed its size; local spinner overrides remain independent. */
-  :where(:is(button,.button) .spinner) {
+  :where(:is(button,:is(.button,.scroll-top)) .spinner) {
     inline-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
     block-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
   }

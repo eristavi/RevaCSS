@@ -60,5 +60,5 @@ const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
       <section><p>Project details</p><dl><dt>Owner</dt><dd>{project.owner}</dd><dt>Status</dt><dd>{project.status}</dd><dt>Due</dt><dd><time datetime={project.date}>{project.due}, 2026</time></dd></dl><label>Completion <progress value={project.progress} max="100">{project.progress}%</progress></label><p>{project.progress}% complete</p><p>Sample project information for this demonstration.</p></section>
       <footer><button type="button" popovertarget={`project-inspector-${index}`} popovertargetaction="hide">Back to dashboard</button></footer>
     </aside>)}
-  </Content>
+  <p><a class="scroll-top" href={embedded?'#dashboard-title':'#page-top'}><span aria-hidden="true">↑</span> Back to top</a></p></Content>
 </div>

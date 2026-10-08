@@ -68,13 +68,14 @@ const plans=[
   </section>
   <section class="forma-section" id="pricing" aria-labelledby="pricing-title">
     <header class="forma-section-heading"><p class="forma-eyebrow">MAKE ROOM TO GROW</p><h2 id="pricing-title">A space that fits your work.</h2><p>Illustrative monthly plans. Choose one to preview the next step.</p></header>
-    <div class="grid forma-plans">{plans.map(plan=><article class:list={['card stack',{'forma-featured':plan.featured}]}>
+    <div class="card-grid forma-plans">{plans.map(plan=><article class:list={['card',{'forma-featured':plan.featured}]}>
       <header><div class="row justify-between"><h3>{plan.name}</h3>{plan.featured&&<span class="badge">For teams</span>}</div><p>{plan.description}</p></header>
-      <p class="forma-price">€{plan.price}<small> / month</small></p>
-      <ul>{plan.features.map(feature=><li>{feature}</li>)}</ul>
-      <footer><button type="button" class:list={{outline:!plan.featured}} popovertarget={`forma-plan-${plan.name.toLowerCase()}`}>{plan.action} <Fragment set:html={icon('arrow-right')}/></button></footer>
-      <div id={`forma-plan-${plan.name.toLowerCase()}`} popover="auto"><h3>{plan.name}: a place to start.</h3><p>This is a demonstration plan; no purchase or signup takes place.</p><p>Close this preview, then use the contact form to explore the form controls.</p><button type="button" popovertarget={`forma-plan-${plan.name.toLowerCase()}`} popovertargetaction="hide">Close preview</button></div>
-    </article>)}</div>
+      <section><p class="forma-price">€{plan.price}<small> / month</small></p>
+      <ul>{plan.features.map(feature=><li>{feature}</li>)}</ul></section>
+      <footer><div><button type="button" class:list={{outline:!plan.featured}} popovertarget={`forma-plan-${plan.name.toLowerCase()}`}>{plan.action} <Fragment set:html={icon('arrow-right')}/></button></div></footer>
+    </article>)} </div>
+    {plans.map(plan=><div id={`forma-plan-${plan.name.toLowerCase()}`} popover="auto"><h3>{plan.name}: a place to start.</h3><p>This is a demonstration plan; no purchase or signup takes place.</p><p>Close this preview, then use the contact form to explore the form controls.</p><button type="button" popovertarget={`forma-plan-${plan.name.toLowerCase()}`} popovertargetaction="hide">Close preview</button>
+    </div>)}
   </section>
   <section class="forma-section forma-faq" id="faq" aria-labelledby="faq-title">
     <header class="forma-section-heading"><p class="forma-eyebrow">A FEW GOOD QUESTIONS</p><h2 id="faq-title">Before you make yourself at home.</h2></header>
@@ -100,5 +101,5 @@ const plans=[
     </div>
     <div class="alert forma-confirmation" id="contact-confirmation" tabindex="-1"><h3>Ready for the next step.</h3><p>Your browser validated the preview form. No entries were submitted or saved.</p><a href="#contact">Back to the form</a></div>
   </section>
-  <footer class="forma-footer"><div class="row justify-between"><a class="forma-wordmark" href="#demo-site">forma.</a><nav aria-label="Footer"><div class="row"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div></nav></div><p><small>A fictional product. A real HTML/CSS demonstration. Built with <a href={base}>RevaCSS</a>.</small></p></footer>
+  <footer class="forma-footer"><div class="row justify-between"><a class="forma-wordmark" href="#demo-site">forma.</a><nav aria-label="Footer"><div class="row"><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div></nav></div><p><small>A fictional product. A real HTML/CSS demonstration. Built with <a href={base}>RevaCSS</a>.</small> <a class="scroll-top" href="#demo-site"><span aria-hidden="true">↑</span> Back to top</a></p></footer>
 </div>

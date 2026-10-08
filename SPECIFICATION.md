@@ -91,3 +91,11 @@ The optional data-palette="mono" restores monochrome primary actions and links. 
 ## Native application patterns
 
 One ol.steps class presents process stages with native links/spans, aria-current=step and explicit visible state text. One .rating class supports a labelled read-only star display or native fieldset/legend/radio choices; integer values, names, required/disabled states, keyboard operation and reset remain native. One table.calendar class presents server-supplied dates, scoped weekday headers, dated time elements and event links; it is not a date-picker or booking engine. One ol.message-thread class arranges existing article.card surfaces in DOM order, using the existing data-variant=primary for logical outgoing alignment and visible sender/time/status text. No component-specific attributes, JavaScript, implied live-region roles or client-side data engines. Included in core/components/scoped and standalone stylesheets.
+
+## Planned 1.1.0 interaction additions
+
+Fragment scrolling follows the nearest scroll container's inherited `data-motion`: none selects auto, subtle and expressive select native smooth scrolling. Expressive also highlights a targeted heading or gallery item briefly. The browser controls scroll timing; CSS does not wait for scroll completion or maintain selected-slide state. Reduced motion, forced colours and print remove these enhancements. A scoped island cannot change the outer document's scrolling.
+
+`a.scroll-top` is a native action link to an existing page ID, sharing action/material selectors rather than duplicating button styles. It stays in document flow unless the application positions it, and is hidden in print. `.gallery` remains a native proximity-snap list, without autoplay or application state.
+
+The optional motion module enhances native popovers and dialogs with starting styles, drawer-edge translation and supported discrete exits. Native HTML keeps visibility/dismissal/focus ownership. Numeric tokens configure offsets and duration; no per-component motion attribute or framework JavaScript is added.

@@ -33,7 +33,7 @@
         --re-control-line: var(--re-text);
       }
       /* Strong colour backing preserves label contrast while the backdrop remains visible. */
-      :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         --re-glass-button-fill: color-mix(in srgb, var(--re-action-start) 65%, var(--re-action-end));
         --re-glass-button-end: var(--re-action-end);
         background-color: color-mix(in srgb, var(--re-glass-button-fill) var(--re-glass-button-opacity, 90%), transparent);
@@ -43,12 +43,12 @@
         -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
         backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
-      :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), :is(.button,.scroll-top):is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top)):is(.outline,.ghost)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         --re-glass-button-fill: var(--re-surface);
         --re-glass-button-end: var(--re-surface-alt);
       }
-      :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) { border-block-start-color: currentColor; }
-      :where(button.ghost, input:is([type=button],[type=submit],[type=reset]).ghost, .button.ghost, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).ghost):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) { border-block-start-color: transparent; }
+      :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, :is(.button,.scroll-top).outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top)).outline):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) { border-block-start-color: currentColor; }
+      :where(button.ghost, input:is([type=button],[type=submit],[type=reset]).ghost, :is(.button,.scroll-top).ghost, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top)).ghost):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) { border-block-start-color: transparent; }
       :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu, :scope:is(.card, fieldset, details:not(.menu-collapse, .menu-dropdown), dialog, [popover], .top-menu)) {
         background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 32%), transparent);
         background-image: linear-gradient(135deg,
@@ -85,7 +85,7 @@
         --re-control-line: var(--re-palette-control-line);
       }
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
       --re-glass-button-fill: var(--re-action-start);
       background-color: var(--re-action-start);
       background-image: linear-gradient(to bottom, var(--re-action-start), color-mix(in srgb, var(--re-action-end) calc(var(--re-gradient) * 28%), var(--re-action-start)));
@@ -93,8 +93,8 @@
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
     }
-    :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), .button:is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button):is(.outline,.ghost)):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, .button))) { --re-glass-button-fill: var(--re-surface); background-color: transparent; background-image: none; border-block-start-color: transparent; }
-    :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, .button.outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button).outline):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, .button))) { border-block-start-color: currentColor; }
+    :where(button:is(.outline,.ghost), input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost), :is(.button,.scroll-top):is(.outline,.ghost), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top)):is(.outline,.ghost)):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) { --re-glass-button-fill: var(--re-surface); background-color: transparent; background-image: none; border-block-start-color: transparent; }
+    :where(button.outline, input:is([type=button],[type=submit],[type=reset]).outline, :is(.button,.scroll-top).outline, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top)).outline):where(:not([data-material="glass"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) { border-block-start-color: currentColor; }
   }
 }
 
@@ -181,7 +181,7 @@
 @layer re.utilities {
   @media (prefers-reduced-transparency: reduce) {
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
-      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         background-color: var(--re-glass-button-fill, var(--re-action-start));
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
       }
@@ -189,7 +189,7 @@
   }
   @media (prefers-contrast: more) {
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
-      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         background-color: var(--re-glass-button-fill, var(--re-action-start));
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
       }
@@ -197,7 +197,7 @@
   }
   @media (forced-colors: active) {
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
-      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         background-color: ButtonFace; color: ButtonText; border: 1px solid ButtonText; box-shadow: none;
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
       }
@@ -205,7 +205,7 @@
   }
   @media print {
     @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
-      :where(button,input:is([type=button],[type=submit],[type=reset]),.button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, .button))) {
+      :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not([data-material="solid"], .menu-toggle, .dropdown > li > :is(button, :is(.button,.scroll-top)))) {
         background-color: #fff; color: #000; border: 1px solid #000; box-shadow: none;
         background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none;
       }

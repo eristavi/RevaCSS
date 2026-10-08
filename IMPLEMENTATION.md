@@ -81,3 +81,9 @@ Component quality standard, step 1 (2026-10-01): added QUALITY_STANDARD.md, an e
 
 
 Quality CI installation correction (2026-10-01): a WebKit runner timed out before tests while downloading dependencies from azure.archive.ubuntu.com. Validation runners now use the official Ubuntu archive over HTTPS and bounded APT retry/network timeouts, preserving suites, components and signature settings. No framework dependencies or component styles changed.
+
+## Planned 1.1.0 effects and documentation
+
+Added motion-aware fragment scrolling, expressive destination feedback and a one-class native scroll-to-top action. The return action shares existing action, variant, size and material selectors. Optional overlay motion supports dialogs, edge-directed drawers, RTL, discrete exits and backdrop fades. Existing accordion, indicator, focus and validation behavior is retained. No universal effect attribute or new framework JavaScript is introduced.
+
+The shop demonstrates native scroll snap, marketing pricing demonstrates subgrid, blog documents load the optional transition module, and footers demonstrate return links. Motion and state-feedback guides distinguish core behavior, optional CSS, native state, accessibility preferences and support limitations. Development documentation identifies 1.1.0 as pending while npm remains 1.0.0. See `quality/releases/v1.1.0.md` for validation and outstanding acceptance.

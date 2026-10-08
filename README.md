@@ -83,7 +83,7 @@ Choose [shared attributes and defaults](https://eristavi.github.io/RevaCSS/attri
 | [Glass](https://eristavi.github.io/RevaCSS/themes/glass/) | Frosted surfaces, backdrop blur, and shared appearance settings. |
 | [Soft UI](https://eristavi.github.io/RevaCSS/themes/soft/) | Raised opaque surfaces, inset fields and pressed actions using paired shadows. |
 | [Veil](https://eristavi.github.io/RevaCSS/themes/veil/) | Diffused perimeter color and inset contours without backdrop blur. |
-| [Motion](https://eristavi.github.io/RevaCSS/guide/motion/) | Optional native-popover entrances that follow the shared motion setting. |
+| [Motion](https://eristavi.github.io/RevaCSS/guide/motion/) | Optional native overlay transitions that follow the shared motion setting. |
 | [Native selects](https://eristavi.github.io/RevaCSS/components/selects/) | An optional enhancement for single-select pickers in supporting browsers. |
 | [Icons](https://eristavi.github.io/RevaCSS/icons/) | An outline SVG set that inherits the surrounding text color. |
 
@@ -104,6 +104,8 @@ Complete, scoped, and modular builds are available in [`dist/`](https://github.c
 The unreleased 1.1 development build adds [modern CSS patterns](https://eristavi.github.io/RevaCSS/guide/modern-css/): viewport-safe overlays, `.card-grid` with container-responsive actions and subgrid, and a native `.gallery` with proximity scroll snapping. Card grids and galleries are included in the complete core and scoped core, with individual modular files available.
 
 Scroll-driven card entrances are opt-in through `reva.scroll-motion.css` (or `reva.scroll-motion.scoped.css`) and inherited `data-motion="expressive"`. Cross-document same-origin transitions are opt-in through `reva.transitions.css` on both pages; this document-level extension has no scoped variant. Unsupported enhancements retain static content or ordinary navigation. Reduced-motion preferences take priority. These additions are not included in the published 1.0.0 package.
+
+The unreleased build also adds motion-aware native scrolling and a labelled `.scroll-top` link. `none` disables smoothing, `subtle` uses browser-native smooth navigation, and `expressive` adds a brief fragment highlight. The optional motion module now supports dialogs, edge-directed drawers and discrete exits. See [motion](https://eristavi.github.io/RevaCSS/guide/motion/) and [state feedback](https://eristavi.github.io/RevaCSS/guide/effects/) for dependencies and limitations.
 
 ## Project status
 

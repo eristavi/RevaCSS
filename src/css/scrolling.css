@@ -1,0 +1,27 @@
+/* Fragment navigation stays native. The nearest scroll container owns motion. */
+@layer re.base {
+  :where(*) { scroll-behavior: var(--re-scroll-behavior, auto); }
+  :where([id]) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+}
+@layer re.components {
+  @keyframes re-target-emphasis {
+    from {
+      background-color: color-mix(in srgb, var(--re-link) 12%, transparent);
+      box-shadow: inset 0 0 0 2px var(--re-link);
+    }
+    to { background-color: transparent; box-shadow: inset 0 0 0 2px transparent; }
+  }
+  /* Highlight headings and gallery items, never an entire page or form control.
+     :target represents the URL fragment, not a carousel's selected state. */
+  :where(h1,h2,h3,h4,h5,h6):target,
+  :where(section,article,main):target > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(section,article,main):target > header > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(.gallery > li):target {
+    animation: var(--re-target-animation, none);
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(*) { scroll-behavior: auto; --re-target-animation: none; }
+  }
+}

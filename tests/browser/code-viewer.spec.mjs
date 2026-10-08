@@ -2,6 +2,17 @@ import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
+// Native focus scrolling can still be moving after focus() resolves. Observe
+// the actual control's position before testing its pointer interaction.
+async function settleControl(control) {
+ let previous,stable=0;
+ await expect.poll(async()=>{
+  const bounds=await control.boundingBox();
+  stable=bounds && previous && Math.abs(bounds.x-previous.x)<.01 && Math.abs(bounds.y-previous.y)<.01?stable+1:0;
+  previous=bounds;return stable;
+ },{intervals:[100,100,100,200]}).toBeGreaterThanOrEqual(2);
+}
+
 
 test('complete demo sources remain literal, selectable and wrappable without highlighting',async({browser,request})=>{
  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:900}});
@@ -19,7 +30,7 @@ test('complete demo sources remain literal, selectable and wrappable without hig
   await pre.locator('..').getByLabel('Wrap lines').focus();
   await page.keyboard.press('Tab');await expect(pre).toBeFocused();
   expect(await pre.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
-  await pre.locator('..').getByLabel('Wrap lines').check();
+  const wrap=pre.locator('..').getByLabel('Wrap lines');await wrap.focus();await settleControl(wrap);await wrap.check();
   expect(await pre.evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre-wrap');
   expect(await code.textContent()).toBe(source);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

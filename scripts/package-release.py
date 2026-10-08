@@ -35,7 +35,8 @@ for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md',
                  'package.json', 'quality/blockers.json',
                  f'quality/releases/v{version}.md', '.github/assets/revacss-preview.png']:
     files[filename] = (root / filename).read_bytes()
-files['index.html'] = (root / 'examples/quick-start.html').read_bytes().replace(b'../dist/', b'dist/')
+files['starter.html'] = (root / 'examples/quick-start.html').read_bytes().replace(b'../dist/', b'dist/')
+files['index.html'] = files['starter.html']
 if any(filename.endswith('.js') for filename in files if filename.startswith('dist/')):
     raise SystemExit('A framework JavaScript runtime must not enter the distribution.')
 output = args.output.resolve()

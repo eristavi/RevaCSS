@@ -40,7 +40,7 @@
   :where(address) { font-style: normal; }
   :where(button,input,select,textarea) { font: inherit; color: inherit; }
   :where(button,input,select,textarea,summary,a) { -webkit-tap-highlight-color: transparent; }
-  :where(button, input[type=button],input[type=submit],input[type=reset], .button) {
+  :where(button, input[type=button],input[type=submit],input[type=reset], :is(.button,.scroll-top)) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
     display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
     min-inline-size: 0; max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere;
@@ -50,52 +50,52 @@
     box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
     transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
   }
-  :where(button.danger,.button.danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
-  :where(button.warning,.button.warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
-  :where(button.secondary,.button.secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
+  :where(button.danger,:is(.button,.scroll-top).danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
+  :where(button.warning,:is(.button,.scroll-top).warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
+  :where(button.secondary,:is(.button,.scroll-top).secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
     --re-action-start: var(--re-secondary);
     --re-action-end: var(--re-secondary-end);
     --re-action-text: var(--re-on-secondary);
   }
-  :where(button.outline,.button.outline,button.ghost,.button.ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
-  :where(button.outline,.button.outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
-  :where(button.danger.outline,button.danger.ghost,.button.danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
-  :where(button.secondary:is(.outline,.ghost),.button.secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
+  :where(button.outline,:is(.button,.scroll-top).outline,button.ghost,:is(.button,.scroll-top).ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
+  :where(button.outline,:is(.button,.scroll-top).outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
+  :where(button.danger.outline,button.danger.ghost,:is(.button,.scroll-top).danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
+  :where(button.secondary:is(.outline,.ghost),:is(.button,.scroll-top).secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
   /* Shared semantic variants. Local legacy classes override parent defaults;
      a valid attribute on the action itself overrides a legacy class. */
   @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary); --re-action-link: var(--re-link);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: var(--re-on-success); --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); --re-action-link: var(--re-text);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); --re-action-link: var(--re-danger-link);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) {
       --re-action-start: var(--re-text); --re-action-end: var(--re-text); --re-action-text: var(--re-surface); --re-action-link: var(--re-text);
     }
-    :where(button, input:is([type=button],[type=submit],[type=reset]), .button, :scope:is(button,input:is([type=button],[type=submit],[type=reset]),.button)):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])) { color: var(--re-action-link); }
   }
   :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { cursor: not-allowed; opacity: .6; }
-  @media (hover: hover) { :where(button:enabled:hover,.button:hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
-  :where(button:enabled:active,.button:active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
+  @media (hover: hover) { :where(button:enabled:hover,:is(.button,.scroll-top):hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
+  :where(button:enabled:active,:is(.button,.scroll-top):active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
   :where(label) { display: block; font-weight: 600; margin-block-end: .4em; }
   :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
     display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;

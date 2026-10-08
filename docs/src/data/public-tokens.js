@@ -1,4 +1,8 @@
 export const publicTokens = [
+  ["Scrolling", "--re-anchor-offset", "Nonnegative length", "Fragment target block-start margin; default 1rem. Account for your fixed header."],
+  ["Scrolling", "--re-target-duration", "Nonnegative time", "Expressive fragment highlight duration; default 1.4s. Does not set native scroll speed."],
+  ["Overlay motion", "--re-drawer-shift / --re-drawer-direction", "Length / 1 or -1", "Drawer entrance distance and inline-end/start direction. Direction defaults to 1."],
+  ["Overlay motion", "--re-popover-offset / --re-popover-scale", "Length / positive number", "Numeric expressive overlay translation and scale."],
   ["Viewport", "--re-safe-top / --re-safe-right / --re-safe-bottom / --re-safe-left", "Nonnegative lengths", "Physical safe-area insets, defaulting to browser env() values. Used by full-height overlays and modal bounds."],
   ["Gallery", "--re-gallery-width", "Positive length", "Maximum slide width; default 24rem, bounded by the scroll container."],
   ["Scroll motion", "--re-reveal-distance", "Length", "Optional expressive card entrance distance; default .75rem."],

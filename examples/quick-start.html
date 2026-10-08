@@ -1,22 +1,57 @@
 <!doctype html>
-<html lang="en" data-theme="auto" data-palette="ocean" data-shape="rounded">
+<html lang="en" data-theme="auto" data-palette="default" data-shape="rounded" data-motion="subtle">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RevaCSS 1.0 — Erisian</title>
+  <title>RevaCSS starter</title>
   <link rel="stylesheet" href="../dist/reva.min.css">
+  <!-- Optional overlay transitions. Materials and fonts are separate choices. -->
+  <link rel="stylesheet" href="../dist/reva.motion.css">
 </head>
-<body>
-  <main class="container">
-    <article class="card">
-      <h1>Your next idea starts here.</h1>
-      <p>RevaCSS 1.0 — Erisian. Native HTML, shared defaults, and your own direction.</p>
-      <details>
-        <summary>Try a native interaction</summary>
-        <p>This disclosure is controlled by the browser, with no JavaScript runtime.</p>
-      </details>
-      <a class="button" href="https://eristavi.github.io/RevaCSS/">Explore the documentation</a>
-    </article>
+<body id="page-top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main class="container" id="main">
+    <header>
+      <h1>Start with native HTML.</h1>
+      <p>Configure appearance on html. Components inherit those settings; custom CSS controls numeric values.</p>
+      <nav aria-label="Starter sections"><p><a href="#cards">Cards</a> · <a href="#forms">Forms</a> · <a href="#gallery">Gallery</a> · <a href="#disclosures">Disclosures</a></p></nav>
+      <p><a href="https://eristavi.github.io/RevaCSS/reference/components/">Complete component examples</a> · <a href="https://eristavi.github.io/RevaCSS/guide/motion/">Motion and fallbacks</a></p>
+    </header>
+    <section id="cards">
+      <h2>Aligned cards</h2>
+      <!-- Exactly three direct regions. The footer action group adapts to width. -->
+      <div class="card-grid">
+        <article class="card"><header><h3>Personal</h3></header><section><p>A small workspace for your ideas.</p></section><footer><div><a class="button" href="#forms">Get started</a></div></footer></article>
+        <article class="card"><header><h3>A shared workspace for a growing team</h3></header><section><p>Longer content shares row tracks in browsers supporting subgrid.</p></section><footer><div><a class="button" href="#forms">Explore the team plan</a></div></footer></article>
+      </div>
+    </section>
+    <section id="forms">
+      <h2>Labelled native controls</h2>
+      <!-- This starter has no backend. Replace the form action in your application. -->
+      <form action="#forms" method="get">
+        <div class="form-group"><label for="starter-email">Email address</label><input id="starter-email" name="email" type="email" required autocomplete="email" aria-describedby="starter-email-help"><small id="starter-email-help">Required. Enter a complete email address.</small></div>
+        <div class="form-group"><label for="starter-plan">Plan</label><select id="starter-plan" name="plan"><option value="personal">Personal</option><option value="team">Team</option></select></div>
+        <fieldset><legend>Updates</legend><label><input type="checkbox" name="updates"> Send occasional project updates</label></fieldset>
+        <p><button type="submit">Try native validation</button> <button type="reset" class="outline">Reset</button></p>
+      </form>
+    </section>
+    <section id="gallery">
+      <h2>Native scroll-snap gallery</h2>
+      <p id="starter-gallery-help">Scroll, swipe, or follow a view link. Replace these cards with your own figures and images.</p>
+      <ul class="gallery" role="list" tabindex="0" aria-label="Sample views" aria-describedby="starter-gallery-help">
+        <li id="starter-view-one"><article class="card"><h3>First view</h3><p>Always readable, without a carousel script.</p></article></li>
+        <li id="starter-view-two"><article class="card"><h3>Second view</h3><p>Fragment links identify destinations.</p></article></li>
+        <li id="starter-view-three"><article class="card"><h3>Third view</h3><p>Printing displays all views.</p></article></li>
+      </ul>
+      <p><a href="#starter-view-one">View 1</a> · <a href="#starter-view-two">View 2</a> · <a href="#starter-view-three">View 3</a></p>
+    </section>
+    <section id="disclosures">
+      <h2>Disclosures and overlays</h2>
+      <div class="accordion"><details><summary>How do settings work?</summary><p>Choose a page default and override only exceptions. Motion none disables animation; device preferences take priority.</p></details><details data-motion="none"><summary>A local motion exception</summary><p>This disclosure opens immediately.</p></details></div>
+      <p><button type="button" popovertarget="starter-inspector">Open inspector</button></p>
+      <aside class="drawer" id="starter-inspector" popover="auto" aria-labelledby="starter-inspector-title"><header><h3 id="starter-inspector-title">Inspector</h3><button type="button" popovertarget="starter-inspector" popovertargetaction="hide" autofocus>Close</button></header><section><p>The browser owns visibility and dismissal. No framework JavaScript is required.</p></section></aside>
+    </section>
   </main>
+  <footer class="container"><p><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></p><p>RevaCSS · MIT · Replace the sample content with your own.</p></footer>
 </body>
 </html>

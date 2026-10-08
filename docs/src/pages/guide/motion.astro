@@ -2,127 +2,72 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
-const sections=[{id:'installation',title:'Enable motion'},{id:'shared-motion',title:'Shared intensity'},{id:'popover-motion',title:'Native popovers'},{id:'accordion-motion',title:'Accordion motion'},{id:'local-motion',title:'Local overrides'},{id:'motion-boundaries',title:'Behaviour and preferences'},{id:'scoped-motion',title:'Scoped use'}];
-const installation=`<!doctype html>
-<html lang="en" data-theme="auto" data-motion="subtle">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My interface</title>
-  <link rel="stylesheet" href="/assets/reva/reva.css">
-  <!-- Optional; load after the core. -->
-  <link rel="stylesheet" href="/assets/reva/reva.motion.css">
-</head>
-<body>
-  <!-- Supported popovers inherit the page motion setting. -->
-</body>
-</html>`;
-const intensities=`<section class="row" data-motion="subtle">
-  <div>
-    <button type="button" popovertarget="motion-subtle">Subtle entrance</button>
-    <ul class="dropdown" id="motion-subtle" popover="auto"
-        role="list" aria-label="Subtle resources">
-      <li><button type="button" popovertarget="motion-subtle"
-                  popovertargetaction="hide" autofocus>Close resources</button></li>
-      <li><a href="${base}guide/">Get started</a></li>
-      <li><a href="${base}reference/">API reference</a></li>
-    </ul>
-  </div>
-  <div data-motion="expressive">
-    <button type="button" popovertarget="motion-expressive">Expressive entrance</button>
-    <ul class="dropdown" id="motion-expressive" popover="auto"
-        role="list" aria-label="Expressive resources">
-      <li><button type="button" popovertarget="motion-expressive"
-                  popovertargetaction="hide" autofocus>Close resources</button></li>
-      <li><a href="${base}components/dropdowns/">Dropdown documentation</a></li>
-      <li><a href="${base}themes/glass/">Glass material</a></li>
-    </ul>
-  </div>
-  <div data-motion="none">
-    <button type="button" popovertarget="motion-none">No entrance motion</button>
-    <ul class="dropdown" id="motion-none" popover="auto"
-        role="list" aria-label="Stationary resources">
-      <li><button type="button" popovertarget="motion-none"
-                  popovertargetaction="hide" autofocus>Close resources</button></li>
-      <li><a href="${base}guide/accessibility/">Behaviour and accessibility</a></li>
-    </ul>
-  </div>
+const sections=[{id:'intensity',title:'Motion levels'},{id:'scrolling',title:'Anchor navigation'},{id:'overlays',title:'Overlays and drawers'},{id:'accordions',title:'Accordions'},{id:'boundaries',title:'Overrides and preferences'}];
+const anchors=`<section data-motion="expressive">
+  <p><a href="#motion-destination">Go to the destination</a></p>
+  <h3 id="motion-destination">An identifiable destination</h3>
+  <p>The heading receives a brief accent highlight when its fragment is active.</p>
 </section>`;
-const popover=`<section data-motion="subtle">
-  <button type="button" popovertarget="motion-information">Open information</button>
-  <aside id="motion-information" popover="auto"
-         aria-labelledby="motion-information-title">
-    <h3 id="motion-information-title">Ordinary HTML, native behaviour</h3>
-    <p>Motion adds presentation. The browser still owns opening and dismissal.</p>
-    <button type="button" popovertarget="motion-information"
-            popovertargetaction="hide" autofocus>Close information</button>
-  </aside>
-</section>`;
-const accordion=`<section data-motion="expressive">
-  <div class="accordion">
-    <details>
-      <summary>Does motion need JavaScript?</summary>
-      <p>No. Native details owns the open state; CSS enhances expansion,
-         collapse and the indicator.</p>
-    </details>
-    <details>
-      <summary>Can I turn it off locally?</summary>
-      <p>Put data-motion="none" on a nearer parent to remove transitions.</p>
-    </details>
-  </div>
-</section>`;
-const local=`<section data-motion="expressive">
-  <!-- A nearer value changes only this branch. -->
-  <div data-motion="none">
-    <button type="button" popovertarget="motion-local">Open without motion</button>
-    <ul class="dropdown" id="motion-local" popover="auto"
-        role="list" aria-label="Local resources">
-      <li><a href="${base}guide/styling/">Styling and inheritance</a></li>
-    </ul>
-  </div>
-</section>`;
-const scoped=`<link rel="stylesheet" href="/assets/reva/reva.scoped.css">
-<link rel="stylesheet" href="/assets/reva/reva.motion.scoped.css">
-
-<section class="reva" data-theme="dark" data-motion="subtle">
-  <button type="button" popovertarget="scoped-motion-links">Resources</button>
-  <ul class="dropdown" id="scoped-motion-links" popover="auto"
-      role="list" aria-label="Scoped resources">
-    <li><a href="/docs/">Documentation</a></li>
+const overlays=`<section data-motion="subtle">
+  <button type="button" popovertarget="motion-resources">Open resources</button>
+  <ul class="dropdown" id="motion-resources" popover="auto" role="list" aria-label="Resources">
+    <li><a href="${base}guide/">Get started</a></li>
+    <li><button type="button" popovertarget="motion-resources" popovertargetaction="hide" autofocus>Close resources</button></li>
   </ul>
+  <div data-motion="expressive">
+    <button type="button" popovertarget="motion-inspector">Open inspector</button>
+    <aside class="drawer" id="motion-inspector" popover="auto" aria-labelledby="motion-inspector-title">
+      <header><h3 id="motion-inspector-title">Project inspector</h3><button type="button" popovertarget="motion-inspector" popovertargetaction="hide" autofocus>Close inspector</button></header>
+      <section><p>The drawer inherits expressive motion and safe-area spacing.</p></section>
+    </aside>
+  </div>
 </section>`;
+const accordion=`<div class="accordion" data-motion="expressive">
+  <details><summary>What changes with expressive motion?</summary><p>Supported browsers animate expansion and add a content fade.</p></details>
+  <details data-motion="none"><summary>A local exception</summary><p>This disclosure changes immediately.</p></details>
+</div>`;
 ---
-<DocsLayout title="Motion and animations" active="motion" sections={sections}>
-  <p class="doc-kicker">LEARN / OPTIONAL MODULES</p>
-  <h1>Motion and animations</h1>
-  <p class="doc-lead">Shared motion controls accordion expansion, rotating indicators and gliding highlights in the core. An optional CSS file adds entrances for dropdowns, navigation panels and other native popovers. No JavaScript or extra animation classes are needed.</p>
-  <section><h2>Default gliding highlights</h2><p>Tabs include shared underlines; desktop top-level navigation and pagination use a gliding hover background. Submenus use static hover and focus styling. These effects are included in the core and their dedicated component modules. Tabs follow the selected choice; navigation and pagination follow hover or visible keyboard focus, returning to a current-page item when present. Pagination keeps its current-page styling throughout. This enhancement requires CSS anchor positioning and anchor-scope; other browsers keep static state styling.</p><p>No optional motion file is needed for these highlights. The existing parent <code>data-motion</code> setting controls glide duration, and reduced-motion preferences remove the transition. The optional file below adds popover entrances separately.</p></section>
-  <Example id="installation" title="Enable the optional module" description="Load the motion extension after your core stylesheet. Put the html configuration on the opening html tag of your document, with the stylesheet links inside head." render={false} html={installation}/>
-  <p>The complete core and component bundles do not include this extension. The documentation opts in, so its top navigation also demonstrates the entrance. Glass and motion can be used together with their matching core build.</p>
-  <Example id="shared-motion" title="Compare the shared intensity settings" description="Open each dropdown to compare the entrances. The row supplies subtle motion; nearer values select expressive or none. Reduced-motion preferences override both animated settings." html={intensities}/>
-  <div class="table-scroll" role="region" aria-label="Popover motion intensity" tabindex="0"><table><thead><tr><th scope="col">Setting</th><th scope="col">Duration</th><th scope="col">Entrance</th></tr></thead><tbody>
-    <tr><th scope="row"><code>data-motion="none"</code></th><td>0ms</td><td>Immediate display; no fade, slide or scale.</td></tr>
-    <tr><th scope="row"><code>data-motion="subtle"</code></th><td>140ms</td><td>Fade, .35rem vertical offset and scale from .985 to 1. Default.</td></tr>
-    <tr><th scope="row"><code>data-motion="expressive"</code></th><td>240ms</td><td>Fade, .6rem vertical offset and scale from .97 to 1.</td></tr>
-  </tbody></table></div>
-  <Example id="popover-motion" title="Use the same motion with native popovers" description="No component class is needed to opt this panel into motion. Its existing popover attribute identifies the supported surface; its parent sets the intensity." html={popover}/>
-  <Example id="accordion-motion" title="Accordion expansion and collapse" description="Included in the core and accordion component module; the optional motion extension is not required. Keep the existing details and summary markup and configure the parent once." html={accordion}/>
-  <p><code>none</code> changes content and the chevron immediately. <code>subtle</code> expands and collapses with a rotating chevron over 140ms. <code>expressive</code> uses 240ms and adds a gentle content fade. Browsers supporting <code>::details-content</code>, <code>interpolate-size: allow-keywords</code> and discrete transitions animate the content; other browsers retain instant native disclosure. Reduced motion disables all accordion transitions. Ordinary details outside <code>.accordion</code> keep their existing styling.</p>
-  <p>See <a href={base+'components/accordions/'}>all accordion examples</a>. Browser and actual-device validation of this enhancement remains deferred until requested.</p>
-  <Example id="local-motion" title="Override only exceptions" description="Keep the panel inside its configured DOM parent, even though the browser paints it in the top layer. No motion attribute is repeated on individual links or buttons." html={local}/>
-  <section id="motion-boundaries">
-    <h2>Behaviour and preferences</h2>
-    <ul>
-      <li>The optional popover module animates entrances only. Closing is immediate; no display or overlay transition delays native dismissal.</li>
-      <li>Outside-click, Escape, focus and popover stacking retain native behaviour. Motion adds no focus management or ARIA application-menu interaction.</li>
-      <li><code>prefers-reduced-motion: reduce</code> removes all entrance transitions, including when a local branch requests expressive motion. Forced colours and print also disable the effect.</li>
-      <li>Browsers without <code>@starting-style</code> display popovers immediately. The regular visible state is never held transparent while waiting for JavaScript.</li>
-      <li>Only opacity, translation and scale change in the optional popover extension. This module does not animate blur, shadows, layout dimensions or backdrop filters.</li>
-      <li>Dialogs, scroll reveals, card entrances and exit effects are outside this first module. Existing spinner, skeleton and edge motion keep their own behaviour.</li>
-    </ul>
-    <p>The entrance uses <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@starting-style">CSS @starting-style</a> when a popover becomes visible. The module owns the popover's opacity, translate, scale and transition declarations; custom effects should override those deliberately rather than stacking another entrance on the same panel.</p>
-    <p class="doc-note">This is an implemented development feature. Browser, actual-device and assistive-technology validation remains deferred until the release checks are requested.</p>
-  </section>
-  <Example id="scoped-motion" title="Match the scoped build" description="Use the scoped motion extension with the scoped core. Keep each popover inside its .reva boundary and use unique target ids." render={false} html={scoped}/>
-  <p><a href={base+'components/dropdowns/'}>Dropdown markup</a> · <a href={base+'components/top-menu/'}>Top navigation</a> · <a href={base+'reference/'}>Stylesheet API</a></p>
+<DocsLayout title="Motion" active="motion" sections={sections}>
+<p class="doc-kicker">LEARN / INTERACTION</p><h1>Motion</h1>
+<p class="doc-lead">One inherited setting controls interaction intensity. Native HTML keeps ownership of navigation, disclosure and overlay state; CSS supplies the presentation.</p>
+<p class="doc-note">The scrolling, scroll-to-top and expanded overlay behavior on this page are planned for 1.1.0. They are available in the development build shown here; published 1.0.0 remains unchanged.</p>
+<section id="intensity"><h2>Choose one page setting</h2>
+<p>Set <code>data-motion</code> on <code>html</code>, then override only exceptions. The default core intensity is subtle. The customizer applies the same setting to these pages.</p>
+<div class="doc-table" role="region" aria-label="Motion levels" tabindex="0"><table><thead><tr><th>Setting</th><th>Anchor links and galleries</th><th>Optional overlays</th><th>Accordions and indicators</th></tr></thead><tbody>
+<tr><th scope="row"><code>none</code></th><td>Immediate scrolling; no animated highlight</td><td>Immediate opening and closing</td><td>Immediate state changes</td></tr>
+<tr><th scope="row"><code>subtle</code></th><td>Native smooth scrolling</td><td>140ms fade; drawers slide 1rem</td><td>140ms transitions where supported</td></tr>
+<tr><th scope="row"><code>expressive</code></th><td>Smooth scrolling and a brief target highlight</td><td>240ms fade with .6rem translation and .97 scale; drawers slide 2rem without scaling</td><td>240ms transitions; supported accordions also fade content</td></tr>
+</tbody></table></div>
+<Example id="motion-installation" title="Configure the page once" render={false} html={'<html lang="en" data-motion="subtle">\n<head>\n  <link rel="stylesheet" href="/assets/reva/reva.css">\n  <!-- Optional: native overlay transitions. -->\n  <link rel="stylesheet" href="/assets/reva/reva.motion.css">\n</head>\n<body>\n  <!-- Your content -->\n</body>\n</html>'}/>
+</section>
+<section id="scrolling"><h2>Anchor navigation and scroll snap</h2>
+<p>In the core, scroll containers use the inherited motion setting. Ordinary <code>href="#id"</code> links and scroll-snap gallery links remain native. Dragging, swiping and wheel scrolling retain browser behavior; there is no automatic advancement or JavaScript scroll handler.</p>
+<p>The browser chooses smooth-scroll timing and easing and may ignore smoothing. Subtle and expressive therefore have the same native scrolling speed. Expressive adds a 1.4s accent highlight to targeted headings, the first heading in a targeted section, or a targeted gallery list item. The fragment identifies a destination, not a selected slide.</p>
+<p>The highlight begins when the URL fragment changes, possibly before scrolling finishes. Clicking the already active fragment does not reliably restart it. It does not change focus, selection or ARIA state.</p>
+<p>Set <code>--re-anchor-offset</code> on your scroll region or page to leave space above destinations, especially beneath fixed headers. The default is 1rem; application CSS can set a larger value. Existing author scroll-margin rules still win. <code>--re-target-duration</code> changes only the highlight duration, not native scroll timing.</p>
+</section>
+<Example id="anchor-motion" title="Native fragment feedback" html={anchors}/>
+<p><a href={base+'guide/modern-css/#gallery'}>Try the scroll-snap gallery</a> · <a href={base+'components/scroll-top/'}>Scroll-to-top component</a></p>
+<section id="overlays"><h2>Optional overlays and drawers</h2>
+<p>Load <code>reva.motion.css</code> after the global core, or <code>reva.motion.scoped.css</code> after the scoped core. Native popovers and open dialogs share fade/translation/scale transitions. Drawers and mobile app-shell sidebars translate from their edge, respecting RTL, without scaling.</p>
+<p>Opening uses <code>@starting-style</code>. Supported discrete transitions retain display and top-layer paint during a short exit; unsupported browsers close immediately. Backdrops fade where supported. Escape, outside dismissal and closed-state focus behavior remain browser-owned.</p>
+<p>A modal dialog still needs a supported native command invoker or an application-owned <code>showModal()</code> call. This stylesheet styles state changes; it does not implement dialog opening, focus recovery, trapping, body-scroll locking or a router.</p>
+<p>Moving a drawer to inline-start with your own positioning also requires <code>--re-drawer-direction: -1</code>. The default <code>1</code> describes inline-end. <code>--re-drawer-shift</code>, <code>--re-popover-offset</code> and <code>--re-popover-scale</code> allow numeric changes. The module owns overlay opacity, translate, scale and transition declarations; override deliberately rather than combining competing animations.</p>
+</section>
+<Example id="overlay-motion" title="Dropdown and inspector" html={overlays}/>
+<section id="accordions"><h2>Native disclosure enhancement</h2>
+<p>Accordion motion is already in the core; it does not require the overlay extension. Browsers supporting <code>::details-content</code>, intrinsic-size interpolation and discrete transitions animate the content. Other browsers keep usable native disclosure with a rotating indicator where available. No guessed maximum height or extra wrapper is required.</p>
+</section>
+<Example id="accordion-motion" title="Expressive disclosure with a local exception" html={accordion}/>
+<section id="boundaries"><h2>Overrides, preferences and fallbacks</h2>
+<ul>
+<li>Reduced motion, forced colours and print remove the added scroll/highlight and overlay animation even inside an expressive branch.</li>
+<li>The nearest scroll container owns scrolling. A motion override on a heading cannot change document scrolling; put the override on <code>html</code> for page navigation, or on a containing gallery for its own scrolling.</li>
+<li>The scoped build only styles inside <code>.reva</code>. It can control an island's scroll containers, but cannot animate the outer document's scrolling. Place global document rules in application CSS when appropriate.</li>
+<li>Local overrides still control target feedback and component transitions. Keep top-layer elements inside their configured DOM parent.</li>
+<li>Focus rings, selected states and error messages stay visible when motion is off. See <a href={base+'guide/effects/'}>effects and state feedback</a>.</li>
+</ul>
+<p>Scroll-driven card entrances and cross-document transitions remain separate optional files. See <a href={base+'guide/modern-css/'}>modern CSS patterns</a> for their installation and support boundaries.</p>
+<p>Standards: <a href="https://www.w3.org/TR/css-overflow-3/#smooth-scrolling">native smooth scrolling</a> · <a href="https://www.w3.org/TR/css-transitions-2/">starting styles and discrete transitions</a>.</p>
+</section>
 </DocsLayout>

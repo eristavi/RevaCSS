@@ -7,7 +7,8 @@ export const componentGroups = [
       "layouts",
       "tables",
       "media",
-      "description-lists"
+      "description-lists",
+      "scroll-top"
     ]
   },
   {
@@ -69,6 +70,7 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "scroll-top": ["a.scroll-top with href pointing to an existing top ID", "A visible link label; optional numeric positioning in application CSS.", "reva.scroll-top.css + reva.scrolling.css", "Native fragment navigation. No scroll observer, automatic hiding or JavaScript."],
   "steps": ["ol.steps > li > a or span", "aria-current=step; visible state text; inherited appearance.", "reva.steps.css", "Native process navigation; application supplies stage state and destinations."],
   "rating": ["fieldset.rating > legend, label > input[type=radio], span; labelled .rating display", "Native radio name/value/checked/disabled/required and reset; accessible numeric display.", "reva.rating.css", "Integer star selection without JavaScript; backend supplies averages and submissions."],
   "calendar": ["table.calendar > caption, thead, tbody", "Weekday headers, time[datetime], aria-current=date and native event links.", "reva.calendar.css", "Server-rendered month display; no date picker, range selection or booking engine."],
@@ -254,8 +256,13 @@ export const componentContracts = {
   ]
 };
 export const learnLinks = [
- { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
  { key:'guide', title:'Get started', path:'guide/' },
+ { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
+ { key:'motion', title:'Motion and animations', path:'guide/motion/' },
+ { key:'effects', title:'Effects and state feedback', path:'guide/effects/' },
+ { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
+ { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
+ { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' },
  { key:'marketing-demo', title:'Marketing website demo', path:'demos/marketing/' },
  { key:'dashboard-demo', title:'Dashboard demo', path:'demos/dashboard/' },
  { key:'shop-demo', title:'Shop demo', path:'demos/shop/' },
@@ -263,10 +270,6 @@ export const learnLinks = [
  { key:'blog-article-demo', title:'Blog article demo', path:'demos/blog/room-for-better-work/' },
  { key:'blog-archive-demo', title:'Blog archive demo', path:'demos/blog/archive/' },
  { key:'blog-author-demo', title:'Blog author demo', path:'demos/blog/author/alex-morgan/' },
- { key:'motion', title:'Motion and animations', path:'guide/motion/' },
- { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
- { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
- { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' }
 ];
 export const themeLinks = [
  { key:'themes', title:'Theme overview', path:'themes/' },
