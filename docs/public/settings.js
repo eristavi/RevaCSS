@@ -26,6 +26,38 @@
     if(storageKey===docsKey && !Object.keys(current).length)return read(legacyDocsKey);
     return current;
   };
+  const invalidateMaterials=doc=>{
+    // Refresh Firefox's material scope matches without fetching or reloading.
+    for(const sheet of doc.styleSheets){
+      if(!sheet.disabled && /\/reva\.(glass|veil|soft)(\.scoped)?(\.min)?\.css(?:\?|$)/.test(sheet.href || '')){
+        sheet.disabled=true;
+        sheet.disabled=false;
+      }
+    }
+  };
+  const isolatedPreviews=new Set();
+  const syncPreview=frame=>{
+    const doc=frame.contentDocument;
+    const previewRoot=doc?.documentElement;
+    if(!previewRoot)return;
+    const previousMaterial=previewRoot.getAttribute('data-material');
+    for(const key of Object.keys(schema.values)){
+      const attribute='data-'+key;
+      const value=root.getAttribute(attribute);
+      if(value===null)previewRoot.removeAttribute(attribute);
+      else previewRoot.setAttribute(attribute,value);
+    }
+    if(previewRoot.getAttribute('data-material')!==previousMaterial)invalidateMaterials(doc);
+  };
+  const syncPreviews=()=>{for(const frame of isolatedPreviews)syncPreview(frame);};
+  const initPreviews=()=>{
+    for(const frame of document.querySelectorAll('iframe.example-isolated')){
+      if(isolatedPreviews.has(frame))continue;
+      isolatedPreviews.add(frame);
+      frame.addEventListener('load',()=>syncPreview(frame));
+      syncPreview(frame);
+    }
+  };
   const apply=value=>{
     const previousMaterial=root.getAttribute('data-material');
     for(const [key,choice] of Object.entries(clean(value))){
@@ -36,13 +68,9 @@
       // Firefox can retain matches from the previous @scope material until
       // hover. Re-enable the loaded material sheets to invalidate those matches
       // without reloading the page, fetching CSS, or replacing any DOM nodes.
-      for(const sheet of document.styleSheets){
-        if(!sheet.disabled && /\/reva\.(glass|veil|soft)(\.scoped)?(\.min)?\.css(?:\?|$)/.test(sheet.href || '')){
-          sheet.disabled=true;
-          sheet.disabled=false;
-        }
-      }
+      invalidateMaterials(document);
     }
+    syncPreviews();
   };
   // Restore before styles load, reducing flashes of the wrong appearance.
   apply(stored());
@@ -114,10 +142,10 @@
     if(!theme || themeControl)return;
     themeControl=theme;
     theme.value=stored().theme || initialTheme;
-    theme.addEventListener('change',()=>{root.setAttribute('data-theme',theme.value);save(storageKey,{...stored(),theme:theme.value});});
+    theme.addEventListener('change',()=>{root.setAttribute('data-theme',theme.value);syncPreviews();save(storageKey,{...stored(),theme:theme.value});});
   };
   window.RevaSettings={initCustomizer,initTheme};
-  document.addEventListener('DOMContentLoaded',()=>{initCustomizer();initTheme();});
+  document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();});
   window.addEventListener('storage',event=>{
     if(event.key===storageKey || event.key===legacyDocsKey || event.key===null){
       if(customizer)customizer.restore();
