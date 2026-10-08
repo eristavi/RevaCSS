@@ -1,6 +1,6 @@
 # RevaCSS component quality standard
 
-Status: acceptance contract for the framework. RevaCSS 1.0.0 — Erisian is a public GitHub distribution with its validation status disclosed. The six manual acceptance items remain open; this document does not certify their completion or accessibility conformance. The component design is preserved.
+Status: acceptance contract for the framework. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
 
 ## Required acceptance gates
 

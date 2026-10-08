@@ -1,6 +1,6 @@
 {
   "name": "revacss",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A CSS framework for native HTML. Shared design defaults, adaptive themes, and native components.",
   "type": "module",
   "license": "MIT",

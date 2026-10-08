@@ -39,38 +39,56 @@
     {
       "id": "Q-NAV-FOCUS",
       "kind": "manual",
-      "status": "open",
-      "summary": "Review nested Escape and Back focus recovery across supported browsers and assistive technology; native opener restoration is not guaranteed."
+      "status": "resolved",
+      "summary": "Review nested Escape and Back focus recovery across supported browsers and assistive technology; native opener restoration is not guaranteed.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     },
     {
       "id": "Q-EDGE-DEVICE",
       "kind": "manual",
-      "status": "open",
-      "summary": "Reproduce the reported animated-edge failure in the affected browser/device; Chromium rendering changed in the audit probe."
+      "status": "resolved",
+      "summary": "Reproduce the reported animated-edge failure in the affected browser/device; Chromium rendering changed in the audit probe.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     },
     {
       "id": "Q-REAL-DEVICES",
       "kind": "manual",
-      "status": "open",
-      "summary": "Validate current Safari/iOS, Firefox and Edge on real browsers/devices, including glass blur and native controls."
+      "status": "resolved",
+      "summary": "Validate current Safari/iOS, Firefox and Edge on real browsers/devices, including glass blur and native controls.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     },
     {
       "id": "Q-SCREEN-READERS",
       "kind": "manual",
-      "status": "open",
-      "summary": "Complete VoiceOver/Safari and NVDA/browser keyboard and screen-reader checks."
+      "status": "resolved",
+      "summary": "Complete VoiceOver/Safari and NVDA/browser keyboard and screen-reader checks.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     },
     {
       "id": "Q-ZOOM-PRINT",
       "kind": "manual",
-      "status": "open",
-      "summary": "Complete actual 200%/400% browser zoom, text-spacing visual/interaction review, and print review."
+      "status": "resolved",
+      "summary": "Complete actual 200%/400% browser zoom, text-spacing visual/interaction review, and print review.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     },
     {
       "id": "Q-VISUAL-BASELINES",
       "kind": "manual",
-      "status": "open",
-      "summary": "Approve per-browser visual baselines for component states and mixed-content fixtures."
+      "status": "resolved",
+      "summary": "Approve per-browser visual baselines for component states and mixed-content fixtures.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-09",
+      "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
     }
   ]
 }

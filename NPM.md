@@ -1,9 +1,9 @@
 # RevaCSS on npm
 
-**RevaCSS 1.0.0 — Erisian** is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0).
+**RevaCSS 1.1.0 — Erisian** (prepared package; registry publication pending authentication) is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.1.0).
 
 ```sh
-npm install revacss@1.0.0
+npm install revacss@1.1.0
 ```
 
 ## Install the local package
@@ -19,7 +19,7 @@ npm pack --pack-destination artifacts
 In a separate project, install the generated file:
 
 ```sh
-npm install /path/to/RevaCSS/artifacts/revacss-1.0.0.tgz
+npm install /path/to/RevaCSS/artifacts/revacss-1.1.0.tgz
 ```
 
 The tarball includes compiled CSS, tokens, stylesheet type declarations, SVG icons, the optional Manrope font and its license, the MIT license, the README, changelog, and this guide. It contains no framework JavaScript or runtime dependencies. The contributor's Node requirement applies to development tooling rather than installed CSS consumers.
@@ -65,14 +65,14 @@ For plain HTML, copy the required stylesheets from `node_modules/revacss/dist/` 
 ## Registry and CDN use
 
 ```sh
-npm install revacss@1.0.0
+npm install revacss@1.1.0
 ```
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/revacss@1.0.0/dist/reva.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/revacss@1.1.0/dist/reva.min.css">
 ```
 
-The unpkg equivalent is `https://unpkg.com/revacss@1.0.0/dist/reva.min.css`. Both CDN defaults select the complete minified core; extensions and fonts still load separately.
+The unpkg equivalent is `https://unpkg.com/revacss@1.1.0/dist/reva.min.css`. Both CDN defaults select the complete minified core; extensions and fonts still load separately.
 
 ## Validate and publish
 
@@ -84,8 +84,6 @@ npm run check:release-quality
 
 Package tests install an actual tarball in a clean project, verify public paths and distribution bytes, and build global/scoped consumer pages with Vite. Browser checks exercise the bundled pages without JavaScript in Chromium, Firefox, and WebKit. Use the browser installation steps in the main README first.
 
-Six manual acceptance items remain open in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json). The maintainer has authorized first publication of `revacss@1.0.0` with these limitations disclosed. The [recorded exception](https://github.com/eristavi/RevaCSS/blob/main/quality/npm-publication-v1.0.0.json) applies only to this version and these six manual items. It does not certify manual acceptance.
+All six manual acceptance items have maintainer sign-off recorded in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v1.1.0.md). The ordinary release gate and npm lifecycle gate must pass; the historic 1.0.0 exception does not apply to 1.1.0.
 
-`prepublishOnly` invokes the quality gate with `--npm` to apply the exception. The ordinary `check:release-quality` command still reports the open items. Any new blocker and future versions remain gated.
-
-For the authorized first publication, verify the npm account with `npm whoami`, run build and validation, and publish from the checkout with `npm publish --access public`. npm authentication and any required two-factor confirmation belong to that publishing step. Package names are claimed by successful publication; checking name availability does not reserve a name.
+The commands and pinned CDN URLs above describe the 1.1.0 package. They become available after publication; until verified, the published registry version remains 1.0.0. Authenticate with npm, verify the account using `npm whoami`, then run `npm publish --access public`. Any required npm two-factor confirmation belongs to that publishing step. There is no automatic npm publishing workflow.

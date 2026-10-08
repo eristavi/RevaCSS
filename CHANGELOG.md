@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-Next planned package release: **1.1.0** (backward-compatible additions). See [the versioning policy](VERSIONING.md).
+No changes recorded yet.
+
+## 1.1.0 — Erisian · 9 October 2026
+
+Backward-compatible additions; see [the versioning policy](VERSIONING.md).
 
 - Motion-aware native fragment scrolling, expressive destination emphasis and an accessible `.scroll-top` link, with local scroll-container overrides and preference handling.
 - Optional overlay motion now includes dialogs, edge-directed drawers, RTL and discrete exits/backdrop fades where supported.

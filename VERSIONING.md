@@ -24,6 +24,6 @@ The public API includes documented native HTML structures, structural classes, d
 
 Documentation and demo edits may be deployed between package releases. Their deployment does not imply a new npm package version. Record them in the changelog when they affect users.
 
-## Next release
+## Current release
 
-The next planned package release is **1.1.0**, because Soft UI adds the backward-compatible `data-material="soft"` option and optional global/scoped stylesheets. The published package remains **1.0.0** until the next release is prepared and published.
+Version **1.1.0** adds backward-compatible Soft UI, scrolling and modern CSS components. GitHub and npm publication status is recorded separately; changing package metadata does not establish registry availability.

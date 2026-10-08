@@ -24,7 +24,9 @@ for (const [name, version, packageName, added, expected] of [
     await copyFile('scripts/check-release-quality.mjs', join(root, 'scripts/check-release-quality.mjs'));
     await writeFile(join(root, 'package.json'), JSON.stringify({ ...metadata, name: packageName, version }));
     await writeFile(join(root, 'quality/blockers.json'), JSON.stringify({
-      ...registry, blockers: [...registry.blockers, ...(added ? [added] : [])],
+      // Model the historical open gates independently of today's acceptance record.
+      ...registry, blockers: [...registry.blockers.map(item => exception.disclosedBlockers.includes(item.id)
+        ? { ...item, status: 'open' } : item), ...(added ? [added] : [])],
     }));
     await writeFile(join(root, 'quality/npm-publication-v1.0.0.json'), JSON.stringify(exception));
     const result = spawnSync(process.execPath, [join(root, 'scripts/check-release-quality.mjs'), '--npm'], { encoding: 'utf8' });

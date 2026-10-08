@@ -1,41 +1,33 @@
-# RevaCSS 1.0 — Erisian
+# RevaCSS 1.1.0 — Erisian
 
-**Start with HTML. Set your defaults once.**
+Native HTML, inherited design settings and a CSS-only framework core.
 
-Erisian is the first public GitHub release of RevaCSS. Build consistent interfaces with native HTML, shared inherited settings, adaptive themes, and optional material extensions. The framework has no JavaScript runtime.
+## What changed
 
-[![One RevaCSS project card in Light, Dark, Glass, and Veil.](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.0.0/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
+- Optional Soft UI material with global/scoped styles, raised surfaces, inset fields and pressed actions.
+- Motion-aware native anchor scrolling, expressive target emphasis and a labelled `.scroll-top` anchor.
+- Native scroll-snap galleries, three-region subgrid cards and container-responsive card actions.
+- Safe-area spacing, optional dialog/drawer entrance and discrete exit motion, RTL support and preference fallbacks.
+- Optional scroll-driven card entrances and same-origin document transitions.
+- Updated shop, marketing, dashboard and blog examples; motion/state-feedback guides and an expanded starter page.
+- Shared documentation customizer, immediate Firefox material updates and smaller documentation/font assets.
+
+The complete core remains below its 15 KiB gzip budget. Materials, overlay motion, scroll-driven entrances, document transitions and fonts load separately. No framework JavaScript runtime or consumer build step is required.
 
 ## Downloads
 
-- `revacss-1.0.0-erisian.zip` — complete compiled distribution and starter HTML.
-- `revacss-1.0.0-erisian.tar.gz` — the same files in tar.gz format.
-- `reva-1.0.0.min.css` — standalone complete minified core.
-- `SHA256SUMS.txt` — SHA-256 checksums for the downloads.
+- `revacss-1.1.0-erisian.zip` and `revacss-1.1.0-erisian.tar.gz`: compiled CSS, tokens, icons, optional font, licenses and documentation.
+- `reva-1.1.0.min.css`: standalone complete minified core.
+- `SHA256SUMS.txt`: download checksums.
 
-Each archive includes global, minified, scoped, modular, and component CSS; optional Glass, Veil, motion, and select styles; SVG icons; the optional Manrope font; tokens; licenses; and release documentation.
+Extract an archive and open `starter.html` or the identical `index.html`. Instructions cover installation, inherited configuration and native component examples. Optional extensions and fonts are separate assets.
 
-Extract an archive and serve its `index.html` to see the starter page. Use `dist/reva.min.css` for a complete global setup, or choose the appropriate scoped/modular build. Fonts and extensions load separately.
+## Validation and limits
 
-## What is included
+See the [validation record](https://github.com/eristavi/RevaCSS/blob/v1.1.0/quality/releases/v1.1.0.md) for automated results and maintainer manual sign-off. The six manual gates are closed on the maintainer's report; exact device/browser versions and captured manual evidence were not supplied. This release does not claim accessibility certification.
 
-- Light, dark, and system themes, with eight coordinated palettes.
-- 24 shared configuration options and 38 documented component contracts.
-- Native forms, details/summary, radios, switches, popovers, dropdowns, drawers, and responsive navigation.
-- Content patterns including cards, tables, metrics, SVG charts, timelines, calendars, and message threads.
-- Optional frosted Glass and diffused Veil surfaces, shared decorative edges, and native-popover entrance motion.
-- Four complete website demonstrations: marketing, dashboard, journal, and shop.
+Native browsers control scrolling duration, focus restoration and overlay behavior. Unsupported enhancements fall back to static content or ordinary navigation. Applications own dialog invocation, routing, forms, data and business behavior. Fixed headers and floating controls must reserve space so they do not cover focused content.
 
-The current design patterns and Glass styling are preserved. This release adds keyboard access to the scrolling top-menu documentation sample and brings automated expectations into line with previously accepted design changes.
+npm version 1.1.0 is prepared but publication requires an authenticated npm account. Until registry publication is verified, use these GitHub downloads; pinned 1.1.0 CDN URLs are not yet confirmed available.
 
-## Validation and known limits
-
-The [validation record](https://github.com/eristavi/RevaCSS/blob/v1.0.0/quality/releases/v1.0.0.md) records the exact automated results and browser versions. The [quality registry](https://github.com/eristavi/RevaCSS/blob/v1.0.0/quality/blockers.json) retains six open manual items: focus recovery, the reported edge device, physical-device coverage, screen readers, actual zoom/print, and approved visual baselines. These items have not been marked passed by headless tests.
-
-Native popover support is required by the documented overlay patterns. Nested Escape/Back focus restoration follows browser behavior. Radio-selected content retains radio semantics; application-menu arrow keys and modal-dialog focus management are outside the supplied CSS contract. Glass readability depends on the configured backdrop and colors; increased contrast and reduced-transparency fallbacks are documented.
-
-An optional documentation settings helper remembers appearance choices and prepares demo downloads. The framework and exported starter HTML remain independent of that helper. Applications supply data, routing, form processing, live announcements, commerce, and other business behavior.
-
-This is a GitHub distribution release. npm publication remains disabled, and the package stays private pending the recorded manual acceptance work. This release does not claim WCAG certification or completion of that work.
-
-[Documentation](https://eristavi.github.io/RevaCSS/) · [Component reference](https://eristavi.github.io/RevaCSS/reference/components/) · [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0)
+[Documentation](https://eristavi.github.io/RevaCSS/) · [Changelog](https://github.com/eristavi/RevaCSS/blob/v1.1.0/CHANGELOG.md)
