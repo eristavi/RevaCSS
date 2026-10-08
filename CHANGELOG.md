@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-No changes recorded yet.
+- Documentation homepage: the introductory card and action inherit the configured page theme, accent and shape instead of forcing light/teal settings. Release-status text now reflects the 1.1.0 maintainer sign-off.
 
 ## 1.1.0 — Erisian · 9 October 2026
 
