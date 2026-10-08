@@ -1,4 +1,8 @@
 export const publicTokens = [
+  ["Viewport", "--re-safe-top / --re-safe-right / --re-safe-bottom / --re-safe-left", "Nonnegative lengths", "Physical safe-area insets, defaulting to browser env() values. Used by full-height overlays and modal bounds."],
+  ["Gallery", "--re-gallery-width", "Positive length", "Maximum slide width; default 24rem, bounded by the scroll container."],
+  ["Scroll motion", "--re-reveal-distance", "Length", "Optional expressive card entrance distance; default .75rem."],
+  ["Document transitions", "--re-view-duration", "Nonnegative time", "Optional navigation transition duration; defaults to inherited --re-duration."],
   ["Semantic colours", "--re-secondary / --re-secondary-end / --re-on-secondary", "Colours", "Secondary action fill, gradient endpoint and foreground."],
   ["Semantic colours", "--re-success / --re-success-end / --re-on-success", "Colours", "Success fill, gradient endpoint and foreground."],
   ["Semantic colours", "--re-warning / --re-warning-end / --re-on-warning", "Colours", "Warning fill, gradient endpoint and foreground."],

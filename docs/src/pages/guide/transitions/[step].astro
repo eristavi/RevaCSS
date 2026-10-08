@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import {stylesheet} from '../../../data/assets.js';
+export function getStaticPaths(){return ['one','two'].map(step=>({params:{step}}));}
+const {step}=Astro.params;
+const next=step==='one'?'two':'one';
+const base=import.meta.env.BASE_URL;
+---
+<Layout title={`Document transition ${step}`} current="modern-css">
+<link rel="stylesheet" href={stylesheet('reva.transitions.css')}/>
+<h1>Document {step}</h1>
+<article class="card"><h2>{step==='one'?'A project overview':'A project detail'}</h2><p>These are separate HTML documents. The optional stylesheet opts both into same-origin view transitions. With reduced motion or without browser support, the link still navigates normally.</p><a class="button" href={base+`guide/transitions/${next}/`}>Open document {next}</a></article>
+<p><a href={base+'guide/modern-css/'}>Back to modern CSS patterns</a></p>
+</Layout>

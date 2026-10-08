@@ -72,7 +72,7 @@ test.describe('CSS-only fallback',()=>{
  test('dropdowns update theme, material and the selected attribute snippet',async({page})=>{
   await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-material').selectOption('glass');
   expect(await page.locator('#demo-site').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
-  await page.getByText('View HTML configuration',{exact:true}).click();
+  await page.getByText('View HTML configuration',{exact:true}).focus();await page.keyboard.press('Enter');
   await expect(page.locator('.attribute-theme-dark')).toBeVisible();await expect(page.locator('.attribute-theme-light')).toBeHidden();
   await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  });

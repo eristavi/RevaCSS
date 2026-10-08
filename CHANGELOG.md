@@ -4,6 +4,11 @@
 
 Next planned package release: **1.1.0** (backward-compatible additions). See [the versioning policy](VERSIONING.md).
 
+- Viewport-safe drawer/app-shell spacing and modal bounds with inherited safe-area tokens.
+- Container-responsive three-region card grids with subgrid enhancement and a native scroll-snap gallery; core and modular stylesheets.
+- Optional global/scoped scroll-driven card entrances and document-level same-origin view transitions, with reduced-motion handling and readable fallbacks.
+- Modern CSS guide with use cases, numeric configuration, standard references and live examples.
+
 - Documentation cleanup: shared minified CSS-only customizer stylesheet, one material stylesheet link per page, and plain selectable complete-demo source views while short component examples retain highlighting.
 - Optional self-hosted Manrope font prefers a 52 KiB WOFF2 asset; the existing TTF remains available as a fallback.
 

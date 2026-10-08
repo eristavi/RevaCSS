@@ -17,6 +17,7 @@
 --re-gap: 1rem;
 --re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#1F6E8C,#2E8A99); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#195E78,#57ACB8); --re-link: light-dark(#1F6E8C,#65BBC7); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#1F6E8C,#65BBC7); --re-palette-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
+--re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
@@ -224,6 +225,15 @@
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
   :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-space) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
+  /* A modal is centred within the safe rectangle, not the raw viewport. */
+  :where(dialog:modal) {
+    top: var(--re-safe-top, env(safe-area-inset-top, 0px));
+    right: var(--re-safe-right, env(safe-area-inset-right, 0px));
+    bottom: var(--re-safe-bottom, env(safe-area-inset-bottom, 0px));
+    left: var(--re-safe-left, env(safe-area-inset-left, 0px));
+    max-inline-size: min(40rem, 90vw, max(0px, calc(100dvw - var(--re-safe-left, 0px) - var(--re-safe-right, 0px) - 2rem)));
+    max-block-size: min(85dvh, max(0px, calc(100dvh - var(--re-safe-top, 0px) - var(--re-safe-bottom, 0px) - 2rem)));
+  }
   :where([hidden]) { display: none !important; }
 }
 
@@ -1345,6 +1355,10 @@
     :scope > footer { margin-block-start: auto; padding-block-start: var(--re-space); }
   }
   :where(.app-shell > aside[popover]) {
+    padding-top: max(var(--re-space), var(--re-safe-top, env(safe-area-inset-top, 0px)));
+    padding-right: max(var(--re-space), var(--re-safe-right, env(safe-area-inset-right, 0px)));
+    padding-bottom: max(var(--re-space), var(--re-safe-bottom, env(safe-area-inset-bottom, 0px)));
+    padding-left: max(var(--re-space), var(--re-safe-left, env(safe-area-inset-left, 0px)));
     position: fixed; inset-block: 0; inset-inline: 0 auto; margin: 0;
     inline-size: min(var(--re-sidebar-width, 16rem), calc(100dvw - 1rem));
     max-inline-size: calc(100dvw - 1rem); block-size: 100dvh;
@@ -1396,6 +1410,11 @@
     block-size: 100dvh;
     max-block-size: 100dvh;
     padding: var(--re-space);
+    /* Insets are physical viewport edges, independent of text direction. */
+    padding-top: max(var(--re-space), var(--re-safe-top, env(safe-area-inset-top, 0px)));
+    padding-right: max(var(--re-space), var(--re-safe-right, env(safe-area-inset-right, 0px)));
+    padding-bottom: max(var(--re-space), var(--re-safe-bottom, env(safe-area-inset-bottom, 0px)));
+    padding-left: max(var(--re-space), var(--re-safe-left, env(safe-area-inset-left, 0px)));
     overflow: auto;
     overscroll-behavior: contain;
     border: var(--re-surface-border) solid var(--re-line);
@@ -1568,6 +1587,53 @@
   @media (forced-colors: active) {
     :where(.nav-rail > a) { color: LinkText; }
     :where(.nav-rail > a[aria-current]:not([aria-current="false"])) { outline: 1px solid Highlight; }
+  }
+}
+/* Three semantic regions per card: header, section, footer. */
+@layer re.components {
+  :where(.card-grid, :scope.card-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--re-column, 18rem)), 1fr));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0;
+  }
+  :where(.card-grid > .card) {
+    display: grid; grid-template-rows: auto 1fr auto;
+    min-inline-size: 0; gap: var(--re-space);
+  }
+  :where(.card-grid > .card > :is(header, section, footer)) { margin-block: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.card-grid > .card > footer > div) { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  @supports (grid-template-rows: subgrid) {
+    :where(.card-grid > .card) { grid-row: span 3; grid-template-rows: subgrid; }
+  }
+  /* A subgrid must not itself establish layout containment. Query its footer. */
+  @supports (container-type: inline-size) {
+    :where(.card-grid > .card > footer) { container-type: inline-size; container-name: re-card-actions; }
+    @container re-card-actions (width < 22rem) {
+      :where(.card-grid > .card > footer > div) { flex-direction: column; align-items: stretch; }
+    }
+  }
+}
+/* Native scrolling and fragment links; no carousel state or automatic playback. */
+@layer re.components {
+  :where(.gallery, :scope.gallery) {
+    display: grid; grid-auto-flow: column;
+    grid-auto-columns: min(100%, var(--re-gallery-width, 24rem));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0; max-inline-size: 100%;
+    margin: 0; padding: var(--re-space); list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+    scroll-padding-inline: var(--re-space);
+  }
+  :where(.gallery > *) { min-inline-size: 0; margin: 0; scroll-snap-align: start; overflow-wrap: anywhere; }
+  :where(.gallery > li > figure) { margin: 0; }
+  :where(.gallery img, .gallery video) { display: block; inline-size: 100%; }
+}
+@layer re.utilities {
+  @media print {
+    :where(.gallery) { display: block; overflow: visible; scroll-snap-type: none; padding: 0; }
+    :where(.gallery > *) { margin-block-end: var(--re-space); break-inside: avoid; }
   }
 }
 @layer re.components {

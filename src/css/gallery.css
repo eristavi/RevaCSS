@@ -1,0 +1,22 @@
+/* Native scrolling and fragment links; no carousel state or automatic playback. */
+@layer re.components {
+  :where(.gallery, :scope.gallery) {
+    display: grid; grid-auto-flow: column;
+    grid-auto-columns: min(100%, var(--re-gallery-width, 24rem));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0; max-inline-size: 100%;
+    margin: 0; padding: var(--re-space); list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+    scroll-padding-inline: var(--re-space);
+  }
+  :where(.gallery > *) { min-inline-size: 0; margin: 0; scroll-snap-align: start; overflow-wrap: anywhere; }
+  :where(.gallery > li > figure) { margin: 0; }
+  :where(.gallery img, .gallery video) { display: block; inline-size: 100%; }
+}
+@layer re.utilities {
+  @media print {
+    :where(.gallery) { display: block; overflow: visible; scroll-snap-type: none; padding: 0; }
+    :where(.gallery > *) { margin-block-end: var(--re-space); break-inside: avoid; }
+  }
+}

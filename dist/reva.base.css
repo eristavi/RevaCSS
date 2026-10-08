@@ -124,6 +124,15 @@
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
   :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-space) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
+  /* A modal is centred within the safe rectangle, not the raw viewport. */
+  :where(dialog:modal) {
+    top: var(--re-safe-top, env(safe-area-inset-top, 0px));
+    right: var(--re-safe-right, env(safe-area-inset-right, 0px));
+    bottom: var(--re-safe-bottom, env(safe-area-inset-bottom, 0px));
+    left: var(--re-safe-left, env(safe-area-inset-left, 0px));
+    max-inline-size: min(40rem, 90vw, max(0px, calc(100dvw - var(--re-safe-left, 0px) - var(--re-safe-right, 0px) - 2rem)));
+    max-block-size: min(85dvh, max(0px, calc(100dvh - var(--re-safe-top, 0px) - var(--re-safe-bottom, 0px) - 2rem)));
+  }
   :where([hidden]) { display: none !important; }
 }
 

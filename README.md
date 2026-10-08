@@ -101,6 +101,10 @@ Load an optional extension after the core, then configure it through the same pa
 
 Complete, scoped, and modular builds are available in [`dist/`](https://github.com/eristavi/RevaCSS/tree/v1.0.0/dist). Fonts load separately through `reva-fonts.css`; copy `dist/fonts/` alongside it. The [stylesheet reference](https://eristavi.github.io/RevaCSS/reference/) explains dependencies and extension choices.
 
+The unreleased 1.1 development build adds [modern CSS patterns](https://eristavi.github.io/RevaCSS/guide/modern-css/): viewport-safe overlays, `.card-grid` with container-responsive actions and subgrid, and a native `.gallery` with proximity scroll snapping. Card grids and galleries are included in the complete core and scoped core, with individual modular files available.
+
+Scroll-driven card entrances are opt-in through `reva.scroll-motion.css` (or `reva.scroll-motion.scoped.css`) and inherited `data-motion="expressive"`. Cross-document same-origin transitions are opt-in through `reva.transitions.css` on both pages; this document-level extension has no scoped variant. Unsupported enhancements retain static content or ordinary navigation. Reduced-motion preferences take priority. These additions are not included in the published 1.0.0 package.
+
 ## Project status
 
 **RevaCSS 1.0.0 — Erisian** is the first public GitHub release. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.0.0). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.

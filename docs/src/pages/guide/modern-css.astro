@@ -1,0 +1,76 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+import {stylesheet} from '../../data/assets.js';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'safe-area',title:'Safe areas'},{id:'adaptive',title:'Adaptive cards'},{id:'gallery',title:'Scroll-snap gallery'},{id:'scroll-motion',title:'Scroll-driven motion'},{id:'transitions',title:'Page transitions'}];
+const cards=`<div class="card-grid">
+  <article class="card">
+    <header><h3>Personal</h3></header>
+    <section><p>A simple workspace for your own projects.</p></section>
+    <footer><div role="group" aria-label="Personal plan actions"><a class="button" href="#pricing">Choose Personal</a></div></footer>
+  </article>
+  <article class="card">
+    <header><h3>Team workspace with shared reporting</h3></header>
+    <section><p>Keep projects, activity and reporting together. Longer headings and descriptions share row tracks with neighbouring cards.</p></section>
+    <footer><div role="group" aria-label="Team plan actions"><a class="button" href="#pricing">Choose Team</a><a href="#pricing">Compare plans</a></div></footer>
+  </article>
+</div>`;
+const gallery=`<p id="gallery-help">Scroll, swipe or follow a numbered link to browse. Nothing advances automatically.</p>
+<ul class="gallery" role="list" tabindex="0" aria-label="Product views" aria-describedby="gallery-help">
+  <li id="product-front"><figure><img src="${base}images/example-landscape.svg" alt="Illustrated product landscape, front view" width="640" height="360"><figcaption>1. Front view</figcaption></figure></li>
+  <li id="product-detail"><figure><img src="${base}images/example-landscape.svg" alt="Illustrated product landscape, detail view" width="640" height="360"><figcaption>2. Detail view</figcaption></figure></li>
+  <li id="product-context"><figure><img src="${base}images/example-landscape.svg" alt="Illustrated product landscape, context view" width="640" height="360"><figcaption>3. In context</figcaption></figure></li>
+</ul>
+<nav aria-label="Choose product view"><a href="#product-front">View 1</a> · <a href="#product-detail">View 2</a> · <a href="#product-context">View 3</a></nav>`;
+---
+<DocsLayout title="Modern CSS patterns" active="modern-css" sections={sections}>
+<link rel="stylesheet" href={stylesheet('reva.scroll-motion.css')}/>
+<p class="doc-kicker">LEARN</p><h1>Modern CSS patterns</h1>
+<p class="doc-lead">Native HTML, inherited appearance and optional CSS enhancements. These patterns add no framework JavaScript. Support checks preserve readable content when an enhancement is unavailable.</p>
+<section id="safe-area"><h2>1. Safe areas for viewport overlays</h2>
+<p>Full-height drawers and mobile app-shell popovers keep their controls inside the viewport safe area. Modal dialogs are centred within the safe rectangle. Ordinary cards, menus and nested containers keep their existing spacing: only the application knows whether they touch a viewport edge.</p>
+<CodeViewer id="safe-head" label="Allow a full-bleed viewport" code={'<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'}/>
+<p>Add <code>viewport-fit=cover</code> only when your page deliberately draws beneath display cutouts. Keep user zoom enabled. Your application must also protect its own full-bleed headers, footers and content; the framework does not pad the entire body.</p>
+<table><caption>Inherited physical inset tokens</caption><thead><tr><th>Token</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>--re-safe-top</code></td><td><code>env(safe-area-inset-top, 0px)</code></td></tr>
+<tr><td><code>--re-safe-right</code></td><td><code>env(safe-area-inset-right, 0px)</code></td></tr>
+<tr><td><code>--re-safe-bottom</code></td><td><code>env(safe-area-inset-bottom, 0px)</code></td></tr>
+<tr><td><code>--re-safe-left</code></td><td><code>env(safe-area-inset-left, 0px)</code></td></tr>
+</tbody></table>
+<p>These values are physical edges even in right-to-left content. Each drawer padding side uses the larger of its normal spacing and its inset, avoiding addition of two gutters. They do not represent a virtual keyboard, and they do not lock body scrolling or turn a popover into a modal.</p>
+<p><a href="https://www.w3.org/TR/css-env-1/#safe-area-insets">Specification: safe-area environment variables</a>.</p>
+</section>
+<Example id="safe-drawer" title="Settings drawer: simulated inset spacing" description="Open the native popover. Numeric overrides simulate top and bottom insets; this is a layout example, not an actual notched-device test." html={'<button type="button" popovertarget="safe-settings">Open safe-area example</button>\n<aside id="safe-settings" class="drawer" popover="auto" aria-labelledby="safe-heading" style="--re-safe-top: 3rem; --re-safe-bottom: 2rem">\n  <header><h2 id="safe-heading">Settings</h2><button type="button" popovertarget="safe-settings" popovertargetaction="hide">Close</button></header>\n  <section><p>The surface reaches the viewport edges. Controls retain safe padding.</p></section>\n  <footer><button type="button" popovertarget="safe-settings" popovertargetaction="hide">Done</button></footer>\n</aside>'}/>
+<Example id="safe-footer" title="Application-owned full-bleed footer" description="Use native CSS on your own viewport-edge surface. Reserve matching space in the page so a fixed footer cannot cover content." render={false} html={'<style>\n  body { padding-bottom: calc(5rem + var(--re-safe-bottom)); }\n  body > footer {\n    position: fixed; inset: auto 0 0; background: var(--re-surface);\n    padding: 1rem;\n    padding-bottom: max(1rem, var(--re-safe-bottom));\n    padding-left: max(1rem, var(--re-safe-left));\n    padding-right: max(1rem, var(--re-safe-right));\n  }\n</style>\n<footer><nav aria-label="Application"><a href="/projects">Projects</a></nav></footer>'}/>
+<section id="adaptive"><h2>2. Container-responsive cards and subgrid</h2>
+<p>Use <code>.card-grid</code> for pricing plans, product summaries or project cards with exactly three direct regions: <code>header</code>, <code>section</code>, <code>footer</code>. Existing <code>.card</code> supplies the surface. Both are structural classes; settings still inherit from the parent.</p>
+<p>Subgrid aligns those regions across each visual row. Without subgrid, independent card grids remain usable. Each footer is a named inline-size container: its action group stacks below 22rem of footer content width, even on a wide desktop. Neither ordinary cards nor the subgridded card itself receives size containment. Wrap footer actions in a native div; a labelled role=group can describe their purpose.</p>
+<p>Set <code>--re-column</code> numerically to change the minimum card width. The column count follows available space. Use the existing <code>dl.description-list</code> for container-responsive term/value pairs.</p>
+<p>Included in the core; modular users load <code>reva.card-grid.css</code> after tokens, base, components and card patterns. <a href="https://www.w3.org/TR/css-grid-2/#subgrids">Subgrid specification</a> · <a href="https://www.w3.org/TR/css-contain-3/">Container query specification</a>.</p>
+</section>
+<Example id="pricing" title="Pricing cards with aligned regions" description="Resize the page: the same card footer adapts to its own width, while subgrid aligns neighbouring sections." html={cards}/>
+<Example id="sidebar-cards" title="The same pattern in a narrow column" description="The viewport may be wide, but these cards remain narrow. No duplicated mobile component or JavaScript resize listener is needed." html={`<div style="max-inline-size: 21rem">${cards.replaceAll('href="#pricing"','href="#sidebar-cards"')}</div>`}/>
+<section id="gallery"><h2>3. Scroll-snap gallery</h2>
+<p><code>.gallery</code> is a native scrollable list, useful for product views, portfolio images and related content. It uses inline-axis proximity snapping: users can stop between items and browse oversized content. It has no automatic playback, selected-slide state or artificial arrow buttons.</p>
+<p>Keep a list label, meaningful image alternatives, visible browsing instructions and unique fragment IDs. <code>tabindex="0"</code> makes the scroll area keyboard reachable; native links also bring items into view. Scrolling stays native, including in right-to-left layouts. Printing displays every item.</p>
+<p>Included in the core; modular users load <code>reva.gallery.css</code> after the base and tokens. Set <code>--re-gallery-width</code> numerically. Unsupported snapping leaves ordinary scrolling. <a href="https://www.w3.org/TR/css-scroll-snap-1/">Scroll Snap specification</a>.</p>
+</section>
+<Example id="product-gallery" title="Browse three product views" description="This example repeats a placeholder illustration. Replace each image and its alternative text with your own product views." html={gallery}/>
+<section id="scroll-motion"><h2>4. Optional scroll-driven entrance motion</h2>
+<p>Load <code>reva.scroll-motion.css</code> after the core, or its matching <code>.scoped.css</code> extension after <code>reva.scoped.css</code>. Within inherited <code>data-motion="expressive"</code>, cards move gently into place as they enter the scrollport. <code>none</code> and <code>subtle</code> boundaries opt out.</p>
+<p>The effect uses a view progress timeline and an entry range, rather than a time-based animation or JavaScript observer. Content is always visible; unsupported timelines show static cards. Reduced motion, forced colours and print remove the effect. Set <code>--re-reveal-distance</code> for the translation distance. Avoid combining it with another card animation or translation; author CSS remains in control.</p>
+<CodeViewer id="scroll-load" label="Load optional scroll motion" code={'<link rel="stylesheet" href="/assets/reva/reva.css">\n<link rel="stylesheet" href="/assets/reva/reva.scroll-motion.css">\n<section data-motion="expressive">\n  <article class="card"><h2>Visible as you scroll</h2><p>Your content.</p></article>\n</section>'}/>
+<div data-motion="expressive"><article class="card"><h3>Scroll-driven card</h3><p>This card uses the optional stylesheet loaded on this guide only.</p></article><article class="card" data-motion="none"><h3>Local motion exception</h3><p>This card remains static inside the expressive section.</p></article></div>
+<p><a href="https://www.w3.org/TR/scroll-animations-1/">Scroll-driven Animations specification</a>.</p>
+</section>
+<section id="transitions"><h2>5. Optional document transitions</h2>
+<p>Load <code>reva.transitions.css</code> on both same-origin pages to opt into native cross-document view transitions. Normal links still navigate normally; supported browsers animate the root snapshots. There is no router or JavaScript transition trigger.</p>
+<p>This is a document-level extension and has no scoped build. It uses inherited <code>--re-duration</code>, including zero duration for <code>data-motion="none"</code>; <code>--re-view-duration</code> supplies a numeric override. The OS reduced-motion preference and forced colours disable navigation transitions.</p>
+<p>Cross-origin links, unsupported browsers and ineligible navigations retain ordinary navigation. Same-document application updates need an application-owned API call and are not supplied by this stylesheet.</p>
+<CodeViewer id="transition-load" label="Opt in on both pages" code={'<link rel="stylesheet" href="/assets/reva/reva.css">\n<link rel="stylesheet" href="/assets/reva/reva.transitions.css">\n<a href="/another-page">Open another page</a>'}/>
+<p><a class="button" href={base+'guide/transitions/one/'}>Open the two-page transition example</a></p>
+<p><a href="https://www.w3.org/TR/css-view-transitions-2/#cross-document-view-transitions">View Transitions Level 2 specification</a>.</p>
+</section>
+</DocsLayout>

@@ -1,0 +1,25 @@
+/* Three semantic regions per card: header, section, footer. */
+@layer re.components {
+  :where(.card-grid, :scope.card-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--re-column, 18rem)), 1fr));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0;
+  }
+  :where(.card-grid > .card) {
+    display: grid; grid-template-rows: auto 1fr auto;
+    min-inline-size: 0; gap: var(--re-space);
+  }
+  :where(.card-grid > .card > :is(header, section, footer)) { margin-block: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.card-grid > .card > footer > div) { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  @supports (grid-template-rows: subgrid) {
+    :where(.card-grid > .card) { grid-row: span 3; grid-template-rows: subgrid; }
+  }
+  /* A subgrid must not itself establish layout containment. Query its footer. */
+  @supports (container-type: inline-size) {
+    :where(.card-grid > .card > footer) { container-type: inline-size; container-name: re-card-actions; }
+    @container re-card-actions (width < 22rem) {
+      :where(.card-grid > .card > footer > div) { flex-direction: column; align-items: stretch; }
+    }
+  }
+}

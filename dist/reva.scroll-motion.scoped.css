@@ -1,0 +1,27 @@
+@scope (.reva) {
+/* Optional. Visible content is the fallback; no hidden or pinned sections. */
+@layer re.components {
+  @supports (animation-timeline: view()) and (animation-range: entry 0% entry 100%) {
+    @keyframes re-scroll-enter {
+      from { opacity: .85; translate: 0 var(--re-reveal-distance, .75rem); }
+      to { opacity: 1; translate: none; }
+    }
+    @scope ([data-motion="expressive"], :scope[data-motion="expressive"]) to ([data-motion]:not([data-motion="expressive"])) {
+      :where(.card, :scope.card) {
+        animation: re-scroll-enter linear both;
+        animation-duration: auto;
+        animation-timeline: view(block);
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    @scope ([data-motion="expressive"], :scope[data-motion="expressive"]) to ([data-motion]:not([data-motion="expressive"])) {
+      :where(.card, :scope.card) { animation: none; opacity: 1; translate: none; }
+    }
+  }
+}
+
+}

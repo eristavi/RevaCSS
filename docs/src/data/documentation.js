@@ -254,6 +254,7 @@ export const componentContracts = {
   ]
 };
 export const learnLinks = [
+ { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
  { key:'guide', title:'Get started', path:'guide/' },
  { key:'marketing-demo', title:'Marketing website demo', path:'demos/marketing/' },
  { key:'dashboard-demo', title:'Dashboard demo', path:'demos/dashboard/' },
