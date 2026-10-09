@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add independent `data-navbar-position="static|sticky"` with an outer `.navbar-header` wrapper, standalone menu/app-shell support, safe-area and stacking settings, anchor/focus clearance and print handling. Documentation and demos start sticky, share a saved position control, and use optional header-size observation to keep stacked preview bars and sidebars clear. Tests remain deferred at the maintainer's request.
+
 - Add Terracotta, Burgundy, Copper, Rose, Aubergine and Slate palettes, each with complete light/dark tokens, generated global/minified/scoped/modular CSS, shared customizer choices and documentation examples. Validation is deferred until the next requested test run.
 
 - Preserve navigation toggles and dropdown controls when selecting a button material. Liquid now uses transparent neutral glass, without accent or semantic tint, and neutral opaque accessibility fallbacks.

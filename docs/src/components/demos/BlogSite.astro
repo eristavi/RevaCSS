@@ -20,7 +20,7 @@ const previous=blogPosts[postIndex-1],next=blogPosts[postIndex+1];
 const items=[{key:'journal',label:'Journal',href:home},{key:'archive',label:'Archive',href:archiveHref},{key:'categories',label:'Categories',children:blogCategories.map(item=>({key:item.slug,label:item.name,href:categoryHref(item.name)}))},{key:'author',label:'Author',href:authorHref}];
 const related=blogPosts.filter(p=>p.slug!==slug).slice(0,3);
 ---
-<header class="container"><TopMenu id="fieldnotes" label="Fieldnotes journal" brand="fieldnotes." brandHref={home} items={items} current={post?'none':view.kind==='journal'?'journal':view.kind==='author'?'author':category?'none':'archive'}><a slot="actions" class="button outline" href={home+'#latest'}>Explore the journal</a></TopMenu></header>
+<header class="navbar-header container"><TopMenu id="fieldnotes" label="Fieldnotes journal" brand="fieldnotes." brandHref={home} items={items} current={post?'none':view.kind==='journal'?'journal':view.kind==='author'?'author':category?'none':'archive'}><a slot="actions" class="button outline" href={home+'#latest'}>Explore the journal</a></TopMenu></header>
 <Content class="container" aria-label={post?'Article':view.kind==='author'?'Author':view.kind==='archive'?'Archive':'Journal'}>
 {post ? <>
   <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Journal</a></li><li><a href={categoryHref(post.category)}>{post.category}</a></li><li><span aria-current="page">{post.title}</span></li></ol></nav>

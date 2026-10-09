@@ -4,7 +4,7 @@ import DashboardSite from './DashboardSite.astro';
 const {config,assetBase}=Astro.props;
 ---
 <!doctype html>
-<html lang="en" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape}>
+<html lang="en" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape} data-navbar-position={config['navbar-position'] || 'sticky'}>
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Forma Studio · RevaCSS dashboard demo</title><SettingsHead kind="demo"/><meta name="description" content="A fictional team workspace dashboard built with native HTML, CSS and SVG."/>
 {['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}
 <link rel="stylesheet" href={assetBase+'demos/dashboard.css'}/></head>

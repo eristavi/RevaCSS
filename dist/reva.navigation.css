@@ -324,3 +324,32 @@
     :where(.top-menu > .menu-actions) { grid-column: 3; grid-row: 1; }
   }
 }
+
+/* The outer header owns stickiness; a nested menu stays its positioning anchor.
+   Standalone menus and semantic app-shell headers use the same inherited mode. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header, .top-menu, :scope.top-menu, .app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto);
+    align-self: start;
+  }
+  :where(.navbar-header .top-menu, .app-shell > header .top-menu) {
+    position: relative;
+    inset-block-start: auto;
+    z-index: auto;
+  }
+}
+@layer re.utilities {
+  /* This also protects keyboard destinations, without changing scroll motion. */
+  :where([id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(:focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.navbar-header, :scope.navbar-header) { display: none; }
+    :where([id], :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}

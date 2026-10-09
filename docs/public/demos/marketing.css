@@ -1,5 +1,6 @@
 /* Demo composition only. Component surfaces and states come from RevaCSS. */
 .forma-site {
+  --re-navbar-height:calc(8rem + 2 * var(--re-navbar-margin, 0rem));
   position: relative;
   isolation: isolate;
   background: radial-gradient(ellipse at 90% 12%, color-mix(in srgb, var(--re-primary) 13%, transparent), transparent 32%), radial-gradient(ellipse at 5% 62%, color-mix(in srgb, var(--re-primary) 9%, transparent), transparent 30%), var(--re-bg);
@@ -8,7 +9,7 @@
   line-height: 1.65;
   overflow-wrap: anywhere;
 }
-.forma-site :is(section, [id]) { scroll-margin-block-start: 2rem; }
+.forma-site :is(section, [id]) { scroll-margin-block-start: calc(2rem + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); }
 .forma-header { padding-block: 1.25rem; }
 .forma-header .menu-brand, .forma-wordmark { font-size: 1.8rem; font-weight: 800; letter-spacing: -.06em; text-decoration: none; }
 .forma-header .top-menu { padding: .65rem 1rem; }
@@ -168,3 +169,5 @@ html.forma-site[data-material="veil"][data-contrast="more"] > body::before { dis
   html:has(#demo-material option[value="glass"]:checked) .forma-workspace,
   html.forma-site[data-material="glass"] .forma-workspace { background: Canvas; }
 }
+
+@media (width < 48rem) { .forma-header { padding-block:.5rem; } }

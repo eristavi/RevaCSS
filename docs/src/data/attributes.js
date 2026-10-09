@@ -8,6 +8,12 @@ export const attributes = [
     glass: false
   },
   {
+    id: 'navbar-position', title: 'data-navbar-position',
+    description: 'Header position. Values: static, sticky. Default: static. Inherited from html or a parent scroll region; a local static value resets it. Applies to .navbar-header, standalone .top-menu and .app-shell > header. Position stays independent of navbar layout and material. See Components / Top menu for wrapper placement and anchor spacing.',
+    html: '<header class="navbar-header" data-navbar-position="sticky">\n  <nav class="top-menu" aria-label="Sticky navigation">\n    <a class="menu-brand" href="#navbar-position">Studio</a>\n  </nav>\n</header>',
+    glass: false
+  },
+  {
     id: "palette",
     title: "data-palette",
     description: `Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: ${options.palette.values.join(', ')}. Default: ${options.palette.default}. Scope: inherited. See Themes / Colour palettes for every light and dark example.`,

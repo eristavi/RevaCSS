@@ -19,7 +19,8 @@
 --re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#1F6E8C,#2E8A99); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#195E78,#57ACB8); --re-link: light-dark(#1F6E8C,#65BBC7); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#1F6E8C,#65BBC7); --re-palette-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;
 --re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
---re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0;
+--re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem;
+--re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -98,10 +99,12 @@
 :where([data-border="none"], :scope[data-border="none"]) { --re-surface-border: 0px; }
 :where([data-controls="styled"], :scope[data-controls="styled"]) { --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%); }
 :where([data-controls="minimal"], :scope[data-controls="minimal"]) { --re-input-opacity: 0; --re-input-shadow: none; }
-:where([data-navbar="standard"], :scope[data-navbar="standard"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; }
-:where([data-navbar="centered"], :scope[data-navbar="centered"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-layout: grid; --re-navbar-links-align: center; --re-navbar-brand-margin: 0; }
-:where([data-navbar="floating"], :scope[data-navbar="floating"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem; }
-:where([data-navbar="split"], :scope[data-navbar="split"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0; --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0; }
+:where([data-navbar="standard"], :scope[data-navbar="standard"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; }
+:where([data-navbar="centered"], :scope[data-navbar="centered"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-layout: grid; --re-navbar-links-align: center; --re-navbar-brand-margin: 0; }
+:where([data-navbar="floating"], :scope[data-navbar="floating"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem; }
+:where([data-navbar="split"], :scope[data-navbar="split"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0; }
+:where([data-navbar-position="static"], :scope[data-navbar-position="static"]) { --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto; }
+:where([data-navbar-position="sticky"], :scope[data-navbar-position="sticky"]) { --re-navbar-position: sticky; --re-navbar-sticky: 1; --re-navbar-layer: var(--re-navbar-z, 30); }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
@@ -1299,6 +1302,35 @@
     :where(.top-menu > .menu-actions) { grid-column: 3; grid-row: 1; }
   }
 }
+
+/* The outer header owns stickiness; a nested menu stays its positioning anchor.
+   Standalone menus and semantic app-shell headers use the same inherited mode. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header, .top-menu, :scope.top-menu, .app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto);
+    align-self: start;
+  }
+  :where(.navbar-header .top-menu, .app-shell > header .top-menu) {
+    position: relative;
+    inset-block-start: auto;
+    z-index: auto;
+  }
+}
+@layer re.utilities {
+  /* This also protects keyboard destinations, without changing scroll motion. */
+  :where([id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(:focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.navbar-header, :scope.navbar-header) { display: none; }
+    :where([id], :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
 /* One shell class owns layout; semantic children own their regions. */
 @layer re.components {
   :where(.app-shell, :scope.app-shell) {
@@ -1312,6 +1344,9 @@
   }
   :where(.app-shell > :is(header, main, section)) { min-inline-size: 0; }
   :where(.app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto); align-self: start;
     display: flex; flex-wrap: wrap; align-items: center;
     gap: var(--re-space); padding: var(--re-space);
     border: var(--re-surface-border) solid var(--re-line);
@@ -1381,9 +1416,9 @@
     }
     :where(.app-shell > aside:not([popover])) {
       display: flex; grid-column: 1; grid-row: 1 / span 2;
-      position: sticky; inset-block-start: var(--re-space); align-self: start;
-      min-block-size: calc(100dvh - 2 * var(--re-space));
-      max-block-size: calc(100dvh - 2 * var(--re-space));
+      position: sticky; inset-block-start: calc(var(--re-space) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); align-self: start;
+      min-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+      max-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
       overflow: auto; overscroll-behavior: contain;
     }
     :where(.app-shell > header) { grid-column: 2; grid-row: 1; }
@@ -1403,6 +1438,19 @@
   @media print {
     :where(.app-shell, :scope.app-shell) { display: block; min-block-size: 0; }
     :where(.sidebar, .app-shell > aside, .app-shell > aside[popover]:popover-open, .app-shell > header) { display: none; }
+  }
+}
+
+/* Dedicated app-shell builds retain their own sticky destination clearance. */
+@layer re.utilities {
+  :where(.app-shell [id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(.app-shell :focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.app-shell [id], .app-shell :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
   }
 }
 /* One structural class; native popovers own interaction and visibility. */

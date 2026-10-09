@@ -1,6 +1,7 @@
 /* Dashboard composition. Shared surfaces and controls remain owned by RevaCSS. */
+.dash-site { --re-navbar-height:calc(5rem + 2 * var(--re-navbar-margin, 0rem)); }
 .dash-site { background: var(--re-bg); color: var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
-.dash-site [id] { scroll-margin-block-start:2rem; }
+.dash-site [id] { scroll-margin-block-start:calc(2rem + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); }
 .dash-site > .app-shell { inline-size:min(calc(100% - 2rem),var(--re-container)); margin-inline:auto; padding-block:2rem; }
 .dash-site > .app-shell > aside > header > a { font-size:2rem; letter-spacing:-.06em; }
 .dash-note { margin-block-start:1rem; font-size:.85rem; }

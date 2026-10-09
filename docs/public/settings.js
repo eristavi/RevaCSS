@@ -137,6 +137,34 @@
       }catch{if(status)status.textContent='Could not prepare the download. Please try again when the page is available.';}
     });
   };
+
+  // Optional demo spacing only: CSS owns sticking, with no scroll listeners.
+  // Observe wrapping, font loading and layout changes without fixing header size.
+  let navbarObserver;
+  const initNavbarSpacing=()=>{
+    if(navbarObserver || !('ResizeObserver' in window))return;
+    const documentationHeader=document.querySelector('.documentation-header.navbar-header');
+    const primary=documentationHeader || document.querySelector('.navbar-header, .app-shell > header');
+    if(!primary)return;
+    const owners=new Map([[primary,root]]);
+    for(const preview of document.querySelectorAll('.demo-preview')){
+      const header=preview.querySelector('.navbar-header, .app-shell > header');
+      if(header)owners.set(header,preview);
+    }
+    const updateSize=header=>{
+      const owner=owners.get(header);
+      if(!owner)return;
+      const style=getComputedStyle(header);
+      const margin=Math.max(0,parseFloat(style.marginBlockStart)||0)+Math.max(0,parseFloat(style.marginBlockEnd)||0);
+      const size=Math.ceil(header.getBoundingClientRect().height+margin)+'px';
+      owner.style.setProperty('--re-navbar-height',size);
+      if(owner===root)document.body.style.setProperty('--re-navbar-height',size);
+      if(header===documentationHeader)root.style.setProperty('--re-docs-navbar-height',size);
+    };
+    navbarObserver=new ResizeObserver(entries=>{for(const entry of entries)updateSize(entry.target);});
+    for(const header of owners.keys()){updateSize(header);navbarObserver.observe(header);}
+  };
+
   // Compatibility for standalone previews that still use the older theme panel.
   let themeControl;
   const initTheme=()=>{
@@ -147,7 +175,7 @@
     theme.addEventListener('change',()=>{root.setAttribute('data-theme',theme.value);syncPreviews();save(storageKey,{...stored(),theme:theme.value});});
   };
   window.RevaSettings={initCustomizer,initTheme};
-  document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();});
+  document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
   window.addEventListener('storage',event=>{
     if(event.key===storageKey || event.key===legacyDocsKey || event.key===null){
       if(customizer)customizer.restore();

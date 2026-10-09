@@ -24,7 +24,7 @@ const formattedExample = example
 const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,html:await container.renderToString(TopMenu,{props:{id:`layout-${navbar}`,navbar,label:`${navbar} navigation`,brand:'Studio',brandHref:'#navbar-layouts',items:[{key:'overview',label:'Overview',href:'#navbar-layouts'},{key:'projects',label:'Projects',href:'#navbar-layouts'}],endItems:navbar==='split'?[{key:'team',label:'Team',href:'#navbar-layouts'},{key:'contact',label:'Contact',href:'#navbar-layouts'}]:undefined}})})));
 
 ---
-<DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"}]}>
+<DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"},{id:"navbar-layouts",title:"Navbar layouts"},{id:"navbar-position",title:"Sticky headers"}]}>
   <p class="doc-kicker">COMPONENTS / NAVIGATION</p>
   <h1>Top menu</h1>
   <p class="prose">Responsive site navigation using native HTML popovers and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Clicking outside dismisses open menus without JavaScript.</p>
@@ -40,12 +40,22 @@ const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,
   <table><thead><tr><th>Value</th><th>Layout</th></tr></thead><tbody>
     <tr><th>standard</th><td>Default: brand left, links and actions right.</td></tr>
     <tr><th>centered</th><td>Balanced desktop grid: brand left, links in the middle, actions right.</td></tr>
-    <tr><th>floating</th><td>Standard alignment in an inset surface with a 1rem outer margin and the shared page width limit. It scrolls normally; it is not fixed or sticky.</td></tr>
+    <tr><th>floating</th><td>Standard alignment in an inset surface with a 1rem outer margin and the shared page width limit. Combine it with data-navbar-position to choose normal or sticky scrolling.</td></tr>
     <tr><th>split</th><td>Central brand with the primary link group on the left and an optional second group or actions on the right.</td></tr>
   </tbody></table>
   {layoutExamples.map(({navbar,html})=><Example id={`navbar-${navbar}`} title={`${navbar[0].toUpperCase()+navbar.slice(1)} navbar`} html={html.replace(/></g,'>\n<')}/>)}
   <p>Split can use a second <code>.menu-items.menu-desktop</code> list inside <code>.menu-actions</code>. Combine both groups in the single mobile list. Each desktop list keeps its own hover glide and dropdown anchors. Group additional actions in <code>.menu-actions</code> to avoid overlapping grid cells. Desktop links wrap inside their allocated column; below 48rem every preset retains the existing Menu button and native mobile popovers. Split changes visual placement, so choose a logical DOM and keyboard order for your content rather than expecting CSS to reorder focus.</p>
   <pre tabindex="0" role="region" aria-label="Navbar inheritance example"><code>{'<html lang="en" data-navbar="centered">\n  <!-- All top menus inherit centered layout. -->\n  <nav class="top-menu" data-navbar="standard" aria-label="Local navigation">\n    <!-- This menu overrides the parent layout. -->\n  </nav>\n</html>'}</code></pre>
+
+  <h2 id="navbar-position">Sticky headers</h2>
+  <p>Set <code>data-navbar-position="sticky"</code> on <code>html</code> or the page's scroll region. The default <code>static</code> keeps normal flow. Position is independent of all four <code>data-navbar</code> layouts, palette and material.</p>
+  <p>Wrap a menu in <code>header.navbar-header</code> when it sits inside a header. Put that wrapper beside the page content, outside short sections. The wrapper stays visible while its inner menu remains the positioning anchor for dropdowns. A standalone <code>.top-menu</code> or semantic <code>.app-shell &gt; header</code> can also inherit the setting.</p>
+  <Example id="sticky-markup" title="A sticky page header" render={false} description="CSS owns the sticky behaviour. Use static on the same outer wrapper to reset an inherited sticky choice." html={'<html lang="en" data-navbar="standard" data-navbar-position="sticky">\n  <body>\n    <header class="navbar-header container">\n      <nav class="top-menu" aria-label="Main navigation">\n        <a class="menu-brand" href="#home">Studio</a>\n        <!-- Use the complete responsive menu markup above. -->\n      </nav>\n    </header>\n    <main id="home">\n      <!-- Page content gives the header room to remain sticky. -->\n    </main>\n  </body>\n</html>'}/>
+  <p>Sticky headers stay within their containing block and follow the nearest scroll container. An ancestor with <code>overflow:auto</code>, <code>scroll</code> or <code>hidden</code> changes that container; avoid accidental overflow wrappers. Native popovers and dialogs remain in the browser's top layer.</p>
+  <p><code>--re-navbar-offset</code> adds space above the bar; safe-area space is added separately. <code>--re-navbar-height</code> reserves room for anchor destinations and keyboard focus. Its CSS-only fallback is 6rem plus Floating margins. Set it to the complete header height when your branding or links wrap. <code>--re-anchor-offset</code> retains the small gap below the header. <code>--re-navbar-z</code> controls the sticky stacking level; the default is 30.</p>
+  <p>The documentation and standalone demos start sticky. Their optional settings helper measures actual header height after font loading or layout changes, and embedded demo bars sit below the documentation bar. Custom applications can set the height in ordinary CSS; the RevaCSS core requires no script or scroll listener. Print hides navigation headers.</p>
+  <p><a href={base+'demos/marketing/'}>Try the complete marketing demo</a> · <a href={base+'demos/dashboard/'}>Try the dashboard</a></p>
+
   <h2>Use the markup</h2>
   <p>Copy the example above and replace its link destinations. Keep both lists in sync. Give each navigation a unique <code>--re-menu-anchor</code> CSS identifier for mobile positioning as shown in the example. Give each desktop dropdown list item a unique <code>--re-menu-branch-anchor</code>; its descendants inherit that identifier so nested panels remain beneath the visible top-level button. Every panel needs a unique document-wide <code>id</code>, and each toggle's <code>popovertarget</code> must match that id. Generate both layouts from a shared template. Nest child panels and their toggle buttons inside the parent panel so native dismissal preserves the hierarchy.</p>
   <h2>Structure and configuration</h2>

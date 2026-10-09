@@ -4,7 +4,7 @@ import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-sett
 import catalog from '../../../../src/icons/catalog.json';
 const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
 const base=import.meta.env.BASE_URL;
-const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...advancedOptions.map(option=>({...option,default:option.values.includes(config[option.key])?config[option.key]:option.default}))].map(option=>[option.key,option]));
+const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...advancedOptions.map(option=>({...option,default:option.values.includes(config[option.key] ?? defaultDemo[option.key])?(config[option.key] ?? defaultDemo[option.key]):option.default}))].map(option=>[option.key,option]));
 const icon=catalog.find(item=>item.name==='settings') || catalog.find(item=>item.name==='sliders') || catalog.find(item=>item.name==='menu');
 const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
 ---

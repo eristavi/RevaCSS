@@ -4,7 +4,7 @@ import MarketingSite from './MarketingSite.astro';
 const {config,assetBase}=Astro.props;
 ---
 <!doctype html>
-<html lang="en" class="forma-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape}>
+<html lang="en" class="forma-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape} data-navbar-position={config['navbar-position'] || 'sticky'}>
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>

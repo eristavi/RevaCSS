@@ -258,6 +258,15 @@
     "scope": "Inherited; applies to .top-menu only",
     "affects": "Top navigation layout: standard brand and links, centered links, inset floating surface, or central brand with links on either side. Mobile retains the shared Menu button and popovers. Does not change sidebars."
   },
+  "navbar-position": {
+    "values": [
+      "static",
+      "sticky"
+    ],
+    "default": "static",
+    "scope": "Inherited; applies to .navbar-header, standalone .top-menu and .app-shell > header",
+    "affects": "Static follows normal document flow. Sticky keeps the outer header at block-start of its scroll container; layout, palette and material remain independent. Put the wrapper in the scrolling page, outside short sections."
+  },
   "button-material": {
     "values": [
       "default",

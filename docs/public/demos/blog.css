@@ -57,3 +57,6 @@ html:is([data-material="glass"],[data-material="veil"]) .blog-site {
  .blog-site h1 { color:inherit; }
  .blog-site .blog-cover { max-block-size:12rem; }
 }
+
+.blog-site { --re-navbar-height:calc(8rem + 2 * var(--re-navbar-margin, 0rem)); }
+@media (width < 48rem) { .blog-site > .navbar-header { padding-block:.5rem; } }

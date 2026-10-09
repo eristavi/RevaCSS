@@ -11,6 +11,9 @@
   }
   :where(.app-shell > :is(header, main, section)) { min-inline-size: 0; }
   :where(.app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto); align-self: start;
     display: flex; flex-wrap: wrap; align-items: center;
     gap: var(--re-space); padding: var(--re-space);
     border: var(--re-surface-border) solid var(--re-line);
@@ -80,9 +83,9 @@
     }
     :where(.app-shell > aside:not([popover])) {
       display: flex; grid-column: 1; grid-row: 1 / span 2;
-      position: sticky; inset-block-start: var(--re-space); align-self: start;
-      min-block-size: calc(100dvh - 2 * var(--re-space));
-      max-block-size: calc(100dvh - 2 * var(--re-space));
+      position: sticky; inset-block-start: calc(var(--re-space) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); align-self: start;
+      min-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+      max-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
       overflow: auto; overscroll-behavior: contain;
     }
     :where(.app-shell > header) { grid-column: 2; grid-row: 1; }
@@ -102,5 +105,18 @@
   @media print {
     :where(.app-shell, :scope.app-shell) { display: block; min-block-size: 0; }
     :where(.sidebar, .app-shell > aside, .app-shell > aside[popover]:popover-open, .app-shell > header) { display: none; }
+  }
+}
+
+/* Dedicated app-shell builds retain their own sticky destination clearance. */
+@layer re.utilities {
+  :where(.app-shell [id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(.app-shell :focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.app-shell [id], .app-shell :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
   }
 }

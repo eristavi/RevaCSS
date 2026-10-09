@@ -150,6 +150,8 @@ The npm package workflow validates a clean tarball installation and retains a ca
 
 GitHub Pages builds and deploys documentation from `main`. The three-engine validation workflow is run manually. `REVA_SITE` and `REVA_BASE` configure the documentation origin and path.
 
+Optional sticky navigation uses `data-navbar-position="sticky"`, independently of navbar layout and material. Place menus in a `.navbar-header` wrapper alongside page content; standalone menus and app-shell headers are also supported. Set `--re-navbar-height` for custom header clearance. See [sticky headers](https://eristavi.github.io/RevaCSS/components/top-menu/#navbar-position).
+
 Astro builds the documentation. An optional documentation settings helper remembers appearance choices and prepares demo downloads; the RevaCSS framework itself has no JavaScript runtime.
 
 </details>
