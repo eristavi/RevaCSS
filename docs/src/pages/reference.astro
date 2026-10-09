@@ -7,6 +7,8 @@ const base=import.meta.env.BASE_URL;
 const sections=[{id:'files',title:'Stylesheet files'},{id:'attributes',title:'Attribute API'},{id:'boundaries',title:'Scope and behaviour'},{id:'related',title:'Detailed reference'}];
 function fileDescription(file) {
   const descriptions={
+    'reva.button-materials.css':'Optional action-only solid, glass, veil, soft and liquid materials; load after the core.',
+    'reva.button-materials.scoped.css':'Optional action-only materials inside .reva; load after the scoped core.',
     'reva.css':'Complete readable global stylesheet. Recommended starting point.',
     'reva.tokens.css':'Theme, palette and shared setting definitions.',
     'reva.base.css':'Native element styling. Depends on token definitions.',

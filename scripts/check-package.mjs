@@ -15,7 +15,7 @@ for (const entry of entryPoints) {
 }
 for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md',
   'dist/reva.scoped.css', 'dist/reva.glass.css', 'dist/reva.glass.scoped.css',
-  'dist/reva.soft.css', 'dist/reva.soft.scoped.css', 'dist/reva.veil.css', 'dist/reva.motion.css', 'dist/reva.selects.css',
+  'dist/reva.button-materials.css', 'dist/reva.button-materials.scoped.css', 'dist/reva.soft.css', 'dist/reva.soft.scoped.css', 'dist/reva.veil.css', 'dist/reva.motion.css', 'dist/reva.selects.css',
   'dist/reva.card-grid.css', 'dist/reva.gallery.css', 'dist/reva.scrolling.css', 'dist/reva.scroll-top.css', 'dist/reva.scroll-motion.css', 'dist/reva.scroll-motion.scoped.css', 'dist/reva.transitions.css',
   'dist/reva-fonts.css', 'dist/fonts/Manrope.woff2', 'dist/fonts/Manrope.ttf', 'dist/fonts/OFL.txt',
   'dist/icons/reva.svg', 'tokens/foundation.tokens.json']) {

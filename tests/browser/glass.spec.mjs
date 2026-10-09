@@ -24,6 +24,10 @@ for(const theme of ['light','dark']) {
     await link.focus();await page.keyboard.press('Shift+Tab');await page.keyboard.press('Tab');expect(await link.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
     await link.click();await expect(page).toHaveURL(/#navigation$/);
     await page.setViewportSize({width:320,height:800});
+    // Finish the browser's fragment/focus scroll after responsive reflow before
+    // asking Playwright to perform another pointer action on the menu.
+    let previousY,stable=0;
+    await expect.poll(async()=>{const y=(await nav.boundingBox()).y;stable=y===previousY?stable+1:0;previousY=y;return stable;}).toBeGreaterThanOrEqual(2);
     await summary(nav,'Menu').click();
     for(const label of ['Products','Frameworks','Components']) await summary(nav,label).click();
     await expect(nav.getByRole('link',{name:'Top menu',exact:true})).toBeVisible();

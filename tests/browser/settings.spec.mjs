@@ -56,9 +56,10 @@ test('documentation mode persists independently and demo reset clears all saved 
 });
 test('downloads contain selected settings without the optional preference scripts',async({page})=>{
  await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('forest');
+ await page.locator('#demo-button-material').selectOption('liquid');
  await page.locator('#demo-border').selectOption('defined');
  const pending=page.waitForEvent('download');await page.locator('.demo-customizer a[download]').click();const download=await pending;
- const html=await readFile(await download.path(),'utf8');expect(html).toContain('data-palette="forest"');expect(html).toContain('data-theme="dark"');expect(html).toContain('data-border="defined"');expect(html).not.toMatch(/<script\b/);
+ const html=await readFile(await download.path(),'utf8');expect(html).toContain('data-palette="forest"');expect(html).toContain('data-theme="dark"');expect(html).toContain('data-border="defined"');expect(html).toContain('data-button-material="liquid"');expect(html).toContain('reva.button-materials.css');expect(html).not.toMatch(/<script\b/);
 });
 test('invalid preferences and unavailable storage do not break the dropdown preview',async({page,context})=>{
  await page.goto('/');await page.evaluate(()=>localStorage.setItem('revacss:demo-settings:v1',JSON.stringify({theme:'invalid',palette:'not-a-palette',material:'solid',injected:'bad'})));

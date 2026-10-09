@@ -4,34 +4,35 @@ import { test, expect } from '@playwright/test';
 import axeSource from 'axe-core';
 import {topics} from '../../docs/src/data/examples.js';
 
-const routes = ['/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
+const routes = ['/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/themes/button-materials/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
 
-test('documentation demos match their HTML and work without JavaScript', async ({ browser }) => {
-  test.setTimeout(60000);
-  const context = await browser.newContext({ javaScriptEnabled:false });
-  const page = await context.newPage();
-  for (const route of routes) {
-    await page.goto(route);
-    await expect(page.locator('h1')).toHaveCount(1);
-    const mismatch = await page.locator('.example-frame').evaluateAll(frames=>frames.flatMap(frame=>{
-      const demo=frame.querySelector('.example-demo');
-      if (!demo) return [];
-      const template=document.createElement('template');
-      template.innerHTML=frame.querySelector('.example-code pre code').textContent;
-      return demo.innerHTML.trim()===template.innerHTML.trim()?[]:[frame.closest('section').id];
-    }));
-    expect(mismatch, route).toEqual([]);
-    await expectOnlyOptionalSettings(page);
+for(let start=0;start<routes.length;start+=4){
+ const group=routes.slice(start,start+4);
+ test(`documentation markup without JavaScript: ${group[0]} through ${group.at(-1)}`,async({browser})=>{
+  // Budget for four styled documents, including the large attributes reference.
+  test.setTimeout(120000);
+  const context=await browser.newContext({javaScriptEnabled:false});
+  for(const route of group){
+   const page=await context.newPage();
+   try {
+   await page.goto(route,{waitUntil:'domcontentloaded'});await expect(page.locator('h1')).toHaveCount(1);
+   const mismatch=await page.locator('.example-frame').evaluateAll(frames=>frames.flatMap(frame=>{
+    const demo=frame.querySelector('.example-demo');if(!demo)return [];
+    const template=document.createElement('template');template.innerHTML=frame.querySelector('.example-code pre code').textContent;
+    return demo.innerHTML.trim()===template.innerHTML.trim()?[]:[frame.closest('section').id];
+   }));
+   expect(mismatch,route).toEqual([]);await expectOnlyOptionalSettings(page);
+   } finally {await page.close();}
   }
-  await page.goto('/components/disclosures/');
-  await page.locator('#details summary').click();
-  await expect(page.locator('#details details')).toHaveAttribute('open','');
-  await page.locator('[popovertarget="demo-popover"]').first().click();
-  await expect(page.locator('#demo-popover')).toBeVisible();
-  await waitForPopover(page.locator('#demo-popover'));
-  await page.locator('#demo-popover button').click();
-  await expect(page.locator('#demo-popover')).toBeHidden();
   await context.close();
+ });
+}
+test('documentation disclosures and popovers work without JavaScript',async({browser})=>{
+ const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
+ await page.goto('/components/disclosures/');await page.locator('#details summary').click();
+ await expect(page.locator('#details details')).toHaveAttribute('open','');
+ await page.locator('[popovertarget="demo-popover"]').first().click();await expect(page.locator('#demo-popover')).toBeVisible();
+ await waitForPopover(page.locator('#demo-popover'));await page.locator('#demo-popover button').click();await expect(page.locator('#demo-popover')).toBeHidden();await context.close();
 });
 
 // Each route gets its own timeout and failure report as the documentation grows.

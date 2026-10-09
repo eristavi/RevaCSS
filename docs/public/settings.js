@@ -29,7 +29,7 @@
   const invalidateMaterials=doc=>{
     // Refresh Firefox's material scope matches without fetching or reloading.
     for(const sheet of doc.styleSheets){
-      if(!sheet.disabled && /\/reva\.(glass|veil|soft)(\.scoped)?(\.min)?\.css(?:\?|$)/.test(sheet.href || '')){
+      if(!sheet.disabled && /\/reva(?:\.(glass|veil|soft|button-materials))?(\.scoped)?(\.min)?\.css(?:\?|$)/.test(sheet.href || '')){
         sheet.disabled=true;
         sheet.disabled=false;
       }
@@ -41,13 +41,14 @@
     const previewRoot=doc?.documentElement;
     if(!previewRoot)return;
     const previousMaterial=previewRoot.getAttribute('data-material');
+    const previousButtonMaterial=previewRoot.getAttribute('data-button-material');
     for(const key of Object.keys(schema.values)){
       const attribute='data-'+key;
       const value=root.getAttribute(attribute);
       if(value===null)previewRoot.removeAttribute(attribute);
       else previewRoot.setAttribute(attribute,value);
     }
-    if(previewRoot.getAttribute('data-material')!==previousMaterial)invalidateMaterials(doc);
+    if(previewRoot.getAttribute('data-material')!==previousMaterial || previewRoot.getAttribute('data-button-material')!==previousButtonMaterial)invalidateMaterials(doc);
   };
   const syncPreviews=()=>{for(const frame of isolatedPreviews)syncPreview(frame);};
   const initPreviews=()=>{
@@ -60,11 +61,12 @@
   };
   const apply=value=>{
     const previousMaterial=root.getAttribute('data-material');
+    const previousButtonMaterial=root.getAttribute('data-button-material');
     for(const [key,choice] of Object.entries(clean(value))){
       if(key==='tone' && choice==='default')root.removeAttribute('data-tone');
       else root.setAttribute('data-'+key,choice);
     }
-    if(root.getAttribute('data-material')!==previousMaterial){
+    if(root.getAttribute('data-material')!==previousMaterial || root.getAttribute('data-button-material')!==previousButtonMaterial){
       // Firefox can retain matches from the previous @scope material until
       // hover. Re-enable the loaded material sheets to invalidate those matches
       // without reloading the page, fetching CSS, or replacing any DOM nodes.

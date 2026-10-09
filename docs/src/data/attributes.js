@@ -165,5 +165,11 @@ export const attributes = [
     "description": "Inherited badge and alert appearance. Place this setting on html or a parent; children only need their component class. Default: tinted.",
     "html": "<div class=\"row\">\n  <section data-appearance=\"tinted\">\n    <span class=\"badge\">Tinted</span>\n  </section>\n  <section data-appearance=\"solid\">\n    <span class=\"badge\">Solid</span>\n  </section>\n  <section data-appearance=\"outline\">\n    <span class=\"badge\">Outline</span>\n  </section>\n</div>",
     "glass": false
+  },
+  {
+    "id": "button-material",
+    "title": "data-button-material",
+    "description": "Action-only material: default follows data-material; solid, glass, veil, soft and liquid override buttons without changing cards or text fields. Requires reva.button-materials.css. Motion stays under data-motion.",
+    "html": "<section data-material=\"soft\" data-button-material=\"liquid\" class=\"stack\">\n  <article class=\"card\"><h3>Soft surface, liquid actions</h3><button type=\"button\">Continue</button> <button type=\"button\" data-button-material=\"default\">Follow surface</button></article>\n</section>"
   }
 ];

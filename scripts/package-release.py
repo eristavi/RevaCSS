@@ -22,6 +22,7 @@ if not re.fullmatch(r'\d+\.\d+\.\d+', version) or not re.fullmatch(r'[a-z0-9-]+'
     raise SystemExit('Release version and name must be safe archive identifiers.')
 name = f"{metadata['name']}-{version}-{codename}"
 required = ['dist/reva.css', 'dist/reva.min.css', 'dist/reva.scoped.css',
+            'dist/reva.button-materials.css', 'dist/reva.button-materials.scoped.css',
             'dist/reva.glass.css', 'dist/reva.soft.css', 'dist/reva.soft.scoped.css', 'dist/reva.veil.css', 'dist/reva.motion.css',
             'dist/reva.selects.css', 'dist/icons/reva.svg', 'dist/fonts/Manrope.ttf',
             'dist/fonts/OFL.txt']

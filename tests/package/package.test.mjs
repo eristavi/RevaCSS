@@ -31,7 +31,7 @@ test('an offline tarball install preserves every distribution asset and token', 
 test('installed public exports resolve core, scoped extensions, nested assets, and tokens', async () => {
   const require = createRequire(join(fixture.consumer, 'package.json'));
   for (const path of ['', '/dist/reva.min.css', '/dist/reva.scoped.css',
-    '/dist/reva.glass.scoped.css', '/dist/reva.veil.css', '/dist/reva.motion.css',
+    '/dist/reva.button-materials.css', '/dist/reva.button-materials.scoped.css', '/dist/reva.glass.scoped.css', '/dist/reva.veil.css', '/dist/reva.motion.css',
     '/dist/reva.selects.css', '/dist/fonts/Manrope.woff2', '/dist/fonts/Manrope.ttf', '/dist/icons/reva.svg',
     '/tokens/foundation.tokens.json', '/package.json']) {
     const resolved = require.resolve('revacss' + path);
@@ -60,7 +60,7 @@ test('Vite keeps global and scoped CSS imports and copies font/icon assets', asy
 
 test('strict TypeScript accepts bare and stylesheet imports without JavaScript exports', async () => {
   const file = join(fixture.consumer, 'main.ts');
-  await writeFile(file, "import 'revacss';\nimport 'revacss/dist/reva.scoped.css';\nimport 'revacss/dist/reva.glass.css';\nimport 'revacss/dist/reva-fonts.css';\n");
+  await writeFile(file, "import 'revacss';\nimport 'revacss/dist/reva.scoped.css';\nimport 'revacss/dist/reva.glass.css';\nimport 'revacss/dist/reva.button-materials.css';\nimport 'revacss/dist/reva-fonts.css';\n");
   const program = ts.createProgram([file], { strict: true, noEmit: true,
     noUncheckedSideEffectImports: true, moduleResolution: ts.ModuleResolutionKind.Bundler,
     module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 });

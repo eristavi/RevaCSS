@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../dist/reva.min.css">
   <!-- Optional overlay transitions. Materials and fonts are separate choices. -->
   <link rel="stylesheet" href="../dist/reva.motion.css">
+  <!-- Optional action-only materials. -->
+  <link rel="stylesheet" href="../dist/reva.button-materials.css">
 </head>
 <body id="page-top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -52,6 +54,7 @@
       <aside class="drawer" id="starter-inspector" popover="auto" aria-labelledby="starter-inspector-title"><header><h3 id="starter-inspector-title">Inspector</h3><button type="button" popovertarget="starter-inspector" popovertargetaction="hide" autofocus>Close</button></header><section><p>The browser owns visibility and dismissal. No framework JavaScript is required.</p></section></aside>
     </section>
   </main>
+  <section class="container" data-button-material="liquid"><h2>Independent button material</h2><p>Set data-button-material on html to configure all actions, or use a section for local choices. Default follows the general material; liquid motion follows data-motion.</p><div class="row"><button type="button">Liquid action</button><button type="button" data-button-material="solid">Solid exception</button><a class="button outline" href="https://eristavi.github.io/RevaCSS/themes/button-materials/">Material guide</a></div></section>
   <footer class="container"><p><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></p><p>RevaCSS · MIT · Replace the sample content with your own.</p></footer>
 </body>
 </html>

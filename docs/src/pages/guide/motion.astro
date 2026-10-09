@@ -30,7 +30,7 @@ const accordion=`<div class="accordion" data-motion="expressive">
 <DocsLayout title="Motion" active="motion" sections={sections}>
 <p class="doc-kicker">LEARN / INTERACTION</p><h1>Motion</h1>
 <p class="doc-lead">One inherited setting controls interaction intensity. Native HTML keeps ownership of navigation, disclosure and overlay state; CSS supplies the presentation.</p>
-<p class="doc-note">The scrolling, scroll-to-top and expanded overlay behavior on this page are planned for 1.1.0. They are available in the development build shown here; published 1.0.0 remains unchanged.</p>
+<p class="doc-note">Scrolling, scroll-to-top and expanded overlays are included in the 1.1.0 GitHub release. The optional button material extension is planned for 1.2.0 and available in this development preview.</p>
 <section id="intensity"><h2>Choose one page setting</h2>
 <p>Set <code>data-motion</code> on <code>html</code>, then override only exceptions. The default core intensity is subtle. The customizer applies the same setting to these pages.</p>
 <div class="doc-table" role="region" aria-label="Motion levels" tabindex="0"><table><thead><tr><th>Setting</th><th>Anchor links and galleries</th><th>Optional overlays</th><th>Accordions and indicators</th></tr></thead><tbody>
@@ -40,6 +40,7 @@ const accordion=`<div class="accordion" data-motion="expressive">
 </tbody></table></div>
 <Example id="motion-installation" title="Configure the page once" render={false} html={'<html lang="en" data-motion="subtle">\n<head>\n  <link rel="stylesheet" href="/assets/reva/reva.css">\n  <!-- Optional: native overlay transitions. -->\n  <link rel="stylesheet" href="/assets/reva/reva.motion.css">\n</head>\n<body>\n  <!-- Your content -->\n</body>\n</html>'}/>
 </section>
+<p>Optional liquid buttons also follow this setting: none removes expansion, subtle uses a gentle scale, expressive increases the stretch and elastic return. Reduced motion suppresses movement. See <a href={base+'themes/button-materials/'}>Button materials</a>.</p>
 <section id="scrolling"><h2>Anchor navigation and scroll snap</h2>
 <p>In the core, scroll containers use the inherited motion setting. Ordinary <code>href="#id"</code> links and scroll-snap gallery links remain native. Dragging, swiping and wheel scrolling retain browser behavior; there is no automatic advancement or JavaScript scroll handler.</p>
 <p>The browser chooses smooth-scroll timing and easing and may ignore smoothing. Subtle and expressive therefore have the same native scrolling speed. Expressive adds a 1.4s accent highlight to targeted headings, the first heading in a targeted section, or a targeted gallery list item. The fragment identifies a destination, not a selected slide.</p>

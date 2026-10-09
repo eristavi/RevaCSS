@@ -8,7 +8,7 @@ const post=blogPosts.find(p=>p.slug===slug);
 <!doctype html>
 <html lang="en" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape}>
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>{post?post.title+' · Fieldnotes':view.kind==='author'?'Alex Morgan · Fieldnotes':view.kind==='archive'?(view.category || 'Archive')+' · Fieldnotes':'Fieldnotes · RevaCSS blog demo'}</title><SettingsHead kind="demo"/><meta name="description" content={post?.summary || 'A fictional independent journal built with native HTML and RevaCSS.'}/>
-{['reva-fonts.css','reva.css','reva.motion.css','reva.transitions.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}
+{['reva-fonts.css','reva.css','reva.motion.css','reva.transitions.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={assetBase+'reva/'+file}/>)}
 <link rel="stylesheet" href={assetBase+'demos/blog.css'}/></head>
 <body id="page-top" class="blog-site"><a class="skip-link" href="#blog-title">Skip to content</a><BlogSite base={assetBase} slug={slug} view={view} embedded={false} standalone/></body>
 </html>

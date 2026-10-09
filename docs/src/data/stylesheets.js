@@ -42,5 +42,7 @@ export const stylesheets = [
   "reva.soft.scoped.css",
   "reva.veil.css",
   "reva.veil.scoped.css",
+  "reva.button-materials.css",
+  "reva.button-materials.scoped.css",
   "reva.scoped.css"
 ];

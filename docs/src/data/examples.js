@@ -959,6 +959,12 @@ export const topics = [
         "title": "A shared edge with local exceptions",
         "description": "Set data-edge on html or a section to configure buttons, .button links and cards. A nearer plain value removes decoration. data-border none removes the gradient ring; data-motion none pauses it. Reduced motion keeps a static ring; higher contrast, forced colours and print remove decoration.",
         "html": "<section data-edge=\"animated\" data-shape=\"pill\" data-accent=\"violet\" data-motion=\"none\">\n  <article class=\"card\">\n    <h3>Shared stationary edge</h3>\n    <div class=\"row\">\n      <button type=\"button\">Inherited edge</button>\n      <a class=\"button secondary\" href=\"#main\" data-edge=\"shine\" data-motion=\"subtle\">Focused shine</a>\n      <button type=\"button\" data-edge=\"plain\">Plain exception</button>\n      <button type=\"button\" disabled>Unavailable</button>\n    </div>\n  </article>\n</section>"
+      },
+      {
+        "id": "button-materials",
+        "title": "A separate material for actions",
+        "description": "The card follows the general material. Actions use liquid; the local default button returns to the card\u2019s material. Load reva.button-materials.css after the core.",
+        "html": "<section data-material=\"soft\" data-button-material=\"liquid\">\n  <article class=\"card\"><h3>Shared defaults</h3><p>Soft surfaces with liquid actions.</p><div class=\"row\"><button type=\"button\">Save project</button><button type=\"button\" data-button-material=\"default\">Follow surface</button><a class=\"button outline\" href=\"__BASE__themes/button-materials/\">Button material guide</a></div></article>\n</section>"
       }
     ],
     "glass": true,
@@ -966,7 +972,8 @@ export const topics = [
       "data-variant accepts primary, success, warning, danger and neutral. It applies to native buttons, button/submit/reset inputs and .button links. Other form controls do not acquire action colours, and navigation toggles keep their neutral menu styling.",
       "Existing secondary, danger and warning classes remain supported as local choices over inherited variants. A valid data-variant placed directly on an action takes precedence over those classes. An unsupported value leaves the nearest valid inherited variant in effect, with a local legacy class still taking priority.",
       "Outline and ghost are presentation classes that can combine with data-variant. data-appearance still applies only to badges and alerts. Secondary remains a class; it is not an accepted data-variant value.",
-      "Shared theme, material, accent, shape, size, border, fill, depth and motion continue to apply. Glass and decorative edges consume the action's resolved semantic colours. Native disabled prevents activation; an anchor cannot be disabled with the disabled attribute."
+      "Shared theme, material, accent, shape, size, border, fill, depth and motion continue to apply. Glass and decorative edges consume the action's resolved semantic colours. Native disabled prevents activation; an anchor cannot be disabled with the disabled attribute.",
+      "Optional reva.button-materials.css configures inherited data-button-material. Default follows data-material; explicit solid, glass, veil, soft or liquid affects actions only. See the Button materials guide for local resets, scoped use and motion/preferences."
     ]
   },
   {

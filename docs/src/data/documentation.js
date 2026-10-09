@@ -279,7 +279,8 @@ export const themeLinks = [
  { key:'auto', title:'System', path:'themes/auto/' },
  { key:'glass', title:'Glass material', path:'themes/glass/' },
  { key:'veil', title:'Veil material', path:'themes/veil/' },
- { key:'soft', title:'Soft UI material', path:'themes/soft/' }
+ { key:'soft', title:'Soft UI material', path:'themes/soft/' },
+ { key:'button-materials', title:'Button materials', path:'themes/button-materials/' }
 ];
 export const referenceLinks = [
  { key:'reference', title:'API overview', path:'reference/' },

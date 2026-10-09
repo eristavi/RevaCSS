@@ -2,6 +2,8 @@
 
 **RevaCSS 1.1.0 — Erisian** (prepared package; registry publication pending authentication) is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.1.0).
 
+The development checkout also includes the optional `reva.button-materials.css` and scoped counterpart, planned for 1.2.0. These additions are absent from the published 1.1.0 GitHub archives and current npm release. A tarball packed from the checkout tests development contents; its metadata does not make those contents a published 1.1.0 release.
+
 ```sh
 npm install revacss@1.1.0
 ```

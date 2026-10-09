@@ -3,7 +3,7 @@ import { stylesheet } from '../data/assets.js';
 import CodeViewer from './CodeViewer.astro';
 const { id, title, description, html, render=true, glass=false, isolated=false, isolatedHeight=320 } = Astro.props;
 const base=import.meta.env.BASE_URL;
-const isolatedStyles=['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css'];
+const isolatedStyles=['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'];
 const isolatedDocument=`<!doctype html><html lang="en" data-theme="auto" data-palette="default"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title} demo</title>${isolatedStyles.map(file=>`<link rel="stylesheet" href="${stylesheet(file)}">`).join('')}</head><body>${html}</body></html>`;
 ---
 <section class="doc-example" id={id}>

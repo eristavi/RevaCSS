@@ -18,4 +18,5 @@ const base=import.meta.env.BASE_URL;
 <section id="previews"><h2>Full-page previews</h2><div class="table-scroll" role="region" aria-label="Theme preview pages" tabindex="0"><table><caption>Existing previews remain available for exploration</caption><thead><tr><th scope="col">Example</th><th scope="col">Light</th><th scope="col">Dark</th><th scope="col">System</th></tr></thead><tbody>
 {[['Foundation','preview/'],['Page defaults','preview/defaults/'],['Navigation','preview/menu/'],['Glass','preview/glass/']].map(([title,path])=><tr><th scope="row">{title}</th>{['light','dark','auto'].map(mode=><td><a href={base+path+mode+'/'}>{mode==='auto'?'System':mode}</a></td>)}</tr>)}
 </tbody></table></div></section>
+<section><h2>Button materials</h2><p>Choose an independent finish for actions while other surfaces retain their material. <a href={base+'themes/button-materials/'}>Explore the six button materials</a>.</p></section>
 </DocsLayout>

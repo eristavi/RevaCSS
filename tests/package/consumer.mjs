@@ -29,7 +29,7 @@ export async function createConsumer() {
       <article class="card" id="sample"><h1>Installed from npm tarball</h1>
       <img src="/node_modules/revacss/dist/icons/check.svg" alt="Completed" width="24" height="24">
       <details><summary>Read more</summary><p id="answer">Native disclosure works.</p></details>
-      <button popovertarget="response">Open response</button>
+      <button id="liquid" data-button-material="liquid" popovertarget="response">Open response</button>
       <div id="response" popover="auto" aria-label="Package response">Ready</div></article>
       ${scoped ? '</section>' : '</main>'}
       ${cssOnly ? '' : `<script type="module" src="/${scoped ? 'scoped' : 'global'}.js"></script>`}</body></html>`;
@@ -37,9 +37,9 @@ export async function createConsumer() {
       writeFile(join(consumer, 'index.html'), markup(false)),
       writeFile(join(consumer, 'scoped.html'), markup(true)),
       writeFile(join(consumer, 'imports.html'), markup(false, true)),
-      writeFile(join(consumer, 'imports.css'), '@import "revacss";\n@import "revacss/dist/reva-fonts.css";\n@import "revacss/dist/reva.glass.css";\n@import "revacss/dist/reva.motion.css";\n'),
-      writeFile(join(consumer, 'global.js'), "import 'revacss';\nimport 'revacss/dist/reva-fonts.css';\nimport 'revacss/dist/reva.glass.css';\nimport 'revacss/dist/reva.motion.css';\n"),
-      writeFile(join(consumer, 'scoped.js'), "import 'revacss/dist/reva.scoped.css';\nimport 'revacss/dist/reva-fonts.css';\nimport 'revacss/dist/reva.glass.scoped.css';\nimport 'revacss/dist/reva.motion.scoped.css';\n"),
+      writeFile(join(consumer, 'imports.css'), '@import "revacss";\n@import "revacss/dist/reva-fonts.css";\n@import "revacss/dist/reva.glass.css";\n@import "revacss/dist/reva.motion.css";\n@import "revacss/dist/reva.button-materials.css";\n'),
+      writeFile(join(consumer, 'global.js'), "import 'revacss';\nimport 'revacss/dist/reva-fonts.css';\nimport 'revacss/dist/reva.glass.css';\nimport 'revacss/dist/reva.motion.css';\nimport 'revacss/dist/reva.button-materials.css';\n"),
+      writeFile(join(consumer, 'scoped.js'), "import 'revacss/dist/reva.scoped.css';\nimport 'revacss/dist/reva-fonts.css';\nimport 'revacss/dist/reva.glass.scoped.css';\nimport 'revacss/dist/reva.motion.scoped.css';\nimport 'revacss/dist/reva.button-materials.scoped.css';\n"),
     ]);
     return { temporary, consumer, packed, installed: join(consumer, 'node_modules/revacss'),
       output: join(consumer, 'dist'), dispose: () => rm(temporary, { recursive: true, force: true }) };

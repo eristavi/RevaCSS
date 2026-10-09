@@ -1,4 +1,4 @@
-@layer re.tokens, re.base, re.components, re.utilities;
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 @layer re.tokens {
 :where(:root) { --re-primary: #111111;
 --re-primary-end: #000000;

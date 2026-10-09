@@ -4,6 +4,7 @@ import motion from '../../../src/css/motion.css?raw';
 import glass from '../../../src/css/glass.css?raw';
 import veil from '../../../src/css/veil.css?raw';
 import soft from '../../../src/css/soft.css?raw';
+import buttonMaterials from '../../../src/css/button-materials.css?raw';
 import {demoOptions} from './demo-configurations.js';
 import {transform} from 'lightningcss';
 
@@ -36,13 +37,26 @@ function liveMaterial(source,names) {
   return source+"\n";
 }
 css+=liveMaterial(glass,['glass','solid'])+liveMaterial(veil,['veil'])+liveMaterial(soft,['soft']);
+// Action scopes include both individual finishes and shared reset/preference
+// rules. Rebind each scope list without removing local inheritance boundaries.
+css+=buttonMaterials.replace(/@scope \(([^{}\n]*data-button-material[^{}\n]*)\)/g,(_match,selectors)=>{
+  const values=[...new Set([...selectors.matchAll(/data-button-material="([^"]+)"/g)].map(match=>match[1]))];
+  return `@scope (${values.map(value=>scope('button-material',value)).join(', ')}, ${selectors})`;
+}).replace(/:scope:is\((\[data-button-material[^)]*)\)/g,(_match,selectors)=>{
+  const values=[...selectors.matchAll(/data-button-material="([^"]+)"/g)].map(match=>match[1]);
+  return `:scope:is(${selectors},${values.map(value=>scope('button-material',value)).join(',')})`;
+});
 for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
   if(value==='default') continue;
+  if(key==='button-material') {
+    css+=`${scope(key,value)} .attribute-${key}-${value} { display:inline; }\n`;
+    continue;
+  }
   let decl=declaration(key==='contrast'?core:tokens,key,value);
   if(key==='depth') decl+=' '+declaration(soft,key,value);
-  if(key==='motion') decl+=' '+declaration(motion,key,value);
-  if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value)+' '+declaration(soft,key,value);
+  if(key==='motion') decl+=' '+declaration(motion,key,value)+' '+declaration(buttonMaterials,key,value);
+  if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value)+' '+declaration(soft,key,value)+' '+declaration(buttonMaterials,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
   css+=`html:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }

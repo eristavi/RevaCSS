@@ -62,6 +62,8 @@ Native elements receive useful defaults. A structural class, such as `.card` or 
 
 Until npm publication is verified, the registry package remains `revacss@1.0.0`. The prepared 1.1.0 package will install with `npm install revacss@1.1.0`; then import `revacss` in your application's CSS-capable bundler. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for scoped styles, fonts, icons, and CDN installation.
 
+The 1.2 development preview adds optional [button materials](https://eristavi.github.io/RevaCSS/themes/button-materials/). Load `reva.button-materials.css` after the core, then set `data-button-material="liquid"` on your HTML root or a section. Choose default, solid, glass, veil, soft or liquid. General surfaces retain their own material; liquid movement follows `data-motion`. This extension is not in the published 1.1.0 GitHub archives.
+
 ## Configure once, refine locally
 
 Appearance settings work independently. A local value changes that setting while the rest of the design continues to inherit.

@@ -10,7 +10,7 @@ RevaCSS 1.0.0 — Erisian is the first public GitHub release, with compiled down
 - Websites and applications; beginners and experienced developers.
 - HTML and CSS only in delivered framework and documentation. Development tooling may use JavaScript.
 - No mandatory wrappers or configuration. Native structural elements stay neutral.
-- Public CSS variables --re-*, stylesheet reva.css, nested layers re.tokens/re.base/re.components/re.utilities.
+- Public CSS variables --re-*, stylesheet reva.css, nested layers re.tokens/re.base/re.components/re.buttons/re.utilities.
 - DTCG tokens are source; primitive → semantic → component overrides.
 - Manrope with system fallback; optional multilingual packs and SVG icons.
 - MIT core and all components. Paid templates/designs/support can use separate terms.
@@ -99,3 +99,11 @@ Fragment scrolling follows the nearest scroll container's inherited `data-motion
 `a.scroll-top` is a native action link to an existing page ID, sharing action/material selectors rather than duplicating button styles. It stays in document flow unless the application positions it, and is hidden in print. `.gallery` remains a native proximity-snap list, without autoplay or application state.
 
 The optional motion module enhances native popovers and dialogs with starting styles, drawer-edge translation and supported discrete exits. Native HTML keeps visibility/dismissal/focus ownership. Numeric tokens configure offsets and duration; no per-component motion attribute or framework JavaScript is added.
+
+## Action-only materials (1.2 development preview)
+
+Optional reva.button-materials.css and reva.button-materials.scoped.css add inherited data-button-material: default, solid, glass, veil, soft, liquid. Omitted/default follows the existing data-material at the action; explicit values independently override action paint. Applies to button, input button/submit/reset and .button/.scroll-top links, including a value on the action itself. Nested defaults stop a role override and allow the general material to apply again. It does not change cards, text inputs, checkboxes, radios, switches or plain links.
+
+The re.buttons cascade layer sits between components and utilities, so role overrides do not lose to a closer general material while system preferences still win. Existing semantic variants, outline/ghost backing, size, shape, depth, borders and focus semantics remain separate. The optional module contains every explicit button finish; other material extensions are needed only for general surfaces.
+
+Liquid is a CSS simulation using tint, blur, reflective rims and press scaling. It provides no optical lensing, finger tracking, haptics or framework runtime. Motion none removes movement; subtle/expressive select expansion and return timing. Reduced motion, increased contrast, reduced transparency, forced colours and print constrain decoration. Unsupported blur retains opaque backing and unsupported linear() easing retains cubic-bezier easing. Native controls retain activation and disabled semantics; aria-disabled alone does not prevent application actions or navigation.

@@ -27,3 +27,5 @@ Documentation and demo edits may be deployed between package releases. Their dep
 ## Current release
 
 Version **1.1.0** adds backward-compatible Soft UI, scrolling and modern CSS components. GitHub and npm publication status is recorded separately; changing package metadata does not establish registry availability.
+
+The independent button materials are a compatible addition planned for **1.2.0**. They are available in the documentation development preview. Published 1.1.0 archives remain unchanged; package metadata will advance during 1.2.0 release preparation.

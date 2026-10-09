@@ -3,25 +3,39 @@ import { test, expect } from '@playwright/test';
 import { topics } from '../../docs/src/data/examples.js';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const pages=['/','/guide/','/attributes/','/reference/','/themes/glass/','/themes/palettes/','/plain/',...topics.map(t=>`/components/${t.slug}/`),'/components/top-menu/',...['light','dark','auto'].flatMap(theme=>[`/preview/${theme}/`,`/preview/menu/${theme}/`,`/preview/glass/${theme}/`,`/preview/defaults/${theme}/`])];
+const pages=['/','/guide/','/attributes/','/reference/','/themes/glass/','/themes/palettes/','/themes/button-materials/','/plain/',...topics.map(t=>`/components/${t.slug}/`),'/components/top-menu/',...['light','dark','auto'].flatMap(theme=>[`/preview/${theme}/`,`/preview/menu/${theme}/`,`/preview/glass/${theme}/`,`/preview/defaults/${theme}/`])];
 const nav=page=>page.getByRole('navigation',{name:'Documentation',exact:true});
 const openMenu=async(page,name)=>{const button=nav(page).getByRole('button',{name,exact:true});const id=await button.getAttribute('popovertarget');await button.click();await waitForPopover(page.locator('#'+id));};
 const openTheme=async page=>{await nav(page).getByRole('button',{name:'Customize',exact:true}).click();await waitForPopover(page.locator('#demo-customizer-popup'));};
 test.describe('shared documentation header without browser JavaScript',()=>{
  test.use({javaScriptEnabled:false});
- test('every documentation and preview page uses the same menu and valid unique panel targets',async({page})=>{
-  test.setTimeout(180000);
-  let expected;
-  for(const route of pages){
-   await page.goto(route);await expect(nav(page)).toHaveCount(1);
-   const entries=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));
-   if(!expected)expected=entries;expect(entries,route).toEqual(expected);
-   expect(await nav(page).locator('.customizer-group').count()).toBe(5);
-   expect(await nav(page).locator('#demo-theme option').count()).toBe(3);
-   const invalid=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(el=>el.id);return {duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),targets:[...document.querySelectorAll('[popovertarget]')].filter(el=>!document.getElementById(el.getAttribute('popovertarget'))).map(el=>el.outerHTML)};});
-   expect(invalid,route).toEqual({duplicates:[],targets:[]});await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
-  }
+ let expected;
+ test.beforeAll(async({browser})=>{
+  const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
+  await page.goto('/');expected=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));await context.close();
  });
+ // Inspect each document in a fresh page: preview frames and navigation history
+ // must not accumulate across an inventory of unrelated documentation routes.
+ for(let start=0;start<pages.length;start+=4){
+  const group=pages.slice(start,start+4);
+  test(`shared header and unique panel targets: ${group[0]} through ${group.at(-1)}`,async({context})=>{
+   // The existing attributes reference alone can take about a minute to lay
+   // out in Linux WebKit; keep its complete styled inventory within the group.
+   test.setTimeout(120000);
+   for(const route of group){
+    const page=await context.newPage();
+    try {
+    await page.goto(route,{waitUntil:'domcontentloaded'});await expect(nav(page)).toHaveCount(1);
+    const entries=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));
+    expect(entries,route).toEqual(expected);
+    expect(await nav(page).locator('.customizer-group').count()).toBe(5);
+    expect(await nav(page).locator('#demo-theme option').count()).toBe(3);
+    const invalid=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(el=>el.id);return {duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),targets:[...document.querySelectorAll('[popovertarget]')].filter(el=>!document.getElementById(el.getAttribute('popovertarget'))).map(el=>el.outerHTML)};});
+    expect(invalid,route).toEqual({duplicates:[],targets:[]});await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
+    } finally {await page.close();}
+   }
+  });
+ }
  for(const width of [1280,375])test(`theme choices update the page and code while preserving local overrides at ${width}px`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.emulateMedia({colorScheme:'light'});await page.goto('/components/buttons/');
   const colours=()=>page.locator('#variants pre').evaluate(el=>({body:getComputedStyle(document.body).backgroundColor,code:getComputedStyle(el).backgroundColor}));
