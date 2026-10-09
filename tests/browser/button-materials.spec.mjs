@@ -28,7 +28,7 @@ test('default and omitted values preserve existing materials exactly',async({pag
   await fixture(page,['solid','glass','veil','soft'].map(material=>`<section data-material="${material}"><button id="${material}">Existing</button></section>`).join(''),{materialSource:'/* no action module */'});
   for(const material of ['solid','glass','veil','soft'])expect(await paint(page.locator('#'+material))).toEqual(before[material]);
 });
-test('six finishes retain semantic colours, shape, size and depth settings',async({page})=>{
+test('six finishes retain shape, size and depth settings',async({page})=>{
   await fixture(page,['default','solid','glass','veil','soft','liquid'].map(material=>`<section data-button-material="${material}" data-size="large" data-shape="pill" data-border="defined"><button id="${material}">Primary</button><button class="outline" id="${material}-outline">Outline</button></section>`).join(''));
   for(const material of ['default','solid','glass','veil','soft','liquid']){
     expect(await css(page,'#'+material,'fontSize')).toBe('18px');expect(await css(page,'#'+material,'borderRadius')).toBe('999px');expect(await css(page,'#'+material,'borderTopWidth')).toBe('2px');
@@ -37,6 +37,33 @@ test('six finishes retain semantic colours, shape, size and depth settings',asyn
   expect((await paint(page.locator('#veil'))).backgroundImage).toContain('radial-gradient');
   expect((await paint(page.locator('#soft'))).boxShadow).toContain('4px');
   await page.locator('#soft').evaluate(el=>el.dataset.depth='flat');expect((await paint(page.locator('#soft'))).boxShadow).not.toContain('4px');
+});
+for(const scoped of [false,true])test(`${scoped?'scoped':'global'} materials preserve navigation normal, hover and pressed paint`,async({page})=>{
+  const values=['default','solid','glass','veil','soft','liquid'];
+  const markup=values.map(material=>`<section data-material="glass" data-button-material="${material}" data-motion="none"><nav class="top-menu" aria-label="${material}"><button class="menu-toggle" id="menu-${material}">Menu</button><button class="menu-toggle" id="customize-${material}" data-button-material="${material}">Customize</button><ul class="dropdown"><li><button id="dropdown-${material}">More</button></li></ul></nav><button id="action-${material}">Continue</button></section>`).join('');
+  const snapshot=()=>page.locator('.top-menu button').evaluateAll(elements=>elements.map(el=>{const s=getComputedStyle(el);return {id:el.id,...Object.fromEntries(['backgroundColor','backgroundImage','color','borderColor','boxShadow','backdropFilter','filter','transform','scale'].map(key=>[key,s[key]]))};}));
+  for(const theme of ['light','dark']){
+    const load=async materialSource=>{await fixture(page,markup,{scoped,materialSource});await page.locator(scoped?'.reva':'html').evaluate((el,theme)=>el.dataset.theme=theme,theme);await page.mouse.move(0,0);};
+    await load('/* no action module */');const normal=await snapshot(),hover={},pressed={};
+    for(const material of values){const button=page.locator('#menu-'+material);await button.hover();hover[material]=await paint(button);await page.mouse.down();pressed[material]=await paint(button);await page.mouse.up();}
+    await load();await page.mouse.move(0,0);expect(await snapshot()).toEqual(normal);
+    for(const material of values){const button=page.locator('#menu-'+material);await button.hover();expect(await paint(button),theme+'/'+material+' hover').toEqual(hover[material]);await page.mouse.down();expect(await paint(button),theme+'/'+material+' press').toEqual(pressed[material]);await page.mouse.up();}
+    expect((await paint(page.locator('#action-liquid'))).backdropFilter).toBe('blur(14px)');
+  }
+});
+for(const scoped of [false,true])test(`${scoped?'scoped':'global'} Liquid remains neutral and transparent across palettes and variants`,async({page})=>{
+  const variants=['primary','success','warning','danger','neutral'];
+  const markup=['light','dark'].flatMap(theme=>['default','mono','sand','ocean','cobalt','citrus','violet','forest'].map(palette=>`<section data-theme="${theme}" data-palette="${palette}" data-button-material="liquid" data-motion="none">${variants.map(variant=>`<button data-variant="${variant}">${variant}</button>`).join('')}<button class="secondary">Secondary</button><button class="outline danger">Outline</button><button class="ghost">Ghost</button></section>`)).join('');
+  await fixture(page,markup,{scoped});
+  const samples=await page.locator('section button').evaluateAll(elements=>{const c=document.createElement('canvas').getContext('2d');return elements.map(el=>{const s=getComputedStyle(el),section=el.closest('section'),theme=section.dataset.theme;c.clearRect(0,0,1,1);c.fillStyle=s.backgroundColor;c.fillRect(0,0,1,1);return {theme,plain:el.matches('.outline,.ghost'),rgba:[...c.getImageData(0,0,1,1).data],image:s.backgroundImage,filter:s.backdropFilter,color:s.color,text:getComputedStyle(section).color};});});
+  for(const sample of samples){
+    expect(sample.color).toBe(sample.text);
+    if(sample.plain){expect(sample.rgba[3]).toBe(0);expect(sample.filter).toBe('none');continue;}
+    expect(Math.max(...sample.rgba.slice(0,3))-Math.min(...sample.rgba.slice(0,3))).toBeLessThanOrEqual(1);
+    expect(sample.rgba[3]).toBeGreaterThan(0);expect(sample.rgba[3]).toBeLessThan(40);
+    expect(sample.filter).toBe('blur(14px)');expect(sample.image).toContain('radial-gradient');
+  }
+  for(const theme of ['light','dark'])expect(new Set(samples.filter(s=>s.theme===theme&&!s.plain).map(s=>JSON.stringify([s.rgba,s.image]))).size).toBe(1);
 });
 for(const motion of ['none','subtle','expressive'])test(`liquid ${motion}: pointer and keyboard press, release and disabled states`,async({page})=>{
   await fixture(page,`<section data-button-material="liquid" data-motion="${motion}"><button id="press">Press</button><button id="disabled" disabled>Disabled</button><button id="aria" aria-disabled="true">Unavailable</button><button id="toggle" aria-pressed="true">Selected</button></section>`);
@@ -56,10 +83,21 @@ for(const motion of ['none','subtle','expressive'])test(`liquid ${motion}: point
 for(const scoped of [false,true])test(`${scoped?'scoped':'global'} preferences remove movement and simplify paint; explicit contrast can reset locally`,async({page})=>{
   await fixture(page,'<section data-button-material="liquid" data-motion="expressive" data-contrast="more"><button id="more">More</button><button id="auto" data-contrast="auto">Auto</button></section>',{scoped});
   expect((await paint(page.locator('#more'))).backdropFilter).toBe('none');expect(await alpha(page.locator('#more'))).toBe(255);expect((await paint(page.locator('#auto'))).backdropFilter).toContain('blur');
-  await page.emulateMedia({contrast:'more',reducedMotion:'reduce'});await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);await expect.poll(async()=>(await paint(page.locator('#auto'))).backdropFilter).toBe('none');await expect.poll(()=>alpha(page.locator('#auto'))).toBe(255);
+  // Firefox can retain stale contrast CSS when both preferences are emulated
+  // in one protocol request. Separate updates preserve the same final state.
+  await page.emulateMedia({contrast:'more'});await page.emulateMedia({reducedMotion:'reduce'});await expect.poll(()=>page.evaluate(()=>matchMedia('(prefers-contrast: more)').matches)).toBe(true);await expect.poll(async()=>(await paint(page.locator('#auto'))).backdropFilter).toBe('none');await expect.poll(()=>alpha(page.locator('#auto'))).toBe(255);
   await page.locator('#auto').hover();await page.mouse.down();expect(await css(page,'#auto','scale')).toBe('none');expect(await css(page,'#auto','transitionDuration')).toBe('0s');await page.mouse.up();
   await page.emulateMedia({contrast:'no-preference',reducedMotion:'no-preference',forcedColors:'active'});expect((await paint(page.locator('#auto'))).boxShadow).toBe('none');expect((await paint(page.locator('#auto'))).backdropFilter).toBe('none');
   await page.emulateMedia({forcedColors:'none',media:'print'});expect((await paint(page.locator('#auto'))).backgroundColor).toBe('rgb(255, 255, 255)');expect((await paint(page.locator('#auto'))).color).toBe('rgb(0, 0, 0)');
+});
+for(const scoped of [false,true])test(`${scoped?'scoped':'global'} initial system contrast keeps Liquid variants opaque and neutral`,async({page})=>{
+  await page.emulateMedia({contrast:'more'});
+  await fixture(page,'<section data-button-material="liquid"><button id="primary">Primary</button><button id="secondary" class="secondary">Secondary</button><button id="danger" data-variant="danger">Delete</button><button id="auto" data-contrast="auto">Local auto</button></section>',{scoped});
+  for(const id of ['primary','secondary','danger','auto']){
+    const button=page.locator('#'+id);expect(await alpha(button)).toBe(255);const p=await paint(button);
+    expect(p.backdropFilter).toBe('none');expect(p.backgroundImage).toBe('none');expect(p.color).toBe('rgb(17, 17, 17)');
+    expect(await button.evaluate(el=>{const c=document.createElement('canvas').getContext('2d');c.fillStyle=getComputedStyle(el).backgroundColor;c.fillRect(0,0,1,1);return [...c.getImageData(0,0,1,1).data];})).toEqual([255,255,255,255]);
+  }
 });
 for(const mode of ['unsupported','reduced-transparency'])test(`${mode}: opaque fallback without backdrop effects`,async({page})=>{
   let source=await readFile('dist/reva.button-materials.css','utf8');
@@ -83,9 +121,10 @@ test('all finishes and semantic variants pass automated accessibility in light a
 test('customizer applies and restores button materials before hover',async({page})=>{
   await page.goto('/components/buttons/');
   await page.getByRole('button',{name:'Customize',exact:true}).click();
+  const toggle=page.getByRole('button',{name:'Customize',exact:true}),menuPaint=await paint(toggle);
   const action=page.locator('#main .example-demo button').first();
   for(const material of ['liquid','soft','glass','veil','solid','default']){
-    await page.locator('#demo-button-material').selectOption(material);const live=await paint(action);await page.reload();await expect.poll(()=>paint(action),{message:material}).toEqual(live);await page.getByRole('button',{name:'Customize',exact:true}).click();
+    await page.locator('#demo-button-material').selectOption(material);expect(await paint(toggle),material+' menu').toEqual(menuPaint);const live=await paint(action);await page.reload();await expect.poll(()=>paint(action),{message:material}).toEqual(live);await page.getByRole('button',{name:'Customize',exact:true}).click();
   }
   await page.locator('#demo-button-material').selectOption('liquid');await page.goto('/components/app-shell/');
   await expect(page.locator('html')).toHaveAttribute('data-button-material','liquid');
@@ -94,7 +133,9 @@ test('customizer applies and restores button materials before hover',async({page
 test('CSS-only customizer changes button finish and links still activate',async({browser})=>{
   const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
   await page.goto('/demos/blog/');await page.getByRole('button',{name:'Customize',exact:true}).click();
+  const toggle=page.getByRole('button',{name:'Customize',exact:true}),menuPaint=await paint(toggle);
   await page.locator('#demo-button-material').selectOption('liquid');
+  expect(await paint(toggle)).toEqual(menuPaint);
   const action=page.locator('#demo-site .button:not(.outline,.ghost)').first();await expect.poll(async()=>(await paint(action)).backdropFilter).toContain('14px');
   await page.locator('#demo-button-material').selectOption('solid');await expect.poll(async()=>(await paint(action)).backdropFilter).toBe('none');
   await page.getByRole('button',{name:'Customize',exact:true}).click();await action.click();expect(page.url()).not.toMatch(/\/demos\/blog\/$/);await context.close();

@@ -1,7 +1,7 @@
 export const publicTokens = [
   ["Liquid buttons", "--re-liquid-scale-x / --re-liquid-scale-y", "Positive numbers", "Pressed expansion: subtle 1.025/1.015; expressive 1.045/1.02. Motion none and reduced motion suppress expansion."],
   ["Liquid buttons", "--re-liquid-blur", "Nonnegative length", "Backdrop blur radius; default 14px. Accessibility preferences disable filtering."],
-  ["Liquid buttons", "--re-liquid-opacity", "Percentage", "Tint backing; default 98% to protect label contrast. Reducing it requires contextual contrast review; preference fallbacks are opaque."],
+  ["Liquid buttons", "--re-liquid-opacity", "Percentage", "Neutral backing; default 12%. The background remains visible through the glass. Review label contrast over custom backgrounds; preference fallbacks are opaque."],
   ["Scrolling", "--re-anchor-offset", "Nonnegative length", "Fragment target block-start margin; default 1rem. Account for your fixed header."],
   ["Scrolling", "--re-target-duration", "Nonnegative time", "Expressive fragment highlight duration; default 1.4s. Does not set native scroll speed."],
   ["Overlay motion", "--re-drawer-shift / --re-drawer-direction", "Length / 1 or -1", "Drawer entrance distance and inline-end/start direction. Direction defaults to 1."],

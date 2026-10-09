@@ -58,7 +58,7 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
       await page.locator('summary').focus();
       await page.keyboard.press('Enter');
       await expect(page.locator('#answer')).toBeVisible();
-      await expect(page.locator('#liquid')).toHaveCSS('backdrop-filter', 'blur(14px) saturate(1.55)');
+      await expect(page.locator('#liquid')).toHaveCSS('backdrop-filter', 'blur(14px)');
       await page.getByRole('button', { name: 'Open response' }).click();
       await expect(page.locator('#response')).toBeVisible();
       await page.keyboard.press('Escape');

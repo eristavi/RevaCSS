@@ -169,7 +169,7 @@ export const attributes = [
   {
     "id": "button-material",
     "title": "data-button-material",
-    "description": "Action-only material: default follows data-material; solid, glass, veil, soft and liquid override buttons without changing cards or text fields. Requires reva.button-materials.css. Motion stays under data-motion.",
+    "description": "Action-only material: default follows data-material; solid, glass, veil, soft and liquid override actions without changing navigation toggles, dropdown controls, cards or text fields. Liquid uses transparent neutral glass without accent tint. Requires reva.button-materials.css. Motion stays under data-motion.",
     "html": "<section data-material=\"soft\" data-button-material=\"liquid\" class=\"stack\">\n  <article class=\"card\"><h3>Soft surface, liquid actions</h3><button type=\"button\">Continue</button> <button type=\"button\" data-button-material=\"default\">Follow surface</button></article>\n</section>"
   }
 ];

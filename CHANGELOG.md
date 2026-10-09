@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Preserve navigation toggles and dropdown controls when selecting a button material. Liquid now uses transparent neutral glass, without accent or semantic tint, and neutral opaque accessibility fallbacks.
 - Guard semantic action scopes during material changes so Firefox does not temporarily paint an unrelated action with a neighbouring variant.
 - Initialize the page-defaults preview customizer from its actual page settings, preserving inherited size, width and spacing in both script-enabled and CSS-only previews.
 

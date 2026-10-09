@@ -262,7 +262,7 @@
       "liquid"
     ],
     "default": "default",
-    "scope": "Inherited; applies only to native button/submit/reset actions and .button/.scroll-top links",
-    "affects": "Optional button material extension. Default follows data-material at the action; explicit choices override general material for actions only. Liquid simulates reflective glass; movement follows data-motion."
+    "scope": "Inherited; native button/submit/reset actions and .button/.scroll-top links, excluding navigation toggles and dropdown controls",
+    "affects": "Optional button material extension. Default follows data-material at the action; explicit choices override general material for actions only. Liquid is transparent neutral glass without accent tint; movement follows data-motion."
   }
 }
