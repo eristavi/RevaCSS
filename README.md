@@ -15,7 +15,7 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 - **A shared design, with fewer repeated decisions.** Set page or section defaults with inherited `data-*` attributes. Override individual settings where you need them.
 - **Native elements and interactions.** Buttons, forms, details, radio choices, and popovers keep their browser behavior. The framework requires no JavaScript runtime.
 - **Room for your own design.** Tokens, CSS custom properties, low-specificity selectors, and cascade layers make ordinary CSS overrides practical.
-- **Appearance that adapts.** Light, dark, and system themes; eight coordinated palettes; optional Glass, Soft UI and Veil materials; support for user preferences.
+- **Appearance that adapts.** Light, dark, and system themes; 14 coordinated palettes; optional Glass, Soft UI and Veil materials; support for user preferences.
 - **A compact foundation.** The complete minified core has an enforced 15 KiB gzip budget. Fonts, icons, and optional extensions are separate assets.
 
 Use RevaCSS with static pages, server-rendered templates, or a framework that renders HTML. Your application owns its data, routing, and business actions.
@@ -81,7 +81,7 @@ Choose [shared attributes and defaults](https://eristavi.github.io/RevaCSS/attri
 
 | Choice | What it adds |
 | --- | --- |
-| [Palettes](https://eristavi.github.io/RevaCSS/themes/palettes/) | Eight coordinated color families across light, dark, and system themes. |
+| [Palettes](https://eristavi.github.io/RevaCSS/themes/palettes/) | 14 coordinated color families across light, dark, and system themes. |
 | [Glass](https://eristavi.github.io/RevaCSS/themes/glass/) | Frosted surfaces, backdrop blur, and shared appearance settings. |
 | [Soft UI](https://eristavi.github.io/RevaCSS/themes/soft/) | Raised opaque surfaces, inset fields and pressed actions using paired shadows. |
 | [Veil](https://eristavi.github.io/RevaCSS/themes/veil/) | Diffused perimeter color and inset contours without backdrop blur. |

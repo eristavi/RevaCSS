@@ -222,5 +222,173 @@
       "muted": "#B8C1B6",
       "control-line": "#8FA08F"
     }
+  },
+  "terracotta": {
+    "light": {
+      "bg": "#FBF6F1",
+      "surface": "#FFFCFA",
+      "text": "#35251F",
+      "surface-alt": "#F4EBE4",
+      "primary": "#A34F38",
+      "on-primary": "#FFFFFF",
+      "line": "#D9C8BC",
+      "primary-end": "#88402D",
+      "link": "#A34F38",
+      "muted": "#67564C",
+      "control-line": "#8A766A"
+    },
+    "dark": {
+      "bg": "#211714",
+      "surface": "#2D211C",
+      "text": "#F8EDE6",
+      "surface-alt": "#3D2D25",
+      "primary": "#E8A48A",
+      "on-primary": "#321B13",
+      "line": "#654C3E",
+      "primary-end": "#D99478",
+      "link": "#E8A48A",
+      "muted": "#CDBAB0",
+      "control-line": "#AA9385"
+    }
+  },
+  "burgundy": {
+    "light": {
+      "bg": "#FCF6F8",
+      "surface": "#FFFFFF",
+      "text": "#34212A",
+      "surface-alt": "#F4E7EC",
+      "primary": "#85364D",
+      "on-primary": "#FFFFFF",
+      "line": "#DCC4CE",
+      "primary-end": "#6E2A3F",
+      "link": "#85364D",
+      "muted": "#6B5260",
+      "control-line": "#947987"
+    },
+    "dark": {
+      "bg": "#21141B",
+      "surface": "#2E1D26",
+      "text": "#FAECF2",
+      "surface-alt": "#402A34",
+      "primary": "#E5A0B8",
+      "on-primary": "#351823",
+      "line": "#664652",
+      "primary-end": "#D58BA5",
+      "link": "#E5A0B8",
+      "muted": "#CBB5BF",
+      "control-line": "#AD929F"
+    }
+  },
+  "copper": {
+    "light": {
+      "bg": "#FAF6F2",
+      "surface": "#FFFDFA",
+      "text": "#30261F",
+      "surface-alt": "#F1E8DF",
+      "primary": "#97542D",
+      "on-primary": "#FFFFFF",
+      "line": "#D5C6B8",
+      "primary-end": "#7D4423",
+      "link": "#97542D",
+      "muted": "#62564A",
+      "control-line": "#86776A"
+    },
+    "dark": {
+      "bg": "#1F1914",
+      "surface": "#2B231C",
+      "text": "#F7EEE5",
+      "surface-alt": "#3B3026",
+      "primary": "#DDB18A",
+      "on-primary": "#2D1D11",
+      "line": "#62503F",
+      "primary-end": "#CC9E75",
+      "link": "#DDB18A",
+      "muted": "#C9BDAD",
+      "control-line": "#A79783"
+    }
+  },
+  "rose": {
+    "light": {
+      "bg": "#FDF7FA",
+      "surface": "#FFFFFF",
+      "text": "#38232D",
+      "surface-alt": "#F6EAF0",
+      "primary": "#A3466B",
+      "on-primary": "#FFFFFF",
+      "line": "#DFC6D2",
+      "primary-end": "#883756",
+      "link": "#A3466B",
+      "muted": "#6D5360",
+      "control-line": "#967B89"
+    },
+    "dark": {
+      "bg": "#21161D",
+      "surface": "#2D2029",
+      "text": "#FBEAF2",
+      "surface-alt": "#402D38",
+      "primary": "#E8A8C1",
+      "on-primary": "#351B29",
+      "line": "#684958",
+      "primary-end": "#D995B0",
+      "link": "#E8A8C1",
+      "muted": "#CDB7C3",
+      "control-line": "#AD94A3"
+    }
+  },
+  "aubergine": {
+    "light": {
+      "bg": "#F9F6F8",
+      "surface": "#FFFFFF",
+      "text": "#302330",
+      "surface-alt": "#EEE6ED",
+      "primary": "#65405F",
+      "on-primary": "#FFFFFF",
+      "line": "#D1C3CF",
+      "primary-end": "#51324C",
+      "link": "#65405F",
+      "muted": "#625361",
+      "control-line": "#887987"
+    },
+    "dark": {
+      "bg": "#1C151D",
+      "surface": "#291F2A",
+      "text": "#F6EDF6",
+      "surface-alt": "#392B3B",
+      "primary": "#CDA9CE",
+      "on-primary": "#2D1C30",
+      "line": "#5D4861",
+      "primary-end": "#BA94BF",
+      "link": "#CDA9CE",
+      "muted": "#C5B7C8",
+      "control-line": "#A291A8"
+    }
+  },
+  "slate": {
+    "light": {
+      "bg": "#F5F7FA",
+      "surface": "#FFFFFF",
+      "text": "#202C38",
+      "surface-alt": "#E8EDF3",
+      "primary": "#4C6278",
+      "on-primary": "#FFFFFF",
+      "line": "#C5CFDB",
+      "primary-end": "#3D5063",
+      "link": "#4C6278",
+      "muted": "#526172",
+      "control-line": "#758699"
+    },
+    "dark": {
+      "bg": "#141C24",
+      "surface": "#1E2A35",
+      "text": "#EDF3FA",
+      "surface-alt": "#2D3D4C",
+      "primary": "#A5BBD2",
+      "on-primary": "#192A3B",
+      "line": "#455B70",
+      "primary-end": "#92ABC4",
+      "link": "#A5BBD2",
+      "muted": "#BAC6D3",
+      "control-line": "#92A5B8"
+    }
   }
 }

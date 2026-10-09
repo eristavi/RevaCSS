@@ -1,3 +1,5 @@
+import options from '../../../tokens/options.json';
+
 export const attributes = [
   {
     id: 'navbar', title: 'data-navbar',
@@ -8,7 +10,7 @@ export const attributes = [
   {
     id: "palette",
     title: "data-palette",
-    description: "Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: default, mono, sand, ocean, cobalt, citrus, violet, forest. Default: default. Scope: inherited. See Themes / Colour palettes for every light and dark example.",
+    description: `Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: ${options.palette.values.join(', ')}. Default: ${options.palette.default}. Scope: inherited. See Themes / Colour palettes for every light and dark example.`,
     html: '<section data-palette="ocean" data-theme="light">\n  <article class="card">\n    <h3>Inherited Ocean</h3>\n    <p><a href="#palette">Palette link</a></p>\n    <button type="button">Primary action</button>\n  </article>\n  <article class="card" data-palette="mono">\n    <h3>Local Mono</h3>\n    <button type="button">Local action</button>\n  </article>\n</section>',
     glass: false
   },

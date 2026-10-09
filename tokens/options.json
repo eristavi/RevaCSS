@@ -8,7 +8,13 @@
       "cobalt",
       "citrus",
       "violet",
-      "forest"
+      "forest",
+      "terracotta",
+      "burgundy",
+      "copper",
+      "rose",
+      "aubergine",
+      "slate"
     ],
     "default": "default",
     "scope": "Inherited; applies to supported targets",
