@@ -236,6 +236,17 @@
   :where(fieldset:disabled > legend) { color: var(--re-muted); }
   /* Keep OS pickers and native range thumbs; improve their sizing, not behaviour. */
   :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week],[type=file],[type=color])) { max-inline-size: 100%; }
+  /* iOS native temporal appearance can add padding outside a 100% field.
+     Normalize the outer surface; input types still open their native pickers.
+     Keep widths owned by the shared field/input-group layout rules. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week])) {
+    -webkit-appearance: none; appearance: none; box-sizing: border-box;
+    min-inline-size: 0; text-align: start;
+  }
+  /* An empty iOS value must reserve the same text line as a populated field. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week]))::-webkit-date-and-time-value {
+    min-inline-size: 0; min-block-size: 1lh; text-align: inherit;
+  }
   :where(input[type=range]) { display: block; min-inline-size: 0; min-block-size: 2.75rem; margin-inline: 0; padding: 0; cursor: pointer; }
   :where(input[type=range]:disabled) { cursor: not-allowed; }
   :where(input[type=color]) { cursor: pointer; }

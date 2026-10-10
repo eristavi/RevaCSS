@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Normalize native date/time field appearance and box sizing to address iOS padded-field overflow; preserve empty-field line height, RTL alignment and browser pickers. Regenerate global, scoped and modular stylesheets. Device testing remains deferred.
+
 Compatible additions and refinements; source and documentation preview only. Tests are deferred by maintainer request. Published 1.2.1 GitHub/npm packages remain unchanged.
 
 - Add opt-in `.responsive` container wrappers for fixed-column grids, narrow card actions, toolbars and navigation rails. Existing intrinsic layouts and viewport fallbacks remain available.
