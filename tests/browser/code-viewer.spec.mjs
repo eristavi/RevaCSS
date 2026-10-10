@@ -54,10 +54,11 @@ test('highlighted HTML stays literal and wrapping works independently without Ja
  await expectOnlyOptionalSettings(page);await context.close();
 });
 
-for (const width of [320,375]) test(`navbar inheritance example scrolls by keyboard without JavaScript at ${width}px`,async({browser})=>{
- const context=await browser.newContext({javaScriptEnabled:false,viewport:{width,height:900}});
- try {
-  const page=await context.newPage();await page.goto('/components/top-menu/');
+test.describe('script-free navbar code example',()=>{
+ test.use({javaScriptEnabled:false});
+ // Managed fixtures close the context during teardown, outside the body budget.
+for (const width of [320,375]) test(`navbar inheritance example scrolls by keyboard without JavaScript at ${width}px`,async({page})=>{
+  await page.setViewportSize({width,height:900});await page.goto('/components/top-menu/');
   const pre=page.locator('.docs-content > pre'),previous=page.locator('#navbar-split pre');
   const source=await pre.textContent();
   expect(await pre.evaluate(el=>el.scrollWidth>el.clientWidth)).toBe(true);
@@ -68,7 +69,7 @@ for (const width of [320,375]) test(`navbar inheritance example scrolls by keybo
   expect(await pre.textContent()).toBe(source);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.keyboard.press('Shift+Tab');await expect(previous).toBeFocused();
- } finally { await context.close(); }
+});
 });
 
 test('code colours follow device and local themes and print expands the source',async({page})=>{

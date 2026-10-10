@@ -37,6 +37,8 @@ test.describe('shared documentation header without browser JavaScript',()=>{
   });
  }
  for(const width of [1280,375])test(`theme choices update the page and code while preserving local overrides at ${width}px`,async({page})=>{
+  // Three documents and repeated full-page CSS theme recalculation in Linux WebKit.
+  test.setTimeout(120000);
   await page.setViewportSize({width,height:900});await page.emulateMedia({colorScheme:'light'});await page.goto('/components/buttons/');
   const colours=()=>page.locator('#variants pre').evaluate(el=>({body:getComputedStyle(document.body).backgroundColor,code:getComputedStyle(el).backgroundColor}));
   const light=await colours();await openTheme(page);
