@@ -8,7 +8,8 @@ export const optionLabel=value=>value==='default'?'Default':value==='auto'?'Syst
 export const customizerGroups=[
  {title:"Colours",keys:["theme","palette","tone"],open:true},
  {title:"Surfaces",keys:["material","button-material","shape","border","depth","fill"],open:true},
- {title:"Layout",keys:["density","gap","width","navbar","navbar-position","navbar-spacing","navbar-width"]},
+ {title:"Layout",keys:["density","gap","width"]},
+ {title:"Navbar",keys:["navbar","navbar-position","navbar-spacing","navbar-width"]},
  {title:"Typography and controls",keys:["type","size","controls"]},
  {title:"Effects and accessibility",keys:["motion","edge","contrast"]}
 ];
