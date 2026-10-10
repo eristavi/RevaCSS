@@ -1,0 +1,171 @@
+name: Validate and publish RevaCSS 1.2.1
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: revacss-release-1.2.1
+  cancel-in-progress: false
+
+jobs:
+  unit:
+    name: Unit, project paths and quality gates
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Confirm release metadata
+        run: |
+          node --input-type=module -e "import p from './package.json' with {type:'json'}; import l from './package-lock.json' with {type:'json'}; if(p.version!=='1.2.1'||l.version!==p.version||l.packages[''].version!==p.version) process.exit(1)"
+      - run: npm ci
+      - run: npm run clean
+      - run: npm run build
+        env:
+          REVA_BASE: /
+      - run: npm test
+      - run: npm run check:release-quality
+      - run: npm run check:release-quality -- --npm
+      - name: Check GitHub Pages project paths
+        run: npm run build:docs && npm test
+        env:
+          REVA_SITE: https://eristavi.github.io
+          REVA_BASE: /RevaCSS/
+      - name: Report core size
+        run: node --input-type=module -e "import {readFileSync} from 'node:fs'; import {gzipSync} from 'node:zlib'; console.log('Core gzip bytes:',gzipSync(readFileSync('dist/reva.min.css')).length);"
+
+  browsers:
+    name: Complete browser suite (${{ matrix.browser }})
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run clean
+      - run: npm run build
+        env:
+          REVA_BASE: /
+      - name: Use Ubuntu archive for browser dependencies
+        run: |
+          sudo python3 - <<'PY'
+          from pathlib import Path
+          paths = [Path('/etc/apt/apt-mirrors.txt'), Path('/etc/apt/sources.list'), *Path('/etc/apt/sources.list.d').glob('*.list'), *Path('/etc/apt/sources.list.d').glob('*.sources')]
+          for path in paths:
+              if path.is_file():
+                  source = path.read_text()
+                  updated = source.replace('http://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu').replace('https://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu')
+                  if updated != source:
+                      path.write_text(updated)
+                      print(f'Updated Ubuntu mirror in {path}')
+          Path('/etc/apt/apt.conf.d/99reva-ci-timeouts').write_text('Acquire::Retries "1";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n')
+          import subprocess
+          config = subprocess.check_output(['apt-config', 'dump'], text=True)
+          for setting in ['Acquire::Retries "1";', 'Acquire::http::Timeout "15";', 'Acquire::https::Timeout "15";']:
+              assert setting in config, f'APT setting not effective: {setting}'
+          print('Verified bounded APT download settings.')
+          PY
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Run every browser spec
+        run: npm run test:browser -- --project=${{ matrix.browser }} --reporter=list,json
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: artifacts/browser-${{ matrix.browser }}.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: revacss-1.2.1-${{ matrix.browser }}-results
+          path: |
+            artifacts/browser-${{ matrix.browser }}.json
+            test-results/
+          if-no-files-found: warn
+          retention-days: 14
+
+  package:
+    name: Installed package and three-engine consumers
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run test:package
+      - name: Use Ubuntu archive for browser dependencies
+        run: |
+          sudo python3 - <<'PY'
+          from pathlib import Path
+          paths = [Path('/etc/apt/apt-mirrors.txt'), Path('/etc/apt/sources.list'), *Path('/etc/apt/sources.list.d').glob('*.list'), *Path('/etc/apt/sources.list.d').glob('*.sources')]
+          for path in paths:
+              if path.is_file():
+                  source = path.read_text()
+                  updated = source.replace('http://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu').replace('https://azure.archive.ubuntu.com/ubuntu', 'https://archive.ubuntu.com/ubuntu')
+                  if updated != source:
+                      path.write_text(updated)
+                      print(f'Updated Ubuntu mirror in {path}')
+          Path('/etc/apt/apt.conf.d/99reva-ci-timeouts').write_text('Acquire::Retries "1";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n')
+          import subprocess
+          config = subprocess.check_output(['apt-config', 'dump'], text=True)
+          for setting in ['Acquire::Retries "1";', 'Acquire::http::Timeout "15";', 'Acquire::https::Timeout "15";']:
+              assert setting in config, f'APT setting not effective: {setting}'
+          print('Verified bounded APT download settings.')
+          PY
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:package:browser
+
+  release:
+    name: Publish validated versioned downloads
+    needs: [unit, browsers, package]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[release 1.2.1]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run clean
+      - run: npm run build
+      - run: npm run check:release-quality
+      - run: npm run check:release-quality -- --npm
+      - name: Prepare and verify archives
+        run: |
+          python3 scripts/package-release.py
+          npm pack --pack-destination artifacts
+          cd artifacts
+          sha256sum revacss-1.2.1.tgz >> SHA256SUMS.txt
+          sha256sum --check SHA256SUMS.txt
+      - name: Publish immutable GitHub release
+        run: |
+          if gh release view v1.2.1 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'Release already exists; refusing to replace published assets.'
+            exit 1
+          fi
+          cp RELEASE_NOTES.md artifacts/release-notes.md
+          printf '\nAutomated validation: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> artifacts/release-notes.md
+          gh release create v1.2.1 artifacts/*.zip artifacts/*.tar.gz artifacts/*.tgz artifacts/*.min.css artifacts/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title 'RevaCSS 1.2.1 — Erisian' --notes-file artifacts/release-notes.md

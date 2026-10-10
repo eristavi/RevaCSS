@@ -46,13 +46,17 @@ test('demo choices persist across different pages, reloads and standalone exampl
  await page.goto('/demos/dashboard/');await expect(page.locator('#demo-material')).toHaveValue('glass');
  await page.goto('/demos/blog/source/archive.html');await expect(page.locator('html')).toHaveAttribute('data-palette','ocean');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
 });
-test('documentation mode persists independently and demo reset clears all saved choices',async({page})=>{
- await page.goto('/guide/');await page.getByRole('button',{name:'Customize',exact:true}).click();await page.locator('#demo-theme').selectOption('dark');
+test('one appearance profile is shared by documentation and demos and reset clears it everywhere',async({page})=>{
+ await page.goto('/guide/');await open(page);await page.locator('#demo-theme').selectOption('dark');
  await page.goto('/components/forms/');await expect(page.locator('#demo-theme')).toHaveValue('dark');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
- await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('light');await page.locator('#demo-palette').selectOption('mono');
- await page.getByRole('button',{name:'Reset to defaults',exact:true}).click();await expect(page.locator('#demo-palette')).toHaveValue('default');
- expect(await page.evaluate(()=>localStorage.getItem('revacss:demo-settings:v1'))).toBeNull();
- await page.goto('/demos/dashboard/');await expect(page.locator('#demo-palette')).toHaveValue('default');await page.goto('/guide/');await expect(page.locator('#demo-theme')).toHaveValue('dark');
+ await page.goto('/demos/blog/');await expect(page.locator('#demo-theme')).toHaveValue('dark');
+ await open(page);await page.locator('#demo-theme').selectOption('light');await page.locator('#demo-palette').selectOption('mono');
+ await page.goto('/guide/');await expect(page.locator('#demo-theme')).toHaveValue('light');await expect(page.locator('#demo-palette')).toHaveValue('mono');
+ await open(page);await page.getByRole('button',{name:'Reset to defaults',exact:true}).click();
+ await expect(page.locator('#demo-theme')).toHaveValue('auto');await expect(page.locator('#demo-palette')).toHaveValue('default');
+ for(const key of ['revacss:settings:v1','revacss:demo-settings:v1','revacss:docs-settings:v1','revacss:docs-theme:v1'])expect(await page.evaluate(key=>localStorage.getItem(key),key)).toBeNull();
+ await page.goto('/demos/dashboard/');await expect(page.locator('#demo-palette')).toHaveValue('default');await expect(page.locator('#demo-theme')).toHaveValue('auto');
+ await page.goto('/guide/');await expect(page.locator('#demo-theme')).toHaveValue('auto');
 });
 test('downloads contain selected settings without the optional preference scripts',async({page})=>{
  await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('forest');

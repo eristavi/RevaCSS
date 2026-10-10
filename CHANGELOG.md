@@ -2,25 +2,27 @@
 
 ## Unreleased
 
-- Keep mobile demo headers compact: place Customize before Menu, move mobile Docs access into Customize and use existing mobile navigation for demo calls to action. Mobile Flush removes all navbar rounding; desktop Full width uses square corners. Core, app-shell, scoped and modular builds share the corner rules. Tests remain deferred at maintainer request.
+## 1.2.1 — Erisian · 10 October 2026
 
-- Keep Flush navigation free of top borders and decorative surface shadows, highlights and gradients across solid, Glass, Veil and Soft UI menus and app-shell headers. Spaced restores the material finish; detached menus keep their own surfaces. Tests remain deferred at maintainer request.
+- Keep mobile demo headers compact: place Customize before Menu, move mobile Docs access into Customize and use existing mobile navigation for demo calls to action. Mobile Flush removes all navbar rounding; desktop Full width uses square corners. Core, app-shell, scoped and modular builds share the corner rules.
+
+- Keep Flush navigation free of top borders and decorative surface shadows, highlights and gradients across solid, Glass, Veil and Soft UI menus and app-shell headers. Spaced restores the material finish; detached menus keep their own surfaces.
 
 - Give navbar layout, position, spacing and width their own Navbar category in the shared documentation/demo customizer; keep general layout controls together.
 
-- Remove the extra documentation-header divider. Flush navbar spacing now squares the top corners of menus and app-shell headers while preserving the shared lower-corner shape; Spaced restores all corners. Tests remain deferred at maintainer request.
+- Remove the extra documentation-header divider. Flush navbar spacing now squares the top corners of menus and app-shell headers while preserving the shared lower-corner shape; Spaced restores all corners.
 
-- Add independent flush/spaced navbar spacing and contained/full width, with page-aligned full-width contents. Demo pages now use a single demo navbar with Docs and the shared Customize control; documentation and demos share one saved profile with migration of previous settings. Tests remain deferred at maintainer request.
+- Add independent flush/spaced navbar spacing and contained/full width, with page-aligned full-width contents. Demo pages now use a single demo navbar with Docs and the shared Customize control; documentation and demos share one saved profile with migration of previous settings.
 
-- Add independent `data-navbar-position="static|sticky"` with an outer `.navbar-header` wrapper, standalone menu/app-shell support, safe-area and stacking settings, anchor/focus clearance and print handling. Documentation and demos start sticky, share a saved position control, and use optional header-size observation to keep stacked preview bars and sidebars clear. Tests remain deferred at the maintainer's request.
+- Add independent `data-navbar-position="static|sticky"` with an outer `.navbar-header` wrapper, standalone menu/app-shell support, safe-area and stacking settings, anchor/focus clearance and print handling. Documentation and demos start sticky, share a saved position control, and use optional header-size observation to keep stacked preview bars and sidebars clear.
 
-- Add Terracotta, Burgundy, Copper, Rose, Aubergine and Slate palettes, each with complete light/dark tokens, generated global/minified/scoped/modular CSS, shared customizer choices and documentation examples. Validation is deferred until the next requested test run.
+- Add Terracotta, Burgundy, Copper, Rose, Aubergine and Slate palettes, each with complete light/dark tokens, generated global/minified/scoped/modular CSS, shared customizer choices and documentation examples.
 
 - Preserve navigation toggles and dropdown controls when selecting a button material. Liquid now uses transparent neutral glass, without accent or semantic tint, and neutral opaque accessibility fallbacks.
 - Guard semantic action scopes during material changes so Firefox does not temporarily paint an unrelated action with a neighbouring variant.
 - Initialize the page-defaults preview customizer from its actual page settings, preserving inherited size, width and spacing in both script-enabled and CSS-only previews.
 
-Next planned package release: **1.2.0** (compatible action-only materials).
+This release includes the compatible 1.2 additions and subsequent refinements; version **1.2.1** was selected by the maintainer.
 
 - Optional inherited `data-button-material`: default, solid, glass, veil, soft and liquid, with global/scoped stylesheets, liquid press/rebound motion, numeric customization and preference fallbacks.
 - Button material guide, live examples, references and shared documentation/demo customization.

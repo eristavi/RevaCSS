@@ -2,6 +2,7 @@
 import DocsLayout from '../layouts/DocsLayout.astro';
 import Example from '../components/Example.astro';
 import CodeViewer from '../components/CodeViewer.astro';
+import {version,releaseUrl} from '../data/release.js';
 const base=import.meta.env.BASE_URL;
 const sections=[{id:'install',title:'Get the files'},{id:'first-page',title:'Your first page'},{id:'page-defaults',title:'Page defaults'},{id:'scoped',title:'Scoped use'},{id:'next',title:'Next steps'}];
 ---
@@ -9,7 +10,7 @@ const sections=[{id:'install',title:'Get the files'},{id:'first-page',title:'You
 <p class="doc-kicker">LEARN</p><h1>Get started</h1>
 <p class="doc-lead">RevaCSS styles native HTML and adds a small set of classes for component patterns. Your application does not need browser JavaScript or a CSS build step to use the generated files.</p>
 <section id="install"><h2>1. Get the stylesheets</h2>
-<p>From the <a href="https://github.com/eristavi/RevaCSS">repository</a>, install its development dependencies and build the distributable files. This build creates <code>dist/</code>; copy the files into your own public assets directory. There is currently no published npm installation command.</p>
+<p>Download the compiled files from the <a href={releaseUrl}>RevaCSS {version} GitHub release</a> and copy the stylesheets from <code>dist/</code> into your public assets. You can also build them from the <a href="https://github.com/eristavi/RevaCSS">repository</a>:</p>
 <CodeViewer id="build-files" label="Build the distributable files" lang="bash" code={'git clone https://github.com/eristavi/RevaCSS.git\ncd RevaCSS\nnpm ci\nnpm run build:css'}/>
 <p>You can also <a href={base+'reva/reva.css'} download="reva.css">download the current preview stylesheet</a> directly from this documentation site. It is a development build, not a versioned release package.</p>
 <p>Start with <code>reva.css</code>. If you use <code>reva-fonts.css</code>, copy its adjacent <code>fonts/</code> directory too. Fonts are optional.</p></section>

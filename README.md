@@ -6,9 +6,9 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 
 [Documentation](https://eristavi.github.io/RevaCSS/) · [Live demos](#see-it-in-action) · [Get started](#start-with-html) · [API reference](https://eristavi.github.io/RevaCSS/reference/)
 
-**Version 1.1.0 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.1.0) · [MIT](https://github.com/eristavi/RevaCSS/blob/v1.1.0/LICENSE)
+**Version 1.2.1 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT](https://github.com/eristavi/RevaCSS/blob/v1.2.1/LICENSE)
 
-[![The same RevaCSS project card rendered in Light, Dark, Glass, and Veil, using shared design settings.](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.1.0/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
+[![The same RevaCSS project card rendered in Light, Dark, Glass, and Veil, using shared design settings.](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.2.1/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
 ## Why RevaCSS
 
@@ -35,7 +35,7 @@ The demos use sample content. Commerce, form processing, and live application da
 
 ## Start with HTML
 
-Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.1.0/dist/reva.min.css), place it beside your HTML, and link it in the page:
+Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.2.1/dist/reva.min.css), place it beside your HTML, and link it in the page:
 
 ```html
 <!doctype html>
@@ -60,9 +60,9 @@ Download [reva.min.css](https://raw.githubusercontent.com/eristavi/RevaCSS/v1.1.
 
 Native elements receive useful defaults. A structural class, such as `.card` or `.container`, identifies a pattern where one is needed. See the [getting-started guide](https://eristavi.github.io/RevaCSS/guide/) for installation and stylesheet choices.
 
-Until npm publication is verified, the registry package remains `revacss@1.0.0`. The prepared 1.1.0 package will install with `npm install revacss@1.1.0`; then import `revacss` in your application's CSS-capable bundler. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for scoped styles, fonts, icons, and CDN installation.
+Until npm publication is verified, the registry package remains `revacss@1.0.0`. The prepared 1.2.1 package will install with `npm install revacss@1.2.1`; then import `revacss` in your application's CSS-capable bundler. See the [npm guide](https://github.com/eristavi/RevaCSS/blob/main/NPM.md) for scoped styles, fonts, icons, and CDN installation.
 
-The 1.2 development preview adds optional [button materials](https://eristavi.github.io/RevaCSS/themes/button-materials/). Load `reva.button-materials.css` after the core, then set `data-button-material="liquid"` on your HTML root or a section. Choose default, solid, glass, veil, soft or liquid. Liquid is transparent neutral glass without accent tint; its movement follows `data-motion`. Navigation toggles, dropdown controls and general surfaces keep their existing appearance. This extension is not in the published 1.1.0 GitHub archives.
+Version 1.2.1 includes optional [button materials](https://eristavi.github.io/RevaCSS/themes/button-materials/). Load `reva.button-materials.css` after the core, then set `data-button-material="liquid"` on your HTML root or a section. Choose default, solid, glass, veil, soft or liquid. Liquid is transparent neutral glass without accent tint; its movement follows `data-motion`. Navigation toggles, dropdown controls and general surfaces keep their existing appearance. This extension is included in the 1.2.1 GitHub downloads.
 
 ## Configure once, refine locally
 
@@ -101,7 +101,7 @@ Load an optional extension after the core, then configure it through the same pa
 </article>
 ```
 
-Complete, scoped, and modular builds are available in [`dist/`](https://github.com/eristavi/RevaCSS/tree/v1.1.0/dist). Fonts load separately through `reva-fonts.css`; copy `dist/fonts/` alongside it. The [stylesheet reference](https://eristavi.github.io/RevaCSS/reference/) explains dependencies and extension choices.
+Complete, scoped, and modular builds are available in [`dist/`](https://github.com/eristavi/RevaCSS/tree/v1.2.1/dist). Fonts load separately through `reva-fonts.css`; copy `dist/fonts/` alongside it. The [stylesheet reference](https://eristavi.github.io/RevaCSS/reference/) explains dependencies and extension choices.
 
 Version 1.1 adds [modern CSS patterns](https://eristavi.github.io/RevaCSS/guide/modern-css/): viewport-safe overlays, `.card-grid` with container-responsive actions and subgrid, and a native `.gallery` with proximity scroll snapping. Card grids and galleries are included in the complete core and scoped core, with individual modular files available.
 
@@ -111,13 +111,13 @@ Version 1.1 also adds motion-aware native scrolling and a labelled `.scroll-top`
 
 ## Project status
 
-**RevaCSS 1.1.0 — Erisian** adds Soft UI, native scrolling and modern CSS enhancements. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.1.0). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.
+**RevaCSS 1.2.1 — Erisian** adds six palettes, independent button materials, sticky navbar controls and a shared documentation/demo customizer. Download the compiled CSS, optional extensions, icons, font, and starter HTML from the [release page](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1). Archives include licenses; a separate SHA-256 checksum file verifies the downloads.
 
-Automated validation and known limits are recorded in the [release notes](https://github.com/eristavi/RevaCSS/blob/v1.1.0/RELEASE_NOTES.md) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.1.0/quality/releases/v1.1.0.md). The maintainer reports all six manual checks passed. The validation record distinguishes that sign-off from automated results and documents missing device/version evidence. This is not accessibility certification.
+Automated validation and known limits are recorded in the [release notes](https://github.com/eristavi/RevaCSS/blob/v1.2.1/RELEASE_NOTES.md) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The maintainer reports all six manual checks passed. The validation record distinguishes that sign-off from automated results and documents missing device/version evidence. This is not accessibility certification.
 
 The current implementation targets modern browsers. Native popover patterns require browser support; individual enhancements document their fallbacks. Accessibility also depends on your markup and application behavior. See the [behavior and accessibility guide](https://eristavi.github.io/RevaCSS/guide/accessibility/).
 
-[Specification](https://github.com/eristavi/RevaCSS/blob/v1.1.0/SPECIFICATION.md) · [Implementation record](https://github.com/eristavi/RevaCSS/blob/v1.1.0/IMPLEMENTATION.md) · [Component quality standard](https://github.com/eristavi/RevaCSS/blob/v1.1.0/QUALITY_STANDARD.md)
+[Specification](https://github.com/eristavi/RevaCSS/blob/v1.2.1/SPECIFICATION.md) · [Implementation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/IMPLEMENTATION.md) · [Component quality standard](https://github.com/eristavi/RevaCSS/blob/v1.2.1/QUALITY_STANDARD.md)
 
 ## Develop and validate
 
@@ -148,7 +148,7 @@ After building, run `npm run release:package` to reproduce the GitHub downloads 
 
 The npm package workflow validates a clean tarball installation and retains a candidate archive for review. `npm pack --pack-destination artifacts` creates the same kind of local candidate; the existing quality gate still applies to publication.
 
-GitHub Pages builds and deploys documentation from `main`. The three-engine validation workflow is run manually. `REVA_SITE` and `REVA_BASE` configure the documentation origin and path.
+GitHub Pages builds and deploys documentation from `main`. The three-engine validation workflow can be run manually. Release publication also requires the complete automated suite, installed-package checks and quality gates. `REVA_SITE` and `REVA_BASE` configure the documentation origin and path.
 
 Optional sticky navigation uses `data-navbar-position="sticky"`, independently of navbar layout and material. Place menus in a `.navbar-header` wrapper alongside page content; standalone menus and app-shell headers are also supported. Set `--re-navbar-height` for custom header clearance. Use `data-navbar-spacing="flush"` and `data-navbar-width="full"` for a header at the safe top edge with page-aligned contents. See [sticky headers](https://eristavi.github.io/RevaCSS/components/top-menu/#navbar-position).
 
@@ -158,7 +158,7 @@ Astro builds the documentation. An optional shared customizer remembers one appe
 
 ## License
 
-RevaCSS is [MIT licensed](https://github.com/eristavi/RevaCSS/blob/v1.1.0/LICENSE). The bundled Manrope font retains its [SIL Open Font License](https://github.com/eristavi/RevaCSS/blob/v1.1.0/dist/fonts/OFL.txt).
+RevaCSS is [MIT licensed](https://github.com/eristavi/RevaCSS/blob/v1.2.1/LICENSE). The bundled Manrope font retains its [SIL Open Font License](https://github.com/eristavi/RevaCSS/blob/v1.2.1/dist/fonts/OFL.txt).
 
 ## Versioning
 

@@ -1,9 +1,6 @@
 name: Publish verified RevaCSS 1.1 downloads
 
 on:
-  push:
-    branches: [main]
-    paths: [package.json, .github/workflows/release-1.1.yml]
   workflow_dispatch:
 
 permissions:
