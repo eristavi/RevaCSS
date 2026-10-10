@@ -24,7 +24,7 @@ const formattedExample = example
 const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,html:await container.renderToString(TopMenu,{props:{id:`layout-${navbar}`,navbar,label:`${navbar} navigation`,brand:'Studio',brandHref:'#navbar-layouts',items:[{key:'overview',label:'Overview',href:'#navbar-layouts'},{key:'projects',label:'Projects',href:'#navbar-layouts'}],endItems:navbar==='split'?[{key:'team',label:'Team',href:'#navbar-layouts'},{key:'contact',label:'Contact',href:'#navbar-layouts'}]:undefined}})})));
 
 ---
-<DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"},{id:"navbar-layouts",title:"Navbar layouts"},{id:"navbar-position",title:"Sticky headers"}]}>
+<DocsLayout title="Top menu" active="top-menu" sections={[{id:"complete-menu",title:"Complete markup"},{id:"navbar-layouts",title:"Navbar layouts"},{id:"navbar-position",title:"Sticky headers"},{id:"navbar-sizing",title:"Spacing and width"}]}>
   <p class="doc-kicker">COMPONENTS / NAVIGATION</p>
   <h1>Top menu</h1>
   <p class="prose">Responsive site navigation using native HTML popovers and CSS. Desktop and mobile lists share the same links, with nested submenus at any depth. Clicking outside dismisses open menus without JavaScript.</p>
@@ -53,8 +53,19 @@ const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,
   <Example id="sticky-markup" title="A sticky page header" render={false} description="CSS owns the sticky behaviour. Use static on the same outer wrapper to reset an inherited sticky choice." html={'<html lang="en" data-navbar="standard" data-navbar-position="sticky">\n  <body>\n    <header class="navbar-header container">\n      <nav class="top-menu" aria-label="Main navigation">\n        <a class="menu-brand" href="#home">Studio</a>\n        <!-- Use the complete responsive menu markup above. -->\n      </nav>\n    </header>\n    <main id="home">\n      <!-- Page content gives the header room to remain sticky. -->\n    </main>\n  </body>\n</html>'}/>
   <p>Sticky headers stay within their containing block and follow the nearest scroll container. An ancestor with <code>overflow:auto</code>, <code>scroll</code> or <code>hidden</code> changes that container; avoid accidental overflow wrappers. Native popovers and dialogs remain in the browser's top layer.</p>
   <p><code>--re-navbar-offset</code> adds space above the bar; safe-area space is added separately. <code>--re-navbar-height</code> reserves room for anchor destinations and keyboard focus. Its CSS-only fallback is 6rem plus Floating margins. Set it to the complete header height when your branding or links wrap. <code>--re-anchor-offset</code> retains the small gap below the header. <code>--re-navbar-z</code> controls the sticky stacking level; the default is 30.</p>
-  <p>The documentation and standalone demos start sticky. Their optional settings helper measures actual header height after font loading or layout changes, and embedded demo bars sit below the documentation bar. Custom applications can set the height in ordinary CSS; the RevaCSS core requires no script or scroll listener. Print hides navigation headers.</p>
+  <p>The documentation and standalone demos start sticky. Their optional settings helper measures actual header height after font loading or layout changes. Demo pages use their own navigation with a shared Customize control and a Docs link. Custom applications can set the height in ordinary CSS; the RevaCSS core requires no script or scroll listener. Print hides navigation headers.</p>
   <p><a href={base+'demos/marketing/'}>Try the complete marketing demo</a> · <a href={base+'demos/dashboard/'}>Try the dashboard</a></p>
+
+
+  <h2 id="navbar-sizing">Spacing and width</h2>
+  <p>Position, spacing and width are independent. The framework defaults to <code>spaced</code> and <code>contained</code>; the documentation and complete demos start <code>flush</code> and <code>full</code>.</p>
+  <table><thead><tr><th>Attribute</th><th>Values</th><th>Effect</th></tr></thead><tbody>
+    <tr><th><code>data-navbar-spacing</code></th><td>flush, spaced</td><td>Flush removes wrapper padding and Floating block margins. Spaced adds wrapper breathing room and retains Floating margins; the wrapper gap is reduced below 48rem.</td></tr>
+    <tr><th><code>data-navbar-width</code></th><td>contained, full</td><td>Contained follows the shared page width and the layout's own inset. Full fills the parent with a navbar surface while keeping its contents aligned to the shared page width.</td></tr>
+  </tbody></table>
+  <Example id="flush-full-markup" title="Flush header with a full-width surface" render={false} html={'<html lang="en" data-navbar-position="sticky"\n      data-navbar-spacing="flush" data-navbar-width="full">\n  <body>\n    <header class="navbar-header">\n      <nav class="top-menu" aria-label="Main navigation">\n        <!-- Logo, responsive links and actions. -->\n      </nav>\n    </header>\n    <main class="container">\n      <!-- Page content. -->\n    </main>\n  </body>\n</html>'}/>
+  <p>Keep the outer wrapper in a page-wide parent for a surface that reaches both screen edges. Full width takes precedence over the Floating width while retaining its alignment; Flush removes its block margin. App-shell toolbars keep their existing grid column. <code>data-width</code> still chooses the shared content width, and <code>--re-navbar-space</code> customizes the spaced wrapper gap. Avoid extra application padding on the header if it should meet the safe top edge.</p>
+  <p>The same customizer is used throughout this site. Documentation and demo pages share saved choices; demo pages include one demo navbar instead of an additional documentation navbar. Reset clears the shared profile, and HTML downloads include your current selections.</p>
 
   <h2>Use the markup</h2>
   <p>Copy the example above and replace its link destinations. Keep both lists in sync. Give each navigation a unique <code>--re-menu-anchor</code> CSS identifier for mobile positioning as shown in the example. Give each desktop dropdown list item a unique <code>--re-menu-branch-anchor</code>; its descendants inherit that identifier so nested panels remain beneath the visible top-level button. Every panel needs a unique document-wide <code>id</code>, and each toggle's <code>popovertarget</code> must match that id. Generate both layouts from a shared template. Nest child panels and their toggle buttons inside the parent panel so native dismissal preserves the hierarchy.</p>
@@ -63,6 +74,8 @@ const layoutExamples=await Promise.all(navbarLayouts.map(async navbar=>({navbar,
     <table><thead><tr><th scope="col">Class or setting</th><th scope="col">Use</th></tr></thead><tbody>
       <tr><th scope="row"><code>.top-menu</code></th><td>Navigation landmark and containing surface.</td></tr>
       <tr><th scope="row"><code>data-navbar</code></th><td>Inherited layout: standard (default), centered, floating, split.</td></tr>
+      <tr><th scope="row"><code>data-navbar-spacing</code></th><td>Inherited wrapper gap: spaced (default) or flush.</td></tr>
+      <tr><th scope="row"><code>data-navbar-width</code></th><td>Inherited frame and surface width: contained (default) or full.</td></tr>
       <tr><th scope="row"><code>.menu-actions</code></th><td>Optional right-hand group for actions and a second desktop list.</td></tr>
       <tr><th scope="row"><code>.menu-brand</code></th><td>Optional brand link.</td></tr>
       <tr><th scope="row"><code>.menu-desktop</code></th><td>Desktop list, visible at 48rem and wider.</td></tr>

@@ -14,7 +14,7 @@ const bag=[shopProducts[0],shopProducts[4]];
 const subtotal=bag.reduce((sum,p)=>sum+p.price,0),delivery=8;
 const cards=product?shopProducts.filter(p=>p.slug!==product.slug).slice(0,3):collection;
 ---
-<header class="navbar-header container"><TopMenu id="still" label="Still shop navigation" brand="still." brandHref={home} current={view.kind==='bag'?'bag':'shop'} items={[{key:'shop',label:'Shop',href:home},{key:'collection',label:'Collections',children:shopCategories.map(c=>({key:c.slug,label:c.name,href:href({category:c.slug})}))},{key:'story',label:'Our story',href:home+'#shop-story'},{key:'bag',label:'Bag',href:href({kind:'bag'})}]}/></header>
+<header class="navbar-header container"><TopMenu id="still" label="Still shop navigation" brand="still." brandHref={home} current={view.kind==='bag'?'bag':'shop'} items={[{key:'shop',label:'Shop',href:home},{key:'collection',label:'Collections',children:shopCategories.map(c=>({key:c.slug,label:c.name,href:href({category:c.slug})}))},{key:'story',label:'Our story',href:home+'#shop-story'},{key:'bag',label:'Bag',href:href({kind:'bag'})}]}><slot slot="actions" name="actions"/></TopMenu></header>
 <Content class="container" aria-label="Still shop">
 {product ? <>
  <nav class="breadcrumbs" aria-label="Breadcrumb"><ol><li><a href={home}>Shop</a></li><li><a href={href({category:product.category})}>{shopCategories.find(c=>c.slug===product.category).name}</a></li><li><span aria-current="page">{product.name}</span></li></ol></nav>

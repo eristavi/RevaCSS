@@ -267,6 +267,24 @@
     "scope": "Inherited; applies to .navbar-header, standalone .top-menu and .app-shell > header",
     "affects": "Static follows normal document flow. Sticky keeps the outer header at block-start of its scroll container; layout, palette and material remain independent. Put the wrapper in the scrolling page, outside short sections."
   },
+  "navbar-spacing": {
+    "values": [
+      "flush",
+      "spaced"
+    ],
+    "default": "spaced",
+    "scope": "Inherited; applies to .navbar-header and standalone .top-menu",
+    "affects": "Flush removes the wrapper gap and Floating margins so a sticky bar meets the safe top edge. Spaced adds wrapper breathing room, reduced on small screens, and retains Floating margins."
+  },
+  "navbar-width": {
+    "values": [
+      "contained",
+      "full"
+    ],
+    "default": "contained",
+    "scope": "Inherited; applies to .navbar-header and .top-menu",
+    "affects": "Contained follows the shared page width and navbar layout. Full fills its parent with a navbar surface while aligning its contents to the shared page width. Use a page-wide wrapper to reach both screen edges; app-shell toolbars retain their grid column."
+  },
   "button-material": {
     "values": [
       "default",

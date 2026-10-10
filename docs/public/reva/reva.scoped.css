@@ -21,6 +21,7 @@
 --re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem;
 --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;
+--re-navbar-spacing-scale: 1; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -105,6 +106,10 @@
 :where([data-navbar="split"], :scope[data-navbar="split"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0; }
 :where([data-navbar-position="static"], :scope[data-navbar-position="static"]) { --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto; }
 :where([data-navbar-position="sticky"], :scope[data-navbar-position="sticky"]) { --re-navbar-position: sticky; --re-navbar-sticky: 1; --re-navbar-layer: var(--re-navbar-z, 30); }
+:where([data-navbar-spacing="flush"], :scope[data-navbar-spacing="flush"]) { --re-navbar-spacing-scale: 0; }
+:where([data-navbar-spacing="spaced"], :scope[data-navbar-spacing="spaced"]) { --re-navbar-spacing-scale: 1; }
+:where([data-navbar-width="contained"], :scope[data-navbar-width="contained"]) { --re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem; }
+:where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2)); }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
@@ -1274,9 +1279,10 @@
 /* Layout presets inherit from html or a parent; a local preset resets them. */
 @layer re.components {
   :where(.top-menu, :scope.top-menu) {
-    inline-size: var(--re-navbar-width, 100%);
+    inline-size: var(--re-navbar-surface-width, var(--re-navbar-width, 100%));
     margin-inline: auto;
-    margin-block: var(--re-navbar-margin, 0);
+    margin-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-margin, 0rem));
+    padding-inline: var(--re-navbar-content-padding, .5rem);
   }
   :where(.top-menu .menu-actions) {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
@@ -1329,6 +1335,21 @@
   @media print {
     :where(.navbar-header, :scope.navbar-header) { display: none; }
     :where([id], :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* A full-width surface still aligns its contents with the shared page width.
+   Use a page-wide parent; percentages avoid viewport scrollbar overflow. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header) {
+    inline-size: var(--re-navbar-frame-width, min(calc(100% - 2rem), var(--re-container, 75rem)));
+    margin-inline: auto;
+    padding-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-space, 1rem));
+  }
+  @media (width < 48rem) {
+    :where(.navbar-header, :scope.navbar-header) {
+      padding-block: calc(var(--re-navbar-spacing-scale, 1) * min(var(--re-navbar-space, 1rem), .5rem));
+    }
   }
 }
 /* One shell class owns layout; semantic children own their regions. */

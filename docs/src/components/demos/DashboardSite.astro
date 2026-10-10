@@ -24,6 +24,7 @@ const points=revenue.map((value,i)=>`${50+i*90},${190-value/250}`).join(' ');
   <header>
     <button type="button" class="outline" popovertarget="dashboard-sidebar" aria-label="Open sidebar"><Fragment set:html={icon('menu')}/></button>
     <strong>Workspace overview</strong>
+    <slot name="actions"/>
     <a class="button outline" href="#dashboard-report" aria-label="View report"><span>View report</span><Fragment set:html={icon('arrow-right')}/></a>
   </header>
   <Content aria-label="Dashboard content">

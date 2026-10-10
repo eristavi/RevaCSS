@@ -1,6 +1,6 @@
 /* Demo composition only. Components and appearance belong to RevaCSS. */
 .blog-site { background:var(--re-bg); color:var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
-.blog-site > header { padding-block:1.25rem; border-block-end:var(--re-surface-border) solid var(--re-line); }
+.blog-site > header { border-block-end:var(--re-surface-border) solid var(--re-line); }
 .blog-site > :is(main,section) { padding-block:clamp(1.5rem,4vw,4rem); }
 .blog-site > footer { padding-block:2rem; border-block-start:var(--re-surface-border) solid var(--re-line); }
 .blog-site :is(article,section,aside) { min-inline-size:0; }
@@ -59,4 +59,3 @@ html:is([data-material="glass"],[data-material="veil"]) .blog-site {
 }
 
 .blog-site { --re-navbar-height:calc(8rem + 2 * var(--re-navbar-margin, 0rem)); }
-@media (width < 48rem) { .blog-site > .navbar-header { padding-block:.5rem; } }

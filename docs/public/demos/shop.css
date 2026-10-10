@@ -1,7 +1,6 @@
 /* Store composition; existing RevaCSS components own surfaces and controls. */
 .shop-site { --re-navbar-height:calc(8rem + 2 * var(--re-navbar-margin, 0rem)); }
 .shop-site { background:var(--re-bg); color:var(--re-text); font-family:var(--re-font); font-size:var(--re-type); line-height:1.65; }
-.shop-site > header { padding-block:1.25rem; }
 .shop-site > :is(main,section) { padding-block:1.5rem 4rem; }
 .shop-site > footer { padding-block:2rem; border-block-start:var(--re-surface-border) solid var(--re-line); }
 .shop-site :is(article,section,aside) { min-inline-size:0; }
@@ -46,4 +45,3 @@ html:is([data-material="glass"],[data-material="veil"]) .shop-site { background:
 @media (width < 42rem) { .shop-feature,.shop-bag { grid-template-columns:minmax(0,1fr); } .shop-products { grid-template-columns:minmax(0,1fr); } .shop-feature { gap:1.5rem; } .shop-bag > section > .card { grid-template-columns:minmax(0,6rem) minmax(0,1fr); } }
 @media (prefers-reduced-transparency:reduce),(prefers-contrast:more),(forced-colors:active),print { .shop-site { background:var(--re-bg) !important; } }
 
-@media (width < 48rem) { .shop-site > .navbar-header { padding-block:.5rem; } }

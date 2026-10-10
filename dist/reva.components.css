@@ -1034,9 +1034,10 @@
 /* Layout presets inherit from html or a parent; a local preset resets them. */
 @layer re.components {
   :where(.top-menu, :scope.top-menu) {
-    inline-size: var(--re-navbar-width, 100%);
+    inline-size: var(--re-navbar-surface-width, var(--re-navbar-width, 100%));
     margin-inline: auto;
-    margin-block: var(--re-navbar-margin, 0);
+    margin-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-margin, 0rem));
+    padding-inline: var(--re-navbar-content-padding, .5rem);
   }
   :where(.top-menu .menu-actions) {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
@@ -1089,6 +1090,21 @@
   @media print {
     :where(.navbar-header, :scope.navbar-header) { display: none; }
     :where([id], :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* A full-width surface still aligns its contents with the shared page width.
+   Use a page-wide parent; percentages avoid viewport scrollbar overflow. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header) {
+    inline-size: var(--re-navbar-frame-width, min(calc(100% - 2rem), var(--re-container, 75rem)));
+    margin-inline: auto;
+    padding-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-space, 1rem));
+  }
+  @media (width < 48rem) {
+    :where(.navbar-header, :scope.navbar-header) {
+      padding-block: calc(var(--re-navbar-spacing-scale, 1) * min(var(--re-navbar-space, 1rem), .5rem));
+    }
   }
 }
 /* One shell class owns layout; semantic children own their regions. */

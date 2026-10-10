@@ -10,9 +10,8 @@
   overflow-wrap: anywhere;
 }
 .forma-site :is(section, [id]) { scroll-margin-block-start: calc(2rem + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); }
-.forma-header { padding-block: 1.25rem; }
 .forma-header .menu-brand, .forma-wordmark { font-size: 1.8rem; font-weight: 800; letter-spacing: -.06em; text-decoration: none; }
-.forma-header .top-menu { padding: .65rem 1rem; }
+.forma-header .top-menu { padding-block:.65rem; }
 .forma-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; padding-block: clamp(3rem, 8vw, 7rem); }
 .forma-hero h1 { font-size: clamp(2.5rem, 4.8vw, 5.25rem); line-height: 1.08; letter-spacing: -.055em; margin: 0; }
 .forma-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .1em; }
@@ -170,4 +169,3 @@ html.forma-site[data-material="veil"][data-contrast="more"] > body::before { dis
   html.forma-site[data-material="glass"] .forma-workspace { background: Canvas; }
 }
 
-@media (width < 48rem) { .forma-header { padding-block:.5rem; } }

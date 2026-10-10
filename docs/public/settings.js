@@ -7,7 +7,8 @@
   try{schema=JSON.parse(schemaNode.textContent);}catch{return;}
   const root=document.documentElement;
   const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
-  const storageKey=schema.kind==='demo'?demoKey:docsKey;
+  const storageKey='revacss:settings:v1';
+  const pageAttributes=Object.fromEntries(Object.keys(schema.values).map(key=>[key,root.getAttribute('data-'+key)]));
   const initialTheme=root.getAttribute('data-theme') || 'auto';
   const clean=value=>{
     const result={};
@@ -22,9 +23,18 @@
   const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(clean(value)));return true;}catch{return false;}};
   const clear=key=>{try{localStorage.removeItem(key);}catch{}};
   const stored=()=>{
-    const current=read(storageKey);
-    if(storageKey===docsKey && !Object.keys(current).length)return read(legacyDocsKey);
-    return current;
+    // Migrate once, preferring the page's existing choices when both were saved.
+    // All pages then read one shared profile; an empty profile means defaults.
+    try{
+      const current=localStorage.getItem(storageKey);
+      if(current!==null)return clean(JSON.parse(current));
+    }catch{return {};}
+    const keys=schema.kind==='demo'?[legacyDocsKey,docsKey,demoKey]:[legacyDocsKey,demoKey,docsKey];
+    const previous=Object.assign({},...keys.map(read));
+    if(Object.keys(previous).length && save(storageKey,previous)){
+      for(const key of keys)clear(key);
+    }
+    return previous;
   };
   const invalidateMaterials=doc=>{
     // Refresh Firefox's material scope matches without fetching or reloading.
@@ -62,8 +72,10 @@
   const apply=value=>{
     const previousMaterial=root.getAttribute('data-material');
     const previousButtonMaterial=root.getAttribute('data-button-material');
-    for(const [key,choice] of Object.entries(clean(value))){
-      if(key==='tone' && choice==='default')root.removeAttribute('data-tone');
+    const choices=clean(value);
+    for(const key of Object.keys(schema.values)){
+      const choice=choices[key] ?? pageAttributes[key];
+      if(choice===null || choice==='default')root.removeAttribute('data-'+key);
       else root.setAttribute('data-'+key,choice);
     }
     if(root.getAttribute('data-material')!==previousMaterial || root.getAttribute('data-button-material')!==previousButtonMaterial){
@@ -95,12 +107,11 @@
     restore();
     form.addEventListener('change',()=>{
       update();
-      if(status)status.textContent=save(storageKey,values())?'Saved for all '+(schema.kind==='demo'?'demo':'documentation')+' pages.':'Choices apply here; this browser did not allow saving them.';
+      if(status)status.textContent=save(storageKey,values())?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
     });
     form.addEventListener('reset',()=>{
-      clear(storageKey);
-      if(storageKey===docsKey)clear(legacyDocsKey);
-      setTimeout(()=>{update();if(status)status.textContent='Saved choices cleared. This page’s defaults are restored.';},0);
+      for(const key of [storageKey,demoKey,docsKey,legacyDocsKey])clear(key);
+      setTimeout(()=>{update();if(status)status.textContent='Shared saved choices cleared. This page’s defaults are restored.';},0);
     });
     customizer={restore};
     const copy=document.getElementById('copy-configuration');
@@ -143,23 +154,23 @@
   let navbarObserver;
   const initNavbarSpacing=()=>{
     if(navbarObserver || !('ResizeObserver' in window))return;
-    const documentationHeader=document.querySelector('.documentation-header.navbar-header');
-    const primary=documentationHeader || document.querySelector('.navbar-header, .app-shell > header');
+    const primary=document.querySelector('.navbar-header, .app-shell > header');
     if(!primary)return;
-    const owners=new Map([[primary,root]]);
+    const owners=new Map([[primary,new Set([root,document.body])]]);
     for(const preview of document.querySelectorAll('.demo-preview')){
       const header=preview.querySelector('.navbar-header, .app-shell > header');
-      if(header)owners.set(header,preview);
+      if(header){
+        const targets=owners.get(header) || new Set();
+        targets.add(preview);owners.set(header,targets);
+      }
     }
     const updateSize=header=>{
-      const owner=owners.get(header);
-      if(!owner)return;
+      const targets=owners.get(header);
+      if(!targets)return;
       const style=getComputedStyle(header);
       const margin=Math.max(0,parseFloat(style.marginBlockStart)||0)+Math.max(0,parseFloat(style.marginBlockEnd)||0);
       const size=Math.ceil(header.getBoundingClientRect().height+margin)+'px';
-      owner.style.setProperty('--re-navbar-height',size);
-      if(owner===root)document.body.style.setProperty('--re-navbar-height',size);
-      if(header===documentationHeader)root.style.setProperty('--re-docs-navbar-height',size);
+      for(const owner of targets)owner.style.setProperty('--re-navbar-height',size);
     };
     navbarObserver=new ResizeObserver(entries=>{for(const entry of entries)updateSize(entry.target);});
     for(const header of owners.keys()){updateSize(header);navbarObserver.observe(header);}
@@ -177,7 +188,7 @@
   window.RevaSettings={initCustomizer,initTheme};
   document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
   window.addEventListener('storage',event=>{
-    if(event.key===storageKey || event.key===legacyDocsKey || event.key===null){
+    if(event.key===storageKey || event.key===null){
       if(customizer)customizer.restore();
       else{apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
     }

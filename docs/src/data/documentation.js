@@ -166,7 +166,7 @@ export const componentContracts = {
   ],
   "top-menu": [
     ".top-menu and documented menu structure",
-    "Unique panel IDs, popovertarget, popover=auto. Optional .navbar-header wrapper and inherited data-navbar-position for sticky page navigation.",
+    "Unique panel IDs, popovertarget, popover=auto. Optional .navbar-header wrapper; inherited data-navbar-position, data-navbar-spacing and data-navbar-width configure scrolling, gap and frame independently.",
     "reva.navigation.css",
     "Native popover support is required; nested focus restoration is browser-dependent."
   ],

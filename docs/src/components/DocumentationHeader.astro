@@ -2,21 +2,15 @@
 import TopMenu from './TopMenu.astro';
 import DemoCustomizer from './demos/DemoCustomizer.astro';
 import {defaultDemo} from '../data/demo-configurations.js';
-import {asset,stylesheet} from '../data/assets.js';
 import { documentationNavigation } from '../data/navigation.js';
 const { theme='auto', current, customizer={}, kind='docs' }=Astro.props;
 const base=import.meta.env.BASE_URL;
 ---
-<!-- Keep the checked-option fallback out of the attribute-driven runtime. -->
-<noscript><link rel="stylesheet" href={asset('customizer.css')}/></noscript>
-{['reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}
 <header class="navbar-header container documentation-header">
   <TopMenu id="docs" label="Documentation" items={documentationNavigation(base)} current={current} brandHref={base}>
     <DemoCustomizer slot="actions" kind={kind} config={customizer.config || {...defaultDemo,theme}} downloadHref={customizer.downloadHref} downloadName={customizer.downloadName}/>
   </TopMenu>
 </header>
 <style>
-.documentation-header { padding-block:1rem; }
-@media (width < 48rem) { .documentation-header { padding-block:.5rem; } }
 .documentation-header :global(.menu-brand) { max-inline-size:none; }
 </style>

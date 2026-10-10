@@ -14,6 +14,18 @@ export const attributes = [
     glass: false
   },
   {
+    id: 'navbar-spacing', title: 'data-navbar-spacing',
+    description: 'Header gap. Values: flush, spaced. Default: spaced. Flush removes wrapper padding and Floating block margins; Spaced adds wrapper breathing room, reduced below 48rem. Inherits independently of layout and sticky position.',
+    html: '<header class="navbar-header" data-navbar-spacing="flush">\n  <nav class="top-menu" aria-label="Flush navigation"><a class="menu-brand" href="#navbar-spacing">Studio</a></nav>\n</header>',
+    glass: false
+  },
+  {
+    id: 'navbar-width', title: 'data-navbar-width',
+    description: 'Navbar frame and surface. Values: contained, full. Default: contained. Full fills the parent while aligning its contents with the shared page width; use a page-wide wrapper. Explicit full width takes precedence over Floating width. App-shell toolbars retain their grid column.',
+    html: '<header class="navbar-header" data-navbar-width="full">\n  <nav class="top-menu" aria-label="Full-width navigation"><a class="menu-brand" href="#navbar-width">Studio</a></nav>\n</header>',
+    glass: false
+  },
+  {
     id: "palette",
     title: "data-palette",
     description: `Coordinated colours for pages, surfaces, text, links, borders and primary actions. Values: ${options.palette.values.join(', ')}. Default: ${options.palette.default}. Scope: inherited. See Themes / Colour palettes for every light and dark example.`,

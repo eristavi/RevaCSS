@@ -20,6 +20,7 @@ tokens+=rule(':where(:root)',`${declarations('semantic')} ${adaptive}
 --re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem;
 --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;
+--re-navbar-spacing-scale: 1; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -49,6 +50,14 @@ presets.navbar={
 presets['navbar-position']={
  static:"--re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;",
  sticky:"--re-navbar-position: sticky; --re-navbar-sticky: 1; --re-navbar-layer: var(--re-navbar-z, 30);"
+};
+presets['navbar-spacing']={
+ flush:'--re-navbar-spacing-scale: 0;',
+ spaced:'--re-navbar-spacing-scale: 1;'
+};
+presets['navbar-width']={
+ contained:'--re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem;',
+ full:'--re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2));'
 };
 presets.edge={
  plain:'--re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite;',
