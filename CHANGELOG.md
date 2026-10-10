@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Living Blueprint, an original demo-only scroll composition with inherited class-based movement, ten intensity and zoom levels, eight directions, rotation, fade and phased assembly. Include a quieter depth example, native intensity controls, downloadable HTML and responsive/preference fallbacks. Effects and composition CSS are isolated from the core; browser and device tests remain deferred.
+
 - Normalize native date/time field appearance and box sizing to address iOS padded-field overflow; preserve empty-field line height, RTL alignment and browser pickers. Regenerate global, scoped and modular stylesheets. Device testing remains deferred.
 
 Compatible additions and refinements; source and documentation preview only. Tests are deferred by maintainer request. Published 1.2.1 GitHub/npm packages remain unchanged.

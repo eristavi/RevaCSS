@@ -2,12 +2,13 @@ export const demoPages = [
   {key:'marketing-demo', title:'Marketing website', name:'Forma', path:'demos/marketing/', kind:'marketing', description:'A complete landing page with product sections, pricing, FAQ and a contact-form preview.'},
   {key:'dashboard-demo', title:'Workspace dashboard', name:'Workspace', path:'demos/dashboard/', kind:'dashboard', description:'Metrics, project progress, SVG charts and activity in a responsive app shell.'},
   {key:'shop-demo', title:'Shop', name:'Still', path:'demos/shop/', kind:'shop', description:'A catalogue, category pages, product details and a sample shopping bag.'},
-  {key:'blog-demo', title:'Blog and journal', name:'Fieldnotes', path:'demos/blog/', kind:'blog', description:'Stories, full articles, reading navigation, category archives and an author profile.'}
+  {key:'blog-demo', title:'Blog and journal', name:'Fieldnotes', path:'demos/blog/', kind:'blog', description:'Stories, full articles, reading navigation, category archives and an author profile.'},
+  {key:'blueprint-demo', title:'Living Blueprint', name:'Blueprint', path:'demos/living-blueprint/', kind:'blueprint', description:'An original scroll composition: interface pieces assemble through inherited class-based movement, zoom and rotation.'}
 ];
 
 export const demoLinks = [
   {key:'demos', title:'All demos', path:'demos/'},
-  ...demoPages.slice(0,3),
+  ...demoPages.filter(demo=>demo.kind!=='blog'),
   {key:'blog-examples', title:'Blog examples', children:[
     demoPages[3],
     {key:'blog-article-demo', title:'Full article', path:'demos/blog/room-for-better-work/'},

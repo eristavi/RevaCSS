@@ -1,0 +1,86 @@
+---
+import SettingsHead from '../SettingsHead.astro';
+import DemoTools from './DemoTools.astro';
+import TopMenu from '../TopMenu.astro';
+import {asset} from '../../data/assets.js';
+const {config,assetBase,preview=false}=Astro.props;
+const base=assetBase;
+const css=file=>preview?asset(file):base+file;
+const canonical=new URL(import.meta.env.BASE_URL+'demos/living-blueprint/',import.meta.env.SITE || 'https://eristavi.github.io');
+const items=[{key:'assembly',label:'Assemble',href:'#assembly'},{key:'depth',label:'Explore',href:'#depth'},{key:'source',label:'Make it yours',href:'#source'}];
+const directions=['up','down','left','right','up-left','up-right','down-left','down-right'];
+---
+<!doctype html>
+<html lang="en" class="blueprint-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape} data-navbar-position={config['navbar-position']} data-navbar-spacing={config['navbar-spacing']} data-navbar-width={config['navbar-width']}>
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Living Blueprint · RevaCSS</title>
+  <meta name="description" content="Watch real HTML interface pieces assemble into a living blueprint. An original RevaCSS experiment in inherited, class-based CSS scroll effects."/>
+  <link rel="canonical" href={canonical}/><link rel="icon" type="image/svg+xml" href={base+'favicon.svg'}/>
+  <meta property="og:title" content="Living Blueprint · RevaCSS"/><meta property="og:description" content="From separate pieces to a shared design. Explore an original CSS scroll composition."/>
+  {preview && <SettingsHead kind="demo"/>}
+  {['reva-fonts.css','reva.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={css('reva/'+file)}/>)}
+  <link rel="stylesheet" href={css('demos/blueprint-effects.css')}/>
+  <link rel="stylesheet" href={css('demos/living-blueprint.css')}/>
+</head>
+<body id="demo-site">
+  {preview && <noscript><link rel="stylesheet" href={base+'customizer.css'}/></noscript>}
+  <a class="skip-link" href="#blueprint-title">Skip to content</a>
+  <header class="navbar-header container bp-header">
+    <TopMenu id="blueprint" label="Living Blueprint navigation" brand="RevaCSS / Blueprint" brandHref={base+'demos/'} items={items}>
+      <Fragment slot="actions">{preview && <DemoTools config={config} downloadHref={base+'demos/living-blueprint/source.html'} downloadName="living-blueprint.html"/>}</Fragment>
+    </TopMenu>
+  </header>
+  <main id="main" class="bp-experience">
+    <section class="container bp-intro" aria-labelledby="blueprint-title">
+      <div class="bp-intro-copy"><p class="bp-eyebrow"><span class="bp-cross" aria-hidden="true">+</span> REVACSS / AN EXPERIMENT IN DEPTH</p>
+        <h1 id="blueprint-title">Every piece.<br/>One <em>possibility.</em></h1>
+        <p class="bp-lead">A heading. A card. A little room to breathe.<br/>Scroll to see separate ideas find their place.</p>
+        <div class="bp-intro-links"><a class="button" href="#assembly">Enter the blueprint <span aria-hidden="true">↓</span></a><a href="#source">Explore the building blocks</a></div>
+      </div>
+      <div class="bp-drafting" aria-hidden="true"><span class="bp-draft-caption">FIG. 01 / A SHARED DESIGN</span><div class="bp-draft-sheet"><div class="bp-draft-line"></div><div class="bp-draft-columns"><span></span><span></span><span></span></div><div class="bp-draft-circle"></div><span class="bp-draft-cross">+</span></div><span class="bp-draft-caption">NATIVE HTML. NEW PERSPECTIVES.</span></div>
+      <div class="bp-intro-footer"><span>01 — Pieces into place</span><span>02 — A study in depth</span><span>03 — Your next idea</span></div>
+    </section>
+    <section id="assembly" class="bp-assembly parallax parallax-expressive" aria-labelledby="assembly-title">
+      <div class="bp-sticky container">
+        <header class="bp-scene-heading"><div><p class="bp-eyebrow">01 / THE ASSEMBLY</p><h2 id="assembly-title">A place for every piece.</h2></div><span class="bp-scroll-cue" aria-hidden="true">SCROLL TO COMPOSE ↓</span></header>
+        <fieldset class="bp-motion-controls"><legend>Choose the movement intensity</legend>
+          <label><input type="radio" name="blueprint-intensity" class="bp-pick-static"/>Static</label>
+          <label><input type="radio" name="blueprint-intensity" class="bp-pick-subtle"/>Subtle</label>
+          <label><input type="radio" name="blueprint-intensity" class="bp-pick-expressive" checked/>Expressive</label>
+          <label><input type="radio" name="blueprint-intensity" class="bp-pick-dramatic"/>Dramatic</label>
+        </fieldset>
+        <p class="bp-fallback-note">A static composition is active. Every piece is here to explore, with or without animation.</p>
+        <div class="bp-frame">
+          <div class="bp-outline" aria-hidden="true"><span>COMPOSITION / 01</span><i></i><i></i><i></i><i></i></div>
+          <div class="bp-interface">
+            <div class="bp-window-bar parallax-layer parallax-down parallax-phase-early"><span class="bp-window-dots" aria-hidden="true">● ● ●</span><span>an idea, taking shape</span><span aria-hidden="true">↗</span></div>
+            <div class="bp-piece bp-piece-nav parallax-left parallax-phase-early"><div class="card parallax-layer parallax-rotate-left"><strong class="bp-sample-brand">form / function</strong><span>Independent ideas. Shared direction.</span><a href="#source">Build your version <span aria-hidden="true">↗</span></a></div></div>
+            <div class="bp-piece bp-piece-story parallax-up-right parallax-phase-middle parallax-zoom-in parallax-zoom-level-4"><article class="card parallax-layer parallax-rotate-right"><p class="bp-eyebrow">THE OPEN CANVAS</p><h3>Make room<br/>for what’s next.</h3><p>Good interfaces begin with a few thoughtful pieces.</p><a class="button" href="#depth">Find a new perspective <span aria-hidden="true">↗</span></a></article></div>
+            <div class="bp-piece bp-piece-art parallax-down-left parallax-phase-middle parallax-zoom-out parallax-zoom-level-6"><figure class="card parallax-layer parallax-rotate-left"><svg viewBox="0 0 440 320" role="img" aria-label="Original geometric study: three nested arches meeting a circle"><defs><linearGradient id="bp-art-gradient" x2="1" y2="1"><stop stop-color="var(--re-primary)"/><stop offset="1" stop-color="var(--re-primary-end)"/></linearGradient></defs><path d="M40 320V175a140 140 0 0 1 280 0v145" fill="none" stroke="url(#bp-art-gradient)" stroke-width="36"/><path d="M105 320V178a75 75 0 0 1 150 0v142" fill="none" stroke="var(--re-primary)" stroke-opacity=".4" stroke-width="26"/><circle cx="324" cy="216" r="74" fill="var(--re-primary-end)"/><path d="M35 310H420M350 15V310" stroke="var(--re-text)" stroke-opacity=".3" stroke-width="1"/></svg><figcaption>Study 001 / Form meets possibility</figcaption></figure></div>
+            <div class="bp-piece bp-piece-note parallax-up-left parallax-phase-late parallax-zoom-in parallax-zoom-level-3 parallax-fade"><article class="card parallax-layer parallax-rotate-left"><span class="badge">A shared foundation</span><h3>Less repetition. More intention.</h3><p>Real RevaCSS cards, actions and typography, brought together.</p></article></div>
+            <div class="bp-piece bp-piece-colours parallax-up parallax-phase-late"><article class="card parallax-layer parallax-rotate-right"><p class="bp-eyebrow">ONE PALETTE / MANY PIECES</p><div class="bp-swatches" aria-hidden="true"><span></span><span></span><span></span><span></span></div><p>Change the appearance with Customize.</p></article></div>
+          </div>
+        </div>
+        <p class="bp-scene-footnote">The pieces share an intensity. Each chooses its own direction, rotation and arrival.</p>
+      </div>
+    </section>
+    <section id="depth" class="container bp-depth-section" aria-labelledby="depth-title">
+      <header class="bp-section-heading"><p class="bp-eyebrow">02 / A STUDY IN DEPTH</p><h2 id="depth-title">Same foundation.<br/>Different perspectives.</h2><p>A quieter composition: opposing movement, independent zoom, and a stable heading.</p></header>
+      <div class="bp-depth-scene parallax parallax-subtle">
+        <div class="bp-depth-grid" aria-hidden="true"></div>
+        <div class="bp-depth-piece bp-depth-back parallax-level-7 parallax-down-right parallax-zoom-out parallax-zoom-level-3"><article class="card parallax-layer"><p class="bp-eyebrow">BACKGROUND</p><h3>A little perspective.</h3><div class="bp-mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div></article></div>
+        <div class="bp-depth-piece bp-depth-front parallax-up-left parallax-zoom-in parallax-zoom-level-5"><article class="card parallax-layer"><span class="badge">FOREGROUND</span><h3>Room to move.</h3><p>Independent layers.<br/>One shared rhythm.</p><a href="#source">See how it fits together →</a></article></div>
+        <div class="bp-depth-anchor parallax-layer parallax-static"><span>Different distances.</span><strong>A common centre.</strong></div>
+      </div>
+    </section>
+    <section id="source" class="container bp-source" aria-labelledby="source-title">
+      <div class="bp-section-heading"><p class="bp-eyebrow">03 / YOUR NEXT IDEA</p><h2 id="source-title">Take the pieces.<br/>Make something yours.</h2><p>This is an experimental demo, with its effects isolated from the RevaCSS core. The animation is CSS; the optional appearance customizer uses the existing documentation helper.</p></div>
+      <div class="bp-source-grid"><div class="card"><h3>Shared settings. Local choices.</h3><pre tabindex="0" role="region" aria-label="Parallax class example"><code>{'<section class="parallax parallax-expressive parallax-up">\n  <article class="card parallax-layer">\n    I inherit the movement.\n  </article>\n  <article class="card parallax-layer parallax-level-8\n                  parallax-down-right parallax-zoom-in\n                  parallax-zoom-level-3">\n    I choose my own direction and zoom.\n  </article>\n</section>'}</code></pre><p>Classes set inherited CSS custom properties. Levels 1–10 select 10%–100% of the configured maximum travel. Zoom has a separate scale.</p><details><summary>Adjust the travel and scroll range</summary><p>Set <code>--parallax-max</code> to a CSS length on your own parent class. The prototype default is <code>min(30vw, 35vh)</code>; it is a responsive starting point, not a standard. Optional <code>--parallax-max-x</code> and <code>--parallax-max-y</code> override individual axes.</p><p>Equal axis maxima preserve equal diagonal travel. Set <code>--parallax-start</code> and <code>--parallax-end</code> to percentages within the scene’s contain range. Zoom uses <code>--parallax-zoom-max</code> (default <code>.4</code>); custom start/end scales can use <code>--parallax-scale-start</code> and <code>--parallax-scale-end</code>.</p></details></div>
+        <div class="bp-source-links"><h3>A small vocabulary.<br/>A wide open canvas.</h3><ul><li><strong>Intensity:</strong> subtle, expressive, dramatic, or ten numbered levels.</li><li><strong>Direction:</strong> {directions.join(', ')}.</li><li><strong>Zoom:</strong> in, out, or none, with ten independent levels.</li><li><strong>Composition:</strong> rotation, phased arrival, fade and static overrides.</li></ul><p>Unsupported browsers, reduced motion, narrow screens and print receive the finished, readable layout. This prototype has not completed browser or device testing.</p><a class="button" href={base+'demos/living-blueprint/source.html'} download="living-blueprint.html">Download starting HTML ↓</a><p><a href={base+'demos/blueprint-effects.css'} download>Effects CSS</a> · <a href={base+'demos/living-blueprint.css'} download>Composition CSS</a></p><p>Download the linked RevaCSS assets too, then update the paths for your own hosting. See the <a href={base+'guide/'}>installation guide</a>.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="container bp-footer"><a href={base}>RevaCSS</a><span>Living Blueprint / an original composition</span><a href="#demo-site">Back to top ↑</a></footer>
+</body>
+</html>

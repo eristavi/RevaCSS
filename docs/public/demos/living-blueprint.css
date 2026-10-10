@@ -1,0 +1,158 @@
+/* Original demo composition. All selectors are bounded to Living Blueprint. */
+.blueprint-site { --bp-rule:color-mix(in srgb,var(--re-primary) 16%,var(--re-line)); --bp-grid:color-mix(in srgb,var(--re-primary) 8%,transparent); }
+.blueprint-site body { background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px); background-size:3rem 3rem; }
+.blueprint-site :where(.bp-header) { --re-navbar-height:5rem; }
+.blueprint-site :where(.bp-experience) { overflow-x:clip; }
+.blueprint-site :where(.bp-intro) { position:relative; padding-block:clamp(4rem,8vw,8rem) 2rem; display:grid; grid-template-columns:1.35fr 1fr; gap:3rem; align-items:center; }
+.blueprint-site :where(.bp-eyebrow) { font:650 .68rem/1.5 var(--re-font); letter-spacing:.14em; margin-block:0 1.25rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-cross) { display:inline-grid; place-items:center; font-size:1rem; inline-size:1.5rem; block-size:1.5rem; border:1px solid var(--bp-rule); margin-inline-end:.6rem; }
+.blueprint-site :where(.bp-intro h1) { font-size:clamp(3.2rem,6.8vw,6.8rem); line-height:1.02; letter-spacing:-.075em; font-weight:650; margin-block:0 1.75rem; color:var(--re-text); }
+.blueprint-site :where(.bp-intro h1 em) { font-weight:450; color:var(--re-link); }
+.blueprint-site :where(.bp-lead) { font-size:clamp(1rem,1.5vw,1.25rem); color:var(--re-muted); max-inline-size:39ch; }
+.blueprint-site :where(.bp-intro-links) { display:flex; align-items:center; flex-wrap:wrap; gap:1rem 1.5rem; margin-block-start:2rem; }
+.blueprint-site :where(.bp-intro-links > a) { min-block-size:2.75rem; display:inline-flex; align-items:center; gap:1rem; }
+.blueprint-site :where(.bp-drafting) { padding:2rem .5rem; }
+.blueprint-site :where(.bp-draft-caption) { font:500 .58rem/1.5 ui-monospace,monospace; letter-spacing:.1em; color:var(--re-muted); }
+.blueprint-site :where(.bp-draft-sheet) { position:relative; aspect-ratio:1.15; margin-block:1.5rem; border:1px solid var(--bp-rule); background:color-mix(in srgb,var(--re-surface) 70%,transparent); transform:rotate(-8deg); padding:12%; box-shadow:1rem 1rem 0 color-mix(in srgb,var(--re-primary) 6%,transparent); }
+.blueprint-site :where(.bp-draft-line) { block-size:12%; border:1px solid var(--bp-rule); margin-block-end:10%; }
+.blueprint-site :where(.bp-draft-columns) { display:grid; grid-template-columns:repeat(3,1fr); block-size:52%; gap:8%; }
+.blueprint-site :where(.bp-draft-columns span) { border:1px solid var(--bp-rule); }
+.blueprint-site :where(.bp-draft-columns span:nth-child(2)) { background:color-mix(in srgb,var(--re-primary) 16%,transparent); }
+.blueprint-site :where(.bp-draft-circle) { position:absolute; inline-size:48%; aspect-ratio:1; border:1px solid var(--re-link); border-radius:50%; inset-block-end:-8%; inset-inline-end:-5%; background:color-mix(in srgb,var(--re-primary-end) 10%,transparent); }
+.blueprint-site :where(.bp-draft-cross) { position:absolute; inset-block-start:-1.25rem; inset-inline-start:-.7rem; font:300 2rem/1 ui-monospace,monospace; color:var(--re-link); }
+.blueprint-site :where(.bp-intro-footer) { grid-column:1/-1; display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 2rem; margin-block-start:3rem; border-block-start:1px solid var(--bp-rule); padding-block:1.25rem; color:var(--re-muted); font-size:.7rem; letter-spacing:.04em; }
+.blueprint-site :where(.bp-assembly) { position:relative; padding-block:3rem; border-block:1px solid var(--bp-rule); background:color-mix(in srgb,var(--re-surface-alt) 65%,transparent); }
+.blueprint-site :where(.bp-sticky) { padding-block:1rem; }
+.blueprint-site :where(.bp-scene-heading) { display:flex; align-items:end; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-block-end:1rem; }
+.blueprint-site :where(.bp-scene-heading .bp-eyebrow) { margin-block-end:.5rem; }
+.blueprint-site :where(.bp-scene-heading h2) { margin:0; font-size:clamp(1.6rem,3vw,2.4rem); font-weight:550; letter-spacing:-.045em; }
+.blueprint-site :where(.bp-scroll-cue) { display:none; font:500 .65rem/1.5 ui-monospace,monospace; color:var(--re-muted); }
+.blueprint-site :where(.bp-motion-controls) { display:flex; gap:.25rem 1rem; flex-wrap:wrap; padding:.65rem 0; margin:0 0 .75rem; border:0; box-shadow:none; background:transparent; }
+.blueprint-site :where(.bp-motion-controls legend) { font-size:.7rem; color:var(--re-muted); padding:0; }
+.blueprint-site :where(.bp-motion-controls label) { display:flex; align-items:center; gap:.1rem; font-size:.8rem; min-block-size:2.75rem; margin:0; cursor:pointer; }
+.blueprint-site :where(.bp-motion-controls input) { flex:0 0 auto; }
+.blueprint-site :where(.bp-fallback-note) { font-size:.8rem; color:var(--re-muted); margin-block:.25rem 1rem; }
+.blueprint-site :where(.bp-frame) { position:relative; inline-size:100%; max-inline-size:64rem; margin-inline:auto; padding:1.5rem; }
+.blueprint-site :where(.bp-outline) { position:absolute; inset:0; border:1px dashed var(--bp-rule); pointer-events:none; }
+.blueprint-site :where(.bp-outline > span) { position:absolute; inset-block-start:-.55rem; inset-inline-start:1rem; font:500 .55rem/1.5 ui-monospace,monospace; background:var(--re-bg); padding-inline:.5rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-outline i) { position:absolute; inline-size:.7rem; block-size:.7rem; border:1px solid var(--re-link); background:var(--re-bg); }
+.blueprint-site :where(.bp-outline i:nth-of-type(1)) { inset:-.35rem auto auto -.35rem; }
+.blueprint-site :where(.bp-outline i:nth-of-type(2)) { inset:-.35rem -.35rem auto auto; }
+.blueprint-site :where(.bp-outline i:nth-of-type(3)) { inset:auto -.35rem -.35rem auto; }
+.blueprint-site :where(.bp-outline i:nth-of-type(4)) { inset:auto auto -.35rem -.35rem; }
+.blueprint-site :where(.bp-interface) { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:1rem; position:relative; }
+.blueprint-site :where(.bp-window-bar) { grid-column:1/-1; display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.6rem 1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); background:var(--re-surface); font-size:.65rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-window-dots) { letter-spacing:.25em; font-size:.5rem; color:var(--re-link); }
+.blueprint-site :where(.bp-piece) { min-inline-size:0; }
+.blueprint-site :where(.bp-piece > .card) { block-size:100%; margin:0; padding:clamp(.85rem,2vw,1.5rem); }
+.blueprint-site :where(.bp-piece-nav) { grid-column:1/-1; }
+.blueprint-site :where(.bp-piece-nav > .card) { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.blueprint-site :where(.bp-piece-nav span) { font-size:.7rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-piece-nav a) { font-size:.75rem; min-block-size:2.75rem; display:flex; align-items:center; gap:.5rem; }
+.blueprint-site :where(.bp-sample-brand) { font-size:1rem; letter-spacing:-.045em; white-space:nowrap; }
+.blueprint-site :where(.bp-piece-story) { grid-column:1/7; }
+.blueprint-site :where(.bp-piece-story h3) { font-size:clamp(1.8rem,3vw,3rem); line-height:1.05; letter-spacing:-.055em; margin-block:.5rem 1rem; }
+.blueprint-site :where(.bp-piece-story p:not(.bp-eyebrow)) { font-size:.8rem; max-inline-size:30ch; }
+.blueprint-site :where(.bp-piece-story .button) { font-size:.75rem; }
+.blueprint-site :where(.bp-piece-art) { grid-column:7/-1; }
+.blueprint-site :where(.bp-piece-art > .card) { display:flex; flex-direction:column; justify-content:center; padding:.75rem; overflow:hidden; }
+.blueprint-site :where(.bp-piece-art svg) { inline-size:100%; block-size:clamp(10rem,18vw,15rem); display:block; }
+.blueprint-site :where(.bp-piece-art figcaption) { padding:.5rem .5rem 0; font-size:.65rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-piece-note) { grid-column:1/8; }
+.blueprint-site :where(.bp-piece-note h3) { font-size:1.2rem; line-height:1.2; letter-spacing:-.035em; margin-block:.6rem; }
+.blueprint-site :where(.bp-piece-note p,.bp-piece-colours p:not(.bp-eyebrow)) { font-size:.75rem; margin-block:.6rem 0; }
+.blueprint-site :where(.bp-piece-colours) { grid-column:8/-1; }
+.blueprint-site :where(.bp-piece-colours .bp-eyebrow) { font-size:.58rem; margin-block-end:.75rem; }
+.blueprint-site :where(.bp-swatches) { display:flex; gap:.5rem; }
+.blueprint-site :where(.bp-swatches span) { inline-size:2rem; aspect-ratio:1; border-radius:50%; background:var(--re-primary); border:1px solid var(--re-line); }
+.blueprint-site :where(.bp-swatches span:nth-child(2)) { background:var(--re-primary-end); }
+.blueprint-site :where(.bp-swatches span:nth-child(3)) { background:var(--re-secondary); }
+.blueprint-site :where(.bp-swatches span:nth-child(4)) { background:var(--re-surface-alt); }
+.blueprint-site :where(.bp-scene-footnote) { font-size:.7rem; color:var(--re-muted); text-align:center; margin-block:1.25rem 0; }
+.blueprint-site :where(.bp-depth-section,.bp-source) { padding-block:clamp(4rem,8vw,8rem); }
+.blueprint-site :where(.bp-section-heading) { max-inline-size:42rem; }
+.blueprint-site :where(.bp-section-heading h2) { font-size:clamp(2.2rem,4.5vw,4.3rem); letter-spacing:-.06em; line-height:1.08; font-weight:550; margin-block:0 1.5rem; }
+.blueprint-site :where(.bp-section-heading > p:not(.bp-eyebrow)) { max-inline-size:55ch; color:var(--re-muted); }
+.blueprint-site :where(.bp-depth-scene) { position:relative; min-block-size:31rem; margin-block-start:3rem; display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); align-items:center; gap:1rem; padding:3rem 2rem; }
+.blueprint-site :where(.bp-depth-grid) { position:absolute; inset:0; border:1px solid var(--bp-rule); border-radius:50% 50% 0 0; background:radial-gradient(ellipse at center,color-mix(in srgb,var(--re-primary) 8%,transparent),transparent 65%); pointer-events:none; }
+.blueprint-site :where(.bp-depth-piece) { position:relative; grid-row:1; }
+.blueprint-site :where(.bp-depth-back) { grid-column:2/8; align-self:start; }
+.blueprint-site :where(.bp-depth-front) { grid-column:6/12; align-self:end; z-index:1; }
+.blueprint-site :where(.bp-depth-piece h3) { font-size:clamp(1.4rem,2.5vw,2.2rem); letter-spacing:-.04em; }
+.blueprint-site :where(.bp-depth-piece .card) { min-block-size:16rem; box-shadow:0 1rem 3rem color-mix(in srgb,var(--re-text) 8%,transparent); }
+.blueprint-site :where(.bp-mini-bars) { display:flex; align-items:end; gap:1rem; block-size:6rem; padding-block-start:1rem; }
+.blueprint-site :where(.bp-mini-bars i) { inline-size:2.5rem; block-size:40%; background:color-mix(in srgb,var(--re-primary) 25%,var(--re-surface)); border-radius:.3rem .3rem 0 0; }
+.blueprint-site :where(.bp-mini-bars i:nth-child(2)) { block-size:65%; }
+.blueprint-site :where(.bp-mini-bars i:nth-child(3)) { block-size:80%; }
+.blueprint-site :where(.bp-mini-bars i:nth-child(4)) { block-size:100%; background:var(--re-primary); }
+.blueprint-site :where(.bp-depth-anchor) { grid-column:1/-1; text-align:center; padding-block-start:2rem; font-size:.8rem; }
+.blueprint-site :where(.bp-depth-anchor strong) { display:block; font-size:1.15rem; }
+.blueprint-site :where(.bp-source) { border-block-start:1px solid var(--bp-rule); }
+.blueprint-site :where(.bp-source-grid) { display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(1.5rem,4vw,4rem); margin-block-start:3rem; }
+.blueprint-site :where(.bp-source-grid pre) { font-size:.75rem; white-space:pre; max-inline-size:100%; }
+.blueprint-site :where(.bp-source-grid h3) { font-size:1.4rem; letter-spacing:-.035em; }
+.blueprint-site :where(.bp-source-grid p,.bp-source-grid li) { font-size:.85rem; }
+.blueprint-site :where(.bp-source-links ul) { padding-inline-start:1.2rem; }
+.blueprint-site :where(.bp-source-links li) { margin-block:.65rem; }
+.blueprint-site :where(.bp-footer) { border-block-start:1px solid var(--bp-rule); padding-block:2rem; display:flex; justify-content:space-between; flex-wrap:wrap; align-items:center; gap:1rem; font-size:.75rem; color:var(--re-muted); }
+.blueprint-site :where(.bp-footer a) { display:flex; align-items:center; min-block-size:2.75rem; }
+
+/* Controls change inherited settings without JS or effect data attributes. */
+.blueprint-site .bp-assembly:has(.bp-pick-subtle:checked) { --parallax-level:.2; }
+.blueprint-site .bp-assembly:has(.bp-pick-expressive:checked) { --parallax-level:.5; }
+.blueprint-site .bp-assembly:has(.bp-pick-dramatic:checked) { --parallax-level:1; }
+.blueprint-site .bp-assembly:has(.bp-pick-static:checked) { --parallax-animation:none; }
+
+@supports (animation-timeline:view()) and (animation-range:contain 0% contain 100%) {
+  @media (prefers-reduced-motion:no-preference) and (forced-colors:none) and (min-width:48rem) and (min-height:50rem) {
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) { min-block-size:240svh; padding-block:0; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-sticky { position:sticky; inset-block-start:calc(var(--re-navbar-height, 6rem) + 1rem); }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-frame { block-size:min(34rem,calc(100svh - var(--re-navbar-height, 6rem) - 15rem)); padding:1rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-interface { block-size:100%; grid-template-rows:2rem 3.5rem minmax(0,1.65fr) minmax(0,1fr); gap:.65rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-piece > .card { padding:.85rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-piece-story h3 { font-size:clamp(1.6rem,3.2vh,2.4rem); margin-block:.35rem .6rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-piece-story .bp-eyebrow { margin-block-end:.5rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-piece-art svg { min-block-size:0; flex:1; block-size:0; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-piece-note h3 { font-size:1rem; margin-block:.4rem; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-scroll-cue { display:block; }
+    .blueprint-site:not([data-motion="none"]) .bp-assembly:not(:has(.bp-pick-static:checked)) .bp-fallback-note { display:none; }
+  }
+}
+/* Short desktop windows retain the completed composition too. */
+@media (height < 50rem) {
+  .blueprint-site .bp-assembly .parallax-layer { animation:none; }
+}
+@media (width < 48rem) {
+  .blueprint-site :where(.bp-intro) { grid-template-columns:1fr; gap:1rem; }
+  .blueprint-site :where(.bp-drafting) { max-inline-size:24rem; inline-size:75%; justify-self:center; padding-block:2rem; }
+  .blueprint-site :where(.bp-intro-footer) { margin-block-start:1rem; }
+  .blueprint-site :where(.bp-frame) { padding:1rem; }
+  .blueprint-site :where(.bp-interface) { gap:.75rem; }
+  .blueprint-site :where(.bp-piece-nav > .card) { flex-wrap:wrap; }
+  .blueprint-site :where(.bp-piece-nav span) { display:none; }
+  .blueprint-site :where(.bp-piece-story,.bp-piece-art,.bp-piece-note,.bp-piece-colours) { grid-column:1/-1; }
+  .blueprint-site :where(.bp-piece-art svg) { block-size:14rem; }
+  .blueprint-site :where(.bp-depth-scene) { padding:2rem 1rem; gap:1rem; min-block-size:0; }
+  .blueprint-site :where(.bp-depth-back,.bp-depth-front) { grid-column:1/-1; grid-row:auto; }
+  .blueprint-site :where(.bp-depth-piece .card) { min-block-size:0; }
+  .blueprint-site :where(.bp-source-grid) { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce), (forced-colors:active), print {
+  .blueprint-site :where(.bp-draft-sheet) { transform:none; }
+  .blueprint-site body { background-image:none; }
+  .blueprint-site :where(.bp-assembly) { min-block-size:0; }
+  .blueprint-site :where(.bp-sticky) { position:static; }
+  .blueprint-site :where(.bp-scroll-cue) { display:none; }
+  .blueprint-site :where(.bp-fallback-note) { display:block; }
+}
+@media (forced-colors:active) {
+  .blueprint-site :where(.bp-outline,.bp-draft-sheet,.bp-draft-line,.bp-draft-columns span,.bp-depth-grid) { border-color:CanvasText; }
+  .blueprint-site :where(.bp-swatches span,.bp-mini-bars i) { background:CanvasText; }
+}
+@media print {
+  .blueprint-site :where(.bp-header,.bp-motion-controls,.bp-fallback-note,.bp-drafting,.bp-outline) { display:none; }
+  .blueprint-site :where(.bp-intro,.bp-source-grid,.bp-interface,.bp-depth-scene) { display:block; }
+  .blueprint-site :where(.bp-piece,.bp-depth-piece) { margin-block:1rem; break-inside:avoid; }
+  .blueprint-site :where(.bp-intro,.bp-depth-section,.bp-source) { padding-block:1rem; }
+  .blueprint-site :where(.bp-source-grid pre) { white-space:pre-wrap; overflow-wrap:anywhere; }
+}

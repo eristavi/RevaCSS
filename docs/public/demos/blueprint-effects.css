@@ -1,0 +1,94 @@
+/* Living Blueprint prototype. Explicit opt-in; not part of the RevaCSS core.
+   Load after the core. The .blueprint-site boundary keeps these draft classes
+   local to the demo. Remove/replace that boundary only in your own extension.
+   Classes configure inherited properties; they do not themselves inherit.
+   Levels are fractions of maximum TOTAL start-to-end travel, not durations.
+   The default maxima are responsive lengths, not a fixed pixel standard.
+   Diagonal vectors are normalised; use equal maxima for equal diagonal lengths.
+   Different x/y maxima intentionally produce an elliptical travel envelope.
+   Zoom/rotation are independent of movement level. Final layout is the base.
+*/
+.blueprint-site :where(.parallax) {
+  --parallax-level:.5;
+  --parallax-max:min(30vw, 35vh);
+  --parallax-x:0;
+  --parallax-y:0;
+  --parallax-rotation:0deg;
+  --parallax-zoom-level:.5;
+  --parallax-zoom-max:.4;
+  --parallax-zoom-direction:0;
+  --parallax-opacity-start:1;
+  --parallax-start:5%;
+  --parallax-end:75%;
+  --parallax-animation:bp-layer-assemble;
+  view-timeline-name:--blueprint-scene;
+  view-timeline-axis:block;
+}
+.blueprint-site :where(.parallax-level-1) { --parallax-level:.1; }
+.blueprint-site :where(.parallax-level-2,.parallax-subtle) { --parallax-level:.2; }
+.blueprint-site :where(.parallax-level-3) { --parallax-level:.3; }
+.blueprint-site :where(.parallax-level-4) { --parallax-level:.4; }
+.blueprint-site :where(.parallax-level-5,.parallax-expressive) { --parallax-level:.5; }
+.blueprint-site :where(.parallax-level-6) { --parallax-level:.6; }
+.blueprint-site :where(.parallax-level-7) { --parallax-level:.7; }
+.blueprint-site :where(.parallax-level-8) { --parallax-level:.8; }
+.blueprint-site :where(.parallax-level-9) { --parallax-level:.9; }
+.blueprint-site :where(.parallax-level-10,.parallax-dramatic) { --parallax-level:1; }
+.blueprint-site :where(.parallax-up) { --parallax-x:0; --parallax-y:-1; }
+.blueprint-site :where(.parallax-down) { --parallax-x:0; --parallax-y:1; }
+.blueprint-site :where(.parallax-left) { --parallax-x:-1; --parallax-y:0; }
+.blueprint-site :where(.parallax-right) { --parallax-x:1; --parallax-y:0; }
+.blueprint-site :where(.parallax-up-left) { --parallax-x:-.70710678; --parallax-y:-.70710678; }
+.blueprint-site :where(.parallax-up-right) { --parallax-x:.70710678; --parallax-y:-.70710678; }
+.blueprint-site :where(.parallax-down-left) { --parallax-x:-.70710678; --parallax-y:.70710678; }
+.blueprint-site :where(.parallax-down-right) { --parallax-x:.70710678; --parallax-y:.70710678; }
+.blueprint-site :where(.parallax-zoom-level-1) { --parallax-zoom-level:.1; }
+.blueprint-site :where(.parallax-zoom-level-2) { --parallax-zoom-level:.2; }
+.blueprint-site :where(.parallax-zoom-level-3) { --parallax-zoom-level:.3; }
+.blueprint-site :where(.parallax-zoom-level-4) { --parallax-zoom-level:.4; }
+.blueprint-site :where(.parallax-zoom-level-5) { --parallax-zoom-level:.5; }
+.blueprint-site :where(.parallax-zoom-level-6) { --parallax-zoom-level:.6; }
+.blueprint-site :where(.parallax-zoom-level-7) { --parallax-zoom-level:.7; }
+.blueprint-site :where(.parallax-zoom-level-8) { --parallax-zoom-level:.8; }
+.blueprint-site :where(.parallax-zoom-level-9) { --parallax-zoom-level:.9; }
+.blueprint-site :where(.parallax-zoom-level-10) { --parallax-zoom-level:1; }
+.blueprint-site :where(.parallax-zoom-in) { --parallax-zoom-direction:-1; }
+.blueprint-site :where(.parallax-zoom-out) { --parallax-zoom-direction:1; }
+.blueprint-site :where(.parallax-zoom-none) { --parallax-zoom-direction:0; }
+.blueprint-site :where(.parallax-rotate-left) { --parallax-rotation:-10deg; }
+.blueprint-site :where(.parallax-rotate-right) { --parallax-rotation:10deg; }
+.blueprint-site :where(.parallax-rotate-none) { --parallax-rotation:0deg; }
+.blueprint-site :where(.parallax-fade) { --parallax-opacity-start:.25; }
+.blueprint-site :where(.parallax-fade-none) { --parallax-opacity-start:1; }
+.blueprint-site :where(.parallax-phase-early) { --parallax-start:0%; --parallax-end:35%; }
+.blueprint-site :where(.parallax-phase-middle) { --parallax-start:15%; --parallax-end:60%; }
+.blueprint-site :where(.parallax-phase-late) { --parallax-start:35%; --parallax-end:80%; }
+.blueprint-site :where(.parallax-static) { --parallax-animation:none; }
+
+@keyframes bp-layer-assemble {
+  from {
+    translate:calc(-1 * var(--parallax-x) * var(--parallax-max-x, var(--parallax-max)) * var(--parallax-level)) calc(-1 * var(--parallax-y) * var(--parallax-max-y, var(--parallax-max)) * var(--parallax-level));
+    rotate:var(--parallax-rotation);
+    scale:var(--parallax-scale-start, max(.05, calc(1 + var(--parallax-zoom-direction) * var(--parallax-zoom-max) * var(--parallax-zoom-level))));
+    opacity:var(--parallax-opacity-start, 1);
+  }
+  to { translate:0 0; rotate:0deg; scale:var(--parallax-scale-end, 1); opacity:1; }
+}
+
+/* Both animation and scene holding share the same support/preference gate.
+   Without it there are no displaced, faded or unnecessarily long scenes. */
+@supports (animation-timeline: view()) and (animation-range: contain 0% contain 100%) {
+  @media (prefers-reduced-motion:no-preference) and (forced-colors:none) and (min-width:48rem) {
+    .blueprint-site:not([data-motion="none"]) :where(.parallax-layer) {
+      animation:bp-layer-assemble auto linear both;
+      animation-name:var(--parallax-animation, bp-layer-assemble);
+      animation-timeline:--blueprint-scene;
+      animation-range:contain var(--parallax-start, 5%) contain var(--parallax-end, 75%);
+    }
+    /* Keyboard interactions reveal their target at its normal position. */
+    .blueprint-site :where(.parallax-layer):focus-within { animation:none; }
+  }
+}
+@media (prefers-reduced-motion:reduce), (forced-colors:active), print {
+  .blueprint-site :where(.parallax-layer) { animation:none !important; }
+}
