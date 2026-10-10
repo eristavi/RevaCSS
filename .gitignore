@@ -8,3 +8,6 @@ test-results/
 *.log
 artifacts/
 __pycache__/
+docs/public/ai/
+docs/public/llms.txt
+docs/public/llms-full.txt

@@ -257,6 +257,7 @@ export const componentContracts = {
 };
 export const learnLinks = [
  { key:'guide', title:'Get started', path:'guide/' },
+ { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
  { key:'effects', title:'Effects and state feedback', path:'guide/effects/' },

@@ -4,7 +4,7 @@
 
 Build consistent interfaces from native HTML. Choose your theme, palette, shape, and spacing on a parent; components inherit the design, and local settings handle the exceptions.
 
-[Documentation](https://eristavi.github.io/RevaCSS/) · [Live demos](#see-it-in-action) · [Get started](#start-with-html) · [API reference](https://eristavi.github.io/RevaCSS/reference/)
+[Documentation](https://eristavi.github.io/RevaCSS/) · [Live demos](#see-it-in-action) · [Get started](#start-with-html) · [API reference](https://eristavi.github.io/RevaCSS/reference/) · [Using RevaCSS with AI](https://eristavi.github.io/RevaCSS/guide/ai/)
 
 **Version 1.2.1 · Erisian** · [Download the release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT](https://github.com/eristavi/RevaCSS/blob/v1.2.1/LICENSE)
 
@@ -19,6 +19,12 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 - **A compact foundation.** The complete minified core has an enforced 17 KiB gzip budget. Fonts, icons, and optional extensions are separate assets.
 
 Use RevaCSS with static pages, server-rendered templates, or a framework that renders HTML. Your application owns its data, routing, and business actions.
+
+## Build with an AI assistant
+
+Give your coding assistant the [AI guide](AI.md) and the [documentation index](https://eristavi.github.io/RevaCSS/llms.txt). The index links to version-matched Markdown component references, supported attribute values and complete demo starters. The [structured API](https://eristavi.github.io/RevaCSS/ai/api.json) includes component contracts and HTML examples; the [HTML editor custom data](https://eristavi.github.io/RevaCSS/ai/html-custom-data.json) supplies attribute and value suggestions.
+
+These resources regenerate from the same manifests and examples as the website on each documentation build. They provide explicit context for an assistant; they do not guarantee automatic discovery by AI services. Follow your project's instructions about validation and deployment.
 
 ## See it in action
 

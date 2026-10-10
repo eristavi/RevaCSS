@@ -1,0 +1,30 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../AI.md';
+import {version} from '../../data/release.js';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'ai-resources',title:'AI reference files'}];
+---
+<DocsLayout title="Using RevaCSS with AI" active="ai" sections={sections}>
+  <p class="doc-kicker">LEARN / AI AND VIBE CODING</p>
+  <div class="ai-guide"><Content/></div>
+  <section id="ai-resources">
+    <h2>AI reference files</h2>
+    <p>These resources describe RevaCSS {version} and regenerate with every documentation build. Give your assistant the index, then the pages relevant to your project.</p>
+    <ul>
+      <li><a href={base+'llms.txt'}>Documentation index — llms.txt</a></li>
+      <li><a href={base+'ai/guide.md'}>Agent guide in Markdown</a></li>
+      <li><a href={base+'ai/attributes.md'}>Supported attributes and values</a></li>
+      <li><a href={base+'ai/api.json'}>Structured component API and HTML examples</a></li>
+      <li><a href={base+'ai/html-custom-data.json'}>HTML editor custom data</a></li>
+      <li><a href={base+'llms-full.txt'}>Full generated text reference</a></li>
+    </ul>
+    <p>For VS Code, download the HTML custom data file into your project and add its relative path to <code>html.customData</code> in your workspace settings. Completion suggestions help with syntax; they do not verify component structure or browser behaviour.</p>
+  </section>
+</DocsLayout>
+<style>
+.ai-guide :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.ai-guide :global(h2) { margin-block-start:2rem; }
+.ai-guide :global(code) { overflow-wrap:anywhere; }
+.ai-guide :global(pre code) { overflow-wrap:normal; }
+</style>
