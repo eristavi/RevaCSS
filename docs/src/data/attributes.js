@@ -15,13 +15,13 @@ export const attributes = [
   },
   {
     id: 'navbar-spacing', title: 'data-navbar-spacing',
-    description: 'Header gap. Values: flush, spaced. Default: spaced. Flush removes wrapper padding, Floating block margins and the top border, squares the top corners and suppresses surface shadows, highlights and gradients. Lower corners follow data-shape. Spaced restores the material finish and the shared shape on every corner and adds wrapper breathing room, reduced below 48rem. Inherits independently of layout and sticky position.',
+    description: "Header gap. Values: flush, spaced. Default: spaced. Flush removes wrapper padding, Floating block margins and the top border, and suppresses surface shadows, highlights and gradients. Mobile Flush squares all corners; desktop Flush squares the top corners. Spaced adds wrapper breathing room, reduced below 48rem, and restores the material finish. Full desktop width always uses square corners. Inherits independently of layout and sticky position.",
     html: '<header class="navbar-header" data-navbar-spacing="flush">\n  <nav class="top-menu" aria-label="Flush navigation"><a class="menu-brand" href="#navbar-spacing">Studio</a></nav>\n</header>',
     glass: false
   },
   {
     id: 'navbar-width', title: 'data-navbar-width',
-    description: 'Navbar frame and surface. Values: contained, full. Default: contained. Full fills the parent while aligning its contents with the shared page width; use a page-wide wrapper. Explicit full width takes precedence over Floating width. App-shell toolbars retain their grid column.',
+    description: "Navbar width. Values: contained, full. Default: contained. Contained follows the shared page width and layout inset. Full fills the parent while aligning contents to the shared page width. At 48rem and wider, Full squares every corner. Mobile corners follow the Flush/Spaced setting. Inherits independently of layout, spacing and sticky position.",
     html: '<header class="navbar-header" data-navbar-width="full">\n  <nav class="top-menu" aria-label="Full-width navigation"><a class="menu-brand" href="#navbar-width">Studio</a></nav>\n</header>',
     glass: false
   },

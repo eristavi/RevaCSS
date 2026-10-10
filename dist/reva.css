@@ -20,7 +20,7 @@
 --re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem;
 --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;
---re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem;
+--re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem; --re-navbar-radius-scale: 1;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -107,8 +107,8 @@
 :where([data-navbar-position="sticky"], :scope[data-navbar-position="sticky"]) { --re-navbar-position: sticky; --re-navbar-sticky: 1; --re-navbar-layer: var(--re-navbar-z, 30); }
 :where([data-navbar-spacing="flush"], :scope[data-navbar-spacing="flush"]) { --re-navbar-spacing-scale: 0; --re-navbar-shadow: none; --re-navbar-background-image: none; }
 :where([data-navbar-spacing="spaced"], :scope[data-navbar-spacing="spaced"]) { --re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; }
-:where([data-navbar-width="contained"], :scope[data-navbar-width="contained"]) { --re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem; }
-:where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2)); }
+:where([data-navbar-width="contained"], :scope[data-navbar-width="contained"]) { --re-navbar-radius-scale: 1; --re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem; }
+:where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-radius-scale: 0; --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2)); }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
@@ -1360,10 +1360,38 @@
   .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
     border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
   }
+  /* Flush mobile bars and full-width desktop bars meet every edge squarely. */
+  @media (width < 48rem) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (width >= 48rem) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1));
+      border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+      border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
   @media (forced-colors: active) {
     .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
       border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
     }
+  }
+}
+
+/* The native mobile header keeps compact actions before the menu toggle. */
+@layer re.components {
+  @media (width < 48rem) {
+    :where(.top-menu:has(> button.menu-collapse) > .menu-brand, :scope.top-menu:has(> button.menu-collapse) > .menu-brand) {
+      flex: 1 1 0;
+      min-inline-size: 0;
+      max-inline-size: none;
+      margin-inline-end: 0;
+      padding: .25rem;
+      line-height: 1.2;
+    }
+    :where(.top-menu > button.menu-collapse, :scope.top-menu > button.menu-collapse) { margin-inline-start: 0; }
   }
 }
 /* One shell class owns layout; semantic children own their regions. */
@@ -1497,6 +1525,19 @@
 @layer re.utilities {
   .app-shell > header, :scope.app-shell > header {
     border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  /* Flush mobile bars and full-width desktop bars meet every edge squarely. */
+  @media (width < 48rem) {
+    .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (width >= 48rem) {
+    .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1));
+      border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+      border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+    }
   }
   @media (forced-colors: active) {
     .app-shell > header, :scope.app-shell > header {

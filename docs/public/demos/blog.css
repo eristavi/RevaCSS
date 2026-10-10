@@ -59,3 +59,6 @@ html:is([data-material="glass"],[data-material="veil"]) .blog-site {
 }
 
 .blog-site { --re-navbar-height:calc(8rem + 2 * var(--re-navbar-margin, 0rem)); }
+
+/* The Journal menu link remains available on mobile. */
+@media (width < 48rem) { .navbar-header .blog-nav-cta { display:none; } }

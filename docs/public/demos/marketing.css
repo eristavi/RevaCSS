@@ -169,3 +169,6 @@ html.forma-site[data-material="veil"][data-contrast="more"] > body::before { dis
   html.forma-site[data-material="glass"] .forma-workspace { background: Canvas; }
 }
 
+
+/* Contact is already available in the native mobile navigation. */
+@media (width < 48rem) { .forma-header .forma-nav-cta { display:none; } }
