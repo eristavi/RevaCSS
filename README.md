@@ -16,7 +16,7 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 - **Native elements and interactions.** Buttons, forms, details, radio choices, and popovers keep their browser behavior. The framework requires no JavaScript runtime.
 - **Room for your own design.** Tokens, CSS custom properties, low-specificity selectors, and cascade layers make ordinary CSS overrides practical.
 - **Appearance that adapts.** Light, dark, and system themes; 14 coordinated palettes; optional Glass, Soft UI and Veil materials; support for user preferences.
-- **A compact foundation.** The complete minified core has an enforced 15 KiB gzip budget. Fonts, icons, and optional extensions are separate assets.
+- **A compact foundation.** The complete minified core has an enforced 17 KiB gzip budget. Fonts, icons, and optional extensions are separate assets.
 
 Use RevaCSS with static pages, server-rendered templates, or a framework that renders HTML. Your application owns its data, routing, and business actions.
 

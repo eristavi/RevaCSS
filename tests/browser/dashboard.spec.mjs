@@ -19,7 +19,8 @@ test.describe('dashboard native operation',()=>{
   if(width<960){
    const trigger=header.getByRole('button',{name:'Open sidebar',exact:true});
    await expect(trigger).toBeVisible();
-   await expect(header.getByRole('button')).toHaveCount(1);
+   await expect(header.getByRole('button')).toHaveCount(2);
+   await expect(header.getByRole('button',{name:'Customize',exact:true})).toBeVisible();
    await trigger.click();await expect(page.locator('#dashboard-sidebar')).toBeVisible();
    await expect(page.locator('#dashboard-sidebar').getByRole('link',{name:'Projects',exact:true})).toBeVisible();
    await page.keyboard.press('Escape');await expect(page.locator('#dashboard-sidebar')).toBeHidden();

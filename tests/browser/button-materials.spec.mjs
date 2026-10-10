@@ -138,7 +138,7 @@ test('CSS-only customizer changes button finish and links still activate',async(
   expect(await paint(toggle)).toEqual(menuPaint);
   const action=page.locator('#demo-site .button:not(.outline,.ghost)').first();await expect.poll(async()=>(await paint(action)).backdropFilter).toContain('14px');
   await page.locator('#demo-button-material').selectOption('solid');await expect.poll(async()=>(await paint(action)).backdropFilter).toBe('none');
-  await page.getByRole('button',{name:'Customize',exact:true}).click();await action.click();expect(page.url()).not.toMatch(/\/demos\/blog\/$/);await context.close();
+  await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();await expect(page.locator('#demo-customizer-popup')).toBeHidden();await action.click();expect(page.url()).not.toMatch(/\/demos\/blog\/$/);await context.close();
 });
 
 test('rendered filled-button label backgrounds retain 4.5:1 contrast',async({page})=>{

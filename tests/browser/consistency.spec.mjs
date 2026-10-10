@@ -5,7 +5,7 @@ const markup=`<article class="card" id="probe-card"><button id="probe-button">Ac
 for(const build of ['global','minified','modular','scoped']) test(`${build} shared appearance reaches every supported surface and local overrides`,async({page})=>{
  const css=build==='modular'?(await Promise.all(['tokens','base','components'].map(n=>readFile(`dist/reva.${n}.css`,'utf8')))).join('\n'):await readFile(`dist/reva.${build==='global'?'css':build==='minified'?'min.css':'scoped.css'}`,'utf8');
  await page.goto('/plain/');await page.locator('link[rel=stylesheet]').evaluateAll(els=>els.forEach(el=>el.remove()));await page.addStyleTag({content:css});
- await page.evaluate(({markup,scoped})=>{document.body.innerHTML=`<main id="probe-root"${scoped?' class="reva"':''}>${markup}</main>`; const root=scoped?document.querySelector('main'):document.documentElement;root.dataset.theme='dark';root.dataset.table='bordered';}, {markup,scoped:build==='scoped'});
+ await page.evaluate(({markup,scoped})=>{document.body.innerHTML=`<main id="probe-root"${scoped?' class="reva"':''}>${markup}</main>`; const root=scoped?document.querySelector('main'):document.documentElement;root.dataset.theme='dark';root.dataset.table='bordered';root.dataset.navbarSpacing='spaced';root.dataset.navbarWidth='contained';root.dataset.navbarPosition='static';}, {markup,scoped:build==='scoped'});
  const root=build==='scoped'?'#probe-root':'html';
  for(const [shape,radius,buttonRadius] of [['square',0,0],['subtle',4.8,4.8],['rounded',12,12],['pill',24,999]]) {
   await page.locator(root).evaluate((el,value)=>el.dataset.shape=value,shape);

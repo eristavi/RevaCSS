@@ -10,12 +10,12 @@ permissions:
 
 concurrency:
   group: revacss-release-1.2.1
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   unit:
     name: Unit, project paths and quality gates
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]') || contains(github.event.head_commit.message, '[prepare 1.2.1]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -42,6 +42,15 @@ jobs:
           REVA_BASE: /RevaCSS/
       - name: Report core size
         run: node --input-type=module -e "import {readFileSync} from 'node:fs'; import {gzipSync} from 'node:zlib'; console.log('Core gzip bytes:',gzipSync(readFileSync('dist/reva.min.css')).length);"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: revacss-1.2.1-canonical-css
+          path: |
+            dist/*.css
+            docs/public/reva/*.css
+            docs/src/pages/generated-reference.json
+          if-no-files-found: error
+          retention-days: 14
 
   browsers:
     name: Complete browser suite (${{ matrix.browser }})
@@ -153,6 +162,8 @@ jobs:
       - run: npm run build
       - run: npm run check:release-quality
       - run: npm run check:release-quality -- --npm
+      - name: Verify committed generated assets
+        run: git diff --exit-code -- dist docs/public/reva docs/src/pages/generated-reference.json
       - name: Prepare and verify archives
         run: |
           python3 scripts/package-release.py

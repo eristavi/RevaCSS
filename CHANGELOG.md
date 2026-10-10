@@ -4,6 +4,9 @@
 
 ## 1.2.1 — Erisian · 10 October 2026
 
+- Retain all 14 palettes in the standalone core with a disclosed 17 KiB gzip cap (previously 15 KiB). Keep the automated size gate enforced.
+- Restore the script-free customizer stylesheet on standalone preview pages and contain the navbar sizing reference in a labelled keyboard-scrollable table.
+
 - Keep mobile demo headers compact: place Customize before Menu, move mobile Docs access into Customize and use existing mobile navigation for demo calls to action. Mobile Flush removes all navbar rounding; desktop Full width uses square corners. Core, app-shell, scoped and modular builds share the corner rules.
 
 - Keep Flush navigation free of top borders and decorative surface shadows, highlights and gradients across solid, Glass, Veil and Soft UI menus and app-shell headers. Spaced restores the material finish; detached menus keep their own surfaces.

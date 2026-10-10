@@ -1,6 +1,6 @@
 # RevaCSS component quality standard
 
-Status: acceptance contract for the framework. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
+Status: acceptance contract for the framework. Version 1.2.1 retains all 14 palettes in the standalone core and raises its bounded gzip budget from 15 KiB to 17 KiB; the unit suite enforces this limit. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
 
 ## Required acceptance gates
 
@@ -19,7 +19,7 @@ Every shipped component needs recorded evidence for applicable gates; mark a gat
 | Preferences | Verify reduced motion, forced colours, increased contrast, reduced transparency where supported, and print. Accessibility paint/focus wins over decoration. Custom alpha and motion settings must not defeat preferences. |
 | Compatibility | Record tested stable browser versions for Chrome, Edge, Firefox, Safari and iOS Safari. CI Chromium/Firefox/WebKit supplements real-browser/device checks. Optional enhancements have usable fallbacks; the modern core's required CSS features have a documented support boundary. |
 | Builds and overrides | Applicable global, minified, modular and scoped builds agree. Outside scoped boundaries remains unstyled subject to documented inheritance limits. Ordinary custom CSS can override without unnecessary specificity or important. |
-| Performance | Core minified gzip remains under 15 KiB; optional fonts/modules are separate. Check blur/animation on real devices and scroll performance; do not claim a measured performance budget without measurements. |
+| Performance | Core minified gzip remains under 17 KiB for the complete 14-palette distribution; optional fonts/modules are separate. Check blur/animation on real devices and scroll performance; do not claim a measured performance budget without measurements. |
 | Documentation and API | Copyable HTML matches demos; unique IDs work with multiple instances; defaults/targets/reset values/limitations are documented. Public classes, attributes and tokens receive migration notes for breaking changes. |
 
 Reference guidance: [WCAG 2.2](https://www.w3.org/TR/WCAG22/), [Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html), [Text spacing](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html), [Target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).

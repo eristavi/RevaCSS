@@ -20,7 +20,7 @@ test('all button preset endpoints meet normal-text contrast',()=>{
  for(const [name,p] of Object.entries(tokens.primitive.accent)) for(const stop of ['start','end']) assert.ok(contrast([1,1,1],color(p[stop]))>=4.5,`${name}/${stop}`);
  for(const stop of ['start','end']) { assert.ok(contrast([1,1,1],color(tokens.primitive.danger[stop]))>=4.5); assert.ok(contrast(color(tokens.primitive.warningText),color(tokens.primitive.warning[stop]))>=4.5); }
 });
-test('core remains within 15 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<15*1024));
+test('core remains within 17 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<17*1024));
 test('only optional settings scripts ship in the documentation; core remains CSS-only',async()=>{
  async function visit(dir) {
   for(const f of await readdir(dir,{withFileTypes:true})) {
