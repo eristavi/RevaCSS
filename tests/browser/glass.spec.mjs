@@ -17,6 +17,7 @@ for(const theme of ['light','dark']) {
     // This context disables scripts; native popovers and links provide the interaction.
     await page.goto('/preview/glass/'+theme+'/');
     const nav=page.getByRole('navigation',{name:'Glass navigation'});
+    await expect(nav).toHaveCSS('position','relative');
     for(const label of ['Products','Frameworks','Components']) await summary(nav,label).click();
     const link=nav.getByRole('link',{name:'Top menu',exact:true});
     await expect(link).toBeVisible();
