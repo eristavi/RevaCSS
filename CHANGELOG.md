@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Clarify Living Blueprint's static fallback when required scroll animation features are unavailable, including default Firefox settings. Show intensity controls only when the assembly can animate, check named view timeline support, and use a nonzero scroll animation duration for compatible Firefox implementations. Core styles remain unchanged; browser tests remain deferred.
+
 - Add Living Blueprint, an original demo-only scroll composition with inherited class-based movement, ten intensity and zoom levels, eight directions, rotation, fade and phased assembly. Include a quieter depth example, native intensity controls, downloadable HTML and responsive/preference fallbacks. Effects and composition CSS are isolated from the core; browser and device tests remain deferred.
 
 - Normalize native date/time field appearance and box sizing to address iOS padded-field overflow; preserve empty-field line height, RTL alignment and browser pickers. Regenerate global, scoped and modular stylesheets. Device testing remains deferred.

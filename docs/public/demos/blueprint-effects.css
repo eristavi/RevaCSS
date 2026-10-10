@@ -77,10 +77,12 @@
 
 /* Both animation and scene holding share the same support/preference gate.
    Without it there are no displaced, faded or unnecessarily long scenes. */
-@supports (animation-timeline: view()) and (animation-range: contain 0% contain 100%) {
+@supports (animation-timeline: view()) and (view-timeline-name: --blueprint-scene) and (animation-range: contain 0% contain 100%) {
   @media (prefers-reduced-motion:no-preference) and (forced-colors:none) and (min-width:48rem) {
     .blueprint-site:not([data-motion="none"]) :where(.parallax-layer) {
-      animation:bp-layer-assemble auto linear both;
+      /* A nonzero duration also accommodates Firefox implementations.
+         The scroll timeline, rather than elapsed time, drives progress. */
+      animation:bp-layer-assemble 1ms linear both;
       animation-name:var(--parallax-animation, bp-layer-assemble);
       animation-timeline:--blueprint-scene;
       animation-range:contain var(--parallax-start, 5%) contain var(--parallax-end, 75%);
