@@ -994,6 +994,9 @@
     padding: .5rem;
     border: var(--re-surface-border) solid var(--re-line);
     border-radius: var(--re-radius);
+    /* Flush meets the top edge; the lower corners keep the shared shape. */
+    border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     background: var(--re-surface);
     box-shadow: var(--re-shadow);
     color: var(--re-text);
@@ -1370,7 +1373,11 @@
     display: flex; flex-wrap: wrap; align-items: center;
     gap: var(--re-space); padding: var(--re-space);
     border: var(--re-surface-border) solid var(--re-line);
-    border-radius: var(--re-radius); background: var(--re-surface);
+    border-radius: var(--re-radius);
+    /* Flush meets the top edge; the lower corners keep the shared shape. */
+    border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    background: var(--re-surface);
     box-shadow: var(--re-shadow);
   }
   :where(.app-shell > header > nav) { flex: 1 1 0; min-inline-size: 0; }

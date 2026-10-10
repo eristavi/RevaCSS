@@ -15,7 +15,7 @@ export const attributes = [
   },
   {
     id: 'navbar-spacing', title: 'data-navbar-spacing',
-    description: 'Header gap. Values: flush, spaced. Default: spaced. Flush removes wrapper padding and Floating block margins; Spaced adds wrapper breathing room, reduced below 48rem. Inherits independently of layout and sticky position.',
+    description: 'Header gap. Values: flush, spaced. Default: spaced. Flush removes wrapper padding and Floating block margins, and squares the top corners while the lower corners follow data-shape. Spaced restores the shared shape on every corner and adds wrapper breathing room, reduced below 48rem. Inherits independently of layout and sticky position.',
     html: '<header class="navbar-header" data-navbar-spacing="flush">\n  <nav class="top-menu" aria-label="Flush navigation"><a class="menu-brand" href="#navbar-spacing">Studio</a></nav>\n</header>',
     glass: false
   },
