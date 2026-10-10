@@ -1,0 +1,45 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'the-problem',title:'The problem'},{id:'shared-defaults',title:'Shared defaults'},{id:'native-foundation',title:'A native foundation'},{id:'ai-development',title:'AI and vibe coding'},{id:'the-direction',title:'The direction'}];
+---
+<DocsLayout title="Why RevaCSS?" active="why-revacss" sections={sections}>
+  <p class="doc-kicker">A NOTE FROM THE FOUNDER</p>
+  <h1>Why I started RevaCSS</h1>
+  <p class="doc-lead">The problem I want to solve is repeated design work.</p>
+  <p class="founder-byline">By Revaz Eristavi, founder of RevaCSS</p>
+  <section id="the-problem">
+    <h2>The same decisions, repeated</h2>
+    <p>A website can contain dozens of buttons, cards, forms and navigation elements that should share the same appearance. Colours, spacing, shape and interaction states need to stay consistent. As a project grows, keeping those decisions aligned can become a task of its own.</p>
+    <p>Existing frameworks offer useful approaches. Utility frameworks give developers detailed control over individual elements. Component frameworks provide ready-made patterns. Semantic CSS frameworks make ordinary HTML look good with little configuration.</p>
+    <p>I wanted to explore a balance centred on shared defaults.</p>
+  </section>
+  <section id="shared-defaults">
+    <h2>Set the direction once</h2>
+    <p>With RevaCSS, you choose appearance settings on a page or section, and its components inherit them. Local attributes handle exceptions. The intention is to make a design change feel like changing a shared decision, with fewer individual components to revisit.</p>
+    <p>A section can have its own palette or shape while the rest of the page keeps its defaults. Supported descendants consume those settings; classes identify reusable patterns such as cards and alerts. Ordinary CSS remains available for custom design.</p>
+    <p><a href={base+'guide/styling/'}>See how shared defaults and local overrides work.</a></p>
+  </section>
+  <section id="native-foundation">
+    <h2>Let the browser do more</h2>
+    <p>I also wanted the browser to do more of the work. Native elements and interactions provide the foundation wherever they fit. The core requires no JavaScript runtime, and the compiled stylesheet can be used without setting up a CSS build process.</p>
+    <p>This keeps the framework close to the HTML a developer can read and understand. Applications continue to own their data, routing and business logic. Native patterns have specific browser requirements and behaviour, which the component guides document.</p>
+  </section>
+  <section id="ai-development">
+    <h2>Built to work with AI, too</h2>
+    <p>I also designed RevaCSS to be approachable for AI-assisted development, including vibe coding. Readable HTML, consistent data attributes and dedicated AI documentation give coding assistants clear patterns to follow. Developers can describe what they want, use AI to create a starting point, then refine the interface through shared appearance settings and ordinary CSS. My aim is to make that process easier to understand, customise and maintain.</p>
+    <p>The AI guide, supported attribute reference and documented component structures give an assistant explicit context. These resources help describe the framework accurately; the developer still reviews the result and decides how the site should work.</p>
+    <p><a href={base+'guide/ai/'}>Explore the AI and vibe-coding guide.</a></p>
+  </section>
+  <section id="the-direction">
+    <h2>The direction I want to keep</h2>
+    <p>RevaCSS is for developers who value readable HTML, useful component defaults and a consistent appearance they can adjust through a small, documented API.</p>
+    <p>That is the direction I want to keep developing: shared design decisions, native browser capabilities, and room for the developer’s own choices.</p>
+    <div class="row"><a class="button" href={base+'guide/'}>Build your first page</a><a href={base+'guide/comparison/'}>Compare framework approaches</a></div>
+  </section>
+</DocsLayout>
+<style>
+.founder-byline { color:var(--re-muted); margin-block:1.25rem 2rem; }
+section { margin-block:2rem; }
+section p { max-inline-size:68ch; }
+</style>

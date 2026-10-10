@@ -1,0 +1,70 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {version} from '../../data/release.js';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'approaches',title:'At a glance'},{id:'shared-settings',title:'Shared appearance'},{id:'choose',title:'Choosing an approach'},{id:'sources',title:'Sources and scope'}];
+const frameworks=[
+  {name:`RevaCSS ${version}`,href:base+'guide/',model:'Native HTML, component classes and inherited appearance attributes.',build:'None when using the compiled stylesheets.',behaviour:'Documented native HTML/CSS patterns. Application logic stays separate.'},
+  {name:'Tailwind CSS 4',href:'https://tailwindcss.com/docs/styling-with-utility-classes',model:'Compose designs through single-purpose utility classes.',build:'Normally generates project CSS for production. The browser CDN is for development.',behaviour:'Styling utilities; component behaviour is supplied separately.'},
+  {name:'Bootstrap 5.3',href:'https://getbootstrap.com/docs/5.3/',model:'Component classes, modifiers and layout utilities.',build:'None when using the compiled assets.',behaviour:'CSS plus JavaScript plugins for many interactive components.'},
+  {name:'Bulma 1',href:'https://bulma.io/documentation/',model:'Component classes, modifiers and CSS helpers.',build:'None when using the compiled stylesheet.',behaviour:'CSS library. Interactive behaviour is supplied separately.'},
+  {name:'Pico CSS 2',href:'https://picocss.com/docs',model:'Semantic HTML styling with a small class API and a classless variant.',build:'None when using the compiled stylesheet.',behaviour:'No bundled JavaScript. Additional behaviour is supplied separately.'}
+];
+---
+<DocsLayout title="Framework comparison" active="comparison" sections={sections}>
+  <p class="doc-kicker">LEARN / FRAMEWORK CHOICES</p>
+  <h1>Compare framework approaches</h1>
+  <p class="doc-lead">Different frameworks make different choices about styling, configuration and behaviour. This comparison explains those choices so you can find an approach that fits your project.</p>
+  <section id="approaches">
+    <h2>At a glance</h2>
+    <p id="comparison-help">On a narrow screen, scroll the table horizontally to read every column.</p>
+    <div class="doc-table table-scroll comparison-table" tabindex="0" role="region" aria-label="Framework approaches" aria-describedby="comparison-help">
+      <table>
+        <caption>Framework models, setup and interaction ownership. Reviewed <time datetime="2026-10-10">10 October 2026</time>.</caption>
+        <thead><tr><th scope="col">Framework</th><th scope="col">Styling model</th><th scope="col">Build step to use</th><th scope="col">Interactive behaviour</th></tr></thead>
+        <tbody>{frameworks.map(framework=><tr><th scope="row"><a href={framework.href}>{framework.name}</a></th><td>{framework.model}</td><td>{framework.build}</td><td>{framework.behaviour}</td></tr>)}</tbody>
+      </table>
+    </div>
+    <p>Using an existing compiled stylesheet is separate from rebuilding a framework, compiling a customised source version or running your application’s own build process. Tailwind’s generated production CSS has no styling runtime.</p>
+  </section>
+  <section id="shared-settings">
+    <h2>Where RevaCSS puts the emphasis</h2>
+    <p>RevaCSS combines native HTML styling and reusable components with appearance settings inherited from a page or section. Theme, palette, material, shape and other documented settings can change together across supported descendants. Local attributes handle exceptions.</p>
+    <p>Shared configuration also exists elsewhere. Bootstrap supports global and local colour modes through <code>data-bs-theme</code>. Pico uses <code>data-theme</code> for colour schemes. Bulma supports CSS variables and themes, and Tailwind uses theme variables to configure its utilities.</p>
+    <p>RevaCSS’s distinction is the combination and scope of its appearance API: choose shared defaults, build with native elements and component patterns, then override the settings that differ.</p>
+    <p><a href={base+'guide/styling/'}>Read the inheritance rules</a> or <a href={base+'attributes/'}>explore the supported attributes</a>.</p>
+  </section>
+  <section id="choose">
+    <h2>Which approach fits your work?</h2>
+    <ul>
+      <li><strong>RevaCSS:</strong> consider it when you want native HTML, component defaults and appearance changes controlled through inherited settings. Its native interaction patterns have documented browser requirements.</li>
+      <li><strong>Tailwind:</strong> consider it when you prefer composing a custom design with detailed utility classes and generating CSS for your project.</li>
+      <li><strong>Bootstrap:</strong> consider it when you want ready-made components, layout utilities and accompanying JavaScript interaction plugins.</li>
+      <li><strong>Bulma:</strong> consider it when you want a CSS component library with modifiers and helpers, and want to supply interactive behaviour yourself.</li>
+      <li><strong>Pico:</strong> consider its approach when you want semantic HTML styling with little class configuration. Its official project is no longer maintained; review the <a href="https://picocss.com/docs/maintenance">maintenance notice</a> when evaluating it for a new project.</li>
+    </ul>
+    <p>For AI-assisted development, give the assistant the chosen framework’s current documentation and supported patterns. RevaCSS supplies <a href={base+'guide/ai/'}>dedicated AI guidance</a>, an attribute reference and structured component examples; the quality of the final site still depends on the implementation and review.</p>
+  </section>
+  <section id="sources">
+    <h2>Sources and scope</h2>
+    <p>This overview compares RevaCSS {version}, Tailwind CSS 4, Bootstrap 5.3, Bulma 1 and Pico CSS 2 using their official documentation. Last reviewed <time datetime="2026-10-10">10 October 2026</time>. Project-fit guidance above is an editorial assessment of those approaches.</p>
+    <ul>
+      <li><a href={base+'reference/components/'}>RevaCSS component contracts</a> and <a href={base+'guide/styling/'}>styling and inheritance</a></li>
+      <li>Tailwind: <a href="https://tailwindcss.com/docs/styling-with-utility-classes">utility classes</a>, <a href="https://tailwindcss.com/docs/theme">theme variables</a> and <a href="https://tailwindcss.com/docs/installation/play-cdn">production setup versus Play CDN</a></li>
+      <li>Bootstrap: <a href="https://getbootstrap.com/docs/5.3/getting-started/introduction/">setup and JavaScript components</a> and <a href="https://getbootstrap.com/docs/5.3/customize/color-modes/">colour modes</a></li>
+      <li>Bulma: <a href="https://bulma.io/documentation/start/overview/">CSS library overview</a> and <a href="https://bulma.io/documentation/features/">variables and themes</a></li>
+      <li>Pico: <a href="https://picocss.com/docs">setup</a>, <a href="https://picocss.com/docs/classless">classless styling</a>, <a href="https://picocss.com/docs/color-schemes">colour schemes</a>, <a href="https://picocss.com/docs/modal">modal behaviour</a> and <a href="https://picocss.com/docs/maintenance">maintenance status</a></li>
+    </ul>
+    <p>Bundle size and performance depend on the selected modules, generated output and application. This overview describes framework approaches; publish numerical comparisons only with matched versions and repeatable measurements.</p>
+    <div class="row"><a href={base+'guide/why-revacss/'}>Why I started RevaCSS</a><a href={base+'demos/'}>Explore RevaCSS demos</a></div>
+  </section>
+</DocsLayout>
+<style>
+section { margin-block:2rem; }
+.comparison-table { margin-block:1.25rem; border-radius:var(--re-radius); }
+.comparison-table table { min-inline-size:44rem; margin:0; }
+.comparison-table th,.comparison-table td { vertical-align:top; white-space:normal; }
+.comparison-table th[scope="row"] { min-inline-size:8.5rem; }
+.comparison-table caption { text-align:start; padding-block:.75rem; color:var(--re-muted); }
+.comparison-table:focus-visible { outline:2px solid var(--re-link); outline-offset:4px; }
+</style>

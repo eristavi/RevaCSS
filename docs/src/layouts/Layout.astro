@@ -15,7 +15,7 @@ const canonical=new URL(Astro.url.pathname,Astro.site || Astro.url.origin);
 <noscript><link rel="stylesheet" href={base+'customizer.css'}/></noscript>
 {settingsKind==='docs' && <DocumentationHeader theme={theme} current={current} customizer={customizer} kind="docs"/>}
 <main id="main" class:list={{container:!fullWidth}}><slot/></main>
-<footer class="container site-footer"><p>{development?`RevaCSS ${version} development preview`:`RevaCSS ${version} · ${releaseName}`} · MIT · Revaz Eristavi</p><nav class="footer-links" aria-label="Footer"><a href={base+'guide/'}>Get started</a><a href={base+'demos/'}>Demos</a><a href="https://github.com/eristavi/RevaCSS">GitHub</a><a href={base+'guide/accessibility/'}>Behaviour and limitations</a><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></nav></footer>
+<footer class="container site-footer"><p>{development?`RevaCSS ${version} development preview`:`RevaCSS ${version} · ${releaseName}`} · MIT · Revaz Eristavi</p><nav class="footer-links" aria-label="Footer"><a href={base+'guide/'}>Get started</a><a href={base+'demos/'}>Demos</a><a href={base+'guide/why-revacss/'}>Why RevaCSS?</a><a href={base+'guide/comparison/'}>Framework comparison</a><a href="https://github.com/eristavi/RevaCSS">GitHub</a><a href={base+'guide/accessibility/'}>Behaviour and limitations</a><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></nav></footer>
 </body></html>
 <style is:global>
 /* CSS-only clearance fallback; the optional settings helper measures headers. */

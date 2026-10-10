@@ -12,6 +12,8 @@ Build consistent interfaces from native HTML. Choose your theme, palette, shape,
 
 ## Why RevaCSS
 
+Read the [founder’s note](https://eristavi.github.io/RevaCSS/guide/why-revacss/) about shared design decisions, native HTML and AI-assisted development, or [compare framework approaches](https://eristavi.github.io/RevaCSS/guide/comparison/).
+
 - **A shared design, with fewer repeated decisions.** Set page or section defaults with inherited `data-*` attributes. Override individual settings where you need them.
 - **Native elements and interactions.** Buttons, forms, details, radio choices, and popovers keep their browser behavior. The framework requires no JavaScript runtime.
 - **Room for your own design.** Tokens, CSS custom properties, low-specificity selectors, and cascade layers make ordinary CSS overrides practical.
