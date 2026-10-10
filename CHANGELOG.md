@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Keep Flush navigation free of top borders and decorative surface shadows, highlights and gradients across solid, Glass, Veil and Soft UI menus and app-shell headers. Spaced restores the material finish; detached menus keep their own surfaces. Tests remain deferred at maintainer request.
+
 - Give navbar layout, position, spacing and width their own Navbar category in the shared documentation/demo customizer; keep general layout controls together.
 
 - Remove the extra documentation-header divider. Flush navbar spacing now squares the top corners of menus and app-shell headers while preserving the shared lower-corner shape; Spaced restores all corners. Tests remain deferred at maintainer request.

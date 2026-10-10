@@ -22,7 +22,7 @@
     border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     background: var(--re-surface);
-    box-shadow: var(--re-shadow);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
   }
   :where(.app-shell > header > nav) { flex: 1 1 0; min-inline-size: 0; }
   :where(.app-shell > aside:not([popover])) { display: none; }
@@ -122,5 +122,17 @@
   }
   @media print {
     :where(.app-shell [id], .app-shell :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  @media (forced-colors: active) {
+    .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
+    }
   }
 }

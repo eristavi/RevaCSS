@@ -20,7 +20,7 @@
 --re-safe-top: env(safe-area-inset-top, 0px); --re-safe-right: env(safe-area-inset-right, 0px); --re-safe-bottom: env(safe-area-inset-bottom, 0px); --re-safe-left: env(safe-area-inset-left, 0px);
 --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem;
 --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto;
---re-navbar-spacing-scale: 1; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem;
+--re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; --re-navbar-frame-width: initial; --re-navbar-content-padding: .5rem;
 --re-drawer-start: auto; --re-drawer-end: 0; --re-drawer-width: 28rem;
 --re-container: 75rem; --re-control-scale: 1; --re-gap-factor: 1;
 --re-table-stripe: 0%; --re-table-lines: 0; --re-image-ratio: auto; --re-image-fit: cover;
@@ -105,8 +105,8 @@
 :where([data-navbar="split"], :scope[data-navbar="split"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-layout: grid; --re-navbar-brand-align: center; --re-navbar-brand-column: 2; --re-navbar-links-column: 1; --re-navbar-links-align: flex-start; --re-navbar-brand-margin: 0; }
 :where([data-navbar-position="static"], :scope[data-navbar-position="static"]) { --re-navbar-position: relative; --re-navbar-sticky: 0; --re-navbar-layer: auto; }
 :where([data-navbar-position="sticky"], :scope[data-navbar-position="sticky"]) { --re-navbar-position: sticky; --re-navbar-sticky: 1; --re-navbar-layer: var(--re-navbar-z, 30); }
-:where([data-navbar-spacing="flush"], :scope[data-navbar-spacing="flush"]) { --re-navbar-spacing-scale: 0; }
-:where([data-navbar-spacing="spaced"], :scope[data-navbar-spacing="spaced"]) { --re-navbar-spacing-scale: 1; }
+:where([data-navbar-spacing="flush"], :scope[data-navbar-spacing="flush"]) { --re-navbar-spacing-scale: 0; --re-navbar-shadow: none; --re-navbar-background-image: none; }
+:where([data-navbar-spacing="spaced"], :scope[data-navbar-spacing="spaced"]) { --re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; }
 :where([data-navbar-width="contained"], :scope[data-navbar-width="contained"]) { --re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem; }
 :where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2)); }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
@@ -998,7 +998,7 @@
     border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     background: var(--re-surface);
-    box-shadow: var(--re-shadow);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
     color: var(--re-text);
   }
   :where(.top-menu .menu-brand) {
@@ -1354,6 +1354,18 @@
     }
   }
 }
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  @media (forced-colors: active) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+}
 /* One shell class owns layout; semantic children own their regions. */
 @layer re.components {
   :where(.app-shell, :scope.app-shell) {
@@ -1378,7 +1390,7 @@
     border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     background: var(--re-surface);
-    box-shadow: var(--re-shadow);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
   }
   :where(.app-shell > header > nav) { flex: 1 1 0; min-inline-size: 0; }
   :where(.app-shell > aside:not([popover])) { display: none; }
@@ -1478,6 +1490,18 @@
   }
   @media print {
     :where(.app-shell [id], .app-shell :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  @media (forced-colors: active) {
+    .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
+    }
   }
 }
 /* One structural class; native popovers own interaction and visibility. */

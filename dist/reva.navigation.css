@@ -16,7 +16,7 @@
     border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
     background: var(--re-surface);
-    box-shadow: var(--re-shadow);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
     color: var(--re-text);
   }
   :where(.top-menu .menu-brand) {
@@ -369,6 +369,18 @@
   @media (width < 48rem) {
     :where(.navbar-header, :scope.navbar-header) {
       padding-block: calc(var(--re-navbar-spacing-scale, 1) * min(var(--re-navbar-space, 1rem), .5rem));
+    }
+  }
+}
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  @media (forced-colors: active) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
     }
   }
 }

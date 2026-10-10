@@ -22,6 +22,12 @@
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
     }
+    /* Flush uses a plain surface; Spaced restores the Veil finish. */
+    :where(.top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header) {
+      background-image: var(--re-navbar-background-image, radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--re-veil-tint) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 12%), transparent), transparent 58%),
+        radial-gradient(ellipse at 100% 100%, color-mix(in srgb, var(--re-veil-tint) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 8%), transparent), transparent 58%));
+      box-shadow: var(--re-navbar-shadow, inset 0 0 0 calc(var(--re-surface-border) * 2) var(--re-veil-contour), inset 0 0 0 calc(var(--re-surface-border) * 6) color-mix(in srgb, var(--re-veil-fill) calc(var(--re-veil-strength, 1) * 60%), transparent), var(--re-shadow));
+    }
     :where(.top-menu, :scope.top-menu) { z-index:var(--re-menu-z,20); }
     :where(.badge, :scope.badge) { --re-veil-fill:var(--re-badge-fill); --re-veil-tint:var(--re-badge-start); }
     :where(.alert, :scope.alert) { --re-veil-fill:var(--re-alert-fill); --re-veil-tint:var(--re-alert-start); }

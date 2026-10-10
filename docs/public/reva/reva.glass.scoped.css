@@ -11,6 +11,10 @@
       border-color: var(--re-line);
       box-shadow: var(--re-shadow);
     }
+    /* Navbar spacing controls its finish without altering detached panels. */
+    :where(.top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header) {
+      box-shadow: var(--re-navbar-shadow, var(--re-shadow));
+    }
     /* Frosted navigation must paint above subsequent frosted cards. */
     :where(.top-menu, :scope.top-menu) { z-index: var(--re-menu-z, 20); }
     @media (width >= 48rem) {
@@ -59,6 +63,12 @@
         box-shadow: var(--re-glass-shadow, var(--re-shadow));
         -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
         backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+      }
+      :where(.top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header) {
+        background-image: var(--re-navbar-background-image, linear-gradient(135deg,
+          rgb(255 255 255 / calc(var(--re-gradient) * 14%)),
+          transparent 42%, rgb(0 0 0 / calc(var(--re-gradient) * 4%))));
+        box-shadow: var(--re-navbar-shadow, var(--re-glass-shadow, var(--re-shadow)));
       }
       @media (width >= 48rem) {
         :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
@@ -263,6 +273,18 @@
         -webkit-backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
         backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
       }
+    }
+  }
+}
+
+/* Preference fallbacks also honour the navbar's plain Flush finish. */
+@layer re.utilities {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), print {
+      :where(.top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header) { box-shadow: var(--re-navbar-shadow, var(--re-shadow)); }
+    }
+    @media (forced-colors: active) {
+      :where(.top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header) { box-shadow: none; }
     }
   }
 }
