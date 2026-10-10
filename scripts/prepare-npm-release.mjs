@@ -48,7 +48,7 @@ if (!asset || asset.state !== 'uploaded' || !/^sha256:[a-f0-9]{64}$/.test(asset.
 }
 await mkdir('artifacts', { recursive: true });
 gh(['release', 'download', tag, '--repo', repository, '--pattern', filename, '--dir', 'artifacts']);
-const file = 'artifacts/' + filename;
+const file = './artifacts/' + filename;
 const bytes = await readFile(file);
 if (bytes.length !== asset.size || 'sha256:' + createHash('sha256').update(bytes).digest('hex') !== asset.digest) {
   fail('The downloaded npm archive does not match its GitHub release digest.');
@@ -85,3 +85,4 @@ if (process.env.GITHUB_OUTPUT) {
   }).map(([key, value]) => key + '=' + value).join('\n') + '\n');
 }
 console.log('Verified ' + filename + ' from ' + commit + '; npm tag: ' + publishTag + '; already published: ' + Boolean(existing));
+
