@@ -58,6 +58,9 @@ test.describe('script-free navbar code example',()=>{
  test.use({javaScriptEnabled:false});
  // Managed fixtures close the context during teardown, outside the body budget.
 for (const width of [320,375]) test(`navbar inheritance example scrolls by keyboard without JavaScript at ${width}px`,async({page})=>{
+  // Complete navigation examples and native focus scrolling are slower in Linux WebKit.
+  // Keep every keyboard assertion's own bounded wait; allow the whole page sequence time.
+  test.setTimeout(120000);
   await page.setViewportSize({width,height:900});await page.goto('/components/top-menu/');
   const pre=page.locator('.docs-content > pre'),previous=page.locator('#navbar-split pre');
   const source=await pre.textContent();
