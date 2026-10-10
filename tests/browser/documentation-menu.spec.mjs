@@ -14,17 +14,9 @@ test.describe('shared documentation header without browser JavaScript',()=>{
   const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
   await page.goto('/');expected=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));await context.close();
  });
- // Inspect each document in a fresh page: preview frames and navigation history
- // must not accumulate across an inventory of unrelated documentation routes.
- for(let start=0;start<pages.length;start+=4){
-  const group=pages.slice(start,start+4);
-  test(`shared header and unique panel targets: ${group[0]} through ${group.at(-1)}`,async({context})=>{
-   // The existing attributes reference alone can take about a minute to lay
-   // out in Linux WebKit; keep its complete styled inventory within the group.
-   test.setTimeout(120000);
-   for(const route of group){
-    const page=await context.newPage();
-    try {
+ // One managed page/context per route isolates layout costs and failure reports.
+ for(const route of pages)test(`shared header and unique panel targets: ${route}`,async({page})=>{
+  test.setTimeout(120000);
     await page.goto(route,{waitUntil:'domcontentloaded'});await expect(nav(page)).toHaveCount(1);
     const entries=await nav(page).locator('.menu-desktop a').evaluateAll(els=>els.map(el=>({label:el.textContent,href:el.getAttribute('href')})));
     expect(entries,route).toEqual(expected);
@@ -32,10 +24,7 @@ test.describe('shared documentation header without browser JavaScript',()=>{
     expect(await nav(page).locator('#demo-theme option').count()).toBe(3);
     const invalid=await page.evaluate(()=>{const ids=[...document.querySelectorAll('[id]')].map(el=>el.id);return {duplicates:ids.filter((id,i)=>ids.indexOf(id)!==i),targets:[...document.querySelectorAll('[popovertarget]')].filter(el=>!document.getElementById(el.getAttribute('popovertarget'))).map(el=>el.outerHTML)};});
     expect(invalid,route).toEqual({duplicates:[],targets:[]});await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
-    } finally {await page.close();}
-   }
-  });
- }
+ });
  for(const width of [1280,375])test(`theme choices update the page and code while preserving local overrides at ${width}px`,async({page})=>{
   // Three documents and repeated full-page CSS theme recalculation in Linux WebKit.
   test.setTimeout(120000);

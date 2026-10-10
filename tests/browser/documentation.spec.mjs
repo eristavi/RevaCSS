@@ -6,15 +6,11 @@ import {topics} from '../../docs/src/data/examples.js';
 
 const routes = ['/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/themes/button-materials/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
 
-for(let start=0;start<routes.length;start+=4){
- const group=routes.slice(start,start+4);
- test(`documentation markup without JavaScript: ${group[0]} through ${group.at(-1)}`,async({browser})=>{
-  // Budget for four styled documents, including the large attributes reference.
+test.describe('script-free documentation inventory',()=>{
+ test.use({javaScriptEnabled:false});
+ // Give each styled route an isolated context and its own bounded layout budget.
+ for(const route of routes)test(`documentation markup without JavaScript: ${route}`,async({page})=>{
   test.setTimeout(120000);
-  const context=await browser.newContext({javaScriptEnabled:false});
-  for(const route of group){
-   const page=await context.newPage();
-   try {
    await page.goto(route,{waitUntil:'domcontentloaded'});await expect(page.locator('h1')).toHaveCount(1);
    const mismatch=await page.locator('.example-frame').evaluateAll(frames=>frames.flatMap(frame=>{
     const demo=frame.querySelector('.example-demo');if(!demo)return [];
@@ -22,11 +18,8 @@ for(let start=0;start<routes.length;start+=4){
     return demo.innerHTML.trim()===template.innerHTML.trim()?[]:[frame.closest('section').id];
    }));
    expect(mismatch,route).toEqual([]);await expectOnlyOptionalSettings(page);
-   } finally {await page.close();}
-  }
-  await context.close();
  });
-}
+});
 test('documentation disclosures and popovers work without JavaScript',async({browser})=>{
  const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
  await page.goto('/components/disclosures/');await page.locator('#details summary').click();
