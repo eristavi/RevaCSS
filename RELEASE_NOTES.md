@@ -11,6 +11,7 @@ Native HTML, inherited design settings and a CSS-only framework core.
 - Compact mobile demo headers; mobile documentation access is inside Customize, with contact/journal actions available in the native Menu.
 - One persistent customizer profile shared by documentation and demo pages, with a dedicated Navbar category and migration of older saved settings.
 - Corrected live Firefox material updates and isolated documentation preview defaults.
+- Script-free standalone preview customization, a scrollable navbar sizing reference and patched transitive build dependencies.
 
 The framework has no JavaScript runtime or consumer build requirement. The optional documentation settings helper remains separate.
 

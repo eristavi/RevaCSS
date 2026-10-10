@@ -28,9 +28,6 @@ jobs:
         run: |
           node --input-type=module -e "import p from './package.json' with {type:'json'}; import l from './package-lock.json' with {type:'json'}; if(p.version!=='1.2.1'||l.version!==p.version||l.packages[''].version!==p.version) process.exit(1)"
       - run: npm ci
-      - name: Prepare transitive dependency fixes
-        if: contains(github.event.head_commit.message, '[prepare 1.2.1]')
-        run: npm audit fix --package-lock-only --ignore-scripts && npm ci
       - name: Audit build dependencies
         run: npm audit --audit-level=high
       - run: npm run clean

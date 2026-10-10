@@ -4,6 +4,8 @@
 
 ## 1.2.1 — Erisian · 10 October 2026
 
+- Patch two transitive build dependencies for the cache-response disclosure and source-map denial-of-service advisories; a clean audit reports no vulnerabilities.
+
 - Retain all 14 palettes in the standalone core with a disclosed 17 KiB gzip cap (previously 15 KiB). Keep the automated size gate enforced.
 - Restore the script-free customizer stylesheet on standalone preview pages and contain the navbar sizing reference in a labelled keyboard-scrollable table.
 
