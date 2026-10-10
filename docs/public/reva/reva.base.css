@@ -112,7 +112,22 @@
   :where(fieldset) { min-inline-size: 0; margin: 0 0 var(--re-space); padding: var(--re-space); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(legend) { padding-inline: .4em; font-weight: 650; }
   :where(input:user-invalid,textarea:user-invalid,select:user-invalid,[aria-invalid=true]) { border-color: var(--re-danger-link); border-width: 2px; }
-  :where(input:read-only:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=range],[type=file],[type=color],[type=hidden]),textarea:read-only) { background: var(--re-surface-alt); }
+  /* :read-only also matches non-editable native input types. Only an explicit
+     readonly attribute requests this treatment. Disabled fields keep theirs. */
+  :where(input[readonly]:not(:disabled),textarea[readonly]:not(:disabled)) { background: var(--re-surface-alt); border-style: dashed; }
+  :where(input,select,textarea):where(:focus-visible):where(:user-invalid,[aria-invalid=true]) { outline-color: var(--re-danger-link); }
+  :where(fieldset:disabled > legend) { color: var(--re-muted); }
+  /* Keep OS pickers and native range thumbs; improve their sizing, not behaviour. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week],[type=file],[type=color])) { max-inline-size: 100%; }
+  :where(input[type=range]) { display: block; min-inline-size: 0; min-block-size: 2.75rem; margin-inline: 0; padding: 0; cursor: pointer; }
+  :where(input[type=range]:disabled) { cursor: not-allowed; }
+  :where(input[type=color]) { cursor: pointer; }
+  :where(input[type=color]:disabled) { cursor: not-allowed; }
+  :where(input[type=file])::file-selector-button { min-block-size: 2.25rem; cursor: pointer; }
+  :where(input[type=file]:disabled)::file-selector-button { cursor: not-allowed; }
+  @media (hover: hover) {
+    :where(input[type=file]:enabled:hover)::file-selector-button { background: var(--re-surface); }
+  }
   :where(output) { font-weight: 600; }
   :where(table) { inline-size: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--re-radius); overflow: hidden; text-align: start; }
   :where(caption) { text-align: start; color: var(--re-muted); margin-block-end: .75em; }

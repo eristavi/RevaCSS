@@ -65,6 +65,8 @@
     }
     :scope > nav details[open] > summary { margin-block-end: 0; }
     :scope > nav details[open] > summary::after { transform: rotate(225deg); }
+    :scope > nav summary:dir(rtl)::after { transform: rotate(-45deg); }
+    :scope > nav details[open] > summary:dir(rtl)::after { transform: rotate(135deg); }
     :scope > nav details > :where(a, details) { margin-inline-start: .75rem; }
     :scope > footer { margin-block-start: auto; padding-block-start: var(--re-space); }
   }

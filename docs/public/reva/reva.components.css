@@ -35,6 +35,14 @@
   :where(.skip-link) { position: absolute; inset-inline-start: 1rem; inset-block-start: .5rem; padding: .65rem 1rem; background: var(--re-surface); z-index: 100; transform: translateY(-200%); }
   :where(.skip-link:focus) { transform: none; }
 }
+/* Explicit containment avoids changing intrinsic sizing of existing cards and
+   subgrids. Put this wrapper inside a sized parent, not on the queried component. */
+@layer re.components {
+  :where(.responsive) { inline-size: 100%; min-inline-size: 0; }
+  @supports (container-type: inline-size) {
+    :where(.responsive) { container-type: inline-size; container-name: re-layout; }
+  }
+}
 @layer re.utilities {
   :where(button,input,select,textarea,:is(.button,.scroll-top)) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
   :where(.align-start) { align-items: start; }
@@ -43,11 +51,28 @@
   :where(.grid.cols-2) { grid-template-columns: repeat(2,minmax(0,1fr)); }
   :where(.grid.cols-3) { grid-template-columns: repeat(3,minmax(0,1fr)); }
   @media (width < 40rem) { :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; } }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; }
+    }
+    @container re-layout (40rem <= width < 60rem) {
+      :where(.grid.cols-3) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+  }
+  /* Focusable hidden labels become visible when reached by the keyboard. */
+  :where(.visually-hidden:not(:focus):not(:focus-within)) {
+    position: absolute; inline-size: 1px; block-size: 1px; padding: 0;
+    margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  :where(.print-only) { display: none !important; }
   @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
   @media (forced-colors: active) {
     :where(button,:is(.button,.scroll-top),input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
     :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(:focus-visible) { outline-color: Highlight; }
+    :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { color: GrayText; opacity: 1; }
+    :where(input[type=file])::file-selector-button { color: ButtonText; background: ButtonFace; border: 1px solid ButtonText; }
+    :where(input[type=file]:disabled)::file-selector-button { color: GrayText; border-color: GrayText; }
   }
   @media print {
     /* Reset shared paint tokens at every theme boundary, including scoped roots. */
@@ -63,6 +88,20 @@
     :where(.card,figure,tr) { break-inside: avoid; }
     :where(.table-scroll) { overflow: visible; }
     :where(.skip-link) { display: none; }
+    :where(.no-print) { display: none !important; }
+    :where(.print-only) { display: revert !important; }
+    :where(.container,.prose) { inline-size: 100%; max-inline-size: none; }
+    :where(.responsive) { container-type: normal; }
+    :where(h1,h2,h3,h4,h5,h6,caption) { break-after: avoid; }
+    :where(p,li) { orphans: 3; widows: 3; }
+    :where(thead) { display: table-header-group; }
+    :where(tfoot) { display: table-footer-group; }
+    :where(pre) { white-space: pre-wrap; overflow-wrap: anywhere; overflow: visible; }
+    :where(img,video) { aspect-ratio: auto; object-fit: contain; }
+    /* URLs are opt-in, to keep navigation and ordinary page links concise. */
+    :where(.print-links a[href^="https://"],.print-links a[href^="http://"])::after {
+      content: " (" attr(href) ")"; font-size: .875em; font-weight: 400; overflow-wrap: anywhere;
+    }
   }
 }
 
@@ -233,6 +272,8 @@
     transition: transform var(--re-duration, 140ms) ease;
   }
   :where(.accordion > details[open] > summary)::after { transform: rotate(225deg); }
+  :where(.accordion > details > summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.accordion > details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
   :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
 
   /* Enhance native disclosure without wrappers or a guessed maximum height. */
@@ -270,6 +311,7 @@
   :where(.breadcrumbs > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.5em * var(--re-density)); list-style: none; padding: 0; margin: 0; }
   :where(.breadcrumbs > ol > li) { display: inline-flex; align-items: center; gap: calc(.5em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin: 0; }
   :where(.breadcrumbs > ol > li + li)::before { content: ""; flex: 0 0 auto; block-size: .8em; border-inline-start: 1px solid var(--re-muted); transform: skew(-15deg); }
+  :where(.breadcrumbs > ol > li + li:dir(rtl))::before { transform: skew(15deg); }
   :where(.breadcrumbs a) { display: inline-flex; align-items: center; min-block-size: 2.75rem; min-inline-size: 0; overflow-wrap: anywhere; }
   :where(.breadcrumbs [aria-current="page"]) { color: var(--re-text); font-weight: 600; }
 }
@@ -589,6 +631,17 @@
   :where(.toolbar > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.toolbar > :is(.row,.input-group)) { flex: 1 1 auto; }
 }
+@layer re.components {
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 24rem) {
+      :where(.toolbar) { align-items: stretch; }
+      :where(.toolbar > *) { flex: 1 1 100%; inline-size: 100%; }
+      :where(.toolbar > :is(.row,.input-group)) { flex-direction: column; align-items: stretch; }
+      /* A horizontal field basis must not become a tall vertical basis. */
+      :where(.toolbar > .input-group > *) { flex-basis: auto; inline-size: 100%; }
+    }
+  }
+}
 /* A single opt-in class arranges native term/description pairs. */
 @layer re.components {
   :where(dl.description-list) { margin: 0; min-inline-size: 0; container-type: inline-size; }
@@ -611,6 +664,11 @@
   :where(.card > :is(header,footer) > :last-child) { margin-block-end: 0; }
   :where(.card > figure > :is(img,video)) { display: block; inline-size: 100%; }
   :where(.card > footer.row) { flex-wrap: wrap; }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 24rem) {
+      :where(.card > footer.row,.card > footer > .row) { flex-direction: column; align-items: stretch; }
+    }
+  }
 }
 
 /* A metric is an existing card with a native term/value pair, not another class. */
@@ -808,13 +866,15 @@
     flex: 0 0 .45em;
     inline-size: .45em;
     block-size: .45em;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
     transform: rotate(45deg);
     margin-block-end: .25em;
   }
   :where(.top-menu details[open] > summary) { margin-block-end: 0; }
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
+  :where(.top-menu summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.top-menu details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
   :where(.top-menu a:not(:is(.button,.scroll-top)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
   :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
@@ -894,6 +954,7 @@
     margin-block-end: .25em;
   }
   :where(.top-menu .menu-back .menu-toggle)::before { content: none; }
+  :where(.top-menu .menu-toggle:dir(rtl))::before { transform: rotate(-45deg); }
   :where(.top-menu button.menu-collapse) { flex: 0 0 auto; inline-size: auto; min-inline-size: 2.75rem; justify-content: center; margin-inline-start: auto; }
   :where(.top-menu button.menu-collapse:has(> .icon))::before { content: none; }
   :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
@@ -1217,6 +1278,8 @@
     }
     :scope > nav details[open] > summary { margin-block-end: 0; }
     :scope > nav details[open] > summary::after { transform: rotate(225deg); }
+    :scope > nav summary:dir(rtl)::after { transform: rotate(-45deg); }
+    :scope > nav details[open] > summary:dir(rtl)::after { transform: rotate(135deg); }
     :scope > nav details > :where(a, details) { margin-inline-start: .75rem; }
     :scope > footer { margin-block-start: auto; padding-block-start: var(--re-space); }
   }
@@ -1485,6 +1548,12 @@
   @media (width < 40rem) {
     :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
     :where(.nav-rail > a) { flex: 1 1 4rem; }
+  }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
+      :where(.nav-rail > a) { flex: 1 1 4rem; }
+    }
   }
 }
 @layer re.utilities {

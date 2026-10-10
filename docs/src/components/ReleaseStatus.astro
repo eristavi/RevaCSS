@@ -1,8 +1,9 @@
 ---
-import {version, releaseName, releaseUrl, releaseRecordUrl, qualityUrl, development, npmPublished, npmUrl, acceptanceComplete, manualChecks, openChecks} from '../data/release.js';
+import {version, releaseName, releaseUrl, releaseRecordUrl, qualityUrl, development, npmPublished, npmUrl, acceptanceComplete, manualChecks, openChecks, unreleasedChanges, testsDeferred} from '../data/release.js';
 const {detailed=false}=Astro.props;
 ---
 <div class="doc-note release-status">
+  {unreleasedChanges && <p><strong>Source preview:</strong> These pages also include unreleased CSS additions. Published {version} downloads and npm files are unchanged. {testsDeferred && <>Tests for these additions are deferred; earlier release acceptance does not cover them.</>} <a href={import.meta.env.BASE_URL+'guide/responsive-rtl-print/'}>See availability and usage</a>.</p>}
   <p>{development ? <>These pages describe RevaCSS {version} in development.</> : <><a href={releaseUrl}>RevaCSS {version} — {releaseName}</a> is available with compiled CSS and downloadable starters.</>}
   {' '}{npmPublished ? <><a href={npmUrl}>The matching npm package</a> is published.</> : development ? <>Use the documentation build for a preview or build the stylesheets from source.</> : <>The matching npm package is awaiting publication; use the GitHub downloads.</>}</p>
   {detailed && <>

@@ -1,0 +1,5 @@
+{
+  "unreleasedChanges": true,
+  "testsDeferred": true,
+  "summary": "Responsive wrappers, RTL refinements, form/native-control states, accessibility utilities and print improvements are available in the source/documentation preview. Published 1.2.1 packages are unchanged."
+}

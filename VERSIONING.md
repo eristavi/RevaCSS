@@ -20,7 +20,8 @@ The public API includes documented native HTML structures, structural classes, d
 2. Choose the increment from the complete set of changes. Bump once per published release, not once per commit or individual edit.
 3. During release preparation, update `package.json` and `package-lock.json` together. Documentation reads its version from `package.json`.
 4. Move the unreleased entries into a dated version heading; keep earlier release entries intact. Update installation examples and release notes to match the version actually being published.
-5. Complete applicable release validation and quality gates, then publish matching `vX.Y.Z` GitHub and npm versions. Do not reuse an existing published version for changed package contents.
+5. Before publication, update `docs/src/data/source-status.json` to clear the unreleased/deferred flags only after the additions have completed their required validation.
+6. Complete applicable release validation and quality gates, then publish matching `vX.Y.Z` GitHub and npm versions. Do not reuse an existing published version for changed package contents.
 
 Documentation and demo edits may be deployed between package releases. Their deployment does not imply a new npm package version. Record them in the changelog when they affect users.
 

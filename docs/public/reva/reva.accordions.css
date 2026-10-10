@@ -23,6 +23,8 @@
     transition: transform var(--re-duration, 140ms) ease;
   }
   :where(.accordion > details[open] > summary)::after { transform: rotate(225deg); }
+  :where(.accordion > details > summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.accordion > details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
   :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
 
   /* Enhance native disclosure without wrappers or a guessed maximum height. */

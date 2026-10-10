@@ -105,8 +105,8 @@ export const componentContracts = {
     "Document structure comes from your markup."
   ],
   "layouts": [
-    ".card, .container, .grid, .row, .stack",
-    "Optional cols-2/cols-3; shared width and gap settings.",
+    ".card, .container, .grid, .row, .stack; optional .responsive parent",
+    "Optional cols-2/cols-3; shared width and gap settings. .responsive enables named container queries.",
     "reva.components.css",
     "Layouts arrange content; there is no numbered 12-column API."
   ],
@@ -264,6 +264,7 @@ export const learnLinks = [
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
  { key:'effects', title:'Effects and state feedback', path:'guide/effects/' },
  { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
+ { key:'responsive-rtl-print', title:'Responsive layouts, RTL and print', path:'guide/responsive-rtl-print/' },
  { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
  { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' },
 ];

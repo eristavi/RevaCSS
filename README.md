@@ -171,3 +171,9 @@ RevaCSS is [MIT licensed](https://github.com/eristavi/RevaCSS/blob/v1.2.1/LICENS
 ## Versioning
 
 RevaCSS follows [semantic versioning](VERSIONING.md): fixes and compatible visual tweaks use patch releases; new components, classes, materials and configuration options use minor releases; breaking changes use major releases. Versions are bumped once per published release, with changes recorded in [the changelog](CHANGELOG.md).
+
+## Unreleased source improvements
+
+The source/documentation preview adds opt-in container-responsive layouts, RTL disclosure refinements, improved form/native-control states, accessible hidden labels and print utilities. See [usage and availability](https://eristavi.github.io/RevaCSS/guide/responsive-rtl-print/) and `CHANGELOG.md`.
+
+These changes are not yet in the published 1.2.1 archives or npm package. Their tests are deferred by maintainer request; successful compilation is not browser or accessibility validation.

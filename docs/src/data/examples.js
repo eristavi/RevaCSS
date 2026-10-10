@@ -367,6 +367,12 @@ export const topics = [
     ],
     "examples": [
       {
+        "id": "toolbar-container",
+        "title": "Actions in a narrow workspace",
+        "description": "Below 24rem of wrapper width, toolbar children fill the line and nested input groups stack. These links retain ordinary navigation behaviour.",
+        "html": "<div style=\"max-inline-size: 22rem;\">\n  <div class=\"responsive\">\n    <div class=\"toolbar\" role=\"group\" aria-label=\"Workspace links\">\n      <a class=\"button\" href=\"__BASE__guide/\">Getting started</a>\n      <a class=\"button outline\" href=\"__BASE__reference/\">API reference</a>\n    </div>\n  </div>\n</div>"
+      },
+      {
         "id": "toolbar-basic",
         "title": "A group of actions",
         "description": "The labelled group explains why these controls belong together.",
@@ -745,6 +751,12 @@ export const topics = [
     ],
     "examples": [
       {
+        "id": "form-complete-error",
+        "title": "An explicitly supplied validation error",
+        "description": "The application supplies aria-invalid and the visible error. CSS keeps the error border and focus outline consistent. Associate both the hint and error with the field.",
+        "html": "<div class=\"form-group\">\n  <label for=\"complete-error-email\">Email <small>(required)</small></label>\n  <input id=\"complete-error-email\" name=\"email\" type=\"email\" required value=\"invalid-address\" aria-invalid=\"true\" aria-describedby=\"complete-email-hint complete-email-error\">\n  <small id=\"complete-email-hint\">Use the address where you want to receive updates.</small>\n  <p class=\"field-error\" id=\"complete-email-error\">Enter a complete email address, such as name@example.com.</p>\n</div>"
+      },
+      {
         "id": "form-group-basic",
         "title": "Label, control and help",
         "description": "Only the group needs a class. IDs connect the label and explanation to the native control.",
@@ -1102,6 +1114,18 @@ export const topics = [
     "intro": "Native controls need explicit labels. RevaCSS supplies appearance; your HTML supplies names, hints, errors and form behavior.",
     "examples": [
       {
+        "id": "form-disabled-group",
+        "title": "Disabled and read-only states",
+        "description": "Native disabled fieldsets disable their descendant controls. Read-only fields retain focus and submission; disabled fields are omitted from submission.",
+        "html": "<fieldset disabled>\n  <legend>Shipping options unavailable</legend>\n  <label for=\"disabled-address\">Address</label><input id=\"disabled-address\" name=\"address\" autocomplete=\"street-address\" value=\"Unavailable\">\n  <label for=\"disabled-service\">Service</label><select id=\"disabled-service\" name=\"service\"><option>Standard</option></select>\n</fieldset>\n<div class=\"form-group\">\n  <label for=\"explicit-readonly\">Account reference</label>\n  <input id=\"explicit-readonly\" name=\"reference\" value=\"REVA-001\" readonly aria-describedby=\"readonly-hint\">\n  <small id=\"readonly-hint\">Read only. This reference cannot be changed.</small>\n</div>"
+      },
+      {
+        "id": "form-native-pickers",
+        "title": "Date, time and numeric controls",
+        "description": "Native pickers, constraints and keyboard behaviour remain browser-owned. Picker appearance and support vary by browser. These fields have no submission handler.",
+        "html": "<div class=\"grid cols-2\">\n  <div class=\"form-group\"><label for=\"extended-date\">Appointment date <small>(required)</small></label><input id=\"extended-date\" name=\"date\" type=\"date\" required></div>\n  <div class=\"form-group\"><label for=\"extended-time\">Time</label><input id=\"extended-time\" name=\"time\" type=\"time\"></div>\n  <div class=\"form-group\"><label for=\"extended-datetime\">Local date and time</label><input id=\"extended-datetime\" name=\"local-time\" type=\"datetime-local\"></div>\n  <div class=\"form-group\"><label for=\"extended-number\">Quantity</label><input id=\"extended-number\" name=\"quantity\" type=\"number\" min=\"1\" max=\"20\" step=\"1\" value=\"1\"></div>\n</div>"
+      },
+      {
         "id": "fields",
         "title": "Text fields, select and textarea",
         "description": "Associate labels with unique input IDs. Set appropriate input types and autocomplete tokens.",
@@ -1139,6 +1163,12 @@ export const topics = [
     "intro": "Use a small set of layout classes. Grids adapt intrinsically; rows wrap; stacks arrange content vertically.",
     "examples": [
       {
+        "id": "container-responsive",
+        "title": "A layout inside a narrow parent",
+        "description": "The responsive wrapper measures its own width. The fixed-column grid collapses below 40rem even on a wide desktop. Put the wrapper inside a sized parent; do not put containment on a subgrid card.",
+        "html": "<div style=\"max-inline-size: 32rem;\">\n  <div class=\"responsive\">\n    <div class=\"grid cols-2\">\n      <article class=\"card\"><h3>First item</h3><p>One column in this narrow space.</p></article>\n      <article class=\"card\"><h3>Second item</h3><p>The browser window can remain wide.</p></article>\n    </div>\n  </div>\n</div>"
+      },
+      {
         "id": "card",
         "title": "Cards",
         "description": "Apply .card to an article or section. Shared shape, density, depth and border attributes control its treatment.",
@@ -1147,7 +1177,7 @@ export const topics = [
       {
         "id": "grid",
         "title": "Responsive grids",
-        "description": "The default grid fits as many columns as space permits. cols-2 and cols-3 switch to one column below 40rem.",
+        "description": "The default grid fits as many columns as space permits. cols-2 and cols-3 switch to one column below 40rem. Inside a responsive wrapper they also use the wrapper width; cols-3 uses two columns from 40rem to below 60rem.",
         "html": "<div class=\"grid cols-2\" data-gap=\"large\">\n  <article class=\"card\"><h3>First card</h3><p>First column.</p></article>\n  <article class=\"card\"><h3>Second card</h3><p>Second column.</p></article>\n</div>"
       },
       {

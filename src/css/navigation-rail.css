@@ -14,6 +14,12 @@
     :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
     :where(.nav-rail > a) { flex: 1 1 4rem; }
   }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
+      :where(.nav-rail > a) { flex: 1 1 4rem; }
+    }
+  }
 }
 @layer re.utilities {
   @media (forced-colors: active) {

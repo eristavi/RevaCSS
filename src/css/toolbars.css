@@ -4,3 +4,14 @@
   :where(.toolbar > *) { min-inline-size: 0; max-inline-size: 100%; }
   :where(.toolbar > :is(.row,.input-group)) { flex: 1 1 auto; }
 }
+@layer re.components {
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 24rem) {
+      :where(.toolbar) { align-items: stretch; }
+      :where(.toolbar > *) { flex: 1 1 100%; inline-size: 100%; }
+      :where(.toolbar > :is(.row,.input-group)) { flex-direction: column; align-items: stretch; }
+      /* A horizontal field basis must not become a tall vertical basis. */
+      :where(.toolbar > .input-group > *) { flex-basis: auto; inline-size: 100%; }
+    }
+  }
+}

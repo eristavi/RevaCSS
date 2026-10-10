@@ -1,0 +1,60 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+const base=import.meta.env.BASE_URL;
+const responsive=`<div style="max-inline-size: 32rem;">
+  <div class="responsive">
+    <div class="grid cols-2">
+      <article class="card"><h3>First card</h3><p>One column in a narrow parent.</p></article>
+      <article class="card"><h3>Second card</h3><p>Adapts without resizing the browser.</p></article>
+    </div>
+  </div>
+</div>`;
+const rtl=`<section dir="rtl" lang="ar">
+  <div class="accordion">
+    <details><summary>إعدادات الحساب</summary><p>يمكنك تحديث معلومات حسابك هنا.</p></details>
+  </div>
+  <div class="form-group">
+    <label for="rtl-name">الاسم</label>
+    <input id="rtl-name" name="name" autocomplete="name" dir="auto">
+  </div>
+  <p>مرجع الحساب: <bdi>REVA-001</bdi></p>
+  <p dir="ltr" lang="en">This nested English paragraph keeps its own direction.</p>
+</section>`;
+const printing=`<article class="card print-links">
+  <h3>Order summary</h3>
+  <p>Reference REVA-001 · Total €120</p>
+  <p class="print-only">Printed copy — retain for your records.</p>
+  <p><a href="https://eristavi.github.io/RevaCSS/guide/">Documentation</a></p>
+  <footer class="no-print"><a href="${base}demos/shop/">Continue shopping</a></footer>
+</article>`;
+---
+<DocsLayout title="Responsive layouts, RTL and print" active="responsive-rtl-print" sections={[{id:'availability',title:'Availability'},{id:'responsive',title:'Container layouts'},{id:'rtl',title:'RTL and mixed text'},{id:'print',title:'Print styles'},{id:'accessibility',title:'Accessible controls'}]}>
+<p class="doc-kicker">LEARN</p><h1>Responsive layouts, RTL and print</h1>
+<p class="doc-lead">Adapt existing components to their available space, document direction and output medium while retaining native HTML behaviour.</p>
+<section id="availability"><h2>Source-preview availability</h2><p>These refinements and the new utility classes are unreleased additions in the source and documentation build. Published 1.2.1 archives and npm files remain unchanged. Build compilation does not establish browser or accessibility validation; tests for this update are deferred.</p></section>
+<section id="responsive"><h2>Use an explicit container boundary</h2>
+<p>Put <code>responsive</code> on a separate full-width wrapper inside a parent with an established width. It creates the named inline-size container <code>re-layout</code>. Descendant components can then respond to that width, including in a narrow dashboard region on a wide screen.</p>
+<ul><li><code>grid cols-2</code> and <code>grid cols-3</code> use one column below 40rem of wrapper width.</li><li><code>grid cols-3</code> uses two columns from 40rem to below 60rem.</li><li>Below 24rem, toolbars fill and stack their child groups; card footer rows stack their actions.</li><li>Navigation rails become wrapping horizontal navigation below 40rem.</li></ul>
+<p>Outside this wrapper, existing intrinsic layouts and viewport breakpoints continue to apply. Unsupported browsers keep those fallbacks. A component cannot query its own size: put the wrapper around it. Do not add containment directly to a subgrid card, an inline element or an intrinsically sized shrink-to-fit parent. Nested wrappers use the nearest matching named container.</p>
+<p>The complete global/scoped builds include these rules. Modular users need tokens, base, common components and the relevant toolbar/card-pattern/navigation-rail modules. Top-menu mobile/desktop selection remains viewport-based, with wrapping labels and native popover behaviour.</p>
+<Example id="responsive-wrapper-example" title="Narrow parent, wide screen" description="This example limits the parent to 32rem. The two-column grid therefore becomes one column where container queries are supported." html={responsive}/>
+</section>
+<section id="rtl"><h2>Set direction through HTML</h2>
+<p>Use <code>dir="rtl"</code> and the correct <code>lang</code> on the document or a local section. Logical spacing, borders, sidebar placement and alignment follow the document direction. Accordion, sidebar and navigation chevrons account for RTL; breadcrumb separators mirror their slant.</p>
+<p>Keep content in meaningful DOM order. Use <code>dir="auto"</code> for appropriate user-entered text and <code>bdi</code> for isolated references. A nested <code>dir="ltr"</code> region retains its own direction. Directional SVG icons remain an application choice; logos, media controls and every icon should not be automatically mirrored.</p>
+<Example id="rtl-mixed-example" title="RTL disclosure and mixed text" description="Native direction applies locally without reversing the DOM or introducing framework attributes." html={rtl}/>
+</section>
+<section id="print"><h2>Design a useful printed page</h2>
+<p>Common print rules remove decorative shadows, use readable light surfaces, wrap code, preserve natural media ratios and request sensible page breaks. Table header/footer groups repeat where the browser supports them. Navigation and popover controls retain their existing print handling; radio-selected panels are all shown by the tabs module.</p>
+<ul><li><code>no-print</code> hides an element and its contents on paper.</li><li><code>print-only</code> hides an element on screen and restores its normal element display in print.</li><li><code>print-links</code> appends HTTP(S) link destinations only inside that opted-in section.</li></ul>
+<p>Print-only content is also hidden from assistive technology on screen, so keep information needed by screen readers in ordinary content. Closed disclosures are not automatically expanded. Long tables, user-selected margins and page sizes remain browser/application concerns; CSS page-break requests are not pagination guarantees.</p>
+<Example id="print-utilities-example" title="An order summary for screen and paper" description="Use the browser’s print preview to see the print-only note and link destination. The footer is omitted from paper." html={printing}/>
+</section>
+<section id="accessibility"><h2>Native controls and accessible states</h2>
+<p>Required labels, hints and errors are explicit text. Native <code>required</code>, <code>disabled</code>, <code>readonly</code> and browser validation remain in control. Invalid-field keyboard outlines follow the error colour; disabled controls use system colours in forced-colour mode. Read-only fields have a subdued surface and dashed border.</p>
+<p>Native range, file, colour, date and time controls retain their browser interaction and pickers. CSS improves sizing and file-button presentation; it does not calculate outputs, upload files, validate on the server or announce errors.</p>
+<p><code>visually-hidden</code> provides an accessible label without visible layout. Focusable elements using it are revealed on focus, including when a descendant receives focus. Use a visible label when possible; hide decorative content with <code>aria-hidden</code> rather than supplying an unnecessary accessible label.</p>
+<p><a href={base+'components/forms/'}>Native form examples</a> · <a href={base+'components/form-groups/'}>Complete error associations</a> · <a href={base+'guide/accessibility/'}>Behaviour and accessibility</a></p>
+</section>
+</DocsLayout>

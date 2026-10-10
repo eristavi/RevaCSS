@@ -70,13 +70,15 @@
     flex: 0 0 .45em;
     inline-size: .45em;
     block-size: .45em;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
     transform: rotate(45deg);
     margin-block-end: .25em;
   }
   :where(.top-menu details[open] > summary) { margin-block-end: 0; }
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
+  :where(.top-menu summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.top-menu details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
   :where(.top-menu a:not(:is(.button,.scroll-top)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
   :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
@@ -156,6 +158,7 @@
     margin-block-end: .25em;
   }
   :where(.top-menu .menu-back .menu-toggle)::before { content: none; }
+  :where(.top-menu .menu-toggle:dir(rtl))::before { transform: rotate(-45deg); }
   :where(.top-menu button.menu-collapse) { flex: 0 0 auto; inline-size: auto; min-inline-size: 2.75rem; justify-content: center; margin-inline-start: auto; }
   :where(.top-menu button.menu-collapse:has(> .icon))::before { content: none; }
   :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {

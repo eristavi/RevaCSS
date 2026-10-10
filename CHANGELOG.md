@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+Compatible additions and refinements; source and documentation preview only. Tests are deferred by maintainer request. Published 1.2.1 GitHub/npm packages remain unchanged.
+
+- Add opt-in `.responsive` container wrappers for fixed-column grids, narrow card actions, toolbars and navigation rails. Existing intrinsic layouts and viewport fallbacks remain available.
+- Correct RTL disclosure chevrons in accordions, sidebar navigation and top menus; mirror breadcrumb separators using semantic `dir` inheritance.
+- Refine explicit read-only fields, invalid-field focus and disabled fieldset legends. Preserve native validation and provide complete required/error/disabled-group examples.
+- Improve native range, file, colour and date/time field sizing without replacing browser pickers or controls.
+- Add `.visually-hidden` with keyboard-focus reveal and clearer disabled/file controls in forced colours.
+- Expand print pagination, repeated table headers, wrapping code, natural media ratios and opt-in `.print-only`, `.no-print` and `.print-links` utilities.
+- Document new contracts and examples; regenerate global, scoped, modular and AI references. Build compilation is separate from deferred tests.
+
 ## 1.2.1 — Erisian · 10 October 2026
 
 - Patch two transitive build dependencies for the cache-response disclosure and source-map denial-of-service advisories; a clean audit reports no vulnerabilities.

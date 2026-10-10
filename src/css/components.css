@@ -25,6 +25,14 @@
   :where(.skip-link) { position: absolute; inset-inline-start: 1rem; inset-block-start: .5rem; padding: .65rem 1rem; background: var(--re-surface); z-index: 100; transform: translateY(-200%); }
   :where(.skip-link:focus) { transform: none; }
 }
+/* Explicit containment avoids changing intrinsic sizing of existing cards and
+   subgrids. Put this wrapper inside a sized parent, not on the queried component. */
+@layer re.components {
+  :where(.responsive) { inline-size: 100%; min-inline-size: 0; }
+  @supports (container-type: inline-size) {
+    :where(.responsive) { container-type: inline-size; container-name: re-layout; }
+  }
+}
 @layer re.utilities {
   :where(button,input,select,textarea,:is(.button,.scroll-top)) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
   :where(.align-start) { align-items: start; }
@@ -33,11 +41,28 @@
   :where(.grid.cols-2) { grid-template-columns: repeat(2,minmax(0,1fr)); }
   :where(.grid.cols-3) { grid-template-columns: repeat(3,minmax(0,1fr)); }
   @media (width < 40rem) { :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; } }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(.grid.cols-2,.grid.cols-3) { grid-template-columns: 1fr; }
+    }
+    @container re-layout (40rem <= width < 60rem) {
+      :where(.grid.cols-3) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+  }
+  /* Focusable hidden labels become visible when reached by the keyboard. */
+  :where(.visually-hidden:not(:focus):not(:focus-within)) {
+    position: absolute; inline-size: 1px; block-size: 1px; padding: 0;
+    margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  :where(.print-only) { display: none !important; }
   @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
   @media (forced-colors: active) {
     :where(button,:is(.button,.scroll-top),input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
     :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(:focus-visible) { outline-color: Highlight; }
+    :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { color: GrayText; opacity: 1; }
+    :where(input[type=file])::file-selector-button { color: ButtonText; background: ButtonFace; border: 1px solid ButtonText; }
+    :where(input[type=file]:disabled)::file-selector-button { color: GrayText; border-color: GrayText; }
   }
   @media print {
     /* Reset shared paint tokens at every theme boundary, including scoped roots. */
@@ -53,6 +78,20 @@
     :where(.card,figure,tr) { break-inside: avoid; }
     :where(.table-scroll) { overflow: visible; }
     :where(.skip-link) { display: none; }
+    :where(.no-print) { display: none !important; }
+    :where(.print-only) { display: revert !important; }
+    :where(.container,.prose) { inline-size: 100%; max-inline-size: none; }
+    :where(.responsive) { container-type: normal; }
+    :where(h1,h2,h3,h4,h5,h6,caption) { break-after: avoid; }
+    :where(p,li) { orphans: 3; widows: 3; }
+    :where(thead) { display: table-header-group; }
+    :where(tfoot) { display: table-footer-group; }
+    :where(pre) { white-space: pre-wrap; overflow-wrap: anywhere; overflow: visible; }
+    :where(img,video) { aspect-ratio: auto; object-fit: contain; }
+    /* URLs are opt-in, to keep navigation and ordinary page links concise. */
+    :where(.print-links a[href^="https://"],.print-links a[href^="http://"])::after {
+      content: " (" attr(href) ")"; font-size: .875em; font-weight: 400; overflow-wrap: anywhere;
+    }
   }
 }
 

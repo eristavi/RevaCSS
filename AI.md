@@ -104,3 +104,13 @@ Use progressive enhancement for modern CSS. Follow the documented browser suppor
 6. Review the result and report its limitations. Run tests only when the user or project workflow authorizes them; when deferred, say they have not been run.
 
 The text reference is generated from the documentation's component contracts, examples, public tokens and option manifest on each documentation build. It helps agents look up the supported API; it does not guarantee that an AI service will discover or read it automatically.
+
+## Unreleased source additions
+
+The current documentation preview includes additions not yet in the published 1.2.1 packages. Do not assume these classes exist in that npm/GitHub release. Tests for the additions are deferred.
+
+- Put `.responsive` on a separate, full-width wrapper inside a sized parent. Descendant `.grid.cols-2`/`.grid.cols-3`, toolbars, card footer rows and navigation rails adapt to that wrapper. Do not put containment on a subgrid card. Viewport/intrinsic fallbacks remain.
+- Use native `dir="rtl"` and `lang` for RTL pages, and `dir="auto"` or `bdi` for mixed user content. Do not reverse DOM order or mirror every icon.
+- Use `.visually-hidden` for necessary accessible labels. Focusable content using it is revealed on keyboard focus. Decorative content still needs `aria-hidden` where appropriate.
+- Print utilities: `.no-print` hides, `.print-only` reveals and `.print-links` appends HTTP(S) destinations on paper. These are opt-in; ordinary link styling does not append URLs.
+- Required status and error explanations are visible HTML text. Applications supply validation messages and state; CSS does not compute range outputs or replace native pickers.

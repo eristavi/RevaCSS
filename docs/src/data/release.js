@@ -1,4 +1,7 @@
 // Build-time release metadata; nothing is added to the browser runtime.
+import sourceStatus from './source-status.json' with { type: 'json' };
+export const unreleasedChanges = sourceStatus.unreleasedChanges;
+export const testsDeferred = sourceStatus.testsDeferred;
 import metadata from '../../../package.json' with { type: 'json' };
 import quality from '../../../quality/blockers.json' with { type: 'json' };
 export const version = metadata.version;
