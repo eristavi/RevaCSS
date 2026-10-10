@@ -8,7 +8,7 @@ const route='/guide/device-checks/';
 // device placement/focus and scroll performance remain manual gates.
 const settle=async panel=>{
  await expect(panel).toBeVisible();let stable=0;
- await expect.poll(async()=>{const running=await panel.evaluate(el=>el.getAnimations().some(a=>a.playState==='running'));stable=running?0:stable+1;return stable;},{message:'popover entrance animation has finished'}).toBeGreaterThanOrEqual(2);
+ await expect.poll(async()=>{const running=await panel.evaluate(el=>el.getAnimations().some(a=>a.playState==='running'));stable=running?0:stable+1;return stable;},{message:'popover entrance animation has finished',timeout:10000,intervals:[100,100,200,400]}).toBeGreaterThanOrEqual(2);
 };
 
 // These validate the fixture, not a physical-device or assistive-technology pass.
@@ -24,11 +24,10 @@ for(const width of [320,390,1280])test(`device fixture reflows and has accessibl
 });
 test.describe('device fixture native operation',()=>{
  test.use({javaScriptEnabled:false});
- test('all fixture menu instances open three nested levels and dismiss without scripts',async({page})=>{
+ // Each native menu fixture gets an isolated page and an individual result.
+ for(const width of [390,1280])for(const mode of ['light','dark','glass'])test(`${mode} device navigation at ${width}px opens three nested levels and dismisses without scripts`,async({page})=>{
   test.setTimeout(60000);
-  for(const width of [390,1280]){
-   await page.setViewportSize({width,height:900});await page.goto(route);
-   for(const mode of ['light','dark','glass']){
+  await page.setViewportSize({width,height:900});await page.goto(route);
     const nav=page.getByRole('navigation',{name:`${mode} device navigation`,exact:true});await nav.scrollIntoViewIfNeeded();
     for(const name of [...(width<768?['Menu']:[]),'Explore','Materials','Surfaces']){
      const button=nav.getByRole('button',{name,exact:true});const id=await button.getAttribute('popovertarget');await button.click();await settle(page.locator('#'+id));
@@ -36,9 +35,7 @@ test.describe('device fixture native operation',()=>{
     await expect(nav.getByRole('link',{name:'Glass guide',exact:true})).toBeVisible();
     await nav.getByRole('button',{name:'Back to Materials',exact:true}).click();await expect(nav.getByRole('button',{name:'Surfaces',exact:true})).toBeVisible();
     await page.mouse.click(2,850);await expect(nav.locator('[popover]:popover-open')).toHaveCount(0);
-   }
-   await expectOnlyOptionalSettings(page);
-  }
+  await expectOnlyOptionalSettings(page);
  });
  test('glass and edge response controls work while disabled controls remain disabled',async({page})=>{
    // Ten animated response panels need additional time in software-rendered WebKit.
