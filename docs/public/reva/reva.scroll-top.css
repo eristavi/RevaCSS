@@ -1,0 +1,4 @@
+/* A native action link; shared base/action/material selectors style it. */
+@layer re.utilities {
+  @media print { :where(a.scroll-top) { display: none; } }
+}

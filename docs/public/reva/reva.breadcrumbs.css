@@ -1,0 +1,9 @@
+/* Ordered navigation; separators are decorative, not spoken text. */
+@layer re.components {
+  :where(.breadcrumbs) { min-inline-size: 0; font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.breadcrumbs > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.5em * var(--re-density)); list-style: none; padding: 0; margin: 0; }
+  :where(.breadcrumbs > ol > li) { display: inline-flex; align-items: center; gap: calc(.5em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin: 0; }
+  :where(.breadcrumbs > ol > li + li)::before { content: ""; flex: 0 0 auto; block-size: .8em; border-inline-start: 1px solid var(--re-muted); transform: skew(-15deg); }
+  :where(.breadcrumbs a) { display: inline-flex; align-items: center; min-block-size: 2.75rem; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.breadcrumbs [aria-current="page"]) { color: var(--re-text); font-weight: 600; }
+}

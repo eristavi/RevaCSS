@@ -1,0 +1,73 @@
+/* Passive labels: one identifying class, with shared parent configuration. */
+@layer re.components {
+  :where(.badge) {
+    --re-badge-start: var(--re-primary);
+    --re-badge-end: var(--re-primary-end);
+    --re-badge-on: var(--re-on-primary);
+    --re-badge-text: var(--re-link);
+    --re-badge-fill: color-mix(in srgb, var(--re-badge-start) 12%, var(--re-surface));
+    --re-badge-fill-end: color-mix(in srgb, var(--re-badge-end) 12%, var(--re-surface));
+    --re-badge-glass-fill: var(--re-badge-fill);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    gap: .35em;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding: calc(.2em * var(--re-density)) calc(.65em * var(--re-density));
+    border: var(--re-surface-border) solid color-mix(in srgb, var(--re-badge-start) 35%, var(--re-surface));
+    border-radius: var(--re-button-radius);
+    font-size: calc(.8125em * var(--re-control-scale, 1));
+    font-weight: 650;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    color: var(--re-badge-text);
+    background-color: var(--re-badge-fill);
+    background-image: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--re-badge-fill-end) calc(var(--re-gradient) * 28%), transparent));
+    box-shadow: var(--re-shadow);
+  }
+  :where(.badge > *) { min-inline-size: 0; max-inline-size: 100%; }
+  @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
+  }
+  @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-success); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+  }
+  @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
+  }
+  @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-danger); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+  }
+  @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }
+  }
+  @scope ([data-appearance="tinted"], :scope[data-appearance="tinted"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="tinted"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: color-mix(in srgb, var(--re-badge-start) 12%, var(--re-surface)); --re-badge-fill-end: color-mix(in srgb, var(--re-badge-end) 12%, var(--re-surface)); }
+  }
+  @scope ([data-appearance="solid"], :scope[data-appearance="solid"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="solid"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: var(--re-badge-start); --re-badge-fill-end: var(--re-badge-end); --re-badge-glass-fill: color-mix(in srgb, var(--re-badge-start) 65%, var(--re-badge-end)); color: var(--re-badge-on); }
+  }
+  @scope ([data-appearance="outline"], :scope[data-appearance="outline"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="outline"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: var(--re-surface); --re-badge-fill-end: var(--re-surface); border-color: currentColor; background-image: none; }
+  }
+}
+@layer re.utilities {
+  :where(:is(button,:is(.button,.scroll-top)) .badge) { font-size: calc(.8125em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1)); }
+
+  @media (prefers-contrast: more) {
+    :where(.badge) { color: var(--re-text); background-color: var(--re-surface); background-image: none; border: 1px solid currentColor; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :where(.badge) { background-color: var(--re-badge-fill); background-image: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.badge) { color: CanvasText; background-color: Canvas; background-image: none; border: 1px solid CanvasText; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media print {
+    :where(.badge) { color: #000; background-color: #fff; background-image: none; border: 1px solid #000; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; break-inside: avoid; }
+  }
+}

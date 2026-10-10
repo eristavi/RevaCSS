@@ -1,0 +1,74 @@
+/* Optional native overlay motion. Load after the matching global/scoped core. */
+@layer re.tokens {
+  :where(:root, .reva, :scope.reva) {
+    --re-popover-offset: 0rem; --re-popover-scale: 1;
+    --re-popover-start-opacity: 0; --re-drawer-shift: 1rem;
+  }
+  :where([data-motion="none"], :scope[data-motion="none"]) {
+    --re-popover-offset: 0rem; --re-popover-scale: 1;
+    --re-popover-start-opacity: 1; --re-drawer-shift: 0rem;
+  }
+  :where([data-motion="subtle"], :scope[data-motion="subtle"]) {
+    --re-popover-offset: 0rem; --re-popover-scale: 1;
+    --re-popover-start-opacity: 0; --re-drawer-shift: 1rem;
+  }
+  :where([data-motion="expressive"], :scope[data-motion="expressive"]) {
+    --re-popover-offset: .6rem; --re-popover-scale: .97;
+    --re-popover-start-opacity: 0; --re-drawer-shift: 2rem;
+  }
+}
+@layer re.components {
+  :where([popover], dialog, :scope:is([popover],dialog)) {
+    --re-overlay-x: 0rem; --re-overlay-y: var(--re-popover-offset, 0rem);
+    opacity: 1; translate: none; scale: 1;
+    transition: opacity var(--re-duration, 140ms) ease-out,
+      translate var(--re-duration, 140ms) ease-out,
+      scale var(--re-duration, 140ms) ease-out;
+  }
+  :where(.drawer[popover], :scope.drawer[popover]) {
+    --re-overlay-x: calc(var(--re-drawer-direction, 1) * var(--re-drawer-shift, 1rem));
+    --re-overlay-y: 0rem; scale: 1;
+  }
+  :where(.drawer[popover]:dir(rtl)) {
+    --re-overlay-x: calc(-1 * var(--re-drawer-direction, 1) * var(--re-drawer-shift, 1rem));
+  }
+  @media (width < 60rem) {
+    :where(.app-shell > aside[popover]) { --re-overlay-x: calc(-1 * var(--re-drawer-shift, 1rem)); --re-overlay-y: 0rem; scale: 1; }
+    :where(.app-shell > aside[popover]:dir(rtl)) { --re-overlay-x: var(--re-drawer-shift, 1rem); }
+  }
+  /* Without starting-style, the visible fallback is immediate. */
+  @starting-style {
+    :where([popover]:popover-open, dialog[open], :scope:is([popover]:popover-open,dialog[open])) {
+      opacity: var(--re-popover-start-opacity, 0);
+      translate: var(--re-overlay-x) var(--re-overlay-y);
+      scale: var(--re-popover-scale, 1);
+    }
+    :where(.drawer[popover]:popover-open, .app-shell > aside[popover]:popover-open) { scale: 1; }
+  }
+  /* The browser retains display/top-layer paint during an exit. Closed controls
+     are natively unavailable; no JavaScript state or focus trapping is added. */
+  @supports (transition-behavior: allow-discrete) {
+    :where([popover], dialog, :scope:is([popover],dialog)) {
+      transition: opacity var(--re-duration, 140ms) ease-out,
+        translate var(--re-duration, 140ms) ease-out,
+        scale var(--re-duration, 140ms) ease-out,
+        display var(--re-duration, 140ms) allow-discrete,
+        overlay var(--re-duration, 140ms) allow-discrete;
+    }
+    :where([popover]:not(:popover-open), dialog:not([open])) {
+      opacity: var(--re-popover-start-opacity, 0);
+      translate: var(--re-overlay-x) var(--re-overlay-y);
+      scale: var(--re-popover-scale, 1);
+    }
+    :where(.drawer[popover]:not(:popover-open), .app-shell > aside[popover]:not(:popover-open)) { scale: 1; }
+    :where([popover], dialog)::backdrop { opacity: 1; transition: opacity var(--re-duration, 140ms) ease-out, display var(--re-duration, 140ms) allow-discrete, overlay var(--re-duration, 140ms) allow-discrete; }
+    :where([popover]:not(:popover-open), dialog:not([open]))::backdrop { opacity: var(--re-popover-start-opacity, 0); }
+    @starting-style { :where([popover]:popover-open, dialog[open])::backdrop { opacity: var(--re-popover-start-opacity, 0); } }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where([popover], dialog, :scope:is([popover],dialog)) { opacity: 1; translate: none; scale: 1; transition: none; }
+    :where([popover], dialog)::backdrop { opacity: 1; transition: none; }
+  }
+}

@@ -1,0 +1,12 @@
+/* Monochrome vectors inherit text colour and size; no theme attributes needed. */
+@layer re.components {
+  :where(svg.icon) {
+    display: inline-block; flex: 0 0 auto; vertical-align: -.2em;
+    inline-size: var(--re-icon-size, 1.25em); block-size: var(--re-icon-size, 1.25em);
+    fill: none; stroke: currentColor; stroke-width: var(--re-icon-stroke, 1.75);
+    stroke-linecap: round; stroke-linejoin: round; overflow: visible;
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(svg.icon) { stroke: currentColor; } }
+}

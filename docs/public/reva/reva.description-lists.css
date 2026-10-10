@@ -1,0 +1,14 @@
+/* A single opt-in class arranges native term/description pairs. */
+@layer re.components {
+  :where(dl.description-list) { margin: 0; min-inline-size: 0; container-type: inline-size; }
+  :where(.description-list > div) {
+    display: grid; grid-template-columns: minmax(0, var(--re-description-label, 12rem)) minmax(0, 1fr);
+    gap: calc(.75rem * var(--re-density)); padding-block: calc(.75rem * var(--re-density));
+    border-block-end: var(--re-surface-border) solid var(--re-line); min-inline-size: 0;
+  }
+  :where(.description-list dt,.description-list dd) { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.description-list dt) { color: var(--re-text); }
+  :where(.description-list dd) { color: var(--re-muted); }
+  @container (width < 30rem) { :where(.description-list > div) { grid-template-columns: minmax(0,1fr); gap: .25em; } }
+  @media (width < 40rem) { :where(.description-list > div) { grid-template-columns: minmax(0,1fr); gap: .25em; } }
+}

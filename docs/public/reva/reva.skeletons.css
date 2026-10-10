@@ -1,0 +1,18 @@
+/* Decorative placeholders; application markup owns the loading state. */
+@layer re.components {
+  :where(.skeleton) {
+    display: block; min-inline-size: 0; max-inline-size: 100%; block-size: var(--re-skeleton-height, 1em);
+    inline-size: var(--re-skeleton-width, 100%); border-radius: var(--re-radius);
+    background-color: var(--re-surface-alt);
+    background-image: linear-gradient(100deg, transparent 25%, color-mix(in srgb, var(--re-text) 10%, transparent) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: re-skeleton-sweep calc(var(--re-duration, 140ms) * 12) linear infinite;
+    animation-play-state: var(--re-edge-play, running);
+  }
+  @keyframes re-skeleton-sweep { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.skeleton) { animation: none; background-image: none; } }
+  @media (forced-colors: active) { :where(.skeleton) { animation: none; background-image: none; background-color: Canvas; border: 1px solid CanvasText; } }
+  @media print { :where(.skeleton) { display: none; } }
+}

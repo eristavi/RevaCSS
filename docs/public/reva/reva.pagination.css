@@ -1,0 +1,69 @@
+/* Real links navigate; plain spans represent current/unavailable pages. */
+@layer re.components {
+  :where(.pagination) { min-inline-size: 0; }
+  :where(.pagination > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.4em * var(--re-density) * var(--re-gap-factor, 1)); list-style: none; margin: 0; padding: 0; }
+  :where(.pagination > ol > li) { min-inline-size: 0; max-inline-size: 100%; margin: 0; }
+  :where(.pagination > ol > li > :is(a,span)) {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: min(2.75rem, 100%); max-inline-size: 100%; min-block-size: 2.75rem;
+    padding: calc(.5em * var(--re-density)) calc(.8em * var(--re-density));
+    font-size: calc(1em * var(--re-control-scale, 1)); line-height: 1.4; overflow-wrap: anywhere; text-align: center;
+    --re-pagination-fill: var(--re-surface);
+    color: var(--re-link); background-color: var(--re-pagination-fill);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    box-shadow: var(--re-shadow); text-decoration: none;
+  }
+  :where(.pagination a:hover) { text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-current="page"]) { --re-pagination-fill: var(--re-surface-alt); color: var(--re-text); background-color: var(--re-pagination-fill); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-disabled="true"]) { color: var(--re-muted); box-shadow: none; }
+}
+@layer re.utilities {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+    :where(.pagination > ol) { isolation: isolate; }
+    :where(.pagination > ol > li > a:not([aria-disabled=true]), .pagination > ol > li > :is(a,span)[aria-current=page]) {
+      position: relative; z-index: 1; background: transparent;
+      -webkit-backdrop-filter: none; backdrop-filter: none; text-decoration: none;
+    }
+    /* Preserve the selected page when the hover highlight moves away. */
+    :where(.pagination > ol > li > :is(a,span)[aria-current=page]) { border-color: var(--re-primary); }
+  }
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.pagination > ol > li > :is(a,span)) { color: LinkText; background-color: Canvas; border: 1px solid CanvasText; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(.pagination [aria-current="page"]) { color: CanvasText; }
+    :where(.pagination [aria-disabled="true"]) { color: GrayText; }
+  }
+  @media print {
+    :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+}
+
+/* A shared background follows interaction while the current page stays marked. */
+@layer re.components {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+
+  :where(.pagination > ol) { position: relative; anchor-scope: --re-page-highlight; }
+  :where(.pagination > ol)::after {
+    content: ""; position: absolute; position-anchor: --re-page-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+    background: var(--re-surface-alt); border-radius: var(--re-button-radius);
+    pointer-events: none; z-index: 0; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease,
+      bottom var(--re-duration, 140ms) ease;
+  }
+
+    :where(.pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover)) > li > :is(a,span)[aria-current=page],
+      .pagination > ol > li > a:not([aria-disabled=true]):focus-visible,
+      .pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible)) > li > a:not([aria-disabled=true]):hover) { anchor-name: --re-page-highlight; }
+    :where(.pagination > ol:has(> li > :is(a,span)[aria-current=page], > li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.pagination > ol)::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.pagination > ol)::after { display: none; } }
+}

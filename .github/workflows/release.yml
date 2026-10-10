@@ -28,6 +28,9 @@ jobs:
         run: |
           node --input-type=module -e "import p from './package.json' with {type:'json'}; import l from './package-lock.json' with {type:'json'}; if(p.version!=='1.2.1'||l.version!==p.version||l.packages[''].version!==p.version) process.exit(1)"
       - run: npm ci
+      - name: Inspect dependency audit
+        run: npm audit --json
+        continue-on-error: true
       - run: npm run clean
       - run: npm run build
         env:

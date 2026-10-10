@@ -1,0 +1,10 @@
+/* Optional document-level extension; load on both same-origin destinations. */
+@view-transition { navigation: auto; }
+::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) {
+  animation-duration: var(--re-view-duration, var(--re-duration, 140ms));
+}
+/* Respect the OS preference independently of inherited motion settings. */
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  @view-transition { navigation: none; }
+  ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
