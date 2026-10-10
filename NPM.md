@@ -88,4 +88,22 @@ Package tests install an actual tarball in a clean project, verify public paths 
 
 The existing manual acceptance items and the maintainer's 10 October visual sign-off are recorded in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v1.2.1.md). The ordinary release gate and npm lifecycle gate must pass; the historic 1.0.0 exception does not apply to 1.2.1.
 
-The commands and pinned CDN URLs above describe the 1.2.1 package. They become available after publication; until verified, the published registry version remains 1.0.0. Authenticate with npm, verify the account using `npm whoami`, then run `npm publish --access public`. Any required npm two-factor confirmation belongs to that publishing step. There is no automatic npm publishing workflow.
+The commands and pinned CDN URLs above describe the 1.2.1 package. They become available after publication; until verified, the published registry version remains 1.0.0. Authenticate with npm, verify the account using `npm whoami`, then run `npm publish --access public`. Any required npm two-factor confirmation belongs to that publishing step. The `npm-publish.yml` workflow supports verified GitHub-release archives, manual backfills and future published stable releases. Publication remains pending until npm trusts this workflow.
+
+### Configure token-free GitHub publishing
+
+In the npm settings for `revacss`, add a GitHub Actions trusted publisher:
+
+- Organization or user: `eristavi`
+- Repository: `RevaCSS`
+- Workflow filename: `npm-publish.yml`
+- Environment name: leave empty
+- Allowed actions: enable direct `npm publish`
+
+No npm token or GitHub repository secret is required. npm may require your normal sign-in and two-factor confirmation for this account change.
+
+The workflow's push checks verify both existing release candidates without publishing. For the missing versions, open **Actions → Publish verified npm releases → Run workflow**, choose `v1.1.0`, turn **dry_run** off and wait for successful publication; then repeat with `v1.2.1`. The default manual mode is a dry run. Future stable GitHub releases publish automatically when they contain the workflow and a completed npm archive.
+
+The publisher downloads the original release tarball, checks its GitHub SHA-256 digest and package identity, and runs the npm quality gate from the exact release commit. Already published versions must have matching bytes. Historical backfills use `legacy` when needed to avoid moving `latest` backwards. Registry verification compares the published SHA-512 integrity with the prepared archive.
+
+The tarball is already built, so publication does not rerun its build lifecycle. The release's completed browser/package checks remain the validation record. Trusted publishing adds npm provenance automatically.

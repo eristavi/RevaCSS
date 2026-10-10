@@ -1,0 +1,85 @@
+name: Publish verified npm releases
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/npm-publish.yml
+      - scripts/prepare-npm-release.mjs
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Published GitHub release to distribute on npm
+        required: true
+        type: choice
+        options: [v1.1.0, v1.2.1]
+        default: v1.2.1
+      dry_run:
+        description: Verify the package without publishing
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: revacss-npm-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'eristavi/RevaCSS' && (github.event_name != 'release' || !github.event.release.prerelease)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        release_tag: ${{ fromJSON(github.event_name == 'push' && '["v1.1.0","v1.2.1"]' || format('["{0}"]', github.event.release.tag_name || inputs.release_tag)) }}
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      RELEASE_TAG: ${{ matrix.release_tag }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Verify the published GitHub archive and npm version
+        id: package
+        run: node scripts/prepare-npm-release.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Read quality records from the release commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ steps.package.outputs.commit }}
+          path: release-source
+          persist-credentials: false
+      - name: Enforce the release npm quality gate
+        run: node release-source/scripts/check-release-quality.mjs --npm
+      - name: Validate the prepared npm publication
+        run: npm publish "$PACKAGE_FILE" --access public --tag "$PUBLISH_TAG" --ignore-scripts --dry-run
+        env:
+          PACKAGE_FILE: ${{ steps.package.outputs.file }}
+          PUBLISH_TAG: ${{ steps.package.outputs.publish_tag }}
+      - name: Publish through the configured npm trusted publisher
+        if: github.event_name != 'push' && (github.event_name == 'release' || inputs.dry_run == false) && steps.package.outputs.already_published == 'false'
+        run: npm publish "$PACKAGE_FILE" --access public --tag "$PUBLISH_TAG" --ignore-scripts
+        env:
+          PACKAGE_FILE: ${{ steps.package.outputs.file }}
+          PUBLISH_TAG: ${{ steps.package.outputs.publish_tag }}
+      - name: Verify registry bytes and latest tag
+        if: github.event_name != 'push' && (github.event_name == 'release' || inputs.dry_run == false)
+        run: node scripts/prepare-npm-release.mjs --verify
+        env:
+          PACKAGE_VERSION: ${{ steps.package.outputs.version }}
+          PACKAGE_INTEGRITY: ${{ steps.package.outputs.integrity }}
+          PUBLISH_TAG: ${{ steps.package.outputs.publish_tag }}
