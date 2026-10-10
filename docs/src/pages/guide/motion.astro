@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import ReleaseStatus from '../../components/ReleaseStatus.astro';
 import Example from '../../components/Example.astro';
 const base=import.meta.env.BASE_URL;
 const sections=[{id:'intensity',title:'Motion levels'},{id:'scrolling',title:'Anchor navigation'},{id:'overlays',title:'Overlays and drawers'},{id:'accordions',title:'Accordions'},{id:'boundaries',title:'Overrides and preferences'}];
@@ -30,7 +31,7 @@ const accordion=`<div class="accordion" data-motion="expressive">
 <DocsLayout title="Motion" active="motion" sections={sections}>
 <p class="doc-kicker">LEARN / INTERACTION</p><h1>Motion</h1>
 <p class="doc-lead">One inherited setting controls interaction intensity. Native HTML keeps ownership of navigation, disclosure and overlay state; CSS supplies the presentation.</p>
-<p class="doc-note">Scrolling, scroll-to-top and expanded overlays are included in the 1.1.0 GitHub release. The optional button material extension is planned for 1.2.0 and available in this development preview.</p>
+<p>Scrolling and scroll-to-top use the core stylesheet. Enhanced overlay motion and independent button materials use their optional stylesheets, described below.</p><ReleaseStatus/>
 <section id="intensity"><h2>Choose one page setting</h2>
 <p>Set <code>data-motion</code> on <code>html</code>, then override only exceptions. The default core intensity is subtle. The customizer applies the same setting to these pages.</p>
 <div class="doc-table" role="region" aria-label="Motion levels" tabindex="0"><table><thead><tr><th>Setting</th><th>Anchor links and galleries</th><th>Optional overlays</th><th>Accordions and indicators</th></tr></thead><tbody>

@@ -1,0 +1,14 @@
+---
+import {version, releaseName, releaseUrl, releaseRecordUrl, qualityUrl, development, npmPublished, npmUrl, acceptanceComplete, manualChecks, openChecks} from '../data/release.js';
+const {detailed=false}=Astro.props;
+---
+<div class="doc-note release-status">
+  <p>{development ? <>These pages describe RevaCSS {version} in development.</> : <><a href={releaseUrl}>RevaCSS {version} — {releaseName}</a> is available with compiled CSS and downloadable starters.</>}
+  {' '}{npmPublished ? <><a href={npmUrl}>The matching npm package</a> is published.</> : development ? <>Use the documentation build for a preview or build the stylesheets from source.</> : <>The matching npm package is awaiting publication; use the GitHub downloads.</>}</p>
+  {detailed && <>
+    <p>{acceptanceComplete ? <>The <a href={qualityUrl}>recorded acceptance checks</a> are resolved, including {manualChecks.length} manual checks accepted on maintainer attestation.</> : <><a href={qualityUrl}>{openChecks.length} acceptance checks remain open.</a></>}
+    {!development && <> The <a href={releaseRecordUrl}>release validation record</a> explains automated coverage, visual sign-off and known limits.</>}</p>
+    <p>Maintainer acceptance does not establish accessibility certification. Exact device and assistive-technology versions and a new screenshot baseline were not supplied with the latest visual sign-off.</p>
+  </>}
+</div>
+<style>.release-status p { margin-block:.35rem; }</style>

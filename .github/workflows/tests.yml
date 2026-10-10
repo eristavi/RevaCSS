@@ -2,6 +2,12 @@ name: Tests (manual only)
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: Validation scope
+        type: choice
+        options: [full, documentation]
+        default: full
 
 permissions:
   contents: read
@@ -51,8 +57,16 @@ jobs:
           print('Verified bounded APT download settings.')
           PY
       - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - run: npm run test:browser -- --project=${{ matrix.browser }}
-      - name: Report release quality blockers (alpha documentation only)
+      - name: Run the selected browser checks
+        run: |
+          if [ "$VALIDATION_SCOPE" = "documentation" ]; then
+            npx playwright test tests/browser/documentation.spec.mjs tests/browser/documentation-menu.spec.mjs tests/browser/device-checks.spec.mjs tests/browser/navbar.spec.mjs tests/browser/code-viewer.spec.mjs tests/browser/native-patterns.spec.mjs tests/browser/dashboard.spec.mjs tests/browser/shop.spec.mjs --project=${{ matrix.browser }}
+          else
+            npm run test:browser -- --project=${{ matrix.browser }}
+          fi
+        env:
+          VALIDATION_SCOPE: ${{ inputs.scope }}
+      - name: Report recorded release quality
         run: |
           if npm run check:release-quality > quality-status.txt 2>&1; then
             cat quality-status.txt

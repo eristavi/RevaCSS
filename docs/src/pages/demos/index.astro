@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DemoGallery from '../../components/DemoGallery.astro';
+const base=import.meta.env.BASE_URL;
+---
+<Layout title="Website demos" current="demos" description="Explore RevaCSS marketing, dashboard, shop and blog demos. Customize their appearance and download complete HTML starters." documentation>
+  <p class="doc-kicker">REVACSS / DEMOS</p>
+  <h1>See what you can build.</h1>
+  <p class="doc-lead">Four complete websites built with RevaCSS components. Explore their pages, change the shared appearance settings and download HTML for your own project.</p>
+  <DemoGallery/>
+  <section class="doc-section"><h2>Make a demo your starting point</h2><ol><li>Open a demo and use <strong>Customize</strong> to choose its colours, material, spacing and navbar.</li><li>Download the HTML from the customizer. Without JavaScript, copy the chosen attributes into the supplied source.</li><li>Download its linked CSS assets and update paths for your own hosting.</li><li>Replace the fictional content and connect forms or commerce features to your application.</li></ol><p>The CSS core and native component interactions work without browser JavaScript. The optional documentation helper saves appearance choices and prepares customized downloads.</p><a class="button outline" href={base+'guide/'}>Get started with RevaCSS</a></section>
+</Layout>

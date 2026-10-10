@@ -2,10 +2,12 @@
 import Layout from './Layout.astro';
 import { topics } from '../data/examples.js';
 import { componentGroups, learnLinks, themeLinks, referenceLinks } from '../data/documentation.js';
+import {demoLinks} from '../data/demos.js';
 const { title, active, sections=[], theme='auto' } = Astro.props;
 const base=import.meta.env.BASE_URL;
 const groups=[
  {title:'Learn',items:learnLinks},
+ {title:'Demos',items:demoLinks},
  {title:'Themes',items:themeLinks},
  ...componentGroups.map(g=>({title:g.title,items:g.slugs.map(slug=>({key:slug,title:slug==='top-menu'?'Top menu':topics.find(t=>t.slug===slug).title,path:'components/'+slug+'/'}))})),
  {title:'Reference',items:referenceLinks}
@@ -15,10 +17,10 @@ const groups=[
 <div class="docs-shell">
 <aside class="docs-sidebar">
   <nav class="docs-sidebar-desktop" aria-label="Documentation sections">
-    {groups.map(group=><section class="doc-nav-group"><h2>{group.title}</h2><ul>{group.items.map(item=><li><a href={base+item.path} aria-current={item.key===active?'page':undefined}>{item.title}</a></li>)}</ul></section>)}
+    {groups.map(group=><section class="doc-nav-group"><h2>{group.title}</h2><ul>{group.items.map(item=><li>{item.children ? <details><summary>{item.title}</summary><ul>{item.children.map(child=><li><a href={base+child.path} aria-current={child.key===active?'page':undefined}>{child.title}</a></li>)}</ul></details> : <a href={base+item.path} aria-current={item.key===active?'page':undefined}>{item.title}</a>}</li>)}</ul></section>)}
   </nav>
   <details class="docs-sidebar-mobile"><summary>Browse documentation</summary><nav aria-label="Documentation sections">
-    {groups.map(group=><section class="doc-nav-group"><h2>{group.title}</h2><ul>{group.items.map(item=><li><a href={base+item.path} aria-current={item.key===active?'page':undefined}>{item.title}</a></li>)}</ul></section>)}
+    {groups.map(group=><section class="doc-nav-group"><h2>{group.title}</h2><ul>{group.items.map(item=><li>{item.children ? <details><summary>{item.title}</summary><ul>{item.children.map(child=><li><a href={base+child.path} aria-current={child.key===active?'page':undefined}>{child.title}</a></li>)}</ul></details> : <a href={base+item.path} aria-current={item.key===active?'page':undefined}>{item.title}</a>}</li>)}</ul></section>)}
   </nav></details>
 </aside>
 <div class="docs-content"><slot/></div>
@@ -37,6 +39,9 @@ nav li { margin:0; }
 nav a { display:block; padding:.4rem .65rem; min-block-size:2.75rem; border-radius:.4rem; text-decoration:none; font-size:.9rem; }
 nav a:hover { background:var(--re-surface-alt); text-decoration:underline; }
 nav a[aria-current=page] { background:var(--re-surface-alt); color:var(--re-text); font-weight:700; border-inline-start:3px solid var(--re-link); }
+.doc-nav-group details { border:0; background:transparent; box-shadow:none; padding:0; border-radius:.4rem; }
+.doc-nav-group summary { min-block-size:2.75rem; padding:.4rem .65rem; font-size:.9rem; }
+.doc-nav-group details ul { margin-inline-start:.6rem; border-inline-start:1px solid var(--re-line); }
 .docs-toc { grid-column:2; border-block-start:1px solid var(--re-line); padding-block-start:1rem; }
 @media (width >= 85rem) { .docs-shell { grid-template-columns:14rem minmax(0,1fr) 11rem; } .docs-toc { grid-column:3; grid-row:1; position:sticky; inset-block-start:calc(1rem + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); max-block-size:calc(100dvh - 2rem - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); overflow-y:auto; border:0; } }
 @media (width < 60rem) { .docs-shell { grid-template-columns:minmax(0,1fr); gap:1rem; } .docs-sidebar { position:static; max-block-size:none; } .docs-sidebar-desktop { display:none; } .docs-sidebar-mobile { display:block; } .docs-toc { grid-column:1; grid-row:2; padding-block-start:0; } .docs-toc ul { display:flex; flex-wrap:wrap; } .docs-content { grid-row:3; } }

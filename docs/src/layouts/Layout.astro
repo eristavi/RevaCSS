@@ -2,19 +2,20 @@
 import SettingsHead from '../components/SettingsHead.astro';
 import { stylesheet } from '../data/assets.js';
 import DocumentationHeader from '../components/DocumentationHeader.astro';
-import { version, releaseName, plannedVersion, development } from '../data/release.js';
-const { title=Astro.props.frontmatter?.title || 'RevaCSS', theme='auto', current, fullWidth=false, customizer={}, transitions=false }=Astro.props;
+import { version, releaseName, development } from '../data/release.js';
+const { title=Astro.props.frontmatter?.title || 'RevaCSS', description=`${title}: RevaCSS HTML examples, live demos and guidance for an HTML/CSS-first framework with a zero-JavaScript core.`, theme='auto', current, fullWidth=false, customizer={}, transitions=false, documentation=false, noindex=false }=Astro.props;
 const base=import.meta.env.BASE_URL;
-const settingsKind=Astro.url.pathname.includes('/demos/')?'demo':'docs';
+const settingsKind=!documentation && Astro.url.pathname.includes('/demos/')?'demo':'docs';
+const canonical=new URL(Astro.url.pathname,Astro.site || Astro.url.origin);
 ---
 <!doctype html>
 <html lang="en" data-theme={theme} data-palette="default" data-navbar-position="sticky" data-navbar-spacing="flush" data-navbar-width="full">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content="RevaCSS documentation: live component demos, HTML examples and shared data attributes."/><title>{title} · RevaCSS</title><SettingsHead kind={settingsKind}/><link rel="stylesheet" href={stylesheet('reva-fonts.css')}/><link rel="stylesheet" href={stylesheet('reva.css')}/><link rel="stylesheet" href={stylesheet('reva.motion.css')}/><link rel="stylesheet" href={stylesheet('reva.selects.css')}/>{['reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}{transitions && <link rel="stylesheet" href={stylesheet('reva.transitions.css')}/>}</head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><link rel="icon" type="image/svg+xml" href={base+'favicon.svg'}/>{noindex && <meta name="robots" content="noindex"/>}<link rel="canonical" href={canonical}/><meta property="og:title" content={`${title} · RevaCSS`}/><meta property="og:description" content={description}/><meta property="og:url" content={canonical}/><meta property="og:type" content="website"/><meta property="og:site_name" content="RevaCSS"/><meta name="twitter:card" content="summary"/><title>{title} · RevaCSS</title><SettingsHead kind={settingsKind}/><link rel="stylesheet" href={stylesheet('reva-fonts.css')}/><link rel="stylesheet" href={stylesheet('reva.css')}/><link rel="stylesheet" href={stylesheet('reva.motion.css')}/><link rel="stylesheet" href={stylesheet('reva.selects.css')}/>{['reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}{transitions && <link rel="stylesheet" href={stylesheet('reva.transitions.css')}/>}</head>
 <body id="page-top" class:list={{'documentation-page':settingsKind==='docs'}}><a class="skip-link" href="#main">Skip to content</a>
 <noscript><link rel="stylesheet" href={base+'customizer.css'}/></noscript>
 {settingsKind==='docs' && <DocumentationHeader theme={theme} current={current} customizer={customizer} kind="docs"/>}
 <main id="main" class:list={{container:!fullWidth}}><slot/></main>
-<footer class="container site-footer"><p>{development?`RevaCSS ${plannedVersion} development preview · Published package: ${version}`:`RevaCSS ${version} · ${releaseName}`} · MIT · Revaz Eristavi</p><p><a href="https://github.com/eristavi/RevaCSS">Source on GitHub</a> · <a href={base+'guide/accessibility/'}>Behaviour and limitations</a></p><p><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></p></footer>
+<footer class="container site-footer"><p>{development?`RevaCSS ${version} development preview`:`RevaCSS ${version} · ${releaseName}`} · MIT · Revaz Eristavi</p><nav class="footer-links" aria-label="Footer"><a href={base+'guide/'}>Get started</a><a href={base+'demos/'}>Demos</a><a href="https://github.com/eristavi/RevaCSS">GitHub</a><a href={base+'guide/accessibility/'}>Behaviour and limitations</a><a class="scroll-top" href="#page-top"><span aria-hidden="true">↑</span> Back to top</a></nav></footer>
 </body></html>
 <style is:global>
 /* CSS-only clearance fallback; the optional settings helper measures headers. */
@@ -36,4 +37,9 @@ body > .site-footer { padding-block: 1.5rem; border-block-start: 1px solid var(-
 .doc-note { padding:var(--re-space); border-inline-start:3px solid var(--re-link); background:var(--re-surface-alt); border-radius:var(--re-radius); }
 .doc-summary { margin-block:1.5rem; }
 .doc-summary li { margin-block:.5rem; }
+.doc-section { margin-block:clamp(2rem,5vw,4rem); }
+.footer-links { display:flex; flex-wrap:wrap; gap:.35rem 1.5rem; align-items:center; }
+.footer-links a { display:inline-flex; align-items:center; min-block-size:2.75rem; }
+.footer-links .scroll-top { margin-inline-start:auto; }
+@media (width < 42rem) { .footer-links .scroll-top { margin-inline-start:0; } }
 </style>

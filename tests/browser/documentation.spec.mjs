@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 import axeSource from 'axe-core';
 import {topics} from '../../docs/src/data/examples.js';
 
-const routes = ['/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/themes/button-materials/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
+const routes = ['/', '/demos/', '/guide/', '/guide/styling/', '/guide/accessibility/', '/guide/motion/', '/guide/effects/', '/guide/modern-css/', '/attributes/', ...topics.map(t=>`/components/${t.slug}/`), '/components/top-menu/', '/themes/', '/themes/light/', '/themes/dark/', '/themes/auto/', '/themes/palettes/', '/themes/glass/', '/themes/veil/', '/themes/soft/', '/themes/button-materials/', '/icons/', '/reference/', '/reference/components/', '/reference/tokens/'];
 
 test.describe('script-free documentation inventory',()=>{
  test.use({javaScriptEnabled:false});

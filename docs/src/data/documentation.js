@@ -263,13 +263,6 @@ export const learnLinks = [
  { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
  { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
  { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' },
- { key:'marketing-demo', title:'Marketing website demo', path:'demos/marketing/' },
- { key:'dashboard-demo', title:'Dashboard demo', path:'demos/dashboard/' },
- { key:'shop-demo', title:'Shop demo', path:'demos/shop/' },
- { key:'blog-demo', title:'Blog demo', path:'demos/blog/' },
- { key:'blog-article-demo', title:'Blog article demo', path:'demos/blog/room-for-better-work/' },
- { key:'blog-archive-demo', title:'Blog archive demo', path:'demos/blog/archive/' },
- { key:'blog-author-demo', title:'Blog author demo', path:'demos/blog/author/alex-morgan/' },
 ];
 export const themeLinks = [
  { key:'themes', title:'Theme overview', path:'themes/' },

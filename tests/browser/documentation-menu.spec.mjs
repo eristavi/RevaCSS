@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import { topics } from '../../docs/src/data/examples.js';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const pages=['/','/guide/','/attributes/','/reference/','/themes/glass/','/themes/palettes/','/themes/button-materials/','/plain/',...topics.map(t=>`/components/${t.slug}/`),'/components/top-menu/',...['light','dark','auto'].flatMap(theme=>[`/preview/${theme}/`,`/preview/menu/${theme}/`,`/preview/glass/${theme}/`,`/preview/defaults/${theme}/`])];
+const pages=['/','/demos/','/guide/','/attributes/','/reference/','/themes/glass/','/themes/palettes/','/themes/button-materials/','/plain/',...topics.map(t=>`/components/${t.slug}/`),'/components/top-menu/',...['light','dark','auto'].flatMap(theme=>[`/preview/${theme}/`,`/preview/menu/${theme}/`,`/preview/glass/${theme}/`,`/preview/defaults/${theme}/`])];
 const nav=page=>page.getByRole('navigation',{name:'Documentation',exact:true});
 const openMenu=async(page,name)=>{const button=nav(page).getByRole('button',{name,exact:true});const id=await button.getAttribute('popovertarget');await button.click();await waitForPopover(page.locator('#'+id));};
 const openTheme=async page=>{await nav(page).getByRole('button',{name:'Customize',exact:true}).click();await waitForPopover(page.locator('#demo-customizer-popup'));};

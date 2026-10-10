@@ -68,10 +68,10 @@ npm run test:quality -- --project=chromium
 npm run check:release-quality
 ```
 
-`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. The maintainer has authorized first npm publication of `revacss@1.0.0` with the six already disclosed manual items still open, recorded in `quality/npm-publication-v1.0.0.json`. The npm lifecycle invokes the gate with `--npm` to apply that version-specific exception; the ordinary gate still fails. Future versions and any new blocker remain gated. No npm publishing workflow is introduced.
+`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. The maintainer has authorized first npm publication of `revacss@1.0.0` with the six already disclosed manual items still open, recorded in `quality/npm-publication-v1.0.0.json`. The npm lifecycle invokes the gate with `--npm` to apply that version-specific exception; the ordinary gate still fails. Future versions and any new blocker remain gated. The verified npm publication workflow enforces the current release gate before distributing GitHub-release archives. Its one-time trusted-publisher configuration is documented in NPM.md.
 
 Record browser/device versions, fixture, result, reviewer/date and evidence when resolving manual gates. Root-font scaling and viewport checks do not replace actual zoom; axe does not replace screen readers; headless WebKit does not replace Safari/iPhone; native blur capture omissions remain unverified device behavior.
 
 This first implementation establishes the standard and fixtures. Overflow corrections, navigation changes, edge diagnosis and expanded layout APIs are separate choices.
 
-The planned 1.1.0 effects, demo integration and selected validation are recorded in [the readiness record](quality/releases/v1.1.0.md). The six manual registry entries remain release requirements.
+The released 1.1.0 effects, demo integration and validation are recorded in [the readiness record](quality/releases/v1.1.0.md). The six manual registry entries remain release requirements.

@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import ReleaseStatus from '../../components/ReleaseStatus.astro';
 import Example from '../../components/Example.astro';
 import CodeViewer from '../../components/CodeViewer.astro';
 const sections=[{id:'finishes',title:'Six finishes'},{id:'install',title:'Installation'},{id:'inheritance',title:'Inheritance'},{id:'motion',title:'Press and return'},{id:'configuration',title:'Numeric values'},{id:'limits',title:'Preferences and limits'}];
@@ -42,7 +43,7 @@ const clearGlass=`<section data-button-material="liquid" style="padding: 2rem; b
 <DocsLayout title="Button materials" active="button-materials" sections={sections}>
 <p class="doc-kicker">OPTIONAL ACTION MATERIAL / 1.2 DEVELOPMENT PREVIEW</p><h1>Button materials</h1>
 <p class="doc-lead">Choose a finish for actions while cards, menus and text fields keep their own material. Configure the page once, then override only exceptions.</p>
-<p class="doc-note">This addition is available in the development preview and planned for 1.2.0. The 1.1.0 GitHub archives and current npm package do not include it.</p>
+<ReleaseStatus/>
 <section id="finishes"><h2>Six finishes, one attribute</h2><p>These examples follow this page’s theme. Solid, Glass, Veil and Soft use its action colours; Liquid stays neutral and shows the background through its surface. Use Customize → Surfaces → Button material to try the setting across documentation and demos. Navigation toggles and dropdown controls keep their existing appearance and hover treatment.</p>
 <div class="grid">{materials.map(([value,description])=><section class="button-stage" data-button-material={value} aria-label={`${value} button material`}><h3><code>{value}</code></h3><p>{description}</p><div class="row"><button type="button">Continue</button><button type="button" class="secondary">Preview</button></div></section>)}</div>
 </section>

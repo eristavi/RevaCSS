@@ -4,6 +4,15 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+  workflow_run:
+    workflows: [Publish verified npm releases]
+    types: [completed]
+  # Refresh registry availability after a maintainer publishes npm manually.
+  schedule:
+    - cron: '17 4 * * *'
 
 permissions:
   contents: read
@@ -14,6 +23,7 @@ concurrency:
 
 jobs:
   pages-build:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -29,10 +39,18 @@ jobs:
         id: pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - run: npm ci
+      - name: Verify current GitHub and npm publication status
+        run: node scripts/docs-publication-status.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
       - run: npm run clean
       - run: npm run build
         env:
           REVA_SITE: ${{ steps.pages.outputs.origin }}
+          REVA_BASE: ${{ steps.pages.outputs.base_path }}/
+      - name: Check all generated documentation links
+        run: node --test tests/docs-links.test.mjs
+        env:
           REVA_BASE: ${{ steps.pages.outputs.base_path }}/
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
@@ -40,7 +58,7 @@ jobs:
 
   pages-deploy:
     needs: pages-build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

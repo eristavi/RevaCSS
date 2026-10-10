@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import TopMenu from '../../components/TopMenu.astro';
+import ReleaseStatus from '../../components/ReleaseStatus.astro';
 const base=import.meta.env.BASE_URL;
 const revision=process.env.GITHUB_SHA || 'local preview';
 const sections=[{id:'device-plan',title:'First pass'},{id:'device-navigation',title:'Navigation'},{id:'device-glass',title:'Glass'},{id:'device-edges',title:'Edges'},{id:'device-preferences',title:'Preferences'},{id:'device-results',title:'Report results'}];
@@ -23,11 +24,11 @@ const resultTemplate=`Device model:\nOS version / browser version:\nPage build r
 
 <p class="doc-kicker">VALIDATION</p><h1>Real-device checks</h1>
 <p class="doc-lead">One repeatable page for navigation, glass and animated edges on a physical phone or desktop browser. Start with iPhone Safari, then repeat on desktop Firefox and Edge.</p>
-<p class="doc-note"><strong>Awaiting physical-device results.</strong> These fixtures are ready to test. Automated engine checks do not establish a device pass, and this page runs without browser JavaScript.</p>
+<ReleaseStatus detailed/><p>These repeatable fixtures run without browser JavaScript. Automated engine checks and maintainer attestation are different forms of evidence; neither records a new pass for the device you are using now.</p>
 <p>Page build: <code class="build-revision">{revision}</code>. Keep this revision with your results.</p>
 <section id="device-plan"><h2>First pass: iPhone Safari</h2>
 <ol><li>Record the phone model, iOS version, date and page build. Note Low Power Mode and accessibility preferences.</li><li>Use your usual preferences first. Run N1–N5, G1–G3 and E1–E3 in portrait; repeat in landscape.</li><li>For the animation comparison, briefly test with Reduce Motion off if comfortable. Then run P1 with it on. Restore your usual settings afterward.</li><li>Record each result as pass, fail or not tested. Capture an eight-second video for a movement failure; use screenshots for clipping or placement.</li></ol>
-<p>If you prefer to keep motion reduced, E1 is not tested rather than failed. A touch pass does not close the keyboard or screen-reader gate.</p>
+<p>If you prefer to keep motion reduced, E1 is not tested rather than failed. Review keyboard and screen-reader interactions separately from touch interactions.</p>
 </section>
 <section id="device-navigation"><h2>Navigation</h2>
 <p>Use these three instances as well as the documentation menu at the top. In the narrow layout, start with Menu → Explore → Materials → Surfaces. In the wide layout, start with Explore.</p>
@@ -59,7 +60,7 @@ const resultTemplate=`Device model:\nOS version / browser version:\nPage build r
 <ol class="device-checklist"><li><strong>G1 — Material.</strong> Compare both themes: the colour bands are softened through glass, while solid exceptions remain opaque. If blur is unsupported or a transparency preference is exposed, an opaque fallback is acceptable; record that condition.</li><li><strong>G2 — Shape and paint.</strong> No square patches protrude from rounded corners, borders join cleanly, and the gap between cards shows the backdrop. Labels and primary actions remain readable.</li><li><strong>G3 — Interaction and scroll.</strong> Open and dismiss the glass response, edit the input and use the native select. Scroll with the keyboard shown and hidden. Controls stay reachable; note visible stutter or flashing while scrolling.</li></ol>
 </section>
 <section id="device-edges"><h2>Static and animated edges</h2>
-<p>These four cases use the default Mono palette. Compare Animated with Plain for at least eight seconds. Movement belongs to the rim; the label and interior should stay steady.</p>
+<p>These four cases explicitly use the Mono palette. Compare Animated with Plain for at least eight seconds. Movement belongs to the rim; the label and interior should stay steady.</p>
 <div class="grid">
 {edgeCases.map(({theme,material,id})=><section class:list={['edge-fixture',{ 'device-backdrop':material==='glass'}]} data-theme={theme} data-material={material} data-palette="mono" data-edge="animated" data-shape="rounded" aria-label={`${theme} ${material} edge comparison`}>
  <article class="card" id={id}><h3>{theme} {material}</h3><p>The card and first button inherit the animated edge.</p>
@@ -77,7 +78,7 @@ const resultTemplate=`Device model:\nOS version / browser version:\nPage build r
 <p>These indicators use CSS feature and preference queries. They report what this browser exposes, not its model/version or a physical-device pass.</p>
 </section>
 <section id="device-results"><h2>Report the result</h2><p>Copy this template and report any failed IDs with reproduction steps. An eight-second recording is more useful than a still image for an animation failure. The page does not store or submit results.</p><pre tabindex="0" role="region" aria-label="Device result template"><code>{resultTemplate}</code></pre>
-<p>Physical-device results are still pending. The release gates remain open until the relevant device, keyboard and assistive-technology evidence has been reviewed.</p></section>
+<p>For a new release or regression report, provide fresh results with the build revision and device details. Existing release acceptance is recorded separately in the validation record above.</p></section>
 </DocsLayout>
 <style>
 .build-revision { overflow-wrap:anywhere; }

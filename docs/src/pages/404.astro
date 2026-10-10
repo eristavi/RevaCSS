@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+const base=import.meta.env.BASE_URL;
+---
+<Layout title="Page not found" description="Find your way back to RevaCSS documentation, component examples and website demos." noindex>
+  <section class="doc-section"><p class="doc-kicker">REVACSS / 404</p><h1>Let’s find the right page.</h1><p class="doc-lead">This address does not match a documentation page. Start with the guide, explore a demo or browse the component reference.</p><div class="row"><a class="button" href={base+'guide/'}>Get started</a><a class="button outline" href={base+'demos/'}>Explore demos</a><a href={base+'reference/components/'}>Component reference</a></div></section>
+</Layout>

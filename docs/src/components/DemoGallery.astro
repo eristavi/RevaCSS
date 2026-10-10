@@ -1,0 +1,53 @@
+---
+import {demoPages} from '../data/demos.js';
+const base=import.meta.env.BASE_URL;
+---
+<div class="demo-gallery">
+  {demoPages.map(demo=><article class="card demo-gallery-card">
+    <div class:list={['demo-thumbnail',demo.kind]} aria-hidden="true">
+      <div class="thumbnail-top"><strong>{demo.name}</strong><span>● ● ●</span></div>
+      {demo.kind==='marketing' ? <div class="thumbnail-marketing"><div><span class="thumbnail-eyebrow">ROOM FOR GOOD WORK</span><strong>Make space<br/>for your ideas.</strong><span class="thumbnail-action"></span></div><div class="thumbnail-panel"><span></span><span></span><span></span></div></div>
+      : demo.kind==='dashboard' ? <div class="thumbnail-dashboard"><div class="thumbnail-rail"><span></span><span></span><span></span></div><div><div class="thumbnail-metrics"><span>24</span><span>86%</span><span>12</span></div><div class="thumbnail-chart">{[38,60,48,76,62,90].map(height=><span style={`--bar:${height}%`}></span>)}</div></div></div>
+      : demo.kind==='shop' ? <div class="thumbnail-products">{['Lamp','Chair','Vase'].map((name,i)=><div><svg viewBox="0 0 80 70" fill="none"><path d={i===0?'M24 32 32 12h16l8 20H24Zm16 0v27m-14 0h28':i===1?'M25 10v28h30V10M25 29h30M29 38l-5 22m27-22 5 22':'M30 10h20l-4 14c18 20 13 36-6 36S16 44 34 24l-4-14Z'} stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span>{name}</span></div>)}</div>
+      : <div class="thumbnail-journal"><span class="thumbnail-eyebrow">THOUGHTFUL STORIES</span><strong>Room for<br/>better work.</strong><div class="thumbnail-story-art"><span></span><span></span><span></span></div></div>}
+    </div>
+    <div class="demo-gallery-copy"><h3><a href={base+demo.path}>{demo.title}</a></h3><p>{demo.description}</p><span class="demo-gallery-caption">Customize the appearance · Download the HTML</span></div>
+  </article>)}
+</div>
+<style>
+.demo-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem; }
+.demo-gallery-card { padding:0; overflow:hidden; min-inline-size:0; }
+.demo-gallery-copy { padding:clamp(1rem,2vw,1.5rem); }
+.demo-gallery-copy h3 { margin-block:0 .6rem; }
+.demo-gallery-copy p { margin-block:0 .8rem; max-inline-size:48ch; }
+.demo-gallery-caption { color:var(--re-muted); font-size:.8rem; }
+.demo-thumbnail { block-size:13rem; padding:1rem 1.25rem; border-block-end:1px solid var(--re-line); background:var(--re-surface-alt); color:var(--re-text); overflow:hidden; }
+.thumbnail-top { display:flex; justify-content:space-between; align-items:center; font-size:.85rem; padding-block-end:1rem; }
+.thumbnail-top > span { color:var(--re-link); font-size:.5rem; letter-spacing:.25rem; }
+.thumbnail-eyebrow { display:block; color:var(--re-muted); font-size:.55rem; letter-spacing:.09em; margin-block-end:.65rem; }
+.thumbnail-marketing { display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:1rem; }
+.thumbnail-marketing strong,.thumbnail-journal strong { display:block; font-size:1.7rem; line-height:1.12; letter-spacing:-.04em; }
+.thumbnail-action { display:block; margin-block-start:1rem; inline-size:4rem; block-size:.8rem; border-radius:.25rem; background:var(--re-link); }
+.thumbnail-panel { display:grid; gap:.6rem; padding:1.1rem; border:1px solid var(--re-line); border-radius:.5rem; background:var(--re-surface); transform:rotate(-4deg); }
+.thumbnail-panel span,.thumbnail-rail span { display:block; block-size:.5rem; border-radius:.2rem; background:var(--re-line); }
+.thumbnail-panel span:first-child { inline-size:60%; background:var(--re-link); }
+.thumbnail-dashboard { display:grid; grid-template-columns:2rem 1fr; gap:1rem; }
+.thumbnail-rail { display:grid; align-content:start; gap:.8rem; padding-block:.6rem; }
+.thumbnail-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
+.thumbnail-metrics span { padding:.6rem; background:var(--re-surface); border-radius:.4rem; font-size:1.2rem; font-weight:700; }
+.thumbnail-chart { display:flex; align-items:end; gap:.6rem; block-size:5.2rem; margin-block-start:1rem; }
+.thumbnail-chart span { flex:1; block-size:var(--bar); background:var(--re-link); opacity:.7; border-radius:.25rem .25rem 0 0; }
+.thumbnail-products { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; }
+.thumbnail-products > div { background:var(--re-surface); border-radius:.4rem; padding:.8rem .3rem; text-align:center; }
+.thumbnail-products svg { inline-size:100%; block-size:5rem; color:var(--re-link); }
+.thumbnail-products span { display:block; font-size:.65rem; }
+.thumbnail-journal { position:relative; }
+.thumbnail-journal strong { position:relative; z-index:1; max-inline-size:65%; }
+.thumbnail-story-art { position:absolute; inset-block-start:1rem; inset-inline-end:.5rem; inline-size:40%; block-size:8rem; overflow:hidden; border-radius:50% 50% .3rem .3rem; background:var(--re-surface); }
+.thumbnail-story-art span { position:absolute; inset:20% 10% -30%; border-radius:50%; background:color-mix(in srgb,var(--re-link) 24%,var(--re-surface)); transform:rotate(-25deg); }
+.thumbnail-story-art span:nth-child(2) { inset:40% -25% -25% 35%; background:color-mix(in srgb,var(--re-link) 50%,var(--re-surface)); }
+.thumbnail-story-art span:nth-child(3) { inset:65% -30% -40% -20%; background:var(--re-link); }
+@media (width < 42rem) { .demo-gallery { grid-template-columns:minmax(0,1fr); } }
+@media (forced-colors:active) { .thumbnail-panel span,.thumbnail-action,.thumbnail-chart span,.thumbnail-story-art span { background:CanvasText; } }
+@media print { .demo-thumbnail { display:none; } .demo-gallery { display:block; } .demo-gallery-card { break-inside:avoid; margin-block-end:1rem; } }
+</style>
