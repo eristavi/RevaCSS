@@ -6,8 +6,6 @@
   let schema;
   try{schema=JSON.parse(schemaNode.textContent);}catch{return;}
   const root=document.documentElement;
-  const preferenceValues={...schema.values,...schema.backgrounds};
-  let backgroundChoices={};
   const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
   const storageKey='revacss:settings:v1';
   const pageAttributes=Object.fromEntries(Object.keys(schema.values).map(key=>[key,root.getAttribute('data-'+key)]));
@@ -15,7 +13,7 @@
   const clean=value=>{
     const result={};
     if(value && typeof value==='object' && !Array.isArray(value)){
-      for(const [key,allowed] of Object.entries(preferenceValues)){
+      for(const [key,allowed] of Object.entries(schema.values)){
         if(typeof value[key]==='string' && allowed.includes(value[key]))result[key]=value[key];
       }
     }
@@ -47,62 +45,6 @@
       }
     }
   };
-  // Background choices are demo preferences, never public data attributes.
-  const artworkCache=new Map();
-  const backgroundRequests=new WeakMap();
-  const artworkNames=['aurora','plasma','eclipse'];
-  const artwork=async name=>{
-    if(!artworkCache.has(name)){
-      const url=new URL(schema.assetBase+'backgrounds/'+name+'.svg',location.href);
-      artworkCache.set(name,fetch(url).then(response=>{
-        if(!response.ok)throw new Error('Background unavailable');
-        return response.text();
-      }).catch(error=>{artworkCache.delete(name);throw error;}));
-    }
-    return artworkCache.get(name);
-  };
-  const applyBackground=async(doc,choices)=>{
-    if(!doc.body)return;
-    const request={};backgroundRequests.set(doc,request);
-    const name=choices.background || 'default';
-    const decorative=artworkNames.includes(name) || name==='theme-gradient';
-    let layer=doc.getElementById('demo-background-layer');
-    if(name==='default'){
-      layer?.remove();doc.body.classList.remove('demo-background-active');return;
-    }
-    if(!layer){
-      layer=doc.createElement('div');layer.id='demo-background-layer';
-      layer.setAttribute('aria-hidden','true');doc.body.prepend(layer);
-    }
-    layer.className='demo-background-layer';
-    layer.classList.toggle('is-scrolling',decorative && choices['background-behaviour']==='scroll');
-    layer.classList.toggle('follow-palette',choices['background-colours']==='palette');
-    layer.classList.toggle('theme-gradient',name==='theme-gradient');
-    layer.style.setProperty('--demo-background-fill',name==='white'?'#fff':name==='black'?'#000':'var(--re-bg)');
-    const overlay=decorative?choices['background-overlay']:'none';
-    const strength=Number(choices['background-strength'] || '20');
-    layer.style.setProperty('--demo-background-overlay',overlay==='light'?'rgb(255 255 255 / '+strength+'%)':overlay==='dark'?'rgb(0 0 0 / '+strength+'%)':'transparent');
-    doc.body.classList.add('demo-background-active');
-    if(!artworkNames.includes(name)){layer.replaceChildren();return;}
-    // Changing palette/behaviour does not refetch or replace the current SVG.
-    if(layer.firstElementChild?.id===name+'-artwork')return;
-    layer.replaceChildren();
-    try{
-      const text=await artwork(name);
-      if(backgroundRequests.get(doc)!==request)return;
-      const svg=new DOMParser().parseFromString(text,'image/svg+xml').documentElement;
-      if(svg.localName!=='svg')throw new Error('Invalid background');
-      const copy=doc.importNode(svg,true);copy.id=name+'-artwork';
-      copy.setAttribute('aria-hidden','true');copy.setAttribute('focusable','false');
-      layer.replaceChildren(copy);
-    }catch{
-      if(backgroundRequests.get(doc)===request){
-        layer.classList.add('theme-gradient');
-        const status=doc.getElementById('demo-settings-status');
-        if(status)status.textContent='Artwork could not load. Showing a theme gradient instead.';
-      }
-    }
-  };
   const isolatedPreviews=new Set();
   const syncPreview=frame=>{
     const doc=frame.contentDocument;
@@ -116,7 +58,6 @@
       if(value===null)previewRoot.removeAttribute(attribute);
       else previewRoot.setAttribute(attribute,value);
     }
-    applyBackground(doc,backgroundChoices);
     if(previewRoot.getAttribute('data-material')!==previousMaterial || previewRoot.getAttribute('data-button-material')!==previousButtonMaterial)invalidateMaterials(doc);
   };
   const syncPreviews=()=>{for(const frame of isolatedPreviews)syncPreview(frame);};
@@ -132,8 +73,6 @@
     const previousMaterial=root.getAttribute('data-material');
     const previousButtonMaterial=root.getAttribute('data-button-material');
     const choices=clean(value);
-    backgroundChoices=choices;
-    applyBackground(document,choices);
     for(const key of Object.keys(schema.values)){
       const choice=choices[key] ?? pageAttributes[key];
       if(choice===null || choice==='default')root.removeAttribute('data-'+key);
@@ -158,22 +97,8 @@
     const values=()=>clean(Object.fromEntries(controls.map(control=>[control.name.slice(5),control.value])));
     const status=document.getElementById('demo-settings-status');
     const summary=document.getElementById('demo-configuration');
-    const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([key,value])=>key in schema.values && value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
-    const update=()=>{
-      const choices=values();apply(choices);
-      if(summary)summary.textContent=configuration();
-      const background=choices.background || 'default';
-      const artworkSelected=artworkNames.includes(background);
-      for(const control of controls){
-        const key=control.name.slice(5);
-        if(!key.startsWith('background-'))continue;
-        const hidden=key==='background-colours'?!artworkSelected:
-          key==='background-behaviour'?!artworkSelected && background!=='theme-gradient':
-          key==='background-strength'?(!artworkSelected && background!=='theme-gradient') || choices['background-overlay']==='none':
-          !artworkSelected && background!=='theme-gradient';
-        control.closest('.background-dependent').hidden=hidden;
-      }
-    };
+    const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([,value])=>value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
+    const update=()=>{apply(values());if(summary)summary.textContent=configuration();};
     const restore=()=>{
       const saved=stored();
       for(const control of controls){const key=control.name.slice(5);control.value=saved[key] || defaults[key];}
@@ -210,13 +135,10 @@
         const response=await fetch(link.href);
         if(!response.ok)throw new Error('Download failed');
         const documentCopy=new DOMParser().parseFromString(await response.text(),'text/html');
-        for(const [key,value] of Object.entries(values()).filter(([key])=>key in schema.values)){
+        for(const [key,value] of Object.entries(values())){
           if(value==='default')documentCopy.documentElement.removeAttribute('data-'+key);
           else documentCopy.documentElement.setAttribute('data-'+key,value);
         }
-        await applyBackground(documentCopy,values());
-        // A downloaded page keeps static artwork and CSS, without settings JS.
-        for(const link of documentCopy.querySelectorAll('link[href*="backgrounds.css"]'))link.href=new URL(schema.assetBase+'backgrounds.css',location.href).href;
         documentCopy.getElementById('reva-settings-schema')?.remove();
         documentCopy.getElementById('reva-settings-runtime')?.remove();
         const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+documentCopy.documentElement.outerHTML+'\n'],{type:'text/html'}));
@@ -264,7 +186,7 @@
     theme.addEventListener('change',()=>{root.setAttribute('data-theme',theme.value);syncPreviews();save(storageKey,{...stored(),theme:theme.value});});
   };
   window.RevaSettings={initCustomizer,initTheme};
-  document.addEventListener('DOMContentLoaded',()=>{applyBackground(document,backgroundChoices);initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
+  document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
   window.addEventListener('storage',event=>{
     if(event.key===storageKey || event.key===null){
       if(customizer)customizer.restore();
