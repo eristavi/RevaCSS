@@ -22,38 +22,39 @@ const base=import.meta.env.BASE_URL;
 .demo-gallery-copy h3 { margin-block:0 .6rem; }
 .demo-gallery-copy p { margin-block:0 .8rem; max-inline-size:48ch; }
 .demo-gallery-caption { color:var(--re-muted); font-size:.8rem; }
-.demo-thumbnail { block-size:13rem; padding:1rem 1.25rem; border-block-end:1px solid var(--re-line); background:var(--re-surface-alt); color:var(--re-text); overflow:hidden; }
+/* Decorative artwork follows the palette, independently of Glass link contrast. */
+.demo-thumbnail { --demo-thumbnail-accent:var(--re-palette-link,var(--re-primary)); block-size:13rem; padding:1rem 1.25rem; border-block-end:1px solid var(--re-line); background:var(--re-surface-alt); color:var(--re-text); overflow:hidden; }
 .thumbnail-top { display:flex; justify-content:space-between; align-items:center; font-size:.85rem; padding-block-end:1rem; }
-.thumbnail-top > span { color:var(--re-link); font-size:.5rem; letter-spacing:.25rem; }
+.thumbnail-top > span { color:var(--demo-thumbnail-accent); font-size:.5rem; letter-spacing:.25rem; }
 .thumbnail-eyebrow { display:block; color:var(--re-muted); font-size:.55rem; letter-spacing:.09em; margin-block-end:.65rem; }
 .thumbnail-marketing { display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:1rem; }
 .thumbnail-marketing strong,.thumbnail-journal strong { display:block; font-size:1.7rem; line-height:1.12; letter-spacing:-.04em; }
-.thumbnail-action { display:block; margin-block-start:1rem; inline-size:4rem; block-size:.8rem; border-radius:.25rem; background:var(--re-link); }
+.thumbnail-action { display:block; margin-block-start:1rem; inline-size:4rem; block-size:.8rem; border-radius:.25rem; background:var(--demo-thumbnail-accent); }
 .thumbnail-panel { display:grid; gap:.6rem; padding:1.1rem; border:1px solid var(--re-line); border-radius:.5rem; background:var(--re-surface); transform:rotate(-4deg); }
 .thumbnail-panel span,.thumbnail-rail span { display:block; block-size:.5rem; border-radius:.2rem; background:var(--re-line); }
-.thumbnail-panel span:first-child { inline-size:60%; background:var(--re-link); }
+.thumbnail-panel span:first-child { inline-size:60%; background:var(--demo-thumbnail-accent); }
 .thumbnail-dashboard { display:grid; grid-template-columns:2rem 1fr; gap:1rem; }
 .thumbnail-rail { display:grid; align-content:start; gap:.8rem; padding-block:.6rem; }
 .thumbnail-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem; }
 .thumbnail-metrics span { padding:.6rem; background:var(--re-surface); border-radius:.4rem; font-size:1.2rem; font-weight:700; }
 .thumbnail-chart { display:flex; align-items:end; gap:.6rem; block-size:5.2rem; margin-block-start:1rem; }
-.thumbnail-chart span { flex:1; block-size:var(--bar); background:var(--re-link); opacity:.7; border-radius:.25rem .25rem 0 0; }
+.thumbnail-chart span { flex:1; block-size:var(--bar); background:var(--demo-thumbnail-accent); opacity:.7; border-radius:.25rem .25rem 0 0; }
 .thumbnail-products { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; }
 .thumbnail-products > div { background:var(--re-surface); border-radius:.4rem; padding:.8rem .3rem; text-align:center; }
-.thumbnail-products svg { inline-size:100%; block-size:5rem; color:var(--re-link); }
+.thumbnail-products svg { inline-size:100%; block-size:5rem; color:var(--demo-thumbnail-accent); }
 .thumbnail-products span { display:block; font-size:.65rem; }
 .thumbnail-journal { position:relative; }
 .thumbnail-journal strong { position:relative; z-index:1; max-inline-size:65%; }
 .thumbnail-story-art { position:absolute; inset-block-start:1rem; inset-inline-end:.5rem; inline-size:40%; block-size:8rem; overflow:hidden; border-radius:50% 50% .3rem .3rem; background:var(--re-surface); }
-.thumbnail-story-art span { position:absolute; inset:20% 10% -30%; border-radius:50%; background:color-mix(in srgb,var(--re-link) 24%,var(--re-surface)); transform:rotate(-25deg); }
-.thumbnail-story-art span:nth-child(2) { inset:40% -25% -25% 35%; background:color-mix(in srgb,var(--re-link) 50%,var(--re-surface)); }
-.thumbnail-story-art span:nth-child(3) { inset:65% -30% -40% -20%; background:var(--re-link); }
+.thumbnail-story-art span { position:absolute; inset:20% 10% -30%; border-radius:50%; background:color-mix(in srgb,var(--demo-thumbnail-accent) 24%,var(--re-surface)); transform:rotate(-25deg); }
+.thumbnail-story-art span:nth-child(2) { inset:40% -25% -25% 35%; background:color-mix(in srgb,var(--demo-thumbnail-accent) 50%,var(--re-surface)); }
+.thumbnail-story-art span:nth-child(3) { inset:65% -30% -40% -20%; background:var(--demo-thumbnail-accent); }
 .thumbnail-blueprint { position:relative; block-size:9rem; background-image:linear-gradient(var(--re-line) 1px,transparent 1px),linear-gradient(90deg,var(--re-line) 1px,transparent 1px); background-size:1.5rem 1.5rem; padding:.75rem; }
 .thumbnail-blueprint strong { position:relative; z-index:1; font-size:1.65rem; line-height:1.1; letter-spacing:-.05em; display:block; }
 .thumbnail-blueprint-pieces { position:absolute; inset:0; }
-.thumbnail-blueprint-pieces span { position:absolute; inline-size:3.5rem; block-size:2.5rem; border:1px solid var(--re-link); border-radius:.3rem; background:var(--re-surface); }
+.thumbnail-blueprint-pieces span { position:absolute; inline-size:3.5rem; block-size:2.5rem; border:1px solid var(--demo-thumbnail-accent); border-radius:.3rem; background:var(--re-surface); }
 .thumbnail-blueprint-pieces span:nth-child(1) { inset-block-start:.5rem; inset-inline-end:.5rem; transform:rotate(-12deg); }
-.thumbnail-blueprint-pieces span:nth-child(2) { inset-block-start:3rem; inset-inline-end:1.5rem; background:color-mix(in srgb,var(--re-link) 20%,var(--re-surface)); transform:rotate(10deg); }
+.thumbnail-blueprint-pieces span:nth-child(2) { inset-block-start:3rem; inset-inline-end:1.5rem; background:color-mix(in srgb,var(--demo-thumbnail-accent) 20%,var(--re-surface)); transform:rotate(10deg); }
 .thumbnail-blueprint-pieces span:nth-child(3) { inset-block-end:.3rem; inset-inline-end:.2rem; transform:rotate(-6deg); }
 @media (width < 42rem) { .demo-gallery { grid-template-columns:minmax(0,1fr); } }
 @media (forced-colors:active) { .thumbnail-panel span,.thumbnail-action,.thumbnail-chart span,.thumbnail-story-art span { background:CanvasText; } }
