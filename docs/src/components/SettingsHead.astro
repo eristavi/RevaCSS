@@ -1,8 +1,11 @@
 ---
 import {demoSettingsSchema} from '../data/demo-settings.js';
+import {customPaletteDefaults} from '../data/custom-palette.js';
 const {kind='docs',assetBase=import.meta.env.BASE_URL}=Astro.props;
 const revision=encodeURIComponent(import.meta.env.GITHUB_SHA || process.env.GITHUB_SHA || 'local');
 const schema=JSON.stringify({kind,values:demoSettingsSchema}).replace(/</g,'\\u003c');
 ---
 <script id="reva-settings-schema" type="application/json" is:inline set:html={schema}/>
+<script id="reva-palette-defaults" type="application/json" is:inline set:html={JSON.stringify(customPaletteDefaults)}/>
+<script id="reva-palette-runtime" is:inline src={assetBase+'custom-palette.js?v='+revision}></script>
 <script id="reva-settings-runtime" is:inline src={assetBase+'settings.js?v='+revision}></script>

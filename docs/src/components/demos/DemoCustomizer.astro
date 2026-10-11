@@ -1,10 +1,12 @@
 ---
 import {demoOptions, defaultDemo, sourceHref} from '../../data/demo-configurations.js';
 import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-settings.js';
+import CustomPaletteEditor from './CustomPaletteEditor.astro';
 import catalog from '../../../../src/icons/catalog.json';
 const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
 const base=import.meta.env.BASE_URL;
 const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...advancedOptions.map(option=>({...option,default:option.values.includes(config[option.key] ?? defaultDemo[option.key])?(config[option.key] ?? defaultDemo[option.key]):option.default}))].map(option=>[option.key,option]));
+controls.palette.values=[...controls.palette.values,'custom'];
 const icon=catalog.find(item=>item.name==='settings') || catalog.find(item=>item.name==='sliders') || catalog.find(item=>item.name==='menu');
 const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
 ---
@@ -12,12 +14,13 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
   <button type="button" class="menu-toggle customize-toggle" popovertarget="demo-customizer-popup" aria-label="Customize">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon.body}/><span>Customize</span>
   </button>
-  <div id="demo-customizer-popup" class="customizer-popup" data-material="solid" data-shape="rounded" data-density="comfortable" data-size="medium" data-type="standard" data-border="subtle" data-depth="subtle" popover="auto" role="dialog" aria-labelledby="customize-title" aria-describedby="customize-description">
+  <div id="demo-customizer-popup" class="customizer-popup" data-palette="default" data-material="solid" data-shape="rounded" data-density="comfortable" data-size="medium" data-type="standard" data-border="subtle" data-depth="subtle" popover="auto" role="dialog" aria-labelledby="customize-title" aria-describedby="customize-description">
     <header class="customizer-header"><div><h2 id="customize-title">Customize RevaCSS</h2><p id="customize-description">Changes appear immediately. Your choices are shared across documentation and demo pages when storage is available.</p></div><button type="button" class="outline" popovertarget="demo-customizer-popup" popovertargetaction="hide" autofocus>Close</button></header>
     <div class="customizer-body">
       {kind==='demo' && <p class="customizer-docs-link"><a href={base}>Back to documentation</a></p>}
       <form id="demo-customizer-form">
         <div class="customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select></div>;})}</div></details>)}</div>
+        <CustomPaletteEditor/>
       </form>
       <details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details>
       <p class="customizer-note">These controls use existing RevaCSS data attributes. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>

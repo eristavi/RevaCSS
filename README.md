@@ -15,7 +15,7 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 - **Shared design decisions.** Set appearance defaults on a parent instead of repeating them on every component. Local overrides change only the settings you choose.
 - **HTML and CSS first.** Native controls, disclosures and popovers provide browser behaviour. The framework core has no JavaScript runtime; compiled CSS works without a build step.
 - **Customise with ordinary CSS.** Design tokens, custom properties, cascade layers and low-specificity selectors leave room for your own styles.
-- **A coordinated visual system.** Light, dark and system themes, 14 palettes, shared sizing and spacing, plus optional surface and button materials.
+- **A coordinated visual system.** Light, dark and system themes, 14 built-in palettes and your own custom colours, shared sizing and spacing, plus optional surface and button materials.
 
 Appearance inheritance is implemented through CSS rules and custom properties; HTML data attributes do not inherit by themselves. RevaCSS works with static HTML, server-rendered templates and frameworks that render HTML.
 
@@ -114,6 +114,8 @@ Explore complete websites, change their appearance with the customizer and downl
 | [Still · Shop](https://eristavi.github.io/RevaCSS/demos/shop/) | Catalogue, product pages, galleries and a sample bag |
 
 Demos use sample content. Your application supplies form processing, commerce, routing and live data. The optional demo customizer uses JavaScript to remember settings and prepare downloads; the CSS core remains independent of it.
+
+Choose **Customize → Colours → Palette → Custom** to create light and dark palettes, derive supporting shades, refine every colour token and see contrast feedback. Export the palette as ordinary CSS or download starting HTML with your colours included. See [custom palette documentation](https://eristavi.github.io/RevaCSS/themes/palettes/#custom) for reusable named palettes without JavaScript.
 
 ## AI-assisted development and vibe coding
 

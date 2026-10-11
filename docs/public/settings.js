@@ -6,6 +6,7 @@
   let schema;
   try{schema=JSON.parse(schemaNode.textContent);}catch{return;}
   const root=document.documentElement;
+  const palette=window.RevaPalette;
   const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
   const storageKey='revacss:settings:v1';
   const pageAttributes=Object.fromEntries(Object.keys(schema.values).map(key=>[key,root.getAttribute('data-'+key)]));
@@ -50,6 +51,7 @@
     const doc=frame.contentDocument;
     const previewRoot=doc?.documentElement;
     if(!previewRoot)return;
+    palette?.applyTo(doc);
     const previousMaterial=previewRoot.getAttribute('data-material');
     const previousButtonMaterial=previewRoot.getAttribute('data-button-material');
     for(const key of Object.keys(schema.values)){
@@ -70,6 +72,7 @@
     }
   };
   const apply=value=>{
+    palette?.applyTo(document);
     const previousMaterial=root.getAttribute('data-material');
     const previousButtonMaterial=root.getAttribute('data-button-material');
     const choices=clean(value);
@@ -97,30 +100,88 @@
     const values=()=>clean(Object.fromEntries(controls.map(control=>[control.name.slice(5),control.value])));
     const status=document.getElementById('demo-settings-status');
     const summary=document.getElementById('demo-configuration');
+    const editor=document.getElementById('custom-palette-editor');
+    const paletteFields=[...form.querySelectorAll('input[type="color"][name^="palette-"]')];
+    const paletteCode=document.getElementById('custom-palette-css');
+    const contrastFeedback=document.getElementById('custom-palette-contrast');
+    const renderPalette=()=>{
+      if(editor)editor.hidden=values().palette!=='custom' || !palette;
+      if(!palette)return;
+      const colours=palette.values();
+      for(const field of paletteFields){
+        const [,mode,...parts]=field.name.split('-');
+        field.value=colours[mode][parts.join('-')];
+        const output=field.parentElement.querySelector('output');
+        if(output)output.textContent=field.value.toUpperCase();
+      }
+      if(paletteCode)paletteCode.textContent=palette.css();
+      if(contrastFeedback){
+        const list=document.createElement('ul');
+        for(const {mode,failed} of palette.feedback()){
+          const item=document.createElement('li');
+          item.textContent=(mode==='light'?'Light':'Dark')+': '+(failed.length?failed.map(check=>`${check.label} ${check.ratio.toFixed(2)}:1 (target ${check.target}:1)`).join('; '):'Checked text and control colours meet their contrast targets.');
+          list.append(item);
+        }
+        contrastFeedback.replaceChildren(list);
+      }
+    };
     const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([,value])=>value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
-    const update=()=>{apply(values());if(summary)summary.textContent=configuration();};
+    const update=()=>{apply(values());renderPalette();if(summary)summary.textContent=configuration();};
     const restore=()=>{
       const saved=stored();
+      palette?.restore();
       for(const control of controls){const key=control.name.slice(5);control.value=saved[key] || defaults[key];}
       update();
     };
     restore();
-    form.addEventListener('change',()=>{
+    form.addEventListener('input',event=>{
+      if(!paletteFields.includes(event.target) || !palette)return;
+      const [,mode,...parts]=event.target.name.split('-');
+      palette.change(mode,parts.join('-'),event.target.value);
       update();
-      if(status)status.textContent=save(storageKey,values())?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
+    });
+    form.addEventListener('change',event=>{
+      if(paletteFields.includes(event.target) && palette){
+        const [,mode,...parts]=event.target.name.split('-');
+        palette.change(mode,parts.join('-'),event.target.value);
+      }
+      update();
+      const coloursSaved=palette?.save() ?? true;
+      const choicesSaved=save(storageKey,values());
+      if(status)status.textContent=coloursSaved && choicesSaved?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
     });
     form.addEventListener('reset',()=>{
       for(const key of [storageKey,demoKey,docsKey,legacyDocsKey])clear(key);
+      palette?.reset();
       setTimeout(()=>{update();if(status)status.textContent='Shared saved choices cleared. This page’s defaults are restored.';},0);
     });
     customizer={restore};
+    const downloadText=(text,name,type)=>{
+      const url=URL.createObjectURL(new Blob([text],{type}));
+      const link=document.createElement('a');link.href=url;link.download=name;
+      document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    };
+    document.getElementById('export-custom-palette')?.addEventListener('click',()=>{
+      if(!palette)return;
+      downloadText(palette.css(),'revacss-custom-palette.css','text/css');
+      if(status)status.textContent='Palette CSS exported. Load it after RevaCSS and use data-palette="custom".';
+    });
+    document.getElementById('copy-custom-palette')?.addEventListener('click',async()=>{
+      if(!palette)return;
+      try{await navigator.clipboard.writeText(palette.css());if(status)status.textContent='Palette CSS copied.';}
+      catch{
+        const details=paletteCode?.closest('details');if(details)details.open=true;
+        if(paletteCode){const range=document.createRange();range.selectNodeContents(paletteCode);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);paletteCode.closest('pre')?.focus();}
+        if(status)status.textContent='Clipboard unavailable. Select and copy the palette CSS shown above.';
+      }
+    });
     const copy=document.getElementById('copy-configuration');
     if(copy){
       copy.disabled=false;
       copy.addEventListener('click',async()=>{
         try{
           await navigator.clipboard.writeText(configuration());
-          if(status)status.textContent='HTML configuration copied.';
+          if(status)status.textContent=values().palette==='custom'?'HTML configuration copied. Export palette CSS and load it after RevaCSS.':'HTML configuration copied.';
         }catch{
           const details=summary?.closest('details');if(details)details.open=true;
           if(summary){const range=document.createRange();range.selectNodeContents(summary);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);summary.closest('pre')?.focus();}
@@ -141,6 +202,9 @@
         }
         documentCopy.getElementById('reva-settings-schema')?.remove();
         documentCopy.getElementById('reva-settings-runtime')?.remove();
+        documentCopy.getElementById('reva-palette-defaults')?.remove();
+        documentCopy.getElementById('reva-palette-runtime')?.remove();
+        if(values().palette==='custom')palette?.applyTo(documentCopy);
         const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+documentCopy.documentElement.outerHTML+'\n'],{type:'text/html'}));
         const download=document.createElement('a');download.href=url;download.download=link.download;
         document.body.append(download);download.click();download.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -188,9 +252,9 @@
   window.RevaSettings={initCustomizer,initTheme};
   document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
   window.addEventListener('storage',event=>{
-    if(event.key===storageKey || event.key===null){
+    if(event.key===storageKey || event.key===palette?.storageKey || event.key===null){
       if(customizer)customizer.restore();
-      else{apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
+      else{palette?.restore();apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
     }
   });
 })();
