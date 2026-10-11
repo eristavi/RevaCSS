@@ -1,10 +1,10 @@
 ---
 import {demoOptions, defaultDemo, sourceHref} from '../../data/demo-configurations.js';
-import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-settings.js';
+import {advancedOptions,optionLabel,customizerGroups,backgroundOptions,backgroundLabel} from '../../data/demo-settings.js';
 import catalog from '../../../../src/icons/catalog.json';
 const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
 const base=import.meta.env.BASE_URL;
-const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...advancedOptions.map(option=>({...option,default:option.values.includes(config[option.key] ?? defaultDemo[option.key])?(config[option.key] ?? defaultDemo[option.key]):option.default}))].map(option=>[option.key,option]));
+const controls=Object.fromEntries([...Object.entries(demoOptions).map(([key,values])=>({key,values,default:config[key],label:{theme:'Theme',palette:'Palette',material:'Material',shape:'Shape'}[key]})),...backgroundOptions,...advancedOptions.map(option=>({...option,default:option.values.includes(config[option.key] ?? defaultDemo[option.key])?(config[option.key] ?? defaultDemo[option.key]):option.default}))].map(option=>[option.key,option]));
 const icon=catalog.find(item=>item.name==='settings') || catalog.find(item=>item.name==='sliders') || catalog.find(item=>item.name==='menu');
 const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
 ---
@@ -17,10 +17,10 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
     <div class="customizer-body">
       {kind==='demo' && <p class="customizer-docs-link"><a href={base}>Back to documentation</a></p>}
       <form id="demo-customizer-form">
-        <div class="customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select></div>;})}</div></details>)}</div>
+        <div class="customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div class:list={{'background-dependent':key.startsWith('background-')}}><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{key.startsWith('background')?backgroundLabel(value):optionLabel(value)}</option>)}</select></div>;})}</div></details>)}</div>
       </form>
-      <details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details>
-      <p class="customizer-note">These controls use existing RevaCSS data attributes. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>
+      <details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).filter(option=>!option.key.startsWith('background')).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details>
+      <p class="customizer-note">Appearance controls use RevaCSS data attributes. Backgrounds are demonstration settings. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>
       {download && <p><a href={download} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a></p>}
     </div>
     <footer class="customizer-footer"><div class="row"><button type="button" id="copy-configuration" disabled>Copy configuration</button><button type="reset" form="demo-customizer-form" class="outline">Reset to defaults</button></div><p id="demo-settings-status" role="status" aria-live="polite"></p></footer>
