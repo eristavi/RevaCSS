@@ -1110,7 +1110,8 @@
   @media screen and (width >= 48rem) {
     :where(.top-menu, :scope.top-menu) {
       display: var(--re-navbar-layout, flex);
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+      /* Size the middle to its contents while keeping equal outer tracks. */
+      grid-template-columns: minmax(0, 1fr) minmax(0, max-content) minmax(0, 1fr);
     }
     :where(.top-menu > .menu-brand) {
       grid-column: var(--re-navbar-brand-column, 1); grid-row: 1;
