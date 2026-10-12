@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Prototype direct card contact in Effects Lab using declarative SVG `set` timing and CSS, with no JavaScript or inline event hooks. Native pointer/touch events activate a small SVG class marker; release and cancellation restore it. Remove separate press buttons, preserve desktop hover and ordinary link actions, and retain motion/preferences fallbacks. iPhone and other real-device verification remains pending; this replaces the button-based touch prototype and is not a released framework API.
+
 - Replace the Effects Lab's persistent preview switch with individual native press-and-hold buttons. Touch uses the same glow, lift and depth targets as hover, with a fast entrance and slower return on release. Stationary controls stay outside moving cards, normal links retain their actions, and visible keyboard focus avoids retaining touch focus after release. Core files remain unchanged; browser/device acceptance checks remain deferred.
 
 - Add Effects Lab, a demo-only CSS showcase for Aura, Spring lift and Layered depth, with resting comparisons, a combined study, keyboard-focus responses and a native touch-preview switch. Include matching downloadable HTML, separate effect/composition stylesheets, palette/material customisation and conservative preference fallbacks. Mark all three effects as future-release candidates without a release commitment; core styling and package archives remain unchanged. Browser, device and accessibility acceptance checks remain deferred.

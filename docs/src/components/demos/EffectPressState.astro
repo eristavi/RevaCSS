@@ -1,0 +1,13 @@
+---
+// Declarative SVG state only. This component emits no JavaScript or on* hooks.
+// Keep event-source IDs alphanumeric: SMIL timing parsers can interpret a
+// hyphen in an ID as a negative timing offset.
+const {owner}=Astro.props;
+const begin=[`${owner}.pointerdown`,`${owner}.touchstart`].join(';');
+const end=[`${owner}.pointerup`,`${owner}.pointercancel`,`${owner}.pointerleave`,`${owner}.touchend`,`${owner}.touchcancel`,'main.pointerup','main.pointercancel','main.touchend','main.touchcancel'].join(';');
+---
+<svg class="ef-input-state" width="1" height="1" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <rect class="ef-contact" width="1" height="1" fill="none">
+    <set attributeName="class" to="ef-contact ef-pressed" begin={begin} end={end} dur="indefinite" restart="always" fill="remove"/>
+  </rect>
+</svg>

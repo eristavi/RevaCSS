@@ -1,7 +1,7 @@
 /* Experimental candidates, not a released RevaCSS API.
    Demo boundary and ef-* classes are deliberately local to Effects Lab.
-   Native hover/keyboard-focus/button-press state drives all effects.
-   Press previews use a stationary sibling button; no cursor tracking.
+   Native hover/keyboard-focus and declarative SVG state drive all effects.
+   SVG <set> follows contact on the card itself; no JavaScript or on* hooks.
    RevaCSS owns .card surfaces and materials. Decorations use separate spans
    so they do not consume the pseudo-elements used by decorative edges. */
 .effects-site .ef-lab {
@@ -32,6 +32,18 @@
   isolation: isolate;
 }
 
+/* Render a tiny, non-interactive SVG timing marker. It listens declaratively
+   to the owning card's events; it neither covers content nor catches touches.
+   Do not use display:none: the SVG remains part of the rendered document. */
+.effects-site .ef-input-state {
+  position: absolute;
+  inset: 0 auto auto 0;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .effects-site .ef-light {
   position: absolute;
   inset: 0;
@@ -52,8 +64,8 @@
   transition: translate var(--ef-transition-time, var(--ef-time)) var(--ef-ease);
 }
 
-/* Hover is an enhancement for a fine pointer. Native keyboard focus and a
-   stationary press control provide alternatives. Touch focus alone must not
+/* Hover is an enhancement for a fine pointer. Native keyboard focus and
+   declarative card contact provide alternatives. Touch focus alone must not
    leave a preview latched on after release. */
 @media (hover: hover) and (pointer: fine) {
   .effects-site .ef-aura:hover .ef-light { opacity: 1; }
@@ -63,22 +75,25 @@
   .effects-site .ef-depth:hover .ef-depth-front { translate: 0 var(--ef-front); }
 }
 
-.effects-site .ef-aura:has(:focus-visible) .ef-light,
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-aura .ef-light { opacity: 1; }
-.effects-site .ef-spring:has(:focus-visible),
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-spring { translate: 0 var(--ef-lift); }
-.effects-site .ef-depth:has(:focus-visible) .ef-depth-back,
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-back { translate: 0 var(--ef-back); }
-.effects-site .ef-depth:has(:focus-visible) .ef-depth-middle,
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-middle { translate: 0 var(--ef-middle); }
-.effects-site .ef-depth:has(:focus-visible) .ef-depth-front,
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-front { translate: 0 var(--ef-front); }
+.effects-site .ef-aura:has(:focus-visible) .ef-light { opacity: 1; }
+.effects-site .ef-spring:has(:focus-visible) { translate: 0 var(--ef-lift); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-back { translate: 0 var(--ef-back); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-middle { translate: 0 var(--ef-middle); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-front { translate: 0 var(--ef-front); }
 
-/* A quick entrance makes short touches visible. Release removes this override
-   and uses the normal, slower return. Every state sets one target per property;
-   a mouse click on a card link retains the existing hover response. */
-.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-effect {
-  --ef-transition-time: calc(var(--ef-time) * .25);
+/* Touch uses direct contact events, not Safari's delayed CSS :active signal.
+   The browser's SVG timing restores the marker's base class on release,
+   cancellation or departure; CSS then performs the slower return. Mouse
+   hover/click behaviour remains governed by the fine-pointer rules above. */
+@media (hover: none), (pointer: coarse) {
+  .effects-site .ef-effect:has(> .ef-input-state > .ef-contact.ef-pressed) {
+    --ef-transition-time: calc(var(--ef-time) * .25);
+  }
+  .effects-site .ef-aura:has(> .ef-input-state > .ef-contact.ef-pressed) .ef-light { opacity: 1; }
+  .effects-site .ef-spring:has(> .ef-input-state > .ef-contact.ef-pressed) { translate: 0 var(--ef-lift); }
+  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-pressed) .ef-depth-back { translate: 0 var(--ef-back); }
+  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-pressed) .ef-depth-middle { translate: 0 var(--ef-middle); }
+  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-pressed) .ef-depth-front { translate: 0 var(--ef-front); }
 }
 
 /* All movement becomes zero; useful static light feedback can remain. */
