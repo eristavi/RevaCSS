@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Revise the Effects Lab iOS tap prototype to use a native card-sized button as the SVG click source and a direct SVG-to-card sibling selector. Keep links above the preview target and hide the target for desktop hover. Remove the animated descendant-class `:has()` dependency. No JavaScript or inline event hooks are added; real iOS verification remains pending.
+
 - Change Effects Lab mobile previews to normal card taps. Native SVG click timing holds each preview for 1.6 seconds so the same CSS glow, lift and depth response as desktop hover can complete, then animate back automatically. Remove press/release timing and its faster entrance; keep desktop hover, native links and preference fallbacks. No JavaScript or inline event hooks are added. Real-device verification remains pending.
 
 - Prototype direct card contact in Effects Lab using declarative SVG `set` timing and CSS, with no JavaScript or inline event hooks. Native pointer/touch events activate a small SVG class marker; release and cancellation restore it. Remove separate press buttons, preserve desktop hover and ordinary link actions, and retain motion/preferences fallbacks. iPhone and other real-device verification remains pending; this replaces the button-based touch prototype and is not a released framework API.

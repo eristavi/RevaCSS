@@ -1,7 +1,7 @@
 /* Experimental candidates, not a released RevaCSS API.
    Demo boundary and ef-* classes are deliberately local to Effects Lab.
-   Native hover/keyboard-focus and declarative SVG state drive all effects.
-   SVG <set> starts a finite preview from a tap on the card itself.
+   Native hover/keyboard-focus and button-driven SVG state drive all effects.
+   SVG <set> starts a finite preview from a native card-sized button.
    No JavaScript or on* hooks; a quick release does not truncate the effect.
    RevaCSS owns .card surfaces and materials. Decorations use separate spans
    so they do not consume the pseudo-elements used by decorative edges. */
@@ -33,9 +33,10 @@
   isolation: isolate;
 }
 
-/* Render a tiny, non-interactive SVG timing marker. It listens declaratively
-   to the owning card's click; it neither covers content nor catches touches.
-   Do not use display:none: the SVG remains part of the rendered document. */
+/* The timing SVG precedes the card. A direct sibling selector consumes its
+   animated class, without depending on SVG-to-parent :has() invalidation. */
+.effects-site .ef-tap-surface { position: relative; }
+.effects-site .ef-tap-target { display: none; }
 .effects-site .ef-input-state {
   position: absolute;
   inset: 0 auto auto 0;
@@ -81,17 +82,36 @@
 .effects-site .ef-depth:has(:focus-visible) .ef-depth-middle { translate: 0 var(--ef-middle); }
 .effects-site .ef-depth:has(:focus-visible) .ef-depth-front { translate: 0 var(--ef-front); }
 
-/* A normal tap activates the same targets, durations and easing as hover.
-   SVG timing holds the state for 1.6s, then CSS animates back. Repeated taps
-   refresh that preview window. Native click activation avoids a hold gesture;
-   scrolling alone does not generate a tap. Desktop clicks leave hover intact. */
+/* Real native buttons receive quick taps on iOS without an ontouchstart hook.
+   The button covers the preview surface; links sit above it and remain native.
+   The timing marker is its sibling, so moving the card cannot lose the click. */
 @media (hover: none), (pointer: coarse) {
-  .effects-site .ef-effect:has(> .ef-input-state) { cursor: pointer; }
-  .effects-site .ef-aura:has(> .ef-input-state > .ef-contact.ef-tapped) .ef-light { opacity: 1; }
-  .effects-site .ef-spring:has(> .ef-input-state > .ef-contact.ef-tapped) { translate: 0 var(--ef-lift); }
-  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-tapped) .ef-depth-back { translate: 0 var(--ef-back); }
-  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-tapped) .ef-depth-middle { translate: 0 var(--ef-middle); }
-  .effects-site .ef-depth:has(> .ef-input-state > .ef-contact.ef-tapped) .ef-depth-front { translate: 0 var(--ef-front); }
+  .effects-site .ef-tap-target {
+    all: unset;
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .effects-site .ef-tap-target::before,
+  .effects-site .ef-tap-target::after { content: none; }
+  .effects-site .ef-tap-target:focus-visible {
+    outline: 2px solid var(--re-primary);
+    outline-offset: 3px;
+  }
+  .effects-site .ef-effect:has(> .ef-tap-target) .ef-card-content {
+    z-index: 2;
+    pointer-events: none;
+  }
+  .effects-site .ef-effect:has(> .ef-tap-target) .ef-card-content a { pointer-events: auto; }
+  .effects-site .ef-input-state.ef-tapped + .ef-aura .ef-light { opacity: 1; }
+  .effects-site .ef-input-state.ef-tapped + .ef-spring { translate: 0 var(--ef-lift); }
+  .effects-site .ef-input-state.ef-tapped + .ef-depth .ef-depth-back { translate: 0 var(--ef-back); }
+  .effects-site .ef-input-state.ef-tapped + .ef-depth .ef-depth-middle { translate: 0 var(--ef-middle); }
+  .effects-site .ef-input-state.ef-tapped + .ef-depth .ef-depth-front { translate: 0 var(--ef-front); }
 }
 
 /* All movement becomes zero; useful static light feedback can remain. */
