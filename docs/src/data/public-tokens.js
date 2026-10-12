@@ -1,4 +1,5 @@
 export const publicTokens = [
+  ["Custom shape", "--re-custom-surface-radius / --re-custom-field-radius / --re-custom-action-radius", "Nonnegative length", "Independent surface, field and action corners with data-shape=custom; .75rem defaults. Local presets reset all groups."],
   ["Liquid buttons", "--re-liquid-scale-x / --re-liquid-scale-y", "Positive numbers", "Pressed expansion: subtle 1.025/1.015; expressive 1.045/1.02. Motion none and reduced motion suppress expansion."],
   ["Liquid buttons", "--re-liquid-blur", "Nonnegative length", "Backdrop blur radius; default 14px. Accessibility preferences disable filtering."],
   ["Liquid buttons", "--re-liquid-opacity", "Percentage", "Neutral backing; default 12%. The background remains visible through the glass. Review label contrast over custom backgrounds; preference fallbacks are opaque."],
@@ -102,9 +103,9 @@ export const publicTokens = [
   ],
   [
     "Layout",
-    "--re-radius / --re-button-radius",
+    "--re-radius / --re-field-radius / --re-button-radius",
     "Length",
-    "Surface and action roundness"
+    "Surface, field and action roundness. Fields fall back to --re-radius."
   ],
   [
     "Layout",

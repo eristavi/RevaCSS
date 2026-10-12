@@ -1,0 +1,37 @@
+---
+const groups=[['surface','Surfaces','Cards, panels, dialogs and drawers'],['field','Fields','Inputs, selects and textareas'],['action','Actions','Buttons and badges']];
+---
+<section id="custom-radius-editor" hidden aria-labelledby="custom-radius-title">
+  <h3 id="custom-radius-title">Your corner radiuses</h3>
+  <p>Choose a radius for each group. Values use rem and scale with the root text size. Zero creates square corners.</p>
+  <label><input id="radius-linked" type="checkbox" checked/>Link all three radiuses</label>
+  <div class="radius-fields">
+    {groups.map(([key,title,description])=><div class="radius-field">
+      <label for={`radius-${key}-number`}>{title} <small>{description}</small></label>
+      <div class="radius-controls">
+        <input id={`radius-${key}-range`} type="range" min="0" max="4" step="0.05" value="0.75" data-radius={key} aria-label={`${title} radius slider in rem`}/>
+        <div><input id={`radius-${key}-number`} type="number" min="0" max="1000" step="any" value="0.75" data-radius={key} aria-describedby="radius-unit"/><span id={key==='surface'?'radius-unit':undefined}>rem</span></div>
+      </div>
+    </div>)}
+  </div>
+  <div class="radius-preview" data-shape="custom" aria-label="Custom radius preview">
+    <article class="card stack"><h4>Your surface</h4><label for="radius-preview-field">Your field</label><input id="radius-preview-field" placeholder="Preview your corners"/><div class="row"><button type="button">Your action</button><span class="badge">Badge</span></div></article>
+  </div>
+  <div class="row"><button id="export-custom-radius" type="button">Export radius CSS</button><button id="copy-custom-radius" type="button" class="outline">Copy radius CSS</button></div>
+  <details class="configuration-summary"><summary>View radius CSS</summary><pre tabindex="0" aria-label="Custom radius CSS"><code id="custom-radius-css"></code></pre></details>
+  <p>Use Shape → Custom on your page or a parent. Downloaded starting HTML includes your values. Local shape presets keep their own corners.</p>
+</section>
+<style>
+#custom-radius-editor { margin-block:1rem; padding:1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); }
+#custom-radius-title { font-size:1.05rem; margin-block:0 .5rem; }
+#custom-radius-editor > p { font-size:.85rem; }
+.radius-fields { display:grid; gap:1rem; margin-block:1rem; }
+.radius-field label { margin:0; }
+.radius-field small { display:block; font-weight:400; color:var(--re-muted); }
+.radius-controls { display:grid; grid-template-columns:minmax(0,1fr) minmax(6rem,8rem); gap:1rem; align-items:center; }
+.radius-controls > div { display:flex; align-items:center; gap:.4rem; min-inline-size:0; }
+.radius-controls input { min-inline-size:0; }
+.radius-preview { margin-block:1rem; }
+.radius-preview h4 { margin:0; }
+@media (width < 23rem) { .radius-controls { grid-template-columns:minmax(0,1fr); gap:.25rem; } }
+</style>

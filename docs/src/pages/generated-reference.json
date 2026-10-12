@@ -37,11 +37,12 @@
         "square",
         "subtle",
         "rounded",
-        "pill"
+        "pill",
+        "custom"
       ],
       "default": "rounded",
       "scope": "Inherited; applies to supported targets",
-      "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders."
+      "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders. Custom uses --re-custom-surface-radius, --re-custom-field-radius and --re-custom-action-radius (nonnegative lengths; .75rem defaults). Local presets reset all three groups."
     },
     "fill": {
       "values": [

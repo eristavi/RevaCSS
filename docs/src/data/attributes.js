@@ -49,7 +49,7 @@ export const attributes = [
   {
     "id": "shape",
     "title": "data-shape",
-    "description": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code. Default: rounded. Scope: Inherited.",
+    "description": "Buttons, text controls, cards, menus, disclosures, fieldsets, dialogs, popovers, tables, images, videos and code. Default: rounded. Custom uses independent surface, field and action radius tokens; existing presets reset all three groups locally. Scope: Inherited.",
     "html": "<div class=\"grid\">\n  <section data-shape=\"square\"><article class=\"card\"><h3>Square</h3><p>A local shape setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-shape=\"subtle\"><article class=\"card\"><h3>Subtle</h3><p>A local shape setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-shape=\"rounded\"><article class=\"card\"><h3>Rounded</h3><p>A local shape setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-shape=\"pill\"><article class=\"card\"><h3>Pill</h3><p>A local shape setting.</p><button type=\"button\">Action</button></article></section>\n</div>",
     "glass": false
   },

@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
   "testsDeferred": true,
-  "summary": "Only Default and Mono palettes are built in; the other experimental palettes are removed. Veil surface and button finishes are deprecated but remain available for compatibility. Responsive wrappers, RTL, native-control, accessibility and print refinements are also available in the source preview. Published 1.2.1 packages are unchanged."
+  "summary": "Custom shape supports independent surface, field and action radiuses. Only Default and Mono palettes are built in; Veil is deprecated and retained for compatibility. Responsive, RTL, native-control, accessibility and print refinements remain in the source preview. Published 1.2.1 packages are unchanged."
 }

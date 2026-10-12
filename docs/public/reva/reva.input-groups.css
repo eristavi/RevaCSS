@@ -8,7 +8,7 @@
     display: inline-flex; align-items: center; padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
     font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
     background-color: var(--re-surface-alt); color: var(--re-text);
-    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-field-radius, var(--re-radius));
   }
 }
 @layer re.utilities {
