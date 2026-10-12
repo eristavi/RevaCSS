@@ -1,0 +1,11 @@
+---
+// A native click/tap opens a finite preview window. No JavaScript or on* hooks.
+// Keep event-source IDs alphanumeric: SMIL timing parsers can interpret a
+// hyphen in an ID as a negative timing offset.
+const {owner}=Astro.props;
+---
+<svg class="ef-input-state" width="1" height="1" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <rect class="ef-contact" width="1" height="1" fill="none">
+    <set attributeName="class" to="ef-contact ef-tapped" begin={`${owner}.click`} dur="1.6s" restart="always" fill="remove"/>
+  </rect>
+</svg>

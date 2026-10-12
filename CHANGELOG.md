@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Change Effects Lab mobile previews to normal card taps. Native SVG click timing holds each preview for 1.6 seconds so the same CSS glow, lift and depth response as desktop hover can complete, then animate back automatically. Remove press/release timing and its faster entrance; keep desktop hover, native links and preference fallbacks. No JavaScript or inline event hooks are added. Real-device verification remains pending.
+
 - Prototype direct card contact in Effects Lab using declarative SVG `set` timing and CSS, with no JavaScript or inline event hooks. Native pointer/touch events activate a small SVG class marker; release and cancellation restore it. Remove separate press buttons, preserve desktop hover and ordinary link actions, and retain motion/preferences fallbacks. iPhone and other real-device verification remains pending; this replaces the button-based touch prototype and is not a released framework API.
 
 - Replace the Effects Lab's persistent preview switch with individual native press-and-hold buttons. Touch uses the same glow, lift and depth targets as hover, with a fast entrance and slower return on release. Stationary controls stay outside moving cards, normal links retain their actions, and visible keyboard focus avoids retaining touch focus after release. Core files remain unchanged; browser/device acceptance checks remain deferred.

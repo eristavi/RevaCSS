@@ -4,7 +4,7 @@ export const demoPages = [
   {key:'shop-demo', title:'Shop', name:'Still', path:'demos/shop/', kind:'shop', description:'A catalogue, category pages, product details and a sample shopping bag.'},
   {key:'blog-demo', title:'Blog and journal', name:'Fieldnotes', path:'demos/blog/', kind:'blog', description:'Stories, full articles, reading navigation, category archives and an author profile.'},
   {key:'blueprint-demo', title:'Living Blueprint', name:'Blueprint', path:'demos/living-blueprint/', kind:'blueprint', description:'An original scroll composition: interface pieces assemble through inherited class-based movement, zoom and rotation.'},
-  {key:'effects-lab-demo', title:'Effects Lab', name:'Effects Lab', path:'demos/effects-lab/', kind:'effects-lab', description:'Aura, Spring lift and Layered depth: JavaScript-free experimental candidates for a future release, with declarative SVG contact on the cards.'}
+  {key:'effects-lab-demo', title:'Effects Lab', name:'Effects Lab', path:'demos/effects-lab/', kind:'effects-lab', description:'Aura, Spring lift and Layered depth: JavaScript-free experimental candidates for a future release, with native SVG tap previews on the cards.'}
 ];
 
 export const demoLinks = [
