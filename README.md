@@ -67,7 +67,7 @@ These example buttons demonstrate appearance. Connect application actions to you
 | --- | --- |
 | `data-theme` | `auto`, `light`, `dark` |
 | `data-palette` | `default`, `mono` |
-| `data-shape` | `square`, `subtle`, `rounded`, `pill` |
+| `data-shape` | `square`, `subtle`, `rounded`, `pill`, `custom` |
 | `data-density` | `compact`, `comfortable`, `spacious` |
 | `data-size` | `small`, `medium`, `large` |
 | `data-motion` | `none`, `subtle`, `expressive` |
@@ -77,6 +77,26 @@ Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/)
 Only Default and Mono are built in. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
 
 Veil is deprecated for both surfaces and buttons. Its global/scoped stylesheets and attribute values remain available for existing sites; prefer Solid, Glass or Soft UI for new work.
+
+### Choose your own corners
+
+Choose **Customize → Surfaces → Shape → Custom** to set surface, field and action radiuses. Link the values or adjust each independently with a slider or numeric entry. Settings persist across pages; export ordinary CSS or download starting HTML with your values. The framework adds no JavaScript runtime.
+
+```css
+@layer re.tokens {
+  :where([data-shape="custom"]) {
+    --re-custom-surface-radius: 1rem;
+    --re-custom-field-radius: .4rem;
+    --re-custom-action-radius: 3rem;
+  }
+}
+```
+
+Use `data-shape="custom"` on your page or a parent. Existing Square, Subtle, Rounded and Pill presets remain available and reset the three groups locally.
+
+### Planned personalized build
+
+A future generator will export one framework stylesheet containing the user’s chosen colours and radiuses directly, replacing unused built-in colour definitions. Full colour editing will include surfaces, text, links, borders, semantic roles, gradients, focus indicators, material highlights, shadows and decorative edges, with contrast feedback. This generator is planned; current exports remain separate CSS configuration or starting HTML with embedded configuration.
 
 ### Add your own components
 

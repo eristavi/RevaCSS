@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Custom shape with separate surface, field and action radius tokens. Keep existing presets and local resets; let styled text fields consume the field radius with a surface-radius fallback. Add linked/independent sliders and numeric inputs, shared saved settings, CSS copy/export and self-contained HTML downloads in the optional editor. Core output remains CSS-only; browser/device tests remain deferred.
+
 - Simplify built-in palettes to Default and Mono. Remove the other 12 experimental palettes from tokens, generated global/scoped/modular CSS and current examples/controls. This is an intentional breaking source-preview change: migrate removed names to Default, Mono or a custom CSS palette. Published 1.2.1 downloads remain unchanged.
 - Deprecate Veil for surfaces and buttons. Retain its stylesheet exports and attribute values for existing interfaces, label the compatibility option, and recommend Solid, Glass or Soft UI for new work.
 

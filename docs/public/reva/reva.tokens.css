@@ -54,10 +54,11 @@
 :where([data-gap="small"], :scope[data-gap="small"]) { --re-gap-factor: .5; }
 :where([data-gap="medium"], :scope[data-gap="medium"]) { --re-gap-factor: 1; }
 :where([data-gap="large"], :scope[data-gap="large"]) { --re-gap-factor: 2; }
-:where([data-shape="square"], :scope[data-shape="square"]) { --re-radius: 0rem; --re-button-radius: 0rem; }
-:where([data-shape="subtle"], :scope[data-shape="subtle"]) { --re-radius: .3rem; --re-button-radius: .3rem; }
-:where([data-shape="rounded"], :scope[data-shape="rounded"]) { --re-radius: .75rem; --re-button-radius: .75rem; }
-:where([data-shape="pill"], :scope[data-shape="pill"]) { --re-radius: 1.5rem; --re-button-radius: 999px; }
+:where([data-shape="square"], :scope[data-shape="square"]) { --re-radius: 0rem; --re-button-radius: 0rem; --re-field-radius: var(--re-radius); }
+:where([data-shape="subtle"], :scope[data-shape="subtle"]) { --re-radius: .3rem; --re-button-radius: .3rem; --re-field-radius: var(--re-radius); }
+:where([data-shape="rounded"], :scope[data-shape="rounded"]) { --re-radius: .75rem; --re-button-radius: .75rem; --re-field-radius: var(--re-radius); }
+:where([data-shape="pill"], :scope[data-shape="pill"]) { --re-radius: 1.5rem; --re-button-radius: 999px; --re-field-radius: var(--re-radius); }
+:where([data-shape="custom"], :scope[data-shape="custom"]) { --re-radius: var(--re-custom-surface-radius, .75rem); --re-field-radius: var(--re-custom-field-radius, .75rem); --re-button-radius: var(--re-custom-action-radius, .75rem); }
 :where([data-fill="solid"], :scope[data-fill="solid"]) { --re-gradient: 0; }
 :where([data-fill="gradient"], :scope[data-fill="gradient"]) { --re-gradient: 1; }
 :where([data-density="compact"], :scope[data-density="compact"]) { --re-density: .8; --re-space: .8rem; --re-gap: .8rem; }

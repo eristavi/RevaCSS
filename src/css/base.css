@@ -100,7 +100,7 @@
   :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
     display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;
     padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
-    background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius); box-shadow: var(--re-input-shadow);
+    background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-field-radius, var(--re-radius)); box-shadow: var(--re-input-shadow);
   }
   :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
   :where(textarea) { resize: vertical; min-block-size: 7rem; }
