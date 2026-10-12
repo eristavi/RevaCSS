@@ -1,4 +1,7 @@
 export const publicTokens = [
+  ["Custom density", "--re-custom-surface-padding / --re-custom-content-space", "Nonnegative length", "Base surface padding and content gaps with data-density=custom; both default to 1rem. Cards scale surface padding by 1.5."],
+  ["Custom density", "--re-custom-control-density", "Nonnegative number", "Control-padding multiplier with data-density=custom; default 1. Minimum control heights remain independent."],
+  ["Layout", "--re-surface-space", "Nonnegative length", "Base surface padding; falls back to --re-space when omitted. Local density presets reset it."],
   ["Custom shape", "--re-custom-surface-radius / --re-custom-field-radius / --re-custom-action-radius", "Nonnegative length", "Independent surface, field and action corners with data-shape=custom; .75rem defaults. Local presets reset all groups."],
   ["Liquid buttons", "--re-liquid-scale-x / --re-liquid-scale-y", "Positive numbers", "Pressed expansion: subtle 1.025/1.015; expressive 1.045/1.02. Motion none and reduced motion suppress expansion."],
   ["Liquid buttons", "--re-liquid-blur", "Nonnegative length", "Backdrop blur radius; default 14px. Accessibility preferences disable filtering."],

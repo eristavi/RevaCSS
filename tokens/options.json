@@ -56,11 +56,12 @@
     "values": [
       "compact",
       "comfortable",
-      "spacious"
+      "spacious",
+      "custom"
     ],
     "default": "comfortable",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Control and surface padding, list and description spacing, card sections and layout spacing."
+    "affects": "Control and surface padding, list and description spacing, card sections and layout spacing. Custom separates surface padding (--re-custom-surface-padding, 1rem), control padding multiplier (--re-custom-control-density, 1), and content spacing (--re-custom-content-space, 1rem). Minimum control heights are preserved; local presets reset all groups."
   },
   "depth": {
     "values": [

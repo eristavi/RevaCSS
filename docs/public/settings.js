@@ -8,6 +8,7 @@
   const root=document.documentElement;
   const palette=window.RevaPalette;
   const radius=window.RevaRadius;
+  const density=window.RevaDensity;
   const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
   const storageKey='revacss:settings:v1';
   const pageAttributes=Object.fromEntries(Object.keys(schema.values).map(key=>[key,root.getAttribute('data-'+key)]));
@@ -55,6 +56,7 @@
     if(!previewRoot)return;
     palette?.applyTo(doc);
     radius?.applyTo(doc);
+    density?.applyTo(doc);
     const previousMaterial=previewRoot.getAttribute('data-material');
     const previousButtonMaterial=previewRoot.getAttribute('data-button-material');
     for(const key of Object.keys(schema.values)){
@@ -77,6 +79,7 @@
   const apply=value=>{
     palette?.applyTo(document);
     radius?.applyTo(document);
+    density?.applyTo(document);
     const previousMaterial=root.getAttribute('data-material');
     const previousButtonMaterial=root.getAttribute('data-button-material');
     const choices=clean(value);
@@ -119,6 +122,21 @@
       if(radiusLinked)radiusLinked.checked=settings.linked;
       if(radiusCode)radiusCode.textContent=radius.css();
     };
+    const densityEditor=document.getElementById('custom-density-editor');
+    const densityFields=[...form.querySelectorAll('input[data-density-key]')];
+    const densityLinked=document.getElementById('density-linked');
+    const densityCode=document.getElementById('custom-density-css');
+    const renderDensity=()=>{
+      if(densityEditor)densityEditor.hidden=values().density!=='custom' || !density;
+      if(!density)return;
+      const settings=density.values();
+      for(const field of densityFields){
+        if(field.type==='range')field.max=String(Math.max(4,Math.ceil(settings[field.dataset.densityKey])));
+        if(document.activeElement!==field || field.type==='range')field.value=String(settings[field.dataset.densityKey]);
+      }
+      if(densityLinked)densityLinked.checked=settings.linked;
+      if(densityCode)densityCode.textContent=density.css();
+    };
     const editor=document.getElementById('custom-palette-editor');
     const paletteFields=[...form.querySelectorAll('input[type="color"][name^="palette-"]')];
     const paletteCode=document.getElementById('custom-palette-css');
@@ -145,11 +163,11 @@
       }
     };
     const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([,value])=>value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
-    const update=()=>{apply(values());renderPalette();renderRadius();if(summary)summary.textContent=configuration();};
+    const update=()=>{apply(values());renderPalette();renderRadius();renderDensity();if(summary)summary.textContent=configuration();};
     const restore=()=>{
       const saved=stored();
       palette?.restore();
-      radius?.restore();
+      radius?.restore();density?.restore();
       for(const control of controls){const key=control.name.slice(5);control.value=saved[key] || defaults[key];}
       update();
     };
@@ -157,6 +175,10 @@
     form.addEventListener('input',event=>{
       if(radiusFields.includes(event.target) && radius){
         if(radius.change(event.target.dataset.radius,event.target.value))update();
+        return;
+      }
+      if(densityFields.includes(event.target) && density){
+        if(density.change(event.target.dataset.densityKey,event.target.value))update();
         return;
       }
       if(!paletteFields.includes(event.target) || !palette)return;
@@ -170,6 +192,11 @@
         radius.change(event.target.dataset.radius,event.target.value);
         event.target.value=String(radius.values()[event.target.dataset.radius]);
       }
+      if(event.target===densityLinked && density)density.link(densityLinked.checked);
+      if(densityFields.includes(event.target) && density){
+        density.change(event.target.dataset.densityKey,event.target.value);
+        event.target.value=String(density.values()[event.target.dataset.densityKey]);
+      }
       if(paletteFields.includes(event.target) && palette){
         const [,mode,...parts]=event.target.name.split('-');
         palette.change(mode,parts.join('-'),event.target.value);
@@ -177,13 +204,14 @@
       update();
       const coloursSaved=palette?.save() ?? true;
       const radiusesSaved=radius?.save() ?? true;
+      const densitySaved=density?.save() ?? true;
       const choicesSaved=save(storageKey,values());
-      if(status)status.textContent=coloursSaved && radiusesSaved && choicesSaved?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
+      if(status)status.textContent=coloursSaved && radiusesSaved && densitySaved && choicesSaved?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
     });
     form.addEventListener('reset',()=>{
       for(const key of [storageKey,demoKey,docsKey,legacyDocsKey])clear(key);
       palette?.reset();
-      radius?.reset();
+      radius?.reset();density?.reset();
       setTimeout(()=>{update();if(status)status.textContent='Shared saved choices cleared. This page’s defaults are restored.';},0);
     });
     customizer={restore};
@@ -206,6 +234,20 @@
         if(status)status.textContent='Clipboard unavailable. Select and copy the radius CSS shown above.';
       }
     });
+    document.getElementById('export-custom-density')?.addEventListener('click',()=>{
+      if(!density)return;
+      downloadText(density.css(),'revacss-custom-density.css','text/css');
+      if(status)status.textContent='Density CSS exported. Load it after RevaCSS and use data-density="custom".';
+    });
+    document.getElementById('copy-custom-density')?.addEventListener('click',async()=>{
+      if(!density)return;
+      try{await navigator.clipboard.writeText(density.css());if(status)status.textContent='Density CSS copied.';}
+      catch{
+        const details=densityCode?.closest('details');if(details)details.open=true;
+        if(densityCode){const range=document.createRange();range.selectNodeContents(densityCode);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);densityCode.closest('pre')?.focus();}
+        if(status)status.textContent='Clipboard unavailable. Select and copy the density CSS shown above.';
+      }
+    });
     document.getElementById('export-custom-palette')?.addEventListener('click',()=>{
       if(!palette)return;
       downloadText(palette.css(),'revacss-custom-palette.css','text/css');
@@ -226,7 +268,7 @@
       copy.addEventListener('click',async()=>{
         try{
           await navigator.clipboard.writeText(configuration());
-          if(status)status.textContent=values().palette==='custom' || values().shape==='custom'?'HTML configuration copied. Export your custom palette/radius CSS and load it after RevaCSS.':'HTML configuration copied.';
+          if(status)status.textContent=values().palette==='custom' || values().shape==='custom' || values().density==='custom'?'HTML configuration copied. Export your custom palette/radius/density CSS and load it after RevaCSS.':'HTML configuration copied.';
         }catch{
           const details=summary?.closest('details');if(details)details.open=true;
           if(summary){const range=document.createRange();range.selectNodeContents(summary);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);summary.closest('pre')?.focus();}
@@ -250,8 +292,10 @@
         documentCopy.getElementById('reva-palette-defaults')?.remove();
         documentCopy.getElementById('reva-palette-runtime')?.remove();
         documentCopy.getElementById('reva-radius-runtime')?.remove();
+        documentCopy.getElementById('reva-density-runtime')?.remove();
         if(values().palette==='custom')palette?.applyTo(documentCopy);
         if(values().shape==='custom')radius?.applyTo(documentCopy);
+        if(values().density==='custom')density?.applyTo(documentCopy);
         const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+documentCopy.documentElement.outerHTML+'\n'],{type:'text/html'}));
         const download=document.createElement('a');download.href=url;download.download=link.download;
         document.body.append(download);download.click();download.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -299,9 +343,9 @@
   window.RevaSettings={initCustomizer,initTheme};
   document.addEventListener('DOMContentLoaded',()=>{initPreviews();initCustomizer();initTheme();initNavbarSpacing();});
   window.addEventListener('storage',event=>{
-    if(event.key===storageKey || event.key===palette?.storageKey || event.key===radius?.storageKey || event.key===null){
+    if(event.key===storageKey || event.key===palette?.storageKey || event.key===radius?.storageKey || event.key===density?.storageKey || event.key===null){
       if(customizer)customizer.restore();
-      else{palette?.restore();radius?.restore();apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
+      else{palette?.restore();radius?.restore();density?.restore();apply(stored());if(themeControl)themeControl.value=stored().theme || initialTheme;}
     }
   });
 })();

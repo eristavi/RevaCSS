@@ -1,6 +1,6 @@
 
 @layer re.components {
-  :where(.card) { min-inline-size: 0; padding: var(--re-card-padding, calc(var(--re-space) * 1.5)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); color: var(--re-text); box-shadow: var(--re-shadow); }
+  :where(.card) { min-inline-size: 0; padding: var(--re-card-padding, calc(var(--re-surface-space, var(--re-space)) * 1.5)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); color: var(--re-text); box-shadow: var(--re-shadow); }
   :where(.card > :first-child) { margin-block-start: 0; }
   :where(.card > :last-child) { margin-block-end: 0; }
   :where(.container) { inline-size: min(100% - 2rem, var(--re-container, 75rem)); margin-inline: auto; }

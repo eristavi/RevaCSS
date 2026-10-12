@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Custom density with separate base surface padding, control-padding multiplier and content spacing. Existing density presets reset all groups; surface hooks consume a dedicated padding token with the existing spacing fallback. Preserve minimum control heights and safe-area padding. Add linked/independent sliders and numeric inputs, saved choices, CSS copy/export and self-contained HTML downloads in the optional editor. Browser/device tests remain deferred.
+
 - Add Custom shape with separate surface, field and action radius tokens. Keep existing presets and local resets; let styled text fields consume the field radius with a surface-radius fallback. Add linked/independent sliders and numeric inputs, shared saved settings, CSS copy/export and self-contained HTML downloads in the optional editor. Core output remains CSS-only; browser/device tests remain deferred.
 
 - Simplify built-in palettes to Default and Mono. Remove the other 12 experimental palettes from tokens, generated global/scoped/modular CSS and current examples/controls. This is an intentional breaking source-preview change: migrate removed names to Default, Mono or a custom CSS palette. Published 1.2.1 downloads remain unchanged.

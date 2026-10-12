@@ -3,6 +3,7 @@ import {demoOptions, defaultDemo, sourceHref} from '../../data/demo-configuratio
 import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-settings.js';
 import CustomPaletteEditor from './CustomPaletteEditor.astro';
 import CustomRadiusEditor from './CustomRadiusEditor.astro';
+import CustomDensityEditor from './CustomDensityEditor.astro';
 import catalog from '../../../../src/icons/catalog.json';
 const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
 const base=import.meta.env.BASE_URL;
@@ -23,6 +24,7 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
         <div class="customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{optionLabel(value)}</option>)}</select></div>;})}</div></details>)}</div>
         <CustomPaletteEditor/>
         <CustomRadiusEditor/>
+        <CustomDensityEditor/>
       </form>
       <details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details>
       <p class="customizer-note">These controls use existing RevaCSS data attributes. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>
