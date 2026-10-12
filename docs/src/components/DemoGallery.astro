@@ -10,6 +10,7 @@ const base=import.meta.env.BASE_URL;
       : demo.kind==='dashboard' ? <div class="thumbnail-dashboard"><div class="thumbnail-rail"><span></span><span></span><span></span></div><div><div class="thumbnail-metrics"><span>24</span><span>86%</span><span>12</span></div><div class="thumbnail-chart">{[38,60,48,76,62,90].map(height=><span style={`--bar:${height}%`}></span>)}</div></div></div>
       : demo.kind==='shop' ? <div class="thumbnail-products">{['Lamp','Chair','Vase'].map((name,i)=><div><svg viewBox="0 0 80 70" fill="none"><path d={i===0?'M24 32 32 12h16l8 20H24Zm16 0v27m-14 0h28':i===1?'M25 10v28h30V10M25 29h30M29 38l-5 22m27-22 5 22':'M30 10h20l-4 14c18 20 13 36-6 36S16 44 34 24l-4-14Z'} stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span>{name}</span></div>)}</div>
       : demo.kind==='blueprint' ? <div class="thumbnail-blueprint"><span class="thumbnail-eyebrow">PIECES INTO PLACE</span><strong>Every piece.<br/>One possibility.</strong><div class="thumbnail-blueprint-pieces"><span></span><span></span><span></span></div></div>
+      : demo.kind==='effects-lab' ? <div class="thumbnail-effects"><span class="thumbnail-eyebrow">EXPERIMENTAL / CSS ONLY</span><strong>A little light.<br/>A little life.</strong><div class="thumbnail-effects-art"><span></span><span></span><span></span></div></div>
       : <div class="thumbnail-journal"><span class="thumbnail-eyebrow">THOUGHTFUL STORIES</span><strong>Room for<br/>better work.</strong><div class="thumbnail-story-art"><span></span><span></span><span></span></div></div>}
     </div>
     <div class="demo-gallery-copy"><h3><a href={base+demo.path}>{demo.title}</a></h3><p>{demo.description}</p><span class="demo-gallery-caption">Customize the appearance · Download the HTML</span></div>
@@ -56,6 +57,13 @@ const base=import.meta.env.BASE_URL;
 .thumbnail-blueprint-pieces span:nth-child(1) { inset-block-start:.5rem; inset-inline-end:.5rem; transform:rotate(-12deg); }
 .thumbnail-blueprint-pieces span:nth-child(2) { inset-block-start:3rem; inset-inline-end:1.5rem; background:color-mix(in srgb,var(--demo-thumbnail-accent) 20%,var(--re-surface)); transform:rotate(10deg); }
 .thumbnail-blueprint-pieces span:nth-child(3) { inset-block-end:.3rem; inset-inline-end:.2rem; transform:rotate(-6deg); }
+.thumbnail-effects { position:relative; block-size:9rem; }
+.thumbnail-effects strong { position:relative; z-index:1; display:block; font-size:1.65rem; line-height:1.1; letter-spacing:-.05em; }
+.thumbnail-effects-art { position:absolute; inset-block-start:.75rem; inset-inline-end:0; inline-size:45%; aspect-ratio:1; }
+.thumbnail-effects-art span { position:absolute; inset:10%; border:1px solid var(--demo-thumbnail-accent); border-radius:50%; }
+.thumbnail-effects-art span:nth-child(1) { transform:scaleY(.45) rotate(-35deg); }
+.thumbnail-effects-art span:nth-child(2) { transform:scaleY(.45) rotate(40deg); }
+.thumbnail-effects-art span:nth-child(3) { inset:30%; background:var(--demo-thumbnail-accent); }
 @media (width < 42rem) { .demo-gallery { grid-template-columns:minmax(0,1fr); } }
 @media (forced-colors:active) { .thumbnail-panel span,.thumbnail-action,.thumbnail-chart span,.thumbnail-story-art span { background:CanvasText; } }
 @media print { .demo-thumbnail { display:none; } .demo-gallery { display:block; } .demo-gallery-card { break-inside:avoid; margin-block-end:1rem; } }

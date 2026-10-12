@@ -1,0 +1,83 @@
+/* Layout/artwork for the experimental showcase. Not framework styling. */
+.effects-site { --ef-rule: var(--re-line); }
+.effects-site body { margin: 0; }
+.effects-site :where(.ef-kicker,.ef-number,.ef-art-caption) {
+  font: 600 .7rem/1.5 ui-monospace,monospace;
+  letter-spacing: .1em;
+  color: var(--re-muted);
+}
+.effects-site :where(.ef-intro) { padding-block: clamp(3rem,8vw,7rem) 3rem; }
+.effects-site :where(.ef-intro-grid) { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 3rem; }
+.effects-site :where(.ef-intro h1) { font-size: clamp(2.8rem,7vw,6.5rem); font-weight: 600; line-height: .98; letter-spacing: -.065em; margin-block: 1.5rem; color: var(--re-text); }
+.effects-site :where(.ef-intro h1 em) { font-weight: 450; color: var(--re-palette-link,var(--re-link)); }
+.effects-site :where(.ef-intro-copy > p:not(.ef-kicker)) { max-inline-size: 42ch; font-size: 1.1rem; color: var(--re-muted); }
+.effects-site :where(.ef-status) { display: inline-flex; align-items: center; gap: .65rem; border: 1px solid var(--ef-rule); padding: .45rem .75rem; border-radius: 999px; color: var(--re-text); font-size: .75rem; }
+.effects-site :where(.ef-status-dot) { inline-size: .45rem; aspect-ratio: 1; border-radius: 50%; background: var(--re-primary); flex: 0 0 auto; }
+.effects-site :where(.ef-intro-actions) { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-block: 2rem; }
+.effects-site :where(.ef-intro-actions > a) { min-block-size: 2.75rem; display: inline-flex; align-items: center; }
+.effects-site :where(.ef-hero-art) { position: relative; padding: 2rem; }
+.effects-site :where(.ef-hero-art svg) { display: block; inline-size: 100%; block-size: auto; }
+.effects-site :where(.ef-art-caption) { display: block; margin-block-start: 1rem; text-align: center; }
+.effects-site :where(.ef-intro-footer) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1rem; padding-block: 1.25rem; margin-block-start: 3rem; border-block: 1px solid var(--ef-rule); font-size: .8rem; color: var(--re-muted); }
+.effects-site :where(.ef-controls) { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.5rem; }
+.effects-site :where(.ef-controls p) { margin: 0; max-inline-size: 60ch; font-size: .9rem; color: var(--re-muted); }
+.effects-site :where(.ef-preview-toggle) { display: flex; align-items: center; padding: .4rem .9rem; border: 1px solid var(--re-control-line); border-radius: var(--re-button-radius); margin: 0; min-block-size: 2.75rem; cursor: pointer; }
+.effects-site :where(.ef-preview-toggle input) { flex: 0 0 auto; }
+.effects-site :where(.ef-preview-toggle:has(input:checked)) { background: var(--re-surface-alt); }
+.effects-site :where(.ef-section) { padding-block: clamp(2rem,6vw,5rem); border-block-start: 1px solid var(--ef-rule); }
+.effects-site :where(.ef-section-heading) { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 3rem; align-items: end; margin-block-end: 2rem; }
+.effects-site :where(.ef-section-heading h2) { font-size: clamp(2rem,4vw,3.5rem); font-weight: 550; letter-spacing: -.055em; line-height: 1.05; margin-block: .75rem 0; }
+.effects-site :where(.ef-section-heading > p) { max-inline-size: 43ch; margin: 0; color: var(--re-muted); }
+.effects-site :where(.ef-showcase) { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; padding: 1.5rem; border: 1px solid var(--ef-rule); border-radius: max(.5rem,var(--re-radius)); background: var(--re-surface-alt); }
+.effects-site :where(.ef-showcase > .card) { margin: 0; min-inline-size: 0; }
+.effects-site :where(.ef-card-content) { display: flex; flex-direction: column; block-size: 100%; }
+.effects-site :where(.ef-card-content h3) { font-size: clamp(1.4rem,2.5vw,2rem); margin-block: 1.25rem .6rem; letter-spacing: -.04em; }
+.effects-site :where(.ef-card-content > p) { max-inline-size: 36ch; color: var(--re-muted); }
+.effects-site :where(.ef-card-content > a) { display: inline-flex; align-items: center; align-self: start; min-block-size: 2.75rem; margin-block-start: auto; gap: 1rem; }
+.effects-site :where(.ef-art) { display: grid; place-items: center; position: relative; min-inline-size: 0; block-size: clamp(10rem,20vw,15rem); padding: 1rem; }
+.effects-site :where(.ef-art svg) { max-inline-size: 100%; max-block-size: 100%; inline-size: auto; block-size: 100%; }
+.effects-site :where(.ef-lens-art) { inline-size: min(85%,13rem); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 30% 30%,var(--re-surface) 0 5%,color-mix(in srgb,var(--re-primary) 16%,var(--re-surface)) 35%,color-mix(in srgb,var(--re-primary-end) 70%,var(--re-surface)) 85%); border: 1px solid color-mix(in srgb,var(--re-primary) 25%,var(--re-line)); box-shadow: inset .5rem .5rem 1.5rem color-mix(in srgb,var(--re-surface) 50%,transparent),inset -.5rem -.5rem 1.5rem color-mix(in srgb,var(--re-primary-end) 35%,transparent); }
+.effects-site :where(.ef-spring-art) { display: grid; gap: .65rem; inline-size: min(90%,15rem); }
+.effects-site :where(.ef-spring-art span) { display: block; block-size: 1.4rem; border: 1px solid var(--re-line); border-radius: min(.4rem,var(--re-radius)); background: var(--re-surface-alt); }
+.effects-site :where(.ef-spring-art span:nth-child(2)) { inline-size: 80%; background: color-mix(in srgb,var(--re-primary) 20%,var(--re-surface)); }
+.effects-site :where(.ef-spring-art span:nth-child(3)) { inline-size: 60%; background: var(--re-primary); }
+.effects-site :where(.ef-spring-stage) { background-image: linear-gradient(var(--ef-rule) 1px,transparent 1px); background-size: 100% 2rem; }
+.effects-site :where(.ef-layer-art) { isolation: isolate; }
+.effects-site :where(.ef-depth-back,.ef-depth-middle,.ef-depth-front) { position: absolute; inline-size: min(65%,13rem); aspect-ratio: 1.4; border: 1px solid var(--re-line); border-radius: var(--re-radius); pointer-events: none; }
+.effects-site :where(.ef-depth-back) { rotate: -12deg; background: var(--re-surface-alt); }
+.effects-site :where(.ef-depth-middle) { rotate: -3deg; background: color-mix(in srgb,var(--re-primary) 25%,var(--re-surface)); }
+.effects-site :where(.ef-depth-front) { rotate: 7deg; background: var(--re-primary); display: grid; place-items: center; }
+.effects-site :where(.ef-depth-front svg) { inline-size: 60%; block-size: 65%; color: var(--re-on-primary); }
+.effects-site :where(.ef-effect-note) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.5rem; margin-block-start: 1rem; font-size: .75rem; color: var(--re-muted); }
+.effects-site :where(.ef-compare) { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.effects-site :where(.ef-compare .card) { margin: 0; }
+.effects-site :where(.ef-compare .ef-art) { block-size: 12rem; }
+.effects-site :where(.ef-source-grid) { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; }
+.effects-site :where(.ef-source-grid > *) { min-inline-size: 0; }
+.effects-site :where(.ef-source-grid pre) { max-inline-size: 100%; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
+.effects-site :where(.ef-source-links) { padding-block: .5rem; }
+.effects-site :where(.ef-source-links li) { margin-block: .65rem; }
+.effects-site :where(.ef-footer) { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 1.5rem; border-block-start: 1px solid var(--ef-rule); font-size: .8rem; color: var(--re-muted); }
+.effects-site :where(.ef-footer a) { min-block-size: 2.75rem; display: inline-flex; align-items: center; }
+.effects-site :where(.ef-motion-note) { display: none; }
+.effects-site[data-motion="none"] :where(.ef-motion-note) { display: block; }
+@media (prefers-reduced-motion:reduce) { .effects-site :where(.ef-motion-note) { display: block; } }
+@media (width < 48rem) {
+  .effects-site :where(.ef-intro-grid,.ef-section-heading,.ef-source-grid) { grid-template-columns: minmax(0,1fr); gap: 1.5rem; }
+  .effects-site :where(.ef-hero-art) { max-inline-size: 23rem; margin-inline: auto; padding: 1rem; }
+  .effects-site :where(.ef-intro h1) { font-size: clamp(2.6rem,11vw,5rem); }
+  .effects-site :where(.ef-showcase,.ef-compare) { grid-template-columns: minmax(0,1fr); }
+  .effects-site :where(.ef-showcase) { padding: 1rem; }
+  .effects-site :where(.ef-art) { block-size: 12rem; }
+}
+@media (forced-colors:active) {
+  .effects-site :where(.ef-lens-art,.ef-depth-back,.ef-depth-middle,.ef-depth-front,.ef-spring-art span) { background: Canvas; color: CanvasText; border-color: CanvasText; box-shadow: none; }
+  .effects-site :where(.ef-hero-art,.ef-spring-stage) { background-image: none; }
+}
+@media print {
+  .effects-site :where(.ef-header,.ef-controls,.ef-hero-art,.ef-art) { display: none; }
+  .effects-site :where(.ef-intro,.ef-section) { padding-block: 1rem; }
+  .effects-site :where(.ef-intro-grid,.ef-section-heading,.ef-showcase,.ef-source-grid,.ef-compare) { display: block; }
+  .effects-site :where(.ef-showcase) { padding: 0; background: none; border: 0; }
+  .effects-site :where(.card) { margin-block: 1rem; }
+}

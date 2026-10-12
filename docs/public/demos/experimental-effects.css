@@ -1,0 +1,94 @@
+/* Experimental candidates, not a released RevaCSS API.
+   Demo boundary and ef-* classes are deliberately local to Effects Lab.
+   Native hover/focus/checkbox state drives all effects; no cursor tracking.
+   RevaCSS owns .card surfaces and materials. Decorations use separate spans
+   so they do not consume the pseudo-elements used by decorative edges. */
+.effects-site .ef-lab {
+  --ef-time: 380ms;
+  --ef-lift: -.35rem;
+  --ef-back: .35rem;
+  --ef-middle: -.25rem;
+  --ef-front: -.65rem;
+  --ef-ease: cubic-bezier(.2,.8,.2,1);
+}
+
+@supports (transition-timing-function: linear(0, 1.12, .97, 1)) {
+  .effects-site .ef-lab {
+    --ef-ease: linear(0, .3 12%, .78 30%, 1.08 50%, 1.035 65%, .99 82%, 1);
+  }
+}
+
+.effects-site[data-motion="expressive"] .ef-lab {
+  --ef-time: 560ms;
+  --ef-lift: -.65rem;
+  --ef-back: .6rem;
+  --ef-middle: -.4rem;
+  --ef-front: -1rem;
+}
+
+.effects-site .ef-effect {
+  position: relative;
+  isolation: isolate;
+}
+
+.effects-site .ef-light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 18% 15%, color-mix(in srgb, var(--re-primary) 22%, transparent), transparent 65%),
+    radial-gradient(ellipse at 90% 85%, color-mix(in srgb, var(--re-primary-end) 15%, transparent), transparent 65%);
+  opacity: 0;
+  transition: opacity var(--ef-time) ease;
+}
+
+.effects-site .ef-card-content { position: relative; z-index: 1; }
+.effects-site .ef-spring { translate: 0 0; transition: translate var(--ef-time) var(--ef-ease); }
+.effects-site :where(.ef-depth-back,.ef-depth-middle,.ef-depth-front) {
+  translate: 0 0;
+  transition: translate var(--ef-time) var(--ef-ease);
+}
+
+/* Hover is an enhancement for a fine pointer. Focus remains native and the
+   preview checkbox provides an equivalent, repeatable touch demonstration. */
+@media (hover: hover) and (pointer: fine) {
+  .effects-site .ef-aura:hover .ef-light { opacity: 1; }
+  .effects-site .ef-spring:hover { translate: 0 var(--ef-lift); }
+  .effects-site .ef-depth:hover .ef-depth-back { translate: 0 var(--ef-back); }
+  .effects-site .ef-depth:hover .ef-depth-middle { translate: 0 var(--ef-middle); }
+  .effects-site .ef-depth:hover .ef-depth-front { translate: 0 var(--ef-front); }
+}
+
+.effects-site .ef-aura:focus-within .ef-light,
+.effects-site .ef-lab:has(#ef-preview:checked) .ef-aura .ef-light { opacity: 1; }
+.effects-site .ef-spring:focus-within,
+.effects-site .ef-lab:has(#ef-preview:checked) .ef-spring { translate: 0 var(--ef-lift); }
+.effects-site .ef-depth:focus-within .ef-depth-back,
+.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-back { translate: 0 var(--ef-back); }
+.effects-site .ef-depth:focus-within .ef-depth-middle,
+.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-middle { translate: 0 var(--ef-middle); }
+.effects-site .ef-depth:focus-within .ef-depth-front,
+.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-front { translate: 0 var(--ef-front); }
+
+/* All movement becomes zero; useful static light feedback can remain. */
+.effects-site[data-motion="none"] .ef-lab {
+  --ef-time: 0ms; --ef-lift: 0rem; --ef-back: 0rem; --ef-middle: 0rem; --ef-front: 0rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .effects-site .ef-lab, .effects-site[data-motion] .ef-lab {
+    --ef-time: 0ms; --ef-lift: 0rem; --ef-back: 0rem; --ef-middle: 0rem; --ef-front: 0rem;
+  }
+}
+
+/* Decorative light yields to contrast and transparency preferences. */
+.effects-site[data-contrast="more"] .ef-light { display: none; }
+@media (prefers-contrast: more), (prefers-reduced-transparency: reduce), (forced-colors: active), print {
+  .effects-site .ef-light { display: none; }
+}
+@media (forced-colors: active), print {
+  .effects-site .ef-lab, .effects-site[data-motion] .ef-lab {
+    --ef-time: 0ms; --ef-lift: 0rem; --ef-back: 0rem; --ef-middle: 0rem; --ef-front: 0rem;
+  }
+}

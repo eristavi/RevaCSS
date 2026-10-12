@@ -1,0 +1,114 @@
+---
+import SettingsHead from '../SettingsHead.astro';
+import DemoTools from './DemoTools.astro';
+import TopMenu from '../TopMenu.astro';
+import {asset} from '../../data/assets.js';
+const {config,assetBase,preview=false}=Astro.props;
+const base=assetBase;
+const css=file=>preview?asset(file):base+file;
+const canonical=new URL(import.meta.env.BASE_URL+'demos/effects-lab/',import.meta.env.SITE || 'https://eristavi.github.io');
+const items=[{key:'experiments',label:'Experiments',href:'#experiments'},{key:'combined',label:'Together',href:'#combined'},{key:'source',label:'Take a closer look',href:'#source'}];
+const studies=[
+  {id:'aura',number:'01',title:'A little light.',name:'Aura',hook:'ef-aura',heading:'Quiet orbit',description:'A soft wash of palette colour appears across the surface. Light responds to attention, without changing the card’s material.',copy:'A gentle glow. The same familiar surface.',note:'Fixed gradient origins · No cursor tracking'},
+  {id:'spring',number:'02',title:'A sense of weight.',name:'Spring lift',hook:'ef-spring',heading:'Room to rise',description:'The card lifts, moves just beyond its resting point, then settles. A small gesture with a spring-like response.',copy:'A light lift. A soft landing.',note:'Predefined easing · No physics engine'},
+  {id:'depth',number:'03',title:'Another dimension.',name:'Layered depth',hook:'ef-depth',heading:'Different distances',description:'Three decorative layers move by different amounts. The artwork gains depth while text and links keep their place.',copy:'Separate layers. One shared rhythm.',note:'Decorative layers move · Content stays steady'}
+];
+---
+<!doctype html>
+<html lang="en" class="effects-site" data-theme={config.theme} data-palette={config.palette} data-material={config.material} data-shape={config.shape} data-motion={config.motion || 'subtle'} data-navbar-position={config['navbar-position']} data-navbar-spacing={config['navbar-spacing']} data-navbar-width={config['navbar-width']}>
+<head>
+  <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Effects Lab · RevaCSS</title>
+  <meta name="description" content="Explore Aura, Spring lift and Layered depth: three CSS-only experimental candidates for a future RevaCSS release."/>
+  <link rel="canonical" href={canonical}/><link rel="icon" type="image/svg+xml" href={base+'favicon.svg'}/>
+  <meta property="og:title" content="Effects Lab · RevaCSS"/><meta property="og:description" content="A little light. A little life. Three experiments in CSS-only interaction."/>
+  {preview && <SettingsHead kind="demo"/>}
+  {['reva-fonts.css','reva.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'].map(file=><link rel="stylesheet" href={css('reva/'+file)}/>)}
+  <link rel="stylesheet" href={css('demos/experimental-effects.css')}/>
+  <link rel="stylesheet" href={css('demos/effects-lab.css')}/>
+</head>
+<body id="demo-site">
+  {preview && <noscript><link rel="stylesheet" href={base+'customizer.css'}/></noscript>}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar-header container ef-header">
+    <TopMenu id="effects-lab" label="Effects Lab navigation" brand="RevaCSS / Effects Lab" brandHref={base+'demos/'} items={items}>
+      <Fragment slot="actions">{preview && <DemoTools config={config} downloadHref={base+'demos/effects-lab/source.html'} downloadName="effects-lab.html"/>}</Fragment>
+    </TopMenu>
+  </header>
+  <main id="main" class="ef-lab">
+    <section class="container ef-intro" aria-labelledby="effects-title">
+      <div class="ef-intro-grid">
+        <div class="ef-intro-copy">
+          <span class="ef-status"><span class="ef-status-dot" aria-hidden="true"></span>Experimental / Future release candidates</span>
+          <h1 id="effects-title">A little light.<br/>A little <em>life.</em></h1>
+          <p>Small interactions can change how an interface feels. Explore three studies in light, weight and depth.</p>
+          <div class="ef-intro-actions"><a class="button" href="#experiments">Explore the experiments <span aria-hidden="true">↓</span></a><a href="#source">About this collection</a></div>
+          <p class="ef-kicker">THREE STUDIES / NATIVE HTML + CSS</p>
+        </div>
+        <div class="ef-hero-art" aria-hidden="true">
+          <svg viewBox="0 0 440 400" fill="none">
+            <defs><linearGradient id="ef-orbit-gradient" x1="70" y1="50" x2="370" y2="350" gradientUnits="userSpaceOnUse"><stop stop-color="var(--re-primary)"/><stop offset="1" stop-color="var(--re-primary-end)"/></linearGradient></defs>
+            <circle cx="220" cy="200" r="175" stroke="var(--re-line)"/>
+            <path d="M10 200H430M220 10V390" stroke="var(--re-line)" stroke-dasharray="3 8"/>
+            <ellipse cx="220" cy="200" rx="165" ry="76" transform="rotate(-35 220 200)" stroke="url(#ef-orbit-gradient)" stroke-width="2"/>
+            <ellipse cx="220" cy="200" rx="135" ry="65" transform="rotate(40 220 200)" fill="var(--re-surface-alt)" stroke="var(--re-line)"/>
+            <circle cx="220" cy="200" r="76" fill="url(#ef-orbit-gradient)"/>
+            <circle cx="199" cy="179" r="30" fill="var(--re-surface)" fill-opacity=".18"/>
+            <circle cx="344" cy="109" r="12" fill="var(--re-primary)"/>
+            <circle cx="91" cy="288" r="7" fill="var(--re-primary-end)"/>
+          </svg>
+          <span class="ef-art-caption">LIGHT / WEIGHT / DEPTH</span>
+        </div>
+      </div>
+      <div class="ef-intro-footer"><span>01 / Aura</span><span>02 / Spring lift</span><span>03 / Layered depth</span><span>Demo only · No release commitment</span></div>
+    </section>
+    <div id="experiments" class="container ef-controls">
+      <div><p>Hover an interactive card or focus its link. On touch, use Preview effects to turn the responses on and off.</p><p class="ef-motion-note">Movement is disabled by your motion settings. Static lighting feedback remains available.</p></div>
+      <label class="ef-preview-toggle" for="ef-preview"><input id="ef-preview" class="switch" type="checkbox" role="switch"/>Preview effects</label>
+    </div>
+    {studies.map(study=><section id={study.id} class="container ef-section" aria-labelledby={`${study.id}-title`}>
+      <header class="ef-section-heading"><div><p class="ef-number">{study.number} / {study.name.toUpperCase()}</p><h2 id={`${study.id}-title`}>{study.title}</h2></div><p>{study.description}</p></header>
+      <div class:list={['ef-showcase',{'ef-spring-stage':study.id==='spring'}]}>
+        {[false,true].map(interactive=><article class:list={['card','ef-effect',{[study.hook]:interactive}]} aria-labelledby={`${study.id}-${interactive?'interactive':'reference'}-title`}>
+          {study.id==='aura' && <span class="ef-light" aria-hidden="true"></span>}
+          <div class="ef-card-content">
+            <p class="ef-kicker">{interactive?'INTERACTIVE CANDIDATE':'RESTING REFERENCE'}</p>
+            <div class:list={['ef-art',{'ef-layer-art':study.id==='depth'}]} aria-hidden="true">
+              {study.id==='aura' ? <span class="ef-lens-art"></span>
+              : study.id==='spring' ? <div class="ef-spring-art"><span></span><span></span><span></span></div>
+              : <><span class="ef-depth-back"></span><span class="ef-depth-middle"></span><span class="ef-depth-front"><svg viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="2"><circle cx="50" cy="40" r="24"/><path d="M15 40H85M50 5V75"/></svg></span></>}
+            </div>
+            <h3 id={`${study.id}-${interactive?'interactive':'reference'}-title`}>{study.heading}</h3>
+            <p>{study.copy}</p>
+            <a href={`#${study.id}-notes`}>Explore {study.name.toLowerCase()} <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>)}
+      </div>
+      <div id={`${study.id}-notes`} class="ef-effect-note"><span>{study.note}</span><span>Uses your selected palette and material</span></div>
+    </section>)}
+    <section id="combined" class="container ef-section" aria-labelledby="combined-title">
+      <header class="ef-section-heading"><div><p class="ef-number">04 / IN COMBINATION</p><h2 id="combined-title">Better together?</h2></div><p>A final study combines all three responses. Compare the quiet reference with the interactive card and decide how much movement feels right.</p></header>
+      <div class="ef-showcase">
+        {[false,true].map(interactive=><article class:list={['card','ef-effect',{'ef-aura ef-spring ef-depth':interactive}]} aria-labelledby={`combined-${interactive?'interactive':'reference'}-title`}>
+          <span class="ef-light" aria-hidden="true"></span>
+          <div class="ef-card-content">
+            <p class="ef-kicker">{interactive?'LIGHT + LIFT + DEPTH':'THE QUIET REFERENCE'}</p>
+            <div class="ef-art ef-layer-art" aria-hidden="true"><span class="ef-depth-back"></span><span class="ef-depth-middle"></span><span class="ef-depth-front"><svg viewBox="0 0 100 80" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 60V35a30 30 0 0 1 60 0v25M32 60V35a18 18 0 0 1 36 0v25M44 60V35a6 6 0 0 1 12 0v25"/></svg></span></div>
+            <h3 id={`combined-${interactive?'interactive':'reference'}-title`}>An interface with feeling.</h3>
+            <p>Palette colour, a gentle rebound and a little perspective.</p>
+            <a href="#source">Look behind the effects <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>)}
+      </div>
+    </section>
+    <section id="source" class="container ef-section" aria-labelledby="source-title">
+      <header class="ef-section-heading"><div><p class="ef-number">05 / THE OPEN LAB</p><h2 id="source-title">An idea in progress.</h2></div><p>Experimental effects — candidates for a future RevaCSS release. Their names and controls may change after feedback and validation.</p></header>
+      <div class="ef-source-grid">
+        <div class="card"><h3>Try the prototype.</h3><pre tabindex="0" role="region" aria-label="Experimental Aura HTML"><code>{'<html class="effects-site" data-theme="auto">\n  <!-- Load matching RevaCSS CSS, then experimental-effects.css. -->\n  <main class="ef-lab">\n    <article class="card ef-effect ef-aura">\n      <span class="ef-light" aria-hidden="true"></span>\n      <div class="ef-card-content">\n        <h2>Your own surface</h2>\n        <a href="#details">Explore the details</a>\n      </div>\n    </article>\n    <section id="details"><h2>Details</h2></section>\n  </main>\n</html>'}</code></pre><p>The draft classes are local to this demo. Aura uses separate decorative markup; it leaves the card’s material and decorative-edge hooks available.</p><details><summary>What the effects actually do</summary><p>Aura fades fixed gradients. Spring lift uses a predefined easing curve with a standard easing fallback. Layered depth translates decorative spans. None reads cursor coordinates or calculates live forces.</p></details></div>
+        <div class="ef-source-links"><h3>Keep the foundation small.</h3><ul><li>Effect CSS and showcase CSS are separate files.</li><li>Hover, keyboard focus and the Preview switch are native.</li><li>Motion None and reduced-motion preferences stop movement.</li><li>Contrast, transparency and print preferences have conservative fallbacks.</li><li>The existing customizer changes palettes, materials and motion. Its optional JavaScript is separate from the effects.</li></ul><p>Browser, touch-device and accessibility acceptance checks remain deferred. This showcase is for exploration, not a completed release or conformance claim.</p><a class="button" href={base+'demos/effects-lab/source.html'} download="effects-lab.html">Download starting HTML <span aria-hidden="true">↓</span></a><p><a href={base+'demos/experimental-effects.css'} download>Effect CSS</a> · <a href={base+'demos/effects-lab.css'} download>Showcase CSS</a></p><p>Download the linked RevaCSS assets too and update paths for your hosting. See the <a href={base+'guide/'}>installation guide</a> and <a href={base+'guide/custom-components/'}>custom-component contract</a>.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="container ef-footer"><a href={base}>RevaCSS</a><span>Effects Lab / Experimental collection</span><a href="#demo-site">Back to top ↑</a></footer>
+</body>
+</html>
