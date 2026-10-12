@@ -1,6 +1,7 @@
 /* Experimental candidates, not a released RevaCSS API.
    Demo boundary and ef-* classes are deliberately local to Effects Lab.
-   Native hover/focus/checkbox state drives all effects; no cursor tracking.
+   Native hover/keyboard-focus/button-press state drives all effects.
+   Press previews use a stationary sibling button; no cursor tracking.
    RevaCSS owns .card surfaces and materials. Decorations use separate spans
    so they do not consume the pseudo-elements used by decorative edges. */
 .effects-site .ef-lab {
@@ -41,18 +42,19 @@
     radial-gradient(ellipse at 18% 15%, color-mix(in srgb, var(--re-primary) 22%, transparent), transparent 65%),
     radial-gradient(ellipse at 90% 85%, color-mix(in srgb, var(--re-primary-end) 15%, transparent), transparent 65%);
   opacity: 0;
-  transition: opacity var(--ef-time) ease;
+  transition: opacity var(--ef-transition-time, var(--ef-time)) ease;
 }
 
 .effects-site .ef-card-content { position: relative; z-index: 1; }
-.effects-site .ef-spring { translate: 0 0; transition: translate var(--ef-time) var(--ef-ease); }
+.effects-site .ef-spring { translate: 0 0; transition: translate var(--ef-transition-time, var(--ef-time)) var(--ef-ease); }
 .effects-site :where(.ef-depth-back,.ef-depth-middle,.ef-depth-front) {
   translate: 0 0;
-  transition: translate var(--ef-time) var(--ef-ease);
+  transition: translate var(--ef-transition-time, var(--ef-time)) var(--ef-ease);
 }
 
-/* Hover is an enhancement for a fine pointer. Focus remains native and the
-   preview checkbox provides an equivalent, repeatable touch demonstration. */
+/* Hover is an enhancement for a fine pointer. Native keyboard focus and a
+   stationary press control provide alternatives. Touch focus alone must not
+   leave a preview latched on after release. */
 @media (hover: hover) and (pointer: fine) {
   .effects-site .ef-aura:hover .ef-light { opacity: 1; }
   .effects-site .ef-spring:hover { translate: 0 var(--ef-lift); }
@@ -61,16 +63,23 @@
   .effects-site .ef-depth:hover .ef-depth-front { translate: 0 var(--ef-front); }
 }
 
-.effects-site .ef-aura:focus-within .ef-light,
-.effects-site .ef-lab:has(#ef-preview:checked) .ef-aura .ef-light { opacity: 1; }
-.effects-site .ef-spring:focus-within,
-.effects-site .ef-lab:has(#ef-preview:checked) .ef-spring { translate: 0 var(--ef-lift); }
-.effects-site .ef-depth:focus-within .ef-depth-back,
-.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-back { translate: 0 var(--ef-back); }
-.effects-site .ef-depth:focus-within .ef-depth-middle,
-.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-middle { translate: 0 var(--ef-middle); }
-.effects-site .ef-depth:focus-within .ef-depth-front,
-.effects-site .ef-lab:has(#ef-preview:checked) .ef-depth .ef-depth-front { translate: 0 var(--ef-front); }
+.effects-site .ef-aura:has(:focus-visible) .ef-light,
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-aura .ef-light { opacity: 1; }
+.effects-site .ef-spring:has(:focus-visible),
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-spring { translate: 0 var(--ef-lift); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-back,
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-back { translate: 0 var(--ef-back); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-middle,
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-middle { translate: 0 var(--ef-middle); }
+.effects-site .ef-depth:has(:focus-visible) .ef-depth-front,
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-depth .ef-depth-front { translate: 0 var(--ef-front); }
+
+/* A quick entrance makes short touches visible. Release removes this override
+   and uses the normal, slower return. Every state sets one target per property;
+   a mouse click on a card link retains the existing hover response. */
+.effects-site .ef-specimen:has(> .ef-touch-preview:active) > .ef-effect {
+  --ef-transition-time: calc(var(--ef-time) * .25);
+}
 
 /* All movement becomes zero; useful static light feedback can remain. */
 .effects-site[data-motion="none"] .ef-lab {

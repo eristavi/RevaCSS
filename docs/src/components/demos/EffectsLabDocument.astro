@@ -63,13 +63,12 @@ const studies=[
       <div class="ef-intro-footer"><span>01 / Aura</span><span>02 / Spring lift</span><span>03 / Layered depth</span><span>Demo only · No release commitment</span></div>
     </section>
     <div id="experiments" class="container ef-controls">
-      <div><p>Hover an interactive card or focus its link. On touch, use Preview effects to turn the responses on and off.</p><p class="ef-motion-note">Movement is disabled by your motion settings. Static lighting feedback remains available.</p></div>
-      <label class="ef-preview-toggle" for="ef-preview"><input id="ef-preview" class="switch" type="checkbox" role="switch"/>Preview effects</label>
+      <div><p id="ef-press-help">Hover an interactive card or use Tab to focus its link. On touch, press and hold the preview button below it; release to animate back. Keyboard users can hold Space on that button.</p><p class="ef-motion-note">Movement is disabled by your motion settings. Static lighting feedback remains available.</p></div>
     </div>
     {studies.map(study=><section id={study.id} class="container ef-section" aria-labelledby={`${study.id}-title`}>
       <header class="ef-section-heading"><div><p class="ef-number">{study.number} / {study.name.toUpperCase()}</p><h2 id={`${study.id}-title`}>{study.title}</h2></div><p>{study.description}</p></header>
       <div class:list={['ef-showcase',{'ef-spring-stage':study.id==='spring'}]}>
-        {[false,true].map(interactive=><article class:list={['card','ef-effect',{[study.hook]:interactive}]} aria-labelledby={`${study.id}-${interactive?'interactive':'reference'}-title`}>
+        {[false,true].map(interactive=><div class="ef-specimen"><article class:list={['card','ef-effect',{[study.hook]:interactive}]} aria-labelledby={`${study.id}-${interactive?'interactive':'reference'}-title`}>
           {study.id==='aura' && <span class="ef-light" aria-hidden="true"></span>}
           <div class="ef-card-content">
             <p class="ef-kicker">{interactive?'INTERACTIVE CANDIDATE':'RESTING REFERENCE'}</p>
@@ -82,14 +81,16 @@ const studies=[
             <p>{study.copy}</p>
             <a href={`#${study.id}-notes`}>Explore {study.name.toLowerCase()} <span aria-hidden="true">↗</span></a>
           </div>
-        </article>)}
+        </article>
+        {interactive ? <button type="button" class="outline ef-touch-preview" aria-label={`Press and hold to preview ${study.name}`} aria-describedby="ef-press-help">Press and hold to preview</button> : <p class="ef-preview-caption">Reference · No effect</p>}
+        </div>)}
       </div>
       <div id={`${study.id}-notes`} class="ef-effect-note"><span>{study.note}</span><span>Uses your selected palette and material</span></div>
     </section>)}
     <section id="combined" class="container ef-section" aria-labelledby="combined-title">
       <header class="ef-section-heading"><div><p class="ef-number">04 / IN COMBINATION</p><h2 id="combined-title">Better together?</h2></div><p>A final study combines all three responses. Compare the quiet reference with the interactive card and decide how much movement feels right.</p></header>
       <div class="ef-showcase">
-        {[false,true].map(interactive=><article class:list={['card','ef-effect',{'ef-aura ef-spring ef-depth':interactive}]} aria-labelledby={`combined-${interactive?'interactive':'reference'}-title`}>
+        {[false,true].map(interactive=><div class="ef-specimen"><article class:list={['card','ef-effect',{'ef-aura ef-spring ef-depth':interactive}]} aria-labelledby={`combined-${interactive?'interactive':'reference'}-title`}>
           <span class="ef-light" aria-hidden="true"></span>
           <div class="ef-card-content">
             <p class="ef-kicker">{interactive?'LIGHT + LIFT + DEPTH':'THE QUIET REFERENCE'}</p>
@@ -98,14 +99,16 @@ const studies=[
             <p>Palette colour, a gentle rebound and a little perspective.</p>
             <a href="#source">Look behind the effects <span aria-hidden="true">↗</span></a>
           </div>
-        </article>)}
+        </article>
+        {interactive ? <button type="button" class="outline ef-touch-preview" aria-label="Press and hold to preview all three effects" aria-describedby="ef-press-help">Press and hold to preview</button> : <p class="ef-preview-caption">Reference · No effect</p>}
+        </div>)}
       </div>
     </section>
     <section id="source" class="container ef-section" aria-labelledby="source-title">
       <header class="ef-section-heading"><div><p class="ef-number">05 / THE OPEN LAB</p><h2 id="source-title">An idea in progress.</h2></div><p>Experimental effects — candidates for a future RevaCSS release. Their names and controls may change after feedback and validation.</p></header>
       <div class="ef-source-grid">
-        <div class="card"><h3>Try the prototype.</h3><pre tabindex="0" role="region" aria-label="Experimental Aura HTML"><code>{'<html class="effects-site" data-theme="auto">\n  <!-- Load matching RevaCSS CSS, then experimental-effects.css. -->\n  <main class="ef-lab">\n    <article class="card ef-effect ef-aura">\n      <span class="ef-light" aria-hidden="true"></span>\n      <div class="ef-card-content">\n        <h2>Your own surface</h2>\n        <a href="#details">Explore the details</a>\n      </div>\n    </article>\n    <section id="details"><h2>Details</h2></section>\n  </main>\n</html>'}</code></pre><p>The draft classes are local to this demo. Aura uses separate decorative markup; it leaves the card’s material and decorative-edge hooks available.</p><details><summary>What the effects actually do</summary><p>Aura fades fixed gradients. Spring lift uses a predefined easing curve with a standard easing fallback. Layered depth translates decorative spans. None reads cursor coordinates or calculates live forces.</p></details></div>
-        <div class="ef-source-links"><h3>Keep the foundation small.</h3><ul><li>Effect CSS and showcase CSS are separate files.</li><li>Hover, keyboard focus and the Preview switch are native.</li><li>Motion None and reduced-motion preferences stop movement.</li><li>Contrast, transparency and print preferences have conservative fallbacks.</li><li>The existing customizer changes palettes, materials and motion. Its optional JavaScript is separate from the effects.</li></ul><p>Browser, touch-device and accessibility acceptance checks remain deferred. This showcase is for exploration, not a completed release or conformance claim.</p><a class="button" href={base+'demos/effects-lab/source.html'} download="effects-lab.html">Download starting HTML <span aria-hidden="true">↓</span></a><p><a href={base+'demos/experimental-effects.css'} download>Effect CSS</a> · <a href={base+'demos/effects-lab.css'} download>Showcase CSS</a></p><p>Download the linked RevaCSS assets too and update paths for your hosting. See the <a href={base+'guide/'}>installation guide</a> and <a href={base+'guide/custom-components/'}>custom-component contract</a>.</p></div>
+        <div class="card"><h3>Try the prototype.</h3><pre tabindex="0" role="region" aria-label="Experimental Aura HTML"><code>{'<html class="effects-site" data-theme="auto">\n  <!-- Load matching RevaCSS CSS, then experimental-effects.css. -->\n  <main class="ef-lab">\n    <div class="ef-specimen">\n      <article class="card ef-effect ef-aura">\n        <span class="ef-light" aria-hidden="true"></span>\n        <div class="ef-card-content">\n          <h2>Your own surface</h2>\n          <a href="#details">Explore the details</a>\n        </div>\n      </article>\n      <button type="button" class="outline ef-touch-preview">\n        Press and hold to preview\n      </button>\n    </div>\n    <section id="details"><h2>Details</h2></section>\n  </main>\n</html>'}</code></pre><p>The draft classes are local to this demo. Keep the native preview button outside the moving card. Aura uses separate decorative markup; it leaves the card’s material and decorative-edge hooks available.</p><details><summary>What the effects actually do</summary><p>Aura fades fixed gradients. Spring lift uses a predefined easing curve with a standard easing fallback. Layered depth translates decorative spans. None reads cursor coordinates or calculates live forces.</p></details></div>
+        <div class="ef-source-links"><h3>Keep the foundation small.</h3><ul><li>Effect CSS and showcase CSS are separate files.</li><li>Hover, keyboard-visible focus and press-and-release previews are native.</li><li>Motion None and reduced-motion preferences stop movement.</li><li>Contrast, transparency and print preferences have conservative fallbacks.</li><li>The existing customizer changes palettes, materials and motion. Its optional JavaScript is separate from the effects.</li></ul><p>Browser, touch-device and accessibility acceptance checks remain deferred. This showcase is for exploration, not a completed release or conformance claim.</p><a class="button" href={base+'demos/effects-lab/source.html'} download="effects-lab.html">Download starting HTML <span aria-hidden="true">↓</span></a><p><a href={base+'demos/experimental-effects.css'} download>Effect CSS</a> · <a href={base+'demos/effects-lab.css'} download>Showcase CSS</a></p><p>Download the linked RevaCSS assets too and update paths for your hosting. See the <a href={base+'guide/'}>installation guide</a> and <a href={base+'guide/custom-components/'}>custom-component contract</a>.</p></div>
       </div>
     </section>
   </main>

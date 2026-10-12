@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Replace the Effects Lab's persistent preview switch with individual native press-and-hold buttons. Touch uses the same glow, lift and depth targets as hover, with a fast entrance and slower return on release. Stationary controls stay outside moving cards, normal links retain their actions, and visible keyboard focus avoids retaining touch focus after release. Core files remain unchanged; browser/device acceptance checks remain deferred.
+
 - Add Effects Lab, a demo-only CSS showcase for Aura, Spring lift and Layered depth, with resting comparisons, a combined study, keyboard-focus responses and a native touch-preview switch. Include matching downloadable HTML, separate effect/composition stylesheets, palette/material customisation and conservative preference fallbacks. Mark all three effects as future-release candidates without a release commitment; core styling and package archives remain unchanged. Browser, device and accessibility acceptance checks remain deferred.
 
 - Document the custom-component extension contract, public token usage, local overrides, custom palettes, material hooks and application responsibilities. Add an HTML/CSS-only project-summary starter, live documentation examples, downloadable files and generated AI reference. Core styling and published archives remain unchanged; browser, device and accessibility acceptance checks for this addition are deferred.

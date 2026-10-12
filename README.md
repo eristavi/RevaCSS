@@ -116,7 +116,7 @@ Explore complete websites, change their appearance with the customizer and downl
 | [Workspace · Dashboard](https://eristavi.github.io/RevaCSS/demos/dashboard/) | App shell, metrics, SVG charts and activity history |
 | [Fieldnotes · Journal](https://eristavi.github.io/RevaCSS/demos/blog/) | Articles, archives, categories and author profiles |
 | [Still · Shop](https://eristavi.github.io/RevaCSS/demos/shop/) | Catalogue, product pages, galleries and a sample bag |
-| [Effects Lab · Experimental](https://eristavi.github.io/RevaCSS/demos/effects-lab/) | CSS-only Aura, Spring lift and Layered depth, with native touch previews |
+| [Effects Lab · Experimental](https://eristavi.github.io/RevaCSS/demos/effects-lab/) | CSS-only Aura, Spring lift and Layered depth, with native press-and-release previews |
 
 Effects Lab contains candidates for a future release, with draft classes and separate demo stylesheets. It does not add a released effects API or commit these prototypes to the next version. Browser, device and accessibility acceptance checks remain deferred.
 
