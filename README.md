@@ -55,7 +55,7 @@ For starter HTML, optional stylesheets, icons and the bundled font, download the
 Place shared settings on `<html>` or a section. A local setting changes that choice while the remaining appearance settings continue to inherit through the CSS system.
 
 ```html
-<section data-theme="dark" data-palette="violet" data-size="large">
+<section data-theme="dark" data-palette="default" data-size="large">
   <button type="button">Save changes</button>
   <button type="button" class="secondary" data-size="small">Back</button>
 </section>
@@ -66,13 +66,17 @@ These example buttons demonstrate appearance. Connect application actions to you
 | Attribute | Supported choices |
 | --- | --- |
 | `data-theme` | `auto`, `light`, `dark` |
-| `data-palette` | `default`, `ocean`, `violet` and 11 other palettes |
+| `data-palette` | `default`, `mono` |
 | `data-shape` | `square`, `subtle`, `rounded`, `pill` |
 | `data-density` | `compact`, `comfortable`, `spacious` |
 | `data-size` | `small`, `medium`, `large` |
 | `data-motion` | `none`, `subtle`, `expressive` |
 
 Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/), [inheritance guide](https://eristavi.github.io/RevaCSS/guide/styling/) and [public CSS tokens](https://eristavi.github.io/RevaCSS/reference/tokens/).
+
+Only Default and Mono are built in. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
+
+Veil is deprecated for both surfaces and buttons. Its global/scoped stylesheets and attribute values remain available for existing sites; prefer Solid, Glass or Soft UI for new work.
 
 ### Add your own components
 
@@ -92,7 +96,7 @@ The core includes forms and actions, cards and layouts, navigation and disclosur
 
 See the [component API](https://eristavi.github.io/RevaCSS/reference/components/) for markup, dependencies and behaviour boundaries.
 
-Optional stylesheets add [Glass](https://eristavi.github.io/RevaCSS/themes/glass/), [Veil](https://eristavi.github.io/RevaCSS/themes/veil/), [Soft UI](https://eristavi.github.io/RevaCSS/themes/soft/), [button materials](https://eristavi.github.io/RevaCSS/themes/button-materials/), [motion](https://eristavi.github.io/RevaCSS/guide/motion/) and [enhanced native selects](https://eristavi.github.io/RevaCSS/components/selects/). Load an extension after the matching core:
+Optional stylesheets add [Glass](https://eristavi.github.io/RevaCSS/themes/glass/), [Veil (deprecated)](https://eristavi.github.io/RevaCSS/themes/veil/), [Soft UI](https://eristavi.github.io/RevaCSS/themes/soft/), [button materials](https://eristavi.github.io/RevaCSS/themes/button-materials/), [motion](https://eristavi.github.io/RevaCSS/guide/motion/) and [enhanced native selects](https://eristavi.github.io/RevaCSS/components/selects/). Load an extension after the matching core:
 
 ```html
 <link rel="stylesheet" href="reva.min.css">

@@ -1,4 +1,5 @@
 @scope (.reva) {
+/* Deprecated: retained for existing sites. Prefer Solid, Glass or Soft UI. */
 /* Optional Veil material: clear centres, diffused perimeter colour and two
    contained contours. No blur, pseudo-elements, texture assets or JavaScript. */
 @layer re.tokens {

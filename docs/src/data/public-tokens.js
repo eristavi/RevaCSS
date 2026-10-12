@@ -25,8 +25,8 @@ export const publicTokens = [
   ["Navigation", "--re-navbar-z", "Integer", "Sticky header stacking level; default 30. Native top-layer overlays remain above it."],
   ["Navigation", "--re-navbar-width", "Length or percentage", "Layout width; standard 100%, floating min(100% - 2rem, page width). data-navbar-width=full overrides the surface width."],
   ["Navigation", "--re-navbar-margin", "Length", "Layout block margin; standard 0, floating 1rem. data-navbar-spacing=flush removes it."],
-  ["Veil", "--re-veil-opacity", "Percentage", "Surface backing; 94% default. Accessibility fallbacks use opaque backing."],
-  ["Veil", "--re-veil-strength", "Number, 0–1", "Perimeter colour and contour strength; 1 default. More contrast removes decoration."],
+  ["Veil (deprecated)", "--re-veil-opacity", "Percentage", "Surface backing; 94% default. Accessibility fallbacks use opaque backing."],
+  ["Veil (deprecated)", "--re-veil-strength", "Number, 0–1", "Perimeter colour and contour strength; 1 default. More contrast removes decoration."],
   ["Navigation", "--re-dropdown-width", "Length", "Standalone dropdown width; 18rem fallback, bounded by viewport"],
   [
     "Palette",

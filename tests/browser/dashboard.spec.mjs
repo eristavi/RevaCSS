@@ -28,7 +28,7 @@ test.describe('dashboard native operation',()=>{
   await expect(page.getByRole('img',{name:'Monthly revenue, April to September 2026'})).toBeVisible();
   await expect(page.getByRole('img',{name:'Revenue share by channel'})).toBeVisible();
   await page.getByRole('button',{name:'Customize',exact:true}).click();await settle(page.locator('#demo-customizer-popup'));
-  await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('ocean');
+  await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('default');
   await page.locator('#demo-material').selectOption('glass');
   await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();
   await expect(page.locator('#demo-customizer-popup')).toBeHidden();

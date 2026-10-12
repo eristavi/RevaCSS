@@ -20,10 +20,10 @@ for(const build of ['global','minified','modular','scoped']) test(`${build} pale
   expect(await rgba(page,'#local','backgroundColor')).toEqual(hex(palettes.mono[mode].primary));
   expect(await rgba(page,'#success','color')).toEqual(hex(roles[mode]['on-success']));
  }
- await page.locator(root).evaluate(el=>{el.dataset.palette='citrus';el.dataset.accent='violet';el.dataset.tone='warm';});
+ await page.locator(root).evaluate(el=>{el.dataset.palette='default';el.dataset.accent='violet';el.dataset.tone='warm';});
  expect(await rgba(page,'#primary','color')).toEqual([255,255,255,255]);
  expect(await rgba(page,'#primary','backgroundColor')).toEqual([112,65,207,255]);
- expect(await rgba(page,'#link','color')).toEqual(hex(palettes.citrus.dark.link));
+ expect(await rgba(page,'#link','color')).toEqual(hex(palettes.default.dark.link));
  expect(await rgba(page,'#local','backgroundColor')).toEqual(hex(palettes.mono.dark.primary));
  expect(await page.locator('#local').evaluate(el=>getComputedStyle(el).fontSize)).toBe('18px');
 });

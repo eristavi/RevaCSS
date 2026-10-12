@@ -47,14 +47,14 @@ const resultTemplate=`Device model:\nOS version / browser version:\nPage build r
 <section id="device-glass"><h2>Glass transmission, corners and native controls</h2>
 <p>The broad colour bands are a test backdrop. Compare the glass card with its solid exception. The glass should transmit a softened tint; the solid card should conceal the pattern.</p>
 <div class="grid">
-{['light','dark'].map(theme=><section class="device-backdrop stack" data-theme={theme} data-material="glass" data-palette="ocean" data-shape="rounded" aria-label={`${theme} glass comparison`}>
+{['light','dark'].map(theme=><section class="device-backdrop stack" data-theme={theme} data-material="glass" data-palette="default" data-shape="rounded" aria-label={`${theme} glass comparison`}>
  <article class="card" id={`device-glass-${theme}`}><h3>{theme==='light'?'Light':'Dark'} glass</h3><p>Inspect all four corners and the gap between cards.</p>
   <button type="button" popovertarget={`device-glass-response-${theme}`}>Open glass response</button>
   <div id={`device-glass-response-${theme}`} popover><h4>Glass response</h4><p>The action opened this native popover.</p><button type="button" popovertarget={`device-glass-response-${theme}`} popovertargetaction="hide">Close response</button></div>
   <label for={`device-input-${theme}`}>Editable native input</label><input id={`device-input-${theme}`} value="Sample text"/>
   <label for={`device-select-${theme}`}>Native select</label><select id={`device-select-${theme}`}><option>First option</option><option>Second option</option></select>
  </article>
- <article class="card" data-material="solid" id={`device-solid-${theme}`}><h3>Solid exception</h3><p>The shared Ocean palette stays in effect.</p><a href={base+'guide/styling/'}>Palette and inheritance guide</a></article>
+ <article class="card" data-material="solid" id={`device-solid-${theme}`}><h3>Solid exception</h3><p>The shared Default palette stays in effect.</p><a href={base+'guide/styling/'}>Palette and inheritance guide</a></article>
 </section>)}
 </div>
 <ol class="device-checklist"><li><strong>G1 — Material.</strong> Compare both themes: the colour bands are softened through glass, while solid exceptions remain opaque. If blur is unsupported or a transparency preference is exposed, an opaque fallback is acceptable; record that condition.</li><li><strong>G2 — Shape and paint.</strong> No square patches protrude from rounded corners, borders join cleanly, and the gap between cards shows the backdrop. Labels and primary actions remain readable.</li><li><strong>G3 — Interaction and scroll.</strong> Open and dismiss the glass response, edit the input and use the native select. Scroll with the keyboard shown and hidden. Controls stay reachable; note visible stutter or flashing while scrolling.</li></ol>

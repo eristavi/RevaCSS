@@ -50,12 +50,14 @@ The form destination above is a placeholder: replace it with your application's 
 
 For an application-defined component, read [CUSTOM_COMPONENTS.md](CUSTOM_COMPONENTS.md) or the generated `/ai/custom-components.md` reference under the documentation site's base path. Reuse existing hooks when appropriate, consume public tokens and keep application classes separate from the framework API. Colour-token inheritance alone does not apply materials to arbitrary elements. The complete starter adds no browser JavaScript and is a documentation example, not a new shipped core component.
 
+Built-in palettes are `default` and `mono` only. Custom palettes remain ordinary CSS. Veil surface and button materials are deprecated and retained for existing sites; avoid them in new interfaces.
+
 Put shared appearance settings on `html`, or on a documented local boundary when only one section should change. Add local overrides only for intentional exceptions.
 
 ```html
 <html lang="en"
       data-theme="auto"
-      data-palette="forest"
+      data-palette="mono"
       data-shape="rounded"
       data-density="comfortable">
 ```
@@ -90,9 +92,9 @@ Use progressive enhancement for modern CSS. Follow the documented browser suppor
 
 **Build a landing page:** “Use RevaCSS and its current AI reference to create a responsive HTML landing page. Use native HTML, shared appearance attributes and documented component structures. Include pricing, an FAQ and a labelled contact form. Identify the form endpoint I need to connect.”
 
-**Adapt a demo:** “Start from the RevaCSS shop demo. Preserve its native navigation and component markup. Replace the fictional products with my catalogue, use the forest palette and keep system light/dark mode. Show where product data and checkout should connect.”
+**Adapt a demo:** “Start from the RevaCSS shop demo. Preserve its native navigation and component markup. Replace the fictional products with my catalogue, use the mono palette and keep system light/dark mode. Show where product data and checkout should connect.”
 
-**Change the appearance:** “Update my RevaCSS page to use the ocean palette and a spacious density through shared settings. Preserve local semantic states and accessibility fallbacks. Use only values supported by the current reference.”
+**Change the appearance:** “Update my RevaCSS page to use the default palette and a spacious density through shared settings. Preserve local semantic states and accessibility fallbacks. Use only values supported by the current reference.”
 
 **Review generated code:** “Compare this page with the RevaCSS component contracts. Flag unsupported attributes, missing extensions, duplicate IDs, placeholder destinations and missing labels. Follow my project's instructions about when to run tests.”
 

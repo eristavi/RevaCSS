@@ -16,6 +16,7 @@
     if(value && typeof value==='object' && !Array.isArray(value)){
       for(const [key,allowed] of Object.entries(schema.values)){
         if(typeof value[key]==='string' && allowed.includes(value[key]))result[key]=value[key];
+        else if(key==='palette' && typeof value[key]==='string')result[key]='default';
       }
     }
     return result;
