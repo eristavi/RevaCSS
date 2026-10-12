@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="auto" data-palette="default" data-shape="rounded">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Custom component starter · RevaCSS</title>
+  <link rel="stylesheet" href="../dist/reva.css">
+  <link rel="stylesheet" href="../dist/reva.glass.css">
+  <link rel="stylesheet" href="custom-components.css">
+</head>
+<body id="page-top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="container stack">
+    <h1>One component, shared appearance</h1>
+    <p>This application component reuses the card surface and native HTML. Change the settings on html to configure the inherited example; the local light and dark examples keep their explicit modes.</p>
+    <section class="stack" aria-labelledby="inherited-heading">
+      <h2 id="inherited-heading">Inherited appearance</h2>
+      <article class="card stack project-summary" aria-labelledby="inherited-title">
+        <p class="project-summary-label">Website project</p>
+        <h3 id="inherited-title" class="project-summary-title">Your next interface</h3>
+        <p>Build a custom component once and let its parent provide the appearance.</p>
+        <dl class="project-summary-meta">
+          <div><dt>Status</dt><dd>Ready for review</dd></div>
+          <div><dt>Owner</dt><dd>Design team</dd></div>
+        </dl>
+        <details>
+          <summary>Component notes</summary>
+          <p>The card owns the surface. Custom CSS adds content layout and supporting text, without replacing material or focus styling.</p>
+        </details>
+        <a href="#component-notes">Read the extension notes</a>
+      </article>
+    </section>
+    <div class="grid">
+      <section class="stack" data-theme="light" aria-labelledby="light-heading">
+        <h2 id="light-heading">Local light mode</h2>
+        <article class="card stack project-summary" aria-labelledby="light-title">
+          <p class="project-summary-label">Website project</p>
+          <h3 id="light-title" class="project-summary-title">Your next interface</h3>
+          <p>The mode changes here; palette, shape and density still inherit.</p>
+          <dl class="project-summary-meta">
+            <div><dt>Status</dt><dd>Ready for review</dd></div>
+            <div><dt>Owner</dt><dd>Design team</dd></div>
+          </dl>
+          <a href="#component-notes">Read the extension notes</a>
+        </article>
+      </section>
+      <section class="stack" data-theme="dark" aria-labelledby="dark-heading">
+        <h2 id="dark-heading">Local dark mode</h2>
+        <article class="card stack project-summary" aria-labelledby="dark-title">
+          <p class="project-summary-label">Website project</p>
+          <h3 id="dark-title" class="project-summary-title">Your next interface</h3>
+          <p>The same component and stylesheet work in either mode.</p>
+          <dl class="project-summary-meta">
+            <div><dt>Status</dt><dd>Ready for review</dd></div>
+            <div><dt>Owner</dt><dd>Design team</dd></div>
+          </dl>
+          <a href="#component-notes">Read the extension notes</a>
+        </article>
+      </section>
+    </div>
+    <section class="stack" data-material="glass" aria-labelledby="glass-heading">
+      <h2 id="glass-heading">Inherited glass material</h2>
+      <article class="card stack project-summary" aria-labelledby="glass-title">
+        <p class="project-summary-label">Website project</p>
+        <h3 id="glass-title" class="project-summary-title">Your next interface</h3>
+        <p>Glass applies to the existing card hook. Unsupported filtering and accessibility preferences use the material module's fallbacks.</p>
+        <a href="#component-notes">Read the extension notes</a>
+      </article>
+    </section>
+    <section id="component-notes" class="stack" aria-labelledby="notes-heading">
+      <h2 id="notes-heading">Extension notes</h2>
+      <p>Load custom-components.css after RevaCSS. Keep the component's card class to inherit material styling. Use unique heading IDs for every instance and replace these demonstration links with real application destinations.</p>
+      <p>Change html's data-theme to light, dark or auto. Change data-palette to a documented palette, or load your exported custom palette after the framework. Adding components and saving preferences belong to your application.</p>
+      <p>This is an HTML/CSS reference example. Browser, device and accessibility acceptance checks for this addition are deferred; a successful build does not establish conformance.</p>
+      <a href="#page-top">Back to top</a>
+    </section>
+  </main>
+</body>
+</html>

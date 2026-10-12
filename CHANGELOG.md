@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Document the custom-component extension contract, public token usage, local overrides, custom palettes, material hooks and application responsibilities. Add an HTML/CSS-only project-summary starter, live documentation examples, downloadable files and generated AI reference. Core styling and published archives remain unchanged; browser, device and accessibility acceptance checks for this addition are deferred.
+
 - Clarify Living Blueprint's static fallback when required scroll animation features are unavailable, including default Firefox settings. Show intensity controls only when the assembly can animate, check named view timeline support, and use a nonzero scroll animation duration for compatible Firefox implementations. Core styles remain unchanged; browser tests remain deferred.
 
 - Add Living Blueprint, an original demo-only scroll composition with inherited class-based movement, ten intensity and zoom levels, eight directions, rotation, fade and phased assembly. Include a quieter depth example, native intensity controls, downloadable HTML and responsive/preference fallbacks. Effects and composition CSS are isolated from the core; browser and device tests remain deferred.

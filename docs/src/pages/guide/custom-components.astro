@@ -1,0 +1,49 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Example from '../../components/Example.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+import {Content} from '../../../../CUSTOM_COMPONENTS.md';
+import starterHTML from '../../../../examples/custom-components.html?raw';
+import extensionCSS from '../../../../examples/custom-components.css?raw';
+const base=import.meta.env.BASE_URL;
+const componentHTML=starterHTML.match(/      <article class="card stack project-summary"[\s\S]*?      <\/article>/)[0].replaceAll('inherited-title','example-project-title').replaceAll('#component-notes','#the-extension-contract');
+const modeHTML='<div class="grid">\n'+['light','dark'].map(mode=>`  <section data-theme="${mode}">\n${componentHTML.replaceAll('example-project-title',`${mode}-project-title`)}\n  </section>`).join('\n')+'\n</div>';
+const downloadHTML=starterHTML.replaceAll('../dist/','dist/');
+const sections=[
+  {id:'the-extension-contract',title:'Extension contract'},
+  {id:'tokens-to-use',title:'Theme tokens'},
+  {id:'appearance-and-local-overrides',title:'Local overrides'},
+  {id:'custom-palettes-and-materials',title:'Palettes and materials'},
+  {id:'live-inherited',title:'Live example'},
+  {id:'downloads',title:'Starter files'}
+];
+---
+<DocsLayout title="Building custom components" active="custom-components" sections={sections}>
+  <style is:inline set:html={extensionCSS}/>
+  <p class="doc-kicker">LEARN / EXTENDING REVACSS</p>
+  <div class="extension-guide"><Content/></div>
+  <Example id="live-inherited" title="A custom component with inherited appearance" description="Use Customize to change the page appearance. The application class adds content styling; the existing card surface and native content consume the shared settings." html={componentHTML}/>
+  <Example id="live-modes" title="The same component in light and dark mode" description="Each section overrides only its colour mode. Choose a palette or shape in Customize to see the other settings continue to inherit." html={modeHTML}/>
+  <Example id="live-material" title="Reuse the card material" description="The optional Glass stylesheet recognises the existing card hook. Application CSS does not replace its surface, so material preferences and fallbacks remain available." glass html={'<section data-material="glass">\n'+componentHTML.replaceAll('example-project-title','glass-project-title')+'\n</section>'}/>
+  <section id="downloads">
+    <h2>Download the starter files</h2>
+    <p>Save both files in the same project folder, next to the <code>dist/</code> directory from your matching RevaCSS distribution. The HTML loads <code>dist/reva.css</code> and <code>dist/reva.glass.css</code>. Other materials need their own optional stylesheets. These starter files are source examples; the published package archives remain unchanged.</p>
+    <div class="row">
+      <a class="button" href={base+'guide/custom-components/starter.html'} download="custom-components.html">Download starter HTML</a>
+      <a class="button outline" href={base+'guide/custom-components/custom-components.css'} download="custom-components.css">Download component CSS</a>
+    </div>
+    <p><a href={base+'ai/custom-components.md'}>Read the complete extension reference in Markdown</a>. For installation and version availability, use <a href={base+'guide/'}>Get started</a>.</p>
+    <CodeViewer id="extension-css" lang="css" label="Custom component stylesheet" code={extensionCSS}/>
+    <details class="doc-summary"><summary>Complete starter HTML</summary><CodeViewer id="extension-html" label="Complete custom component starter" code={downloadHTML}/></details>
+    <p class="doc-note">This addition has build verification only. Browser, device and accessibility acceptance checks remain deferred.</p>
+  </section>
+</DocsLayout>
+<style>
+.extension-guide :global(h1) { margin-block-start:.4rem; }
+.extension-guide :global(h2) { margin-block-start:2rem; }
+.extension-guide :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.extension-guide :global(code) { overflow-wrap:anywhere; }
+.extension-guide :global(pre code) { overflow-wrap:normal; }
+.extension-guide :global(table) { table-layout:fixed; }
+.extension-guide :global(th), .extension-guide :global(td) { overflow-wrap:anywhere; }
+</style>

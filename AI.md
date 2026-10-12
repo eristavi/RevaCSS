@@ -48,6 +48,8 @@ The form destination above is a placeholder: replace it with your application's 
 
 ## Configure shared defaults
 
+For an application-defined component, read [CUSTOM_COMPONENTS.md](CUSTOM_COMPONENTS.md) or the generated `/ai/custom-components.md` reference under the documentation site's base path. Reuse existing hooks when appropriate, consume public tokens and keep application classes separate from the framework API. Colour-token inheritance alone does not apply materials to arbitrary elements. The complete starter adds no browser JavaScript and is a documentation example, not a new shipped core component.
+
 Put shared appearance settings on `html`, or on a documented local boundary when only one section should change. Add local overrides only for intentional exceptions.
 
 ```html

@@ -74,6 +74,10 @@ These example buttons demonstrate appearance. Connect application actions to you
 
 Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/), [inheritance guide](https://eristavi.github.io/RevaCSS/guide/styling/) and [public CSS tokens](https://eristavi.github.io/RevaCSS/reference/tokens/).
 
+### Add your own components
+
+Use native HTML and documented tokens, and extend an existing surface such as `.card` when it fits. Custom components can inherit light/dark/system mode, palettes and shared geometry; supported materials apply through documented hooks. Read the [extension contract](CUSTOM_COMPONENTS.md) or the [online guide and downloadable starter](https://eristavi.github.io/RevaCSS/guide/custom-components/). The HTML/CSS-only example lives in [examples/custom-components.html](examples/custom-components.html), with [its application stylesheet](examples/custom-components.css). Component data, actions and saved user preferences belong to your application.
+
 ## Components and extensions
 
 The core includes forms and actions, cards and layouts, navigation and disclosures, tables, status indicators and content patterns. Shared settings apply to supported components without a separate styling vocabulary for each one.

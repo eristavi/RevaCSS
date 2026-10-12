@@ -261,6 +261,7 @@ export const learnLinks = [
  { key:'comparison', title:'Framework comparison', path:'guide/comparison/' },
  { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
+ { key:'custom-components', title:'Building custom components', path:'guide/custom-components/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
  { key:'effects', title:'Effects and state feedback', path:'guide/effects/' },
  { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },

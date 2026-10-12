@@ -1,0 +1,36 @@
+/* Application extension: load after the matching RevaCSS stylesheets.
+   .card owns the surface, material, shape and preference fallbacks.
+   These rules add only project-specific content styling. */
+.project-summary {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-summary > .project-summary-label {
+  color: var(--re-muted);
+  font-size: .875em;
+}
+
+.project-summary > .project-summary-title {
+  font-size: var(--project-summary-title-size, 1.4em);
+}
+
+.project-summary > .project-summary-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  gap: var(--re-space);
+  margin: 0;
+}
+
+.project-summary-meta > div {
+  min-inline-size: 0;
+}
+
+.project-summary-meta :where(dt, dd) {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.project-summary-meta dt {
+  font-size: .875em;
+}
