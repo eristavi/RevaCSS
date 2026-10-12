@@ -63,7 +63,7 @@ export const attributes = [
   {
     "id": "density",
     "title": "data-density",
-    "description": "Surface padding, control padding, table cells and layout spacing. Default: comfortable. Scope: Inherited.",
+    "description": "Surface padding, control padding, table cells and layout spacing. Custom separates base surface padding, control-padding multiplier and content spacing; local Compact/Comfortable/Spacious presets reset all groups. Minimum control heights remain in place. Default: comfortable. Scope: Inherited.",
     "html": "<div class=\"grid\">\n  <section data-density=\"compact\"><article class=\"card\"><h3>Compact</h3><p>A local density setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-density=\"comfortable\"><article class=\"card\"><h3>Comfortable</h3><p>A local density setting.</p><button type=\"button\">Action</button></article></section>\n  <section data-density=\"spacious\"><article class=\"card\"><h3>Spacious</h3><p>A local density setting.</p><button type=\"button\">Action</button></article></section>\n</div>",
     "glass": false
   },

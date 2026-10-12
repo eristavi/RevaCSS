@@ -68,7 +68,7 @@ These example buttons demonstrate appearance. Connect application actions to you
 | `data-theme` | `auto`, `light`, `dark` |
 | `data-palette` | `default`, `mono` |
 | `data-shape` | `square`, `subtle`, `rounded`, `pill`, `custom` |
-| `data-density` | `compact`, `comfortable`, `spacious` |
+| `data-density` | `compact`, `comfortable`, `spacious`, `custom` |
 | `data-size` | `small`, `medium`, `large` |
 | `data-motion` | `none`, `subtle`, `expressive` |
 
@@ -93,6 +93,22 @@ Choose **Customize → Surfaces → Shape → Custom** to set surface, field and
 ```
 
 Use `data-shape="custom"` on your page or a parent. Existing Square, Subtle, Rounded and Pill presets remain available and reset the three groups locally.
+
+### Choose your own spacing
+
+Choose **Customize → Layout → Density → Custom** for linked or independent surface padding, control padding and content spacing. Surface padding and content spacing use rem; control padding is a multiplier of the existing comfortable padding. Cards scale base surface padding by 1.5. Minimum control heights remain in place. Choices persist across pages and are included in CSS/HTML exports.
+
+```css
+@layer re.tokens {
+  :where([data-density="custom"]) {
+    --re-custom-surface-padding: 1.2rem;
+    --re-custom-control-density: .8;
+    --re-custom-content-space: .6rem;
+  }
+}
+```
+
+Use `data-density="custom"` on your page or a parent. Compact, Comfortable and Spacious reset all three groups locally. Layout Gap remains a separate setting that scales layout gaps.
 
 ### Planned personalized build
 

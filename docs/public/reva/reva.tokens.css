@@ -61,9 +61,10 @@
 :where([data-shape="custom"], :scope[data-shape="custom"]) { --re-radius: var(--re-custom-surface-radius, .75rem); --re-field-radius: var(--re-custom-field-radius, .75rem); --re-button-radius: var(--re-custom-action-radius, .75rem); }
 :where([data-fill="solid"], :scope[data-fill="solid"]) { --re-gradient: 0; }
 :where([data-fill="gradient"], :scope[data-fill="gradient"]) { --re-gradient: 1; }
-:where([data-density="compact"], :scope[data-density="compact"]) { --re-density: .8; --re-space: .8rem; --re-gap: .8rem; }
-:where([data-density="comfortable"], :scope[data-density="comfortable"]) { --re-density: 1; --re-space: 1rem; --re-gap: 1rem; }
-:where([data-density="spacious"], :scope[data-density="spacious"]) { --re-density: 1.25; --re-space: 1.25rem; --re-gap: 1.25rem; }
+:where([data-density="compact"], :scope[data-density="compact"]) { --re-density: .8; --re-space: .8rem; --re-gap: .8rem; --re-surface-space: initial; }
+:where([data-density="comfortable"], :scope[data-density="comfortable"]) { --re-density: 1; --re-space: 1rem; --re-gap: 1rem; --re-surface-space: initial; }
+:where([data-density="spacious"], :scope[data-density="spacious"]) { --re-density: 1.25; --re-space: 1.25rem; --re-gap: 1.25rem; --re-surface-space: initial; }
+:where([data-density="custom"], :scope[data-density="custom"]) { --re-density: var(--re-custom-control-density, 1); --re-surface-space: var(--re-custom-surface-padding, 1rem); --re-space: var(--re-custom-content-space, 1rem); --re-gap: var(--re-custom-content-space, 1rem); }
 :where([data-depth="flat"], :scope[data-depth="flat"]) { --re-shadow: none; --re-glass-shadow: none; }
 :where([data-depth="subtle"], :scope[data-depth="subtle"]) { --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); }
 :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) { --re-shadow: 0 8px 24px rgb(0 0 0 / 18%); --re-glass-shadow: 0 16px 40px rgb(0 0 0 / 22%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 50%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 12%); }

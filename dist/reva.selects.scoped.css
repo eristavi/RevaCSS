@@ -7,7 +7,7 @@
     }
     :where(select:not([multiple]):is(:not([size]), [size="0"], [size="1"]))::picker(select) {
       appearance: base-select;
-      padding: calc(var(--re-space) * .35);
+      padding: calc(var(--re-surface-space, var(--re-space)) * .35);
       margin-block: .25rem;
       max-inline-size: calc(100dvw - 2rem);
       max-block-size: min(24rem, 60dvh); overflow: auto; overscroll-behavior: contain;
