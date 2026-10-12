@@ -64,14 +64,14 @@ Load application CSS after the matching framework files. The complete stylesheet
 The exact colour-mode values are `data-theme="light"`, `data-theme="dark"` and `data-theme="auto"`. Auto follows the operating-system preference. `data-palette` selects the colour family; `data-accent` changes the primary action colours, not the complete palette. Shape, density and materials are separate settings.
 
 ```html
-<section data-theme="dark" data-palette="ocean" data-shape="rounded">
+<section data-theme="dark" data-palette="default" data-shape="rounded">
   <article class="card stack project-summary">
-    <h3 class="project-summary-title">Inherited dark Ocean</h3>
+    <h3 class="project-summary-title">Inherited dark Default</h3>
     <p>Shared settings reach the existing surface and native content.</p>
   </article>
   <section data-theme="light">
     <article class="card stack project-summary">
-      <h3 class="project-summary-title">Local light Ocean</h3>
+      <h3 class="project-summary-title">Local light Default</h3>
       <p>Only the colour mode changes. The palette and shape still inherit.</p>
     </article>
   </section>

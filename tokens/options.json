@@ -2,19 +2,7 @@
   "palette": {
     "values": [
       "default",
-      "mono",
-      "sand",
-      "ocean",
-      "cobalt",
-      "citrus",
-      "violet",
-      "forest",
-      "terracotta",
-      "burgundy",
-      "copper",
-      "rose",
-      "aubergine",
-      "slate"
+      "mono"
     ],
     "default": "default",
     "scope": "Inherited; applies to supported targets",
@@ -212,7 +200,10 @@
     ],
     "default": "solid",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Solid surfaces by default; optional Glass, Veil or Soft UI surfaces and actions use their matching extension. Explicit material boundaries stop another inherited material."
+    "affects": "Solid surfaces by default; optional Glass or Soft UI surfaces and actions use their matching extension. Veil is deprecated and retained for existing sites. Explicit material boundaries stop another inherited material.",
+    "deprecatedValues": {
+      "veil": "Deprecated; retained for existing sites. Use solid, glass or soft for new interfaces."
+    }
   },
   "edge": {
     "values": [
@@ -296,6 +287,9 @@
     ],
     "default": "default",
     "scope": "Inherited; native button/submit/reset actions and .button/.scroll-top links, excluding navigation toggles and dropdown controls",
-    "affects": "Optional button material extension. Default follows data-material at the action; explicit choices override general material for actions only. Liquid is transparent neutral glass without accent tint; movement follows data-motion."
+    "affects": "Optional button material extension. Default follows data-material at the action; explicit choices override general material for actions only. Liquid is transparent neutral glass without accent tint; movement follows data-motion. Veil is deprecated and retained for existing sites.",
+    "deprecatedValues": {
+      "veil": "Deprecated; retained for existing sites. Use solid, glass or soft for new interfaces."
+    }
   }
 }

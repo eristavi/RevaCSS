@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Simplify built-in palettes to Default and Mono. Remove the other 12 experimental palettes from tokens, generated global/scoped/modular CSS and current examples/controls. This is an intentional breaking source-preview change: migrate removed names to Default, Mono or a custom CSS palette. Published 1.2.1 downloads remain unchanged.
+- Deprecate Veil for surfaces and buttons. Retain its stylesheet exports and attribute values for existing interfaces, label the compatibility option, and recommend Solid, Glass or Soft UI for new work.
+
 - Revise the Effects Lab iOS tap prototype to use a native card-sized button as the SVG click source and a direct SVG-to-card sibling selector. Keep links above the preview target and hide the target for desktop hover. Remove the animated descendant-class `:has()` dependency. No JavaScript or inline event hooks are added; real iOS verification remains pending.
 
 - Change Effects Lab mobile previews to normal card taps. Native SVG click timing holds each preview for 1.6 seconds so the same CSS glow, lift and depth response as desktop hover can complete, then animate back automatically. Remove press/release timing and its faster entrance; keep desktop hover, native links and preference fallbacks. No JavaScript or inline event hooks are added. Real-device verification remains pending.

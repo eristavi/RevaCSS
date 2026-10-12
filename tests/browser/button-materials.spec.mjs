@@ -53,7 +53,7 @@ for(const scoped of [false,true])test(`${scoped?'scoped':'global'} materials pre
 });
 for(const scoped of [false,true])test(`${scoped?'scoped':'global'} Liquid remains neutral and transparent across palettes and variants`,async({page})=>{
   const variants=['primary','success','warning','danger','neutral'];
-  const markup=['light','dark'].flatMap(theme=>['default','mono','sand','ocean','cobalt','citrus','violet','forest'].map(palette=>`<section data-theme="${theme}" data-palette="${palette}" data-button-material="liquid" data-motion="none">${variants.map(variant=>`<button data-variant="${variant}">${variant}</button>`).join('')}<button class="secondary">Secondary</button><button class="outline danger">Outline</button><button class="ghost">Ghost</button></section>`)).join('');
+  const markup=['light','dark'].flatMap(theme=>['default','mono'].map(palette=>`<section data-theme="${theme}" data-palette="${palette}" data-button-material="liquid" data-motion="none">${variants.map(variant=>`<button data-variant="${variant}">${variant}</button>`).join('')}<button class="secondary">Secondary</button><button class="outline danger">Outline</button><button class="ghost">Ghost</button></section>`)).join('');
   await fixture(page,markup,{scoped});
   const samples=await page.locator('section button').evaluateAll(elements=>{const c=document.createElement('canvas').getContext('2d');return elements.map(el=>{const s=getComputedStyle(el),section=el.closest('section'),theme=section.dataset.theme;c.clearRect(0,0,1,1);c.fillStyle=s.backgroundColor;c.fillRect(0,0,1,1);return {theme,plain:el.matches('.outline,.ghost'),rgba:[...c.getImageData(0,0,1,1).data],image:s.backgroundImage,filter:s.backdropFilter,color:s.color,text:getComputedStyle(section).color};});});
   for(const sample of samples){
@@ -111,7 +111,7 @@ for(const mode of ['unsupported','reduced-transparency'])test(`${mode}: opaque f
 test('all finishes and semantic variants pass automated accessibility in light and dark',async({page})=>{
   test.setTimeout(120000);
   await fixture(page,'<h1>Button material accessibility</h1>');
-  await page.evaluate(()=>{for(const theme of ['light','dark'])for(const material of ['default','solid','glass','veil','soft','liquid'])for(const palette of ['default','mono','sand','ocean','cobalt','citrus','violet','forest']){
+  await page.evaluate(()=>{for(const theme of ['light','dark'])for(const material of ['default','solid','glass','veil','soft','liquid'])for(const palette of ['default','mono']){
     const section=document.createElement('section');Object.assign(section.dataset,{theme,buttonMaterial:material,palette});section.style.padding='1rem';section.style.background='var(--re-bg)';section.innerHTML=`<h2>${theme} ${material} ${palette}</h2><button>Primary</button><button class="secondary">Secondary</button><button class="outline">Outline</button><button class="ghost">Ghost</button><button data-variant="danger">Delete</button><button data-variant="warning">Warning</button><button data-variant="success">Success</button>`;document.querySelector('main').append(section);
   }});
   await page.addScriptTag({path:require.resolve('axe-core')});
@@ -149,7 +149,7 @@ test('rendered filled-button label backgrounds retain 4.5:1 contrast',async({pag
   await page.addStyleTag({content:'#swatches{display:grid;grid-template-columns:repeat(8,1fr)}.swatch{padding:12px;background:var(--re-bg)}.swatch button{display:block;width:100%;margin:8px 0}'});
   const samples=await page.evaluate(()=>{
     const ctx=document.createElement('canvas').getContext('2d'),samples=[];
-    for(const theme of ['light','dark'])for(const material of ['solid','glass','veil','soft','liquid'])for(const palette of ['default','mono','sand','ocean','cobalt','citrus','violet','forest']){
+    for(const theme of ['light','dark'])for(const material of ['solid','glass','veil','soft','liquid'])for(const palette of ['default','mono']){
       const section=document.createElement('section');section.className='swatch';Object.assign(section.dataset,{theme,buttonMaterial:material,palette,motion:'none'});
       for(const variant of ['primary','success','warning','danger','neutral','secondary']){
         const button=document.createElement('button');button.textContent='Label';if(variant==='secondary')button.className='secondary';else button.dataset.variant=variant;section.append(button);

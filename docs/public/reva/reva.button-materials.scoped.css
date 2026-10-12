@@ -1,4 +1,5 @@
 @scope (.reva) {
+/* The Veil finish is deprecated and retained for existing sites. */
 /* Optional action-only materials. Load after the matching global/scoped core.
    re.buttons overrides general material paint; re.utilities keeps preferences first.
    Default/omitted values deliberately install no override. Navigation toggles

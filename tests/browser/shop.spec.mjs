@@ -47,9 +47,9 @@ test.describe('shop without JavaScript',()=>{
 test('shop restores the shared appearance and passes accessibility checks',async({page})=>{
  await page.goto('/demos/shop/');await page.getByRole('button',{name:'Customize',exact:true}).click();
  await waitForPopover(page.locator('#demo-customizer-popup'));
- await page.locator('#demo-palette').selectOption('forest');await page.locator('#demo-theme').selectOption('dark');
- await page.goto('/demos/shop/products/pebble-vase/');await expect(page.locator('#demo-palette')).toHaveValue('forest');
- await page.goto('/demos/shop/source/product-pebble-vase.html');await expect(page.locator('html')).toHaveAttribute('data-palette','forest');
+ await page.locator('#demo-palette').selectOption('mono');await page.locator('#demo-theme').selectOption('dark');
+ await page.goto('/demos/shop/products/pebble-vase/');await expect(page.locator('#demo-palette')).toHaveValue('mono');
+ await page.goto('/demos/shop/source/product-pebble-vase.html');await expect(page.locator('html')).toHaveAttribute('data-palette','mono');
  for(const route of ['/demos/shop/','/demos/shop/products/arc-lamp/','/demos/shop/bag/']){
   await page.goto(route);await page.addScriptTag({path:require.resolve('axe-core')});
   const violations=await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})));

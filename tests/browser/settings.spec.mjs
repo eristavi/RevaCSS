@@ -30,21 +30,21 @@ test('documentation backdrop follows palette and contrast settings',async({page}
  await page.goto('/guide/');
  const backdrop=()=>page.locator('body').evaluate(el=>getComputedStyle(el).backgroundImage);
  const initial=await backdrop();expect(initial).toContain('radial-gradient');
- await open(page);await page.locator('#demo-palette').selectOption('forest');
+ await open(page);await page.locator('#demo-palette').selectOption('mono');
  await expect.poll(backdrop).not.toBe(initial);
  await page.getByText('Effects and accessibility',{exact:true}).click();
  await page.locator('#demo-contrast').selectOption('more');await expect.poll(backdrop).toBe('none');
 });
 test('demo choices persist across different pages, reloads and standalone examples',async({page})=>{
  await page.goto('/demos/marketing/');await open(page);
- for(const [key,value] of Object.entries({theme:'dark',palette:'ocean',material:'glass',shape:'pill'}))await page.locator('#demo-'+key).selectOption(value);
+ for(const [key,value] of Object.entries({theme:'dark',palette:'default',material:'glass',shape:'pill'}))await page.locator('#demo-'+key).selectOption(value);
  await page.getByText('Layout',{exact:true}).click();await page.locator('#demo-density').selectOption('compact');
  await page.goto('/demos/blog/archive/');
- for(const [key,value] of Object.entries({theme:'dark',palette:'ocean',material:'glass',shape:'pill',density:'compact'}))await expect(page.locator('#demo-'+key)).toHaveValue(value);
+ for(const [key,value] of Object.entries({theme:'dark',palette:'default',material:'glass',shape:'pill',density:'compact'}))await expect(page.locator('#demo-'+key)).toHaveValue(value);
  expect(await page.locator('#demo-site').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
  await page.reload();await expect(page.locator('#demo-density')).toHaveValue('compact');
  await page.goto('/demos/dashboard/');await expect(page.locator('#demo-material')).toHaveValue('glass');
- await page.goto('/demos/blog/source/archive.html');await expect(page.locator('html')).toHaveAttribute('data-palette','ocean');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
+ await page.goto('/demos/blog/source/archive.html');await expect(page.locator('html')).toHaveAttribute('data-palette','default');await expect(page.locator('html')).toHaveAttribute('data-theme','dark');
 });
 test('one appearance profile is shared by documentation and demos and reset clears it everywhere',async({page})=>{
  await page.goto('/guide/');await open(page);await page.locator('#demo-theme').selectOption('dark');
@@ -59,11 +59,11 @@ test('one appearance profile is shared by documentation and demos and reset clea
  await page.goto('/guide/');await expect(page.locator('#demo-theme')).toHaveValue('auto');
 });
 test('downloads contain selected settings without the optional preference scripts',async({page})=>{
- await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('forest');
+ await page.goto('/demos/blog/');await open(page);await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('mono');
  await page.locator('#demo-button-material').selectOption('liquid');
  await page.locator('#demo-border').selectOption('defined');
  const pending=page.waitForEvent('download');await page.locator('.demo-customizer a[download]').click();const download=await pending;
- const html=await readFile(await download.path(),'utf8');expect(html).toContain('data-palette="forest"');expect(html).toContain('data-theme="dark"');expect(html).toContain('data-border="defined"');expect(html).toContain('data-button-material="liquid"');expect(html).toContain('reva.button-materials.css');expect(html).not.toMatch(/<script\b/);
+ const html=await readFile(await download.path(),'utf8');expect(html).toContain('data-palette="mono"');expect(html).toContain('data-theme="dark"');expect(html).toContain('data-border="defined"');expect(html).toContain('data-button-material="liquid"');expect(html).toContain('reva.button-materials.css');expect(html).not.toMatch(/<script\b/);
 });
 test('invalid preferences and unavailable storage do not break the dropdown preview',async({page,context})=>{
  await page.goto('/');await page.evaluate(()=>localStorage.setItem('revacss:demo-settings:v1',JSON.stringify({theme:'invalid',palette:'not-a-palette',material:'solid',injected:'bad'})));
