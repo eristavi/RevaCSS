@@ -44,9 +44,11 @@
 :where([data-accent="green"], :scope[data-accent="green"]) { --re-primary: #237a50; --re-primary-end: #145434; --re-on-primary: #fff; }
 :where([data-accent="orange"], :scope[data-accent="orange"]) { --re-primary: #ad4b0c; --re-primary-end: #873808; --re-on-primary: #fff; }
 :where([data-accent="rose"], :scope[data-accent="rose"]) { --re-primary: #bc2854; --re-primary-end: #92203f; --re-on-primary: #fff; }
-:where([data-width="narrow"], :scope[data-width="narrow"]) { --re-container: 48rem; }
-:where([data-width="standard"], :scope[data-width="standard"]) { --re-container: 75rem; }
-:where([data-width="wide"], :scope[data-width="wide"]) { --re-container: 90rem; }
+:where([data-width="narrow"], :scope[data-width="narrow"]) { --re-container: 48rem; --re-container-width: initial; --re-container-padding: initial; }
+:where([data-width="standard"], :scope[data-width="standard"]) { --re-container: 75rem; --re-container-width: initial; --re-container-padding: initial; }
+:where([data-width="wide"], :scope[data-width="wide"]) { --re-container: 90rem; --re-container-width: initial; --re-container-padding: initial; }
+:where([data-width="full"], :scope[data-width="full"]) { --re-container: 100%; --re-container-width: 100%; --re-container-padding: 1rem; }
+:where([data-width="custom"], :scope[data-width="custom"]) { --re-container: var(--re-custom-max-width, 75rem); --re-container-width: min(100%, var(--re-container)); --re-container-padding: var(--re-custom-side-padding, 1rem); }
 :where([data-table="plain"], :scope[data-table="plain"]) { --re-table-stripe: 0%; --re-table-lines: 0; }
 :where([data-table="striped"], :scope[data-table="striped"]) { --re-table-stripe: 100%; --re-table-lines: 0; }
 :where([data-table="bordered"], :scope[data-table="bordered"]) { --re-table-stripe: 0%; --re-table-lines: 1; }
@@ -98,7 +100,7 @@
 :where([data-navbar-spacing="flush"], :scope[data-navbar-spacing="flush"]) { --re-navbar-spacing-scale: 0; --re-navbar-shadow: none; --re-navbar-background-image: none; }
 :where([data-navbar-spacing="spaced"], :scope[data-navbar-spacing="spaced"]) { --re-navbar-spacing-scale: 1; --re-navbar-shadow: initial; --re-navbar-background-image: initial; }
 :where([data-navbar-width="contained"], :scope[data-navbar-width="contained"]) { --re-navbar-radius-scale: 1; --re-navbar-frame-width: initial; --re-navbar-surface-width: initial; --re-navbar-content-padding: .5rem; }
-:where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-radius-scale: 0; --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: max(1rem, calc((100% - var(--re-container, 75rem)) / 2)); }
+:where([data-navbar-width="full"], :scope[data-navbar-width="full"]) { --re-navbar-radius-scale: 0; --re-navbar-frame-width: 100%; --re-navbar-surface-width: 100%; --re-navbar-content-padding: min(max(0px, calc(50% - 1.5rem)), max(1rem, calc((100% - var(--re-container, 75rem)) / 2 + min(var(--re-container-padding, 0rem), calc(var(--re-container, 75rem) / 4), 25%)))); }
 :where([data-edge="plain"], :scope[data-edge="plain"]) { --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="gradient"], :scope[data-edge="gradient"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; }
 :where([data-edge="shine"], :scope[data-edge="shine"]) { --re-edge-content: ""; --re-edge-position: relative; --re-edge-animation: none; --re-edge-interaction: re-edge-turn; --re-edge-time: 800ms; --re-edge-count: 1; }
@@ -273,7 +275,7 @@
   :where(.card) { min-inline-size: 0; padding: var(--re-card-padding, calc(var(--re-surface-space, var(--re-space)) * 1.5)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); color: var(--re-text); box-shadow: var(--re-shadow); }
   :where(.card > :first-child) { margin-block-start: 0; }
   :where(.card > :last-child) { margin-block-end: 0; }
-  :where(.container) { inline-size: min(100% - 2rem, var(--re-container, 75rem)); margin-inline: auto; }
+  :where(.container) { inline-size: var(--re-container-width, min(max(0px, calc(100% - 2rem)), var(--re-container, 75rem))); margin-inline: auto; padding-inline: min(var(--re-container-padding, 0rem), calc(var(--re-container, 75rem) / 4), 25%); }
   :where(.prose) { max-inline-size: var(--re-prose, 65ch); }
   :where(.grid,.row,.stack) { gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; overflow-wrap: anywhere; }
   :where(.grid > *,.row > *,.stack > *) { min-inline-size: 0; max-inline-size: 100%; }
@@ -1425,6 +1427,7 @@
     inline-size: var(--re-navbar-frame-width, min(calc(100% - 2rem), var(--re-container, 75rem)));
     margin-inline: auto;
     padding-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-space, 1rem));
+    padding-inline: 0;
   }
   @media (width < 48rem) {
     :where(.navbar-header, :scope.navbar-header) {
