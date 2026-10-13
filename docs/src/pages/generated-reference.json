@@ -136,11 +136,13 @@
       "values": [
         "narrow",
         "standard",
-        "wide"
+        "wide",
+        "full",
+        "custom"
       ],
       "default": "standard",
       "scope": "Inherited; applies to supported targets",
-      "affects": "Maximum width of .container."
+      "affects": "Page-container width. Narrow, Standard and Wide cap .container at 48rem, 75rem and 90rem. Full fills the parent with 1rem side padding. Custom uses --re-custom-max-width (75rem) and --re-custom-side-padding (1rem); max width includes padding, which is reduced in narrow containers. Local presets reset width/padding. Navbar width is configured separately."
     },
     "table": {
       "values": [

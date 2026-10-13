@@ -369,6 +369,7 @@
     inline-size: var(--re-navbar-frame-width, min(calc(100% - 2rem), var(--re-container, 75rem)));
     margin-inline: auto;
     padding-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-space, 1rem));
+    padding-inline: 0;
   }
   @media (width < 48rem) {
     :where(.navbar-header, :scope.navbar-header) {

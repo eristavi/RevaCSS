@@ -1,4 +1,6 @@
 export const publicTokens = [
+  ["Custom width", "--re-custom-max-width / --re-custom-side-padding", "Nonnegative length", "Maximum page width including padding (75rem default) and per-side padding (1rem default) with data-width=custom. Padding is capped in narrow parents."],
+  ["Layout", "--re-container-width / --re-container-padding", "Size / nonnegative length", "Container width/padding overrides used by Full and Custom; existing width presets reset both. Navbar width remains independent."],
   ["Custom density", "--re-custom-surface-padding / --re-custom-content-space", "Nonnegative length", "Base surface padding and content gaps with data-density=custom; both default to 1rem. Cards scale surface padding by 1.5."],
   ["Custom density", "--re-custom-control-density", "Nonnegative number", "Control-padding multiplier with data-density=custom; default 1. Minimum control heights remain independent."],
   ["Layout", "--re-surface-space", "Nonnegative length", "Base surface padding; falls back to --re-space when omitted. Local density presets reset it."],
@@ -119,8 +121,8 @@ export const publicTokens = [
   [
     "Layout",
     "--re-container",
-    "Length",
-    "Maximum container width; 75rem by default"
+    "Length or percentage",
+    "Maximum container width; 75rem by default, 100% with Full"
   ],
   [
     "Layout",

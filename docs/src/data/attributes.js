@@ -119,7 +119,7 @@ export const attributes = [
   {
     "id": "width",
     "title": "data-width",
-    "description": "Content width of .container. Default: standard. Scope: Inherited; affects .container.",
+    "description": "Page width of .container: Narrow, Standard, Wide, Full and Custom. Full fills its parent with side padding; Custom sets maximum width including padding and side padding. Navbar width remains independent. Default: standard. Scope: Inherited; affects .container.",
     "html": "<div class=\"stack\">\n  <section data-width=\"narrow\"><div class=\"container\"><article class=\"card\">narrow container</article></div></section>\n  <section data-width=\"standard\"><div class=\"container\"><article class=\"card\">standard container</article></div></section>\n  <section data-width=\"wide\"><div class=\"container\"><article class=\"card\">wide container</article></div></section>\n</div>",
     "glass": false
   },

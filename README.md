@@ -110,6 +110,21 @@ Choose **Customize → Layout → Density → Custom** for linked or independent
 
 Use `data-density="custom"` on your page or a parent. Compact, Comfortable and Spacious reset all three groups locally. Layout Gap remains a separate setting that scales layout gaps.
 
+### Choose your page width
+
+Choose **Customize → Layout → Page width**: Narrow, Standard, Wide, Full or Custom. Full fills the parent and retains 1rem side padding. Custom sets a maximum width (including padding) and side padding in rem, with saved choices and CSS/HTML export. Padding is reduced in narrow parents to preserve content space. Navbar width remains independent.
+
+```css
+@layer re.tokens {
+  :where([data-width="custom"]) {
+    --re-custom-max-width: 80rem;
+    --re-custom-side-padding: 2rem;
+  }
+}
+```
+
+Use `data-width="full"` or `data-width="custom"` on your page or a parent of `.container`. Nested width presets reset width and padding; content inside a container can still have its own reading-width limit.
+
 ### Planned personalized build
 
 A future generator will export one framework stylesheet containing the user’s chosen colours and radiuses directly, replacing unused built-in colour definitions. Full colour editing will include surfaces, text, links, borders, semantic roles, gradients, focus indicators, material highlights, shadows and decorative edges, with contrast feedback. This generator is planned; current exports remain separate CSS configuration or starting HTML with embedded configuration.

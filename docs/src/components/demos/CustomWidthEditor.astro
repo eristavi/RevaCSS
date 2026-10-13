@@ -1,0 +1,31 @@
+---
+const groups=[{key:'max',title:'Maximum page width',description:'Includes side padding; stays within the available parent width.',min:1,max:1000,rangeMax:120,value:75},{key:'padding',title:'Side padding',description:'Space inside each page edge; reduced automatically in narrow containers.',min:0,max:20,rangeMax:4,value:1}];
+---
+<section id="custom-width-editor" hidden aria-labelledby="custom-width-title">
+  <h3 id="custom-width-title">Your page width</h3>
+  <p>Set the maximum width and side padding in rem. Values follow the root text size. Navbar width remains a separate choice.</p>
+  <div class="width-fields">
+    {groups.map(group=><div class="width-field">
+      <label for={`width-${group.key}-number`}>{group.title} <small>{group.description}</small></label>
+      <div class="width-controls">
+        <input id={`width-${group.key}-range`} type="range" min={group.min} max={group.rangeMax} step="0.25" value={group.value} data-width-key={group.key} aria-label={`${group.title} slider in rem`}/>
+        <div><input id={`width-${group.key}-number`} type="number" min={group.min} max={group.max} step="any" value={group.value} data-width-key={group.key} aria-describedby={`width-${group.key}-unit`}/><span id={`width-${group.key}-unit`}>rem</span></div>
+      </div>
+    </div>)}
+  </div>
+  <div class="row"><button id="export-custom-width" type="button">Export width CSS</button><button id="copy-custom-width" type="button" class="outline">Copy width CSS</button></div>
+  <details class="configuration-summary"><summary>View width CSS</summary><pre tabindex="0" aria-label="Custom width CSS"><code id="custom-width-css"></code></pre></details>
+  <p>The page behind this panel previews your width. Use Width → Custom on your page or a parent. Downloaded starting HTML includes your values. Local width presets reset the container settings.</p>
+</section>
+<style>
+#custom-width-editor { margin-block:1rem; padding:1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); }
+#custom-width-title { font-size:1.05rem; margin-block:0 .5rem; }
+#custom-width-editor > p { font-size:.85rem; }
+.width-fields { display:grid; gap:1rem; margin-block:1rem; }
+.width-field label { margin:0; }
+.width-field small { display:block; font-weight:400; color:var(--re-muted); }
+.width-controls { display:grid; grid-template-columns:minmax(0,1fr) minmax(6rem,8rem); gap:1rem; align-items:center; }
+.width-controls > div { display:flex; align-items:center; gap:.4rem; min-inline-size:0; }
+.width-controls input { min-inline-size:0; }
+@media (width < 23rem) { .width-controls { grid-template-columns:minmax(0,1fr); gap:.25rem; } }
+</style>
