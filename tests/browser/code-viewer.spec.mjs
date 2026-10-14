@@ -1,4 +1,5 @@
 import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
+import { waitForDisclosure } from './helpers/popover.mjs';
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
@@ -19,7 +20,8 @@ test('complete demo sources remain literal, selectable and wrappable without hig
  const page=await context.newPage();
  for(const route of ['dashboard','shop','blog','marketing']){
   await page.goto('/demos/'+route+'/');
-  await page.locator('details:has(pre.source-code) > summary').click();
+  const disclosure=page.locator('details:has(pre.source-code)');
+  await disclosure.locator('summary').click();await waitForDisclosure(disclosure);
   const pre=page.locator('pre.source-code');await expect(pre).toHaveCount(1);
   const code=pre.locator('code');const source=await code.textContent();
   expect(source.toLowerCase()).toContain('<!doctype html>');
