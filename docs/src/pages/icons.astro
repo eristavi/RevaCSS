@@ -42,7 +42,7 @@ const inlineIcon=catalog.find(i=>i.name==='check');
   <div class="icon-preview"><Fragment set:html={icon(item.name)}/></div>
   <h3>{item.label}</h3><p><code>{item.name}</code></p>
   <p><a href={base+'reva/icons/'+item.name+'.svg'} download={item.name+'.svg'}>Download SVG</a></p>
-  <details><summary>HTML example</summary><CodeViewer id={'icon-'+item.name} code={icon(item.name)} label={item.label+' icon HTML'}/></details>
+  <div class="accordion"><details><summary>HTML example</summary><CodeViewer id={'icon-'+item.name} code={icon(item.name)} label={item.label+' icon HTML'}/></details></div>
 </article>)}
 </div>
 </section>
