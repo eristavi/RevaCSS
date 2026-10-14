@@ -32,12 +32,18 @@ for(const width of [320,390,1280])test(`complete fixture coverage, references, a
 
 test.describe('native test-page controls without JavaScript',()=>{
  test.use({javaScriptEnabled:false});
+ // The complete catalog is substantially larger than an individual fixture.
+ // Allow software-rendered WebKit to load and traverse it without skipping
+ // pointer checks, native motion or any assertions.
+ test.setTimeout(120000);
  test('validation, choices and reset remain native',async({page})=>{
   await page.goto(route);
   await page.locator('#stress-form button[type=submit]').click();
   await expect(page.locator('#stress-required')).toBeFocused();
   await page.locator('#stress-required').fill('Fictional reviewer');
-  await page.locator('#stress-form button[type=submit]').click();
+  // Validate from the focused field using native Enter, including long-page
+  // focus scrolling; the first submission above checks the pointer action.
+  await page.locator('#stress-required').press('Enter');
   await expect(page.locator('#stress-invalid')).toBeFocused();
   await expect(page.locator('#stress-disabled')).toBeDisabled();
   await expect(page.locator('#stress-readonly')).toHaveAttribute('readonly','');
@@ -50,7 +56,7 @@ test.describe('native test-page controls without JavaScript',()=>{
   await page.locator('#stress-required').fill('Fictional reviewer');
   await page.locator('#stress-invalid').fill('reviewer@example.test');
   await page.locator('#stress-select').selectOption('short');
-  await page.locator('#stress-form button[type=submit]').click();
+  await page.locator('#stress-required').press('Enter');
   await expect(page).toHaveURL(/\?[^#]*required-name=Fictional\+reviewer[^#]*#stress-forms$/);
   await expect(page.locator('#stress-required')).toHaveValue('');
  });
