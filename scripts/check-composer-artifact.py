@@ -2,6 +2,7 @@
 """Install the stable Laravel ZIP in an isolated Composer consumer; no app tests."""
 import json
 import os
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -14,11 +15,14 @@ if not archive.is_file():
     raise RuntimeError('Prepare the integration archives first.')
 with tempfile.TemporaryDirectory(prefix='reva-composer-artifact-') as directory:
     consumer = Path(directory)
+    repository = consumer / 'artifact-repository'
+    repository.mkdir()
+    shutil.copyfile(archive, repository / archive.name)
     manifest = {
         'name': 'revacss/artifact-consumer',
         'description': 'Isolated stable artifact installation verification.',
         'type': 'project', 'license': 'MIT',
-        'repositories': [{'type': 'artifact', 'url': str(artifacts)}],
+        'repositories': [{'type': 'artifact', 'url': str(repository)}],
         'require': {'revacss/laravel': '^2.0'},
         'config': {'allow-plugins': False}
     }

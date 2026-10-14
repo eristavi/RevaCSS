@@ -118,7 +118,7 @@ After building the core and installing React packaging tooling, prepare all
 adapter archives without publishing:
 
 ```sh
-npm --prefix integrations/react ci --ignore-scripts
+npm --prefix integrations/react ci --ignore-scripts --legacy-peer-deps
 node scripts/package-integrations.mjs artifacts
 ```
 

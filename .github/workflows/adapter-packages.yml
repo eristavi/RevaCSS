@@ -33,11 +33,13 @@ jobs:
           tools: composer:v2
       - run: npm ci
       - run: npm run build:css
+      # Core 2.0 is an unpublished peer during preparation. Consumer checks
+      # install the matching core tarball explicitly; tooling CI skips fetching it.
       - name: Install adapter verification tooling
         run: |
-          npm --prefix integrations/vue ci --ignore-scripts
-          npm --prefix integrations/react ci --ignore-scripts
-          npm --prefix integrations/svelte ci --ignore-scripts
+          npm --prefix integrations/vue ci --ignore-scripts --legacy-peer-deps
+          npm --prefix integrations/react ci --ignore-scripts --legacy-peer-deps
+          npm --prefix integrations/svelte ci --ignore-scripts --legacy-peer-deps
       - name: Build and inspect stable adapter archives
         run: node scripts/package-integrations.mjs
       - name: Check packed framework consumers without rerunning browser acceptance

@@ -188,7 +188,7 @@ jobs:
       - name: Verify committed generated assets
         run: git diff --exit-code -- dist docs/public/reva docs/src/pages/generated-reference.json
       - name: Install React packaging compiler
-        run: npm --prefix integrations/react ci --ignore-scripts
+        run: npm --prefix integrations/react ci --ignore-scripts --legacy-peer-deps
       - name: Prepare and verify archives
         env:
           PACKAGE_TARBALL: ${{ steps.metadata.outputs.tarball_name }}
