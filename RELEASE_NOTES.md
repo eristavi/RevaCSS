@@ -8,6 +8,7 @@ Default and Mono are the built-in palettes. Twelve palette values shipped in 1.2
 
 ## Additions and fixes
 
+- Font selection through `data-font="manrope|system"`, including local resets, native controls and the documentation/demo customizer. Manrope remains the default with optional font files; code remains monospace.
 - Custom shape with separate surface, field and action radiuses; local presets retain their reset behaviour.
 - Custom density with separate surface padding, control-padding scale and content spacing, preserving minimum control heights.
 - Full and Custom page widths with configurable gutters and independent navbar width.

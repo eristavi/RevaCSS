@@ -295,5 +295,14 @@
     "deprecatedValues": {
       "veil": "Deprecated; retained for existing sites. Use solid, glass or soft for new interfaces."
     }
+  },
+  "font": {
+    "values": [
+      "manrope",
+      "system"
+    ],
+    "default": "manrope",
+    "scope": "Inherited; page, section or individual text/control",
+    "affects": "Body text, headings and native controls. Manrope is the framework default with system-ui/sans-serif fallback; its font stylesheet is optional. System uses system-ui/sans-serif even when Manrope is loaded. A local preset resets this choice; code remains monospace and --re-font-heading remains an optional heading override."
   }
 }

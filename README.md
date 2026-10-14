@@ -71,12 +71,15 @@ The choices below describe current `main` and the documentation preview; publish
 | --- | --- |
 | `data-theme` | `auto`, `light`, `dark` |
 | `data-palette` | `default`, `mono` |
+| `data-font` | `manrope` (default), `system` |
 | `data-shape` | `square`, `subtle`, `rounded`, `pill`, `custom` |
 | `data-density` | `compact`, `comfortable`, `spacious`, `custom` |
 | `data-size` | `small`, `medium`, `large` |
 | `data-motion` | `none`, `subtle`, `expressive` |
 
 Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/), [inheritance guide](https://eristavi.github.io/RevaCSS/guide/styling/) and [public CSS tokens](https://eristavi.github.io/RevaCSS/reference/tokens/).
+
+Choose `data-font="system"` for the device UI font or `data-font="manrope"` to restore the framework default locally. Text, headings and native controls inherit the choice; code remains monospace. Manrope uses the system fallback unless you load the optional `reva-fonts.css` and keep its adjacent `fonts/` assets. System works even when that font stylesheet is loaded. The documentation/demo customizer offers exactly Default (Manrope) and System and includes the selected attribute in downloaded HTML. The existing `--re-font-heading` token remains available for an independent heading font.
 
 Only Default and Mono are built into current `main` and the documentation preview. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
 

@@ -14,7 +14,7 @@ The first 1.0.0 release used a version-specific npm publication exception for si
 - No mandatory wrappers or configuration. Native structural elements stay neutral.
 - Public CSS variables --re-*, stylesheet reva.css, nested layers re.tokens/re.base/re.components/re.buttons/re.utilities.
 - DTCG tokens are source; primitive → semantic → component overrides.
-- Manrope with system fallback; optional multilingual packs and SVG icons.
+- Manrope with system fallback; inherited data-font="manrope|system" selects the default or device UI font. Font files remain optional; code stays monospace. Optional multilingual packs and SVG icons.
 - MIT core and all components. Paid templates/designs/support can use separate terms.
 - Auto light/dark; glass is a separate extension, not a core theme.
 - Low specificity, local design overrides, standard CSS customisation.
