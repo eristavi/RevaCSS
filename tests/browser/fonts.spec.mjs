@@ -33,12 +33,12 @@ test('System does not download Manrope even when the optional face is declared',
  const requests=[];page.on('request',request=>requests.push(request.url()));
  await page.route('**/font-fixture.html',route=>route.fulfill({contentType:'text/html',body:'<!doctype html><html data-font="system"><head><link rel="stylesheet" href="/reva/reva.css"><link rel="stylesheet" href="/reva/reva-fonts.css"></head><body><h1>System heading</h1><p>System text</p><button>System action</button><input aria-label="Name"><code>Code</code></body></html>'}));
  await page.goto('/font-fixture.html');
- await page.evaluate(()=>document.fonts.ready);
  await fontChoices(page,'body',system);await fontChoices(page,'h1',system);await fontChoices(page,'button',system);
+ await expect.poll(()=>page.evaluate(()=>document.fonts.status)).toBe('loaded');
  expect(requests.filter(url=>/\/fonts\/.*\.(woff2?|ttf)(?:\?|$)/.test(url))).toEqual([]);
  await page.locator('html').evaluate(el=>el.setAttribute('data-font','manrope'));
  await fontChoices(page,'body',manrope);
- await page.evaluate(()=>document.fonts.ready);
+ await expect.poll(()=>page.evaluate(()=>[...document.fonts].some(face=>face.family==='Manrope' && face.status==='loaded'))).toBe(true);
  expect(requests.some(url=>/\/fonts\/Manrope\.woff2(?:\?|$)/.test(url))).toBe(true);
  expect(await page.evaluate(()=>document.fonts.check('16px Manrope'))).toBe(true);
  await context.close();
