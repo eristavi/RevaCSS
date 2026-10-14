@@ -1,0 +1,59 @@
+name: Stable adapter package verification
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      release_validation:
+        type: boolean
+        required: false
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  packages:
+    if: github.event_name != 'push' || inputs.release_validation == true || contains(github.event.head_commit.message, '[validate adapter packages]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
+        with:
+          php-version: '8.3'
+          extensions: mbstring, dom, xml, xmlwriter, zip
+          coverage: none
+          tools: composer:v2
+      - run: npm ci
+      - run: npm run build:css
+      - name: Install adapter verification tooling
+        run: |
+          npm --prefix integrations/vue ci --ignore-scripts
+          npm --prefix integrations/react ci --ignore-scripts
+          npm --prefix integrations/svelte ci --ignore-scripts
+      - name: Build and inspect stable adapter archives
+        run: node scripts/package-integrations.mjs
+      - name: Check packed framework consumers without rerunning browser acceptance
+        run: |
+          node --test integrations/astro/tests/*.test.mjs
+          npm --prefix integrations/vue run check
+          npm --prefix integrations/react run check
+          npm --prefix integrations/svelte run check
+      - name: Check immutable archive publication guards
+        run: node --test tests/release/npm-adapters.test.mjs
+      - name: Install the stable Composer artifact and verify published asset bytes
+        run: python3 scripts/check-composer-artifact.py
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: stable-adapter-packages
+          path: artifacts/
+          if-no-files-found: error
+          retention-days: 14

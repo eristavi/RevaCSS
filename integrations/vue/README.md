@@ -1,10 +1,10 @@
 # RevaCSS for Vue
 
-Optional Vue 3.5 components for the RevaCSS 2.0 source candidate. The proposed
+Optional Vue 3.5 components for the RevaCSS 2.0 release preparation. The stable-version
 `@revacss/vue` package is not published. It is distributed separately from the CSS
 package and does not modify core styles or inject stylesheets. Vue provides the
-application runtime; RevaCSS core remains CSS-only. Automated browser coverage is recorded below; manual device/visual acceptance
-remains required.
+application runtime; RevaCSS core remains CSS-only. Automated fixture coverage is recorded below; the core release record gives
+manual acceptance and remaining publication steps.
 
 ## Install from source
 
@@ -20,7 +20,7 @@ npm pack ./integrations/vue --ignore-scripts
 Inside a Vue 3.5 project configured to compile Vue single-file components:
 
 ```sh
-npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0-dev.0.tgz
+npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz
 ```
 
 The version numbers describe source candidates, not published or accepted releases.

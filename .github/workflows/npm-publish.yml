@@ -9,6 +9,12 @@ on:
         description: Published GitHub release to distribute on npm
         required: true
         type: string
+      package_name:
+        description: Verified core or adapter archive to publish
+        required: true
+        type: choice
+        options: [revacss, '@revacss/astro', '@revacss/vue', '@revacss/react', '@revacss/svelte']
+        default: revacss
       dry_run:
         description: Verify the package without publishing
         required: true
@@ -25,6 +31,12 @@ concurrency:
 jobs:
   publish:
     if: github.repository == 'eristavi/RevaCSS' && (github.event_name != 'release' || !github.event.release.prerelease)
+    name: Publish ${{ matrix.package }}
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        package: ${{ fromJSON(github.event_name == 'release' && startsWith(github.event.release.tag_name, 'v2.') && '["revacss","@revacss/astro","@revacss/vue","@revacss/react","@revacss/svelte"]' || format('["{0}"]', inputs.package_name || 'revacss')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -32,6 +44,7 @@ jobs:
       id-token: write
     env:
       RELEASE_TAG: ${{ github.event.release.tag_name || inputs.release_tag }}
+      PACKAGE_NAME: ${{ matrix.package }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:

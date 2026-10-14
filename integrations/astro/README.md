@@ -1,9 +1,9 @@
 # RevaCSS for Astro
 
-Optional Astro 7 components for the RevaCSS 2.0 source candidate. The proposed
+Optional Astro 7 components for the RevaCSS 2.0 release preparation. The stable-version
 `@revacss/astro` package is not published. It is distributed separately from the
-CSS package; it does not change core CSS or add browser JavaScript. Automated native browser checks are recorded below; physical-device and visual
-acceptance remain required for the 2.0 release review.
+CSS package; it does not change core CSS or add browser JavaScript. Automated native browser checks are recorded below; the core manual sign-off and
+remaining publication steps are documented in the 2.0 release record.
 
 The RevaCSS documentation site already uses Astro. This adapter makes reusable
 components available to consuming projects; existing native markup remains valid.
@@ -22,11 +22,11 @@ npm pack ./integrations/astro --ignore-scripts
 Install the two generated tarballs in an Astro 7 application:
 
 ```sh
-npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-astro-2.0.0-dev.0.tgz
+npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-astro-2.0.0.tgz
 ```
 
-The CSS package version is still a candidate. Do not interpret its version as a
-published or accepted release. No `astro.config` integration is required.
+Stable package metadata does not establish registry publication or replace the
+recorded release validation. No `astro.config` integration is required.
 
 ## Create a page
 

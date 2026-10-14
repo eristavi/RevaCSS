@@ -1,8 +1,8 @@
-# RevaCSS for Laravel — version 2 integration candidate
+# RevaCSS for Laravel — version 2 integration
 
 Optional Laravel integration, kept outside the RevaCSS core. The package adds Blade templates, Laravel form/validation handling, appearance configuration, versioned asset publishing and development guidance. It adds no browser JavaScript or replacement CSS engine. Livewire is optional in consuming applications.
 
-**Status:** source candidate for RevaCSS 2.0.0. `revacss/laravel` is the proposed Composer name; it has not been published to Packagist. Nothing here changes the published RevaCSS 1.2.1 archives or declares version 2 ready for release. Visual/browser/device acceptance is deferred until the version 2 release review.
+**Status:** stable 2.0.0 artifact preparation. `revacss/laravel` is distributed as a Composer ZIP; Packagist publication has not occurred. Versioned archives will be attached to the core GitHub release after final validation. Source and local artifact installation work before publication. See the release validation record for automated/manual scope; reference-application device acceptance is not inferred from core sign-off.
 
 ## Requirements and structure
 
@@ -32,7 +32,7 @@ In your Laravel project's `composer.json`, add a path repository pointing to thi
   "repositories": [{
     "type": "path",
     "url": "/path/to/RevaCSS/integrations/laravel",
-    "options": { "versions": { "revacss/laravel": "2.0.x-dev" } }
+    "options": { "versions": { "revacss/laravel": "2.0.0" } }
   }]
 }
 ```
@@ -40,13 +40,13 @@ In your Laravel project's `composer.json`, add a path repository pointing to thi
 Then, inside that application:
 
 ```sh
-composer require 'revacss/laravel:^2.0@dev'
+composer require 'revacss/laravel:^2.0'
 php artisan reva:install
 ```
 
 Composer discovers `RevaServiceProvider`. `reva:install` publishes `config/reva.php` and matching assets to a version-and-content-addressed directory under `public/vendor/reva/`. Existing config is preserved. `--views` additionally publishes editable templates; `--force` overwrites published files and should be used deliberately. After changing or publishing views, clear compiled views with `php artisan view:clear`. Refresh assets on package upgrades and retain old asset directories until cached HTML is no longer in use.
 
-For an isolated distributable, run `python3 integrations/laravel/scripts/package.py`. The resulting ZIP contains a root Composer manifest and prepared assets. It is explicitly versioned `2.0.0-dev`, not a production release. Composer's artifact repository can consume it; see [distribution](docs/distribution.md).
+For an isolated distributable, run `python3 integrations/laravel/scripts/package.py`. The resulting ZIP contains a root Composer manifest and prepared assets. It has stable `2.0.0` Composer metadata; creating the ZIP does not publish a release. Composer's artifact repository can consume it; see [distribution](docs/distribution.md).
 
 ## Start with native markup or Blade wrappers
 

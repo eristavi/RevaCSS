@@ -118,6 +118,11 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  adapters:
+    name: Stable adapter archives and Composer installation
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]') || contains(github.event.head_commit.message, '[prepare release]')
+    uses: ./.github/workflows/adapter-packages.yml
+
   package:
     name: Installed package and three-engine consumers
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]') || contains(github.event.head_commit.message, '[prepare release]')
@@ -158,7 +163,7 @@ jobs:
 
   release:
     name: Publish validated versioned downloads
-    needs: [unit, browsers, package]
+    needs: [unit, browsers, package, adapters]
     if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -182,12 +187,15 @@ jobs:
       - run: npm run check:release-quality -- --npm
       - name: Verify committed generated assets
         run: git diff --exit-code -- dist docs/public/reva docs/src/pages/generated-reference.json
+      - name: Install React packaging compiler
+        run: npm --prefix integrations/react ci --ignore-scripts
       - name: Prepare and verify archives
         env:
           PACKAGE_TARBALL: ${{ steps.metadata.outputs.tarball_name }}
         run: |
           python3 scripts/package-release.py
           npm pack --pack-destination artifacts
+          node scripts/package-integrations.mjs artifacts
           cd artifacts
           sha256sum "$PACKAGE_TARBALL" >> SHA256SUMS.txt
           sha256sum --check SHA256SUMS.txt
@@ -203,4 +211,4 @@ jobs:
           fi
           cp RELEASE_NOTES.md artifacts/release-notes.md
           printf '\nAutomated validation: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> artifacts/release-notes.md
-          gh release create "$RELEASE_TAG" artifacts/*.zip artifacts/*.tar.gz artifacts/*.tgz artifacts/*.min.css artifacts/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "RevaCSS $RELEASE_VERSION — $RELEASE_NAME" --notes-file artifacts/release-notes.md
+          gh release create "$RELEASE_TAG" artifacts/*.zip artifacts/*.tar.gz artifacts/*.tgz artifacts/integration-packages.json artifacts/*.min.css artifacts/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "RevaCSS $RELEASE_VERSION — $RELEASE_NAME" --notes-file artifacts/release-notes.md

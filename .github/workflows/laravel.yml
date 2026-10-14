@@ -58,7 +58,7 @@ jobs:
           php artisan view:cache
           php artisan route:cache
           php artisan optimize:clear
-      - name: Prepare explicit prerelease artifact
+      - name: Prepare stable Composer artifact
         run: python3 integrations/laravel/scripts/package.py
 
 # Manual, non-browser checks only. This workflow never publishes or deploys.

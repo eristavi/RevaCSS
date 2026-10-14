@@ -8,7 +8,7 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 
 **Latest published release: 1.2.1 · Erisian** · [Download](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT license](LICENSE)
 
-**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. Manual acceptance and the Nuxt-only dependency review are recorded as complete. Stable adapter packaging and final release validation remain pending; this candidate is not a published production release.
+**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. Manual acceptance and the Nuxt-only dependency review are recorded as complete. Stable adapter archives are prepared; final release validation remains pending; this candidate is not a published production release.
 
 [![One RevaCSS card in light, dark, glass and veil treatments.](https://raw.githubusercontent.com/eristavi/RevaCSS/main/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 

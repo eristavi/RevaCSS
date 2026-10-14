@@ -12,7 +12,7 @@ const app = await readFile('examples/nuxt/app/app.vue', 'utf8');
   <p>Use the existing Vue adapter. No separate Nuxt component package or module is needed. The Nuxt 4.6.1 reference application loads core CSS globally and renders native components through Vue 3.5.44.</p>
   <h2>Install the source candidates</h2>
   <p>Prepare matching CSS and pack the core and Vue adapter from the repository. Install both local tarballs in the Nuxt project. These packages remain unpublished candidates.</p>
-  <CodeViewer id="nuxt-install" lang="bash" code={'npm ci\nnpm run build:css\nnpm pack --ignore-scripts\nnpm pack ./integrations/vue --ignore-scripts\n\n# Inside the Nuxt project:\nnpm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0-dev.0.tgz'}/>
+  <CodeViewer id="nuxt-install" lang="bash" code={'npm ci\nnpm run build:css\nnpm pack --ignore-scripts\nnpm pack ./integrations/vue --ignore-scripts\n\n# Inside the Nuxt project:\nnpm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz'}/>
   <h2>Load CSS through Nuxt configuration</h2>
   <CodeViewer id="nuxt-config" lang="typescript" code={config}/>
   <h2>Set document appearance with useHead</h2>

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Build an explicit Composer prerelease ZIP; never modify framework source."""
+"""Build a stable Composer artifact ZIP; never modify framework source."""
+import argparse
 import json
+import re
 import subprocess
 from pathlib import Path
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
@@ -8,9 +10,14 @@ from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 package = Path(__file__).resolve().parents[1]
 subprocess.run(['node', str(package / 'scripts/prepare.mjs')], check=True)
 manifest = json.loads((package / 'resources/assets/manifest.json').read_text())
-version = manifest['version'] + '-dev'
-destination = package / 'artifacts' / f'revacss-laravel-{version}.zip'
-destination.parent.mkdir(exist_ok=True)
+version = manifest['version']
+if not re.fullmatch(r'2\.\d+\.\d+', version):
+    raise ValueError('Composer artifact requires a stable RevaCSS 2.x version.')
+parser = argparse.ArgumentParser()
+parser.add_argument('--output-dir', type=Path, default=package / 'artifacts')
+arguments = parser.parse_args()
+destination = arguments.output_dir.resolve() / f'revacss-laravel-{version}.zip'
+destination.parent.mkdir(parents=True, exist_ok=True)
 files = []
 for name in ['composer.json', 'README.md', 'LICENSE']:
     files.append(package / name)

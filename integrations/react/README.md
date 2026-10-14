@@ -1,10 +1,10 @@
 # RevaCSS for React
 
-Optional React 19 components for the RevaCSS 2.0 source candidate. The proposed
+Optional React 19 components for the RevaCSS 2.0 release preparation. The stable-version
 `@revacss/react` package is not published. It is separate from the CSS package and
 adds no stylesheets, theme runtime or replacement component behaviour. React owns
-application rendering; RevaCSS core remains CSS-only. Automated browser/ref checks are recorded below; physical-device, visual and
-manual accessibility acceptance remain required.
+application rendering; RevaCSS core remains CSS-only. Automated browser/ref checks are recorded below; the core release record gives
+manual acceptance and remaining publication steps.
 
 ## Install from source
 
@@ -21,11 +21,11 @@ npm pack ./integrations/react
 Inside a React 19 project:
 
 ```sh
-npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-react-2.0.0-dev.0.tgz
+npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-react-2.0.0.tgz
 ```
 
 The adapter prepack step compiles ESM JavaScript and TypeScript declarations.
-These source-candidate versions are not published or accepted releases. The
+These 2.0.0 tarballs have stable metadata but are not published registry releases. The
 adapter uses React as a peer dependency; it does not bundle React or require
 React DOM at runtime. React DOM and build tools belong to the consuming project.
 

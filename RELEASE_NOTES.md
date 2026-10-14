@@ -40,9 +40,11 @@ Nuxt, Next.js and SvelteKit use the corresponding existing adapters rather than
 additional RevaCSS runtime layers. Nuxt/Svelte/React/Vue applications retain their
 framework's normal JavaScript runtime; the RevaCSS core remains CSS-only.
 
-Adapter versions and registry publication are a separate preparation step.
-JavaScript adapter manifests still use `2.0.0-dev.0`, and the Composer package is
-unpublished. This document does not imply stable adapter registry availability.
+All four JavaScript adapter manifests now use stable `2.0.0` metadata. The
+Laravel Composer ZIP also declares `2.0.0` and supports artifact-repository
+installation. Registry/Packagist publication has not occurred. The final release
+workflow prepares and verifies separate adapter archives and checksums; stable
+version metadata does not imply registry availability.
 
 ## Documentation and review
 
@@ -62,8 +64,8 @@ results and evidence limits:
 
 All recorded quality blockers are resolved. The latest disclosure spacing/motion
 changes have compilation and manual acceptance; earlier automated sweeps are not
-presented as a rerun at the latest SHA. Stable adapter packaging and the final
-release workflow against the exact release commit remain pending.
+presented as a rerun at the latest SHA. Stable adapter archive preparation is complete; the final
+release workflow against the exact release commit remains pending.
 
 ## Publication and distributions
 

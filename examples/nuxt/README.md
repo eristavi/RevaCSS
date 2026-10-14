@@ -19,11 +19,11 @@ Inside this directory:
 
 ```sh
 npm ci --ignore-scripts
-npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0-dev.0.tgz
+npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz
 npm run dev
 ```
 
-Both packages remain unpublished candidates. Use a Node version supported by the
+Both 2.0.0 packages remain unpublished; the local tarballs use stable metadata. Use a Node version supported by the
 pinned Nuxt release; the maintainer checks use Node 24.19.0.
 
 ## Nuxt configuration

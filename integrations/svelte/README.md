@@ -1,11 +1,11 @@
 # RevaCSS for Svelte and SvelteKit
 
-Optional Svelte 5 components for the RevaCSS 2.0 source candidate. The proposed
+Optional Svelte 5 components for the RevaCSS 2.0 release preparation. The stable-version
 `@revacss/svelte` package is unpublished and distributed separately from core CSS.
 Svelte owns application rendering/state; RevaCSS core remains CSS-only. The same
 adapter works in plain Svelte and the SvelteKit reference, with no Kit-specific
-component package. Automated browser model/element checks are recorded below; manual acceptance
-remains required.
+component package. Automated browser model/element checks are recorded below; the core release record
+gives manual acceptance and remaining publication steps.
 
 ## Install the source candidate
 
@@ -21,7 +21,7 @@ npm pack ./integrations/svelte --ignore-scripts
 In a Svelte project configured with its normal compiler/plugin:
 
 ```sh
-npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-svelte-2.0.0-dev.0.tgz
+npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-svelte-2.0.0.tgz
 ```
 
 The adapter ships typed `.svelte` source and requires Svelte 5.57.1 or newer within

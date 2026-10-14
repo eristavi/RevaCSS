@@ -31,7 +31,7 @@ Release documents prepared; GitHub/npm publication is pending. The publication d
 - Add typed Vue components with model bindings, control-attribute forwarding and associated form messages; reuse them in a Nuxt production/SSR reference app.
 - Add typed React components with native ref props and form associations, plus React and Next.js reference apps.
 - Add typed Svelte components with native value/element bindings and snippets, plus plain Svelte and SvelteKit production/SSR reference apps.
-- Keep wrappers separate from core CSS. JavaScript adapter packages remain `2.0.0-dev.0` until the separate packaging step; Composer/npm adapter publication is not implied by this core release preparation.
+- Keep wrappers separate from core CSS. Prepare stable `2.0.0` JavaScript adapter tarballs and a `2.0.0` Composer ZIP, with export/content checks, byte-identical Laravel assets and checksums. Composer/npm adapter publication remains separate.
 
 ### Documentation and distribution
 
@@ -45,7 +45,7 @@ Release documents prepared; GitHub/npm publication is pending. The publication d
 - Record the combined three-engine automated review and Laravel/Livewire matrix with exact candidate SHAs; record the manual-test page's 21 targeted passes separately.
 - Record Revaz Eristavi's 14 October manual acceptance: desktop Chrome/Safari/Firefox, iPhone Chrome/Safari and Android Chrome/Mozilla, with no known issues reported. Evidence limits remain explicit in the validation record.
 - Complete the Nuxt-only dependency review. Two upstream build/dev advisories remain unpatched; the reviewed production output excludes their packages and named tooling references. Add a deployment-output assertion and default loopback development binding without changing dependency versions.
-- All recorded quality blockers are resolved. Stable adapter packaging and the final release workflow against the exact release commit remain pending. Latest disclosure changes have build/manual evidence; their final automated release run has not yet occurred.
+- All recorded quality blockers are resolved. Stable adapter packaging is prepared; the final release workflow against the exact release commit remains pending. Latest disclosure changes have build/manual evidence; their final automated release run has not yet occurred.
 
 ## 1.2.1 — Erisian · 10 October 2026
 

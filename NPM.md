@@ -88,7 +88,7 @@ npm run check:release-quality
 
 Package tests install an actual tarball in a clean project, verify public paths and distribution bytes, and build global/scoped consumer pages with Vite. Browser checks exercise the bundled pages without JavaScript in Chromium, Firefox, and WebKit. Use the browser installation steps in the main README first.
 
-The published 1.2.1 release passed both quality gates at its immutable tag. Its manual acceptance and the maintainer's 10 October visual sign-off are recorded in [the tagged quality registry](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The historic 1.0.0 exception was not used. The 2.0.0 candidate now has fresh maintainer manual acceptance and a completed Nuxt-only dependency review. Stable adapter packaging and final release validation remain pending; publication is still a separate action.
+The published 1.2.1 release passed both quality gates at its immutable tag. Its manual acceptance and the maintainer's 10 October visual sign-off are recorded in [the tagged quality registry](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The historic 1.0.0 exception was not used. The 2.0.0 candidate now has fresh maintainer manual acceptance and a completed Nuxt-only dependency review. Stable adapter packaging is prepared and final release validation remains pending; publication is still a separate action.
 
 The commands and pinned CDN URLs above describe the published 1.2.1 package. For future releases, authenticate with npm, verify the account using `npm whoami`, and publish only a validated release. Any required npm two-factor confirmation belongs to that publishing step. The `npm-publish.yml` workflow supports verified GitHub-release archives, manual backfills and future published stable releases when configured as a trusted publisher. The manual authenticated 1.2.1 publication does not establish that workflow's trust configuration.
 
@@ -109,3 +109,33 @@ For a verified published GitHub release, open **Actions → Publish verified npm
 The publisher downloads the original release tarball, checks its GitHub SHA-256 digest and package identity, and runs the npm quality gate from the exact release commit. Already published versions must have matching bytes. Historical backfills use `legacy` when needed to avoid moving `latest` backwards. Registry verification compares the published SHA-512 integrity with the prepared archive.
 
 The tarball is already built, so publication does not rerun its build lifecycle. The release's completed browser/package checks remain the validation record. Trusted publishing adds npm provenance automatically.
+
+## Stable optional adapter archives
+
+The core remains `revacss`. Optional npm packages are `@revacss/astro`,
+`@revacss/vue`, `@revacss/react` and `@revacss/svelte`, each prepared at `2.0.0`.
+After building the core and installing React packaging tooling, prepare all
+adapter archives without publishing:
+
+```sh
+npm --prefix integrations/react ci --ignore-scripts
+node scripts/package-integrations.mjs artifacts
+```
+
+This emits four `.tgz` files, `revacss-laravel-2.0.0.zip`, an integration inventory
+and SHA-256 checksums. The Laravel archive is a Composer artifact; it is not an
+npm package or a Packagist registration. The release workflow gates publication
+on packed consumers and Composer installation, then rebuilds matching archives
+at the release commit. Core bytes and package exports stay independent.
+
+For a published `v2.x` GitHub release, the npm publishing workflow selects the
+core and all four adapter archives. Manual runs select one `package_name` and
+start in dry-run mode. Every package gets its own registry identity/integrity
+check; existing versions cannot be overwritten and older backfills cannot move
+`latest` backwards. GitHub asset digests and the release quality gate still apply.
+
+Each scoped package needs package-creation rights in the `@revacss` scope and its
+own trusted-publisher configuration for this repository/workflow. These account
+settings and registry availability have not been established by archive
+preparation. Confirm package-creation rights and per-package trusted-publisher setup at the
+publication step; see the [official npm trusted-publishing guidance](https://docs.npmjs.com/trusted-publishers/).

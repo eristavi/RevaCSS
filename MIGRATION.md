@@ -23,7 +23,7 @@ Palette migration does not remove `data-accent` choices. For example, `data-acce
 
 Plain disclosures and exclusive `details` groups now share accordion content motion where the required CSS features are available. Use inherited `data-motion="none"` for immediate toggling; reduced-motion preferences also disable transitions. An `.accordion` wrapper supplies group layout and the rotating chevron; plain summaries retain their native marker.
 
-Optional Laravel, Astro, Vue/Nuxt, React/Next.js and Svelte/SvelteKit adapters/reference apps are separate from the core CSS package. Adapter stable packaging and publication are still pending during this documentation-preparation stage.
+Optional Laravel, Astro, Vue/Nuxt, React/Next.js and Svelte/SvelteKit adapters/reference apps are separate from the core CSS package. Stable `2.0.0` adapter tarballs and the Laravel Composer ZIP are prepared. Install from the local artifacts before publication; npm/Packagist availability is not implied by stable metadata.
 
 Existing shape, density and width presets remain available and reset their own setting locally. Veil is deprecated, with its attributes and stylesheets retained for existing integrations.
 
