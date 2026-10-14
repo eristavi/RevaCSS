@@ -4,11 +4,13 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 
 ## Current distribution release
 
-RevaCSS 1.0.0 — Erisian is the first public GitHub release, with compiled downloads and recorded validation. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation. The maintainer has authorized the first npm publication with the same six disclosed manual acceptance checks still open. The version-specific exception is recorded in `quality/npm-publication-v1.0.0.json`; it does not certify acceptance or change the standard for future versions.
+RevaCSS 1.2.1 — Erisian is the latest published GitHub distribution referenced by this repository. Its archives retain 14 palettes; current `main` and the documentation preview contain Default and Mono plus custom-palette configuration. Source-preview additions have not completed release validation. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation.
+
+The first 1.0.0 release used a version-specific npm publication exception for six then-open manual checks, recorded in `quality/npm-publication-v1.0.0.json`. Those registry entries were closed on maintainer attestation for 1.1.0; see `quality/releases/v1.1.0.md` for evidence limits. The historical exception does not change the standard for future versions.
 
 ## Contract
 - Websites and applications; beginners and experienced developers.
-- HTML and CSS only in delivered framework and documentation. Development tooling may use JavaScript.
+- HTML and CSS only in the delivered framework core. Native component behaviour remains script-free. The optional documentation/demo customizer and development tooling may use JavaScript; exported CSS does not depend on that runtime.
 - No mandatory wrappers or configuration. Native structural elements stay neutral.
 - Public CSS variables --re-*, stylesheet reva.css, nested layers re.tokens/re.base/re.components/re.buttons/re.utilities.
 - DTCG tokens are source; primitive → semantic → component overrides.
@@ -61,7 +63,7 @@ WCAG 2.2 A/AA target for shipped defaults and documented examples; not automatic
 
 Custom primary shades do not guarantee accessible foregrounds; explicit foreground and state tokens are tested. Container queries applied deliberately. Scoped builds document inheritance/overlay limits and third-party class collisions. Public attributes/classes/tokens follow semantic versioning and migration notices.
 
-Gzip CSS budgets for 1.2.1: 17 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks are required to complete release acceptance. The first npm release exception does not establish that acceptance. No new attribute options until scope reviewed.
+Gzip CSS budgets for 1.2.1: 17 KiB core / 35 KiB complete, excluding fonts/icons/extensions. Reference page of plain HTML is primary design acceptance test. Manual screen-reader and current cross-browser checks are required to complete release acceptance. The historical first npm release exception does not establish that acceptance. No new attribute options until scope reviewed.
 
 Shared appearance contract: shape applies to styled controls, surfaces, tables (including captioned tables), media and code. Border thickness applies to styled controls, surfaces, table separators and navigation panels. Table grid lines use the current border thickness without doubled internal edges. Depth applies to raised surfaces and actions; text-control inset shadows remain controlled by data-controls. Native invalid-field borders, focus indicators and forced-colour boundaries override decorative settings. Theme changes colours without resetting geometry or local settings. Optional material requires its matching global/scoped stylesheet.
 

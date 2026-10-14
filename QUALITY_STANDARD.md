@@ -1,6 +1,8 @@
 # RevaCSS component quality standard
 
-Status: acceptance contract for the framework. Version 1.2.1 retains all 14 palettes in the standalone core and raises its bounded gzip budget from 15 KiB to 17 KiB; the unit suite enforces this limit. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
+Status: acceptance contract for the framework. Published version 1.2.1 retains all 14 palettes in its standalone core and raised the gzip budget from 15 KiB to 17 KiB. Current `main` contains only Default and Mono; the 17 KiB budget remains enforced by the unit suite. Published archives remain unchanged. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
+
+The current blocker registry marks all recorded entries resolved. Manual entries were closed on maintainer attestation, with the evidence limits described below. This does not validate later source-preview additions; those still require applicable acceptance checks before release.
 
 ## Required acceptance gates
 
@@ -19,44 +21,44 @@ Every shipped component needs recorded evidence for applicable gates; mark a gat
 | Preferences | Verify reduced motion, forced colours, increased contrast, reduced transparency where supported, and print. Accessibility paint/focus wins over decoration. Custom alpha and motion settings must not defeat preferences. |
 | Compatibility | Record tested stable browser versions for Chrome, Edge, Firefox, Safari and iOS Safari. CI Chromium/Firefox/WebKit supplements real-browser/device checks. Optional enhancements have usable fallbacks; the modern core's required CSS features have a documented support boundary. |
 | Builds and overrides | Applicable global, minified, modular and scoped builds agree. Outside scoped boundaries remains unstyled subject to documented inheritance limits. Ordinary custom CSS can override without unnecessary specificity or important. |
-| Performance | Core minified gzip remains under 17 KiB for the complete 14-palette distribution; optional fonts/modules are separate. Check blur/animation on real devices and scroll performance; do not claim a measured performance budget without measurements. |
+| Performance | Core minified gzip remains under the enforced 17 KiB budget. Published 1.2.1 contains 14 palettes; current source contains Default and Mono. Optional fonts/modules are separate. Check blur/animation on real devices and scroll performance; do not claim a measured performance budget without measurements. |
 | Documentation and API | Copyable HTML matches demos; unique IDs work with multiple instances; defaults/targets/reset values/limitations are documented. Public classes, attributes and tokens receive migration notes for breaking changes. |
 
 Reference guidance: [WCAG 2.2](https://www.w3.org/TR/WCAG22/), [Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html), [Text spacing](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html), [Target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
 
 ## Current component acceptance inventory
 
-These are coverage notes and next checks, not declarations that every component passes all gates.
+These are coverage notes and ongoing review areas, not declarations that every component passes all gates. Blocker status is authoritative in `quality/blockers.json`; resolved regression IDs below describe existing coverage, not open failures. Later source-preview changes need their own validation.
 
 | Implemented area | Existing evidence | Acceptance work still needed |
 | --- | --- | --- |
 | Themes, tones, accents, inherited attributes | Nested defaults/resets, contrast pairs and build checks | Pairwise setting combinations, custom-palette guidance, visual baselines |
 | Headings, paragraphs, lists, inline text, quotations | Native styling, documentation accessibility/reflow | Languages, fallback fonts, actual zoom and screen readers |
 | Code, kbd, samp, pre | Native styling and scrolling | Long content, keyboard scrolling, text enlargement |
-| Buttons, action links, native action inputs | Variants, themes, accents, disabled/focus, shared settings | Q-BUTTON-LABEL and Q-BUTTON-TEXT-SCALE; native input label limits |
+| Buttons, action links, native action inputs | Variants, themes, accents, disabled/focus, shared settings; resolved Q-BUTTON-LABEL and Q-BUTTON-TEXT-SCALE regressions | Native input label limits and later source changes |
 | Badges | Global/minified/modular/scoped inheritance, local resets, rendered palette contrast, narrow LTR/RTL labels, glass fallback/preferences, documentation | Real-device, screen-reader, actual zoom/print and approved visual baselines remain shared release checks |
 | Text/email/etc inputs, select, textarea | Labels, validation, read-only/disabled appearance | Native picker/autofill/device states, long labels, error announcements |
 | Checkbox/radio, fieldset/legend | Native groups and labelled targets | Long labels, selected/disabled/invalid states and assistive technology |
 | Range/file/colour/date controls | Basic native styles/examples | Real device/platform interactions and localization |
 | Progress/meter/output | Native styling | Dedicated labelled state examples and accessibility checks |
 | Cards | Shared appearance and glass raster tests | Mixed content and approved visual states |
-| Grid/row/stack | Intrinsic grid, wrapping and inherited gap | Q-GRID-CONTENT, Q-ROW-CONTENT; narrow nested containers |
+| Grid/row/stack | Intrinsic grid, wrapping and inherited gap; resolved Q-GRID-CONTENT and Q-ROW-CONTENT regressions | Narrow nested containers and later source changes |
 | Container/prose/alignment helpers | Width/default geometry checks | Nested gutters, typography and RTL stress review |
 | Tables and table-scroll | Semantics, styles, borders, corners | Wide/complex data, keyboard scrolling, print/header association |
 | Images/video | Ratios, fit and shared shape checks | Broken media, intrinsic sizing and native video interaction |
 | Audio/canvas/svg/iframe/object/embed | Basic sizing rules | Dedicated examples and contextual semantics/interaction checks |
-| Details/summary and exclusive groups | Native toggles and closed-state tests | Q-SUMMARY-LABEL, long content and grouped keyboard checks |
+| Details/summary and exclusive groups | Native toggles and closed-state tests; resolved Q-SUMMARY-LABEL regression | Long content and grouped keyboard checks |
 | Standalone popovers | Native toggles/dismissal examples | Edge placement and focus recovery across engines/devices |
 | Dialog appearance | Modal safe-area bounds and optional overlay motion instrumentation | Application-owned invocation; real-device focus, screen-reader and visual review remain required |
-| Top navigation and nested panels | Desktop/mobile, RTL, dismissal, no-script tests | Q-NAV-FOCUS and real device/screen-reader checks |
+| Top navigation and nested panels | Desktop/mobile, RTL, dismissal, no-script tests; Q-NAV-FOCUS closed on maintainer attestation | Repeat real-device/screen-reader checks for relevant changes |
 | Glass surfaces/actions | Transmission, corners, contrast and reset checks | Real Firefox/Safari blur, busy backgrounds and device performance |
-| Decorative edges | CSS-state, inheritance and preference tests | Q-EDGE-DEVICE; visible temporal rendering across engines |
+| Decorative edges | CSS-state, inheritance and preference tests; Q-EDGE-DEVICE closed on maintainer attestation | Visible temporal rendering across engines for relevant changes |
 | Skip link | Native focus styling | Manual keyboard and zoom/focus-obscuration review |
-| Documentation/code viewer/theme switch | Shared header, no scripts, literal code, page-local theme | Enlarged text/visual baselines; preserve documented page-local choice |
+| Documentation/code viewer/theme switch | Shared header, script-free component behaviour, literal code; optional shared settings runtime | Enlarged text/visual baselines and shared profile persistence |
 
 ## Known failures and reporting
 
-`quality/blockers.json` is the explicit release-blocker registry. Automated entries map to assertions in `tests/browser/quality.spec.mjs`; manual entries need reproducible evidence. The audit on main `92c9607` found four long-content overflows and buttons-documentation overflow at 320px with 200% root font size.
+`quality/blockers.json` is the explicit release-blocker registry. Automated entries map to assertions in `tests/browser/quality.spec.mjs`; manual entries need reproducible evidence. The historical audit on main `92c9607` found four long-content overflows and buttons-documentation overflow at 320px with 200% root font size. Those automated entries are now resolved with regression evidence in the registry.
 
 Known automated failures use Playwright `test.fail` with their blocker ID. They still execute the desired acceptance assertion; they are not skipped or counted as acceptance passes. Setup occurs before the expected-failure marker. An unexpected pass fails the alpha suite and requires reviewing the blocker. When a fix is validated across the supported engines, mark its entry resolved and record evidence; the same assertion then becomes a normal regression test. Do not change assertions merely to preserve a green result.
 
@@ -68,10 +70,10 @@ npm run test:quality -- --project=chromium
 npm run check:release-quality
 ```
 
-`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. The maintainer has authorized first npm publication of `revacss@1.0.0` with the six already disclosed manual items still open, recorded in `quality/npm-publication-v1.0.0.json`. The npm lifecycle invokes the gate with `--npm` to apply that version-specific exception; the ordinary gate still fails. Future versions and any new blocker remain gated. The verified npm publication workflow enforces the current release gate before distributing GitHub-release archives. Its one-time trusted-publisher configuration is documented in NPM.md.
+`check:release-quality` deliberately exits nonzero while any registry item remains open. Documentation CI reports that status separately from the documentation build. A green build does not close manual acceptance. GitHub distribution releases disclose the registry status in their notes and validation record. The historical first-publication exception for `revacss@1.0.0` allowed six then-open manual items, as recorded in `quality/npm-publication-v1.0.0.json`. Those entries were subsequently closed on maintainer attestation for 1.1.0. The npm lifecycle's `--npm` option applies only the recorded version-specific exception when relevant; ordinary gate results follow the current registry. Future versions and any new blocker remain gated. The verified npm publication workflow enforces the current release gate before distributing GitHub-release archives. Its one-time trusted-publisher configuration is documented in NPM.md.
 
 Record browser/device versions, fixture, result, reviewer/date and evidence when resolving manual gates. Root-font scaling and viewport checks do not replace actual zoom; axe does not replace screen readers; headless WebKit does not replace Safari/iPhone; native blur capture omissions remain unverified device behavior.
 
-This first implementation establishes the standard and fixtures. Overflow corrections, navigation changes, edge diagnosis and expanded layout APIs are separate choices.
+The standard and fixtures remain the acceptance contract. Resolved entries retain their regression evidence; subsequent changes require applicable checks rather than inheriting acceptance automatically.
 
-The released 1.1.0 effects, demo integration and validation are recorded in [the readiness record](quality/releases/v1.1.0.md). The six manual registry entries remain release requirements.
+The released 1.1.0 effects, demo integration and validation are recorded in [the readiness record](quality/releases/v1.1.0.md). The six manual registry entries were closed on maintainer attestation for 1.1.0. Their underlying checks remain requirements for relevant future changes; the closure does not supply missing device versions or captured evidence.

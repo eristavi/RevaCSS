@@ -15,7 +15,7 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 - **Shared design decisions.** Set appearance defaults on a parent instead of repeating them on every component. Local overrides change only the settings you choose.
 - **HTML and CSS first.** Native controls, disclosures and popovers provide browser behaviour. The framework core has no JavaScript runtime; compiled CSS works without a build step.
 - **Customise with ordinary CSS.** Design tokens, custom properties, cascade layers and low-specificity selectors leave room for your own styles.
-- **A coordinated visual system.** Light, dark and system themes, 14 built-in palettes and your own custom colours, shared sizing and spacing, plus optional surface and button materials.
+- **A coordinated visual system.** Light, dark and system themes, Default and Mono palettes in the current source preview, your own custom colours, shared sizing and spacing, plus optional surface and button materials.
 
 Appearance inheritance is implemented through CSS rules and custom properties; HTML data attributes do not inherit by themselves. RevaCSS works with static HTML, server-rendered templates and frameworks that render HTML.
 
@@ -63,6 +63,8 @@ Place shared settings on `<html>` or a section. A local setting changes that cho
 
 These example buttons demonstrate appearance. Connect application actions to your own handlers or use a real form destination.
 
+The choices below describe current `main` and the documentation preview; published 1.2.1 archives retain their original palette set.
+
 | Attribute | Supported choices |
 | --- | --- |
 | `data-theme` | `auto`, `light`, `dark` |
@@ -74,7 +76,7 @@ These example buttons demonstrate appearance. Connect application actions to you
 
 Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/), [inheritance guide](https://eristavi.github.io/RevaCSS/guide/styling/) and [public CSS tokens](https://eristavi.github.io/RevaCSS/reference/tokens/).
 
-Only Default and Mono are built in. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
+Only Default and Mono are built into current `main` and the documentation preview. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
 
 Veil is deprecated for both surfaces and buttons. Its global/scoped stylesheets and attribute values remain available for existing sites; prefer Solid, Glass or Soft UI for new work.
 
@@ -205,7 +207,7 @@ Read the [full founder’s note](https://eristavi.github.io/RevaCSS/guide/why-re
 | Distribution | Status |
 | --- | --- |
 | **Published 1.2.1 · Erisian** | Compiled CSS and complete archives are available from the [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1). |
-| **Current `main` and documentation preview** | Includes unreleased responsive wrappers, RTL refinements, form/native-control improvements, accessibility and print utilities, and the iOS date/time sizing fix. Tests for these additions are deferred. |
+| **Current `main` and documentation preview** | Includes unreleased custom shape/density/page-width settings, custom-palette tools, Default/Mono palette consolidation, Veil deprecation, responsive wrappers, RTL refinements, form/native-control improvements, accessibility and print utilities, and the iOS date/time sizing fix. Source-preview additions have not completed release validation. |
 
 Published archives remain unchanged. See the [new features and availability guide](https://eristavi.github.io/RevaCSS/guide/responsive-rtl-print/) and [changelog](CHANGELOG.md) before using source-preview additions with a released package.
 
