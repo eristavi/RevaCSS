@@ -2,6 +2,12 @@ import options from '../../../tokens/options.json';
 
 export const attributes = [
   {
+    id: 'font', title: 'data-font',
+    description: 'Font family. Values: manrope, system. Default: manrope. Set it on html, a section or a control. The optional font stylesheet supplies Manrope; when that family is unavailable, it uses the system fallback. System selects the device UI font even when Manrope is loaded. Local presets reset the choice, code stays monospace and an explicit --re-font-heading override remains available.',
+    html: '<section data-font="system">\n  <h3>System font</h3>\n  <p>The device UI font, inherited by text and controls.</p>\n  <button type="button">System action</button>\n  <section data-font="manrope">\n    <h4>Default font</h4>\n    <p>A local reset to Manrope with its system fallback.</p>\n    <input aria-label="Example project" placeholder="Default font field">\n  </section>\n</section>',
+    glass: false
+  },
+  {
     id: 'navbar', title: 'data-navbar',
     description: 'Top-menu layout. Values: standard, centered, floating, split. Default: standard. Inherits from html or a parent; a local value resets it. Sidebars are unaffected. See Components / Top menu for complete responsive examples and split groups.',
     html: '<section data-navbar="centered">\n  <nav class="top-menu" aria-label="Centered example">\n    <a class="menu-brand" href="#navbar">Studio</a>\n    <ul class="menu-items menu-desktop"><li><a href="#navbar">Overview</a></li><li><a href="#navbar">Projects</a></li></ul>\n    <div class="menu-actions"><a href="#navbar">Contact</a></div>\n  </nav>\n</section>',

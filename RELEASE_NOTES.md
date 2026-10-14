@@ -8,6 +8,7 @@ Default and Mono are the built-in palettes. Twelve palette values shipped in 1.2
 
 ## Additions and fixes
 
+- Font selection through `data-font="manrope|system"`, including local resets, native controls and the documentation/demo customizer. Manrope remains the default with optional font files; code remains monospace.
 - Custom shape with separate surface, field and action radiuses; local presets retain their reset behaviour.
 - Custom density with separate surface padding, control-padding scale and content spacing, preserving minimum control heights.
 - Full and Custom page widths with configurable gutters and independent navbar width.
@@ -20,7 +21,7 @@ Veil is deprecated but retained for existing integrations. Experimental demo eff
 
 ## Validation and publication
 
-This is a candidate, not a published production release. Build, 38 unit/link checks and five installed-package checks pass. Browser coverage includes complete Firefox and WebKit sweeps and the complete Chromium sweep followed by a successful corrected code-viewer spec in all three engines. The [candidate validation record](quality/releases/v2.0.0.md) gives exact counts, revisions and limitations.
+This is a candidate, not a published production release. Build, 38 unit/link checks and five installed-package checks pass. Browser coverage includes complete Firefox and WebKit sweeps and the complete Chromium sweep followed by a successful corrected code-viewer spec in all three engines. Font, inherited-defaults, settings and quality specs additionally pass 35 checks per engine in Chromium, Firefox and WebKit. The [candidate validation record](quality/releases/v2.0.0.md) gives exact counts, revisions and limitations.
 
 Fresh physical-device, screen-reader, actual zoom/text-spacing, print and visual review remains an explicit candidate gate. Publication stays blocked until applicable acceptance is complete. A successful documentation deployment does not close that gate.
 

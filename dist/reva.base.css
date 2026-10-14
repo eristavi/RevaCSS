@@ -39,6 +39,8 @@
   :where(audio) { max-inline-size: 100%; }
   :where(address) { font-style: normal; }
   :where(button,input,select,textarea) { font: inherit; color: inherit; }
+  /* Apply local font choices to their own text and controls; keep code monospace. */
+  :where([data-font="manrope"], [data-font="system"], :scope[data-font="manrope"], :scope[data-font="system"]):where(:not(pre,code,kbd,samp,h1,h2,h3,h4,h5,h6)) { font-family: var(--re-font); }
   :where(button,input,select,textarea,summary,a) { -webkit-tap-highlight-color: transparent; }
   :where(button, input[type=button],input[type=submit],input[type=reset], :is(.button,.scroll-top)) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);

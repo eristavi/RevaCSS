@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add exactly two font presets, Default (Manrope) and System, through inherited `data-font="manrope|system"`. Keep font assets optional, preserve monospace code and the independent heading token, and include saved choices in documentation/demo controls and downloaded HTML. Font, inherited-defaults, settings and quality checks pass in all three engines; fresh manual acceptance remains required.
 Preparing **2.0.0**. Removal of the twelve non-Default/Mono built-in palettes is a breaking change; the remaining additions and refinements preserve their existing APIs. See [MIGRATION.md](MIGRATION.md). Automated candidate coverage is complete; the [validation record](quality/releases/v2.0.0.md) gives exact results and limitations. Fresh manual acceptance remains separate from historical release records.
 
 - Correct the AI guide's custom-component link and account for the optional customizer's JSON schemas and editor assets in script-policy validation. Validate downloaded starter assets against their project paths rather than treating the download as a hosted page.

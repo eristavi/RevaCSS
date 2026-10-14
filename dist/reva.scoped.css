@@ -92,6 +92,8 @@
 :where([data-border="none"], :scope[data-border="none"]) { --re-surface-border: 0px; }
 :where([data-controls="styled"], :scope[data-controls="styled"]) { --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%); }
 :where([data-controls="minimal"], :scope[data-controls="minimal"]) { --re-input-opacity: 0; --re-input-shadow: none; }
+:where([data-font="manrope"], :scope[data-font="manrope"]) { --re-font: Manrope, system-ui, sans-serif; }
+:where([data-font="system"], :scope[data-font="system"]) { --re-font: system-ui, sans-serif; }
 :where([data-navbar="standard"], :scope[data-navbar="standard"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; }
 :where([data-navbar="centered"], :scope[data-navbar="centered"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-layout: grid; --re-navbar-links-align: center; --re-navbar-brand-margin: 0; }
 :where([data-navbar="floating"], :scope[data-navbar="floating"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; --re-navbar-width: min(calc(100% - 2rem), var(--re-container)); --re-navbar-margin: 1rem; }
@@ -148,6 +150,8 @@
   :where(audio) { max-inline-size: 100%; }
   :where(address) { font-style: normal; }
   :where(button,input,select,textarea) { font: inherit; color: inherit; }
+  /* Apply local font choices to their own text and controls; keep code monospace. */
+  :where([data-font="manrope"], [data-font="system"], :scope[data-font="manrope"], :scope[data-font="system"]):where(:not(pre,code,kbd,samp,h1,h2,h3,h4,h5,h6)) { font-family: var(--re-font); }
   :where(button,input,select,textarea,summary,a) { -webkit-tap-highlight-color: transparent; }
   :where(button, input[type=button],input[type=submit],input[type=reset], :is(.button,.scroll-top)) {
     --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
