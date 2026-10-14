@@ -2,7 +2,7 @@
 
 Current source prepares the 2.0.0 candidate. Registry/CDN examples below refer to the existing 1.2.1 distribution; the local-checkout example produces 2.0.0. Do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
 
-**RevaCSS 1.2.1 — Erisian** is published on npm with the `latest` tag. It is a stylesheet package with no framework JavaScript or runtime dependencies. Its archive matches the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) byte for byte; see the [npm publication record](quality/releases/v1.2.1-npm.md).
+**RevaCSS 1.2.1 — Erisian** is published on npm with the `latest` tag. It is a stylesheet package with no framework JavaScript or runtime dependencies. Its archive matches the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) byte for byte; see the [npm publication record](quality/releases/v1.2.1.md#npm-publication-on-14-october-2026).
 
 The 1.2.1 distribution includes the optional `reva.button-materials.css` and scoped counterpart. Load the matching extension after the core to use independent action materials.
 
