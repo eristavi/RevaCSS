@@ -23,7 +23,7 @@ for(const width of [320,390,1280])test(`complete fixture coverage, references, a
  });expect(problems).toEqual({duplicates:[],missing:[]});
  // Lazy full-document examples have their own landmarks and native behaviour.
  for(const frame of await page.locator('[data-manual-example] iframe').all()){
-  await frame.scrollIntoViewIfNeeded();await expect(frame.contentFrame().locator('body')).toBeVisible();
+  await frame.scrollIntoViewIfNeeded();await expect(frame.contentFrame().locator('body > :first-child')).toBeVisible();
  }
  await page.addScriptTag({path:require.resolve('axe-core')});
  expect(await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})))).toEqual([]);
@@ -47,6 +47,12 @@ test.describe('native test-page controls without JavaScript',()=>{
   await expect(page.locator('#stress-required')).toHaveValue('');
   await expect(page.locator('#stress-select')).toHaveValue('');
   await expect(page.locator('#stress-textarea')).not.toHaveValue('Changed review text');
+  await page.locator('#stress-required').fill('Fictional reviewer');
+  await page.locator('#stress-invalid').fill('reviewer@example.test');
+  await page.locator('#stress-select').selectOption('short');
+  await page.locator('#stress-form button[type=submit]').click();
+  await expect(page).toHaveURL(/\?[^#]*required-name=Fictional\+reviewer[^#]*#stress-forms$/);
+  await expect(page.locator('#stress-required')).toHaveValue('');
  });
  test('disclosures, radio panels and popovers operate independently',async({page})=>{
   await page.goto(route);
