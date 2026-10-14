@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
-  "testsDeferred": false,
-  "summary": "Preparing 2.0.0 with Default/Mono palette consolidation and documented migration. Manrope/System font selection, custom shape, density and page widths, responsive/RTL/native-control refinements and accordion alignment are included. Automated readiness and font-selection coverage is complete; fresh manual acceptance remains required. Published 1.2.1 archives are unchanged."
+  "testsDeferred": true,
+  "summary": "Preparing RevaCSS 2.0.0: Default/Mono palette migration, Manrope/System fonts, custom palette/shape/density/width settings, native control and disclosure refinements, and optional framework integrations. Combined automated results are recorded; maintainer manual acceptance and the Nuxt-only dependency review are complete. Stable adapter packaging remains pending. GitHub/npm 2.0.0 publication has not occurred; existing 1.2.1 distributions remain unchanged."
 }

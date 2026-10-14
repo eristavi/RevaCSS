@@ -1,13 +1,13 @@
 ---
-import {version, releaseName, releaseUrl, releaseRecordUrl, qualityUrl, development, npmPublished, npmUrl, acceptanceComplete, manualChecks, openChecks, unreleasedChanges, testsDeferred} from '../data/release.js';
+import {version, releaseName, releaseUrl, releaseRecordUrl, qualityUrl, development, npmPublished, npmUrl, acceptanceComplete, openChecks, unreleasedChanges, testsDeferred} from '../data/release.js';
 const {detailed=false}=Astro.props;
 ---
 <div class="doc-note release-status">
-  {unreleasedChanges && <p><strong>Source preview:</strong> These pages also include unreleased CSS additions. Published {version} downloads and npm files are unchanged. {testsDeferred && <>Tests for these additions are deferred; earlier release acceptance does not cover them.</>} <a href={import.meta.env.BASE_URL+'guide/responsive-rtl-print/'}>See availability and usage</a>.</p>}
+  {unreleasedChanges && <p><strong>Source preview:</strong> {development ? <>This {version} candidate has not been published.</> : <>These pages include unreleased CSS additions; published {version} downloads and npm files remain unchanged.</>} {testsDeferred && <>Latest source changes await final automated release validation; recorded earlier passes apply to their documented revisions.</>} <a href={import.meta.env.BASE_URL+'guide/responsive-rtl-print/'}>See availability and usage</a>.</p>}
   <p>{development ? <>These pages describe RevaCSS {version} in development.</> : <><a href={releaseUrl}>RevaCSS {version} — {releaseName}</a> is available with compiled CSS and downloadable starters.</>}
   {' '}{npmPublished ? <><a href={npmUrl}>The matching npm package</a> is published.</> : development ? <>Use the documentation build for a preview or build the stylesheets from source.</> : <>The matching npm package is awaiting publication; use the GitHub downloads.</>}</p>
   {detailed && <>
-    <p>{acceptanceComplete ? <>The <a href={qualityUrl}>recorded acceptance checks</a> are resolved, including {manualChecks.length} manual checks accepted on maintainer attestation.</> : <><a href={qualityUrl}>{openChecks.length} acceptance checks remain open.</a></>}
+    <p>{acceptanceComplete ? <>The <a href={qualityUrl}>recorded acceptance checks</a> are resolved; the <a href={releaseRecordUrl}>validation record</a> identifies reviewers, scope and evidence limits.</> : <><a href={qualityUrl}>{openChecks.length} acceptance checks remain open.</a></>}
     {!development && <> The <a href={releaseRecordUrl}>release validation record</a> explains automated coverage, visual sign-off and known limits.</>}</p>
     <p>Maintainer acceptance does not establish accessibility certification. Exact device and assistive-technology versions and a new screenshot baseline were not supplied with the latest visual sign-off.</p>
   </>}

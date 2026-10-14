@@ -2,71 +2,50 @@
 
 ## Unreleased
 
-- Share accordion content motion with plain native disclosures and exclusive details groups, without wrappers or scripts. Retain feature-gated native fallbacks and motion/preferences controls. Validation deferred at maintainer request.
+Experimental demo work remains outside the 2.0 public CSS API:
 
-- Vertically centre native disclosure labels and markers inside the existing minimum touch target, including exclusive groups. Preserve accordion flex alignment and native open/close behaviour. Validation deferred at maintainer request.
+- Effects Lab explores Aura, Spring lift and Layered depth, including a CSS/SVG mobile-tap prototype. Draft classes and separate demo stylesheets have no release commitment; prototype device acceptance is not inferred from core sign-off.
+- Living Blueprint explores scroll-driven composition, intensity, zoom, direction, rotation and fade, with static and preference fallbacks. Its demo composition styles remain separate from the core.
 
-- Add one complete manual-test documentation page with every live component example, native navigation, exhaustive form controls, long and multilingual content, material comparisons and a copyable review record. Namespace fixture references and retain independent document examples.
+## 2.0.0 — Erisian · prepared 14 October 2026
 
-- Add an explicit combined review for all integrations: reference model outputs, opt-in three-engine browser checks for native controls, hydrated values and DOM focus, axe/reflow assertions, and the Laravel/Livewire matrix. Record unresolved Nuxt dependency advisories separately from passing builds. No core CSS changes.
+Release documents prepared; GitHub/npm publication is pending. The publication date will be recorded when the release is published. See [RELEASE_NOTES.md](RELEASE_NOTES.md), [MIGRATION.md](MIGRATION.md) and the [validation record](quality/releases/v2.0.0.md).
 
-- Stage an optional Svelte 5 adapter for version 2 with typed native components, snippet content, explicit value/element bindings and associated form messages. Add plain Svelte and SvelteKit 3 examples, production/SSR checks, a setup guide and requested-only CI. Core CSS remains unchanged; browser/hydration and accessibility acceptance remain deferred.
+### Breaking change
 
-- Add a Nuxt reference app using the existing Vue adapter, global core CSS loading and server-rendered document theme attributes. Check strict Nuxt types, production builds, live SSR pages, served styles and form markup from packed source candidates. Core CSS and Vue components remain unchanged; browser/hydration acceptance remains deferred.
+- Keep Default and Mono as the built-in palettes. Remove twelve values shipped in 1.2.1; migrate existing palette selections to Default/Mono or a named custom CSS palette. Existing 1.2.1 distributions remain immutable.
 
-- Stage an optional React 19 adapter for version 2 with typed native components, ref-as-prop forwarding, labelled form controls, merged hint/error associations, React and Next.js examples and a setup guide. Keep core CSS unchanged; compilation/package/SSR checks are recorded separately from deferred browser acceptance.
+### Appearance and native components
 
-- Stage an optional Vue 3.5 adapter for version 2: typed native components, v-model form bindings, explicit control attribute forwarding, associated labels/hints/errors, a reference application and setup guide. Keep core CSS unchanged. Vue compilation, strict types and SSR markup checks are recorded; browser/device acceptance remains deferred.
+- Add Default (Manrope) and System font presets through inherited `data-font="manrope|system"`; retain optional self-hosted font assets, local resets and monospace code.
+- Add custom light/dark palette editing and CSS export, with shared colour tokens and contrast feedback.
+- Add custom shape settings for surface, field and action radiuses; custom density settings for surface padding, controls and content spacing; and Full/Custom page widths with independent navbar width.
+- Add opt-in responsive wrappers, RTL refinements, native date/time/range/file/colour sizing, read-only/invalid/disabled states, focus-revealing visually hidden content and print utilities.
+- Vertically centre plain disclosure labels and native markers within their existing minimum touch target. Share accordion content motion with plain disclosures and exclusive groups, using native HTML, feature-gated animation and preference fallbacks.
+- Deprecate Veil while retaining its attributes and stylesheet exports for compatibility. Solid, Glass and Soft remain available.
 
-- Stage an optional Astro 7 adapter for version 2 with typed native components, labelled form controls, merged error/hint associations, global/scoped reference pages, separate candidate packaging and a dedicated setup guide. Core CSS remains unchanged; browser/device acceptance is deferred.
+### Optional integrations
 
-- Stage an optional Laravel 12/13 integration and runnable reference app for version 2. Add Blade wrappers, Laravel validation/previous-input handling, configurable appearance and registered application palettes, byte-identical versioned asset publishing, ordinary/Livewire pagination, authentication/owned CRUD examples, Boost guidance and explicit candidate packaging. Core CSS/tokens/build scripts and published archives remain unchanged. Browser/device acceptance is deferred.
+- Add a Laravel 12/13 adapter and reference app: native Blade components, validation/previous-input handling, versioned assets, appearance settings, pagination, Livewire 3/4 examples and Boost guidance.
+- Add typed native Astro components and global/scoped reference pages.
+- Add typed Vue components with model bindings, control-attribute forwarding and associated form messages; reuse them in a Nuxt production/SSR reference app.
+- Add typed React components with native ref props and form associations, plus React and Next.js reference apps.
+- Add typed Svelte components with native value/element bindings and snippets, plus plain Svelte and SvelteKit production/SSR reference apps.
+- Keep wrappers separate from core CSS. JavaScript adapter packages remain `2.0.0-dev.0` until the separate packaging step; Composer/npm adapter publication is not implied by this core release preparation.
 
-- Add exactly two font presets, Default (Manrope) and System, through inherited `data-font="manrope|system"`. Keep font assets optional, preserve monospace code and the independent heading token, and include saved choices in documentation/demo controls and downloaded HTML. Font, inherited-defaults, settings and quality checks pass in all three engines; fresh manual acceptance remains required.
-Preparing **2.0.0**. Removal of the twelve non-Default/Mono built-in palettes is a breaking change; the remaining additions and refinements preserve their existing APIs. See [MIGRATION.md](MIGRATION.md). Automated candidate coverage is complete; the [validation record](quality/releases/v2.0.0.md) gives exact results and limitations. Fresh manual acceptance remains separate from historical release records.
+### Documentation and distribution
 
-- Correct the AI guide's custom-component link and account for the optional customizer's JSON schemas and editor assets in script-policy validation. Validate downloaded starter assets against their project paths rather than treating the download as a hosted page.
-- Preserve the explicit Default palette choice when shared settings are applied to standalone examples. Include linked documentation and starter files in distribution archives and npm packages, with installed-documentation link checks. Retain keyboard assertions while waiting for native focus scrolling to settle, target the intended configuration disclosure, and account for Firefox DOMRect floating-point precision without changing control sizing.
-- Derive release tags and asset names from validated package/lock metadata. Keep publication explicit, preserve immutable existing releases, and allow requested browser validation through a marked review PR.
+- Add a complete manual-test page with 39 component families, 139 live examples, native navigation, comprehensive fields/states, long/multilingual/RTL content, icons and appearance comparisons. Namespace fixture IDs, control targets and group names.
+- Document custom-component contracts, palette migration, integration setup and application-owned behaviour. Keep copyable examples, generated references, starter files and download paths aligned.
+- Use consistent accordion presentation in documentation/demo panels and customizers. Preserve shared appearance settings and correct documentation/starter links.
+- Derive immutable release tags, filenames, archives and checksums from matching package metadata; track GitHub/npm availability separately.
 
-- Use the existing accordion structure for documentation and demo content disclosures, source panels, customizer groups and the mobile documentation browser. Centre summary labels with the framework’s existing rules and retain native open/close behaviour. Shared demo components also update downloadable HTML. Core CSS, navigation disclosures and intentionally plain native disclosure examples are unchanged. Automated coverage is recorded for this candidate; fresh device acceptance remains pending.
+### Acceptance and remaining release steps
 
-- Add Full and Custom page widths. Full fills the parent with side padding; Custom configures maximum width including padding and per-side padding. Cap padding in narrow containers, reset local width presets, preserve separate navbar-width behavior, align full-navbar content and update the dashboard container. Add saved custom-width controls with numeric/range entry, CSS copy/export and self-contained HTML downloads. Fresh device acceptance remains pending.
-
-- Add Custom density with separate base surface padding, control-padding multiplier and content spacing. Existing density presets reset all groups; surface hooks consume a dedicated padding token with the existing spacing fallback. Preserve minimum control heights and safe-area padding. Add linked/independent sliders and numeric inputs, saved choices, CSS copy/export and self-contained HTML downloads in the optional editor. Fresh device acceptance remains pending.
-
-- Add Custom shape with separate surface, field and action radius tokens. Keep existing presets and local resets; let styled text fields consume the field radius with a surface-radius fallback. Add linked/independent sliders and numeric inputs, shared saved settings, CSS copy/export and self-contained HTML downloads in the optional editor. Core output remains CSS-only; fresh device acceptance remains pending.
-
-- Simplify built-in palettes to Default and Mono. Remove the other 12 experimental palettes from tokens, generated global/scoped/modular CSS and current examples/controls. This is an intentional breaking source-preview change: migrate removed names to Default, Mono or a custom CSS palette. Published 1.2.1 downloads remain unchanged.
-- Deprecate Veil for surfaces and buttons. Retain its stylesheet exports and attribute values for existing interfaces, label the compatibility option, and recommend Solid, Glass or Soft UI for new work.
-
-- Revise the Effects Lab iOS tap prototype to use a native card-sized button as the SVG click source and a direct SVG-to-card sibling selector. Keep links above the preview target and hide the target for desktop hover. Remove the animated descendant-class `:has()` dependency. No JavaScript or inline event hooks are added; real iOS verification remains pending.
-
-- Change Effects Lab mobile previews to normal card taps. Native SVG click timing holds each preview for 1.6 seconds so the same CSS glow, lift and depth response as desktop hover can complete, then animate back automatically. Remove press/release timing and its faster entrance; keep desktop hover, native links and preference fallbacks. No JavaScript or inline event hooks are added. Real-device verification remains pending.
-
-- Prototype direct card contact in Effects Lab using declarative SVG `set` timing and CSS, with no JavaScript or inline event hooks. Native pointer/touch events activate a small SVG class marker; release and cancellation restore it. Remove separate press buttons, preserve desktop hover and ordinary link actions, and retain motion/preferences fallbacks. iPhone and other real-device verification remains pending; this replaces the button-based touch prototype and is not a released framework API.
-
-- Replace the Effects Lab's persistent preview switch with individual native press-and-hold buttons. Touch uses the same glow, lift and depth targets as hover, with a fast entrance and slower return on release. Stationary controls stay outside moving cards, normal links retain their actions, and visible keyboard focus avoids retaining touch focus after release. Core files remain unchanged; browser/device acceptance checks remain deferred.
-
-- Add Effects Lab, a demo-only CSS showcase for Aura, Spring lift and Layered depth, with resting comparisons, a combined study, keyboard-focus responses and a native touch-preview switch. Include matching downloadable HTML, separate effect/composition stylesheets, palette/material customisation and conservative preference fallbacks. Mark all three effects as future-release candidates without a release commitment; core styling and package archives remain unchanged. Fresh device and accessibility acceptance remains pending.
-
-- Document the custom-component extension contract, public token usage, local overrides, custom palettes, material hooks and application responsibilities. Add an HTML/CSS-only project-summary starter, live documentation examples, downloadable files and generated AI reference. Core styling and published archives remain unchanged; fresh device and accessibility acceptance for this addition remains pending.
-
-- Clarify Living Blueprint's static fallback when required scroll animation features are unavailable, including default Firefox settings. Show intensity controls only when the assembly can animate, check named view timeline support, and use a nonzero scroll animation duration for compatible Firefox implementations. Core styles remain unchanged; fresh device acceptance remains pending.
-
-- Add Living Blueprint, an original demo-only scroll composition with inherited class-based movement, ten intensity and zoom levels, eight directions, rotation, fade and phased assembly. Include a quieter depth example, native intensity controls, downloadable HTML and responsive/preference fallbacks. Effects and composition CSS are isolated from the core; fresh device acceptance remains pending.
-
-- Normalize native date/time field appearance and box sizing to address iOS padded-field overflow; preserve empty-field line height, RTL alignment and browser pickers. Regenerate global, scoped and modular stylesheets. Device testing remains deferred.
-
-The additions and refinements below remain compatible; palette removal is the breaking change described above. Source and documentation preview only until candidate validation is complete. Published 1.2.1 archives remain unchanged.
-
-- Add opt-in `.responsive` container wrappers for fixed-column grids, narrow card actions, toolbars and navigation rails. Existing intrinsic layouts and viewport fallbacks remain available.
-- Correct RTL disclosure chevrons in accordions, sidebar navigation and top menus; mirror breadcrumb separators using semantic `dir` inheritance.
-- Refine explicit read-only fields, invalid-field focus and disabled fieldset legends. Preserve native validation and provide complete required/error/disabled-group examples.
-- Improve native range, file, colour and date/time field sizing without replacing browser pickers or controls.
-- Add `.visually-hidden` with keyboard-focus reveal and clearer disabled/file controls in forced colours.
-- Expand print pagination, repeated table headers, wrapping code, natural media ratios and opt-in `.print-only`, `.no-print` and `.print-links` utilities.
-- Document new contracts and examples; regenerate global, scoped, modular and AI references. Build compilation and automated coverage are recorded separately from pending manual acceptance.
+- Record the combined three-engine automated review and Laravel/Livewire matrix with exact candidate SHAs; record the manual-test page's 21 targeted passes separately.
+- Record Revaz Eristavi's 14 October manual acceptance: desktop Chrome/Safari/Firefox, iPhone Chrome/Safari and Android Chrome/Mozilla, with no known issues reported. Evidence limits remain explicit in the validation record.
+- Complete the Nuxt-only dependency review. Two upstream build/dev advisories remain unpatched; the reviewed production output excludes their packages and named tooling references. Add a deployment-output assertion and default loopback development binding without changing dependency versions.
+- All recorded quality blockers are resolved. Stable adapter packaging and the final release workflow against the exact release commit remain pending. Latest disclosure changes have build/manual evidence; their final automated release run has not yet occurred.
 
 ## 1.2.1 — Erisian · 10 October 2026
 

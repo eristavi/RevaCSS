@@ -8,7 +8,7 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 
 **Latest published release: 1.2.1 · Erisian** · [Download](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT license](LICENSE)
 
-**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. This candidate is not a published production release.
+**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. Manual acceptance and the Nuxt-only dependency review are recorded as complete. Stable adapter packaging and final release validation remain pending; this candidate is not a published production release.
 
 [![One RevaCSS card in light, dark, glass and veil treatments.](https://raw.githubusercontent.com/eristavi/RevaCSS/main/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
@@ -188,23 +188,23 @@ Choose **Customize → Colours → Palette → Custom** to create light and dark
 
 ## Svelte integration candidate
 
-The optional [Svelte adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/svelte) provides typed native components, Svelte 5 value/element bindings and [plain Svelte](https://github.com/eristavi/RevaCSS/tree/main/examples/svelte)/[SvelteKit](https://github.com/eristavi/RevaCSS/tree/main/examples/sveltekit) examples. The separate package is an unpublished version 2 candidate. SvelteKit production builds and live server rendering are checked; core CSS stays unchanged. Browser/hydration acceptance remains deferred.
+The optional [Svelte adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/svelte) provides typed native components, Svelte 5 value/element bindings and [plain Svelte](https://github.com/eristavi/RevaCSS/tree/main/examples/svelte)/[SvelteKit](https://github.com/eristavi/RevaCSS/tree/main/examples/sveltekit) examples. The separate package is an unpublished version 2 candidate. SvelteKit production builds and live server rendering are checked; core CSS stays unchanged. The requested three-engine browser fixtures passed; see the [validation record](quality/releases/v2.0.0.md) for tested scope and revisions.
 
 ## React integration candidate
 
-The optional [React adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/react) provides typed native components, React 19 ref props, form associations and [React](https://github.com/eristavi/RevaCSS/tree/main/examples/react)/[Next.js](https://github.com/eristavi/RevaCSS/tree/main/examples/next) examples. It is a separate, unpublished version 2 candidate. Static wrappers need no client boundary or hooks; application interactivity belongs to the consuming app. Core CSS stays unchanged and browser acceptance remains deferred.
+The optional [React adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/react) provides typed native components, React 19 ref props, form associations and [React](https://github.com/eristavi/RevaCSS/tree/main/examples/react)/[Next.js](https://github.com/eristavi/RevaCSS/tree/main/examples/next) examples. It is a separate, unpublished version 2 candidate. Static wrappers need no client boundary or hooks; application interactivity belongs to the consuming app. Core CSS stays independent; the React browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
 
 ## Vue integration candidate
 
-The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. A [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt) covers production builds and live server rendering. Browser/device acceptance remains deferred.
+The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. A [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt) covers production builds and live server rendering. The requested Vue/Nuxt browser fixtures passed in all three engines. The [Nuxt dependency review](https://github.com/eristavi/RevaCSS/blob/main/examples/nuxt/DEPENDENCY_REVIEW.md) records unresolved build/dev advisories and the reviewed production boundary.
 
 ## Astro integration candidate
 
-The optional [Astro adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/astro) provides typed native components, accessible field associations and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/astro). It is a separate, unpublished version 2 candidate with no browser JavaScript. Core CSS remains unchanged; browser/device acceptance is deferred.
+The optional [Astro adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/astro) provides typed native components, accessible field associations and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/astro). It is a separate, unpublished version 2 candidate with no browser JavaScript. Core CSS stays independent; packed Astro browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
 
 ## Laravel integration candidate
 
-An optional [Laravel adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/laravel) and [runnable reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/laravel) are staged for version 2. They provide Blade components, native form/validation handling, versioned assets, application appearance settings, pagination, Livewire examples and Boost guidance. The CSS core stays independent. The proposed Composer package is not published; browser/device acceptance remains deferred until the version 2 review. Laravel source lives in the repository and is distributed separately from the npm CSS package.
+An optional [Laravel adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/laravel) and [runnable reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/laravel) are staged for version 2. They provide Blade components, native form/validation handling, versioned assets, application appearance settings, pagination, Livewire examples and Boost guidance. The CSS core stays independent. The proposed Composer package is not published; all four Laravel/Livewire automated combinations passed. Core manual acceptance does not establish a separate device review of this reference application. Laravel source lives in the repository and is distributed separately from the npm CSS package.
 
 ## AI-assisted development and vibe coding
 

@@ -27,7 +27,7 @@ Documentation and demo edits may be deployed between package releases. Their dep
 
 ## Current release
 
-The next candidate is **2.0.0**, because removing the twelve previously shipped non-Default/Mono palette values requires migration of existing HTML or application CSS. See [MIGRATION.md](MIGRATION.md). Candidate metadata and a successful build do not establish publication or release acceptance.
+The next candidate is **2.0.0**, because removing the twelve previously shipped non-Default/Mono palette values requires migration of existing HTML or application CSS. See [MIGRATION.md](MIGRATION.md). Fresh maintainer manual acceptance and the scoped Nuxt dependency review are recorded. Stable adapter packaging and final release validation remain pending; candidate metadata and a successful build do not establish publication.
 
 Version **1.2.1** includes the compatible 1.2 additions (independent button materials, six palettes and navbar settings) together with mobile layout and corner refinements. The maintainer explicitly selected 1.2.1 for this combined release; 1.2.0 was a development preview and was not published as a GitHub distribution.
 

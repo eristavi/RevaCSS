@@ -14,10 +14,16 @@ Palette migration does not remove `data-accent` choices. For example, `data-acce
 
 ## Compatible additions
 
+- Default (Manrope) and System font presets are available through `data-font="manrope|system"`; self-hosted fonts remain optional.
+- Custom palette editing exports ordinary CSS; palettes remain an application stylesheet rather than a core JavaScript runtime.
 - Custom shape separates surface, field and action radiuses.
 - Custom density separates surface padding, control-padding scale and content spacing.
 - Full and Custom page widths retain independent navbar width.
 - Responsive wrappers, RTL refinements, native-input corrections and print/accessibility utilities are additive.
+
+Plain disclosures and exclusive `details` groups now share accordion content motion where the required CSS features are available. Use inherited `data-motion="none"` for immediate toggling; reduced-motion preferences also disable transitions. An `.accordion` wrapper supplies group layout and the rotating chevron; plain summaries retain their native marker.
+
+Optional Laravel, Astro, Vue/Nuxt, React/Next.js and Svelte/SvelteKit adapters/reference apps are separate from the core CSS package. Adapter stable packaging and publication are still pending during this documentation-preparation stage.
 
 Existing shape, density and width presets remain available and reset their own setting locally. Veil is deprecated, with its attributes and stylesheets retained for existing integrations.
 
