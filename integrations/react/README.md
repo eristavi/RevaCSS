@@ -3,8 +3,8 @@
 Optional React 19 components for the RevaCSS 2.0 source candidate. The proposed
 `@revacss/react` package is not published. It is separate from the CSS package and
 adds no stylesheets, theme runtime or replacement component behaviour. React owns
-application rendering; RevaCSS core remains CSS-only. Browser/device/visual and
-interaction acceptance remain deferred until the 2.0 release review.
+application rendering; RevaCSS core remains CSS-only. Automated browser/ref checks are recorded below; physical-device, visual and
+manual accessibility acceptance remain required.
 
 ## Install from source
 
@@ -93,7 +93,8 @@ For state, DOM refs or event handlers, place the consuming application component
 behind its own `"use client"` boundary. Do not pass event handlers/DOM refs across
 that server-client boundary. The adapter does not force every wrapper into a
 client bundle. Its SSR markup check does not certify hydration or DOM ref
-behaviour; those browser checks remain deferred.
+behaviour by itself. The opt-in browser phase checks client value updates and
+native ref focus; it does not establish full hydration or manual acceptance.
 
 ## Appearance
 
@@ -105,6 +106,19 @@ the appropriate boundary. Load optional modules explicitly, such as
 `revacss/dist/reva.glass.css` for Glass. Default font needs
 `revacss/dist/reva-fonts.css` and data-font=manrope; System needs no font asset.
 Import application overrides after framework CSS.
+
+
+## Automated browser review
+
+The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+and WebKit. It covers native control activation, applicable hydrated value changes,
+DOM focus through applicable ref/element bindings, disclosure toggles, disabled
+controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
+limited to the reference fixtures, not all possible application combinations.
+Physical devices, screen readers, actual zoom/print and visual approval remain
+manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+`REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
+Without the flag, checks remain compilation/SSR only.
 
 ## Maintainer checks
 

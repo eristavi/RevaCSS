@@ -9,6 +9,13 @@
       "scope": "Font presets and typography; Custom palettes, shape, density and width; native date/time inputs; RTL; keyboard/focus and accordion panels. Record exact versions, fixture, reviewer/date and results in quality/releases/v2.0.0.md. Historical release sign-offs do not close this candidate gate."
     },
     {
+      "id": "Q-NUXT-DEPENDENCY-REVIEW",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Resolve or explicitly review the optional Nuxt reference tooling dependency advisories before declaring the complete 2.0 integration set accepted.",
+      "scope": "npm audit of examples/nuxt reports 11 high-severity dependency-tree entries from two upstream advisories: GHSA-vfj7-8cjw-p6xm (braces <=3.0.3) and GHSA-86w9-cpqp-85rv (node-forge <=1.4.0). The official advisory records list no patched version as of 14 October 2026. Normal audit fix does not resolve them; do not force-downgrade Nuxt or imply a clean audit. This is the optional reference installed dependency tree, not the zero-runtime-dependency RevaCSS core package."
+    },
+    {
       "id": "Q-BUTTON-LABEL",
       "kind": "automated",
       "status": "resolved",

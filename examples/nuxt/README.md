@@ -59,6 +59,20 @@ Dependencies are reused from this example's locked install; framework packages
 are extracted from real distribution tarballs. Temporary files and the server
 are cleaned up afterward.
 
-This is Nuxt build and server-rendering evidence. Browser hydration, interactive
-model updates, native disclosure operation, client-navigation head updates,
-physical-device and accessibility acceptance remain deferred until the 2.0 review.
+The default check provides Nuxt build/server-rendering evidence. With
+`REVA_BROWSER_CHECKS=1`, the requested three-engine review also checks hydrated
+model updates, native disclosure operation, reflow and axe assertions.
+Client-navigation head updates, physical devices and manual accessibility
+acceptance remain unverified.
+
+## Dependency audit limitation
+
+The installed Nuxt 4.6.1 dependency tree currently has 11 high-severity audit
+entries derived from two upstream advisories: [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
+and [node-forge](https://github.com/advisories/GHSA-86w9-cpqp-85rv). Official advisory
+records list no patched releases as of 14 October 2026, and normal audit fix does
+not resolve the findings. This example is not certified as dependency-audit clean.
+The separate RevaCSS core has no runtime dependencies and its audit is clean.
+The installed-tree audit does not establish whether affected functions are
+reachable in the built server. Review this separately before deploying a consuming
+application; do not use a forced framework downgrade as an unverified fix.

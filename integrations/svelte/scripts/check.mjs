@@ -126,7 +126,7 @@ try {
   assert.match(await darkResponse.text(), /<html[^>]+data-theme="dark"/);
   assert.match(await (await fetch(origin)).text(), /<html[^>]+data-theme="auto"/);
   if (process.env.REVA_BROWSER_CHECKS === '1') await browserChecks({ url: origin, prefix: 'svelte', focusButton: true });
-  console.log('Svelte candidate verified: component/consumer types, packed packages, plain client build and SSR markup, SvelteKit production Node build, HTTP theme/CSS/form checks. Browser/hydration/model/element checks deferred.');
+  console.log('Svelte candidate verified: component/consumer types, packed packages, plain client build and SSR markup, SvelteKit production Node build, HTTP theme/CSS/form checks. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await viteServer?.close();
   if (production && production.exitCode === null) {

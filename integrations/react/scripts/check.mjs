@@ -73,7 +73,7 @@ try {
   assert.match(nextHTML, /RevaCSS in a Server Component/);
   assert.match(nextHTML, /for="next-email"/);
   assert.match(nextHTML, /data-theme="auto"/);
-  console.log('React candidate verified: package declarations, strict consumer types, Vite build, SSR markup and Next.js Server Component build. Browser/hydration/ref interaction checks deferred.');
+  console.log('React candidate verified: package declarations, strict consumer types, Vite build, SSR markup and Next.js Server Component build. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await server?.close();
   await rm(temporary, { recursive: true, force: true });

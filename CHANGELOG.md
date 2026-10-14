@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add an explicit combined review for all integrations: reference model outputs, opt-in three-engine browser checks for native controls, hydrated values and DOM focus, axe/reflow assertions, and the Laravel/Livewire matrix. Record unresolved Nuxt dependency advisories separately from passing builds. No core CSS changes.
+
 - Stage an optional Svelte 5 adapter for version 2 with typed native components, snippet content, explicit value/element bindings and associated form messages. Add plain Svelte and SvelteKit 3 examples, production/SSR checks, a setup guide and requested-only CI. Core CSS remains unchanged; browser/hydration and accessibility acceptance remain deferred.
 
 - Add a Nuxt reference app using the existing Vue adapter, global core CSS loading and server-rendered document theme attributes. Check strict Nuxt types, production builds, live SSR pages, served styles and form markup from packed source candidates. Core CSS and Vue components remain unchanged; browser/hydration acceptance remains deferred.

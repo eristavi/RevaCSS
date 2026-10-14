@@ -64,7 +64,7 @@ try {
   await writeFile(join(application, 'src/Invalid.vue'), '<script setup>import Input from "@revacss/vue/Input.vue";</script><template><Input model-value="" id="" label="Email" /></template>');
   const { default: Invalid } = await server.ssrLoadModule('/src/Invalid.vue');
   await assert.rejects(() => renderToString(createSSRApp(Invalid)), /requires a unique nonempty id and label/);
-  console.log('Vue candidate verified: strict component types, packed consumer build, SSR markup, models, native attributes and core stylesheet import. No browser checks run.');
+  console.log('Vue candidate verified: strict component types, packed consumer build, SSR markup, models, native attributes and core stylesheet import. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await server?.close();
   await rm(temporary, { recursive: true, force: true });

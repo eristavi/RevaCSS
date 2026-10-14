@@ -95,7 +95,7 @@ try {
   const again = await (await fetch(origin)).text();
   assert.match(again, /<html[^>]+data-theme="auto"/);
   if (process.env.REVA_BROWSER_CHECKS === '1') await browserChecks({ url: origin, prefix: 'nuxt' });
-  console.log('Nuxt candidate verified: packed Vue/core consumer, strict Nuxt types, production build, live SSR pages, root theme attributes, served CSS and form associations/initial models. Browser/hydration checks deferred.');
+  console.log('Nuxt candidate verified: packed Vue/core consumer, strict Nuxt types, production build, live SSR pages, root theme attributes, served CSS and form associations/initial models. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   if (production && production.exitCode === null) {
     await new Promise(resolve => {
