@@ -257,6 +257,7 @@ export const componentContracts = {
 };
 export const learnLinks = [
  { key:'guide', title:'Get started', path:'guide/' },
+ { key:'astro', title:'Astro integration', path:'guide/astro/' },
  { key:'why-revacss', title:'Why RevaCSS?', path:'guide/why-revacss/' },
  { key:'comparison', title:'Framework comparison', path:'guide/comparison/' },
  { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },

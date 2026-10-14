@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Stage an optional Astro 7 adapter for version 2 with typed native components, labelled form controls, merged error/hint associations, global/scoped reference pages, separate candidate packaging and a dedicated setup guide. Core CSS remains unchanged; browser/device acceptance is deferred.
+
 - Stage an optional Laravel 12/13 integration and runnable reference app for version 2. Add Blade wrappers, Laravel validation/previous-input handling, configurable appearance and registered application palettes, byte-identical versioned asset publishing, ordinary/Livewire pagination, authentication/owned CRUD examples, Boost guidance and explicit candidate packaging. Core CSS/tokens/build scripts and published archives remain unchanged. Browser/device acceptance is deferred.
 
 - Add exactly two font presets, Default (Manrope) and System, through inherited `data-font="manrope|system"`. Keep font assets optional, preserve monospace code and the independent heading token, and include saved choices in documentation/demo controls and downloaded HTML. Font, inherited-defaults, settings and quality checks pass in all three engines; fresh manual acceptance remains required.
