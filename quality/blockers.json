@@ -4,9 +4,13 @@
     {
       "id": "Q-CANDIDATE-MANUAL-ACCEPTANCE",
       "kind": "manual",
-      "status": "open",
+      "status": "resolved",
       "summary": "Complete fresh real-browser/device, screen-reader, zoom/text-spacing, print and visual-state review for the 2.0.0 candidate's changed controls, layouts, local overrides and disclosures.",
-      "scope": "Font presets and typography; Custom palettes, shape, density and width; native date/time inputs; RTL; keyboard/focus and accordion panels. Record exact versions, fixture, reviewer/date and results in quality/releases/v2.0.0.md. Historical release sign-offs do not close this candidate gate."
+      "scope": "Font presets and typography; Custom palettes, shape, density and width; native date/time inputs; RTL; keyboard/focus and accordion panels. Record exact versions, fixture, reviewer/date and results in quality/releases/v2.0.0.md. Historical release sign-offs do not close this candidate gate.",
+      "reviewer": "Revaz Eristavi",
+      "reviewDate": "2026-10-14",
+      "reviewedCommit": "8cc6ac4c48eef164d03ca303b3be19a482b2e16a",
+      "evidence": "Maintainer reported all manual tests passed with no known issues in the project conversation on 14 October 2026, after the complete test page and disclosure spacing/motion updates were deployed. Desktop: latest Chrome, Safari and Firefox. iPhone: Chrome and Safari. Android: Chrome and Mozilla (as reported). Accepted as maintainer attestation; exact browser/OS versions, device models, screen-reader identities, zoom/print details, per-check results and screenshots were not supplied. See quality/releases/v2.0.0.md."
     },
     {
       "id": "Q-NUXT-DEPENDENCY-REVIEW",
