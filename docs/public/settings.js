@@ -88,7 +88,9 @@
     const choices=clean(value);
     for(const key of Object.keys(schema.values)){
       const choice=choices[key] ?? pageAttributes[key];
-      if(choice===null || choice==='default')root.removeAttribute('data-'+key);
+      // Default is a real palette preset; other groups use it as an omitted
+      // setting (for example, button material follows the general material).
+      if(choice===null || (choice==='default' && key!=='palette'))root.removeAttribute('data-'+key);
       else root.setAttribute('data-'+key,choice);
     }
     if(root.getAttribute('data-material')!==previousMaterial || root.getAttribute('data-button-material')!==previousButtonMaterial){

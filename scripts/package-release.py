@@ -29,13 +29,17 @@ required = ['dist/reva.css', 'dist/reva.min.css', 'dist/reva.scoped.css',
 if any(not (root / path).is_file() for path in required):
     raise SystemExit('Compiled assets are missing. Run npm run build before packaging.')
 files = {path.relative_to(root).as_posix(): path.read_bytes()
-         for directory in ['dist', 'tokens']
+         for directory in ['dist', 'tokens', 'types']
          for path in sorted((root / directory).rglob('*')) if path.is_file()}
-for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md',
-                 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md',
+for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md', 'MIGRATION.md',
+                 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md', 'NPM.md', 'AI.md',
+                 'CUSTOM_COMPONENTS.md', 'VERSIONING.md', 'examples/custom-components.html', 'examples/custom-components.css',
                  'package.json', 'quality/blockers.json',
                  f'quality/releases/v{version}.md', '.github/assets/revacss-preview.png']:
     files[filename] = (root / filename).read_bytes()
+for record in sorted((root / 'quality/releases').glob('v*.md')):
+    files[record.relative_to(root).as_posix()] = record.read_bytes()
+
 files['starter.html'] = (root / 'examples/quick-start.html').read_bytes().replace(b'../dist/', b'dist/')
 files['index.html'] = files['starter.html']
 if any(filename.endswith('.js') for filename in files if filename.startswith('dist/')):

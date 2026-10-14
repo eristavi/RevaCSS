@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
-  "testsDeferred": true,
-  "summary": "Full and Custom page widths are available with configurable max width and side padding. Custom density separates surface/control padding and content spacing; Custom shape supports independent surface, field and action radiuses. Only Default and Mono palettes are built in; Veil is deprecated and retained for compatibility. Responsive, RTL, native-control, accessibility and print refinements remain in the source preview. Published 1.2.1 packages are unchanged."
+  "testsDeferred": false,
+  "summary": "Preparing 2.0.0 with Default/Mono palette consolidation and documented migration. Custom shape, density and page widths, responsive/RTL/native-control refinements and accordion alignment are included. Automated candidate coverage is complete; fresh manual acceptance remains required. Published 1.2.1 archives are unchanged."
 }

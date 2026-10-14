@@ -7,7 +7,12 @@ for(const scoped of [false,true])test(`${scoped?'scoped':'global'} independent d
   await expect(page.locator('#surface')).toHaveCSS('padding-top','48px');
   await expect(page.locator('#field')).toHaveCSS('padding-top','0px');
   await expect(page.locator('#action')).toHaveCSS('padding-top','0px');
-  for(const id of ['field','action'])expect((await page.locator('#'+id).boundingBox()).height).toBeGreaterThanOrEqual(44);
+  // Firefox can report 44px as 43.999992px in a DOMRect. Verify the CSS floor
+  // exactly and allow only floating-point noise in its measured geometry.
+  for(const id of ['field','action']){
+    await expect(page.locator('#'+id)).toHaveCSS('min-height','44px');
+    expect((await page.locator('#'+id).boundingBox()).height).toBeGreaterThanOrEqual(44-1e-4);
+  }
   await expect(page.locator('#actions')).toHaveCSS('column-gap','8px');
   await expect(page.locator('#copy')).toHaveCSS('margin-bottom','8px');
   await expect(page.locator('#local')).toHaveCSS('padding-top','24px');

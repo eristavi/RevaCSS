@@ -8,7 +8,9 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 
 **Latest published release: 1.2.1 · Erisian** · [Download](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT license](LICENSE)
 
-[![One RevaCSS card in light, dark, glass and veil treatments.](.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
+**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. This candidate is not a published production release.
+
+[![One RevaCSS card in light, dark, glass and veil treatments.](https://raw.githubusercontent.com/eristavi/RevaCSS/main/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
 ## Why RevaCSS?
 
@@ -251,4 +253,4 @@ See the [component quality standard](QUALITY_STANDARD.md), [specification](SPECI
 
 ## License
 
-RevaCSS is [MIT licensed](LICENSE). The bundled Manrope font uses the [SIL Open Font License](assets/fonts/OFL.txt).
+RevaCSS is [MIT licensed](LICENSE). The bundled Manrope font uses the [SIL Open Font License](https://github.com/eristavi/RevaCSS/blob/main/assets/fonts/OFL.txt).

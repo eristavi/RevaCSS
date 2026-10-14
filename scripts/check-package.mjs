@@ -13,7 +13,9 @@ const entryPoints = [metadata.main, metadata.style, metadata.types, metadata.unp
 for (const entry of entryPoints) {
   assert.ok(paths.has(entry.replace(/^\.\//, '')), `Missing package entry: ${entry}`);
 }
-for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md',
+for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md', 'RELEASE_NOTES.md', 'MIGRATION.md', 'AI.md', 'CUSTOM_COMPONENTS.md', 'VERSIONING.md',
+  'QUALITY_STANDARD.md', 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'examples/custom-components.html', 'examples/custom-components.css',
+  'quality/blockers.json', `quality/releases/v${metadata.version}.md`,
   'dist/reva.scoped.css', 'dist/reva.glass.css', 'dist/reva.glass.scoped.css',
   'dist/reva.button-materials.css', 'dist/reva.button-materials.scoped.css', 'dist/reva.soft.css', 'dist/reva.soft.scoped.css', 'dist/reva.veil.css', 'dist/reva.motion.css', 'dist/reva.selects.css',
   'dist/reva.card-grid.css', 'dist/reva.gallery.css', 'dist/reva.scrolling.css', 'dist/reva.scroll-top.css', 'dist/reva.scroll-motion.css', 'dist/reva.scroll-motion.scoped.css', 'dist/reva.transitions.css',
@@ -22,7 +24,7 @@ for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md',
   assert.ok(paths.has(required), `Missing distribution asset: ${required}`);
 }
 for (const path of paths) {
-  assert.ok(/^(?:(?:package\.json|LICENSE|README\.md|CHANGELOG\.md|NPM\.md)$|(?:dist|tokens|types)\/)/.test(path),
+  assert.ok(/^(?:(?:package\.json|LICENSE|README\.md|CHANGELOG\.md|NPM\.md|RELEASE_NOTES\.md|MIGRATION\.md|AI\.md|CUSTOM_COMPONENTS\.md|VERSIONING\.md|QUALITY_STANDARD\.md|SPECIFICATION\.md|IMPLEMENTATION\.md)$|(?:dist|tokens|types)\/|examples\/custom-components\.(?:html|css)$|quality\/(?:blockers\.json|releases\/v\d+\.\d+\.\d+(?:-preview)?\.md)$)/.test(path),
     `Unexpected package file: ${path}`);
   assert.ok(!/\.(?:[cm]?js|py)$/.test(path), `Unexpected framework runtime: ${path}`);
   assert.ok(!path.endsWith('.npmrc'), `Unexpected npm configuration: ${path}`);

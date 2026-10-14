@@ -32,7 +32,9 @@ after(async () => {
   await fixture?.dispose();
 });
 
-for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
+const engines = { chromium, firefox, webkit };
+if (process.env.REVA_TEST_ENGINE && !Object.hasOwn(engines, process.env.REVA_TEST_ENGINE)) throw Error('Unknown package-test browser engine.');
+for (const [name, engine] of Object.entries(engines).filter(([name]) => !process.env.REVA_TEST_ENGINE || process.env.REVA_TEST_ENGINE === name)) {
   test(`${name}: installed global/scoped CSS works with JavaScript disabled`, { timeout: 90000 }, async t => {
     const browser = await engine.launch();
     t.after(() => browser.close());

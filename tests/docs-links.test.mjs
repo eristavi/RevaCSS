@@ -7,6 +7,10 @@ test('generated documentation links and assets resolve under the configured base
   const root = 'docs/dist';
   const base = '/' + (process.env.REVA_BASE || '/').split('/').filter(Boolean).join('/');
   const prefix = base === '/' ? '/' : base + '/';
+  // This endpoint is a project download, not a hosted page. Its assets are
+  // intentionally relative to the extracted starter and matching distribution.
+  const starter = join(root, 'guide/custom-components/starter.html');
+  const starterSource = (await readFile('examples/custom-components.html', 'utf8')).replaceAll('../dist/', 'dist/');
   let pages = 0;
   async function visit(directory) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -15,9 +19,15 @@ test('generated documentation links and assets resolve under the configured base
       else if (entry.name.endsWith('.html')) {
         pages++;
         const html = await readFile(path, 'utf8');
+        if (path === starter) assert.equal(html, starterSource, 'Downloaded starter must match its source');
         for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
           const link = match[1];
           if (link.startsWith('#') || /^(?:[a-z]+:|\/\/)/i.test(link)) continue;
+          if (path === starter && !link.startsWith('/')) {
+            const target = link.startsWith('dist/') ? link : join('examples', link);
+            assert.ok((await stat(target)).isFile(), `${path}: missing project asset ${link}`);
+            continue;
+          }
           assert.ok(link.startsWith(prefix), `${path}: ${link} must start with ${prefix}`);
           const pathname = new URL(link, 'https://eristavi.github.io').pathname;
           let target = join(root, decodeURIComponent(pathname.slice(prefix.length)));

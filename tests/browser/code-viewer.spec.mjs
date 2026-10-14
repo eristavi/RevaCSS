@@ -1,4 +1,5 @@
 import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
+import { waitForDisclosure } from './helpers/popover.mjs';
 import { test, expect } from '@playwright/test';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
@@ -19,7 +20,8 @@ test('complete demo sources remain literal, selectable and wrappable without hig
  const page=await context.newPage();
  for(const route of ['dashboard','shop','blog','marketing']){
   await page.goto('/demos/'+route+'/');
-  await page.locator('details:has(pre.source-code) > summary').click();
+  const disclosure=page.locator('details:has(pre.source-code)');
+  await disclosure.locator('summary').click();await waitForDisclosure(disclosure);
   const pre=page.locator('pre.source-code');await expect(pre).toHaveCount(1);
   const code=pre.locator('code');const source=await code.textContent();
   expect(source.toLowerCase()).toContain('<!doctype html>');
@@ -27,10 +29,11 @@ test('complete demo sources remain literal, selectable and wrappable without hig
   const link=page.locator('.demo-customizer a[download]');
   const response=await request.get(await link.getAttribute('href'));
   expect(response.ok()).toBe(true);expect(source).toBe(await response.text());
-  await pre.locator('..').getByLabel('Wrap lines').focus();
+  const wrap=pre.locator('..').getByLabel('Wrap lines');
+  await wrap.focus();await expect(wrap).toBeFocused();await settleControl(wrap);
   await page.keyboard.press('Tab');await expect(pre).toBeFocused();
   expect(await pre.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
-  const wrap=pre.locator('..').getByLabel('Wrap lines');await wrap.focus();await settleControl(wrap);await wrap.check();
+  await wrap.focus();await settleControl(wrap);await wrap.check();
   expect(await pre.evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre-wrap');
   expect(await code.textContent()).toBe(source);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

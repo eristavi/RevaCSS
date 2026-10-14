@@ -1,30 +1,36 @@
-name: Tests (manual only)
+name: Requested browser regression checks
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
     inputs:
       scope:
         description: Validation scope
         type: choice
-        options: [full, documentation]
+        options: [full, documentation, code-viewer]
         default: full
 
 permissions:
   contents: read
 
 concurrency:
-  group: reva-tests-${{ github.ref }}
-  cancel-in-progress: true
+  # Requested candidate revisions are independent; keep their evidence rather
+  # than cancelling a slower engine when a correction is pushed.
+  group: reva-tests-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   validate:
+    # Ordinary PRs do not start browser tests. This marker is an explicit opt-in.
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.title, '[validate release]') || contains(github.event.pull_request.title, '[validate code viewer]')
     name: Validate (${{ matrix.browser }})
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: ${{ fromJSON(contains(github.event.pull_request.title, '[webkit]') && '["webkit"]' || '["chromium","firefox","webkit"]') }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
@@ -61,11 +67,27 @@ jobs:
         run: |
           if [ "$VALIDATION_SCOPE" = "documentation" ]; then
             npx playwright test tests/browser/documentation.spec.mjs tests/browser/documentation-menu.spec.mjs tests/browser/device-checks.spec.mjs tests/browser/navbar.spec.mjs tests/browser/code-viewer.spec.mjs tests/browser/native-patterns.spec.mjs tests/browser/dashboard.spec.mjs tests/browser/shop.spec.mjs --project=${{ matrix.browser }}
+          elif [ "$VALIDATION_SCOPE" = "code-viewer" ]; then
+            npx playwright test tests/browser/code-viewer.spec.mjs --project=${{ matrix.browser }} --workers=2 --reporter=list,json
           else
-            npm run test:browser -- --project=${{ matrix.browser }}
+            npm run test:browser -- --project=${{ matrix.browser }} --workers=2 --reporter=list,json
           fi
         env:
-          VALIDATION_SCOPE: ${{ inputs.scope }}
+          VALIDATION_SCOPE: ${{ contains(github.event.pull_request.title, '[validate code viewer]') && 'code-viewer' || inputs.scope }}
+          PLAYWRIGHT_JSON_OUTPUT_NAME: artifacts/browser-${{ matrix.browser }}.json
+      - name: Verify installed package in this engine
+        run: npm run test:package:browser
+        env:
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: requested-browser-${{ matrix.browser }}
+          path: |
+            artifacts/browser-${{ matrix.browser }}.json
+            test-results/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Report recorded release quality
         run: |
           if npm run check:release-quality > quality-status.txt 2>&1; then

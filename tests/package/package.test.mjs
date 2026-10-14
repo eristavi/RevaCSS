@@ -2,7 +2,7 @@ import test, { before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
-import { join } from 'node:path';
+import { join, dirname, resolve, sep } from 'node:path';
 import { createConsumer, bundleConsumer, root } from './consumer.mjs';
 import ts from 'typescript';
 
@@ -26,6 +26,20 @@ test('an offline tarball install preserves every distribution asset and token', 
   assert.ok(files.includes('NPM.md'));
   assert.ok(!files.some(path => /^(?:src|docs|tests|scripts|\.github|node_modules)\//.test(path)));
   assert.ok(!files.some(path => /\.(?:[cm]?js|py)$/.test(path) || path.endsWith('.npmrc')));
+});
+
+test('installed documentation links resolve to included project files', async () => {
+  const files = fixture.packed.files.map(file => file.path);
+  const shipped = new Set(files.map(path => resolve(fixture.installed, path)));
+  for (const path of files.filter(path => path.endsWith('.md'))) {
+    const absolute = resolve(fixture.installed, path);
+    const markdown = await readFile(absolute, 'utf8');
+    for (const [, href] of markdown.matchAll(/\]\(([^)]+)\)/g)) {
+      if (href.startsWith('#') || /^(?:[a-z]+:|\/\/)/i.test(href)) continue;
+      const target = resolve(dirname(absolute), href.split('#')[0]);
+      assert.ok(target.startsWith(fixture.installed + sep) && shipped.has(target), `${path}: missing packaged link ${href}`);
+    }
+  }
 });
 
 test('installed public exports resolve core, scoped extensions, nested assets, and tokens', async () => {

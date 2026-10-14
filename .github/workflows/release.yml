@@ -1,21 +1,27 @@
-name: Validate and publish RevaCSS 1.2.1
+name: Validate and publish RevaCSS
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish a new immutable GitHub release after every gate passes
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
 concurrency:
-  group: revacss-release-1.2.1
-  cancel-in-progress: true
+  group: revacss-release-${{ github.ref }}
+  # A routine source push must not interrupt an explicitly requested release.
+  cancel-in-progress: false
 
 jobs:
   unit:
     name: Unit, project paths and quality gates
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]') || contains(github.event.head_commit.message, '[prepare 1.2.1]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]') || contains(github.event.head_commit.message, '[prepare release]')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -25,8 +31,8 @@ jobs:
           node-version: 24
           cache: npm
       - name: Confirm release metadata
-        run: |
-          node --input-type=module -e "import p from './package.json' with {type:'json'}; import l from './package-lock.json' with {type:'json'}; if(p.version!=='1.2.1'||l.version!==p.version||l.packages[''].version!==p.version) process.exit(1)"
+        id: metadata
+        run: node scripts/release-metadata.mjs
       - run: npm ci
       - name: Audit build dependencies
         run: npm audit --audit-level=high
@@ -46,7 +52,7 @@ jobs:
         run: node --input-type=module -e "import {readFileSync} from 'node:fs'; import {gzipSync} from 'node:zlib'; console.log('Core gzip bytes:',gzipSync(readFileSync('dist/reva.min.css')).length);"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
-          name: revacss-1.2.1-canonical-css
+          name: ${{ steps.metadata.outputs.package }}-${{ steps.metadata.outputs.version }}-canonical-css
           path: |
             dist/*.css
             docs/public/reva/*.css
@@ -57,7 +63,7 @@ jobs:
 
   browsers:
     name: Complete browser suite (${{ matrix.browser }})
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]') || contains(github.event.head_commit.message, '[prepare release]')
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -66,6 +72,9 @@ jobs:
         browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Confirm release metadata
+        id: metadata
+        run: node scripts/release-metadata.mjs
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 24
@@ -102,7 +111,7 @@ jobs:
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         if: always()
         with:
-          name: revacss-1.2.1-${{ matrix.browser }}-results
+          name: ${{ steps.metadata.outputs.package }}-${{ steps.metadata.outputs.version }}-${{ matrix.browser }}-results
           path: |
             artifacts/browser-${{ matrix.browser }}.json
             test-results/
@@ -111,11 +120,14 @@ jobs:
 
   package:
     name: Installed package and three-engine consumers
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release 1.2.1]')
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release]') || contains(github.event.head_commit.message, '[prepare release]')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Confirm release metadata
+        id: metadata
+        run: node scripts/release-metadata.mjs
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 24
@@ -147,7 +159,7 @@ jobs:
   release:
     name: Publish validated versioned downloads
     needs: [unit, browsers, package]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[release 1.2.1]')
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -156,6 +168,9 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Confirm release metadata
+        id: metadata
+        run: node scripts/release-metadata.mjs
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: 24
@@ -168,18 +183,24 @@ jobs:
       - name: Verify committed generated assets
         run: git diff --exit-code -- dist docs/public/reva docs/src/pages/generated-reference.json
       - name: Prepare and verify archives
+        env:
+          PACKAGE_TARBALL: ${{ steps.metadata.outputs.tarball_name }}
         run: |
           python3 scripts/package-release.py
           npm pack --pack-destination artifacts
           cd artifacts
-          sha256sum revacss-1.2.1.tgz >> SHA256SUMS.txt
+          sha256sum "$PACKAGE_TARBALL" >> SHA256SUMS.txt
           sha256sum --check SHA256SUMS.txt
       - name: Publish immutable GitHub release
+        env:
+          RELEASE_TAG: ${{ steps.metadata.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.metadata.outputs.version }}
+          RELEASE_NAME: ${{ steps.metadata.outputs.release_name }}
         run: |
-          if gh release view v1.2.1 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo 'Release already exists; refusing to replace published assets.'
             exit 1
           fi
           cp RELEASE_NOTES.md artifacts/release-notes.md
           printf '\nAutomated validation: %s/%s/actions/runs/%s\n' "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" >> artifacts/release-notes.md
-          gh release create v1.2.1 artifacts/*.zip artifacts/*.tar.gz artifacts/*.tgz artifacts/*.min.css artifacts/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title 'RevaCSS 1.2.1 — Erisian' --notes-file artifacts/release-notes.md
+          gh release create "$RELEASE_TAG" artifacts/*.zip artifacts/*.tar.gz artifacts/*.tgz artifacts/*.min.css artifacts/SHA256SUMS.txt --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "RevaCSS $RELEASE_VERSION — $RELEASE_NAME" --notes-file artifacts/release-notes.md

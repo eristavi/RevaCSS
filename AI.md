@@ -48,7 +48,7 @@ The form destination above is a placeholder: replace it with your application's 
 
 ## Configure shared defaults
 
-For an application-defined component, read [CUSTOM_COMPONENTS.md](CUSTOM_COMPONENTS.md) or the generated `/ai/custom-components.md` reference under the documentation site's base path. Reuse existing hooks when appropriate, consume public tokens and keep application classes separate from the framework API. Colour-token inheritance alone does not apply materials to arbitrary elements. The complete starter adds no browser JavaScript and is a documentation example, not a new shipped core component.
+For an application-defined component, read the [custom-component guide](https://eristavi.github.io/RevaCSS/guide/custom-components/) or the generated `/ai/custom-components.md` reference under the documentation site's base path. Reuse existing hooks when appropriate, consume public tokens and keep application classes separate from the framework API. Colour-token inheritance alone does not apply materials to arbitrary elements. The complete starter adds no browser JavaScript and is a documentation example, not a new shipped core component.
 
 Built-in palettes are `default` and `mono` only. Custom palettes remain ordinary CSS. Veil surface and button materials are deprecated and retained for existing sites; avoid them in new interfaces.
 
