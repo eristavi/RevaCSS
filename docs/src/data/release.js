@@ -12,7 +12,7 @@ export const releaseArchiveUrl = `https://github.com/eristavi/RevaCSS/releases/d
 export const releaseRecordUrl = `https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v${version}.md`;
 export const qualityUrl = 'https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json';
 // Deployment verifies publication against GitHub and npm. Local previews are conservative.
-export const development = process.env.REVA_RELEASE_PUBLISHED === 'false' || version.includes('-');
+export const development = process.env.REVA_RELEASE_PUBLISHED !== 'true' || version.includes('-');
 export const npmPublished = process.env.REVA_NPM_PUBLISHED === 'true';
 export const npmUrl = `https://www.npmjs.com/package/revacss/v/${version}`;
 export const manualChecks = quality.blockers.filter(item => item.kind === 'manual');

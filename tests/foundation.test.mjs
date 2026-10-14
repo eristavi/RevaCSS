@@ -22,6 +22,15 @@ test('all button preset endpoints meet normal-text contrast',()=>{
 });
 test('core remains within 17 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<17*1024));
 test('only optional settings scripts ship in the documentation; core remains CSS-only',async()=>{
+ const jsonIds=new Set(['reva-settings-schema','reva-palette-defaults']);
+ const runtimes=new Map([
+  ['reva-settings-runtime','settings.js'],
+  ['reva-palette-runtime','custom-palette.js'],
+  ['reva-radius-runtime','custom-radius.js'],
+  ['reva-density-runtime','custom-density.js'],
+  ['reva-width-runtime','custom-width.js'],
+ ]);
+ const assets=new Set(runtimes.values());
  async function visit(dir) {
   for(const f of await readdir(dir,{withFileTypes:true})) {
    const path=dir+'/'+f.name;
@@ -29,11 +38,24 @@ test('only optional settings scripts ship in the documentation; core remains CSS
    else if(f.name.endsWith('.html')){
     const html=await readFile(path,'utf8');
     for(const [,attributes,content] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
-     if(attributes.includes('id="reva-settings-schema"')){assert.ok(attributes.includes('application/json'),path);JSON.parse(content);}
-     else if(attributes.includes('id="reva-settings-runtime"')){assert.match(attributes,/src="[^"]*settings\.js\?v=[^"]+"/);assert.equal(content.trim(),'');}
+     const id=attributes.match(/\bid="([^"]+)"/)?.[1];
+     if(jsonIds.has(id)){
+      assert.match(attributes,/\btype="application\/json"/,path);
+      assert.doesNotMatch(attributes,/\bsrc=/,path);
+      JSON.parse(content);
+     }
+     else if(runtimes.has(id)){
+      const src=attributes.match(/\bsrc="([^"]+)"/)?.[1];
+      assert.ok(src,path);
+      const url=new URL(src,'https://example.invalid');
+      assert.equal(url.origin,'https://example.invalid',path);
+      assert.equal(url.pathname.split('/').at(-1),runtimes.get(id),path);
+      assert.ok(url.searchParams.get('v'),path);
+      assert.equal(content.trim(),'',path);
+     }
      else assert.match(content.trim(),/^window\.RevaSettings\?\.init(?:Customizer|Theme)\(\);$/,path);
     }
-   }else if(f.name.endsWith('.js'))assert.equal(f.name,'settings.js',path);
+   }else if(f.name.endsWith('.js'))assert.ok(assets.has(f.name),path);
   }
  }
  await visit('docs/dist');

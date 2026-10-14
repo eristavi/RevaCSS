@@ -1,5 +1,7 @@
 # RevaCSS on npm
 
+Current source prepares the 2.0.0 candidate. The installation examples below refer to the existing 1.2.1 distribution; do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
+
 **RevaCSS 1.2.1 — Erisian** (prepared package; registry publication pending authentication) is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1).
 
 The 1.2.1 distribution includes the optional `reva.button-materials.css` and scoped counterpart. Load the matching extension after the core to use independent action materials.
@@ -102,7 +104,7 @@ In the npm settings for `revacss`, add a GitHub Actions trusted publisher:
 
 No npm token or GitHub repository secret is required. npm may require your normal sign-in and two-factor confirmation for this account change.
 
-The workflow's push checks verify both existing release candidates without publishing. For the missing versions, open **Actions → Publish verified npm releases → Run workflow**, choose `v1.1.0`, turn **dry_run** off and wait for successful publication; then repeat with `v1.2.1`. The default manual mode is a dry run. Future stable GitHub releases publish automatically when they contain the workflow and a completed npm archive.
+For a verified published GitHub release, open **Actions → Publish verified npm releases → Run workflow** and enter its exact stable tag, such as `v1.2.1`. The default manual mode is a dry run. Turn **dry_run** off only when that release is ready for registry distribution. Future stable GitHub releases can publish automatically when they contain the workflow and a completed npm archive. Ordinary source pushes do not backfill or publish packages.
 
 The publisher downloads the original release tarball, checks its GitHub SHA-256 digest and package identity, and runs the npm quality gate from the exact release commit. Already published versions must have matching bytes. Historical backfills use `legacy` when needed to avoid moving `latest` backwards. Registry verification compares the published SHA-512 integrity with the prepared archive.
 

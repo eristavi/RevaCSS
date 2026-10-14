@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+Preparing **2.0.0**. Removal of the twelve non-Default/Mono built-in palettes is a breaking change; the remaining additions and refinements preserve their existing APIs. See [MIGRATION.md](MIGRATION.md). Automated validation is requested for this candidate; new manual acceptance remains separate from historical release records.
+
+- Correct the AI guide's custom-component link and account for the optional customizer's JSON schemas and editor assets in script-policy validation. Validate downloaded starter assets against their project paths rather than treating the download as a hosted page.
+- Derive release tags and asset names from validated package/lock metadata. Keep publication explicit, preserve immutable existing releases, and allow requested browser validation through a marked review PR.
+
 - Use the existing accordion structure for documentation and demo content disclosures, source panels, customizer groups and the mobile documentation browser. Centre summary labels with the framework’s existing rules and retain native open/close behaviour. Shared demo components also update downloadable HTML. Core CSS, navigation disclosures and intentionally plain native disclosure examples are unchanged. Build verification only; browser/device tests remain deferred.
 
 - Add Full and Custom page widths. Full fills the parent with side padding; Custom configures maximum width including padding and per-side padding. Cap padding in narrow containers, reset local width presets, preserve separate navbar-width behavior, align full-navbar content and update the dashboard container. Add saved custom-width controls with numeric/range entry, CSS copy/export and self-contained HTML downloads. Browser/device tests remain deferred.
@@ -31,7 +36,7 @@
 
 - Normalize native date/time field appearance and box sizing to address iOS padded-field overflow; preserve empty-field line height, RTL alignment and browser pickers. Regenerate global, scoped and modular stylesheets. Device testing remains deferred.
 
-Compatible additions and refinements; source and documentation preview only. Tests are deferred by maintainer request. Published 1.2.1 GitHub/npm packages remain unchanged.
+The additions and refinements below remain compatible; palette removal is the breaking change described above. Source and documentation preview only until candidate validation is complete. Published 1.2.1 archives remain unchanged.
 
 - Add opt-in `.responsive` container wrappers for fixed-column grids, narrow card actions, toolbars and navigation rails. Existing intrinsic layouts and viewport fallbacks remain available.
 - Correct RTL disclosure chevrons in accordions, sidebar navigation and top menus; mirror breadcrumb separators using semantic `dir` inheritance.

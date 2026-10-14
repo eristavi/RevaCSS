@@ -31,7 +31,7 @@ if any(not (root / path).is_file() for path in required):
 files = {path.relative_to(root).as_posix(): path.read_bytes()
          for directory in ['dist', 'tokens']
          for path in sorted((root / directory).rglob('*')) if path.is_file()}
-for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md',
+for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md', 'MIGRATION.md',
                  'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md',
                  'package.json', 'quality/blockers.json',
                  f'quality/releases/v{version}.md', '.github/assets/revacss-preview.png']:

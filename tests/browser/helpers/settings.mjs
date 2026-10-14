@@ -8,13 +8,25 @@ export async function expectOnlyOptionalSettings(page) {
   })));
   expect(scripts.filter(script => script.id === 'reva-settings-schema')).toHaveLength(1);
   expect(scripts.filter(script => script.id === 'reva-settings-runtime')).toHaveLength(1);
+  const jsonIds = new Set(['reva-settings-schema', 'reva-palette-defaults']);
+  const runtimes = new Map([
+    ['reva-settings-runtime', 'settings.js'],
+    ['reva-palette-runtime', 'custom-palette.js'],
+    ['reva-radius-runtime', 'custom-radius.js'],
+    ['reva-density-runtime', 'custom-density.js'],
+    ['reva-width-runtime', 'custom-width.js'],
+  ]);
   for (const script of scripts) {
-    if (script.id === 'reva-settings-schema') {
+    if (jsonIds.has(script.id)) {
       expect(script.type).toBe('application/json');
       expect(script.src).toBeNull();
-      expect(JSON.parse(script.content)).toHaveProperty('values');
-    } else if (script.id === 'reva-settings-runtime') {
-      expect(script.src).toMatch(/(?:^|\/)settings\.js\?v=[^?]+$/);
+      const data = JSON.parse(script.content);
+      expect(data).toHaveProperty(script.id === 'reva-settings-schema' ? 'values' : 'light');
+    } else if (runtimes.has(script.id)) {
+      const url = new URL(script.src, page.url());
+      expect(url.origin).toBe(new URL(page.url()).origin);
+      expect(url.pathname.split('/').at(-1)).toBe(runtimes.get(script.id));
+      expect(url.searchParams.get('v')).toBeTruthy();
       expect(script.content).toBe('');
     } else {
       expect(script.src).toBeNull();

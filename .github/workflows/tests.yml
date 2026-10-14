@@ -1,6 +1,8 @@
-name: Tests (manual only)
+name: Requested browser regression checks
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
     inputs:
       scope:
@@ -18,9 +20,11 @@ concurrency:
 
 jobs:
   validate:
+    # Ordinary PRs do not start browser tests. This marker is an explicit opt-in.
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.title, '[validate release]')
     name: Validate (${{ matrix.browser }})
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -62,10 +66,24 @@ jobs:
           if [ "$VALIDATION_SCOPE" = "documentation" ]; then
             npx playwright test tests/browser/documentation.spec.mjs tests/browser/documentation-menu.spec.mjs tests/browser/device-checks.spec.mjs tests/browser/navbar.spec.mjs tests/browser/code-viewer.spec.mjs tests/browser/native-patterns.spec.mjs tests/browser/dashboard.spec.mjs tests/browser/shop.spec.mjs --project=${{ matrix.browser }}
           else
-            npm run test:browser -- --project=${{ matrix.browser }}
+            npm run test:browser -- --project=${{ matrix.browser }} --workers=2 --reporter=list,json
           fi
         env:
           VALIDATION_SCOPE: ${{ inputs.scope }}
+          PLAYWRIGHT_JSON_OUTPUT_NAME: artifacts/browser-${{ matrix.browser }}.json
+      - name: Verify installed package in this engine
+        run: npm run test:package:browser
+        env:
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v5
+        if: always()
+        with:
+          name: requested-browser-${{ matrix.browser }}
+          path: |
+            artifacts/browser-${{ matrix.browser }}.json
+            test-results/
+          if-no-files-found: warn
+          retention-days: 14
       - name: Report recorded release quality
         run: |
           if npm run check:release-quality > quality-status.txt 2>&1; then
