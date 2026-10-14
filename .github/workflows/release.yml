@@ -15,7 +15,8 @@ permissions:
 
 concurrency:
   group: revacss-release-${{ github.ref }}
-  cancel-in-progress: true
+  # A routine source push must not interrupt an explicitly requested release.
+  cancel-in-progress: false
 
 jobs:
   unit:

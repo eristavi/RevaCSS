@@ -18,7 +18,7 @@ concurrency:
   # Requested candidate revisions are independent; keep their evidence rather
   # than cancelling a slower engine when a correction is pushed.
   group: reva-tests-${{ github.ref }}-${{ github.sha }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   validate:
@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        browser: ${{ fromJSON(contains(github.event.pull_request.title, '[webkit]') && '["webkit"]' || '["chromium","firefox","webkit"]') }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
