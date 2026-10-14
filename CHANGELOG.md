@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Stage an optional React 19 adapter for version 2 with typed native components, ref-as-prop forwarding, labelled form controls, merged hint/error associations, React and Next.js examples and a setup guide. Keep core CSS unchanged; compilation/package/SSR checks are recorded separately from deferred browser acceptance.
+
 - Stage an optional Vue 3.5 adapter for version 2: typed native components, v-model form bindings, explicit control attribute forwarding, associated labels/hints/errors, a reference application and setup guide. Keep core CSS unchanged. Vue compilation, strict types and SSR markup checks are recorded; browser/device acceptance remains deferred.
 
 - Stage an optional Astro 7 adapter for version 2 with typed native components, labelled form controls, merged error/hint associations, global/scoped reference pages, separate candidate packaging and a dedicated setup guide. Core CSS remains unchanged; browser/device acceptance is deferred.
