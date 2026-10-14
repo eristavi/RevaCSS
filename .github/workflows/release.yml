@@ -48,6 +48,28 @@ jobs:
         env:
           REVA_SITE: https://eristavi.github.io
           REVA_BASE: /RevaCSS/
+      - name: Verify committed generated assets
+        run: git diff --exit-code -- dist docs/public/reva docs/src/pages/generated-reference.json
+      - name: Prepare core release archives without publishing
+        env:
+          PACKAGE_TARBALL: ${{ steps.metadata.outputs.tarball_name }}
+        run: |
+          python3 scripts/package-release.py
+          npm pack --pack-destination artifacts
+          cd artifacts
+          sha256sum "$PACKAGE_TARBALL" >> SHA256SUMS.txt
+          sha256sum --check SHA256SUMS.txt
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: core-release-archives
+          path: |
+            artifacts/*.zip
+            artifacts/*.tar.gz
+            artifacts/*.tgz
+            artifacts/*.min.css
+            artifacts/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
       - name: Report core size
         run: node --input-type=module -e "import {readFileSync} from 'node:fs'; import {gzipSync} from 'node:zlib'; console.log('Core gzip bytes:',gzipSync(readFileSync('dist/reva.min.css')).length);"
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
