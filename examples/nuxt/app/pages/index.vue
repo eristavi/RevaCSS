@@ -21,7 +21,11 @@ const error = 'Enter an email address <script>alert(1)</' + 'script>';
     <Card class="stack">
       <template #header><h1>RevaCSS with Nuxt</h1></template>
       <Alert data-variant="neutral">Source candidate. This form has no submission endpoint.</Alert>
-      <p id="email-note">We use your email to reply.</p>
+      <output id="model-email">{{ email }}</output>
+    <output id="model-topic">{{ topic }}</output>
+    <output id="model-tags">{{ tags.join(',') }}</output>
+    <output id="model-message">{{ message }}</output>
+    <p id="email-note">We use your email to reply.</p>
       <form @submit.prevent>
         <Input v-model="email" id="nuxt-email" name="email" label="Email" type="email" hint="Use your work address" :error="error" aria-describedby="email-note" class="email-control" required />
         <Select v-model="topic" id="nuxt-topic" name="topic" label="Topic" hint="Choose one">
