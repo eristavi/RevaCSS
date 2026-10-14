@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 import { extname, resolve, sep } from 'node:path';
 import { chromium, firefox, webkit, expect } from '@playwright/test';
 import { createConsumer, bundleConsumer } from './consumer.mjs';
+import { waitForDisclosure } from '../browser/helpers/popover.mjs';
 
 let fixture, server, address;
 before(async () => {
@@ -59,6 +60,7 @@ for (const [name, engine] of Object.entries(engines).filter(([name]) => !process
       }
       await page.locator('summary').focus();
       await page.keyboard.press('Enter');
+      await waitForDisclosure(page.locator('details'));
       await expect(page.locator('#answer')).toBeVisible();
       await expect(page.locator('#liquid')).toHaveCSS('backdrop-filter', 'blur(14px)');
       await page.getByRole('button', { name: 'Open response' }).click();
