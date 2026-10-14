@@ -38,6 +38,8 @@ test.describe('native test-page controls without JavaScript',()=>{
  test.setTimeout(120000);
  test('validation, choices and reset remain native',async({page})=>{
   await page.goto(route);
+  await expect(page.locator('noscript link[href$="customizer.css"]')).toHaveCount(0);
+  await expect(page.getByRole('button',{name:'Customize',exact:true})).toBeHidden();
   await page.locator('#stress-form button[type=submit]').click();
   await expect(page.locator('#stress-required')).toBeFocused();
   await page.locator('#stress-required').fill('Fictional reviewer');
