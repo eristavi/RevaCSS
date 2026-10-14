@@ -4,7 +4,8 @@ import { mkdtemp, mkdir, cp, readFile, readdir, rm, symlink, writeFile } from 'n
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { build, createServer } from 'vite';
+import { build, createServer, preview } from 'vite';
+import { browserChecks } from '../../shared/browser-checks.mjs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 const adapterRoot = fileURLToPath(new URL('../', import.meta.url));
@@ -58,6 +59,11 @@ try {
   const assets = await readdir(join(application, 'dist/assets'));
   const css = (await Promise.all(assets.filter(p => p.endsWith('.css')).map(p => readFile(join(application, 'dist/assets', p), 'utf8')))).join('');
   assert.match(css, /--re-radius/);
+  if (process.env.REVA_BROWSER_CHECKS === '1') {
+    const hosted = await preview({ root: application, configFile: false, preview: { host: '127.0.0.1', port: 0 } });
+    try { await browserChecks({ url: `http://127.0.0.1:${hosted.httpServer.address().port}`, prefix: 'react', focusButton: true }); }
+    finally { await new Promise(resolve => hosted.httpServer.close(resolve)); }
+  }
   await server.close(); server = undefined;
   const nextApp = join(temporary, 'next');
   await cp(join(root, 'examples/next'), nextApp, { recursive: true });
@@ -67,7 +73,7 @@ try {
   assert.match(nextHTML, /RevaCSS in a Server Component/);
   assert.match(nextHTML, /for="next-email"/);
   assert.match(nextHTML, /data-theme="auto"/);
-  console.log('React candidate verified: package declarations, strict consumer types, Vite build, SSR markup and Next.js Server Component build. Browser/hydration/ref interaction checks deferred.');
+  console.log('React candidate verified: package declarations, strict consumer types, Vite build, SSR markup and Next.js Server Component build. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await server?.close();
   await rm(temporary, { recursive: true, force: true });

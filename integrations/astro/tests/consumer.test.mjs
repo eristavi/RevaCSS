@@ -1,4 +1,6 @@
 import test from 'node:test';
+import { preview } from 'vite';
+import { browserChecks } from '../../shared/browser-checks.mjs';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdtemp, mkdir, cp, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
@@ -56,6 +58,11 @@ test('packed Astro adapter builds native global/scoped pages without browser scr
     const assets = await readdir(join(application, 'dist/_astro'));
     assert.ok(assets.some(p => p.endsWith('.css')));
     assert.ok(!assets.some(p => p.endsWith('.js')));
+    if (process.env.REVA_BROWSER_CHECKS === '1') {
+      const hosted = await preview({ root: application, configFile: false, preview: { host: '127.0.0.1', port: 0 } });
+      try { await browserChecks({ url: `http://127.0.0.1:${hosted.httpServer.address().port}`, prefix: 'contact', reactive: false, multiple: false }); }
+      finally { await new Promise(resolve => hosted.httpServer.close(resolve)); }
+    }
     // Fail clearly rather than producing an unlabelled field if an application omits IDs.
     await writeFile(join(application, 'src/pages/invalid.astro'), `---\nimport Input from '@revacss/astro/Input.astro';\n---\n<Input id="" label="Email" />`);
     assert.throws(() => execFileSync(process.execPath, [cli, 'build', '--root', application], { cwd: root, stdio: 'pipe' }), error => /requires a unique nonempty id and label/.test(String(error.stderr) + String(error.stdout)));

@@ -1,6 +1,8 @@
 name: Requested Laravel integration checks
 
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
@@ -8,6 +10,7 @@ permissions:
 
 jobs:
   integration:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.title, '[validate release]')
     name: Laravel ${{ matrix.laravel }} / Livewire ${{ matrix.livewire }}
     runs-on: ubuntu-latest
     timeout-minutes: 15

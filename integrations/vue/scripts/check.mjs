@@ -4,7 +4,8 @@ import { mkdtemp, mkdir, cp, readFile, readdir, rm, symlink, writeFile } from 'n
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { build, createServer } from 'vite';
+import { build, createServer, preview } from 'vite';
+import { browserChecks } from '../../shared/browser-checks.mjs';
 import vue from '@vitejs/plugin-vue';
 import { createSSRApp } from 'vue';
 import { renderToString } from 'vue/server-renderer';
@@ -55,10 +56,15 @@ try {
   const assets = await readdir(join(application, 'dist/assets'));
   const styles = (await Promise.all(assets.filter(p => p.endsWith('.css')).map(p => readFile(join(application, 'dist/assets', p), 'utf8')))).join('');
   assert.match(styles, /--re-radius/);
+  if (process.env.REVA_BROWSER_CHECKS === '1') {
+    const hosted = await preview({ root: application, configFile: false, preview: { host: '127.0.0.1', port: 0 } });
+    try { await browserChecks({ url: `http://127.0.0.1:${hosted.httpServer.address().port}`, prefix: 'vue', focusButton: false }); }
+    finally { await new Promise(resolve => hosted.httpServer.close(resolve)); }
+  }
   await writeFile(join(application, 'src/Invalid.vue'), '<script setup>import Input from "@revacss/vue/Input.vue";</script><template><Input model-value="" id="" label="Email" /></template>');
   const { default: Invalid } = await server.ssrLoadModule('/src/Invalid.vue');
   await assert.rejects(() => renderToString(createSSRApp(Invalid)), /requires a unique nonempty id and label/);
-  console.log('Vue candidate verified: strict component types, packed consumer build, SSR markup, models, native attributes and core stylesheet import. No browser checks run.');
+  console.log('Vue candidate verified: strict component types, packed consumer build, SSR markup, models, native attributes and core stylesheet import. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await server?.close();
   await rm(temporary, { recursive: true, force: true });

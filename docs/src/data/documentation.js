@@ -272,6 +272,7 @@ export const learnLinks = [
  { key:'modern-css', title:'Modern CSS patterns', path:'guide/modern-css/' },
  { key:'responsive-rtl-print', title:'Responsive layouts, RTL and print', path:'guide/responsive-rtl-print/' },
  { key:'accessibility', title:'Behaviour and accessibility', path:'guide/accessibility/' },
+ { key:'manual-test', title:'Complete test page', path:'guide/manual-test/' },
  { key:'device-checks', title:'Real-device checks', path:'guide/device-checks/' },
 ];
 export const themeLinks = [

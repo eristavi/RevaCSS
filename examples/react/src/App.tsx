@@ -7,6 +7,7 @@ export default function App() {
   return <Layout mainId="react-main">
     <Card className="stack" header={<h1>RevaCSS with React</h1>} footer={<Link className="outline" href="https://github.com/eristavi/RevaCSS">Source code</Link>}>
       <Alert data-variant="neutral">Source candidate. This form has no submission endpoint.</Alert>
+      <output id="model-email">{email}</output>
       <p id="email-note">We use your email to reply.</p>
       <form onSubmit={event => event.preventDefault()}>
         <Input ref={emailRef} id="react-email" name="email" type="email" label="Email" hint="Use your work address"

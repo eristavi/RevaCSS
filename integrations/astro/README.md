@@ -2,8 +2,8 @@
 
 Optional Astro 7 components for the RevaCSS 2.0 source candidate. The proposed
 `@revacss/astro` package is not published. It is distributed separately from the
-CSS package; it does not change core CSS or add browser JavaScript. Browser,
-device and visual acceptance remain deferred until the 2.0 release review.
+CSS package; it does not change core CSS or add browser JavaScript. Automated native browser checks are recorded below; physical-device and visual
+acceptance remain required for the 2.0 release review.
 
 The RevaCSS documentation site already uses Astro. This adapter makes reusable
 components available to consuming projects; existing native markup remains valid.
@@ -92,9 +92,23 @@ Do not add client:* to these server-rendered Astro components. JavaScript island
 remain an independent application choice. Astro scoped styles require :global()
 when targeting markup rendered inside a child component.
 
+
+## Automated browser review
+
+The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+and WebKit. It covers native control activation, applicable hydrated value changes,
+DOM focus through applicable ref/element bindings, disclosure toggles, disabled
+controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
+limited to the reference fixtures, not all possible application combinations.
+Physical devices, screen readers, actual zoom/print and visual approval remain
+manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+`REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
+Without the flag, checks remain compilation/SSR only.
+
 ## Maintainer checks
 
 Run `npm run test:astro` from the repository root. The test packs and installs both
 packages into an isolated fixture, builds it with Astro, and inspects rendered
 HTML, assets, form associations, escaping, scoped styling and script absence.
-This is build/markup evidence, not browser or accessibility acceptance.
+Default checks provide build/markup evidence; the opt-in browser phase provides
+the limited automated coverage described above, without manual acceptance.
