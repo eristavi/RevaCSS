@@ -186,6 +186,10 @@ Demos use sample content. Your application supplies form processing, commerce, r
 
 Choose **Customize → Colours → Palette → Custom** to create light and dark palettes, derive supporting shades, refine every colour token and see contrast feedback. Export the palette as ordinary CSS or download starting HTML with your colours included. See [custom palette documentation](https://eristavi.github.io/RevaCSS/themes/palettes/#custom) for reusable named palettes without JavaScript.
 
+## Vue integration candidate
+
+The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. Browser/device acceptance remains deferred.
+
 ## Astro integration candidate
 
 The optional [Astro adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/astro) provides typed native components, accessible field associations and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/astro). It is a separate, unpublished version 2 candidate with no browser JavaScript. Core CSS remains unchanged; browser/device acceptance is deferred.

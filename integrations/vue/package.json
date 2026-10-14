@@ -1,0 +1,37 @@
+{
+  "name": "@revacss/vue",
+  "version": "2.0.0-dev.0",
+  "description": "Optional native HTML Vue components for RevaCSS",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eristavi/RevaCSS.git",
+    "directory": "integrations/vue"
+  },
+  "files": [
+    "components",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./*.vue": "./components/*.vue"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "revacss": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "check": "vue-tsc --noEmit && node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "vue": "3.5.44",
+    "@vitejs/plugin-vue": "6.0.10",
+    "typescript": "5.9.3",
+    "vite": "8.3.1",
+    "vue-tsc": "3.3.13"
+  }
+}
