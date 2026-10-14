@@ -1,0 +1,25 @@
+---
+import { readFile } from 'node:fs/promises';
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+// Read source as text so docs builds do not require Nuxt's generated tsconfigs.
+const config = await readFile('examples/nuxt/nuxt.config.ts', 'utf8');
+const app = await readFile('examples/nuxt/app/app.vue', 'utf8');
+---
+<DocsLayout title="Nuxt integration" active="nuxt" sections={[]}>
+  <p class="doc-kicker">LEARN / NUXT</p>
+  <h1>RevaCSS with Nuxt</h1>
+  <p>Use the existing Vue adapter. No separate Nuxt component package or module is needed. The Nuxt 4.6.1 reference application loads core CSS globally and renders native components through Vue 3.5.44.</p>
+  <h2>Install the source candidates</h2>
+  <p>Prepare matching CSS and pack the core and Vue adapter from the repository. Install both local tarballs in the Nuxt project. These packages remain unpublished candidates.</p>
+  <CodeViewer id="nuxt-install" lang="bash" code={'npm ci\nnpm run build:css\nnpm pack --ignore-scripts\nnpm pack ./integrations/vue --ignore-scripts\n\n# Inside the Nuxt project:\nnpm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0-dev.0.tgz'}/>
+  <h2>Load CSS through Nuxt configuration</h2>
+  <CodeViewer id="nuxt-config" lang="typescript" code={config}/>
+  <h2>Set document appearance with useHead</h2>
+  <CodeViewer id="nuxt-head" lang="vue" code={app}/>
+  <p>Page overrides can set data-theme on the document root. The reference includes a dark page. Layout attributes affect its wrapper and supported nested targets; document settings belong to Nuxt head management.</p>
+  <h2>Verified scope</h2>
+  <p>Strict Nuxt types, the production Node server build, HTTP responses from both pages, root theme attributes, served RevaCSS, field associations, initial form models, selected options and escaped messages are checked from packed framework candidates. The form is a markup demonstration without a submission endpoint. Vue components and core CSS stay unchanged.</p>
+  <p>Browser hydration, interactive models, client-navigation head updates, physical devices and accessibility acceptance remain deferred until the 2.0 review. Nuxt supplies its normal application runtime; RevaCSS adds no theme script or scripted disclosure handling.</p>
+  <p><a href="https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt">Read the reference application's complete setup and check instructions</a>.</p>
+</DocsLayout>

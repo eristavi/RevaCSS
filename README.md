@@ -192,7 +192,7 @@ The optional [React adapter](https://github.com/eristavi/RevaCSS/tree/main/integ
 
 ## Vue integration candidate
 
-The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. Browser/device acceptance remains deferred.
+The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. A [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt) covers production builds and live server rendering. Browser/device acceptance remains deferred.
 
 ## Astro integration candidate
 

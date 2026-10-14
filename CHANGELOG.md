@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a Nuxt reference app using the existing Vue adapter, global core CSS loading and server-rendered document theme attributes. Check strict Nuxt types, production builds, live SSR pages, served styles and form markup from packed source candidates. Core CSS and Vue components remain unchanged; browser/hydration acceptance remains deferred.
+
 - Stage an optional React 19 adapter for version 2 with typed native components, ref-as-prop forwarding, labelled form controls, merged hint/error associations, React and Next.js examples and a setup guide. Keep core CSS unchanged; compilation/package/SSR checks are recorded separately from deferred browser acceptance.
 
 - Stage an optional Vue 3.5 adapter for version 2: typed native components, v-model form bindings, explicit control attribute forwarding, associated labels/hints/errors, a reference application and setup guide. Keep core CSS unchanged. Vue compilation, strict types and SSR markup checks are recorded; browser/device acceptance remains deferred.
