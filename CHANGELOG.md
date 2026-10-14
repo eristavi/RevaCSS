@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Use the existing accordion structure for documentation and demo content disclosures, source panels, customizer groups and the mobile documentation browser. Centre summary labels with the framework’s existing rules and retain native open/close behaviour. Shared demo components also update downloadable HTML. Core CSS, navigation disclosures and intentionally plain native disclosure examples are unchanged. Build verification only; browser/device tests remain deferred.
+
 - Add Full and Custom page widths. Full fills the parent with side padding; Custom configures maximum width including padding and per-side padding. Cap padding in narrow containers, reset local width presets, preserve separate navbar-width behavior, align full-navbar content and update the dashboard container. Add saved custom-width controls with numeric/range entry, CSS copy/export and self-contained HTML downloads. Browser/device tests remain deferred.
 
 - Add Custom density with separate base surface padding, control-padding multiplier and content spacing. Existing density presets reset all groups; surface hooks consume a dedicated padding token with the existing spacing fallback. Preserve minimum control heights and safe-area padding. Add linked/independent sliders and numeric inputs, saved choices, CSS copy/export and self-contained HTML downloads in the optional editor. Browser/device tests remain deferred.

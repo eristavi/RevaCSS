@@ -5,16 +5,16 @@ const advancedKeys=Object.keys(customPaletteDefaults.light).filter(key=>!simpleP
 <section id="custom-palette-editor" hidden aria-labelledby="custom-palette-title">
   <h3 id="custom-palette-title">Your custom palette</h3>
   <p>Choose four foundation colours for each mode. Supporting colours are derived automatically when a foundation changes. Expand advanced colours to adjust every token.</p>
-  <div class="palette-modes">
+  <div class="accordion palette-modes">
     {['light','dark'].map(mode=><details class="palette-mode" open={mode==='light'}><summary>{mode==='light'?'Light mode':'Dark mode'}</summary>
       <fieldset><legend>Foundation colours</legend><div class="palette-fields">{simplePaletteKeys.map(key=><div class="palette-field"><label for={`palette-${mode}-${key}`}>{paletteLabels[key]}</label><input type="color" id={`palette-${mode}-${key}`} name={`palette-${mode}-${key}`} value={customPaletteDefaults[mode][key]}/><output for={`palette-${mode}-${key}`}>{customPaletteDefaults[mode][key]}</output></div>)}</div></fieldset>
-      <details class="palette-advanced"><summary>Advanced colours</summary><fieldset><legend>Surfaces, gradients and semantic roles</legend><div class="palette-fields">{advancedKeys.map(key=><div class="palette-field"><label for={`palette-${mode}-${key}`}>{paletteLabels[key]}</label><input type="color" id={`palette-${mode}-${key}`} name={`palette-${mode}-${key}`} value={customPaletteDefaults[mode][key]}/><output for={`palette-${mode}-${key}`}>{customPaletteDefaults[mode][key]}</output></div>)}</div></fieldset></details>
+      <div class="accordion"><details class="palette-advanced"><summary>Advanced colours</summary><fieldset><legend>Surfaces, gradients and semantic roles</legend><div class="palette-fields">{advancedKeys.map(key=><div class="palette-field"><label for={`palette-${mode}-${key}`}>{paletteLabels[key]}</label><input type="color" id={`palette-${mode}-${key}`} name={`palette-${mode}-${key}`} value={customPaletteDefaults[mode][key]}/><output for={`palette-${mode}-${key}`}>{customPaletteDefaults[mode][key]}</output></div>)}</div></fieldset></details></div>
     </details>)}
   </div>
   <div id="custom-palette-contrast" class="palette-contrast" aria-label="Palette contrast feedback"></div>
   <p class="palette-help">Contrast feedback checks solid colours in both modes; gradients and translucent materials need a visual review. Your colours stay under your control. An explicit surface tone overrides palette surfaces.</p>
   <div class="row"><button type="button" id="export-custom-palette">Export palette CSS</button><button type="button" id="copy-custom-palette" class="outline">Copy palette CSS</button></div>
-  <details class="configuration-summary"><summary>View palette CSS</summary><pre tabindex="0" aria-label="Custom palette CSS"><code id="custom-palette-css"></code></pre></details>
+  <div class="accordion"><details class="configuration-summary"><summary>View palette CSS</summary><pre tabindex="0" aria-label="Custom palette CSS"><code id="custom-palette-css"></code></pre></details></div>
   <p class="palette-help">Load your exported CSS after RevaCSS and set <code>data-palette="custom"</code> on your page or a parent. Downloaded starting HTML includes the palette.</p>
 </section>
 <style>
