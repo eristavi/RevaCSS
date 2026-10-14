@@ -1,6 +1,6 @@
 # RevaCSS on npm
 
-Current source prepares the 2.0.0 candidate. The installation examples below refer to the existing 1.2.1 distribution; do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
+Current source prepares the 2.0.0 candidate. Registry/CDN examples below refer to the existing 1.2.1 distribution; the local-checkout example produces 2.0.0. Do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
 
 **RevaCSS 1.2.1 — Erisian** (prepared package; registry publication pending authentication) is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1).
 
@@ -23,7 +23,7 @@ npm pack --pack-destination artifacts
 In a separate project, install the generated file:
 
 ```sh
-npm install /path/to/RevaCSS/artifacts/revacss-1.2.1.tgz
+npm install /path/to/RevaCSS/artifacts/revacss-2.0.0.tgz
 ```
 
 The tarball includes compiled CSS, tokens, stylesheet type declarations, SVG icons, the optional Manrope font and its license, the MIT license, the README, changelog, and this guide. It contains no framework JavaScript or runtime dependencies. The contributor's Node requirement applies to development tooling rather than installed CSS consumers.

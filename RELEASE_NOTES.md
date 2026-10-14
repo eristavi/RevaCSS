@@ -20,7 +20,7 @@ Veil is deprecated but retained for existing integrations. Experimental demo eff
 
 ## Validation and publication
 
-This is a candidate, not a published production release. Local build, unit/link and installed-package checks pass; Chromium, Firefox and WebKit validation is requested on the review branch. The [candidate validation record](quality/releases/v2.0.0.md) tracks final results and limitations.
+This is a candidate, not a published production release. Build, 38 unit/link checks and five installed-package checks pass. Browser coverage includes complete Firefox and WebKit sweeps and the complete Chromium sweep followed by a successful corrected code-viewer spec in all three engines. The [candidate validation record](quality/releases/v2.0.0.md) gives exact counts, revisions and limitations.
 
 Fresh physical-device, screen-reader, actual zoom/text-spacing, print and visual review remains an explicit candidate gate. Publication stays blocked until applicable acceptance is complete. A successful documentation deployment does not close that gate.
 

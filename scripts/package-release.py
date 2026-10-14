@@ -29,7 +29,7 @@ required = ['dist/reva.css', 'dist/reva.min.css', 'dist/reva.scoped.css',
 if any(not (root / path).is_file() for path in required):
     raise SystemExit('Compiled assets are missing. Run npm run build before packaging.')
 files = {path.relative_to(root).as_posix(): path.read_bytes()
-         for directory in ['dist', 'tokens']
+         for directory in ['dist', 'tokens', 'types']
          for path in sorted((root / directory).rglob('*')) if path.is_file()}
 for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md', 'MIGRATION.md',
                  'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md', 'NPM.md', 'AI.md',

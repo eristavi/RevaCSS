@@ -53,7 +53,10 @@ test('only optional settings scripts ship in the documentation; core remains CSS
       assert.ok(url.searchParams.get('v'),path);
       assert.equal(content.trim(),'',path);
      }
-     else assert.match(content.trim(),/^window\.RevaSettings\?\.init(?:Customizer|Theme)\(\);$/,path);
+     else {
+      assert.doesNotMatch(attributes,/\bsrc=/,path);
+      assert.match(content.trim(),/^window\.RevaSettings\?\.init(?:Customizer|Theme)\(\);$/,path);
+     }
     }
    }else if(f.name.endsWith('.js'))assert.ok(assets.has(f.name),path);
   }
