@@ -3,7 +3,7 @@ import options from '../../../tokens/options.json';
 export const attributes = [
   {
     id: 'font', title: 'data-font',
-    description: 'Font family. Values: manrope, system. Default: manrope. Set it on html, a section or a control. Manrope requires the optional font stylesheet to render; otherwise it uses the system fallback. System selects the device UI font even when Manrope is loaded. Local presets reset the choice, code stays monospace and an explicit --re-font-heading override remains available.',
+    description: 'Font family. Values: manrope, system. Default: manrope. Set it on html, a section or a control. The optional font stylesheet supplies Manrope; when that family is unavailable, it uses the system fallback. System selects the device UI font even when Manrope is loaded. Local presets reset the choice, code stays monospace and an explicit --re-font-heading override remains available.',
     html: '<section data-font="system">\n  <h3>System font</h3>\n  <p>The device UI font, inherited by text and controls.</p>\n  <button type="button">System action</button>\n  <section data-font="manrope">\n    <h4>Default font</h4>\n    <p>A local reset to Manrope with its system fallback.</p>\n    <input aria-label="Example project" placeholder="Default font field">\n  </section>\n</section>',
     glass: false
   },

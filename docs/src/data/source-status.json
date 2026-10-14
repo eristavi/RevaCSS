@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
   "testsDeferred": false,
-  "summary": "Preparing 2.0.0 with Default/Mono palette consolidation and documented migration. Manrope/System font selection, custom shape, density and page widths, responsive/RTL/native-control refinements and accordion alignment are included. Font selection is undergoing automated validation; fresh manual acceptance remains required. Published 1.2.1 archives are unchanged."
+  "summary": "Preparing 2.0.0 with Default/Mono palette consolidation and documented migration. Manrope/System font selection, custom shape, density and page widths, responsive/RTL/native-control refinements and accordion alignment are included. Automated readiness and font-selection coverage is complete; fresh manual acceptance remains required. Published 1.2.1 archives are unchanged."
 }
