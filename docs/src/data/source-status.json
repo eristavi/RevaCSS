@@ -1,5 +1,5 @@
 {
-  "unreleasedChanges": true,
-  "testsDeferred": true,
-  "summary": "Preparing RevaCSS 2.0.0: Default/Mono palette migration, Manrope/System fonts, custom palette/shape/density/width settings, native control and disclosure refinements, and optional framework integrations. Combined automated results are recorded; maintainer manual acceptance and the Nuxt-only dependency review are complete. Stable 2.0.0 adapter archives are prepared. GitHub/npm 2.0.0 publication has not occurred; existing 1.2.1 distributions remain unchanged."
+  "unreleasedChanges": false,
+  "testsDeferred": false,
+  "summary": "RevaCSS 2.0.0 final candidate validation is complete: core browser suites, build/unit checks, installed package consumers, stable adapter archives and fresh Composer installation passed. Maintainer manual acceptance and the scoped Nuxt dependency review are recorded. GitHub/npm 2.0.0 publication has not occurred; existing 1.2.1 distributions remain unchanged."
 }
