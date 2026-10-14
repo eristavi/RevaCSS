@@ -2,6 +2,7 @@ import {test,expect} from '@playwright/test';
 import {createRequire} from 'node:module';
 import {manualTopics,exampleCount} from '../../docs/src/data/manual-test.js';
 import {expectOnlyOptionalSettings} from './helpers/settings.mjs';
+import {waitForDisclosure,waitForControlLayout} from './helpers/popover.mjs';
 const require=createRequire(import.meta.url);
 const route='/guide/manual-test/';
 
@@ -51,7 +52,8 @@ test.describe('native test-page controls without JavaScript',()=>{
   await expect(page.locator('#stress-readonly')).toHaveAttribute('readonly','');
   await page.locator('#stress-select').selectOption('long');
   await page.locator('#stress-textarea').fill('Changed review text');
-  await page.locator('#stress-form button[type=reset]').click();
+  const reset=page.locator('#stress-form button[type=reset]');
+  await reset.focus();await waitForControlLayout(reset);await reset.click();
   await expect(page.locator('#stress-required')).toHaveValue('');
   await expect(page.locator('#stress-select')).toHaveValue('');
   await expect(page.locator('#stress-textarea')).not.toHaveValue('Changed review text');
@@ -64,7 +66,7 @@ test.describe('native test-page controls without JavaScript',()=>{
  });
  test('disclosures, radio panels and popovers operate independently',async({page})=>{
   await page.goto(route);
-  const disclosure=page.locator('#fixture-disclosures-details');await disclosure.locator('summary').click();await expect(disclosure.locator('details')).toHaveAttribute('open','');
+  const disclosure=page.locator('#fixture-disclosures-details');await disclosure.locator('summary').click();await expect(disclosure.locator('details')).toHaveAttribute('open','');await waitForDisclosure(disclosure.locator('details'));
   const tabs=page.locator('#fixture-tabs-tabs-basic');await tabs.getByText('Preferences',{exact:true}).click();await expect(tabs.getByRole('heading',{name:'Your preferences'})).toBeVisible();
   const dropdown=page.locator('#fixture-dropdowns-dropdown-links');await dropdown.getByRole('button',{name:'Resources',exact:true}).click();await expect(dropdown.locator('[popover]')).toBeVisible();await page.keyboard.press('Escape');await expect(dropdown.locator('[popover]')).toBeHidden();
  });

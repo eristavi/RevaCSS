@@ -1,5 +1,5 @@
 import { expectOnlyOptionalSettings } from './helpers/settings.mjs';
-import {waitForPopover} from './helpers/popover.mjs';
+import {waitForPopover,waitForDisclosure} from './helpers/popover.mjs';
 import { test, expect } from '@playwright/test';
 import axeSource from 'axe-core';
 import {topics} from '../../docs/src/data/examples.js';
@@ -24,6 +24,7 @@ test('documentation disclosures and popovers work without JavaScript',async({bro
  const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
  await page.goto('/components/disclosures/');await page.locator('#details summary').click();
  await expect(page.locator('#details details')).toHaveAttribute('open','');
+ await waitForDisclosure(page.locator('#details details'));
  await page.locator('[popovertarget="demo-popover"]').first().click();await expect(page.locator('#demo-popover')).toBeVisible();
  await waitForPopover(page.locator('#demo-popover'));await page.locator('#demo-popover button').click();await expect(page.locator('#demo-popover')).toBeHidden();await context.close();
 });

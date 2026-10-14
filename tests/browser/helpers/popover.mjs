@@ -36,3 +36,15 @@ export async function waitForDisclosure(panel) {
     return stable;
   },{message:'native disclosure content is visible and its layout has settled'}).toBeGreaterThanOrEqual(2);
 }
+
+// Native focus can scroll a long page after focus() resolves. Poll its actual
+// geometry before asking the pointer-action probe to schedule animation frames.
+export async function waitForControlLayout(control) {
+  let previous,stable=0;
+  await expect.poll(async()=>{
+    const bounds=await control.boundingBox();
+    stable=bounds && previous && ['x','y','width','height'].every(key=>Math.abs(bounds[key]-previous[key])<.01)?stable+1:0;
+    previous=bounds;
+    return stable;
+  },{intervals:[100,100,100,200],message:'native focus scrolling and control layout have settled'}).toBeGreaterThanOrEqual(2);
+}
