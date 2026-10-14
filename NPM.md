@@ -2,7 +2,7 @@
 
 Current source prepares the 2.0.0 candidate. Registry/CDN examples below refer to the existing 1.2.1 distribution; the local-checkout example produces 2.0.0. Do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
 
-**RevaCSS 1.2.1 — Erisian** (prepared package; registry publication pending authentication) is a stylesheet package with no framework JavaScript or runtime dependencies. The same CSS is available in the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1).
+**RevaCSS 1.2.1 — Erisian** is published on npm with the `latest` tag. It is a stylesheet package with no framework JavaScript or runtime dependencies. Its archive matches the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) byte for byte; see the [npm publication record](quality/releases/v1.2.1.md#npm-publication-on-14-october-2026).
 
 The 1.2.1 distribution includes the optional `reva.button-materials.css` and scoped counterpart. Load the matching extension after the core to use independent action materials.
 
@@ -88,9 +88,9 @@ npm run check:release-quality
 
 Package tests install an actual tarball in a clean project, verify public paths and distribution bytes, and build global/scoped consumer pages with Vite. Browser checks exercise the bundled pages without JavaScript in Chromium, Firefox, and WebKit. Use the browser installation steps in the main README first.
 
-The existing manual acceptance items and the maintainer's 10 October visual sign-off are recorded in [the quality registry](https://github.com/eristavi/RevaCSS/blob/main/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v1.2.1.md). The ordinary release gate and npm lifecycle gate must pass; the historic 1.0.0 exception does not apply to 1.2.1.
+The published 1.2.1 release passed both quality gates at its immutable tag. Its manual acceptance and the maintainer's 10 October visual sign-off are recorded in [the tagged quality registry](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The historic 1.0.0 exception was not used. Current source's 2.0.0 candidate still requires fresh acceptance before its own publication.
 
-The commands and pinned CDN URLs above describe the 1.2.1 package. They become available after publication; until verified, the published registry version remains 1.0.0. Authenticate with npm, verify the account using `npm whoami`, then run `npm publish --access public`. Any required npm two-factor confirmation belongs to that publishing step. The `npm-publish.yml` workflow supports verified GitHub-release archives, manual backfills and future published stable releases. Publication remains pending until npm trusts this workflow.
+The commands and pinned CDN URLs above describe the published 1.2.1 package. For future releases, authenticate with npm, verify the account using `npm whoami`, and publish only a validated release. Any required npm two-factor confirmation belongs to that publishing step. The `npm-publish.yml` workflow supports verified GitHub-release archives, manual backfills and future published stable releases when configured as a trusted publisher. The manual authenticated 1.2.1 publication does not establish that workflow's trust configuration.
 
 ### Configure token-free GitHub publishing
 

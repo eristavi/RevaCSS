@@ -50,7 +50,7 @@ Download the [compiled stylesheet](https://github.com/eristavi/RevaCSS/releases/
 
 Native elements receive shared defaults. Classes such as `.card`, `.container`, `.grid` and `.stack` identify reusable structures.
 
-For starter HTML, optional stylesheets, icons and the bundled font, download the [complete release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1). See [installation options](https://eristavi.github.io/RevaCSS/guide/) and the [npm guide](NPM.md) for package and CDN availability. The GitHub release is the available 1.2.1 distribution; npm publication is not yet confirmed.
+For starter HTML, optional stylesheets, icons and the bundled font, download the [complete release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) or run `npm install revacss@1.2.1`. Version 1.2.1 is published on npm as `latest`; its archive and clean consumer installation are [verified](quality/releases/v1.2.1.md#npm-publication-on-14-october-2026). See [installation options](https://eristavi.github.io/RevaCSS/guide/) and the [npm guide](NPM.md) for package and CDN use.
 
 ## Configure once, refine locally
 
