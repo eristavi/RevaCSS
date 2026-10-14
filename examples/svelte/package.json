@@ -1,0 +1,19 @@
+{
+  "name": "revacss-svelte-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "svelte": "5.57.2"
+  },
+  "devDependencies": {
+    "vite": "8.3.1",
+    "@sveltejs/vite-plugin-svelte": "7.3.1",
+    "typescript": "6.0.3",
+    "svelte-check": "4.7.6"
+  }
+}

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Stage an optional Svelte 5 adapter for version 2 with typed native components, snippet content, explicit value/element bindings and associated form messages. Add plain Svelte and SvelteKit 3 examples, production/SSR checks, a setup guide and requested-only CI. Core CSS remains unchanged; browser/hydration and accessibility acceptance remain deferred.
+
 - Add a Nuxt reference app using the existing Vue adapter, global core CSS loading and server-rendered document theme attributes. Check strict Nuxt types, production builds, live SSR pages, served styles and form markup from packed source candidates. Core CSS and Vue components remain unchanged; browser/hydration acceptance remains deferred.
 
 - Stage an optional React 19 adapter for version 2 with typed native components, ref-as-prop forwarding, labelled form controls, merged hint/error associations, React and Next.js examples and a setup guide. Keep core CSS unchanged; compilation/package/SSR checks are recorded separately from deferred browser acceptance.
