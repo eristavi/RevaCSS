@@ -97,9 +97,10 @@ child internals may require :deep().
 
 No browser globals, theme persistence, automatic CSS injection, component effects
 or scripted disclosure handling are added. Server rendering emits native HTML;
-client hydration and reactivity belong to the consuming Vue application. Nuxt and
-Laravel/Inertia can consume the components through their normal Vue builds, but
-neither platform has dedicated acceptance coverage in this candidate.
+client hydration and reactivity belong to the consuming Vue application. Nuxt build and server-rendering coverage is recorded in the
+[Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt).
+Laravel/Inertia remains an integration route without dedicated platform checks.
+Browser hydration and client-navigation acceptance remain deferred.
 
 ## Maintainer checks
 
