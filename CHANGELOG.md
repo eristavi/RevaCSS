@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Vertically centre native disclosure labels and markers inside the existing minimum touch target, including exclusive groups. Preserve accordion flex alignment and native open/close behaviour. Validation deferred at maintainer request.
+
 - Add one complete manual-test documentation page with every live component example, native navigation, exhaustive form controls, long and multilingual content, material comparisons and a copyable review record. Namespace fixture references and retain independent document examples.
 
 - Add an explicit combined review for all integrations: reference model outputs, opt-in three-engine browser checks for native controls, hydrated values and DOM focus, axe/reflow assertions, and the Laravel/Livewire matrix. Record unresolved Nuxt dependency advisories separately from passing builds. No core CSS changes.
