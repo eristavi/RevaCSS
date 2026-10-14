@@ -1,0 +1,110 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopMenu from '../../components/TopMenu.astro';
+import {stylesheet} from '../../data/assets.js';
+import {manualTopics,exampleCount,fixtureHTML,longText,longWord} from '../../data/manual-test.js';
+import catalog from '../../../../src/icons/catalog.json';
+const base=import.meta.env.BASE_URL;
+const revision=process.env.GITHUB_SHA || 'local preview';
+const styles=['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'];
+const documentFor=(html,title)=>`<!doctype html><html lang="en" data-theme="auto" data-palette="default"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>${styles.map(file=>`<link rel="stylesheet" href="${stylesheet(file)}">`).join('')}</head><body>${html}</body></html>`;
+const inputTypes=['text','email','password','search','tel','url','number','date','datetime-local','time','month','week','color','range','file'];
+const menuItems=[{key:'home',label:'Start',href:'#main'},{key:'components',label:'Components',children:[{key:'forms',label:'Forms',href:'#family-forms'},{key:'navigation',label:'Navigation',href:'#family-top-menu'},{key:'more',label:'More',children:[{key:'tables',label:'Tables',href:'#family-tables'},{key:'typography',label:'Typography',href:'#family-typography'}]}]},{key:'report',label:'Review record',href:'#review-record'}];
+const report=`Build: ${revision}\nDate:\nDevice / OS / browser and version:\nViewport / orientation / actual zoom:\nTheme / palette / material / font / density / motion / contrast:\nKeyboard / screen reader:\nFixture ID:\nExpected result:\nObserved result:\nPass / fail / not checked:\nReproduction steps:\nScreenshot or recording:\n`;
+---
+<Layout title="Complete manual-test page" current="manual-test" documentation>
+ <Fragment slot="head">{['reva.gallery.css','reva.scrolling.css','reva.scroll-motion.css','reva.card-grid.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}</Fragment>
+ <div class="docs-content manual-page">
+  <header>
+   <p class="doc-kicker">REVA CSS · MANUAL REVIEW</p>
+   <h1>Complete component test page</h1>
+   <p class="doc-lead">One long page with all {manualTopics.length+1} documented component families, {exampleCount} live examples, full navigation, long content and native form states.</p>
+   <p>Build revision: <code class="manual-revision">{revision}</code>. This is a review fixture, not an automatic pass report.</p>
+   <p>Use <strong>Customize</strong> in the documentation header to change inherited appearance. Scroll through the page on desktop and mobile; use Tab, Shift+Tab, Enter, Space and Escape. Check actual browser zoom, reduced motion, high contrast, print preview and your screen reader. <a href={base+'guide/device-checks/'}>Real-device checks</a> gives the release acceptance checklist.</p>
+   <p>Core interactions use native HTML and CSS. Framework hydration and application behaviour are checked separately in their reference apps. Forms have no application backend: use fictional values only. Submit validates, then reloads this page with values in the URL; reset restores defaults. Results are not saved automatically.</p>
+   <nav aria-label="Test page sections" class="manual-index"><a href="#stress-content">Long content</a><a href="#stress-forms">All form fields</a><a href="#material-matrix">Appearance matrix</a><a href="#icon-catalog">Icon catalog</a><a href="#component-catalog">All components</a><a href="#review-record">Review record</a></nav>
+   <details><summary>Component index</summary><nav aria-label="Component fixture index" class="manual-index"><a href="#family-top-menu">Top menu</a>{manualTopics.map(topic=><a href={`#family-${topic.slug}`}>{topic.title}</a>)}</nav></details>
+  </header>
+
+  <section id="stress-content" class="doc-section">
+   <h2>Long content, language and wrapping</h2>
+   <div class="prose"><p>{longText}</p><p>{longText} <a href="#stress-forms">A deliberately long link describing the next section and every native form control available for review.</a></p>
+    <blockquote><p>{longText}</p><footer>Review fixture · long quotation</footer></blockquote>
+    <ul><li>{longText}</li><li>Nested content<ol><li>{longText}</li><li>Inline <strong>strong emphasis</strong>, <em>emphasis</em>, <mark>highlight</mark>, <del>removed text</del>, <ins>inserted text</ins>, <abbr title="HyperText Markup Language">HTML</abbr>, <kbd>Ctrl</kbd> + <kbd>+</kbd>, H<sub>2</sub>O and x<sup>2</sup>.</li></ol></li></ul>
+   </div>
+   <div class="grid" data-cols="2">
+    <article class="card"><h3>A long card heading that should wrap across several lines when space is limited</h3><p>{longText}</p><p>{longWord}</p><button type="button">A long action label that needs to remain readable on a small screen</button></article>
+    <article class="card"><h3>Language and fallback fonts</h3><p lang="de">Lange zusammengesetzte Wörter: Benutzeroberflächenkomponenten und Dokumentationsüberprüfung.</p><p lang="fr">Vérifiez les caractères accentués, l’espacement et la lisibilité de chaque élément.</p><p lang="ru">Проверьте читаемость длинного текста и перенос строк на маленьком экране.</p><p lang="el">Ελέγξτε τη γραμματοσειρά και την αναγνωσιμότητα σε μικρές οθόνες.</p><p lang="ka">შეამოწმეთ ქართული ტექსტის წაკითხვა და სტრიქონების გადატანა პატარა ეკრანზე.</p><div dir="rtl"><p lang="ar">اختبر وضوح النص واتجاه القراءة والمحاذاة في الواجهة.</p><p lang="he">בדקו את כיוון הטקסט ואת הקריאות במסך קטן.</p><label for="stress-rtl">RTL input</label><input id="stress-rtl" value="اختبار النص" lang="ar"/></div></article>
+   </div>
+   <h3>Wide table and preformatted text</h3><p>These labelled regions intentionally scroll horizontally. The page itself should fit the viewport.</p>
+   <div class="manual-scroll" tabindex="0" role="region" aria-label="Wide test table"><table><caption>Long table content and numeric alignment</caption><thead><tr>{['Reference','Description','Owner','Status','Quantity','Unit price','Total','Review notes'].map(label=><th scope="col">{label}</th>)}</tr></thead><tbody>{Array.from({length:12},(_,i)=><tr><th scope="row">REV-{1000+i}</th><td>{longText}</td><td>Long department and reviewer name</td><td>Awaiting detailed review</td><td>{100+i}</td><td>€1,234.56</td><td>€123,456.78</td><td>{longWord}</td></tr>)}</tbody></table></div>
+   <pre tabindex="0" role="region" aria-label="Long code line"><code>{`<article class="card" data-theme="dark" data-material="glass" aria-label="${longWord}">\n  ${longText}\n</article>`}</code></pre>
+   <figure><img src={base+'images/example-landscape.svg'} alt="Illustrated mountain landscape used to check responsive media" width="640" height="360" loading="lazy"/><figcaption>{longText}</figcaption></figure>
+  </section>
+
+  <section id="stress-forms" class="doc-section">
+   <h2>All form fields and native states</h2>
+   <form id="stress-form" method="get" action={base+'guide/manual-test/#stress-forms'} class="stack">
+    <fieldset><legend>Input types</legend><div class="grid" data-cols="2">{inputTypes.map(type=><div><label for={`stress-${type}`}>{type} input</label><input id={`stress-${type}`} name={type} type={type} min={['number','range'].includes(type)?'0':undefined} max={type==='range'?'100':undefined} value={type==='color'?'#4361ee':type==='range'?'40':undefined}/></div>)}</div></fieldset>
+    <fieldset><legend>Validation, disabled and read-only states</legend><div class="grid" data-cols="2">
+     <div><label for="stress-required">Required name</label><input id="stress-required" name="required-name" required aria-describedby="stress-required-hint"/><small id="stress-required-hint">Leave empty and submit to inspect native validation.</small></div>
+     <div><label for="stress-invalid">Invalid email example</label><input id="stress-invalid" type="email" value="invalid-example" aria-invalid="true" aria-describedby="stress-error"/><small id="stress-error">Example error: enter a complete email address.</small></div>
+     <div><label for="stress-readonly">Read-only field</label><input id="stress-readonly" value="Selectable, read-only value" readonly/></div>
+     <div><label for="stress-disabled">Disabled field</label><input id="stress-disabled" value="Unavailable" disabled/></div>
+     <div><label for="stress-pattern">Pattern: three uppercase letters</label><input id="stress-pattern" name="code" pattern="[A-Z]{3}" title="Three uppercase letters" placeholder="ABC"/></div>
+    </div></fieldset>
+    <fieldset><legend>Choices and long descriptions</legend>
+     <label for="stress-select">Single select</label><select id="stress-select" name="selection" required><option value="">Choose an option</option><optgroup label="Available"><option value="long">A very long option label that describes a department and its responsibilities</option><option value="short">Short option</option></optgroup><optgroup label="Unavailable"><option disabled>Disabled option</option></optgroup></select>
+     <label for="stress-multiple">Multiple select</label><select id="stress-multiple" name="multiple" multiple size="4"><option selected>First option</option><option>Second option with a much longer label</option><option>Third option</option><option disabled>Disabled option</option></select>
+     <label for="stress-datalist">Input with suggestions</label><input id="stress-datalist" name="suggestion" list="stress-suggestions"/><datalist id="stress-suggestions"><option value="Astro"/><option value="Vue"/><option value="React"/><option value="Svelte"/></datalist>
+     <label for="stress-textarea">Long textarea</label><textarea id="stress-textarea" name="notes" rows="6">{longText+'\n\n'+longText}</textarea>
+     <label><input type="checkbox" name="consent"/> {longText}</label><label><input type="checkbox" checked disabled/> Checked and disabled</label>
+     <fieldset><legend>Radio group</legend><label><input type="radio" name="stress-radio" value="one" checked/> First option</label><label><input type="radio" name="stress-radio" value="two"/> {longText}</label><label><input type="radio" name="stress-radio" value="three" disabled/> Disabled option</label></fieldset>
+     <fieldset disabled><legend>Disabled fieldset</legend><label for="stress-fieldset">Inherited disabled state</label><input id="stress-fieldset" value="Unavailable"/><button type="button">Unavailable action</button></fieldset>
+    </fieldset>
+    <div class="row"><button type="submit">Validate and reload</button><button type="reset">Reset form</button><button type="button" disabled>Disabled action</button></div>
+   </form>
+  </section>
+
+  <section id="material-matrix" class="doc-section">
+   <h2>Fixed appearance and nested inheritance</h2><p>These specimens deliberately override the global customizer. Compare Default and Mono, light and dark, and solid, glass and soft. Coloured bands provide a visible backdrop for glass.</p>
+   <div class="manual-matrix">{['default','mono'].flatMap(palette=>['light','dark'].flatMap(theme=>['solid','glass','soft'].map(material=><div class="manual-backdrop" data-palette={palette} data-theme={theme} data-material={material}><article class="card stack"><h3>{palette} · {theme} · {material}</h3><p>{longText}</p><label for={`matrix-${palette}-${theme}-${material}`}>Example field</label><input id={`matrix-${palette}-${theme}-${material}`} placeholder="Inspect placeholder and focus"/><div class="row"><button type="button">Primary action</button><button type="button" disabled>Disabled</button></div><article class="card" data-material="solid" data-font="system"><h4>Nested solid exception</h4><p>System font; theme and palette inherited.</p><a href="#review-record">Record a finding</a></article></article></div>)))}</div>
+  </section>
+
+  <section id="icon-catalog" class="doc-section"><h2>Complete icon catalog</h2><div class="manual-icons">{catalog.map(icon=><figure><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icon.body}/><figcaption>{icon.name}</figcaption></figure>)}</div></section>
+
+  <section id="component-catalog" class="doc-section">
+   <h2>Every live documentation example</h2><p>Examples inherit the global customizer unless they explicitly set local attributes. Full-document layouts, heading hierarchies and the open-dialog specimen use independent frames, with their own system appearance; reload to restore a closed dialog. Example links stay on this page. A specimen's labels, groups and popover targets belong to that specimen alone.</p>
+   <section id="family-top-menu" data-manual-family="top-menu" class="manual-family"><h3>Top menu</h3><p><a href={base+'components/top-menu/'}>Top menu documentation</a>. Open nested menus, move back, press Escape, click outside and check the mobile menu.</p>{['light','dark','glass'].map(mode=><div class:list={['manual-nav',{ 'manual-backdrop':mode==='glass'}]} data-theme={mode==='light'?'light':'dark'} data-material={mode==='glass'?'glass':'solid'}><TopMenu id={`manual-menu-${mode}`} label={`${mode} manual navigation`} brand={`${mode} navigation`} brandHref="#main" items={menuItems}/></div>)}</section>
+   {manualTopics.map(topic=><section id={`family-${topic.slug}`} data-manual-family={topic.slug} class="manual-family"><h3>{topic.title}</h3><p>{topic.intro} <a href={base+`components/${topic.slug}/`}>Component documentation</a></p>{topic.examples.filter(example=>example.render!==false).map(example=>{
+    const id=`fixture-${topic.slug}-${example.id}`;
+    const html=fixtureHTML(example.html,id,base);
+    return <section id={id} data-manual-example={example.id} class="manual-example"><h4><a href={`#${id}`}>{example.title}</a></h4>{example.description && <p>{example.description}</p>}{example.isolated?<iframe title={`${example.title} independent test document`} srcdoc={documentFor(html,example.title)} width="640" height={example.isolatedHeight||420} loading="lazy"/>:<div class:list={['manual-demo',{ 'manual-backdrop':example.glass}]} role="group" aria-label={`${example.title} specimen`}><Fragment set:html={html}/></div>}</section>;
+   })}</section>)}
+  </section>
+
+  <section id="review-record" class="doc-section"><h2>Copyable review record</h2><p>Copy this template into your issue or review notes for each failure. Use the fixture heading's link as a stable reference. “Not checked” is different from a pass. This page does not upload or retain your notes.</p><label for="manual-report">Review template (editable)</label><textarea id="manual-report" rows="15" spellcheck="false">{report}</textarea><p><a href="#page-top" class="scroll-top">↑ Back to top</a></p></section>
+ </div>
+</Layout>
+<style>
+.manual-page, .manual-family, .manual-example, .manual-demo { min-inline-size:0; }
+.manual-index { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; margin-block:1rem; }
+.manual-index a { min-block-size:2.75rem; display:inline-flex; align-items:center; }
+.manual-revision { overflow-wrap:anywhere; }
+.manual-family { margin-block:3rem; padding-block-start:1rem; border-block-start:2px solid var(--re-line); }
+.manual-example { margin-block:2rem; }
+.manual-example > h4 a { color:inherit; }
+.manual-demo { padding:clamp(.75rem,2vw,1.5rem); border:1px solid var(--re-line); border-radius:var(--re-radius); }
+.manual-example iframe { display:block; inline-size:100%; max-inline-size:100%; border:1px solid var(--re-line); border-radius:var(--re-radius); }
+.manual-scroll { max-inline-size:100%; overflow:auto; }
+.manual-scroll table { min-inline-size:80rem; }
+.manual-scroll th, .manual-scroll td { min-inline-size:8rem; }
+.manual-matrix { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr)); gap:1.5rem; }
+.manual-backdrop { padding:1rem; border-radius:var(--re-radius); background:repeating-linear-gradient(125deg,color-mix(in srgb,var(--re-primary) 45%,var(--re-bg)) 0 3rem,color-mix(in srgb,var(--re-primary-end) 35%,var(--re-bg)) 3rem 6rem); }
+.manual-nav { margin-block:1.5rem; }
+.manual-icons { display:grid; grid-template-columns:repeat(auto-fit,minmax(6rem,1fr)); gap:1rem; }
+.manual-icons figure { margin:0; text-align:center; }
+.manual-icons svg { inline-size:2rem; block-size:2rem; }
+.manual-destination { margin-block-end:0; }
+@media (forced-colors:active), print { .manual-backdrop { background:none; } }
+</style>

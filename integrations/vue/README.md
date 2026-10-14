@@ -3,8 +3,8 @@
 Optional Vue 3.5 components for the RevaCSS 2.0 source candidate. The proposed
 `@revacss/vue` package is not published. It is distributed separately from the CSS
 package and does not modify core styles or inject stylesheets. Vue provides the
-application runtime; RevaCSS core remains CSS-only. Browser/device/visual acceptance
-is deferred until the 2.0 release review.
+application runtime; RevaCSS core remains CSS-only. Automated browser coverage is recorded below; manual device/visual acceptance
+remains required.
 
 ## Install from source
 
@@ -100,7 +100,21 @@ or scripted disclosure handling are added. Server rendering emits native HTML;
 client hydration and reactivity belong to the consuming Vue application. Nuxt build and server-rendering coverage is recorded in the
 [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt).
 Laravel/Inertia remains an integration route without dedicated platform checks.
-Browser hydration and client-navigation acceptance remain deferred.
+Hydrated value changes are covered by the opt-in browser checks; client-navigation
+head updates and manual acceptance remain unverified.
+
+
+## Automated browser review
+
+The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+and WebKit. It covers native control activation, applicable hydrated value changes,
+DOM focus through applicable ref/element bindings, disclosure toggles, disabled
+controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
+limited to the reference fixtures, not all possible application combinations.
+Physical devices, screen readers, actual zoom/print and visual approval remain
+manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+`REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
+Without the flag, checks remain compilation/SSR only.
 
 ## Maintainer checks
 
@@ -114,4 +128,5 @@ build tools. `--legacy-peer-deps` allows source development before revacss@2 is
 published; actual consumers install both local tarballs. The check validates strict
 component types, compiles a packed Vue application and inspects server-rendered
 markup, field associations, initial models, escaping and missing-ID failures.
-It does not run browser checks or certify interaction/accessibility acceptance.
+The opt-in flag adds the browser checks described above. Neither phase certifies
+manual interaction/accessibility acceptance.

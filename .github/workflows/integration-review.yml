@@ -1,0 +1,48 @@
+name: Requested combined adapter review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  adapters:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.title, '[validate release]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run build:css
+      - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - run: npm --prefix integrations/vue ci --ignore-scripts --legacy-peer-deps
+      - run: npm --prefix integrations/react ci --ignore-scripts --legacy-peer-deps
+      - run: npm --prefix integrations/svelte ci --ignore-scripts --legacy-peer-deps
+      - run: npm --prefix examples/nuxt ci --ignore-scripts
+      - run: npm run test:astro
+        env:
+          REVA_BROWSER_CHECKS: '1'
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - run: npm --prefix integrations/vue run check
+        env:
+          REVA_BROWSER_CHECKS: '1'
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - run: npm --prefix integrations/react run check
+        env:
+          REVA_BROWSER_CHECKS: '1'
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - run: npm --prefix integrations/svelte run check
+        env:
+          REVA_BROWSER_CHECKS: '1'
+          REVA_TEST_ENGINE: ${{ matrix.browser }}
+      - run: npm --prefix examples/nuxt run check
+        env:
+          REVA_BROWSER_CHECKS: '1'
+          REVA_TEST_ENGINE: ${{ matrix.browser }}

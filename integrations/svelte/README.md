@@ -4,7 +4,8 @@ Optional Svelte 5 components for the RevaCSS 2.0 source candidate. The proposed
 `@revacss/svelte` package is unpublished and distributed separately from core CSS.
 Svelte owns application rendering/state; RevaCSS core remains CSS-only. The same
 adapter works in plain Svelte and the SvelteKit reference, with no Kit-specific
-component package. Browser/hydration/interaction acceptance remains deferred.
+component package. Automated browser model/element checks are recorded below; manual acceptance
+remains required.
 
 ## Install the source candidate
 
@@ -80,7 +81,8 @@ use native checkbox/radio/file/hidden controls with Field where appropriate.
 Bindable `element` exposes the native DOM node on components other than Field.
 Initialize the bound element variable to null; it remains null during SSR.
 Initialize textarea values to strings and multiple-select values to arrays. DOM access and
-model interactions need browser acceptance, which is deferred. Do not use
+model interactions are checked in the opt-in browser phase. Manual device
+acceptance remains required. Do not use
 component bind:this as a substitute for the native element binding.
 
 ## Appearance and SvelteKit
@@ -99,6 +101,19 @@ needs no font asset. Use existing CSS tokens/custom palettes and import override
 after framework CSS. No component stylesheet or scripted disclosure/effect is added.
 Svelte/SvelteKit supply their normal application JavaScript when enabled.
 
+
+## Automated browser review
+
+The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+and WebKit. It covers native control activation, applicable hydrated value changes,
+DOM focus through applicable ref/element bindings, disclosure toggles, disabled
+controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
+limited to the reference fixtures, not all possible application combinations.
+Physical devices, screen readers, actual zoom/print and visual approval remain
+manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+`REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
+Without the flag, checks remain compilation/SSR only.
+
 ## Maintainer checks
 
 ```sh
@@ -110,6 +125,6 @@ The isolated lockfile pins tooling. Legacy peer resolution allows development
 before revacss@2 publication; actual consumers use both locally packed packages.
 The checks cover component/consumer types, extracted tarball consumers, a plain
 Svelte production build and SSR output, and a SvelteKit production Node server
-with HTTP checks for document attributes, served CSS and form markup. Browser,
-hydration, value/DOM interactions, physical devices and accessibility acceptance
-remain deferred. The example form has no server submission endpoint.
+with HTTP checks for document attributes, served CSS and form markup. The opt-in browser phase verifies reference value/element interactions. Full
+hydration combinations, physical devices and manual accessibility acceptance
+remain unverified. The example form has no server submission endpoint.

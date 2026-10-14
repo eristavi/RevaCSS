@@ -6,7 +6,8 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer as netServer } from 'node:net';
 import { setTimeout as delay } from 'node:timers/promises';
-import { build, createServer } from 'vite';
+import { build, createServer, preview } from 'vite';
+import { browserChecks } from '../../shared/browser-checks.mjs';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { render } from 'svelte/server';
 const adapterRoot = fileURLToPath(new URL('../', import.meta.url));
@@ -73,6 +74,11 @@ try {
   const assets = await readdir(join(application, 'dist/assets'));
   const css = (await Promise.all(assets.filter(p => p.endsWith('.css')).map(p => readFile(join(application, 'dist/assets', p), 'utf8')))).join('');
   assert.match(css, /--re-radius/);
+  if (process.env.REVA_BROWSER_CHECKS === '1') {
+    const hosted = await preview({ root: application, configFile: false, preview: { host: '127.0.0.1', port: 0 } });
+    try { await browserChecks({ url: `http://127.0.0.1:${hosted.httpServer.address().port}`, prefix: 'svelte', focusButton: true }); }
+    finally { await new Promise(resolve => hosted.httpServer.close(resolve)); }
+  }
   await viteServer.close(); viteServer = undefined;
   const kit = await fixture('sveltekit');
   await run('npm', ['run', 'check'], kit);
@@ -119,7 +125,8 @@ try {
   assert.equal(darkResponse.status, 200);
   assert.match(await darkResponse.text(), /<html[^>]+data-theme="dark"/);
   assert.match(await (await fetch(origin)).text(), /<html[^>]+data-theme="auto"/);
-  console.log('Svelte candidate verified: component/consumer types, packed packages, plain client build and SSR markup, SvelteKit production Node build, HTTP theme/CSS/form checks. Browser/hydration/model/element checks deferred.');
+  if (process.env.REVA_BROWSER_CHECKS === '1') await browserChecks({ url: origin, prefix: 'svelte', focusButton: true });
+  console.log('Svelte candidate verified: component/consumer types, packed packages, plain client build and SSR markup, SvelteKit production Node build, HTTP theme/CSS/form checks. ' + (process.env.REVA_BROWSER_CHECKS === '1' ? 'Requested automated browser checks passed.' : 'Browser checks not requested.'));
 } finally {
   await viteServer?.close();
   if (production && production.exitCode === null) {
