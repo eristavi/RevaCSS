@@ -69,7 +69,7 @@ test.describe('native effects without application JavaScript',()=>{
   await page.goto('/demos/blog/');await page.getByRole('button',{name:'Customize',exact:true}).click();
   await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-material').selectOption('glass');
   const summary=page.getByText('View HTML configuration',{exact:true});await summary.click();await expect(page.locator('.attribute-theme-dark')).toBeVisible();
-  await summary.focus();await page.keyboard.press('Enter');await expect(page.locator('.configuration-summary')).not.toHaveAttribute('open');
+  await summary.focus();await page.keyboard.press('Enter');await expect(summary.locator('..')).not.toHaveAttribute('open');
  });
 });
 test('new documentation and demos reflow and pass automated accessibility',async({page})=>{

@@ -15,7 +15,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: reva-tests-${{ github.ref }}
+  # Requested candidate revisions are independent; keep their evidence rather
+  # than cancelling a slower engine when a correction is pushed.
+  group: reva-tests-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:

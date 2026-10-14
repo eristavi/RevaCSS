@@ -65,7 +65,18 @@
     "README.md",
     "CHANGELOG.md",
     "NPM.md",
-    "MIGRATION.md"
+    "MIGRATION.md",
+    "AI.md",
+    "CUSTOM_COMPONENTS.md",
+    "VERSIONING.md",
+    "QUALITY_STANDARD.md",
+    "SPECIFICATION.md",
+    "IMPLEMENTATION.md",
+    "examples/custom-components.html",
+    "examples/custom-components.css",
+    "quality/blockers.json",
+    "RELEASE_NOTES.md",
+    "quality/releases"
   ],
   "scripts": {
     "clean": "node scripts/clean.mjs",

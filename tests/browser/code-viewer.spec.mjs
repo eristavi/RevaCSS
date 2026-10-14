@@ -27,10 +27,11 @@ test('complete demo sources remain literal, selectable and wrappable without hig
   const link=page.locator('.demo-customizer a[download]');
   const response=await request.get(await link.getAttribute('href'));
   expect(response.ok()).toBe(true);expect(source).toBe(await response.text());
-  await pre.locator('..').getByLabel('Wrap lines').focus();
+  const wrap=pre.locator('..').getByLabel('Wrap lines');
+  await wrap.focus();await expect(wrap).toBeFocused();await settleControl(wrap);
   await page.keyboard.press('Tab');await expect(pre).toBeFocused();
   expect(await pre.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
-  const wrap=pre.locator('..').getByLabel('Wrap lines');await wrap.focus();await settleControl(wrap);await wrap.check();
+  await wrap.focus();await settleControl(wrap);await wrap.check();
   expect(await pre.evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('pre-wrap');
   expect(await code.textContent()).toBe(source);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
