@@ -65,14 +65,18 @@ model updates, native disclosure operation, reflow and axe assertions.
 Client-navigation head updates, physical devices and manual accessibility
 acceptance remain unverified.
 
-## Dependency audit limitation
+## Dependency review and deployment
 
-The installed Nuxt 4.6.1 dependency tree currently has 11 high-severity audit
-entries derived from two upstream advisories: [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
-and [node-forge](https://github.com/advisories/GHSA-86w9-cpqp-85rv). Official advisory
-records list no patched releases as of 14 October 2026, and normal audit fix does
-not resolve the findings. This example is not certified as dependency-audit clean.
-The separate RevaCSS core has no runtime dependencies and its audit is clean.
-The installed-tree audit does not establish whether affected functions are
-reachable in the built server. Review this separately before deploying a consuming
-application; do not use a forced framework downgrade as an unverified fix.
+The Nuxt-only review on 14 October 2026 is complete; see
+[DEPENDENCY_REVIEW.md](DEPENDENCY_REVIEW.md) for the locked dependency paths,
+upstream advisories, input assessment, production inventory and residual risks.
+The installed build/dev tree still has 11 high audit entries from two unpatched
+upstream advisories. This is a scoped review, not a clean-audit claim.
+
+The production `.output` inventory contains neither affected package nor their
+named tooling references. `npm run check` now checks that boundary before starting
+the built server. Deploy only the self-contained `.output` artifact and start it
+with `node .output/server/index.mjs`; do not deploy the installed development tree
+or use `nuxt dev` in production. The default dev command binds to `127.0.0.1`.
+Build only trusted project/configuration/module inputs and review dependencies
+again after changes or when upstream fixes become available.

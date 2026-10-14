@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { reviewProductionDependencies } from './dependency-review.mjs';
 import { browserChecks } from '../../../integrations/shared/browser-checks.mjs';
 import { execFileSync, spawn } from 'node:child_process';
 import { mkdtemp, mkdir, cp, readFile, readdir, rm, symlink } from 'node:fs/promises';
@@ -35,6 +36,7 @@ try {
   }
   await run('npm', ['run', 'typecheck'], application);
   await run('npm', ['run', 'build'], application);
+  await reviewProductionDependencies(join(application, '.output'));
   const reserve = createServer();
   await new Promise(resolve => reserve.listen(0, '127.0.0.1', resolve));
   const port = reserve.address().port;

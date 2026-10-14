@@ -15,9 +15,12 @@
     {
       "id": "Q-NUXT-DEPENDENCY-REVIEW",
       "kind": "manual",
-      "status": "open",
+      "status": "resolved",
       "summary": "Resolve or explicitly review the optional Nuxt reference tooling dependency advisories before declaring the complete 2.0 integration set accepted.",
-      "scope": "npm audit of examples/nuxt reports 11 high-severity dependency-tree entries from two upstream advisories: GHSA-vfj7-8cjw-p6xm (braces <=3.0.3) and GHSA-86w9-cpqp-85rv (node-forge <=1.4.0). The official advisory records list no patched version as of 14 October 2026. Normal audit fix does not resolve them; do not force-downgrade Nuxt or imply a clean audit. This is the optional reference installed dependency tree, not the zero-runtime-dependency RevaCSS core package."
+      "scope": "npm audit of examples/nuxt reports 11 high-severity dependency-tree entries from two upstream advisories: GHSA-vfj7-8cjw-p6xm (braces <=3.0.3) and GHSA-86w9-cpqp-85rv (node-forge <=1.4.0). The official advisory records list no patched version as of 14 October 2026. Normal audit fix does not resolve them; do not force-downgrade Nuxt or imply a clean audit. This is the optional reference installed dependency tree, not the zero-runtime-dependency RevaCSS core package.",
+      "reviewer": "Codex (Nuxt-only review authorised by Revaz Eristavi)",
+      "reviewDate": "2026-10-14",
+      "evidence": "Fresh audit retains 11 high dependency-tree entries from two unpatched advisories. Paths and build/dev input use were reviewed, latest registry releases and non-forced audit-fix dry run checked, and no forced downgrade/fork was applied. The isolated Nuxt production build inventory (145 files, 22 named manifests) contains neither affected package nor named references to their tooling chains. Nuxt types, build and live SSR/CSS/form checks pass. Retain the optional example with default loopback-only development, trusted build inputs, deployment of .output only, and a recurring output assertion in npm run check. This closes the requested scoped review, not the upstream advisories; no clean-audit or arbitrary-app safety claim. See examples/nuxt/DEPENDENCY_REVIEW.md."
     },
     {
       "id": "Q-BUTTON-LABEL",
