@@ -1242,6 +1242,10 @@ export const topics = [
     "slug": "disclosures",
     "title": "Disclosures and overlays",
     "intro": "Native HTML supplies disclosure and popover interactions. CSS styles their surfaces without adding application behavior.",
+    "notes": [
+      "Plain details and exclusive groups share the accordion content animation. Motion inherits from data-motion: none opens immediately, subtle expands smoothly, and expressive adds a gentle fade. The native summary marker remains unchanged; an accordion wrapper adds its rotating chevron and group layout.",
+      "Content transitions require ::details-content, interpolate-size and discrete transitions. Unsupported browsers retain instant native disclosure; reduced motion, forced colours and print disable transitions. Complete and scoped builds include these rules; modular consumers load reva.accordions.css after tokens and base."
+    ],
     "examples": [
       {
         "id": "details",

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Share accordion content motion with plain native disclosures and exclusive details groups, without wrappers or scripts. Retain feature-gated native fallbacks and motion/preferences controls. Validation deferred at maintainer request.
+
 - Vertically centre native disclosure labels and markers inside the existing minimum touch target, including exclusive groups. Preserve accordion flex alignment and native open/close behaviour. Validation deferred at maintainer request.
 
 - Add one complete manual-test documentation page with every live component example, native navigation, exhaustive form controls, long and multilingual content, material comparisons and a copyable review record. Namespace fixture references and retain independent document examples.

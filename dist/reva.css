@@ -516,7 +516,7 @@
     :where(.alert) { color: #000; background-color: #fff; background-image: none; border: 1px solid #000; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; break-inside: avoid; }
   }
 }
-/* Native disclosure groups; HTML owns the open state. */
+/* Shared native disclosure motion and accordion presentation. HTML owns state. */
 @layer re.components {
   :where(.accordion) { display: grid; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
   :where(.accordion > details) { margin-block: 0; min-inline-size: 0; }
@@ -546,10 +546,11 @@
   :where(.accordion > details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
   :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
 
-  /* Enhance native disclosure without wrappers or a guessed maximum height. */
+  /* Plain and grouped disclosures share the same native content animation.
+     No wrapper, script or guessed maximum height is required. */
   @supports selector(::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
-    :where(.accordion > details > summary) { margin-block-end: 0; }
-    :where(.accordion > details)::details-content {
+    :where(details > summary) { margin-block-end: 0; }
+    :where(details)::details-content {
       interpolate-size: allow-keywords;
       block-size: 0;
       padding-block-start: 0;
@@ -562,7 +563,7 @@
         opacity var(--re-duration, 140ms) ease,
         content-visibility var(--re-duration, 140ms) allow-discrete;
     }
-    :where(.accordion > details[open])::details-content {
+    :where(details[open])::details-content {
       block-size: auto;
       padding-block-start: var(--re-space);
       opacity: 1;
@@ -572,7 +573,7 @@
 @layer re.utilities {
   @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
     :where(.accordion > details > summary)::after { transition: none; }
-    :where(.accordion > details)::details-content { transition: none; opacity: 1; }
+    :where(details)::details-content { transition: none; opacity: 1; }
   }
 }
 /* Ordered navigation; separators are decorative, not spoken text. */
