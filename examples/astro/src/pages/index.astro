@@ -1,0 +1,32 @@
+---
+import 'revacss';
+import Layout from '@revacss/astro/Layout.astro';
+import Card from '@revacss/astro/Card.astro';
+import Alert from '@revacss/astro/Alert.astro';
+import Button from '@revacss/astro/Button.astro';
+import Link from '@revacss/astro/Link.astro';
+import Input from '@revacss/astro/Input.astro';
+import Select from '@revacss/astro/Select.astro';
+import Textarea from '@revacss/astro/Textarea.astro';
+import Disclosure from '@revacss/astro/Disclosure.astro';
+const error = 'Enter an email address <script>alert(1)</script>';
+---
+<Layout title="RevaCSS Astro starter" lang="en" data-theme="dark" data-font="system">
+  <Card class="stack" data-shape="subtle">
+    <h1 slot="header">RevaCSS with Astro</h1>
+    <Alert data-variant="neutral">Source candidate. This form demonstrates server-rendered validation; it has no submission endpoint.</Alert>
+    <p id="email-note">We use your email to reply.</p>
+    <form>
+      <Input id="contact-email" name="email" label="Email" type="email" hint="Use your work address" error={error} aria-describedby="email-note" value="example@example.com" required data-accent="teal" />
+      <Input id="alternate-email" name="alternate" label="Alternative email" type="email" />
+      <Select id="contact-topic" name="topic" label="Topic" hint="Choose one">
+        <option value="support" selected>Support</option>
+        <option value="feedback">Feedback</option>
+      </Select>
+      <Textarea id="contact-message" name="message" label="Message" error="Please add a message" rows="4">Previous text &amp; more</Textarea>
+      <Button class="outline" disabled>Send (demo)</Button>
+    </form>
+    <Disclosure summary="What runs in the browser?" name="faq">Native HTML and CSS. No component hydration.</Disclosure>
+    <Link slot="footer" href="https://github.com/eristavi/RevaCSS" class="outline">Source code</Link>
+  </Card>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Field from './Field.astro';
+interface Props extends Omit<HTMLAttributes<'textarea'>, 'id'> {
+  id: string;
+  label: string;
+  hint?: string;
+  error?: string;
+}
+const { id, label, hint, error, 'aria-describedby': externalDescription, 'aria-invalid': externalInvalid, ...attributes } = Astro.props;
+if (!id?.trim() || !label?.trim()) throw new Error('Textarea requires a unique nonempty id and label.');
+const describedBy = [externalDescription, hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined;
+const invalid = error ? 'true' : externalInvalid;
+---
+<Field id={id} label={label} hint={hint} error={error}>
+  <textarea {...attributes} id={id} aria-describedby={describedBy} aria-invalid={invalid}><slot /></textarea>
+</Field>

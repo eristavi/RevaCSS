@@ -96,7 +96,8 @@
     "pretest:package": "npm run prepack",
     "test:package": "node --test tests/package/package.test.mjs",
     "pretest:package:browser": "npm run prepack",
-    "test:package:browser": "node --test tests/package/browser.test.mjs"
+    "test:package:browser": "node --test tests/package/browser.test.mjs",
+    "test:astro": "node --test integrations/astro/tests/*.test.mjs"
   },
   "devDependencies": {
     "astro": "7.3.5",

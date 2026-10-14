@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'html'> {
+  title: string;
+  description?: string;
+  mainId?: string;
+  skipLabel?: string;
+}
+const { title, description, mainId = 'reva-main', skipLabel = 'Skip to content', lang = 'en', ...attributes } = Astro.props;
+---
+<!doctype html>
+<html lang={lang} data-theme="auto" {...attributes}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href={`#${mainId}`}>{skipLabel}</a>
+    <slot name="header" />
+    <main id={mainId} class="container" tabindex="-1"><slot /></main>
+    <slot name="footer" />
+  </body>
+</html>
