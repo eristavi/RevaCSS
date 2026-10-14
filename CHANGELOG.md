@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Stage an optional Laravel 12/13 integration and runnable reference app for version 2. Add Blade wrappers, Laravel validation/previous-input handling, configurable appearance and registered application palettes, byte-identical versioned asset publishing, ordinary/Livewire pagination, authentication/owned CRUD examples, Boost guidance and explicit candidate packaging. Core CSS/tokens/build scripts and published archives remain unchanged. Browser/device acceptance is deferred.
+
 - Add exactly two font presets, Default (Manrope) and System, through inherited `data-font="manrope|system"`. Keep font assets optional, preserve monospace code and the independent heading token, and include saved choices in documentation/demo controls and downloaded HTML. Font, inherited-defaults, settings and quality checks pass in all three engines; fresh manual acceptance remains required.
 Preparing **2.0.0**. Removal of the twelve non-Default/Mono built-in palettes is a breaking change; the remaining additions and refinements preserve their existing APIs. See [MIGRATION.md](MIGRATION.md). Automated candidate coverage is complete; the [validation record](quality/releases/v2.0.0.md) gives exact results and limitations. Fresh manual acceptance remains separate from historical release records.
 

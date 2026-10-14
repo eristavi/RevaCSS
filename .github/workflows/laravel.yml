@@ -1,0 +1,61 @@
+name: Requested Laravel integration checks
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    name: Laravel ${{ matrix.laravel }} / Livewire ${{ matrix.livewire }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { laravel: '12', livewire: '3', testbench: '^10.0', phpunit: '^11.5' }
+          - { laravel: '12', livewire: '4', testbench: '^10.0', phpunit: '^11.5' }
+          - { laravel: '13', livewire: '3', testbench: '^11.0', phpunit: '^12.0' }
+          - { laravel: '13', livewire: '4', testbench: '^11.0', phpunit: '^12.0' }
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - uses: shivammathur/setup-php@bf6b4fbd49ca58e4608c9c89fba0b8d90bd2a39f # 2.35.5
+        with:
+          php-version: '8.3'
+          extensions: mbstring, dom, xml, xmlwriter, pdo_sqlite, zip
+          coverage: none
+          tools: composer:v2
+      - run: npm ci && npm run build:css && node integrations/laravel/scripts/prepare.mjs
+      - name: Check adapter on requested Laravel major
+        working-directory: integrations/laravel
+        run: |
+          composer require --dev orchestra/testbench:'${{ matrix.testbench }}' phpunit/phpunit:'${{ matrix.phpunit }}' --with-all-dependencies --no-interaction
+          composer validate --strict
+          composer test
+      - name: Check reference app and Livewire compatibility
+        working-directory: examples/laravel
+        run: |
+          composer require laravel/framework:'^${{ matrix.laravel }}.0' livewire/livewire:'^${{ matrix.livewire }}.0' --no-update
+          composer require --dev phpunit/phpunit:'${{ matrix.phpunit }}' --no-update
+          composer update --with-all-dependencies --no-interaction
+          composer validate --strict
+          composer test
+          cp .env.example .env
+          touch database/database.sqlite
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan reva:install
+          php artisan config:cache
+          php artisan view:cache
+          php artisan route:cache
+          php artisan optimize:clear
+      - name: Prepare explicit prerelease artifact
+        run: python3 integrations/laravel/scripts/package.py
+
+# Manual, non-browser checks only. This workflow never publishes or deploys.
