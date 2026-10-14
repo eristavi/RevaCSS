@@ -1,0 +1,157 @@
+{
+  "palette": [
+    "default",
+    "mono"
+  ],
+  "theme": [
+    "auto",
+    "light",
+    "dark"
+  ],
+  "accent": [
+    "blue",
+    "violet",
+    "teal",
+    "green",
+    "orange",
+    "rose"
+  ],
+  "shape": [
+    "square",
+    "subtle",
+    "rounded",
+    "pill",
+    "custom"
+  ],
+  "fill": [
+    "gradient",
+    "solid"
+  ],
+  "density": [
+    "compact",
+    "comfortable",
+    "spacious",
+    "custom"
+  ],
+  "depth": [
+    "flat",
+    "subtle",
+    "pronounced"
+  ],
+  "motion": [
+    "none",
+    "subtle",
+    "expressive"
+  ],
+  "type": [
+    "compact",
+    "standard",
+    "large"
+  ],
+  "border": [
+    "subtle",
+    "defined",
+    "none"
+  ],
+  "contrast": [
+    "auto",
+    "more"
+  ],
+  "tone": [
+    "neutral",
+    "cool",
+    "warm"
+  ],
+  "controls": [
+    "styled",
+    "minimal"
+  ],
+  "width": [
+    "narrow",
+    "standard",
+    "wide",
+    "full",
+    "custom"
+  ],
+  "table": [
+    "plain",
+    "striped",
+    "bordered"
+  ],
+  "size": [
+    "small",
+    "medium",
+    "large"
+  ],
+  "ratio": [
+    "auto",
+    "square",
+    "landscape",
+    "portrait",
+    "wide"
+  ],
+  "fit": [
+    "cover",
+    "contain"
+  ],
+  "gap": [
+    "none",
+    "small",
+    "medium",
+    "large"
+  ],
+  "material": [
+    "solid",
+    "glass",
+    "veil",
+    "soft"
+  ],
+  "edge": [
+    "plain",
+    "gradient",
+    "shine",
+    "animated"
+  ],
+  "variant": [
+    "primary",
+    "success",
+    "warning",
+    "danger",
+    "neutral"
+  ],
+  "appearance": [
+    "tinted",
+    "solid",
+    "outline"
+  ],
+  "navbar": [
+    "standard",
+    "centered",
+    "floating",
+    "split"
+  ],
+  "navbar-position": [
+    "static",
+    "sticky"
+  ],
+  "navbar-spacing": [
+    "flush",
+    "spaced"
+  ],
+  "navbar-width": [
+    "contained",
+    "full"
+  ],
+  "button-material": [
+    "default",
+    "solid",
+    "glass",
+    "veil",
+    "soft",
+    "liquid"
+  ],
+  "font": [
+    "manrope",
+    "system"
+  ]
+}

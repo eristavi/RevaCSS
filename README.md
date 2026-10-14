@@ -186,6 +186,10 @@ Demos use sample content. Your application supplies form processing, commerce, r
 
 Choose **Customize → Colours → Palette → Custom** to create light and dark palettes, derive supporting shades, refine every colour token and see contrast feedback. Export the palette as ordinary CSS or download starting HTML with your colours included. See [custom palette documentation](https://eristavi.github.io/RevaCSS/themes/palettes/#custom) for reusable named palettes without JavaScript.
 
+## Laravel integration candidate
+
+An optional [Laravel adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/laravel) and [runnable reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/laravel) are staged for version 2. They provide Blade components, native form/validation handling, versioned assets, application appearance settings, pagination, Livewire examples and Boost guidance. The CSS core stays independent. The proposed Composer package is not published; browser/device acceptance remains deferred until the version 2 review. Laravel source lives in the repository and is distributed separately from the npm CSS package.
+
 ## AI-assisted development and vibe coding
 
 Readable HTML and documented appearance settings give coding assistants clear patterns to follow. You can describe a layout, generate a starting point, then refine it through shared settings and ordinary CSS.
