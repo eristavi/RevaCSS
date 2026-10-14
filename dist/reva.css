@@ -259,6 +259,9 @@
   :where(thead > tr > *,tfoot > tr > *) { background: var(--re-surface-alt); }
   :where(details) { padding: var(--re-surface-space, var(--re-space)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); box-shadow: var(--re-shadow); }
   :where(summary) { cursor: pointer; font-weight: 650; min-block-size: 2.75rem; overflow-wrap: anywhere; }
+  /* Centre native marker/text within the existing 44px minimum target.
+     Symmetric line-height padding also accommodates wrapped labels. */
+  :where(details > summary) { padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
   :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-surface-space, var(--re-space)) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
@@ -520,6 +523,7 @@
   :where(.accordion > details > summary) {
     display: flex;
     align-items: center;
+    padding-block: 0;
     justify-content: space-between;
     gap: var(--re-space);
     list-style: none;
