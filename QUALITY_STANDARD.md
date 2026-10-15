@@ -2,7 +2,7 @@
 
 Status: acceptance contract for the framework. Published version 1.2.1 retains all 14 palettes in its standalone core and raised the gzip budget from 15 KiB to 17 KiB. Current `main` contains only Default and Mono; the 17 KiB budget remains enforced by the unit suite. Published archives remain unchanged. For RevaCSS 1.1.0, the maintainer reports all six manual acceptance checks passed on 9 October 2026. Exact device/browser versions and captured manual evidence were not supplied; see quality/releases/v1.1.0.md. This is not accessibility conformance certification.
 
-The historical blocker entries are resolved. Their manual entries were closed on maintainer attestation, with the evidence limits described below. The 2.0.0 candidate manual gate is resolved by the 14 October maintainer attestation, and the Nuxt-only dependency review is complete; see [the candidate record](quality/releases/v2.0.0.md). All recorded blockers are resolved. Final automated validation of the exact release commit remains pending; later source changes still require applicable review before release.
+The historical blocker entries are resolved. Their manual entries were closed on maintainer attestation, with the evidence limits described below. The 2.0.0 candidate manual gate is resolved by the 14 October maintainer attestation, and the Nuxt-only dependency review is complete; see [the candidate record](quality/releases/v2.0.0.md). All recorded blockers are resolved. Final publication validation passed at the exact 2.0.0 release commit; the release record lists every gate and tested revision. Later source changes still require applicable review before release.
 
 ## Required acceptance gates
 

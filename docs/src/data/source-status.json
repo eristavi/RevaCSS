@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": false,
   "testsDeferred": false,
-  "summary": "RevaCSS 2.0.0 final candidate validation is complete: core browser suites, build/unit checks, installed package consumers, stable adapter archives and fresh Composer installation passed. Maintainer manual acceptance and the scoped Nuxt dependency review are recorded. GitHub/npm 2.0.0 publication has not occurred; existing 1.2.1 distributions remain unchanged."
+  "summary": "RevaCSS 2.0.0 is published on GitHub with verified core and separate adapter archives. Complete publication validation, maintainer manual acceptance and the scoped Nuxt dependency review are recorded. npm/Packagist availability is separate; existing 1.2.1 distributions remain unchanged."
 }

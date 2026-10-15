@@ -6,9 +6,9 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 
 [Documentation](https://eristavi.github.io/RevaCSS/) · [Quick start](#quick-start) · [Live demos](#live-demos) · [Framework comparison](https://eristavi.github.io/RevaCSS/guide/comparison/) · [AI guide](AI.md)
 
-**Latest published release: 1.2.1 · Erisian** · [Download](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) · [MIT license](LICENSE)
+**Latest GitHub release: 2.0.0 · Erisian** · [Download](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0) · [MIT license](LICENSE)
 
-**Next release candidate: 2.0.0.** Current source removes twelve previously shipped palette values. Read the [migration guide](MIGRATION.md) before upgrading; the [candidate validation record](quality/releases/v2.0.0.md) tracks readiness. Manual acceptance and the Nuxt-only dependency review are recorded as complete. Stable adapter archives are prepared; final release validation remains pending; this candidate is not a published production release.
+**RevaCSS 2.0.0 is available on GitHub.** This major release removes twelve previously shipped palette values; read the [migration guide](MIGRATION.md) before upgrading. The [release validation record](quality/releases/v2.0.0.md) contains the completed automated checks, maintainer manual acceptance and scoped Nuxt dependency review. npm availability is recorded separately in [NPM.md](NPM.md).
 
 [![One RevaCSS card in light, dark, glass and veil treatments.](https://raw.githubusercontent.com/eristavi/RevaCSS/main/.github/assets/revacss-preview.png)](https://eristavi.github.io/RevaCSS/demos/marketing/)
 
@@ -17,13 +17,13 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 - **Shared design decisions.** Set appearance defaults on a parent instead of repeating them on every component. Local overrides change only the settings you choose.
 - **HTML and CSS first.** Native controls, disclosures and popovers provide browser behaviour. The framework core has no JavaScript runtime; compiled CSS works without a build step.
 - **Customise with ordinary CSS.** Design tokens, custom properties, cascade layers and low-specificity selectors leave room for your own styles.
-- **A coordinated visual system.** Light, dark and system themes, Default and Mono palettes in the current source preview, your own custom colours, shared sizing and spacing, plus optional surface and button materials.
+- **A coordinated visual system.** Light, dark and system themes, Default and Mono palettes in 2.0.0, your own custom colours, shared sizing and spacing, plus optional surface and button materials.
 
 Appearance inheritance is implemented through CSS rules and custom properties; HTML data attributes do not inherit by themselves. RevaCSS works with static HTML, server-rendered templates and frameworks that render HTML.
 
 ## Quick start
 
-Download the [compiled stylesheet](https://github.com/eristavi/RevaCSS/releases/download/v1.2.1/reva-1.2.1.min.css), save it as `reva.min.css` beside your HTML, and link it:
+Download the [compiled stylesheet](https://github.com/eristavi/RevaCSS/releases/download/v2.0.0/reva-2.0.0.min.css), save it as `reva.min.css` beside your HTML, and link it:
 
 ```html
 <!doctype html>
@@ -50,7 +50,7 @@ Download the [compiled stylesheet](https://github.com/eristavi/RevaCSS/releases/
 
 Native elements receive shared defaults. Classes such as `.card`, `.container`, `.grid` and `.stack` identify reusable structures.
 
-For starter HTML, optional stylesheets, icons and the bundled font, download the [complete release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) or run `npm install revacss@1.2.1`. Version 1.2.1 is published on npm as `latest`; its archive and clean consumer installation are [verified](quality/releases/v1.2.1.md#npm-publication-on-14-october-2026). See [installation options](https://eristavi.github.io/RevaCSS/guide/) and the [npm guide](NPM.md) for package and CDN use.
+For starter HTML, optional stylesheets, icons, the bundled font and separate framework adapter archives, download the [complete 2.0.0 release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). See [installation options](https://eristavi.github.io/RevaCSS/guide/) and the [npm guide](NPM.md) for separately verified registry/CDN availability.
 
 ## Configure once, refine locally
 
@@ -65,7 +65,7 @@ Place shared settings on `<html>` or a section. A local setting changes that cho
 
 These example buttons demonstrate appearance. Connect application actions to your own handlers or use a real form destination.
 
-The choices below describe current `main` and the documentation preview; published 1.2.1 archives retain their original palette set.
+The choices below describe 2.0.0; published 1.2.1 archives retain their original palette set.
 
 | Attribute | Supported choices |
 | --- | --- |
@@ -81,7 +81,7 @@ Browse the [attribute reference](https://eristavi.github.io/RevaCSS/attributes/)
 
 Choose `data-font="system"` for the device UI font or `data-font="manrope"` to restore the framework default locally. Text, headings and native controls inherit the choice; code remains monospace. Load the optional `reva-fonts.css` with its adjacent `fonts/` assets to provide Manrope; when that family is unavailable, the system fallback is used. System works even when that font stylesheet is loaded. The documentation/demo customizer offers exactly Default (Manrope) and System and includes the selected attribute in downloaded HTML. The existing `--re-font-heading` token remains available for an independent heading font.
 
-Only Default and Mono are built into current `main` and the documentation preview. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed from the source preview; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
+Only Default and Mono are built into 2.0.0. Define a custom palette with CSS tokens for your own colours. The other experimental palettes have been removed in 2.0.0; replace their `data-palette` values with `default`, `mono` or your own CSS palette before upgrading. Published 1.2.1 archives remain unchanged.
 
 Veil is deprecated for both surfaces and buttons. Its global/scoped stylesheets and attribute values remain available for existing sites; prefer Solid, Glass or Soft UI for new work.
 
@@ -186,25 +186,25 @@ Demos use sample content. Your application supplies form processing, commerce, r
 
 Choose **Customize → Colours → Palette → Custom** to create light and dark palettes, derive supporting shades, refine every colour token and see contrast feedback. Export the palette as ordinary CSS or download starting HTML with your colours included. See [custom palette documentation](https://eristavi.github.io/RevaCSS/themes/palettes/#custom) for reusable named palettes without JavaScript.
 
-## Svelte integration candidate
+## Svelte integration
 
-The optional [Svelte adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/svelte) provides typed native components, Svelte 5 value/element bindings and [plain Svelte](https://github.com/eristavi/RevaCSS/tree/main/examples/svelte)/[SvelteKit](https://github.com/eristavi/RevaCSS/tree/main/examples/sveltekit) examples. The separate package is an unpublished version 2 candidate. SvelteKit production builds and live server rendering are checked; core CSS stays unchanged. The requested three-engine browser fixtures passed; see the [validation record](quality/releases/v2.0.0.md) for tested scope and revisions.
+The optional [Svelte adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/svelte) provides typed native components, Svelte 5 value/element bindings and [plain Svelte](https://github.com/eristavi/RevaCSS/tree/main/examples/svelte)/[SvelteKit](https://github.com/eristavi/RevaCSS/tree/main/examples/sveltekit) examples. Its stable 2.0.0 archive is included in the GitHub release; npm availability is separate. SvelteKit production builds and live server rendering are checked; core CSS stays unchanged. The requested three-engine browser fixtures passed; see the [validation record](quality/releases/v2.0.0.md) for tested scope and revisions.
 
-## React integration candidate
+## React integration
 
-The optional [React adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/react) provides typed native components, React 19 ref props, form associations and [React](https://github.com/eristavi/RevaCSS/tree/main/examples/react)/[Next.js](https://github.com/eristavi/RevaCSS/tree/main/examples/next) examples. It is a separate, unpublished version 2 candidate. Static wrappers need no client boundary or hooks; application interactivity belongs to the consuming app. Core CSS stays independent; the React browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
+The optional [React adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/react) provides typed native components, React 19 ref props, form associations and [React](https://github.com/eristavi/RevaCSS/tree/main/examples/react)/[Next.js](https://github.com/eristavi/RevaCSS/tree/main/examples/next) examples. Its separate stable 2.0.0 archive is included in the GitHub release; npm availability is separate. Static wrappers need no client boundary or hooks; application interactivity belongs to the consuming app. Core CSS stays independent; the React browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
 
-## Vue integration candidate
+## Vue integration
 
-The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). It is a separate, unpublished version 2 candidate. Vue supplies application reactivity; RevaCSS core stays CSS-only. A [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt) covers production builds and live server rendering. The requested Vue/Nuxt browser fixtures passed in all three engines. The [Nuxt dependency review](https://github.com/eristavi/RevaCSS/blob/main/examples/nuxt/DEPENDENCY_REVIEW.md) records unresolved build/dev advisories and the reviewed production boundary.
+The optional [Vue adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/vue) provides typed native components, Vue model bindings, labelled form controls and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/vue). Its separate stable 2.0.0 archive is included in the GitHub release; npm availability is separate. Vue supplies application reactivity; RevaCSS core stays CSS-only. A [Nuxt reference](https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt) covers production builds and live server rendering. The requested Vue/Nuxt browser fixtures passed in all three engines. The [Nuxt dependency review](https://github.com/eristavi/RevaCSS/blob/main/examples/nuxt/DEPENDENCY_REVIEW.md) records unresolved build/dev advisories and the reviewed production boundary.
 
-## Astro integration candidate
+## Astro integration
 
-The optional [Astro adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/astro) provides typed native components, accessible field associations and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/astro). It is a separate, unpublished version 2 candidate with no browser JavaScript. Core CSS stays independent; packed Astro browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
+The optional [Astro adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/astro) provides typed native components, accessible field associations and a [reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/astro). Its separate stable 2.0.0 archive is included in the GitHub release with no browser JavaScript; npm availability is separate. Core CSS stays independent; packed Astro browser fixtures passed in all three engines, with scope recorded in the [validation record](quality/releases/v2.0.0.md).
 
-## Laravel integration candidate
+## Laravel integration
 
-An optional [Laravel adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/laravel) and [runnable reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/laravel) are staged for version 2. They provide Blade components, native form/validation handling, versioned assets, application appearance settings, pagination, Livewire examples and Boost guidance. The CSS core stays independent. The proposed Composer package is not published; all four Laravel/Livewire automated combinations passed. Core manual acceptance does not establish a separate device review of this reference application. Laravel source lives in the repository and is distributed separately from the npm CSS package.
+An optional [Laravel adapter](https://github.com/eristavi/RevaCSS/tree/main/integrations/laravel) and [runnable reference application](https://github.com/eristavi/RevaCSS/tree/main/examples/laravel) are included in version 2. They provide Blade components, native form/validation handling, versioned assets, application appearance settings, pagination, Livewire examples and Boost guidance. The CSS core stays independent. The stable Composer ZIP is available in the GitHub release without claiming a Packagist registration; all four Laravel/Livewire automated combinations passed. Core manual acceptance does not establish a separate device review of this reference application. Laravel source lives in the repository and is distributed separately from the npm CSS package.
 
 ## AI-assisted development and vibe coding
 

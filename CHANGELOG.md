@@ -7,9 +7,9 @@ Experimental demo work remains outside the 2.0 public CSS API:
 - Effects Lab explores Aura, Spring lift and Layered depth, including a CSS/SVG mobile-tap prototype. Draft classes and separate demo stylesheets have no release commitment; prototype device acceptance is not inferred from core sign-off.
 - Living Blueprint explores scroll-driven composition, intensity, zoom, direction, rotation and fade, with static and preference fallbacks. Its demo composition styles remain separate from the core.
 
-## 2.0.0 — Erisian · prepared 14 October 2026
+## 2.0.0 — Erisian · 15 October 2026
 
-Release documents prepared; GitHub/npm publication is pending. The publication date will be recorded when the release is published. See [RELEASE_NOTES.md](RELEASE_NOTES.md), [MIGRATION.md](MIGRATION.md) and the [validation record](quality/releases/v2.0.0.md).
+Published on GitHub with verified core and separate adapter archives. npm and Packagist availability remain separate from GitHub publication. See [RELEASE_NOTES.md](RELEASE_NOTES.md), [MIGRATION.md](MIGRATION.md) and the [validation record](quality/releases/v2.0.0.md).
 
 ### Breaking change
 
@@ -45,7 +45,7 @@ Release documents prepared; GitHub/npm publication is pending. The publication d
 - Record the combined three-engine automated review and Laravel/Livewire matrix with exact candidate SHAs; record the manual-test page's 21 targeted passes separately.
 - Record Revaz Eristavi's 14 October manual acceptance: desktop Chrome/Safari/Firefox, iPhone Chrome/Safari and Android Chrome/Mozilla, with no known issues reported. Evidence limits remain explicit in the validation record.
 - Complete the Nuxt-only dependency review. Two upstream build/dev advisories remain unpatched; the reviewed production output excludes their packages and named tooling references. Add a deployment-output assertion and default loopback development binding without changing dependency versions.
-- All recorded quality blockers are resolved. Stable adapter packaging is prepared; the final release workflow against the exact release commit remains pending. Latest disclosure changes have build/manual evidence; their final automated release run has not yet occurred.
+- All recorded quality blockers are resolved. The publication workflow passed the complete browser suites (544 Chromium, 543 Firefox plus one documented unsupported-feature skip, 544 WebKit), unit/package checks and stable adapter/Composer installation gates at the release commit.
 
 ## 1.2.1 — Erisian · 10 October 2026
 

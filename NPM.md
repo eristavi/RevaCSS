@@ -1,6 +1,6 @@
 # RevaCSS on npm
 
-Current source prepares the 2.0.0 candidate. Registry/CDN examples below refer to the existing 1.2.1 distribution; the local-checkout example produces 2.0.0. Do not publish the candidate until its [acceptance record](quality/releases/v2.0.0.md) is complete. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
+RevaCSS 2.0.0 is published on GitHub with completed [release validation](quality/releases/v2.0.0.md). GitHub publication does not establish npm availability. Registry/CDN examples below refer to the verified 1.2.1 distribution; the local-checkout example produces 2.0.0. Read [MIGRATION.md](MIGRATION.md) for the palette changes.
 
 **RevaCSS 1.2.1 — Erisian** is published on npm with the `latest` tag. It is a stylesheet package with no framework JavaScript or runtime dependencies. Its archive matches the public [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v1.2.1) byte for byte; see the [npm publication record](quality/releases/v1.2.1.md#npm-publication-on-14-october-2026).
 
@@ -88,7 +88,7 @@ npm run check:release-quality
 
 Package tests install an actual tarball in a clean project, verify public paths and distribution bytes, and build global/scoped consumer pages with Vite. Browser checks exercise the bundled pages without JavaScript in Chromium, Firefox, and WebKit. Use the browser installation steps in the main README first.
 
-The published 1.2.1 release passed both quality gates at its immutable tag. Its manual acceptance and the maintainer's 10 October visual sign-off are recorded in [the tagged quality registry](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The historic 1.0.0 exception was not used. The 2.0.0 candidate now has fresh maintainer manual acceptance and a completed Nuxt-only dependency review. Stable adapter packaging is prepared and final release validation remains pending; publication is still a separate action.
+The published 1.2.1 release passed both quality gates at its immutable tag. Its manual acceptance and the maintainer's 10 October visual sign-off are recorded in [the tagged quality registry](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/blockers.json) and [validation record](https://github.com/eristavi/RevaCSS/blob/v1.2.1/quality/releases/v1.2.1.md). The historic 1.0.0 exception was not used. RevaCSS 2.0.0 has fresh maintainer manual acceptance, a scoped Nuxt dependency review and passing final release validation. Its core and separate adapter archives are available on GitHub; registry publication remains separate.
 
 The commands and pinned CDN URLs above describe the published 1.2.1 package. For future releases, authenticate with npm, verify the account using `npm whoami`, and publish only a validated release. Any required npm two-factor confirmation belongs to that publishing step. The `npm-publish.yml` workflow supports verified GitHub-release archives, manual backfills and future published stable releases when configured as a trusted publisher. The manual authenticated 1.2.1 publication does not establish that workflow's trust configuration.
 
@@ -104,7 +104,7 @@ In the npm settings for `revacss`, add a GitHub Actions trusted publisher:
 
 No npm token or GitHub repository secret is required. npm may require your normal sign-in and two-factor confirmation for this account change.
 
-For a verified published GitHub release, open **Actions → Publish verified npm releases → Run workflow** and enter its exact stable tag, such as `v1.2.1`. The default manual mode is a dry run. Turn **dry_run** off only when that release is ready for registry distribution. Future stable GitHub releases can publish automatically when they contain the workflow and a completed npm archive. Ordinary source pushes do not backfill or publish packages.
+For a verified published GitHub release, open **Actions → Publish verified npm releases → Run workflow** and enter its exact stable tag, such as `v1.2.1`. The default manual mode is a dry run. Turn **dry_run** off only when that release is ready for registry distribution. Future stable GitHub releases can publish automatically when they contain the workflow and a completed npm archive. Ordinary source pushes do not backfill or publish packages. The automatic release trigger remains unchanged. GitHub does not start downstream release workflows for releases created with its repository `GITHUB_TOKEN`, as this release job does; see [GitHub token event behaviour](https://docs.github.com/en/actions/concepts/security/github_token). Do not infer registry availability from a successful GitHub release.
 
 The publisher downloads the original release tarball, checks its GitHub SHA-256 digest and package identity, and runs the npm quality gate from the exact release commit. Already published versions must have matching bytes. Historical backfills use `legacy` when needed to avoid moving `latest` backwards. Registry verification compares the published SHA-512 integrity with the prepared archive.
 
