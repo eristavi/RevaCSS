@@ -1,14 +1,12 @@
 # RevaCSS for React
 
-Optional React 19 components for the RevaCSS 2.0 release preparation. The stable-version
-`@revacss/react` package is not published. It is separate from the CSS package and
-adds no stylesheets, theme runtime or replacement component behaviour. React owns
-application rendering; RevaCSS core remains CSS-only. Automated browser/ref checks are recorded below; the core release record gives
-manual acceptance and remaining publication steps.
+Optional React 19 components for RevaCSS 2.0. The stable `@revacss/react` archive is available in the [2.0.0 GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). It is separate from core CSS and adds no stylesheets, theme runtime or replacement component behaviour. React owns application rendering. Registry availability is separate from GitHub downloads.
+
+Automated fixture checks and the core manual attestation are recorded in the [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). Application-specific device, screen-reader and accessibility acceptance is not inferred from core sign-off.
 
 ## Install from source
 
-From a matching checkout:
+Download the matching core and adapter tarballs from the GitHub release, or prepare them from a matching checkout:
 
 ```sh
 npm ci
@@ -110,13 +108,12 @@ Import application overrides after framework CSS.
 
 ## Automated browser review
 
-The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+The requested 14 October 2026 review passed the reference fixtures in Chromium, Firefox
 and WebKit. It covers native control activation, applicable hydrated value changes,
 DOM focus through applicable ref/element bindings, disclosure toggles, disabled
 controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
 limited to the reference fixtures, not all possible application combinations.
-Physical devices, screen readers, actual zoom/print and visual approval remain
-manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+The core maintainer manual attestation is recorded separately; it does not establish itemised physical-device, screen-reader, actual zoom/print or visual acceptance for every adapter fixture. Set `REVA_BROWSER_CHECKS=1` and optionally
 `REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
 Without the flag, checks remain compilation/SSR only.
 
@@ -128,7 +125,7 @@ npm --prefix integrations/react run check
 ```
 
 The isolated lockfile pins maintainer tooling. Legacy peer resolution is only for
-source development before revacss@2 publication; consumers install both local
+source development before revacss@2 npm publication; consumers install both local
 packages. Checks compile declarations, pack/extract actual packages, typecheck a
 consumer, build a Vite app, inspect SSR markup and build the Next.js server example.
 No full regression suite, browser/device or accessibility acceptance is implied.

@@ -1,14 +1,12 @@
 # RevaCSS for Vue
 
-Optional Vue 3.5 components for the RevaCSS 2.0 release preparation. The stable-version
-`@revacss/vue` package is not published. It is distributed separately from the CSS
-package and does not modify core styles or inject stylesheets. Vue provides the
-application runtime; RevaCSS core remains CSS-only. Automated fixture coverage is recorded below; the core release record gives
-manual acceptance and remaining publication steps.
+Optional Vue 3.5 components for RevaCSS 2.0. The stable `@revacss/vue` archive is available in the [2.0.0 GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). It is separate from core CSS and does not inject stylesheets. Vue owns application reactivity; RevaCSS core remains CSS-only. Registry availability is separate from GitHub downloads.
+
+Automated fixture checks and the core manual attestation are recorded in the [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). Application-specific device, screen-reader and accessibility acceptance is not inferred from core sign-off.
 
 ## Install from source
 
-From a matching RevaCSS checkout:
+Download the matching core and adapter tarballs from the GitHub release, or prepare them from a matching checkout:
 
 ```sh
 npm ci
@@ -23,7 +21,7 @@ Inside a Vue 3.5 project configured to compile Vue single-file components:
 npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz
 ```
 
-The version numbers describe source candidates, not published or accepted releases.
+Stable 2.0.0 archives are published on GitHub. Use matching core/adapter versions and verify registry availability separately.
 The package ships typed `.vue` source. Vite applications need their ordinary Vue
 plugin; Nuxt supplies Vue compilation. No adapter registration plugin is needed.
 
@@ -77,7 +75,7 @@ set aria-invalid=true when an error is present. Attributes, native event listene
 class/style bindings and data attributes reach the actual control, rather than its
 form-group wrapper. IDs and their generated `-hint`/`-error` IDs must be unique per
 page. Model changes use Vue's native form directives. Use plain v-model; component
-model modifiers are not part of this candidate API. Use native checkbox/radio/file
+model modifiers are not part of this adapter API. Use native checkbox/radio/file
 controls with Field instead of Input. For read-only static forms, native HTML is
 also available without component model bindings.
 
@@ -106,13 +104,12 @@ head updates and manual acceptance remain unverified.
 
 ## Automated browser review
 
-The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+The requested 14 October 2026 review passed the reference fixtures in Chromium, Firefox
 and WebKit. It covers native control activation, applicable hydrated value changes,
 DOM focus through applicable ref/element bindings, disclosure toggles, disabled
 controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
 limited to the reference fixtures, not all possible application combinations.
-Physical devices, screen readers, actual zoom/print and visual approval remain
-manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+The core maintainer manual attestation is recorded separately; it does not establish itemised physical-device, screen-reader, actual zoom/print or visual acceptance for every adapter fixture. Set `REVA_BROWSER_CHECKS=1` and optionally
 `REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
 Without the flag, checks remain compilation/SSR only.
 
@@ -124,8 +121,7 @@ npm --prefix integrations/vue run check
 ```
 
 The isolated tooling manifest/lockfile pins the Vue compiler, type checker and
-build tools. `--legacy-peer-deps` allows source development before revacss@2 is
-published; actual consumers install both local tarballs. The check validates strict
+build tools. `--legacy-peer-deps` allows source development before revacss@2 is published on npm; actual consumers install both local tarballs. The check validates strict
 component types, compiles a packed Vue application and inspects server-rendered
 markup, field associations, initial models, escaping and missing-ID failures.
 The opt-in flag adds the browser checks described above. Neither phase certifies

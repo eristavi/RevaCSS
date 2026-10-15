@@ -4,7 +4,7 @@ A new default for the web. Native foundations, adaptive design, minimal decision
 
 ## Current distribution release
 
-RevaCSS 1.2.1 — Erisian is the latest published GitHub distribution referenced by this repository. Its archives retain 14 palettes; current `main` and the documentation preview contain Default and Mono plus custom-palette configuration. Source-preview additions have not completed release validation. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation.
+RevaCSS 2.0.0 — Erisian is the current published GitHub distribution. It includes Default and Mono palettes plus custom-palette configuration; historical 1.2.1 archives retain their original 14 palettes. Complete publication validation passed at the 2.0.0 release commit; see [the release record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). npm availability is verified separately. The frozen foundation scope below is retained as design history; current settings and component contracts are maintained in the manifests and documentation.
 
 The first 1.0.0 release used a version-specific npm publication exception for six then-open manual checks, recorded in `quality/npm-publication-v1.0.0.json`. Those registry entries were closed on maintainer attestation for 1.1.0; see `quality/releases/v1.1.0.md` for evidence limits. The historical exception does not change the standard for future versions.
 

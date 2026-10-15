@@ -1,6 +1,6 @@
 # Laravel integration validation — 14 October 2026
 
-This is server-side validation of an optional version 2 candidate. It does not close the framework's release gates or certify accessibility/browser compatibility.
+This records server-side validation of the optional version 2 integration. The release record identifies the passing Laravel/Livewire matrix and publication gates; server-side checks do not certify accessibility or browser/device compatibility.
 
 ## Tested compatibility
 
@@ -43,4 +43,4 @@ The manually dispatched `Requested Laravel integration checks` workflow contains
 
 Before release, review visual states, 320px/narrow-container reflow, text enlargement, native pickers, mobile navigation, touch/keyboard/focus behaviour, assistive technologies, forced colours, reduced motion, print, scoped isolation and application-side Livewire hydration. Validate supported physical browsers/devices and record evidence using the existing framework quality standard. Review custom palette contrast per consuming application.
 
-Boost resources follow its documented third-party package format. Discovery by actual coding assistants, Packagist publication and production release preparation remain separate steps. The reference app's basic authentication does not implement password reset, email verification or MFA.
+Boost resources follow its documented third-party package format. Discovery by actual coding assistants, Packagist registration and application-specific production review remain separate from GitHub archive publication. The reference app's basic authentication does not implement password reset, email verification or MFA.

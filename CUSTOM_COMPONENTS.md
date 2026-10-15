@@ -2,7 +2,7 @@
 
 RevaCSS supplies shared appearance settings. Your application can add its own components using native HTML, documented theme tokens and existing component hooks. A custom component is application code; it does not need to become a framework module.
 
-This contract describes how to extend the current API. The starter is a documentation example, not a new core component or a completed accessibility acceptance record. Browser and device checks for this addition remain deferred.
+This contract describes how to extend the current API. The starter is an application documentation example, not a new core component. Core 2.0 release validation does not establish browser, device or accessibility acceptance for this starter or for custom application components. Review the actual application and record its own checks and limitations.
 
 ## The extension contract
 

@@ -8,5 +8,6 @@ Astro version.
 
 The pages demonstrate global and scoped CSS, native component slots, field
 associations and escaped server validation messages. The form has no backend;
-its send button is disabled. No browser JavaScript is shipped. Browser/device
-acceptance is deferred until the version 2 release review.
+its send button is disabled. No browser JavaScript is shipped. The three-engine native browser fixtures passed; device and assistive-technology scope is limited to the recorded release evidence.
+
+Release scope and evidence: [2.0.0 validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md).

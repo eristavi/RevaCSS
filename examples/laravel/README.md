@@ -45,4 +45,6 @@ All views can be compiled with `php artisan view:cache`. Configuration is serial
 composer test
 ```
 
-The feature suite uses an isolated in-memory SQLite database. It checks authentication, CRUD ownership, validation, preference isolation and real Livewire search/pagination. Browser/device/visual acceptance remains deferred for the version 2 review. Package-level checks live under `integrations/laravel/tests`.
+The feature suite uses an isolated in-memory SQLite database. It checks authentication, CRUD ownership, validation, preference isolation and real Livewire search/pagination. All four Laravel 12/13 and Livewire 3/4 combinations passed the recorded server-side checks. Reference-application device/visual acceptance is not inferred from the core manual attestation. Package-level checks live under `integrations/laravel/tests`.
+
+Release scope and evidence: [2.0.0 validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md).

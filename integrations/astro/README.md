@@ -1,16 +1,12 @@
 # RevaCSS for Astro
 
-Optional Astro 7 components for the RevaCSS 2.0 release preparation. The stable-version
-`@revacss/astro` package is not published. It is distributed separately from the
-CSS package; it does not change core CSS or add browser JavaScript. Automated native browser checks are recorded below; the core manual sign-off and
-remaining publication steps are documented in the 2.0 release record.
+Optional Astro 7 components for RevaCSS 2.0. The stable `@revacss/astro` archive is available in the [2.0.0 GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). It is separate from core CSS and adds no browser JavaScript. Existing native markup remains valid. Registry availability is separate from GitHub downloads.
 
-The RevaCSS documentation site already uses Astro. This adapter makes reusable
-components available to consuming projects; existing native markup remains valid.
+Automated fixture checks and the core manual attestation are recorded in the [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). Application-specific device, screen-reader and accessibility acceptance is not inferred from core sign-off.
 
 ## Install from source
 
-From a RevaCSS checkout:
+Download the matching core and adapter tarballs from the GitHub release, or prepare them from a matching checkout:
 
 ```sh
 npm ci
@@ -95,13 +91,12 @@ when targeting markup rendered inside a child component.
 
 ## Automated browser review
 
-The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+The requested 14 October 2026 review passed the reference fixtures in Chromium, Firefox
 and WebKit. It covers native control activation, applicable hydrated value changes,
 DOM focus through applicable ref/element bindings, disclosure toggles, disabled
 controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
 limited to the reference fixtures, not all possible application combinations.
-Physical devices, screen readers, actual zoom/print and visual approval remain
-manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+The core maintainer manual attestation is recorded separately; it does not establish itemised physical-device, screen-reader, actual zoom/print or visual acceptance for every adapter fixture. Set `REVA_BROWSER_CHECKS=1` and optionally
 `REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
 Without the flag, checks remain compilation/SSR only.
 

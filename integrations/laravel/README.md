@@ -2,7 +2,7 @@
 
 Optional Laravel integration, kept outside the RevaCSS core. The package adds Blade templates, Laravel form/validation handling, appearance configuration, versioned asset publishing and development guidance. It adds no browser JavaScript or replacement CSS engine. Livewire is optional in consuming applications.
 
-**Status:** stable 2.0.0 artifact preparation. `revacss/laravel` is distributed as a Composer ZIP; Packagist publication has not occurred. Versioned archives will be attached to the core GitHub release after final validation. Source and local artifact installation work before publication. See the release validation record for automated/manual scope; reference-application device acceptance is not inferred from core sign-off.
+**Status:** stable 2.0.0 Composer ZIP available in the [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). Packagist registration is separate and has not been claimed. Source/path and artifact installation remain supported. The [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md) identifies automated and manual scope; reference-application device acceptance is not inferred from core sign-off.
 
 ## Requirements and structure
 
@@ -139,4 +139,4 @@ The adapter provides no application routes, authentication, database schemas, pa
 
 The native mobile popover is non-modal. Provide separate `sidebar` and `mobileNavigation` slots so controls/IDs are not silently duplicated. Navigation that must support browsers without native popovers needs an application-level fallback or another documented layout.
 
-See [validation](docs/validation.md), [distribution](docs/distribution.md) and [AI guidance](docs/ai.md). No package is published or automatically merged by the scripts. Fresh browser/device/screen-reader review remains a version 2 release gate.
+See [validation](docs/validation.md), [distribution](docs/distribution.md) and [AI guidance](docs/ai.md). No package is published or automatically merged by the scripts. The recorded Laravel/Livewire checks and core manual attestation retain their stated scope; consuming applications need their own device and assistive-technology review.

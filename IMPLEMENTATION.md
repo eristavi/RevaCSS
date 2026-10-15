@@ -1,5 +1,8 @@
 # RevaCSS implementation record
 
+Current release: **RevaCSS 2.0.0**, published on GitHub on 15 October 2026 after complete release validation. See the [current release record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md) for scope and evidence limits. npm availability is separate. Dated implementation entries below retain their historical status at the time they were written.
+
+
 ## 1.0.0 — Erisian · 4 October 2026
 
 The first public GitHub distribution includes compiled downloads, licenses, checksums, a native starter page, and recorded automated validation. The accepted component and Glass designs are preserved. The scrolling top-menu documentation example gains the existing named-region keyboard pattern. Automated expectations now reflect accepted materials, adaptive semantic roles, and the optional documentation helper. Six manual quality entries remain open. The maintainer subsequently authorized first npm publication with those limitations disclosed; the `1.0.0` exception is recorded in `quality/npm-publication-v1.0.0.json`. Earlier implementation entries below are historical evidence for their recorded revisions.

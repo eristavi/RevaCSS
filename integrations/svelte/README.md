@@ -1,15 +1,12 @@
 # RevaCSS for Svelte and SvelteKit
 
-Optional Svelte 5 components for the RevaCSS 2.0 release preparation. The stable-version
-`@revacss/svelte` package is unpublished and distributed separately from core CSS.
-Svelte owns application rendering/state; RevaCSS core remains CSS-only. The same
-adapter works in plain Svelte and the SvelteKit reference, with no Kit-specific
-component package. Automated browser model/element checks are recorded below; the core release record
-gives manual acceptance and remaining publication steps.
+Optional Svelte 5 components for RevaCSS 2.0. The stable `@revacss/svelte` archive is available in the [2.0.0 GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). The same adapter serves plain Svelte and SvelteKit, with no Kit-specific package. Svelte owns application rendering/state; RevaCSS core remains CSS-only. Registry availability is separate from GitHub downloads.
 
-## Install the source candidate
+Automated fixture checks and the core manual attestation are recorded in the [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). Application-specific device, screen-reader and accessibility acceptance is not inferred from core sign-off.
 
-From the RevaCSS root:
+## Install from source
+
+Download the matching core and adapter tarballs from the GitHub release, or prepare them from the matching repository root:
 
 ```sh
 npm ci
@@ -25,8 +22,7 @@ npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-svelte-2.0.0.tgz
 ```
 
 The adapter ships typed `.svelte` source and requires Svelte 5.57.1 or newer within
-major version 5. Source candidates are not published or accepted production
-releases. The reference uses Svelte 5.57.2 and SvelteKit 3.0.1, with the current
+major version 5. Stable 2.0.0 archives are published on GitHub; registry availability is separate. The reference uses Svelte 5.57.2 and SvelteKit 3.0.1, with the current
 Vite-based Kit configuration and adapter-node 6. No global component registration
 or adapter appearance plugin is needed.
 
@@ -104,13 +100,12 @@ Svelte/SvelteKit supply their normal application JavaScript when enabled.
 
 ## Automated browser review
 
-The requested 14 October 2026 review checks this candidate in Chromium, Firefox
+The requested 14 October 2026 review passed the reference fixtures in Chromium, Firefox
 and WebKit. It covers native control activation, applicable hydrated value changes,
 DOM focus through applicable ref/element bindings, disclosure toggles, disabled
 controls, axe assertions and page reflow at 320/375/768/1280px. These checks are
 limited to the reference fixtures, not all possible application combinations.
-Physical devices, screen readers, actual zoom/print and visual approval remain
-manual release requirements. Set `REVA_BROWSER_CHECKS=1` and optionally
+The core maintainer manual attestation is recorded separately; it does not establish itemised physical-device, screen-reader, actual zoom/print or visual acceptance for every adapter fixture. Set `REVA_BROWSER_CHECKS=1` and optionally
 `REVA_TEST_ENGINE=chromium|firefox|webkit` when running the maintainer check.
 Without the flag, checks remain compilation/SSR only.
 
@@ -122,7 +117,7 @@ npm --prefix integrations/svelte run check
 ```
 
 The isolated lockfile pins tooling. Legacy peer resolution allows development
-before revacss@2 publication; actual consumers use both locally packed packages.
+before revacss@2 npm publication; actual consumers use both locally packed packages.
 The checks cover component/consumer types, extracted tarball consumers, a plain
 Svelte production build and SSR output, and a SvelteKit production Node server
 with HTTP checks for document attributes, served CSS and form markup. The opt-in browser phase verifies reference value/element interactions. Full

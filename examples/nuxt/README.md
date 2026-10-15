@@ -1,12 +1,12 @@
 # Nuxt reference application
 
-RevaCSS 2.0 source candidate using Nuxt 4.6.1, Vue 3.5.44 and the existing
+RevaCSS 2.0 reference application using Nuxt 4.6.1, Vue 3.5.44 and the existing
 `@revacss/vue` adapter. No additional Nuxt component package or module is needed.
 Core CSS and Vue components stay unchanged.
 
 ## Run from source
 
-From the RevaCSS root, prepare matching CSS and package the source candidates:
+From the RevaCSS root, prepare matching CSS and package matching stable archives:
 
 ```sh
 npm ci
@@ -23,7 +23,7 @@ npm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz
 npm run dev
 ```
 
-Both 2.0.0 packages remain unpublished; the local tarballs use stable metadata. Use a Node version supported by the
+Both stable 2.0.0 archives are available in the GitHub release; npm availability is separate. Use a Node version supported by the
 pinned Nuxt release; the maintainer checks use Node 24.19.0.
 
 ## Nuxt configuration
@@ -70,8 +70,8 @@ acceptance remain unverified.
 The Nuxt-only review on 14 October 2026 is complete; see
 [DEPENDENCY_REVIEW.md](DEPENDENCY_REVIEW.md) for the locked dependency paths,
 upstream advisories, input assessment, production inventory and residual risks.
-The installed build/dev tree still has 11 high audit entries from two unpatched
-upstream advisories. This is a scoped review, not a clean-audit claim.
+At that review, the installed build/dev tree had 11 high audit entries from two
+unpatched upstream advisories. This is a scoped review, not a clean-audit claim.
 
 The production `.output` inventory contains neither affected package nor their
 named tooling references. `npm run check` now checks that boundary before starting
@@ -80,3 +80,5 @@ with `node .output/server/index.mjs`; do not deploy the installed development tr
 or use `nuxt dev` in production. The default dev command binds to `127.0.0.1`.
 Build only trusted project/configuration/module inputs and review dependencies
 again after changes or when upstream fixes become available.
+
+Release scope and evidence: [2.0.0 validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md).

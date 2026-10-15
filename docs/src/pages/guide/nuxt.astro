@@ -10,8 +10,8 @@ const app = await readFile('examples/nuxt/app/app.vue', 'utf8');
   <p class="doc-kicker">LEARN / NUXT</p>
   <h1>RevaCSS with Nuxt</h1>
   <p>Use the existing Vue adapter. No separate Nuxt component package or module is needed. The Nuxt 4.6.1 reference application loads core CSS globally and renders native components through Vue 3.5.44.</p>
-  <h2>Install the source candidates</h2>
-  <p>Prepare matching CSS and pack the core and Vue adapter from the repository. Install both local tarballs in the Nuxt project. These packages remain unpublished candidates.</p>
+  <h2>Install matching 2.0 packages</h2>
+  <p>Prepare matching CSS and pack the core and Vue adapter from the repository. Install both local tarballs in the Nuxt project. Stable core and Vue adapter tarballs are available in the 2.0.0 GitHub release; registry availability is separate.</p>
   <CodeViewer id="nuxt-install" lang="bash" code={'npm ci\nnpm run build:css\nnpm pack --ignore-scripts\nnpm pack ./integrations/vue --ignore-scripts\n\n# Inside the Nuxt project:\nnpm install /path/to/revacss-2.0.0.tgz /path/to/revacss-vue-2.0.0.tgz'}/>
   <h2>Load CSS through Nuxt configuration</h2>
   <CodeViewer id="nuxt-config" lang="typescript" code={config}/>
@@ -19,8 +19,8 @@ const app = await readFile('examples/nuxt/app/app.vue', 'utf8');
   <CodeViewer id="nuxt-head" lang="vue" code={app}/>
   <p>Page overrides can set data-theme on the document root. The reference includes a dark page. Layout attributes affect its wrapper and supported nested targets; document settings belong to Nuxt head management.</p>
   <h2>Verified scope</h2>
-  <p>Strict Nuxt types, the production Node server build, HTTP responses from both pages, root theme attributes, served RevaCSS, field associations, initial form models, selected options and escaped messages are checked from packed framework candidates. The form is a markup demonstration without a submission endpoint. Vue components and core CSS stay unchanged.</p>
-  <p>Browser hydration, interactive models, client-navigation head updates, physical devices and accessibility acceptance remain deferred until the 2.0 review. Nuxt supplies its normal application runtime; RevaCSS adds no theme script or scripted disclosure handling.</p>
-  <p>The Nuxt-only dependency review is complete. Its installed build/dev tree still has two unpatched upstream advisories; the reviewed production output contains neither affected package nor their named tooling references. Deploy only the built .output artifact. The reference includes an automatic output-inventory check and documents the remaining build/dev risks; this is not a clean-audit claim.</p>
+  <p>Strict Nuxt types, the production Node server build, HTTP responses from both pages, root theme attributes, served RevaCSS, field associations, initial form models, selected options and escaped messages are checked from matching packed framework archives. The form is a markup demonstration without a submission endpoint. Vue components and core CSS stay unchanged.</p>
+  <p>The three-engine reference review passed hydration/model updates, native controls, reflow and axe assertions. Client-navigation head updates and fixture-specific physical-device/assistive-technology acceptance were not independently verified; see the release record for scope. Nuxt supplies its normal application runtime; RevaCSS adds no theme script or scripted disclosure handling.</p>
+  <p>The Nuxt-only dependency review is complete. At the recorded 14 October review, its installed build/dev tree had two unpatched upstream advisories; the reviewed production output contains neither affected package nor their named tooling references. Deploy only the built .output artifact. The reference includes an automatic output-inventory check and documents the remaining build/dev risks; this is not a clean-audit claim.</p>
   <p><a href="https://github.com/eristavi/RevaCSS/tree/main/examples/nuxt">Read the reference application's complete setup and check instructions</a>.</p>
 </DocsLayout>
