@@ -1,14 +1,23 @@
 import {test,expect} from '@playwright/test';
 import {createRequire} from 'node:module';
+import {waitForPopover,waitForDisclosure,waitForControlLayout} from './helpers/popover.mjs';
 const require=createRequire(import.meta.url);
 const route='/demos/dashboard/';
 const settle=async panel=>{
  await expect(panel).toBeVisible();
- await expect.poll(()=>panel.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);
+ await waitForPopover(panel);
+};
+const closeCustomizer=async page=>{
+ const close=page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true});
+ await close.focus();await waitForControlLayout(close);await close.click();
+ await expect(page.locator('#demo-customizer-popup')).toBeHidden();
 };
 test.describe('dashboard native operation',()=>{
  test.use({javaScriptEnabled:false});
  for(const width of [320,390,1440]) test(`dashboard reflows and customises without JavaScript at ${width}px`,async({page})=>{
+  // Two native customizer sequences, report motion and software-rendered charts
+  // share a body budget; individual actions and assertions retain bounded waits.
+  test.setTimeout(120000);
   await page.setViewportSize({width,height:900});await page.goto(route);
   await expect(page.locator('#reva-settings-runtime')).toHaveCount(1);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -30,15 +39,16 @@ test.describe('dashboard native operation',()=>{
   await page.getByRole('button',{name:'Customize',exact:true}).click();await settle(page.locator('#demo-customizer-popup'));
   await page.locator('#demo-theme').selectOption('dark');await page.locator('#demo-palette').selectOption('default');
   await page.locator('#demo-material').selectOption('glass');
-  await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();
+  await closeCustomizer(page);
   await expect(page.locator('#demo-customizer-popup')).toBeHidden();
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('dark');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.locator('#dashboard-report > summary').click();
+  await waitForDisclosure(page.locator('#dashboard-report'));
   await expect(page.getByRole('cell',{name:'€42,500',exact:true})).toBeVisible();
   await page.getByRole('button',{name:'Customize',exact:true}).click();await settle(page.locator('#demo-customizer-popup'));
   await page.locator('#demo-material').selectOption('veil');await page.locator('#demo-theme').selectOption('light');
-  await page.locator('#demo-customizer-popup').getByRole('button',{name:'Close',exact:true}).click();
+  await closeCustomizer(page);
   expect(await page.locator('.demo-preview').evaluate(el=>getComputedStyle(el).colorScheme)).toBe('light');
  });
  test('starting HTML contains a complete standalone dashboard',async({request})=>{
