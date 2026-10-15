@@ -64,6 +64,8 @@ Put shared appearance settings on `html`, or on a documented local boundary when
 
 Use `data-theme="auto"` for the system preference. Use `data-shape` for corner shape. Read the generated attribute reference for the exact values and scope of each option; a setting affects its supported targets, not every HTML element.
 
+Use `data-font="manrope"` for the default font preset or `data-font="system"` for the device UI font. The optional `reva-fonts.css` and adjacent font files provide Manrope; without them, the system fallback remains usable. Local font settings reset only that choice, and code remains monospace.
+
 Start with one complete global or scoped build. The scoped build uses a `.reva` boundary. Load matching optional extensions after that build. Glass, Veil, Soft UI and independent button materials require their respective extension files. Preserve reduced-motion, forced-colour and contrast fallbacks.
 
 For colours, shapes and spacing, prefer existing attributes and documented public tokens. Use ordinary application CSS for page composition or custom styling beyond those options. Never promise an effect just because an attribute name sounds plausible.
@@ -72,7 +74,7 @@ For colours, shapes and spacing, prefer existing attributes and documented publi
 
 - Use a native `button` for actions and `a.button` for destinations. Native controls do not need an invented button class.
 - Use labelled native inputs, selects, textareas, fieldsets and legends. Keep names, values, validation and form destinations meaningful.
-- Use `details` and `summary` for documented disclosures. Native popovers need unique IDs and matching `popovertarget` values.
+- Use `details` and `summary` for documented disclosures. Exclusive groups share a `name` within the group; separate instances need unique group names. The full core includes shared disclosure/accordion motion; modular builds must load the documented accordion styling dependency. Preserve native open state and reduced-motion fallbacks instead of adding a JavaScript accordion solely for animation. Native popovers need unique IDs and matching `popovertarget` values.
 - Copy the full documented structure for navigation, drawers and radio-selected panels. Do not replace it with markup from another framework.
 - Radio-selected content is not an ARIA tabs widget. A native popover drawer is not a modal dialog or focus trap.
 - Keep IDs and radio-group names unique when combining examples. Replace demonstration links and sample data with real project content.
@@ -87,6 +89,25 @@ CSS supplies appearance and supported native interactions. Your application supp
 Add application JavaScript where the product requires it. Keep that code separate from the zero-JavaScript CSS core. The documentation's optional appearance customizer is a demo helper, not a runtime dependency for ordinary RevaCSS pages.
 
 Use progressive enhancement for modern CSS. Follow the documented browser support and fallbacks. Do not claim accessibility certification or physical-device validation from generated markup alone.
+
+## Optional framework adapters
+
+Keep the CSS core independent of application frameworks. Use the separate Astro,
+Vue, React, Svelte or Laravel adapter when it fits the project; ordinary native
+HTML remains supported without an adapter. Reuse the existing Vue adapter in
+Nuxt, React adapter in Next.js and Svelte adapter in SvelteKit. Do not invent
+additional RevaCSS runtime layers, a Nuxt module or framework-specific CSS.
+
+Follow the matching framework guide and shipped examples for props, field
+associations, model/value bindings, refs and server rendering. Preserve native
+HTML semantics and the framework's server/client boundaries. The application's
+JavaScript runtime is separate from RevaCSS's zero-JavaScript CSS core.
+
+GitHub adapter archives, npm packages and Composer/Packagist availability are
+separate. Check the installation guide for the package and release actually
+available; do not infer a registry publication from stable manifest metadata or
+a GitHub release. The [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md)
+identifies tested framework scope, revisions and evidence limits.
 
 ## Prompts you can adapt
 
@@ -109,9 +130,9 @@ Use progressive enhancement for modern CSS. Follow the documented browser suppor
 
 The text reference is generated from the documentation's component contracts, examples, public tokens and option manifest on each documentation build. It helps agents look up the supported API; it does not guarantee that an AI service will discover or read it automatically.
 
-## Unreleased source additions
+## RevaCSS 2.0 patterns
 
-The current documentation preview includes additions not yet in the published 1.2.1 packages. Do not assume these classes exist in that npm/GitHub release. Tests for the additions are deferred.
+The following patterns are included in the published 2.0.0 GitHub distribution and covered by its recorded release validation. Use matching 2.0 files and references; the older 1.2.1 distribution retains its original API. GitHub publication does not imply npm availability. See the [migration guide](https://github.com/eristavi/RevaCSS/blob/v2.0.0/MIGRATION.md) when upgrading.
 
 - Put `.responsive` on a separate, full-width wrapper inside a sized parent. Descendant `.grid.cols-2`/`.grid.cols-3`, toolbars, card footer rows and navigation rails adapt to that wrapper. Do not put containment on a subgrid card. Viewport/intrinsic fallbacks remain.
 - Use native `dir="rtl"` and `lang` for RTL pages, and `dir="auto"` or `bdi` for mixed user content. Do not reverse DOM order or mirror every icon.
