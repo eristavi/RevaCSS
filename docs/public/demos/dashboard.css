@@ -14,7 +14,13 @@
 .dash-heading h1 { font-size:clamp(1.7rem,2.7vw,2.65rem); margin:.25rem 0 .6rem; letter-spacing:-.045em; max-inline-size:24ch; }
 .dash-heading p { margin:0; }
 .dash-eyebrow { font-size:.65rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); margin-block:0 .4rem; }
-.dash-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--re-space); }
+/* This in-content menu is horizontal at every viewport size. Wrap whole items
+   when needed rather than squeezing labels or inheriting the vertical rail. */
+.dash-site nav.nav-rail { flex-direction:row; flex-wrap:wrap; inline-size:100%; align-items:stretch; }
+.dash-site .nav-rail > a { flex:1 1 9em; justify-content:flex-start; overflow-wrap:normal; word-break:normal; }
+/* Account for the actual content width, typography and card padding, including
+   a desktop sidebar or custom density, rather than the viewport alone. */
+.dash-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(var(--re-type) * 12 + var(--re-surface-space,var(--re-space)) * 3)),1fr)); gap:var(--re-space); }
 .dash-charts { display:grid; grid-template-columns:minmax(0,1.8fr) minmax(0,1fr); gap:var(--re-space); }
 .dash-site > .app-shell > :is(main,section) section > h2,.dash-site > .app-shell > :is(main,section) section > header h2 { font-size:1.1rem; margin-block:.25rem .8rem; }
 .dash-series-1 { --dash-series:var(--re-primary); }
@@ -36,7 +42,6 @@
 .dash-summary { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
 .dash-summary p { font-size:.85rem; }
 .dash-footer { color:var(--re-muted); font-size:.75rem; padding-block:1rem; }
-@media (width < 75rem) { .dash-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
 @media (width < 42rem) { .dash-charts,.dash-bottom { grid-template-columns:minmax(0,1fr); } .dash-heading h1 { max-inline-size:none; } }
 @media (width < 60rem) {
