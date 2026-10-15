@@ -48,11 +48,12 @@ jobs:
         env:
           REVA_SITE: ${{ steps.pages.outputs.origin }}
           REVA_BASE: ${{ steps.pages.outputs.base_path }}/
-      - name: Check all generated documentation links
+      - name: Check generated documentation links and sitemap
         # Maintainer-requested deferred changes still build and deploy the docs.
         if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip tests]')
-        run: node --test tests/docs-links.test.mjs
+        run: node --test tests/docs-links.test.mjs tests/sitemap.test.mjs
         env:
+          REVA_SITE: ${{ steps.pages.outputs.origin }}
           REVA_BASE: ${{ steps.pages.outputs.base_path }}/
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, relative, sep } from 'node:path';
 
 test('generated documentation links and assets resolve under the configured base path', async () => {
   const root = 'docs/dist';
@@ -28,8 +28,12 @@ test('generated documentation links and assets resolve under the configured base
             assert.ok((await stat(target)).isFile(), `${path}: missing project asset ${link}`);
             continue;
           }
-          assert.ok(link.startsWith(prefix), `${path}: ${link} must start with ${prefix}`);
-          const pathname = new URL(link, 'https://eristavi.github.io').pathname;
+          // Standalone launch pages also work as downloaded HTML. Resolve their
+          // relative links against the hosted page, retaining base/target checks.
+          const portable = path.startsWith(join(root, 'launch') + sep);
+          const page = new URL(prefix + relative(root, path).split(sep).join('/'), 'https://eristavi.github.io');
+          const pathname = new URL(link, page).pathname;
+          assert.ok((portable ? pathname : link).startsWith(prefix), `${path}: ${link} must start with ${prefix}`);
           let target = join(root, decodeURIComponent(pathname.slice(prefix.length)));
           try {
             if ((await stat(target)).isDirectory()) target = join(target, 'index.html');
