@@ -4,7 +4,7 @@ Prepared on 2026-10-15. This kit promotes the released 2.0.0 CSS core and keeps 
 
 ## Assets
 
-- `dev-community.md`: article ready for DEV; front matter deliberately leaves `published: false` until a confirmed publishing action.
+- `dev-community.md`: source copy of the published DEV article. Local front matter stays `published: false` to prevent accidental duplicate publication. The confirmed public URL is recorded below.
 - `submissions.md`: Show HN title/link/comment, CSS Weekly suggestion, and Product Hunt listing copy.
 - `codepen-*.json`: complete CodePen prefill data with the release-pinned core stylesheet and an empty JavaScript panel.
 - `codepen-*.html`: HTML panel contents for manual copying.
@@ -15,8 +15,8 @@ The demos pin the stylesheet to the v2.0.0 Git tag via jsDelivr's GitHub CDN. Th
 ## Publication status
 
 - Launch hub: deployed successfully by workflow 38691280879. Verified public URL: https://revacss.eristavi.org/launch/index.html.
-- Awesome CSS Frameworks: entry committed to eristavi/awesome-css-frameworks branch `add-revacss`; opening the upstream PR through the GitHub integration returned HTTP 403, Resource not accessible by integration. Not submitted upstream yet.
-- DEV: signed in and saved as an unpublished draft with showdev, css, html and opensource tags. Editor: https://dev.to/eristavi/revacss-20-start-with-html-set-your-defaults-once-4lk7-temp-slug-9968932/edit. Automatic approval review rejected selecting the Fully Autonomous AI Generated disclosure pending user approval; no disclosure was selected and the article was not published.
+- Awesome CSS Frameworks: submitted https://github.com/troxler/awesome-css-frameworks/pull/185 on 2026-10-15 through the signed-in browser with explicit user approval after the integration returned HTTP 403. PR is open; directory inclusion awaits maintainer review.
+- DEV: published on 2026-10-15 with showdev, css, html and opensource tags and the user-approved Fully Autonomous disclosure: https://dev.to/eristavi/revacss-20-start-with-html-set-your-defaults-once-4ooe. Publication and the disclosure were verified on the article page.
 - CodePen: three prefills prepared; the browser is anonymous and no public Pens are saved yet.
 - Show HN: copy prepared; the submission page requires sign-in. Not submitted.
 - CSS Weekly: suggestion prepared; not sent.
