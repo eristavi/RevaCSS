@@ -14,11 +14,11 @@ The demos pin the stylesheet to the v2.0.0 Git tag via jsDelivr's GitHub CDN. Th
 
 ## Publication status
 
-- Launch hub: prepared; deployment pending.
+- Launch hub: deployed successfully by workflow 38691280879. Verified public URL: https://revacss.eristavi.org/launch/index.html.
 - Awesome CSS Frameworks: entry committed to eristavi/awesome-css-frameworks branch `add-revacss`; opening the upstream PR through the GitHub integration returned HTTP 403, Resource not accessible by integration. Not submitted upstream yet.
-- DEV: article prepared; sign-in required in the available browser.
-- CodePen: three prefills prepared; no public Pens saved yet.
-- Show HN: copy prepared; not submitted.
+- DEV: signed in and saved as an unpublished draft with showdev, css, html and opensource tags. Editor: https://dev.to/eristavi/revacss-20-start-with-html-set-your-defaults-once-4lk7-temp-slug-9968932/edit. Automatic approval review rejected selecting the Fully Autonomous AI Generated disclosure pending user approval; no disclosure was selected and the article was not published.
+- CodePen: three prefills prepared; the browser is anonymous and no public Pens are saved yet.
+- Show HN: copy prepared; the submission page requires sign-in. Not submitted.
 - CSS Weekly: suggestion prepared; not sent.
 - Product Hunt: copy prepared; not published.
 
