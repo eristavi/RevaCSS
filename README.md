@@ -251,6 +251,8 @@ npm run dev
 
 `npm run build` generates compiled CSS, AI references and the Astro documentation. GitHub Pages deploys from `main`. For a bug report, include the browser/device, the stylesheet version, relevant HTML and a screenshot or reproduction where possible.
 
+The documentation build also generates [the sitemap index](https://revacss.eristavi.org/sitemap-index.xml) and [robots.txt](https://revacss.eristavi.org/robots.txt). New Astro pages and standalone launch pages are discovered automatically; isolated previews, source/starter downloads and duplicate marketing configurations are excluded from the sitemap. `REVA_SITE` and `REVA_BASE` override the public origin and deployment path for other hosts or project-path builds.
+
 <details>
 <summary>Validation and release commands</summary>
 

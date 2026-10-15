@@ -13,7 +13,7 @@ import pkg from '../package.json' with {type:'json'};
 const root=new URL('../',import.meta.url);
 const output=new URL('docs/public/',root);
 const base=(process.env.REVA_BASE || '/').replace(/\/?$/,'/');
-const site=new URL(base,(process.env.REVA_SITE || 'https://eristavi.github.io').replace(/\/$/,'')+'/');
+const site=new URL(base,(process.env.REVA_SITE || 'https://revacss.eristavi.org').replace(/\/$/,'')+'/');
 const url=path=>new URL(path,site).href;
 const guide=(await readFile(new URL('AI.md',root),'utf8')).trim();
 const extensionGuide=(await readFile(new URL('CUSTOM_COMPONENTS.md',root),'utf8')).trim();
