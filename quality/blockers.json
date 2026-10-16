@@ -159,6 +159,12 @@
       "reviewer": "Revaz Eristavi",
       "reviewDate": "2026-10-09",
       "evidence": "Maintainer reported all six manual checks passed in the project conversation on 9 October 2026, after confirming Safari and Chrome and being asked about remaining behavior/browser coverage. Accepted as maintainer attestation; exact browser versions, device models, screen-reader versions and screenshots were not supplied. See quality/releases/v1.1.0.md."
+    },
+    {
+      "id": "Q-AUTOFILL",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate default native autofill on actual saved-profile and credential fills before release: Chromium, Firefox and Safari/iOS; light/dark, tones, nested overrides, glass/soft materials, keyboard focus, user-invalid and aria-invalid, disabled fieldsets, read-only dashed borders, editing/reset, forced colours and print. Confirm readable browser background/text pairs and native suggestions. Typed values or synthetic pseudo-states are not actual autofill evidence. Browser/device checks deferred by maintainer instruction. Demo: /components/forms/#form-autofill."
     }
   ]
 }

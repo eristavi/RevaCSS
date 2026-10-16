@@ -1114,6 +1114,12 @@ export const topics = [
     "intro": "Native controls need explicit labels. RevaCSS supplies appearance; your HTML supplies names, hints, errors and form behavior.",
     "examples": [
       {
+        "id": "form-autofill",
+        "title": "Default native autofill (source preview)",
+        "description": "Unreleased: browser-autofilled fields receive a theme-coloured border automatically, without a class or data attribute. Choose a saved browser profile in a field to see it; typed or prefilled values do not simulate autofill. Browser background/text colours and suggestion UI remain native. Error borders and focus outlines retain priority; disabled controls are excluded and read-only borders remain dashed. Browser acceptance is deferred.",
+        "html": "<form autocomplete=\"on\" aria-describedby=\"autofill-help\">\n  <p id=\"autofill-help\">Choose a saved browser profile to inspect autofill. This demo has no submit control. Browser settings determine which suggestions are available.</p>\n  <div class=\"form-group\">\n    <label for=\"autofill-name\">Full name</label>\n    <input id=\"autofill-name\" name=\"name\" autocomplete=\"section-demo name\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"autofill-email\">Email</label>\n    <input id=\"autofill-email\" name=\"email\" type=\"email\" autocomplete=\"section-demo email\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"autofill-organization\">Organization</label>\n    <input id=\"autofill-organization\" name=\"organization\" autocomplete=\"section-demo organization\">\n  </div>\n  <button type=\"reset\">Clear fields</button>\n</form>"
+      },
+      {
         "id": "textarea-auto-grow",
         "title": "Native auto-growing textarea (source preview)",
         "description": "Unreleased: native textareas use content sizing by default; no class is needed. It grows from the existing 7rem minimum to 24rem, then scrolls. Unsupported browsers retain normal manual resizing. Supported content sizing ignores rows for height; override min-block-size/max-block-size in application CSS and avoid fixed height. Use field-sizing: fixed and max-block-size: none in application CSS to restore rows-based sizing. Browser acceptance is deferred.",

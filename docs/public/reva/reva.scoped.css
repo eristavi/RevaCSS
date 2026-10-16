@@ -215,6 +215,10 @@
     padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
     background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-field-radius, var(--re-radius)); box-shadow: var(--re-input-shadow);
   }
+  /* Keep the browser's autofill background/text pair and native affordances.
+     Forgiving selectors support either spelling; later validation wins.
+     Do not recolour disabled controls or conceal autofill with shadow hacks. */
+  :where(input,select,textarea):where(:autofill,:-webkit-autofill):where(:not(:disabled)) { border-color: var(--re-link); }
   :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
   :where(textarea) { resize: vertical; min-block-size: 7rem; }
   /* Native content sizing is the default; unsupported browsers keep rows.
