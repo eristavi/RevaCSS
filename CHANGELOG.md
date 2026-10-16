@@ -4,7 +4,7 @@
 
 ### Hero and gradient effects
 
-- Animate solid gradient backgrounds between white/primary in light mode and black/primary in dark mode, with full opacity by default and an optional strength override. Double gradient speed to subtle 12s / expressive 6s per direction for text, solid surfaces and glass sheen. Add contrasting content backings to solid hero demos; full-strength background/foreground combinations require contrast review.
+- Animate solid gradient backgrounds between white/primary in light mode and black/primary in dark mode, with full opacity by default and an optional strength override. Double gradient speed to subtle 12s / expressive 6s per direction for text, solid surfaces and glass sheen. Solid hero demos use the inherited primary without test colour overrides or inner content backings; full-strength background/foreground combinations require contrast review.
 
 - Animate the existing Glass highlight gradient in place for .gradient-background; retain its colours/transparency/blur and a stationary backdrop. Solid surfaces retain the separate tint layer. Native pause and preference fallbacks also stop the surface animation.
 

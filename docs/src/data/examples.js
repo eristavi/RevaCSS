@@ -20,7 +20,7 @@ export const topics = [
       {
         "id": "hero-gradients",
         "title": "Hero with selected gradient text",
-        "description": "Load both optional modules. This text-heavy example lowers background strength to 5%; the full demo shows full-strength solid backgrounds with readable content backings. Only the marked phrase receives the text gradient. The full demo includes a native pause control.",
+        "description": "Load both optional modules. This text-heavy example lowers background strength to 5%; the full demo shows unbacked, full-strength solid backgrounds using the inherited primary colour. Only the marked phrase receives the text gradient. The full demo includes a native pause control.",
         "html": "<section class=\"hero gradient-background\" data-motion=\"subtle\" style=\"--re-gradient-background-strength:5%\" aria-labelledby=\"hero-gradient-title\">\n  <h2 id=\"hero-gradient-title\">Build <span class=\"gradient-text\">something remarkable.</span></h2>\n  <p>Gentle colour movement, with the content staying still.</p>\n  <a class=\"button\" href=\"__BASE__demos/hero/\">Open the full hero demo</a>\n</section>"
       },
       {
