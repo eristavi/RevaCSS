@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Standardize seven-decision AI workflows across all five adapters; generate per-adapter references and structured package requirements, and add the Laravel human guide.
+
 - Add a runnable project workspace connecting a dashboard, server-validated form, responsive native navigation and custom card to SQLite data, with complete source downloads and AI reference.
 
 - Add ten incorrect/corrected AI examples with a dedicated guide page, focused generated Markdown reference and offline package documentation.

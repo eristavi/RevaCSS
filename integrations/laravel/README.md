@@ -46,7 +46,7 @@ php artisan reva:install
 
 Composer discovers `RevaServiceProvider`. `reva:install` publishes `config/reva.php` and matching assets to a version-and-content-addressed directory under `public/vendor/reva/`. Existing config is preserved. `--views` additionally publishes editable templates; `--force` overwrites published files and should be used deliberately. After changing or publishing views, clear compiled views with `php artisan view:clear`. Refresh assets on package upgrades and retain old asset directories until cached HTML is no longer in use.
 
-For an isolated distributable, run `python3 integrations/laravel/scripts/package.py`. The resulting ZIP contains a root Composer manifest and prepared assets. It has stable `2.0.0` Composer metadata; creating the ZIP does not publish a release. Composer's artifact repository can consume it; see [distribution](docs/distribution.md).
+For an isolated distributable, run `python3 integrations/laravel/scripts/package.py`. The resulting ZIP contains a root Composer manifest and prepared assets. It has stable `2.0.0` Composer metadata; creating the ZIP does not publish a release. Composer's artifact repository can consume it; see [distribution](https://github.com/eristavi/RevaCSS/blob/main/integrations/laravel/docs/distribution.md).
 
 ## Start with native markup or Blade wrappers
 
@@ -131,7 +131,7 @@ Root Glass/Soft/button material settings automatically select their matching ext
 
 The provider preserves your application's default pagination unless `pagination.use_as_default` is explicitly enabled. Query strings/page names follow Laravel's paginator; call `withQueryString()` or `appends()` in the application where appropriate.
 
-For Livewire, see [the integration guide](docs/livewire.md). `wire:model` directives go to native controls. The adapter omits old/default input values and checkbox hidden fallbacks for model-bound fields, leaving hydration to Livewire. Use the Livewire pagination view explicitly; the opt-in default pagination setting only covers ordinary Laravel paginators.
+For Livewire, see [the integration guide](https://github.com/eristavi/RevaCSS/blob/main/integrations/laravel/docs/livewire.md). `wire:model` directives go to native controls. The adapter omits old/default input values and checkbox hidden fallbacks for model-bound fields, leaving hydration to Livewire. Use the Livewire pagination view explicitly; the opt-in default pagination setting only covers ordinary Laravel paginators.
 
 ## Boundaries and version 2 readiness
 
@@ -139,4 +139,20 @@ The adapter provides no application routes, authentication, database schemas, pa
 
 The native mobile popover is non-modal. Provide separate `sidebar` and `mobileNavigation` slots so controls/IDs are not silently duplicated. Navigation that must support browsers without native popovers needs an application-level fallback or another documented layout.
 
-See [validation](docs/validation.md), [distribution](docs/distribution.md) and [AI guidance](docs/ai.md). No package is published or automatically merged by the scripts. The recorded Laravel/Livewire checks and core manual attestation retain their stated scope; consuming applications need their own device and assistive-technology review.
+See [validation](https://github.com/eristavi/RevaCSS/blob/main/integrations/laravel/docs/validation.md), [distribution](https://github.com/eristavi/RevaCSS/blob/main/integrations/laravel/docs/distribution.md) and [AI guidance](https://github.com/eristavi/RevaCSS/blob/main/integrations/laravel/docs/ai.md). No package is published or automatically merged by the scripts. The recorded Laravel/Livewire checks and core manual attestation retain their stated scope; consuming applications need their own device and assistive-technology review.
+
+## AI implementation workflow
+
+Follow these decisions in order when generating or reviewing an interface with this adapter. Native HTML remains a supported choice.
+
+| Decision | Rule for this adapter |
+| --- | --- |
+| 1. Version and reference | Identify the resolved revacss/laravel package and prepared core assets/contracts. Read Laravel/PHP requirements and any installed Livewire version. A source Composer manifest can omit version; GitHub artifacts do not establish Packagist registration. |
+| 2. Assets and appearance | Use x-reva::layout or x-reva::assets and publish matching assets with reva:install. Layout renders the document; appearance arrays set its root choices. Root material settings select matching extensions, while local materials need explicit assets.extensions. Scoped assets need a .reva boundary. |
+| 3. Native attributes | Use the x-reva:: namespace. Native required/disabled/readonly, ARIA/data and wire:* attributes reach controls. Button variant=secondary maps to its class; outline/ghost button appearance is distinct from badge/alert data-appearance. |
+| 4. Field values and errors | Provide stable explicit IDs for repeated/reactive fields and error summaries. Normal fields prefer old input unless use-old is false; passwords/files omit values. Multiple selects use arrays. The adapter associates error bags, hints and visible error messages. |
+| 5. SSR and application state | Blade renders server HTML. Livewire-bound controls delegate state to Livewire and omit competing old/default values and checkbox hidden fallbacks. Use separate sidebar/mobileNavigation slots so IDs and controls are not duplicated. |
+| 6. Application responsibilities | Define real named routes, request validation and authorization. The form wrapper adds CSRF/method fields; it does not grant permission or implement a controller. Validate saved preferences through Appearance::values() rather than mutating global configuration per user. |
+| 7. Review and evidence | Inspect generated native markup, error links, versioned stylesheet paths and required extensions. Use examples/laravel and docs/livewire.md. Follow project check instructions; report automated, deferred and manual evidence separately. |
+
+Focused AI reference: [laravel adapter Markdown](https://revacss.eristavi.org/ai/adapters/laravel.md). Read the root AI guide for shared attribute rules and version selection, then this adapter's components and examples. Preserve the user's workflow about tests and publication.

@@ -107,3 +107,19 @@ packages into an isolated fixture, builds it with Astro, and inspects rendered
 HTML, assets, form associations, escaping, scoped styling and script absence.
 Default checks provide build/markup evidence; the opt-in browser phase provides
 the limited automated coverage described above, without manual acceptance.
+
+## AI implementation workflow
+
+Follow these decisions in order when generating or reviewing an interface with this adapter. Native HTML remains a supported choice.
+
+| Decision | Rule for this adapter |
+| --- | --- |
+| 1. Version and reference | Confirm the installed core and @revacss/astro versions, Astro peer requirement and matching component contracts. Stable manifests do not establish registry availability. |
+| 2. Assets and appearance | Import one core build in shared frontmatter/layout. This Layout renders html/head/body and forwards document attributes to html; scoped mode uses class=reva there. Load matching scoped/global extensions explicitly; font files remain optional. |
+| 3. Native attributes | Native attributes, ARIA and data attributes pass through. Input/Select/Textarea forward control attributes to the native control, not the outer Field. Use native checkbox/radio/file controls with Field as appropriate. |
+| 4. Field values and errors | Provide unique IDs and labels; hint/error descriptions are associated by the adapter. Use input value, selected on native options and the Textarea default slot. Escape prior values and never restore passwords. Supply any error summary in the application. |
+| 5. SSR and application state | These .astro components render on the server or at build time; do not add client:* to them. A static output cannot implement POST processing; use an actual server endpoint or the application's form service. |
+| 6. Application responsibilities | Connect real routes, authorization, CSRF and server validation through the consuming application. Native HTML may be used alongside wrappers; the adapter adds no routing or data service. |
+| 7. Review and evidence | Inspect rendered IDs, label/error references, native states, stylesheet imports and full component structure. Use examples/astro as the reference. Follow project instructions for checks and report what was actually verified. |
+
+Focused AI reference: [astro adapter Markdown](https://revacss.eristavi.org/ai/adapters/astro.md). Read the root AI guide for shared attribute rules and version selection, then this adapter's components and examples. Preserve the user's workflow about tests and publication.

@@ -126,3 +126,19 @@ component types, compiles a packed Vue application and inspects server-rendered
 markup, field associations, initial models, escaping and missing-ID failures.
 The opt-in flag adds the browser checks described above. Neither phase certifies
 manual interaction/accessibility acceptance.
+
+## AI implementation workflow
+
+Follow these decisions in order when generating or reviewing an interface with this adapter. Native HTML remains a supported choice.
+
+| Decision | Rule for this adapter |
+| --- | --- |
+| 1. Version and reference | Confirm installed core/@revacss/vue versions and Vue peer requirements. Nuxt consumes the same Vue adapter; use its matching reference instead of inventing a RevaCSS Nuxt module. |
+| 2. Assets and appearance | Load one core build at the application entry; Nuxt can use its application CSS configuration. Layout is a div wrapper, so set document attributes through the host's head API. Scoped boundaries need class=reva and matching scoped extensions; fonts remain optional. |
+| 3. Native attributes | Use native attributes/listeners, class/style and data/ARIA bindings. Input/Select/Textarea forward them to the control through $attrs. A Vue component ref is not a documented native-element focus API; do not assume wrappers expose focus(). |
+| 4. Field values and errors | Input/Select/Textarea require plain v-model. Use a string for Textarea and an array for multiple Select. Component model modifiers are unsupported. Provide unique IDs/labels and error/hint text; use native choice/file controls with Field where appropriate. |
+| 5. SSR and application state | Initialize model state consistently on server and client. Vue/Nuxt owns hydration, application reactivity and head updates; the adapter has no browser-global initialization or theme persistence. |
+| 6. Application responsibilities | Provide real routes, authorization, CSRF and server validation. For client navigation use the application's RouterLink/NuxtLink with class=button; model updates do not implement a server submission endpoint. |
+| 7. Review and evidence | Inspect native control attributes, model values, labels/error associations and stylesheet scope. Use examples/vue and examples/nuxt. Follow project check instructions and distinguish SSR, hydrated interaction and manual acceptance evidence. |
+
+Focused AI reference: [vue adapter Markdown](https://revacss.eristavi.org/ai/adapters/vue.md). Read the root AI guide for shared attribute rules and version selection, then this adapter's components and examples. Preserve the user's workflow about tests and publication.

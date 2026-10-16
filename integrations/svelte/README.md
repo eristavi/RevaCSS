@@ -123,3 +123,19 @@ Svelte production build and SSR output, and a SvelteKit production Node server
 with HTTP checks for document attributes, served CSS and form markup. The opt-in browser phase verifies reference value/element interactions. Full
 hydration combinations, physical devices and manual accessibility acceptance
 remain unverified. The example form has no server submission endpoint.
+
+## AI implementation workflow
+
+Follow these decisions in order when generating or reviewing an interface with this adapter. Native HTML remains a supported choice.
+
+| Decision | Rule for this adapter |
+| --- | --- |
+| 1. Version and reference | Confirm installed core/@revacss/svelte versions and its Svelte peer range. Plain Svelte and SvelteKit use the same adapter; the consuming app supplies its normal compiler and runtime. |
+| 2. Assets and appearance | Load one core build in the application entry or SvelteKit root layout. Layout is a div wrapper; document attributes belong to the application document/template. Scoped content needs class=reva and matching scoped extensions; fonts remain optional. |
+| 3. Native attributes | Forward native attributes/events, class/style, data/ARIA props to the identifying element; field attributes go on the control. Use the documented snippets for component content and header/footer composition. |
+| 4. Field values and errors | Use bind:value or an appropriate initial value; Textarea values are strings and multiple Select values are arrays. Use bind:element for supported native DOM nodes, initialize it to null and access it only on the client. Component bind:this is not the native element API. |
+| 5. SSR and application state | Svelte/SvelteKit owns SSR, hydration and reactivity. Preserve server/client initial values and keep DOM access out of server rendering. The reference's full-reload theme links do not establish client-side theme navigation or persistence. |
+| 6. Application responsibilities | Provide real endpoints/actions, authorization, CSRF and server validation in the host app. Unique IDs/labels and hint/error text remain required; use native choice/file/hidden controls with Field where appropriate. |
+| 7. Review and evidence | Inspect control bindings, IDs/error descriptions, native states and CSS imports. Use examples/svelte and examples/sveltekit. Follow project check instructions; reference SSR/build checks do not establish every hydration path or manual acceptance. |
+
+Focused AI reference: [svelte adapter Markdown](https://revacss.eristavi.org/ai/adapters/svelte.md). Read the root AI guide for shared attribute rules and version selection, then this adapter's components and examples. Preserve the user's workflow about tests and publication.

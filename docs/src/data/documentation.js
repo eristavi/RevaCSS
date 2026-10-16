@@ -262,6 +262,7 @@ export const learnLinks = [
  { key:'nuxt', title:'Nuxt integration', path:'guide/nuxt/' },
  { key:'react', title:'React integration', path:'guide/react/' },
  { key:'svelte', title:'Svelte and SvelteKit', path:'guide/svelte/' },
+ { key:'laravel', title:'Laravel integration', path:'guide/laravel/' },
  { key:'why-revacss', title:'Why RevaCSS?', path:'guide/why-revacss/' },
  { key:'comparison', title:'Framework comparison', path:'guide/comparison/' },
  { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },

@@ -221,6 +221,16 @@ HTML remains supported without an adapter. Reuse the existing Vue adapter in
 Nuxt, React adapter in Next.js and Svelte adapter in SvelteKit. Do not invent
 additional RevaCSS runtime layers, a Nuxt module or framework-specific CSS.
 
+Read `/ai/adapters.md` for the adapter index, then `/ai/adapters/astro.md`, `/ai/adapters/react.md`, `/ai/adapters/vue.md`, `/ai/adapters/svelte.md` or `/ai/adapters/laravel.md`. These pages are generated from the adapter README sources; each has the same seven-decision AI workflow. The structured API's `adapters` entries expose source package names, versions (when declared), requirements and reference links; they do not establish publication status. An installed older archive can contain an earlier README; apply the version-selection procedure before using the current reference.
+
+| Adapter | Layout and document boundary | Field-state rule |
+| --- | --- | --- |
+| Astro | Full document; Layout forwards root attributes. No client directive is needed for these `.astro` components. | Native input value, selected options and textarea slot text; the application provides server errors. |
+| React / Next.js | Layout is a div; the host manages html/head/body. Application state, event handlers and DOM refs need the appropriate client boundary. | Native value/defaultValue rules; controlled fields need onChange or readOnly; React 19 refs reach controls. |
+| Vue / Nuxt | Layout is a div; the host manages document attributes/head. Vue owns hydration and model state. | Plain v-model; multiple selects use arrays. A component ref is not an exposed native DOM API. |
+| Svelte / SvelteKit | Layout is a div; the app owns the document and server/client state. | bind:value; use supported bind:element for a native node, initialized to null during SSR. |
+| Laravel / optional Livewire | Blade Layout renders the document and selects versioned assets. | Old input and error bags for ordinary fields; Livewire-bound controls delegate state to Livewire. |
+
 Follow the matching framework guide and shipped examples for props, field
 associations, model/value bindings, refs and server rendering. Preserve native
 HTML semantics and the framework's server/client boundaries. The application's

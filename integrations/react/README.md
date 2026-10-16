@@ -129,3 +129,19 @@ source development before revacss@2 npm publication; consumers install both loca
 packages. Checks compile declarations, pack/extract actual packages, typecheck a
 consumer, build a Vite app, inspect SSR markup and build the Next.js server example.
 No full regression suite, browser/device or accessibility acceptance is implied.
+
+## AI implementation workflow
+
+Follow these decisions in order when generating or reviewing an interface with this adapter. Native HTML remains a supported choice.
+
+| Decision | Rule for this adapter |
+| --- | --- |
+| 1. Version and reference | Confirm installed core/@revacss/react versions and React peer requirements from their manifests and matching reference. Check Next.js requirements in the consuming application separately. |
+| 2. Assets and appearance | Import one core build in the application entry/root layout. React Layout is a div wrapper; set html/head/body attributes through the host application. Scoped content needs className=reva and matching scoped extensions; optional fonts load separately. |
+| 3. Native attributes | Use className, native React event/ARIA/data props and native attributes. Input/Select/Textarea attributes and React 19 ref props reach the actual control; Field ref reaches its wrapper. Native choice/file/hidden controls remain available. |
+| 4. Field values and errors | Choose uncontrolled defaultValue or controlled value with onChange/readOnly; do not mix modes. Select uses value/defaultValue (array for multiple), never selected on option. Textarea uses value/defaultValue, never children. Provide unique IDs, labels and escaped error text. |
+| 5. SSR and application state | Static wrappers have no hooks or use-client directive and can render in Next.js Server Components. State, event handlers and DOM refs belong in a consuming client component. Do not pass DOM refs/handlers across the server-client boundary; keep initial render data consistent. |
+| 6. Application responsibilities | Connect actual form endpoints, request validation, authorization, CSRF and data loading in the host application. Use its router link with className=button when client routing is required. |
+| 7. Review and evidence | Inspect native output, field associations and imported CSS. Use examples/react for client value/ref behaviour and examples/next for the server boundary. Follow project check instructions; SSR output alone does not prove hydration or manual acceptance. |
+
+Focused AI reference: [react adapter Markdown](https://revacss.eristavi.org/ai/adapters/react.md). Read the root AI guide for shared attribute rules and version selection, then this adapter's components and examples. Preserve the user's workflow about tests and publication.
