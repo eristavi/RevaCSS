@@ -12,6 +12,60 @@ The generated `/ai/api.json` contains the package version, exact supported attri
 
 Use the version shown in the reference. Consult the getting-started guide for a published download or npm package. Do not assume the newest source version is already available on npm, invent a CDN URL or mix files from different releases.
 
+## Select the version before using the API
+
+Establish what the application actually loads before selecting attributes, copying component markup or recommending an installation command.
+
+### 1. Identify the installed files
+
+| Installation | Evidence to inspect |
+| --- | --- |
+| npm or another JavaScript package manager | The resolved `revacss` version in the lockfile and installed `node_modules/revacss/package.json`; inspect installed adapter versions separately. A range in the application's `package.json` is not the resolved version. |
+| Downloaded GitHub archive | The exact release tag and archive metadata/checksums, then the stylesheet paths the application loads. A renamed `reva.css` filename alone does not identify a version. |
+| CDN | The actual stylesheet URL in the page or built output. Use an explicit verified version; an unversioned URL or `latest` alias can change. |
+| Repository checkout or local package | The checkout's `package.json`, commit and local changes, plus the source of the assets loaded by the application. The version number can stay unchanged between source commits. |
+| Laravel Composer adapter | The resolved `revacss/laravel` entry in `composer.lock` and installed package metadata, plus its asset manifest and published assets. A source `composer.json` may legitimately omit its version. |
+
+When shell access is available, these read-only commands can help identify an npm installation, a Composer installation or a repository checkout:
+
+```sh
+npm ls revacss --depth=0
+composer show revacss/laravel
+git rev-parse HEAD
+git status --short
+```
+
+Run only commands relevant to the project. A missing package is useful evidence; it is not a reason to install or upgrade it automatically. Check the application's actual CSS imports or link elements as well: an installed package does not prove its files are being used. A failed lookup does not establish a version.
+
+### 2. Match the reference to that installation
+
+For a released distribution, use the documentation included with that package/archive or the repository at its exact release tag. For example, `v2.0.0` identifies the 2.0.0 release sources, while `main` can contain later changes. Read the matching adapter README and dependency requirements too; core and adapter version numbers alone do not establish compatibility.
+
+For a source build, use the same checkout's manifests and examples. Record the commit and relevant local changes. The checkout can generate focused AI references through the documented build workflow when that work is authorized.
+
+Compare the generated API's `version` and `sourceStatus` with the installation. The version alone cannot distinguish two source revisions. The live documentation is updated between releases and is not a permanent snapshot of an older installation. If its revision or feature availability differs, consult the tagged/source documentation instead of assuming that feature exists.
+
+### 3. Verify the distribution channel separately
+
+| Question | Evidence needed |
+| --- | --- |
+| Is the version downloadable from GitHub? | Its published release and the specific required asset. |
+| Is the core or an adapter available from npm? | The exact package name and version in that registry, with the documented entry points. Each adapter is a separate package. |
+| Is the Laravel adapter available through Packagist or another Composer source? | That package's registration/version or the explicitly configured artifact/VCS installation method. A GitHub ZIP alone does not establish Packagist availability. |
+| Can this CDN serve the selected version and stylesheet? | Availability of that exact package version and file through the chosen CDN. A source manifest does not prove that URL exists. |
+
+The installation guide and npm guide record distribution details. Generated `npmPublished` and `releasePublished` fields describe the documentation build's recorded availability; they are not live registry queries, per-adapter publication status or automatic discovery of newly published packages.
+
+### 4. Resolve differences before generating code
+
+- **An older installation and newer documentation:** stay within the installed API and use its matching reference. Offer an upgrade as a separate change when the requested feature needs it.
+- **A desired version available only through another channel:** explain the verified installation option and its dependencies. Follow the project's instructions before changing how dependencies are obtained.
+- **Mixed core, extensions or published adapter assets:** identify their origins and align them with the selected compatible distribution. Do not patch around mismatched files by inventing attributes.
+- **An unknown version or unavailable matching reference:** inspect package metadata, release records and file provenance first. If the version remains unknown, state that uncertainty and request the missing source or version before relying on version-specific features.
+- **An approved upgrade:** read the migration guide for the target release, update matching assets and follow the project's validation workflow. Preserve the existing installation until that change is authorized.
+
+Summarize the selection when it matters: core version (and commit for source builds), reference tag/revision, adapter version if used, asset origin and any unresolved mismatch. Keep this record in the implementation summary so the application's users are not asked to make repository or package-management decisions.
+
 ## Quick decision guide
 
 Choose the build, markup approach and extensions before generating a page. Use the matching release's files and component reference for each choice.
@@ -178,7 +232,7 @@ identifies tested framework scope, revisions and evidence limits.
 
 ## Workflow for agents
 
-1. Read the installed package version and the matching RevaCSS reference.
+1. Follow “Select the version before using the API” to identify the loaded core, matching reference and any adapter dependencies.
 2. Select the relevant component pages and existing demo sources.
 3. Choose global or scoped CSS and the required extensions.
 4. Generate meaningful HTML, then apply shared defaults and intentional local overrides.
