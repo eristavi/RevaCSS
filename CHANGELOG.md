@@ -8,9 +8,9 @@
 
 ### Documentation
 
-- Add native anchored help-panel examples with accessible SVG question-mark buttons, ID-targeted application CSS, logical anchor positioning, edge-flip candidates, centred fallback, persistent essential hints and inherited effects. Preserve example CSS ID selectors in namespaced manual fixtures; browser acceptance remains deferred.
+- Add native anchored help-panel examples with accessible SVG question-mark controls with visually bare surfaces across materials, ID-targeted application CSS, logical anchor positioning, edge-flip candidates, centred fallback, persistent essential hints and inherited effects. Preserve example CSS ID selectors in namespaced manual fixtures; browser acceptance remains deferred.
 
-- Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, accessible SVG X close controls aligned to the logical end, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
+- Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, accessible SVG X close controls with visually bare surfaces aligned to the logical end, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
 
 - Complete native modal invocation examples using commandfor/command, platform and light dismissal, form closing, inherited material/motion effects and local appearance resets. Prepare no-script browser coverage; acceptance remains deferred.
 

@@ -37,6 +37,10 @@ for(const build of ['global','minified','scoped']) {
         await expect(dialog.getByRole('button',{name:'Close image',exact:true})).toBeFocused();
         const close=dialog.getByRole('button',{name:'Close image',exact:true});
         await expect(close.locator('svg')).toHaveAttribute('aria-hidden','true');
+        await expect(close).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
+        await expect(close).toHaveCSS('border-top-width','0px');
+        await expect(close).toHaveCSS('box-shadow','none');
+        await expect(close).toHaveCSS('backdrop-filter','none');
         const target=await close.boundingBox();expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44);
         await expect.poll(()=>dialog.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);
         await expect(image).toHaveCSS('aspect-ratio','auto');await expect(image).toHaveCSS('object-fit','contain');

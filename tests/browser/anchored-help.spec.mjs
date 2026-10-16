@@ -18,6 +18,10 @@ for(const scoped of [false,true])test(`native anchored help and independent inst
     const opener=region.locator('button[popovertarget]:not([popovertargetaction])');
     await expect(opener).toHaveAccessibleName(example.glass?'Glass password help':'Password help');
     await expect(opener.locator('svg')).toHaveAttribute('aria-hidden','true');
+    await expect(opener).toHaveCSS('background-color','rgba(0, 0, 0, 0)');
+    await expect(opener).toHaveCSS('border-top-width','0px');
+    await expect(opener).toHaveCSS('box-shadow','none');
+    await expect(opener).toHaveCSS('backdrop-filter','none');
     const touchTarget=await opener.boundingBox();expect(touchTarget.width).toBeGreaterThanOrEqual(44);expect(touchTarget.height).toBeGreaterThanOrEqual(44);
     await expect(region.getByText('Use at least 12 characters.',{exact:true})).toBeVisible();
     await expect(panel).toBeHidden();
