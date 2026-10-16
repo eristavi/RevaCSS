@@ -2,11 +2,24 @@
 import Layout from '../../../layouts/Layout.astro';
 import {stylesheet} from '../../../data/assets.js';
 const base=import.meta.env.BASE_URL;
+const materials=['solid','glass','soft','veil'];
+const motions=['subtle','expressive','none'];
+const fills=['gradient','solid'];
+const effects=[
+  {id:'text',label:'Text only',text:true,surface:false},
+  {id:'material',label:'Material only',text:false,surface:true},
+  {id:'both',label:'Text and material',text:true,surface:true},
+];
+const sampleMarkup=(material,motion,fill,effect)=>`<section class="hero${effect.surface?' gradient-background':''}" data-material="${material}" data-motion="${motion}" data-fill="${fill}">
+  <h3>Let ideas ${effect.text?'<span class="gradient-text">shine through.</span>':'shine through.'}</h3>
+  <p>Native content, independent gradient effects.</p>
+</section>`;
 ---
-<Layout title="Hero and animated gradients" current="hero" documentation cssCustomizer={false}>
+<Layout title="Hero and animated gradients" current="hero" documentation>
   <Fragment slot="head">{['reva.hero.css','reva.gradients.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}</Fragment>
   <div class="hero-showcase">
     <header><p class="doc-kicker">NATIVE CSS · SOURCE PREVIEW</p><h1>Hero and gradient effects.</h1><p>Only the selected phrase changes colour. Background light and text stay independent; the letters and content remain still.</p><p><a href={base+'components/hero/'}>Hero markup</a> · <a href={base+'components/gradients/'}>Gradient effects and options</a></p></header>
+    <p><a href="#gradient-state-demos">Compare text only, material only, and both</a></p>
     <label class="pause-control"><input id="hero-pause" type="checkbox"/> Pause gradient animations</label>
     <section class="hero gradient-background" data-material="solid" data-motion="subtle" aria-labelledby="hero-subtle-title">
       <header>
@@ -15,8 +28,8 @@ const base=import.meta.env.BASE_URL;
       <a class="button" href="#glass-hero-demo">Explore the glass hero</a>
       </header>
     </section>
-    <div class="hero-backdrop" id="glass-hero-demo" data-theme="dark">
-      <section class="hero gradient-background" data-material="glass" data-theme="dark" data-motion="subtle" aria-labelledby="hero-glass-title">
+    <div class="hero-backdrop" id="glass-hero-demo">
+      <section class="hero gradient-background" data-material="glass" data-motion="subtle" aria-labelledby="hero-glass-title">
         <h2 id="hero-glass-title">Let your ideas <span class="gradient-text">shine through.</span></h2>
         <p>The glass surface’s own highlight gradient moves slowly. The backdrop stays still; its transparency and blur are unchanged.</p>
         <a class="button" href="#hero-expressive-demo">Compare expressive motion</a>
@@ -26,16 +39,53 @@ const base=import.meta.env.BASE_URL;
       <header><h2 id="hero-expressive-title">A little more <span class="gradient-text">colour in motion.</span></h2><p>Expressive motion uses the same smooth effect over 6 seconds in each direction.</p><a class="button" href="#hero-static-demo">See the static version</a></header>
       <figure><img src={base+'images/example-landscape.svg'} width="640" height="360" alt="Illustrated hills beneath the sun"/></figure>
     </section>
-    <section class="hero gradient-background" id="hero-static-demo" data-material="solid" data-motion="none" data-theme="dark" aria-labelledby="hero-static-title">
+    <section class="hero gradient-background" id="hero-static-demo" data-material="solid" data-motion="none" aria-labelledby="hero-static-title">
       <header>
       <h2 id="hero-static-title">Still <span class="gradient-text">full of colour.</span></h2><p>Motion none keeps the gradient static. Reduced motion also stops both effects automatically.</p><a class="button" href={base+'components/gradients/'}>Read the component guide</a>
       </header>
+    </section>
+    <section id="gradient-state-demos" aria-labelledby="gradient-state-title">
+      <h2 id="gradient-state-title">Compare every gradient state</h2>
+      <p>Use Customize to switch the theme and accent for every example. Each group compares the same phrase with text only, material only, and both. Text moves opposite to the surface at the same timing.</p>
+      <p>Subtle: 12 seconds per direction. Expressive: 6 seconds. None: static gradients. The pause checkbox above stops every moving example.</p>
+      <p>Fill controls the material’s existing sheen. The gradient classes are independent of fill; Glass with solid fill has no sheen to move. Soft and Veil use the added surface gradient; Glass moves its own highlight.</p>
+      <nav aria-label="Gradient demo materials"><ul>{materials.map(material=><li><a href={'#gradient-material-'+material}>{material}</a></li>)}</ul></nav>
+      {materials.map(material=><section id={'gradient-material-'+material} class="gradient-material-group" aria-labelledby={'gradient-material-title-'+material}>
+        <h3 id={'gradient-material-title-'+material}>{material.charAt(0).toUpperCase()+material.slice(1)}</h3>
+        {motions.map(motion=>fills.map(fill=><details class="gradient-state-group">
+          <summary>{motion.charAt(0).toUpperCase()+motion.slice(1)} motion · {fill} fill · 3 examples</summary>
+          <div class="gradient-comparisons">
+            {effects.map(effect=>{
+              const id=`gradient-${material}-${motion}-${fill}-${effect.id}`;
+              return <div class="gradient-comparison">
+                <h4>{effect.label}</h4>
+                <div class="hero-backdrop">
+                  <section class:list={['hero','gradient-sample',{'gradient-background':effect.surface}]} data-material={material} data-motion={motion} data-fill={fill} aria-labelledby={id}>
+                    <h5 id={id}>Let ideas {effect.text?<span class="gradient-text">shine through.</span>:'shine through.'}</h5>
+                    <p>Native content, independent gradient effects.</p>
+                  </section>
+                </div>
+                <details><summary>HTML</summary><pre><code>{sampleMarkup(material,motion,fill,effect)}</code></pre></details>
+              </div>;
+            })}
+          </div>
+        </details>))}
+      </section>)}
+      <p>System reduced motion keeps gradients static. Higher contrast and print restore solid text and remove surface animation; reduced transparency removes surface animation. These preferences follow the device settings.</p>
     </section>
     <p>New source preview: visual/browser acceptance is pending. Check your selected colours against the actual background, especially custom photographs and translucent surfaces.</p>
   </div>
 </Layout>
 <style is:global>
 .hero-showcase { display:grid; gap:2rem; padding-block:2rem; }
+.gradient-material-group { margin-block:2rem; scroll-margin-block-start:6rem; }
+.gradient-comparisons { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr)); gap:1.5rem; padding-block:1rem; }
+.gradient-comparison { min-inline-size:0; }
+.gradient-comparison > h4 { margin-block:0 1rem; }
+.gradient-sample { padding:2rem 1.25rem; }
+.gradient-sample > h5 { margin:0; font-size:clamp(1.75rem,3vw,2.5rem); line-height:1.15; overflow-wrap:anywhere; text-wrap:balance; }
+.gradient-state-group { margin-block:1rem; }
+.gradient-comparison pre { max-inline-size:100%; overflow:auto; }
 .hero-showcase > header { max-inline-size:65ch; }
 .hero-backdrop { padding:clamp(.5rem,2vw,2rem); border-radius:var(--re-radius); background:var(--re-bg); }
 .hero-showcase:has(#hero-pause:checked) .gradient-text,

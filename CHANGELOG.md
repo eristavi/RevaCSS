@@ -4,6 +4,8 @@
 
 ### Hero and gradient effects
 
+- Expand the hero demo with 72 text-only, material-only and combined examples across all four materials, three motion settings and both fill settings. All examples follow the customizer theme and accent; include native expandable groups, copyable HTML and a shared pause control.
+
 - Reverse text gradient movement relative to animated backgrounds, preserving shared subtle/expressive durations and easing.
 - Animate solid gradient backgrounds between white/primary in light mode and black/primary in dark mode, with full opacity by default and an optional strength override. Double gradient speed to subtle 12s / expressive 6s per direction for text, solid surfaces and glass sheen. Solid hero demos use the inherited primary without test colour overrides or inner content backings; full-strength background/foreground combinations require contrast review.
 
