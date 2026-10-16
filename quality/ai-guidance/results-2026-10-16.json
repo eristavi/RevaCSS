@@ -1,0 +1,164 @@
+{
+  "documentationRevision": "d1861e9b82b5cac6eb70e92b3448ff406761a5f4",
+  "generator": "Codex in this conversation, after reading the RevaCSS AI references",
+  "method": "One documentation-conditioned batch, reviewed with explicit markup contracts; not a blind or independent model comparison.",
+  "positiveScenarios": [
+    {
+      "scenario": "landing",
+      "pass": true,
+      "failures": [],
+      "sha256": "42a99798c9a9f0d1868e769207a98cc7f749ad567200124de958e21037df4007"
+    },
+    {
+      "scenario": "scoped-glass",
+      "pass": true,
+      "failures": [],
+      "sha256": "94a9d6eb0e3b4bb729d7baba700692aa58d13fe9fb2390b17cd795421ec54529"
+    },
+    {
+      "scenario": "dashboard",
+      "pass": true,
+      "failures": [],
+      "sha256": "a4f190f3230b35e8aee5172ab2e6994d98357b213562458f1c94f192d4464b0b"
+    },
+    {
+      "scenario": "navigation",
+      "pass": true,
+      "failures": [],
+      "sha256": "fedd2e8551643f1c8e48d8d0478e3284bce1b757c4aef6db0559b10d8126409a"
+    },
+    {
+      "scenario": "form-errors",
+      "pass": true,
+      "failures": [],
+      "sha256": "aa7a6b559492e8be994688724c9eaea0534d75072c79bfe5f14178818f2d085e"
+    }
+  ],
+  "negativeControls": [
+    {
+      "control": "unsupported-value",
+      "detected": true,
+      "expectedFailure": "unsupported-attribute-value",
+      "failures": [
+        "shared-defaults",
+        "unsupported-attribute-value"
+      ]
+    },
+    {
+      "control": "foreign-class",
+      "detected": true,
+      "expectedFailure": "foreign-framework-class",
+      "failures": [
+        "foreign-framework-class"
+      ]
+    },
+    {
+      "control": "missing-extension",
+      "detected": true,
+      "expectedFailure": "missing-material-extension",
+      "failures": [
+        "missing-material-extension"
+      ]
+    },
+    {
+      "control": "missing-boundary",
+      "detected": true,
+      "expectedFailure": "missing-scoped-boundary",
+      "failures": [
+        "missing-scoped-boundary",
+        "outside-scoped-boundary",
+        "required-classes",
+        "shared-defaults"
+      ]
+    },
+    {
+      "control": "card-containment",
+      "detected": true,
+      "expectedFailure": "containment-on-card",
+      "failures": [
+        "containment-on-card"
+      ]
+    },
+    {
+      "control": "duplicate-id",
+      "detected": true,
+      "expectedFailure": "duplicate-id",
+      "failures": [
+        "duplicate-id",
+        "missing-fragment-target",
+        "missing-popover-target"
+      ]
+    },
+    {
+      "control": "broken-popover-target",
+      "detected": true,
+      "expectedFailure": "missing-popover-target",
+      "failures": [
+        "missing-popover-target"
+      ]
+    },
+    {
+      "control": "missing-label",
+      "detected": true,
+      "expectedFailure": "unlabelled-control",
+      "failures": [
+        "required-tags",
+        "unlabelled-control"
+      ]
+    },
+    {
+      "control": "button-appearance",
+      "detected": true,
+      "expectedFailure": "button-appearance-target",
+      "failures": [
+        "button-appearance-target"
+      ]
+    },
+    {
+      "control": "extension-order",
+      "detected": true,
+      "expectedFailure": "extension-order",
+      "failures": [
+        "extension-order"
+      ]
+    },
+    {
+      "control": "missing-material-selection",
+      "detected": true,
+      "expectedFailure": "material-selection",
+      "failures": [
+        "material-selection"
+      ]
+    },
+    {
+      "control": "broken-error-description",
+      "detected": true,
+      "expectedFailure": "missing-aria-reference",
+      "failures": [
+        "missing-aria-reference"
+      ]
+    },
+    {
+      "control": "missing-required-constraint",
+      "detected": true,
+      "expectedFailure": "native-field-constraints",
+      "failures": [
+        "native-field-constraints"
+      ]
+    },
+    {
+      "control": "broken-metric-structure",
+      "detected": true,
+      "expectedFailure": "metric-structure",
+      "failures": [
+        "metric-structure"
+      ]
+    }
+  ],
+  "passed": true,
+  "limits": [
+    "Static markup contracts only.",
+    "No independent model/provider comparison.",
+    "No browser rendering, native activation, accessibility certification or application submission test."
+  ]
+}

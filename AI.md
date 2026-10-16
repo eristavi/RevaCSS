@@ -260,6 +260,12 @@ identifies tested framework scope, revisions and evidence limits.
 
 For repository changes, read [the contributor workflow](https://revacss.eristavi.org/guide/contributing/) or `/ai/contributing.md`, also available as `CONTRIBUTING.md` in the source/package. It maps changes to source files, explains generated outputs and identifies checks for the affected behaviour. Start with `AGENTS.md` in a checkout and keep application usage separate from framework-maintenance tasks.
 
+## Evidence for the guidance
+
+Read the [dated evaluation](https://revacss.eristavi.org/guide/ai-evaluation/) or `/ai/evaluation.md` for the measured scope. The initial documentation-conditioned batch passed five static interface scenarios and detected fourteen deliberately broken variants. Prompts, original HTML, diagnostics and file hashes are recorded in the repository. The same assistant authored the guidance and this first batch; this is not an independent model comparison or a guarantee of future output quality.
+
+From a source checkout, `npm run test:ai-guidance` rechecks those committed fixtures without a model call, browser run or installation. Follow `tests/ai/README.md` to record new unedited output batches and use failures to improve the source instructions. Keep static markup results separate from browser, application and adapter-runtime evidence.
+
 ## Workflow for agents
 
 1. Follow “Select the version before using the API” to identify the loaded core, matching reference and any adapter dependencies.

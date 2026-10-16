@@ -16,6 +16,7 @@ const base=(process.env.REVA_BASE || '/').replace(/\/?$/,'/');
 const site=new URL(base,(process.env.REVA_SITE || 'https://revacss.eristavi.org').replace(/\/$/,'')+'/');
 const url=path=>new URL(path,site).href;
 const guide=(await readFile(new URL('AI.md',root),'utf8')).trim();
+const evaluationGuide=(await readFile(new URL('quality/ai-guidance/2026-10-16.md',root),'utf8')).trim();
 const contributorGuide=(await readFile(new URL('CONTRIBUTING.md',root),'utf8')).trim();
 const troubleshootingGuide=(await readFile(new URL('AI_TROUBLESHOOTING.md',root),'utf8')).trim();
 const mistakesGuide=(await readFile(new URL('AI_MISTAKES.md',root),'utf8')).trim();
@@ -39,6 +40,7 @@ const componentData=componentGroups.flatMap(group=>group.slugs.map(slug=>{
   return {slug,title:topic?.title || 'Top menu',group:group.title,url:url(`components/${slug}/`),markdown:url(`ai/components/${slug}.md`),markup:contract[0],states:contract[1],stylesheet:contract[2],behaviour:contract[3],intro:topic?.intro || 'Native, responsive navigation. Use the full documented HTML structure.',notes:topic?.notes || [],examples:topic?.examples || []};
 }));
 add('ai/guide.md','Using RevaCSS with AI',guide.replace(/^# .+\n/,'').replaceAll('(CUSTOM_COMPONENTS.md)',`(${url('ai/custom-components.md')})`));
+add('ai/evaluation.md','AI guidance evaluation',evaluationGuide.replace(/^# .+\n/,''));
 add('ai/contributing.md','Contributor workflow',contributorGuide.replace(/^# .+\n/,''));
 add('ai/troubleshooting.md','Troubleshooting RevaCSS interfaces',troubleshootingGuide.replace(/^# .+\n/,''));
 add('ai/mistakes.md','Common AI mistakes and corrected patterns',mistakesGuide.replace(/^# .+\n/,''));

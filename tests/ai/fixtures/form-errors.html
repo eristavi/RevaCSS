@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en" data-theme="auto"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Correct project details</title><link rel="stylesheet" href="../../../dist/reva.css"></head>
+<body><main id="main" class="container stack"><h1>Create a project</h1>
+<section class="alert" data-variant="danger" aria-labelledby="errors-title"><h2 id="errors-title">Please correct the project name</h2><ul><li><a href="#project-name">Use at least three characters</a></li></ul></section>
+<form action="/projects" method="post" class="card stack">
+  <input type="hidden" name="csrf_token" value="APPLICATION_SUPPLIES_SESSION_TOKEN">
+  <div class="form-group"><label for="project-name">Project name (required)</label>
+    <input id="project-name" name="title" type="text" required minlength="3" maxlength="80" value="&lt;&quot;" aria-invalid="true" aria-describedby="project-name-error">
+    <p id="project-name-error" class="field-error">Use at least three characters.</p>
+  </div>
+  <button type="submit">Save project</button>
+</form></main></body></html>

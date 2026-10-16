@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Record a repeatable AI guidance baseline with five generated interface scenarios, fourteen negative controls, prompts, fixture hashes and explicit evidence limits; expose the dated report in the human/AI guides.
+
 - Add contributor instructions mapping changes to sources, generation steps, focused checks and release evidence; connect AGENTS.md, README, the human guide and AI references.
 
 - Add a symptom-based troubleshooting guide for 13 interface issues, with inspection, fixes and verification steps in the human site, focused AI reference and offline package.

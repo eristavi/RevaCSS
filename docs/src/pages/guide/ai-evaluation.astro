@@ -1,0 +1,14 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../quality/ai-guidance/2026-10-16.md';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="AI guidance evaluation" active="ai">
+  <p class="doc-kicker">LEARN / AI GUIDANCE EVIDENCE</p>
+  <div class="evaluation-guide"><Content/></div>
+  <p><a href={base+'guide/ai/'}>Return to the AI guide</a> · <a href={base+'ai/evaluation.md'}>Read as Markdown</a></p>
+</DocsLayout>
+<style>
+.evaluation-guide :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.evaluation-guide :global(code) { overflow-wrap:anywhere; }
+</style>
