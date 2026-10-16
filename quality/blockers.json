@@ -182,7 +182,7 @@
       "id": "Q-HERO-GRADIENTS",
       "kind": "manual",
       "status": "open",
-      "summary": "Validate new optional hero and selected-text/background gradient modules before release: global/scoped isolation and nested boundaries; plain/split layouts at 320px and zoom/text spacing; all accents/themes/materials and local resets; subtle/expressive/none motion, native pause, reduced motion/transparency/contrast, forced colours/print, text-clipping fallback, text selection, background images/contrast, focus and live controls. Confirm the existing glass sheen animates on the surface with original colours/transparency/blur, and the backdrop stays stationary and no content clipping or pointer interception. Browser tests prepared but not run; maintainer earlier attestation predates these additions."
+      "summary": "Validate new optional hero and selected-text/background gradient modules before release: global/scoped isolation and nested boundaries; plain/split layouts at 320px and zoom/text spacing; all accents/themes/materials and local resets; full-strength white/primary and black/primary solid backgrounds with deliberately contrasting content or neutral content backings; subtle/expressive/none motion, native pause, reduced motion/transparency/contrast, forced colours/print, text-clipping fallback, text selection, background images/contrast, focus and live controls. Confirm the existing glass sheen animates on the surface with original colours/transparency/blur, and the backdrop stays stationary and no content clipping or pointer interception. Browser tests prepared but not run; maintainer earlier attestation predates these additions."
     }
   ]
 }

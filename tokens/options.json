@@ -135,7 +135,7 @@
       "targets": "Supported transitions, presses, disclosure motion, decorative edges, custom spinners, switches and skeletons.",
       "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
       "localOverride": "Use none locally to stop supported framework motion, or a documented preset to restore it subject to user preferences.",
-      "dependencies": "Complete core includes disclosure motion; optional reva.motion.css adds native overlay motion. Use scoped equivalents with scoped core. Optional gradients module consumes subtle (24s), expressive (12s) and none (static); reduced motion takes priority.",
+      "dependencies": "Complete core includes disclosure motion; optional reva.motion.css adds native overlay motion. Use scoped equivalents with scoped core. Optional gradients module consumes subtle (12s), expressive (6s) and none (static); reduced motion takes priority.",
       "limitations": "Does not animate arbitrary markup or control browser-owned progress animation. Reduced motion wins; no setting supplies application state changes."
     }
   },

@@ -1,9 +1,9 @@
 /* Optional selected-text and background effects. Text remains native HTML. */
 @layer re.tokens {
-  :where(:root, .reva, :scope.reva) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 24s; }
+  :where(:root, .reva, :scope.reva) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
   :where([data-motion="none"], :scope[data-motion="none"]) { --re-gradient-animation: none; }
-  :where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 24s; }
-  :where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
+  :where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
+  :where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 6s; }
 }
 @layer re.components {
   @keyframes re-gradient-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
@@ -20,22 +20,21 @@
       -webkit-background-clip: text; background-clip: text;
       color: transparent; -webkit-text-fill-color: transparent;
       -webkit-box-decoration-break: clone; box-decoration-break: clone;
-      animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 24s) ease-in-out infinite alternate;
+      animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate;
     }
   }
   :where(.gradient-background, :scope.gradient-background) { position: relative; isolation: isolate; }
-  /* A contained translucent light layer leaves material paint and blur intact.
+  /* Solid surfaces sweep white/accent in light mode, black/accent in dark.
+     Full colour is the default; lower the opacity for text-heavy surfaces.
      Negative stacking stays inside this surface, below its live content.
      No overflow clipping, transformed children or pointer interception. */
   :where(.gradient-background, :scope.gradient-background)::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
     border-radius: inherit; pointer-events: none;
-    background-image: linear-gradient(110deg in srgb,
-      color-mix(in srgb, var(--re-primary) var(--re-gradient-background-strength, 5%), transparent),
-      color-mix(in srgb, var(--re-primary-end) var(--re-gradient-background-strength, 5%), transparent),
-      color-mix(in srgb, var(--re-primary) var(--re-gradient-background-strength, 5%), transparent));
+    background-image: linear-gradient(110deg in srgb, light-dark(#fff, #000), var(--re-primary), light-dark(#fff, #000));
+    opacity: var(--re-gradient-background-strength, 100%);
     background-size: 240% 100%; background-position: 0% 50%;
-    animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 24s) ease-in-out infinite alternate;
+    animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate;
   }
   /* Glass already paints its own white/clear/dark highlight gradient.
      Move that paint in place; retain its colours, opacity and backdrop filter.
@@ -45,7 +44,7 @@
       :where(.gradient-background, :scope.gradient-background) {
         background-size: 240% 240%; background-position: 0% 50%;
         background-repeat: no-repeat;
-        animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 24s) ease-in-out infinite alternate;
+        animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate;
       }
       :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
     }
