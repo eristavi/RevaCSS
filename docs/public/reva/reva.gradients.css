@@ -20,7 +20,7 @@
       -webkit-background-clip: text; background-clip: text;
       color: transparent; -webkit-text-fill-color: transparent;
       -webkit-box-decoration-break: clone; box-decoration-break: clone;
-      animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate;
+      animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate-reverse;
     }
   }
   :where(.gradient-background, :scope.gradient-background) { position: relative; isolation: isolate; }
