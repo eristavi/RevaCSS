@@ -1,0 +1,16 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../AI_MISTAKES.md';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Common AI mistakes" active="ai">
+  <p class="doc-kicker">LEARN / AI CODE REVIEW</p>
+  <div class="ai-mistakes"><Content/></div>
+  <p><a href={base+'guide/ai/'}>Return to the AI guide</a> · <a href={base+'ai/mistakes.md'}>Read as Markdown</a></p>
+</DocsLayout>
+<style>
+.ai-mistakes :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.ai-mistakes :global(h2) { margin-block-start:2rem; }
+.ai-mistakes :global(code) { overflow-wrap:anywhere; }
+.ai-mistakes :global(pre code) { overflow-wrap:normal; }
+</style>

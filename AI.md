@@ -183,6 +183,10 @@ Start with one complete global or scoped build. The scoped build uses a `.reva` 
 
 For colours, shapes and spacing, prefer existing attributes and documented public tokens. Use ordinary application CSS for page composition or custom styling beyond those options. Never promise an effect just because an attribute name sounds plausible.
 
+## Review common mistakes
+
+Read the [incorrect and corrected examples](https://revacss.eristavi.org/guide/ai-mistakes/) or the generated `/ai/mistakes.md` reference before reviewing generated interfaces. The focused guide covers foreign classes, invalid values, missing extensions, scoped boundaries, shared defaults, resets, dropdown semantics, form labels and responsive wrappers. Its **Incorrect** snippets are deliberate counterexamples; use only the **Correct** patterns with their stated dependencies. The same examples ship in `AI_MISTAKES.md` for offline review.
+
 ## Preserve component contracts
 
 - Use a native `button` for actions and `a.button` for destinations. Native controls do not need an invented button class.

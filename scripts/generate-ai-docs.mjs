@@ -16,6 +16,7 @@ const base=(process.env.REVA_BASE || '/').replace(/\/?$/,'/');
 const site=new URL(base,(process.env.REVA_SITE || 'https://revacss.eristavi.org').replace(/\/$/,'')+'/');
 const url=path=>new URL(path,site).href;
 const guide=(await readFile(new URL('AI.md',root),'utf8')).trim();
+const mistakesGuide=(await readFile(new URL('AI_MISTAKES.md',root),'utf8')).trim();
 const extensionGuide=(await readFile(new URL('CUSTOM_COMPONENTS.md',root),'utf8')).trim();
 const extensionHTML=(await readFile(new URL('examples/custom-components.html',root),'utf8')).replaceAll('../dist/','dist/').trim();
 const extensionCSS=(await readFile(new URL('examples/custom-components.css',root),'utf8')).trim();
@@ -33,6 +34,7 @@ const componentData=componentGroups.flatMap(group=>group.slugs.map(slug=>{
   return {slug,title:topic?.title || 'Top menu',group:group.title,url:url(`components/${slug}/`),markdown:url(`ai/components/${slug}.md`),markup:contract[0],states:contract[1],stylesheet:contract[2],behaviour:contract[3],intro:topic?.intro || 'Native, responsive navigation. Use the full documented HTML structure.',notes:topic?.notes || [],examples:topic?.examples || []};
 }));
 add('ai/guide.md','Using RevaCSS with AI',guide.replace(/^# .+\n/,'').replaceAll('(CUSTOM_COMPONENTS.md)',`(${url('ai/custom-components.md')})`));
+add('ai/mistakes.md','Common AI mistakes and corrected patterns',mistakesGuide.replace(/^# .+\n/,''));
 add('ai/custom-components.md','Building custom components',`${extensionGuide.replace(/^# .+\n/,'')}\n\n## Complete starter HTML\n\nSave this document and its application stylesheet beside your matching \`dist/\` directory.\n\n${fence('html',extensionHTML)}\n\n## Application stylesheet\n\nSave as \`custom-components.css\` beside the HTML.\n\n${fence('css',extensionCSS)}`);
 const usageLabels={targets:'Supported targets',inheritance:'Inheritance',localOverride:'Local overrides and resets',dependencies:'Dependencies',limitations:'Limits and combinations with no effect'};
 const attributeRules='HTML data attributes do not inherit by themselves. RevaCSS uses CSS custom properties and scoped selectors to apply settings to documented targets. A local choice changes that setting subject to its component rules and accessibility preferences. Omission preserves the inherited setting within the current boundary, or uses the initialized default when none applies. Each scoped .reva boundary initializes defaults. There is no universal reset value: use only the listed values and read the per-setting exceptions below. Unsupported values are not a reliable reset; material boundaries can stop a parent scope even without selecting another finish. Defaults describe the unconfigured build, not a command to repeat on every element.';

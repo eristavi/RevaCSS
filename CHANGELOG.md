@@ -4,6 +4,7 @@
 
 ### Documentation
 
+- Add ten incorrect/corrected AI examples with a dedicated guide page, focused generated Markdown reference and offline package documentation.
 - Expand all 29 attribute contracts with supported targets, inheritance, local resets, dependencies and limitations. Generate the same guidance in AI Markdown, the structured API, HTML editor descriptions and the human reference.
 
 Experimental demo work remains outside the 2.0 public CSS API:
