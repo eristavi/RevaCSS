@@ -12,6 +12,63 @@ The generated `/ai/api.json` contains the package version, exact supported attri
 
 Use the version shown in the reference. Consult the getting-started guide for a published download or npm package. Do not assume the newest source version is already available on npm, invent a CDN URL or mix files from different releases.
 
+## Quick decision guide
+
+Choose the build, markup approach and extensions before generating a page. Use the matching release's files and component reference for each choice.
+
+### 1. Choose a CSS build
+
+| Project situation | Choose | Required setup |
+| --- | --- | --- |
+| A new page or application using RevaCSS throughout | `reva.css` or `reva.min.css` | Load one complete global stylesheet. Both contain the same core API. |
+| Part of an existing site should use RevaCSS | `reva.scoped.css` | Put RevaCSS content inside a `.reva` boundary; configure shared settings on that boundary or inside it. |
+| An intentionally maintained custom CSS subset | Documented modules | Load token and base dependencies, the required component modules and shared preference utilities. Read each component contract before selecting files. |
+
+Default to a complete build unless the project has a specific reason to maintain a modular subset. Load exactly one complete build. The scoped build limits selector matching; it does not provide Shadow DOM isolation. Inherited styles can cross boundaries, and popover/dialog markup must remain inside its RevaCSS boundary.
+
+### 2. Choose native HTML or an adapter
+
+| Application | Starting point |
+| --- | --- |
+| Static HTML, PHP templates or another server-rendered system | Native HTML with the documented RevaCSS hooks. |
+| Astro, React, Vue, Svelte or Laravel | Native markup in the framework's template syntax, or the matching optional adapter when its components help the project. Read that adapter's README before using its API. |
+| Next.js, Nuxt or SvelteKit | React, Vue or Svelte guidance respectively, plus the matching reference application. Preserve the framework's server/client boundaries. |
+
+Adapters are optional wrappers around the existing HTML/CSS contract. They do not replace the core stylesheet or supply application routing, authentication, data loading or form processing. Match the adapter's documented core dependency and asset setup; installing an adapter does not establish that the page has loaded its CSS.
+
+### 3. Select only the extensions the design needs
+
+Load CSS extensions after the matching complete core. With the scoped build, choose the `.scoped.css` extension listed below.
+
+| Needed appearance or behaviour | Global extension | Scoped extension / setup |
+| --- | --- | --- |
+| Standard solid appearance and core native components | None | The complete scoped core is sufficient. |
+| Glass on supported surfaces and actions | `reva.glass.css` | `reva.glass.scoped.css`; use documented `data-material="glass"` targets. |
+| Soft UI on supported surfaces and actions | `reva.soft.css` | `reva.soft.scoped.css`; use documented `data-material="soft"` targets. |
+| A material choice for actions independent of surrounding surfaces, including Liquid | `reva.button-materials.css` | `reva.button-materials.scoped.css`; use `data-button-material` with a supported value. |
+| Opening/closing motion for native popovers and dialogs | `reva.motion.css` | `reva.motion.scoped.css`; preserve native state and reduced-motion fallbacks. |
+| Progressive enhancement of eligible native selects | `reva.selects.css` | `reva.selects.scoped.css`; ordinary native selects remain the fallback. |
+| Bundled Manrope font | `reva-fonts.css` with its adjacent `fonts/` directory | Use the same optional font asset setup; there is no separate scoped font stylesheet. |
+| Existing Veil styling that must be retained | `reva.veil.css` | `reva.veil.scoped.css`; Veil is deprecated for new interfaces. |
+
+A material attribute alone does not load an extension. Surface materials and independent button materials are separate choices; a Glass surface with Liquid actions needs both the Glass and button-material extensions. Core disclosures already include their documented motion; the overlay motion extension is an additional choice for popovers/dialogs.
+
+For example, this is a scoped Glass setup using files from one matching distribution:
+
+```html
+<link rel="stylesheet" href="dist/reva.scoped.css">
+<link rel="stylesheet" href="dist/reva.glass.scoped.css">
+
+<div class="reva" data-theme="auto" data-palette="default">
+  <article class="card" data-material="glass">
+    <h2>Project overview</h2>
+    <p>This card uses the scoped core and its matching Glass extension.</p>
+  </article>
+</div>
+```
+
+Before writing the full interface, identify the selected core file, boundary (if scoped), markup approach, extensions and application behaviours to connect. Then consult the relevant component pages. The generated `/ai/files.md` reference lists stylesheet entry points; the human stylesheet reference explains their dependencies.
+
 ## Start with a complete page
 
 Download the compiled starter from the release linked in the getting-started guide. Put this document beside its `dist` directory. The generated global stylesheet works without a package manager or CSS build step.
