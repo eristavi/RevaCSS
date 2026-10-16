@@ -578,6 +578,23 @@
         "dependencies": "Included in complete global/scoped builds. Modular consumers load tokens and base. No extension or JavaScript.",
         "limitations": "Uses standard scrollbar-color and scrollbar-width only. Unsupported properties retain native rendering. OS overlay/auto-hide behaviour, exact thickness, shape and touch scrollbar paint remain browser/platform controlled. Forced colours and print use native colours and normal width. No hidden mode; thin is optional and can be harder to drag. Existing scrollbar-gutter behaviour is unchanged. The thumb exactly matches the main-button primary colour; dark accent/track contrast needs review for the chosen palette."
       }
+    },
+    "background": {
+      "values": [
+        "default",
+        "colorful",
+        "colorful-animated"
+      ],
+      "default": "default",
+      "scope": "Local; paints the attributed element. On html, also paints body.",
+      "affects": "Page or section background paint, independent of theme, accent, material and hero gradient classes.",
+      "usage": {
+        "targets": "html for a page, or a non-interactive section/div for a local background.",
+        "inheritance": "The setting paints only its target. Descendants retain their component surfaces; it does not recolour every child. Motion follows inherited data-motion.",
+        "localOverride": "default paints the local theme background and removes the colorful effect. Omission keeps existing styling untouched.",
+        "dependencies": "Optional reva.backgrounds.css or reva.backgrounds.scoped.css, loaded after core and materials. Not included in complete core.",
+        "limitations": "Uses every built-in accent start colour; changing primary or a custom palette does not replace these accents. No text or layout changes. Review foreground contrast across the full gradient. Do not combine on the same element with gradient-background or another background animation. Reduced motion keeps a static gradient; higher contrast, forced colours and print remove it."
+      }
     }
   },
   "tokens": {

@@ -6,6 +6,7 @@ export const componentGroups = [
       "typography",
       "hero",
       "gradients",
+      "backgrounds",
       "layouts",
       "tables",
       "media",
@@ -75,6 +76,7 @@ export const componentGroups = [
 ];
 export const componentContracts = {
   "hero": ["section.hero with a heading; optional header + figure for split layout", "Shared appearance attributes; ordinary links/buttons and labelled content.", "Optional reva.hero.css / reva.hero.scoped.css; matching material extension for Glass/Soft UI", "Responsive introduction surface. Optional gradients are separate; no JavaScript or required new attribute."],
+  "backgrounds": ["html or section[data-background=default|colorful|colorful-animated]", "Theme stays independent; motion follows inherited data-motion.", "Optional reva.backgrounds.css / reva.backgrounds.scoped.css", "Local page/section paint built from every accent start colour. No text/layout changes, runtime or hero-gradient coupling. Provide pause for continuous motion and review full-cycle contrast. Reduced motion is static; higher contrast/forced colours/print remove decoration."],
   "gradients": ["section.gradient-background", "Inherited data-accent and data-motion; optional background strength/duration.", "Optional reva.gradients.css / reva.gradients.scoped.css", "Only material/background paint animates. Subtle=12s, expressive=6s; none/reduced motion stays static. Glass moves its existing sheen and retains normal text; other surfaces use adaptive on-primary text. Load after materials. Reserves ::before and position/isolation; no runtime."],
   "scrollbars": ["Native page/scroll container; optional data-scrollbar=auto|thin|native", "Auto by default; inherited setting with local resets and per-element theme colours.", "Core tokens + base; included in complete global/scoped builds", "Standard CSS scrollbar colours and widths. OS/browser control exact rendering. Forced colours and print retain native appearance; scrolling and gutters are unchanged."],
   "reading-progress": ["div[data-reading-progress=page][aria-hidden=true]", "One empty decorative element; page or none. Shared appearance and motion settings apply.", "Optional reva.reading-progress.css / reva.reading-progress.scoped.css", "Root page-scroll position via native CSS. Unsupported browsers and reduced-motion/forced-colour/print modes omit it. No reading-completion measurement or JavaScript."],

@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base=import.meta.env.BASE_URL;
+const modes=[{value:'default',label:'Default',description:'Your existing theme background.'},{value:'colorful',label:'Colorful',description:'Every built-in accent colour, blended without movement.'},{value:'colorful-animated',label:'Colorful animated',description:'The same colours with smooth native CSS movement.'}];
+---
+<Layout title="Colorful backgrounds" current="backgrounds" documentation>
+  <div class="background-showcase">
+    <header><p class="doc-kicker">NATIVE CSS · SOURCE PREVIEW</p><h1>Backgrounds, separate from themes.</h1><p>Use Customize → Colours → Background to try the whole page. Theme and palette still control ordinary text and component surfaces. The samples below compare the three explicit background settings.</p><p><a href={base+'components/backgrounds/'}>Background markup and rules</a> · <a href={base+'demos/hero/'}>Separate hero gradient</a></p></header>
+    <label><input id="background-pause" type="checkbox"/> Pause background animations</label>
+    {modes.map(mode=><section class="background-specimen" data-background={mode.value} aria-labelledby={'background-'+mode.value}>
+      <h2 id={'background-'+mode.value}>{mode.label}</h2><p>{mode.description}</p>
+      <code>data-background="{mode.value}"</code>
+    </section>)}
+    <section aria-labelledby="background-motion-title"><h2 id="background-motion-title">Motion settings</h2><div class="background-motion-examples">
+      {['subtle','expressive','none'].map(motion=><section class="background-specimen" data-background="colorful-animated" data-motion={motion}><h3>{motion}</h3><p>{motion==='none'?'Static colours.':motion==='subtle'?'12 seconds per direction.':'6 seconds per direction.'}</p></section>)}
+    </div></section>
+    <section class="background-specimen" data-background="colorful" aria-labelledby="background-child-title"><h2 id="background-child-title">Components keep their own surfaces</h2><section class="card"><h3>A native card</h3><p>Its material follows the customizer. This background setting paints the parent, rather than every descendant.</p><a class="button" href={base+'components/backgrounds/'}>Read the guide</a></section><section class="background-specimen" data-background="default"><h3>Local default</h3><p>This region restores its own theme background.</p></section></section>
+    <p>Reduced motion keeps the colours static. Higher contrast, forced colours and print remove the decoration. Check text contrast across the full gradient before using these backgrounds with your content. Browser/device acceptance is pending.</p>
+  </div>
+</Layout>
+<style is:global>
+.background-showcase { display:grid; gap:2rem; padding-block:2rem; }
+.background-showcase > header { max-inline-size:65ch; }
+.background-specimen { min-inline-size:0; padding:clamp(1.5rem,5vw,3rem); border-radius:var(--re-radius); }
+.background-specimen > :first-child { margin-block-start:0; }
+.background-motion-examples { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr)); gap:1rem; }
+html:has(#background-pause:checked),html:has(#background-pause:checked) body,
+.background-showcase:has(#background-pause:checked) [data-background] { animation-play-state:paused; }
+</style>

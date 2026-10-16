@@ -1,3 +1,4 @@
+import backgrounds from '../../../dist/reva.backgrounds.css?raw';
 import tokens from '../../../dist/reva.tokens.css?raw';
 import core from '../../../dist/reva.css?raw';
 import motion from '../../../src/css/motion.css?raw';
@@ -49,17 +50,20 @@ css+=buttonMaterials.replace(/@scope \(([^{}\n]*data-button-material[^{}\n]*)\)/
 for(const option of advancedOptions) for(const value of option.values) {
   const {key}=option;
   if(value==='default') continue;
-  if(key==='button-material') {
+  if(key==='button-material' || key==='background') {
     css+=`${scope(key,value)} .attribute-${key}-${value} { display:inline; }\n`;
     continue;
   }
   let decl=declaration(key==='contrast'?core:tokens,key,value);
   if(key==='depth') decl+=' '+declaration(soft,key,value);
-  if(key==='motion') decl+=' '+declaration(motion,key,value)+' '+declaration(buttonMaterials,key,value);
+  if(key==='motion') decl+=' '+declaration(motion,key,value)+' '+declaration(buttonMaterials,key,value)+' '+declaration(backgrounds,key,value);
   if(key==='contrast') decl+=' '+declaration(glass,key,value)+' '+declaration(veil,key,value)+' '+declaration(soft,key,value)+' '+declaration(buttonMaterials,key,value);
   css+=`@scope (${scope(key,value)}) { @layer ${key==='contrast'?'re.utilities':'re.tokens'} { :where(:scope) { ${decl} } } }\n`;
   css+=`html:has(#demo-${key} option[value="${value}"]:checked) .attribute-${key}-${value} { display:inline; }\n`;
 }
+// The optional backgrounds module paints explicit targets rather than tokens.
+// Rebind its page selectors for the no-JavaScript customizer fallback.
+css+=backgrounds.replace(/\[data-background="([^"]+)"\]/g,(_match,value)=>` :is([data-background="${value}"],${scope('background',value)})`.trim()).replaceAll('[data-contrast="more"]',`:is([data-contrast="more"],${scope('contrast','more')})`);
 // Solid/glass paint may set these on descendants; explicit contrast still wins.
 css+=`@scope (${scope('contrast','more')}) { @layer re.utilities { :where(*, :scope) { ${declaration(core,'contrast','more')} } } }\n`;
 // Preferences retain priority over interactive preview choices, including the root.

@@ -183,6 +183,12 @@
       "kind": "manual",
       "status": "open",
       "summary": "Validate new optional hero and material/background gradient modules before release: global/scoped isolation and nested boundaries; plain/split layouts at 320px and zoom/text spacing; all accents/themes/materials and local resets; full-strength 25% darker/lighter primary backgrounds in both themes; the demo has no inner content backing by maintainer request, so inspect foreground contrast over the complete animation cycle; subtle/expressive/none motion, native pause, reduced motion/transparency/contrast, forced colours/print, ordinary text selection, background images/contrast, focus and live controls. Confirm the existing glass sheen animates on the surface with original colours/transparency/blur, and the backdrop stays stationary and no content clipping or pointer interception. Browser tests prepared but not run; maintainer earlier attestation predates these additions."
+    },
+    {
+      "id": "Q-COLORFUL-BACKGROUNDS",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate optional colorful background modules before release: page html/body painting, local sections and default resets; scoped isolation and .reva roots; all built-in accent stops; static versus animated same colours, subtle/expressive/none and nested motion; theme/custom palette independent from backdrop colours; full-cycle foreground contrast, native pause and keyboard usability, reduced motion, high contrast, forced colours, print; no layout shifts, content clipping, pseudo-element interference or regression to accepted hero gradients. Browser/device review deferred by maintainer instruction."
     }
   ]
 }

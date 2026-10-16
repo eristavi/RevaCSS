@@ -42,6 +42,8 @@ export const stylesheets = [
   "reva.motion.scoped.css",
   "reva.hero.css",
   "reva.hero.scoped.css",
+  "reva.backgrounds.css",
+  "reva.backgrounds.scoped.css",
   "reva.gradients.css",
   "reva.gradients.scoped.css",
   "reva.reading-progress.css",

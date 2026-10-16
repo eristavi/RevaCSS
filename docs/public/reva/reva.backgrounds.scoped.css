@@ -1,0 +1,38 @@
+@scope (.reva) {
+/* Optional page/section backgrounds. Colours are built from primitive accents.
+   Explicit targets paint themselves; descendants keep their own surfaces.
+   Load after materials. Do not combine with another background animator. */
+@layer re.tokens {
+  :where(:scope, .reva, :scope.reva) { --re-background-motion: re-background-drift; --re-background-duration: 12s; --re-background-size: 300% 100%; }
+  :where([data-motion="none"], :scope[data-motion="none"]) { --re-background-motion: none; --re-background-size: 100% 100%; }
+  :where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-background-motion: re-background-drift; --re-background-duration: 12s; --re-background-size: 300% 100%; }
+  :where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-background-motion: re-background-drift; --re-background-duration: 6s; --re-background-size: 300% 100%; }
+}
+@layer re.utilities {
+  @keyframes re-background-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  :where([data-background="colorful"], [data-background="colorful-animated"], :scope:is([data-background="colorful"],[data-background="colorful-animated"]), html:is([data-background="colorful"],[data-background="colorful-animated"]) > body:not([data-background])) {
+    background-color: var(--re-bg);
+    background-image: linear-gradient(120deg in srgb, #354de8, #7041cf, #087c80, #237a50, #ad4b0c, #bc2854, #354de8);
+    background-size: 100% 100%; background-position: 0% 50%; background-repeat: no-repeat;
+    animation: none;
+  }
+  :where([data-background="colorful-animated"], :scope[data-background="colorful-animated"], html[data-background="colorful-animated"] > body:not([data-background])) {
+    background-size: var(--re-background-size, 300% 100%);
+    animation: var(--re-background-motion, re-background-drift) var(--re-background-duration, 12s) ease-in-out infinite alternate;
+  }
+  :where([data-background="default"], :scope[data-background="default"], html[data-background="default"] > body:not([data-background])) {
+    background-color: var(--re-bg); background-image: none;
+    background-size: auto; background-position: center; background-repeat: repeat; animation: none;
+  }
+  @scope ([data-contrast="more"], :scope[data-contrast="more"]) to ([data-contrast]:not([data-contrast="more"])) {
+    :where([data-background], :scope[data-background], html[data-background] > body:not([data-background])) { background-image: none; animation: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where([data-background], :scope[data-background], html[data-background] > body:not([data-background])) { animation: none; background-size:100% 100%; }
+  }
+  @media (prefers-contrast: more), (forced-colors: active), print {
+    :where([data-background], :scope[data-background], html[data-background] > body:not([data-background])) { background-image: none; animation: none; }
+  }
+}
+
+}
