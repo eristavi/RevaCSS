@@ -275,6 +275,9 @@
   :where(details > summary) { padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
   :where(details[open] > summary) { margin-block-end: var(--re-space); }
   :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-surface-space, var(--re-space)) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
+  /* Reserve classic scrollbar space inside overlays, not on the page.
+     Overlay scrollbars keep their native geometry; unsupported CSS is ignored. */
+  :where(dialog,[popover]) { scrollbar-gutter: stable; }
   :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
   /* A modal is centred within the safe rectangle, not the raw viewport. */
   :where(dialog:modal) {
@@ -285,6 +288,7 @@
     max-inline-size: min(40rem, 90vw, max(0px, calc(100dvw - var(--re-safe-left, 0px) - var(--re-safe-right, 0px) - 2rem)));
     max-block-size: min(85dvh, max(0px, calc(100dvh - var(--re-safe-top, 0px) - var(--re-safe-bottom, 0px) - 2rem)));
   }
+  @media print { :where(dialog,[popover]) { scrollbar-gutter: auto; } }
   :where([hidden]) { display: none !important; }
 }
 
@@ -1589,7 +1593,7 @@
       position: sticky; inset-block-start: calc(var(--re-space) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); align-self: start;
       min-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
       max-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
-      overflow: auto; overscroll-behavior: contain;
+      overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
     }
     :where(.app-shell > header) { grid-column: 2; grid-row: 1; }
     :where(.app-shell > :is(main, section)) { grid-column: 2; grid-row: 2; }

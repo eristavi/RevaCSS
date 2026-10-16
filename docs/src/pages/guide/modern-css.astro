@@ -4,7 +4,7 @@ import Example from '../../components/Example.astro';
 import CodeViewer from '../../components/CodeViewer.astro';
 import {stylesheet} from '../../data/assets.js';
 const base=import.meta.env.BASE_URL;
-const sections=[{id:'safe-area',title:'Safe areas'},{id:'adaptive',title:'Adaptive cards'},{id:'gallery',title:'Scroll-snap gallery'},{id:'scroll-motion',title:'Scroll-driven motion'},{id:'transitions',title:'Page transitions'}];
+const sections=[{id:'safe-area',title:'Safe areas'},{id:'adaptive',title:'Adaptive cards'},{id:'gallery',title:'Scroll-snap gallery'},{id:'scroll-motion',title:'Scroll-driven motion'},{id:'transitions',title:'Page transitions'},{id:'scrollbar-space',title:'Stable scrollbar space'}];
 const cards=`<div class="card-grid">
   <article class="card">
     <header><h3>Personal</h3></header>
@@ -75,4 +75,9 @@ const gallery=`<p id="gallery-help">Scroll, swipe or follow a numbered link to b
 <p><a class="button" href={base+'guide/transitions/one/'}>Open the two-page transition example</a></p>
 <p><a href="https://www.w3.org/TR/css-view-transitions-2/#cross-document-view-transitions">View Transitions Level 2 specification</a>.</p>
 </section>
+<section id="scrollbar-space"><h2>6. Stable scrollbar space (source preview)</h2>
+<p>Dialogs, native popovers and the scrollable desktop app-shell sidebar use <code>scrollbar-gutter: stable</code> to reserve internal space for classic scrollbars. Content can grow into overflow without losing that space when a scrollbar appears. This affects the panel's own content box; it does not reserve a page-wide gutter or lock body scrolling.</p>
+<p>Overlay scrollbars do not occupy a gutter, so this may look unchanged on your device. Unsupported browsers retain native automatic allocation. The property does not style the scrollbar or require JavaScript. Application CSS can restore <code>scrollbar-gutter: auto</code>; dialog/popover gutters reset for print. Browser/device acceptance is deferred.</p>
+</section>
+<Example id="scrollbar-panel" title="Grow a scrollable panel" description="Open the native popover, then expand More content. Classic-scrollbar configurations retain their reserved internal space; overlay-scrollbar configurations retain their native geometry." html={'<button type="button" popovertarget="scroll-space-panel">Open scrollable panel</button>\n<aside id="scroll-space-panel" popover="auto" aria-labelledby="scroll-space-title" style="inline-size: min(26rem, calc(100dvw - 2rem)); max-block-size: 18rem">\n  <h3 id="scroll-space-title">Scrollable information</h3>\n  <button type="button" popovertarget="scroll-space-panel" popovertargetaction="hide" autofocus>Close panel</button>\n  <details><summary>More content</summary>\n    <p>Expanding this disclosure adds enough text to make the panel scroll. The browser owns scrolling and scrollbar placement.</p>\n    <p>Keep the same available text width as information grows. This matters most when your system reserves physical space for scrollbars.</p>\n    <p>With overlay scrollbars, no extra gutter is reserved. You can still scroll this content normally.</p>\n    <p>Use the Close button or Escape to dismiss this non-modal popover.</p>\n  </details>\n</aside>'}/>
 </DocsLayout>

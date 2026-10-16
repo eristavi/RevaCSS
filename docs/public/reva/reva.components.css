@@ -1309,7 +1309,7 @@
       position: sticky; inset-block-start: calc(var(--re-space) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); align-self: start;
       min-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
       max-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
-      overflow: auto; overscroll-behavior: contain;
+      overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
     }
     :where(.app-shell > header) { grid-column: 2; grid-row: 1; }
     :where(.app-shell > :is(main, section)) { grid-column: 2; grid-row: 2; }

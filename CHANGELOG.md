@@ -6,6 +6,10 @@
 
 - Make native textareas auto-grow by default using support-gated content sizing, the existing 7rem minimum and a 24rem maximum. No class is required. Application CSS can restore `field-sizing: fixed`; unsupported browsers keep normal manual resizing. Browser/device validation is deferred to the next release review.
 
+### Scrollable panels
+
+- Reserve stable classic-scrollbar space inside dialogs, popovers and the desktop app-shell sidebar, without adding global page gutters or changing overlay-scrollbar geometry. Preserve native fallback and application CSS opt-out; overlay gutters reset in print. Browser/device validation is deferred.
+
 ### Documentation
 
 - Add native anchored help-panel examples with accessible SVG question-mark controls with visually bare surfaces across materials, ID-targeted application CSS, logical anchor positioning, edge-flip candidates, centred fallback, persistent essential hints and inherited effects. Preserve example CSS ID selectors in namespaced manual fixtures; browser acceptance remains deferred.

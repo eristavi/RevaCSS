@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "blockers": [
     {
+      "id": "Q-SCROLLBAR-GUTTER",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate stable scrollbar allocation inside overlays and the desktop app-shell sidebar before release; browser checks are deferred by maintainer instruction.",
+      "scope": "Run tests/browser/scrollbar-space.spec.mjs. Check classic and overlay scrollbar configurations across global/minified/modular/scoped builds, short/overflowing content, native dialogs/popovers/drawers/navigation, desktop sidebar, RTL, narrow viewports, zoom, print and application opt-out. Ensure no added page gutter, clipped controls or changed dismissal/focus behaviour. Record exact versions/settings and release revision."
+    },
+    {
       "id": "Q-ANCHORED-HELP",
       "kind": "manual",
       "status": "open",
