@@ -135,10 +135,10 @@ export const componentContracts = {
     "Local action attributes override inherited values and legacy classes; data-appearance remains badge/alert-only."
   ],
   "forms": [
-    "label, input, select, textarea, fieldset, legend",
+    "label, input, select, textarea (optional .auto-grow), fieldset, legend",
     "required, disabled, readonly, aria-invalid as appropriate.",
     "reva.base.css",
-    "Native validation is preserved; applications provide error messages."
+    "Native validation is preserved; applications provide error messages. textarea.auto-grow opts into native content sizing where supported, with the existing 7rem minimum and a 24rem maximum. Override block-size limits in application CSS; unsupported browsers keep ordinary resizing."
   ],
   "form-groups": [
     ".form-group; optional .field-error",

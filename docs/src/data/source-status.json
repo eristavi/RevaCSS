@@ -1,5 +1,5 @@
 {
-  "unreleasedChanges": false,
-  "testsDeferred": false,
-  "summary": "RevaCSS 2.0.0 is published on GitHub with verified core and separate adapter archives. Complete publication validation, maintainer manual acceptance and the scoped Nuxt dependency review are recorded. npm/Packagist availability is separate; existing 1.2.1 distributions remain unchanged."
+  "unreleasedChanges": true,
+  "testsDeferred": true,
+  "summary": "Current source adds opt-in native auto-growing textareas after the published 2.0.0 release. Browser/device and final release validation are deferred by maintainer instruction until the planned 2.0.1 review. Published 2.0.0 downloads remain unchanged; source builds do not inherit their acceptance."
 }

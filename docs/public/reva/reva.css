@@ -216,6 +216,17 @@
   }
   :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
   :where(textarea) { resize: vertical; min-block-size: 7rem; }
+  /* Opt in per field. Unsupported browsers retain the ordinary textarea.
+     Native sizing responds to input, initial values and form reset without JS.
+     Keep a bounded scroll area and the existing manual resize affordance. */
+  @supports (field-sizing: content) {
+    :where(textarea.auto-grow) {
+      field-sizing: content;
+      block-size: auto;
+      max-block-size: 24rem;
+      overflow-y: auto;
+    }
+  }
   :where(input[type=checkbox],input[type=radio]) { accent-color: var(--re-primary); inline-size: calc(1.25rem * var(--re-control-scale)); block-size: calc(1.25rem * var(--re-control-scale)); vertical-align: middle; margin-inline: 0 .5em; }
   :where(label:has(input[type=checkbox],input[type=radio])) { display: flex; align-items: center; min-block-size: 2.75rem; font-weight: 400; }
   :where(input[type=range],progress,meter) { accent-color: var(--re-primary); inline-size: 100%; }

@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "blockers": [
     {
+      "id": "Q-TEXTAREA-AUTO-GROW",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate opt-in native auto-growing textareas before the next release; browser checks are deferred by maintainer instruction.",
+      "scope": "Global, minified, modular and scoped builds: empty/prefilled content, typing/deleting, wrapping, form reset, custom height limits, manual resizing, native fallback, readonly/disabled/invalid states, RTL, narrow layouts, zoom, print and keyboard/screen-reader use. Run tests/browser/textarea-grow.spec.mjs and record browser/device results for the release revision."
+    },
+    {
       "id": "Q-CANDIDATE-MANUAL-ACCEPTANCE",
       "kind": "manual",
       "status": "resolved",

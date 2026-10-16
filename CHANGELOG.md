@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Native forms
+
+- Add opt-in `textarea.auto-grow` using support-gated native content sizing, the existing 7rem minimum and a 24rem maximum. Existing textareas retain their sizing; unsupported browsers keep normal manual resizing. Browser/device validation is deferred to the next release review.
+
 ### Documentation
 
 - Complete the human and generated AI stylesheet inventories with the existing card-grid, gallery, scrolling, scroll-top, scroll-motion and document-transition entry points, including their dependencies and scope limits.
