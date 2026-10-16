@@ -8,7 +8,7 @@
 
 ### Documentation
 
-- Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, explicit close controls, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
+- Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, accessible SVG X close controls aligned to the logical end, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
 
 - Complete native modal invocation examples using commandfor/command, platform and light dismissal, form closing, inherited material/motion effects and local appearance resets. Prepare no-script browser coverage; acceptance remains deferred.
 

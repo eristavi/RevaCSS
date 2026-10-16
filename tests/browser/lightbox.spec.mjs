@@ -34,7 +34,10 @@ for(const build of ['global','minified','scoped']) {
         await page.locator('main').evaluate((el,dir)=>el.dir=dir,dir);
         await opener.click();await expect(dialog).toBeVisible();
         await expect(dialog).toHaveAccessibleName('Illustrated hills — full image view');
-        await expect(dialog.getByRole('button')).toBeFocused();
+        await expect(dialog.getByRole('button',{name:'Close image',exact:true})).toBeFocused();
+        const close=dialog.getByRole('button',{name:'Close image',exact:true});
+        await expect(close.locator('svg')).toHaveAttribute('aria-hidden','true');
+        const target=await close.boundingBox();expect(target.width).toBeGreaterThanOrEqual(44);expect(target.height).toBeGreaterThanOrEqual(44);
         await expect.poll(()=>dialog.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length)).toBe(0);
         await expect(image).toHaveCSS('aspect-ratio','auto');await expect(image).toHaveCSS('object-fit','contain');
         await expect.poll(()=>image.evaluate(el=>el.complete && el.naturalWidth>0)).toBe(true);
