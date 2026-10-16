@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Complete the human and generated AI stylesheet inventories with the existing card-grid, gallery, scrolling, scroll-top, scroll-motion and document-transition entry points, including their dependencies and scope limits.
+
 - Record a repeatable AI guidance baseline with five generated interface scenarios, fourteen negative controls, prompts, fixture hashes and explicit evidence limits; expose the dated report in the human/AI guides.
 
 - Add contributor instructions mapping changes to sources, generation steps, focused checks and release evidence; connect AGENTS.md, README, the human guide and AI references.
