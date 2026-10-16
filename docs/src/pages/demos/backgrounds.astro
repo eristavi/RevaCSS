@@ -5,7 +5,7 @@ const modes=[{value:'default',label:'Default',description:'Your existing theme b
 ---
 <Layout title="Colorful backgrounds" current="backgrounds" documentation>
   <div class="background-showcase">
-    <header><p class="doc-kicker">NATIVE CSS · SOURCE PREVIEW</p><h1>Backgrounds, separate from themes.</h1><p>Use Customize → Colours → Background to try the whole page. Theme and palette still control ordinary text and component surfaces. Colorful shades mix each accent with 80% white in light mode and 80% black in dark mode. The samples below compare the three explicit background settings.</p><p><a href={base+'components/backgrounds/'}>Background markup and rules</a> · <a href={base+'demos/hero/'}>Separate hero gradient</a></p></header>
+    <header><p class="doc-kicker">NATIVE CSS · SOURCE PREVIEW</p><h1>Backgrounds, separate from themes.</h1><p>Use Customize → Colours → Background to try the whole page. Theme and palette still control ordinary text and component surfaces. Colorful shades mix each accent with 80% white in light mode and 80% black in dark mode. Select either colorful option to reveal six colour pickers. Your colours are shared by static and animated backgrounds and can be saved or exported as CSS. The samples below compare the three explicit background settings.</p><p><a href={base+'components/backgrounds/'}>Background markup and rules</a> · <a href={base+'demos/hero/'}>Separate hero gradient</a></p></header>
     <label><input id="background-pause" type="checkbox"/> Pause background animations</label>
     {modes.map(mode=><section class="background-specimen" data-background={mode.value} aria-labelledby={'background-'+mode.value}>
       <h2 id={'background-'+mode.value}>{mode.label}</h2><p>{mode.description}</p>

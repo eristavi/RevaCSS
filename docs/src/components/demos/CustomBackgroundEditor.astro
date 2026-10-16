@@ -1,0 +1,23 @@
+---
+import {customBackgroundDefaults} from '../../data/custom-backgrounds.js';
+---
+<section id="custom-background-editor" hidden aria-labelledby="custom-background-title">
+  <h3 id="custom-background-title">Your background colours</h3>
+  <p>Choose the gradient colours in order. Both colorful backgrounds share these colours, with 80% white in light mode or 80% black in dark mode. Your main palette stays separate.</p>
+  <fieldset><legend>Gradient colours</legend><div class="background-colour-fields">
+    {customBackgroundDefaults.map((colour,index)=><div class="background-colour-field"><label for={'background-colour-'+index}>Colour {index+1}</label><input id={'background-colour-'+index} type="color" data-background-colour={index} value={colour}/><output for={'background-colour-'+index}>{colour}</output></div>)}
+  </div></fieldset>
+  <div class="row"><button id="export-custom-backgrounds" type="button">Export background CSS</button><button id="copy-custom-backgrounds" type="button" class="outline">Copy background CSS</button><button id="reset-custom-backgrounds" type="button" class="outline">Use default colours</button></div>
+  <div class="accordion"><details class="configuration-summary"><summary>View background CSS</summary><pre tabindex="0" aria-label="Custom background CSS"><code id="custom-background-css"></code></pre></details></div>
+  <p>Changes are shared across documentation and demos. Exported CSS and downloaded starting HTML work without the editor scripts.</p>
+</section>
+<style>
+#custom-background-editor { margin-block:1rem; padding:1rem; border:1px solid var(--re-line); border-radius:var(--re-radius); }
+#custom-background-title { font-size:1.05rem; margin-block:0 .5rem; }
+#custom-background-editor > p { font-size:.85rem; }
+.background-colour-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,7rem),1fr)); gap:1rem; }
+.background-colour-field { min-inline-size:0; }
+.background-colour-field label { font-size:.85rem; }
+.background-colour-field input { inline-size:100%; min-block-size:2.75rem; }
+.background-colour-field output { display:block; font-size:.8rem; font-family:monospace; }
+</style>

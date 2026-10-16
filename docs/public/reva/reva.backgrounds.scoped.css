@@ -12,7 +12,7 @@
   @keyframes re-background-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
   :where([data-background="colorful"], [data-background="colorful-animated"], :scope:is([data-background="colorful"],[data-background="colorful-animated"]), html:is([data-background="colorful"],[data-background="colorful-animated"]) > body:not([data-background])) {
     background-color: var(--re-bg);
-    background-image: linear-gradient(120deg in srgb, color-mix(in srgb, #354de8 20%, light-dark(#fff, #000)), color-mix(in srgb, #7041cf 20%, light-dark(#fff, #000)), color-mix(in srgb, #087c80 20%, light-dark(#fff, #000)), color-mix(in srgb, #237a50 20%, light-dark(#fff, #000)), color-mix(in srgb, #ad4b0c 20%, light-dark(#fff, #000)), color-mix(in srgb, #bc2854 20%, light-dark(#fff, #000)), color-mix(in srgb, #354de8 20%, light-dark(#fff, #000)));
+    background-image: linear-gradient(120deg in srgb, color-mix(in srgb, var(--re-background-color-1, #354de8) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-2, #7041cf) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-3, #087c80) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-4, #237a50) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-5, #ad4b0c) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-6, #bc2854) 20%, light-dark(#fff, #000)), color-mix(in srgb, var(--re-background-color-1, #354de8) 20%, light-dark(#fff, #000)));
     background-size: 100% 100%; background-position: 0% 50%; background-repeat: no-repeat;
     animation: none;
   }

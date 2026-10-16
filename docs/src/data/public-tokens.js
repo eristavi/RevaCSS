@@ -1,4 +1,5 @@
 export const publicTokens = [
+  ["Backgrounds", "--re-background-color-1 … --re-background-color-6", "Colours", "Raw gradient colours in order, shared by static/animated colorful backgrounds. Each defaults to its built-in accent. The module applies the existing 80% white/light or black/dark treatment."],
   ["Backgrounds", "--re-background-duration", "Time", "One-way colorful background drift; subtle/default 12s, expressive 6s. Motion presets reset the duration."],
   ["Gradients", "--re-gradient-background-strength", "Percentage", "Solid darker-to-lighter primary background opacity; 100% fallback. Lower it for text-heavy content; full accent colours require foreground contrast review. Does not recolour the native Glass sheen."],
   ["Gradients", "--re-gradient-duration", "Time", "One-way gradient drift; subtle/default 12s, expressive 6s. Motion presets reset this value."],

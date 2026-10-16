@@ -1,0 +1,50 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+import {transform} from 'lightningcss';
+const foundation=JSON.parse(await readFile('tokens/foundation.tokens.json','utf8'));
+const defaults=Object.values(foundation.primitive.accent).map(accent=>accent.start.$value.hex.toUpperCase());
+const script=await readFile('docs/public/custom-backgrounds.js','utf8');
+const documentFor=()=>{
+  const elements=new Map([['reva-background-defaults',{textContent:JSON.stringify(defaults)}]]);
+  return {elements,getElementById:id=>elements.get(id),createElement:()=>({}),head:{append:node=>elements.set(node.id,node)},addEventListener:()=>{}};
+};
+const start=storage=>{
+  const document=documentFor(),context={document,window:{},localStorage:storage};
+  vm.runInNewContext(script,context);
+  return {editor:context.window.RevaBackgrounds,document};
+};
+test('custom background colours persist, export safely and reset independently of the palette',()=>{
+  const data=new Map([['palette','untouched']]);
+  const storage={getItem:key=>data.get(key)??null,setItem:(key,value)=>data.set(key,value),removeItem:key=>data.delete(key)};
+  const {editor,document}=start(storage);
+  assert.deepEqual([...editor.values()],defaults);
+  assert.equal(editor.change(0,'#123abc'),true);
+  assert.equal(editor.change(5,'#fedcba'),true);
+  const edited=editor.css();
+  for(const [index,value] of [[0,'red; } body { display:none'],[-1,'#123456'],[defaults.length,'#123456'],[0,'#123'],[0,null]])assert.equal(editor.change(index,value),false);
+  assert.equal(editor.css(),edited);
+  assert.ok(edited.includes('--re-background-color-1: #123ABC;'));
+  assert.ok(edited.includes('--re-background-color-6: #FEDCBA;'));
+  assert.doesNotThrow(()=>transform({code:Buffer.from(edited)}));
+  const preview=documentFor();editor.applyTo(preview);
+  assert.equal(preview.getElementById('reva-custom-backgrounds').textContent,edited);
+  assert.equal(editor.save(),true);
+  const restored=start(storage).editor;
+  assert.equal(restored.css(),edited);
+  data.set(editor.storageKey,JSON.stringify(['#abcdef','invalid']));restored.restore();
+  assert.equal(restored.values()[0],'#ABCDEF');assert.equal(restored.values()[1],defaults[1]);
+  editor.reset();
+  assert.deepEqual([...editor.values()],defaults);
+  assert.equal(data.has(editor.storageKey),false);assert.equal(data.get('palette'),'untouched');
+  assert.equal(document.getElementById('reva-custom-backgrounds').textContent,editor.css());
+});
+test('custom background editing still works when browser storage is unavailable',()=>{
+  const denied=()=>{throw new Error('Storage denied');};
+  const {editor}=start({getItem:denied,setItem:denied,removeItem:denied});
+  assert.equal(editor.change(0,'#112233'),true);
+  assert.equal(editor.save(),false);
+  assert.ok(editor.css().includes('#112233'));
+  assert.doesNotThrow(()=>editor.reset());
+});

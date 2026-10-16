@@ -123,7 +123,7 @@ const gallery=await readFile('src/css/gallery.css','utf8');
 const scrolling=await readFile('src/css/scrolling.css','utf8');
 const scrollTop=await readFile('src/css/scroll-top.css','utf8');
 const hero=await readFile('src/css/hero.css','utf8');
-const backgroundAccents=Object.keys(data.primitive.accent).map(name=>`color-mix(in srgb, ${css(resolve(`primitive.accent.${name}.start`))} 20%, light-dark(#fff, #000))`);
+const backgroundAccents=Object.keys(data.primitive.accent).map((name,index)=>`color-mix(in srgb, var(--re-background-color-${index+1}, ${css(resolve(`primitive.accent.${name}.start`))}) 20%, light-dark(#fff, #000))`);
 const backgrounds=(await readFile('src/css/backgrounds.css','utf8')).replace('/* re-background-accent-stops */',[...backgroundAccents,backgroundAccents[0]].join(', '));
 const gradients=await readFile('src/css/gradients.css','utf8');
 const readingProgress=await readFile('src/css/reading-progress.css','utf8');

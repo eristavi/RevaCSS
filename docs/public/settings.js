@@ -10,6 +10,7 @@
   const radius=window.RevaRadius;
   const density=window.RevaDensity;
   const width=window.RevaWidth;
+  const backgrounds=window.RevaBackgrounds;
   const demoKey='revacss:demo-settings:v1',docsKey='revacss:docs-settings:v1',legacyDocsKey='revacss:docs-theme:v1';
   const storageKey='revacss:settings:v1';
   const pageAttributes=Object.fromEntries(Object.keys(schema.values).map(key=>[key,root.getAttribute('data-'+key)]));
@@ -59,6 +60,7 @@
     radius?.applyTo(doc);
     density?.applyTo(doc);
     width?.applyTo(doc);
+    backgrounds?.applyTo(doc);
     const previousMaterial=previewRoot.getAttribute('data-material');
     const previousButtonMaterial=previewRoot.getAttribute('data-button-material');
     for(const key of Object.keys(schema.values)){
@@ -83,6 +85,7 @@
     radius?.applyTo(document);
     density?.applyTo(document);
     width?.applyTo(document);
+    backgrounds?.applyTo(document);
     const previousMaterial=root.getAttribute('data-material');
     const previousButtonMaterial=root.getAttribute('data-button-material');
     const choices=clean(value);
@@ -112,6 +115,21 @@
     const values=()=>clean(Object.fromEntries(controls.map(control=>[control.name.slice(5),control.value])));
     const status=document.getElementById('demo-settings-status');
     const summary=document.getElementById('demo-configuration');
+    const backgroundEditor=document.getElementById('custom-background-editor');
+    const backgroundFields=[...form.querySelectorAll('input[data-background-colour]')];
+    const backgroundCode=document.getElementById('custom-background-css');
+    const renderBackgrounds=()=>{
+      if(backgroundEditor)backgroundEditor.hidden=!['colorful','colorful-animated'].includes(values().background) || !backgrounds;
+      if(!backgrounds)return;
+      const colours=backgrounds.values();
+      for(const field of backgroundFields){
+        const colour=colours[Number(field.dataset.backgroundColour)];
+        field.value=colour;
+        const output=field.parentElement.querySelector('output');
+        if(output)output.textContent=colour;
+      }
+      if(backgroundCode)backgroundCode.textContent=backgrounds.css();
+    };
     const radiusEditor=document.getElementById('custom-radius-editor');
     const radiusFields=[...form.querySelectorAll('input[data-radius]')];
     const radiusLinked=document.getElementById('radius-linked');
@@ -181,16 +199,21 @@
       }
     };
     const configuration=()=>'<html lang="en"'+Object.entries(values()).filter(([,value])=>value!=='default').map(([key,value])=>'\n  data-'+key+'="'+value+'"').join('')+'>';
-    const update=()=>{apply(values());renderPalette();renderRadius();renderDensity();renderWidth();if(summary)summary.textContent=configuration();};
+    const update=()=>{apply(values());renderBackgrounds();renderPalette();renderRadius();renderDensity();renderWidth();if(summary)summary.textContent=configuration();};
     const restore=()=>{
       const saved=stored();
       palette?.restore();
+      backgrounds?.restore();
       radius?.restore();density?.restore();width?.restore();
       for(const control of controls){const key=control.name.slice(5);control.value=saved[key] || defaults[key];}
       update();
     };
     restore();
     form.addEventListener('input',event=>{
+      if(backgroundFields.includes(event.target) && backgrounds){
+        if(backgrounds.change(Number(event.target.dataset.backgroundColour),event.target.value))update();
+        return;
+      }
       if(radiusFields.includes(event.target) && radius){
         if(radius.change(event.target.dataset.radius,event.target.value))update();
         return;
@@ -209,6 +232,7 @@
       update();
     });
     form.addEventListener('change',event=>{
+      if(backgroundFields.includes(event.target) && backgrounds)backgrounds.change(Number(event.target.dataset.backgroundColour),event.target.value);
       if(event.target===radiusLinked && radius)radius.link(radiusLinked.checked);
       if(radiusFields.includes(event.target) && radius){
         radius.change(event.target.dataset.radius,event.target.value);
@@ -232,12 +256,14 @@
       const radiusesSaved=radius?.save() ?? true;
       const densitySaved=density?.save() ?? true;
       const widthSaved=width?.save() ?? true;
+      const backgroundsSaved=backgrounds?.save() ?? true;
       const choicesSaved=save(storageKey,values());
-      if(status)status.textContent=coloursSaved && radiusesSaved && densitySaved && widthSaved && choicesSaved?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
+      if(status)status.textContent=coloursSaved && radiusesSaved && densitySaved && widthSaved && backgroundsSaved && choicesSaved?'Saved for documentation and all demo pages.':'Choices apply here; this browser did not allow saving them.';
     });
     form.addEventListener('reset',()=>{
       for(const key of [storageKey,demoKey,docsKey,legacyDocsKey])clear(key);
       palette?.reset();
+      backgrounds?.reset();
       radius?.reset();density?.reset();width?.reset();
       setTimeout(()=>{update();if(status)status.textContent='Shared saved choices cleared. This page’s defaults are restored.';},0);
     });
@@ -247,6 +273,24 @@
       const link=document.createElement('a');link.href=url;link.download=name;
       document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
     };
+    document.getElementById('reset-custom-backgrounds')?.addEventListener('click',()=>{
+      backgrounds?.reset();update();
+      if(status)status.textContent='Default background colours restored.';
+    });
+    document.getElementById('export-custom-backgrounds')?.addEventListener('click',()=>{
+      if(!backgrounds)return;
+      downloadText(backgrounds.css(),'revacss-custom-backgrounds.css','text/css');
+      if(status)status.textContent='Background CSS exported. Load it after the backgrounds module.';
+    });
+    document.getElementById('copy-custom-backgrounds')?.addEventListener('click',async()=>{
+      if(!backgrounds)return;
+      try{await navigator.clipboard.writeText(backgrounds.css());if(status)status.textContent='Background CSS copied.';}
+      catch{
+        const details=backgroundCode?.closest('details');if(details)details.open=true;
+        if(backgroundCode){const range=document.createRange();range.selectNodeContents(backgroundCode);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);backgroundCode.closest('pre')?.focus();}
+        if(status)status.textContent='Clipboard unavailable. Select and copy the background CSS shown above.';
+      }
+    });
     document.getElementById('export-custom-radius')?.addEventListener('click',()=>{
       if(!radius)return;
       downloadText(radius.css(),'revacss-custom-radius.css','text/css');
@@ -309,7 +353,7 @@
       copy.addEventListener('click',async()=>{
         try{
           await navigator.clipboard.writeText(configuration());
-          if(status)status.textContent=values().palette==='custom' || values().shape==='custom' || values().density==='custom' || values().width==='custom'?'HTML configuration copied. Export your custom configuration CSS and load it after RevaCSS.':'HTML configuration copied.';
+          if(status)status.textContent=values().palette==='custom' || values().shape==='custom' || values().density==='custom' || values().width==='custom' || ['colorful','colorful-animated'].includes(values().background)?'HTML configuration copied. Export your custom configuration CSS and load it after RevaCSS.':'HTML configuration copied.';
         }catch{
           const details=summary?.closest('details');if(details)details.open=true;
           if(summary){const range=document.createRange();range.selectNodeContents(summary);const selection=window.getSelection();selection?.removeAllRanges();selection?.addRange(range);summary.closest('pre')?.focus();}
@@ -335,10 +379,21 @@
         documentCopy.getElementById('reva-radius-runtime')?.remove();
         documentCopy.getElementById('reva-density-runtime')?.remove();
         documentCopy.getElementById('reva-width-runtime')?.remove();
+        documentCopy.getElementById('reva-background-defaults')?.remove();
+        documentCopy.getElementById('reva-background-runtime')?.remove();
         if(values().palette==='custom')palette?.applyTo(documentCopy);
         if(values().shape==='custom')radius?.applyTo(documentCopy);
         if(values().density==='custom')density?.applyTo(documentCopy);
         if(values().width==='custom')width?.applyTo(documentCopy);
+        if(['colorful','colorful-animated'].includes(values().background)){
+          backgrounds?.applyTo(documentCopy);
+          if(![...documentCopy.querySelectorAll('link[rel="stylesheet"]')].some(sheet=>/\/reva\.backgrounds\.css(?:[?#]|$)/.test(sheet.href))){
+            const source=document.querySelector('link[href*="/reva.backgrounds.css"]');
+            if(!source)throw new Error('Background stylesheet unavailable');
+            const sheet=documentCopy.createElement('link');sheet.rel='stylesheet';sheet.href=source.href;
+            documentCopy.head.append(sheet);
+          }
+        }
         const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+documentCopy.documentElement.outerHTML+'\n'],{type:'text/html'}));
         const download=document.createElement('a');download.href=url;download.download=link.download;
         document.body.append(download);download.click();download.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);

@@ -8,12 +8,13 @@ export async function expectOnlyOptionalSettings(page) {
   })));
   expect(scripts.filter(script => script.id === 'reva-settings-schema')).toHaveLength(1);
   expect(scripts.filter(script => script.id === 'reva-settings-runtime')).toHaveLength(1);
-  const jsonIds = new Set(['reva-settings-schema', 'reva-palette-defaults']);
+  const jsonIds = new Set(['reva-settings-schema', 'reva-palette-defaults','reva-background-defaults']);
   const runtimes = new Map([
     ['reva-settings-runtime', 'settings.js'],
     ['reva-palette-runtime', 'custom-palette.js'],
     ['reva-radius-runtime', 'custom-radius.js'],
     ['reva-density-runtime', 'custom-density.js'],
+    ['reva-background-runtime','custom-backgrounds.js'],
     ['reva-width-runtime', 'custom-width.js'],
   ]);
   for (const script of scripts) {

@@ -6,6 +6,8 @@
 
 ### Colorful backgrounds
 
+- Add six customizer colour pickers shared by both colorful modes, saved preferences, background-only reset, CSS export/copy and script-free starting HTML. Expose --re-background-color-1 through -6 with accent fallbacks; preserve the 80% theme treatment and main palette independence.
+
 - Add optional global/scoped background modules and data-background=default/colorful/colorful-animated for page or section paint. Blend all built-in accent start colours, mixed with 80% white in light mode or 80% black in dark mode; animated uses the same gradient and inherited motion. Keep theme, component surfaces and accepted hero gradients independent. Include customizer, native pause demo, preference fallbacks and documentation; browser acceptance remains pending.
 
 ### Hero and gradient effects

@@ -22,13 +22,14 @@ test('all button preset endpoints meet normal-text contrast',()=>{
 });
 test('core remains within 17 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<17*1024));
 test('only optional settings scripts ship in the documentation; core remains CSS-only',async()=>{
- const jsonIds=new Set(['reva-settings-schema','reva-palette-defaults']);
+ const jsonIds=new Set(['reva-settings-schema','reva-palette-defaults','reva-background-defaults']);
  const runtimes=new Map([
   ['reva-settings-runtime','settings.js'],
   ['reva-palette-runtime','custom-palette.js'],
   ['reva-radius-runtime','custom-radius.js'],
   ['reva-density-runtime','custom-density.js'],
-  ['reva-width-runtime','custom-width.js'],
+  ['reva-background-runtime','custom-backgrounds.js'],
+    ['reva-width-runtime','custom-width.js'],
  ]);
  const assets=new Set(runtimes.values());
  async function visit(dir) {

@@ -4,6 +4,7 @@ import {advancedOptions,optionLabel,customizerGroups} from '../../data/demo-sett
 import CustomPaletteEditor from './CustomPaletteEditor.astro';
 import CustomRadiusEditor from './CustomRadiusEditor.astro';
 import CustomDensityEditor from './CustomDensityEditor.astro';
+import CustomBackgroundEditor from './CustomBackgroundEditor.astro';
 import CustomWidthEditor from './CustomWidthEditor.astro';
 import catalog from '../../../../src/icons/catalog.json';
 const {config=defaultDemo,downloadHref,downloadName,kind='demo'}=Astro.props;
@@ -23,6 +24,7 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
       {kind==='demo' && <p class="customizer-docs-link"><a href={base}>Back to documentation</a></p>}
       <form id="demo-customizer-form">
         <div class="accordion customizer-groups">{customizerGroups.map(group=><details open={group.open} class="customizer-group"><summary>{group.title}</summary><div class="customizer-options">{group.keys.map(key=>{const option=controls[key];return <div><label for={`demo-${key}`}>{option.label}</label><select id={`demo-${key}`} name={`demo-${key}`}>{option.values.map(value=><option value={value} selected={value===option.default}>{key==='font' && value==='manrope'?'Default (Manrope)':optionLabel(value,key)}</option>)}</select></div>;})}</div></details>)}</div>
+        <CustomBackgroundEditor/>
         <CustomPaletteEditor/>
         <CustomRadiusEditor/>
         <CustomDensityEditor/>

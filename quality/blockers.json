@@ -188,7 +188,7 @@
       "id": "Q-COLORFUL-BACKGROUNDS",
       "kind": "manual",
       "status": "open",
-      "summary": "Validate optional colorful background modules before release: page html/body painting, local sections and default resets; scoped isolation and .reva roots; all built-in accent stops; static versus animated same colours, subtle/expressive/none and nested motion; local light/dark theme resolves 80% white/black mixes; base accents stay independent from custom primary/palette; full-cycle foreground contrast, native pause and keyboard usability, reduced motion, high contrast, forced colours, print; no layout shifts, content clipping, pseudo-element interference or regression to accepted hero gradients. Browser/device review deferred by maintainer instruction."
+      "summary": "Validate optional colorful background modules before release: page html/body painting, local sections and default resets; scoped isolation and .reva roots; all built-in accent stops; static versus animated same colours, subtle/expressive/none and nested motion; local light/dark theme resolves 80% white/black mixes; base accents stay independent from custom primary/palette; full-cycle foreground contrast, native pause and keyboard usability, reduced motion, high contrast, forced colours, print; no layout shifts, content clipping, pseudo-element interference or regression to accepted hero gradients. Also review six custom background colours: live pickers, persistence across pages/isolated previews, background-only/global reset, CSS export/copy, storage denial and script-free starting HTML with its optional stylesheet. Browser/device review deferred by maintainer instruction."
     }
   ]
 }

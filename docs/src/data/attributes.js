@@ -3,7 +3,7 @@ import options from '../../../tokens/options.json';
 export const attributes = [
   {
     id:'background', title:'data-background',
-    description:'Optional page or section background: default, colorful, colorful-animated. Theme stays independent. Colorful blends every built-in accent with 80% white in light mode or 80% black in dark mode; animated adds native movement following data-motion. Load reva.backgrounds.css after core/materials. Omission preserves existing paint; default restores the local theme background. Reduced motion stays static; high contrast/print remove decoration. Review text contrast.',
+    description:'Optional page or section background: default, colorful, colorful-animated. Theme stays independent. Colorful blends every built-in accent with 80% white in light mode or 80% black in dark mode; animated adds native movement following data-motion. Load reva.backgrounds.css after core/materials. The customizer offers six shared gradient colours with CSS export. Omission preserves existing paint; default restores the local theme background. Reduced motion stays static; high contrast/print remove decoration. Review text contrast.',
     html:'<section data-background="colorful" style="padding:2rem"><h2>A colorful section</h2><p>The page theme remains independent.</p></section>'
   },
   {

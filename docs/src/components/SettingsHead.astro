@@ -1,5 +1,6 @@
 ---
 import {demoSettingsSchema} from '../data/demo-settings.js';
+import {customBackgroundDefaults} from '../data/custom-backgrounds.js';
 import {customPaletteDefaults} from '../data/custom-palette.js';
 const {kind='docs',assetBase=import.meta.env.BASE_URL}=Astro.props;
 const revision=encodeURIComponent(import.meta.env.GITHUB_SHA || process.env.GITHUB_SHA || 'local');
@@ -7,6 +8,8 @@ const schema=JSON.stringify({kind,values:demoSettingsSchema}).replace(/</g,'\\u0
 ---
 <script id="reva-settings-schema" type="application/json" is:inline set:html={schema}/>
 <script id="reva-palette-defaults" type="application/json" is:inline set:html={JSON.stringify(customPaletteDefaults)}/>
+<script id="reva-background-defaults" type="application/json" is:inline set:html={JSON.stringify(customBackgroundDefaults)}/>
+<script id="reva-background-runtime" is:inline src={assetBase+'custom-backgrounds.js?v='+revision}></script>
 <script id="reva-palette-runtime" is:inline src={assetBase+'custom-palette.js?v='+revision}></script>
 <script id="reva-radius-runtime" is:inline src={assetBase+'custom-radius.js?v='+revision}></script>
 <script id="reva-density-runtime" is:inline src={assetBase+'custom-density.js?v='+revision}></script>
