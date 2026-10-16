@@ -3,6 +3,7 @@ import {fileURLToPath} from 'node:url';
 import {topics} from '../docs/src/data/examples.js';
 import {componentGroups, componentContracts, learnLinks, themeLinks, referenceLinks} from '../docs/src/data/documentation.js';
 import {demoPages} from '../docs/src/data/demos.js';
+import {classes as classCatalog,classGroups} from '../docs/src/data/classes.js';
 import {publicTokens} from '../docs/src/data/public-tokens.js';
 import {stylesheets} from '../docs/src/data/stylesheets.js';
 import options from '../tokens/options.json' with {type:'json'};
@@ -62,6 +63,22 @@ for(const framework of ['astro','react','vue','svelte','laravel']){
   add('ai/adapters/'+framework+'.md',framework[0].toUpperCase()+framework.slice(1)+' adapter AI reference',readme.replace(/^# .+\n/,'')+laravelGuide);
 }
 add('ai/adapters.md','Framework adapter reference index',`Read the shared AI guide for version selection and attribute rules, then the matching adapter page. Each adapter README follows the same seven decisions: version/reference, assets, native attributes, field values/errors, server/client state, application responsibilities and evidence. The following package metadata comes from this source checkout; it does not establish registry publication. A null version in the structured API means the source manifest omits it; inspect the installed Composer/artifact metadata.\n\n${adapterData.map(adapter=>`## ${adapter.framework}\n\nPackage: \`${adapter.package}\`. Source manifest version: ${adapter.version??'omitted (use installed VCS/artifact metadata)'}.\n\nRequirements: ${Object.entries(adapter.requirements).map(([name,range])=>name+' '+range).join(', ')}.\n\n- [Focused AI reference](${adapter.markdown})\n- [Human guide](${adapter.documentation})\n- [Source README](${adapter.source})`).join('\n\n')}\n\nNext.js uses the React adapter; Nuxt uses Vue; SvelteKit uses Svelte. The Laravel page also includes Boost and AI SDK boundaries. Preserve the consuming framework's native state and server/client rules.`);
+const classData=classCatalog.map(entry=>({...entry,guide:url(entry.guide)}));
+add('ai/classes.md','Classes API',`Every public framework class, including contextual component parts, layout helpers and supported compatibility names. Native elements and data attributes need no invented classes. Demo-only classes are excluded. For modular builds load shared tokens/base and the listed module; complete-core availability is explicit. Use matching scoped modules within .reva.
+
+Human reference: ${url('reference/classes/')}
+
+${classGroups.map(group=>`## ${group.title}
+
+${classData.filter(entry=>entry.group===group.id).map(entry=>`### ${entry.selector}
+
+${entry.description}
+
+- Markup: ${entry.markup}
+- Stylesheet: ${entry.stylesheet}
+- In complete core: ${entry.includedInCore?'yes':'no (separate distribution/optional module)'}
+- Status: ${entry.status}
+${entry.notes?'- Notes: '+entry.notes+'\n':''}- Guide: ${entry.guide}`).join('\n\n')}`).join('\n\n')}`);
 add('ai/tokens.md','Public CSS tokens',publicTokens.map(([group,name,type,description])=>`## ${name}\n\nGroup: ${group}. Value: ${type}.\n\n${description}`).join('\n\n'));
 add('ai/files.md','Stylesheet entry points',`Start with \`dist/reva.css\` or its minified equivalent. For an existing site that needs a local boundary, use \`dist/reva.scoped.css\` inside \`.reva\`. Do not combine the global and scoped complete builds.\n\nLoad matching optional extensions after the core: \`reva.glass.css\`, \`reva.veil.css\`, \`reva.soft.css\`, \`reva.button-materials.css\`, \`reva.motion.css\` and \`reva.selects.css\` as needed; scoped equivalents are listed below. Veil surface and button finishes are deprecated; their files and values remain for compatibility. Prefer Solid, Glass or Soft UI for new work. Fonts are optional; \`reva-fonts.css\` requires its adjacent fonts directory.\n\n${stylesheets.map(file=>`- \`${file}\``).join('\n')}\n\nComponent module names identify styling dependencies. Prefer a complete build when you do not need a custom subset. Consult the [stylesheet reference](${url('reference/')}) for complete file descriptions.`);
 for(const component of componentData){
@@ -74,7 +91,7 @@ await mkdir(new URL('ai/application/',output),{recursive:true});
 await writeFile(new URL('ai/application/app.py',output),applicationPython);
 await writeFile(new URL('ai/application/app.css',output),applicationCSS);
 for(const document of documents)await writeFile(new URL(document.path,output),document.text);
-const api={schemaVersion:1,framework:'RevaCSS',sourceStatus,version:pkg.version,releaseName:pkg.releaseName,documentation:url(''),guide:url('ai/guide.md'),installation:url('guide/'),npmPublished:process.env.REVA_NPM_PUBLISHED==='true',releasePublished:process.env.REVA_RELEASE_PUBLISHED==='true',attributes:options,stylesheets,publicTokens:publicTokens.map(([group,name,valueType,description])=>({group,name,valueType,description})),components:componentData,adapters:adapterData,demos:demoPages.map(demo=>({...demo,url:url(demo.path)}))};
+const api={schemaVersion:1,framework:'RevaCSS',sourceStatus,version:pkg.version,releaseName:pkg.releaseName,documentation:url(''),guide:url('ai/guide.md'),installation:url('guide/'),npmPublished:process.env.REVA_NPM_PUBLISHED==='true',releasePublished:process.env.REVA_RELEASE_PUBLISHED==='true',attributes:options,stylesheets,publicTokens:publicTokens.map(([group,name,valueType,description])=>({group,name,valueType,description})),components:componentData,classGroups,classes:classData,adapters:adapterData,demos:demoPages.map(demo=>({...demo,url:url(demo.path)}))};
 await writeFile(new URL('ai/api.json',output),JSON.stringify(api,null,2)+'\n');
 const customData={version:1.1,globalAttributes:Object.entries(options).map(([key,option])=>({name:`data-${key}`,description:`${option.affects} Unconfigured default: ${option.default}. ${option.scope}. ${Object.entries(usageLabels).map(([field,label])=>option.usage?.[field] ? `${label}: ${option.usage[field]}` : '').filter(Boolean).join(' ')}`,values:option.values.map(name=>({name})),references:[{name:'RevaCSS attribute reference',url:url('ai/attributes.md#data-'+key)}]}))};
 await writeFile(new URL('ai/html-custom-data.json',output),JSON.stringify(customData,null,2)+'\n');

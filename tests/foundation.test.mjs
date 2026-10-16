@@ -21,10 +21,11 @@ test('all button preset endpoints meet normal-text contrast',()=>{
  for(const stop of ['start','end']) { assert.ok(contrast([1,1,1],color(tokens.primitive.danger[stop]))>=4.5); assert.ok(contrast(color(tokens.primitive.warningText),color(tokens.primitive.warning[stop]))>=4.5); }
 });
 test('core remains within 17 KiB gzip budget',async()=>assert.ok(gzipSync(await readFile('dist/reva.min.css')).length<17*1024));
-test('only optional settings scripts ship in the documentation; core remains CSS-only',async()=>{
+test('only explicitly listed optional documentation helpers ship; core remains CSS-only',async()=>{
  const jsonIds=new Set(['reva-settings-schema','reva-palette-defaults','reva-background-defaults']);
  const runtimes=new Map([
-  ['reva-settings-runtime','settings.js'],
+  ['reva-classes-search-runtime','classes-search.js'],
+    ['reva-settings-runtime','settings.js'],
   ['reva-palette-runtime','custom-palette.js'],
   ['reva-radius-runtime','custom-radius.js'],
   ['reva-density-runtime','custom-density.js'],

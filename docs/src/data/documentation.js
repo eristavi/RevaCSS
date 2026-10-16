@@ -301,6 +301,7 @@ export const themeLinks = [
 export const referenceLinks = [
  { key:'reference', title:'API overview', path:'reference/' },
  { key:'attributes', title:'Attribute examples', path:'attributes/' },
+ { key:'classes-api', title:'Classes API', path:'reference/classes/' },
  { key:'component-api', title:'Component API', path:'reference/components/' },
  { key:'tokens', title:'CSS tokens', path:'reference/tokens/' },
  { key:'icons', title:'SVG icons', path:'icons/' }

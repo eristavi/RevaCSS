@@ -1,0 +1,45 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {classes,classGroups} from '../../data/classes.js';
+import {asset} from '../../data/assets.js';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Classes API" active="classes-api" sections={classGroups}>
+  <p class="doc-kicker">REFERENCE</p><h1>Classes API</h1>
+  <p class="doc-lead">All {classes.length} public framework classes, including component parts, layout helpers, utilities and compatibility names.</p>
+  <p>Classes identify patterns; native elements and shared data attributes keep their own roles. A class alone does not supply labels, state, data or application behaviour. Demo-only classes are excluded.</p>
+  <p>“In complete core” means the global/scoped complete build contains that styling. Modular consumers load shared tokens and native base plus the listed stylesheet. Optional material extensions are separate; use matching scoped files inside <code>.reva</code>. The scoped boundary itself requires <code>reva.scoped.css</code>.</p>
+  <p><a href={base+'ai/classes.md'}>AI Markdown reference</a> · <a href={base+'ai/api.json'}>Structured API JSON</a> · <a href={base+'reference/components/'}>Full component contracts</a></p>
+  <search id="classes-filters" hidden aria-label="Filter classes">
+    <div><label for="classes-query">Search classes</label><input id="classes-query" type="search" placeholder="Class, purpose, markup or stylesheet…" autocomplete="off"/></div>
+    <div><label for="classes-category">Category</label><select id="classes-category"><option value="">All categories</option>{classGroups.map(group=><option value={group.id}>{group.title}</option>)}</select></div>
+    <button id="classes-clear" type="button" class="outline">Clear filters</button>
+  </search>
+  <noscript><p>All classes are shown. Use your browser’s Find command to search this page.</p></noscript>
+  <p id="classes-count" role="status" aria-live="polite">{classes.length} classes</p>
+  <p id="classes-empty" hidden>No matching classes. Change the search or clear the filters.</p>
+  {classGroups.map(group=><section id={group.id} class="classes-group" aria-labelledby={'classes-'+group.id}>
+    <h2 id={'classes-'+group.id}>{group.title}</h2>
+    {classes.filter(entry=>entry.group===group.id).map(entry=><article id={'class-'+entry.name} class="class-entry" data-class-group={entry.group}>
+      <header><h3><a href={'#class-'+entry.name}><code>{entry.selector}</code></a></h3><p>{entry.description}</p></header>
+      <dl><dt>Markup</dt><dd>{entry.markup}</dd><dt>Stylesheet</dt><dd><code>{entry.stylesheet}</code> · {entry.includedInCore?'In complete core':'Separate distribution / optional module'}</dd>{entry.notes && <><dt>Notes</dt><dd>{entry.notes}</dd></>}{entry.status==='compatibility' && <><dt>Status</dt><dd>Compatibility: supported existing name; see the usage notes.</dd></>}</dl>
+      <p><a href={base+entry.guide}>Markup and examples</a></p>
+    </article>)}
+  </section>)}
+  <script id="reva-classes-search-runtime" is:inline defer src={asset('classes-search.js')}></script>
+</DocsLayout>
+<style>
+#classes-filters:not([hidden]) { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto; align-items:end; gap:1rem; padding-block:1rem; }
+#classes-filters > div { min-inline-size:0; }
+#classes-count { color:var(--re-muted); }
+.class-entry { border-block-end:1px solid var(--re-line); padding-block:1.25rem; scroll-margin-block-start:7rem; }
+.class-entry h3 { margin:0; overflow-wrap:anywhere; }
+.class-entry h3 a { text-decoration:none; }
+.class-entry header p { margin-block:.5rem 1rem; }
+.class-entry dl { display:grid; grid-template-columns:7rem minmax(0,1fr); gap:.5rem 1rem; }
+.class-entry dt,.class-entry dd { margin:0; overflow-wrap:anywhere; }
+.class-entry > p { margin-block:.75rem 0; }
+.class-entry[hidden],.classes-group[hidden] { display:none; }
+@media (width < 45rem) { #classes-filters:not([hidden]) { grid-template-columns:1fr; } .class-entry dl { grid-template-columns:1fr; } .class-entry dd { margin-block-end:.5rem; } }
+@media print { #classes-filters,#classes-count,#classes-empty { display:none !important; } .class-entry[hidden],.classes-group[hidden] { display:block; } }
+</style>

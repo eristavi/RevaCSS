@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a complete Classes API with all 72 framework class names, markup contracts, stylesheet dependencies, core/optional availability and compatibility notes. Share one catalog across the searchable human reference, generated AI Markdown and structured API; preserve a complete no-JavaScript reference.
+
 - Exclude the navbar brand/home link from menu-item hover backgrounds, including the highlight shown during pointer presses. Preserve its native link and visible keyboard focus.
 
 ### Colorful backgrounds

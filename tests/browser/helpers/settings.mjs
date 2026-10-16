@@ -10,6 +10,7 @@ export async function expectOnlyOptionalSettings(page) {
   expect(scripts.filter(script => script.id === 'reva-settings-runtime')).toHaveLength(1);
   const jsonIds = new Set(['reva-settings-schema', 'reva-palette-defaults','reva-background-defaults']);
   const runtimes = new Map([
+    ['reva-classes-search-runtime','classes-search.js'],
     ['reva-settings-runtime', 'settings.js'],
     ['reva-palette-runtime', 'custom-palette.js'],
     ['reva-radius-runtime', 'custom-radius.js'],
