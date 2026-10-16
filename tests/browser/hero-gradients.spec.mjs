@@ -4,7 +4,7 @@ for(const scoped of [false,true])test(`hero gradients retain native content, mot
   const names=scoped?['reva.scoped.css','reva.glass.scoped.css','reva.hero.scoped.css','reva.gradients.scoped.css']:['reva.css','reva.glass.css','reva.hero.css','reva.gradients.css'];
   const sheets=await Promise.all(names.map(async file=>{const response=await request.get('/reva/'+file);expect(response.ok()).toBe(true);return response.text();}));
   await page.emulateMedia({reducedMotion:'no-preference',forcedColors:'none'});await page.setViewportSize({width:320,height:800});
-  await page.setContent(`<!doctype html><html lang="en"><head><style>${sheets.join('\n')}#fixture:has(#pause:checked) .gradient-background,#fixture:has(#pause:checked) .gradient-background::before{animation-play-state:paused}</style></head><body><div id="fixture" ${scoped?'class="reva"':''}><label><input id="pause" type="checkbox">Pause gradient animations</label><section class="hero gradient-background" id="hero" data-material="glass" data-theme="dark" data-motion="subtle" aria-labelledby="title"><header><h1 id="title">Build <span id="text">something remarkable.</span></h1><p>Native content remains visible and operable.</p><a id="action" class="button" href="#end">Continue</a></header><figure><img width="640" height="360" alt="Landscape" src="/images/example-landscape.svg"></figure></section><section data-material="solid"><section class="hero gradient-background" id="solid" data-theme="light"><span id="accent-probe" style="color:var(--re-primary)"></span><h2>Solid reset</h2></section></section><p id="end">Destination</p></div><span id="outside">Outside</span></body></html>`);
+  await page.setContent(`<!doctype html><html lang="en"><head><style>${sheets.join('\n')}#fixture:has(#pause:checked) .gradient-background,#fixture:has(#pause:checked) .gradient-background::before{animation-play-state:paused}</style></head><body><div id="fixture" ${scoped?'class="reva"':''}><label><input id="pause" type="checkbox">Pause gradient animations</label><section class="hero gradient-background" id="hero" data-material="glass" data-theme="dark" data-motion="subtle" aria-labelledby="title"><header><h1 id="title">Build <span id="text">something remarkable.</span></h1><p>Native content remains visible and operable.</p><a id="action" class="button" href="#end">Continue</a></header><figure><img width="640" height="360" alt="Landscape" src="/images/example-landscape.svg"></figure></section><section data-material="solid"><section class="hero gradient-background" id="solid" data-theme="light"><span id="dark-shade-probe" style="color:color-mix(in srgb,var(--re-primary) 75%,#000)"></span><span id="light-shade-probe" style="color:color-mix(in srgb,var(--re-primary) 75%,#fff)"></span><h2>Solid reset</h2></section></section><p id="end">Destination</p></div><span id="outside">Outside</span></body></html>`);
   await expect(page.locator('#text')).toHaveText('something remarkable.');
   await expect(page.locator('#text')).toHaveCSS('animation-name','none');
   await expect(page.locator('#hero')).toHaveCSS('position','relative');
@@ -23,12 +23,12 @@ for(const scoped of [false,true])test(`hero gradients retain native content, mot
   await expect(page.locator('#solid')).toHaveCSS('backdrop-filter','none');
   const solid=page.locator('#solid');
   const before=()=>solid.evaluate(el=>getComputedStyle(el,'::before').backgroundImage);
-  expect(await before()).toContain('255, 255, 255');
-  expect(await before()).toContain(await page.locator('#accent-probe').evaluate(el=>getComputedStyle(el).color));
+  const expectShades=async()=>{for(const id of ['dark-shade-probe','light-shade-probe'])expect(await before()).toContain(await page.locator('#'+id).evaluate(el=>getComputedStyle(el).color));};
+  await expectShades();
   expect(await solid.evaluate(el=>getComputedStyle(el,'::before').opacity)).toBe('1');
   expect(await solid.evaluate(el=>getComputedStyle(el,'::before').animationDuration)).toBe('12s');
   await solid.evaluate(el=>el.setAttribute('data-theme','dark'));
-  expect(await before()).toContain('0, 0, 0');
+  await expectShades();
   const old=await before();await solid.evaluate(el=>el.setAttribute('data-accent','orange'));expect(await before()).not.toBe(old);
 
   if(scoped)await expect(page.locator('#outside')).toHaveCSS('animation-name','none');

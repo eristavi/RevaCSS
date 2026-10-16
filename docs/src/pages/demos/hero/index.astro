@@ -23,7 +23,7 @@ const sampleMarkup=(material,motion,fill,effect)=>`<section class="hero${effect.
     <section class="hero gradient-background" data-material="solid" data-motion="subtle" aria-labelledby="hero-subtle-title">
       <header>
       <h2 id="hero-subtle-title">Build <span>something remarkable.</span></h2>
-      <p>Gentle colour movement across the surface. Subtle motion takes 12 seconds in each direction.</p>
+      <p>The primary colour sweeps between 25% darker and 25% lighter shades. Subtle motion takes 12 seconds in each direction.</p>
       <a class="button" href="#glass-hero-demo">Explore the glass hero</a>
       </header>
     </section>
@@ -45,7 +45,7 @@ const sampleMarkup=(material,motion,fill,effect)=>`<section class="hero${effect.
     </section>
     <section id="gradient-state-demos" aria-labelledby="gradient-state-title">
       <h2 id="gradient-state-title">Compare every material gradient state</h2>
-      <p>Use Customize to switch the theme and accent for every example. Each group compares the original material with its gradient background effect. Text has no gradient or animation.</p>
+      <p>Use Customize to switch the theme and accent for every example. Non-Glass backgrounds mix the selected primary with 25% black and 25% white; Glass keeps its existing transparent sheen. Each group compares the original material with its gradient background effect. Text has no gradient or animation.</p>
       <p>Subtle: 12 seconds per direction. Expressive: 6 seconds. None: static gradients. The pause checkbox above stops every moving example.</p>
       <p>Fill controls the material’s existing sheen. The background gradient class is independent of fill; Glass with solid fill has no sheen to move. Soft and Veil use the added surface gradient; Glass moves its own highlight.</p>
       <nav aria-label="Gradient demo materials"><ul>{materials.map(material=><li><a href={'#gradient-material-'+material}>{material}</a></li>)}</ul></nav>

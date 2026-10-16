@@ -1,5 +1,5 @@
 export const publicTokens = [
-  ["Gradients", "--re-gradient-background-strength", "Percentage", "Solid neutral-to-primary background opacity; 100% fallback. Lower it for text-heavy content; full accent colours require foreground contrast review. Does not recolour the native Glass sheen."],
+  ["Gradients", "--re-gradient-background-strength", "Percentage", "Solid darker-to-lighter primary background opacity; 100% fallback. Lower it for text-heavy content; full accent colours require foreground contrast review. Does not recolour the native Glass sheen."],
   ["Gradients", "--re-gradient-duration", "Time", "One-way gradient drift; subtle/default 12s, expressive 6s. Motion presets reset this value."],
   ["Reading progress", "--re-reading-progress-offset", "Length", "Physical top offset of the optional bar; safe-area-inset-top fallback. Account for fixed navigation."],
   ["Reading progress", "--re-reading-progress-height", "Length", "Physical height of the optional bar; 3px fallback. Keep clear of page content."],

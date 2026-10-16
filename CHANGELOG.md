@@ -5,7 +5,7 @@
 ### Hero and gradient effects
 
 - Add optional semantic hero layouts and material/background gradients, with global and scoped modules. Text gradient effects and animations have been removed at the maintainer’s request; ordinary text follows theme colours.
-- Animate the existing Glass sheen in place, preserving transparency, blur and the stationary backdrop. Other surfaces animate white/primary in light mode and black/primary in dark mode, with adaptive on-primary text and optional background strength.
+- Animate the existing Glass sheen in place, preserving transparency, blur and the stationary backdrop. Other surfaces animate between 25% darker and 25% lighter primary shades in both themes, with adaptive on-primary text and optional background strength.
 - Subtle/default motion takes 12 seconds per direction; expressive takes 6 seconds; none/reduced motion stays static. Provide native pause, contrast/transparency/print fallbacks and material/motion/fill demos following the customizer. Browser acceptance and full-cycle foreground contrast review remain pending.
 
 ### Native scrollbars

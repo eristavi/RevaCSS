@@ -38,7 +38,7 @@ export const topics = [
     "notes": [
         "Use gradient-background on a non-interactive content surface. It reserves ::before and establishes relative positioning/isolation; avoid competing pseudo-elements or positioning contracts.",
         "Subtle/default uses 12 seconds per direction; expressive uses 6 seconds. None and reduced motion retain a static gradient. Provide a visible pause control; the full hero demo includes a native checkbox.",
-        "Solid, Soft and Veil surfaces animate white/primary in light mode and black/primary in dark mode. Ordinary inherited text follows the palette’s adaptive on-primary foreground. Full-strength backgrounds still require contrast review over the entire cycle; lower --re-gradient-background-strength for text-heavy surfaces.",
+        "Solid, Soft and Veil surfaces animate between 25% darker and 25% lighter primary shades in both themes. Ordinary inherited text follows the palette’s adaptive on-primary foreground. Full-strength backgrounds still require contrast review over the entire cycle; lower --re-gradient-background-strength for text-heavy surfaces.",
         "Glass moves its existing highlight gradient, preserving colours, transparency, blur and the stationary backdrop. Its text retains the normal theme foreground. data-fill=solid removes the sheen, leaving no visible glass gradient to animate.",
         "Higher contrast, forced colours and print remove surface decoration; reduced transparency removes the background effect. Browser/device acceptance remains pending."
     ],

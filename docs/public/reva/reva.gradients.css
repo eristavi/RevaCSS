@@ -8,14 +8,14 @@
 @layer re.components {
   @keyframes re-gradient-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
   :where(.gradient-background, :scope.gradient-background) { position: relative; isolation: isolate; --re-gradient-foreground: var(--re-on-primary); color: var(--re-gradient-foreground); }
-  /* Solid surfaces sweep white/accent in light mode, black/accent in dark.
+  /* Non-Glass surfaces sweep between 25% darker and lighter primary shades.
      Full colour is the default; lower the opacity for text-heavy surfaces.
      Negative stacking stays inside this surface, below its live content.
      No overflow clipping, transformed children or pointer interception. */
   :where(.gradient-background, :scope.gradient-background)::before {
     content: ""; position: absolute; inset: 0; z-index: -1;
     border-radius: inherit; pointer-events: none;
-    background-image: linear-gradient(110deg in srgb, light-dark(#fff, #000), var(--re-primary), light-dark(#fff, #000));
+    background-image: linear-gradient(110deg in srgb, color-mix(in srgb, var(--re-primary) 75%, #000), color-mix(in srgb, var(--re-primary) 75%, #fff), color-mix(in srgb, var(--re-primary) 75%, #000));
     opacity: var(--re-gradient-background-strength, 100%);
     background-size: 240% 100%; background-position: 0% 50%;
     animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate;
