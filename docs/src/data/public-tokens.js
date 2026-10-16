@@ -1,4 +1,7 @@
 export const publicTokens = [
+  ["Gradients", "--re-gradient-text-start / --re-gradient-text-end", "Colour", "Optional text gradient endpoints. Defaults mix primary/primary-end 50% toward text foreground. Review contrast over the entire gradient."],
+  ["Gradients", "--re-gradient-background-strength", "Percentage", "Background light tint opacity; 5% fallback. Stronger values need contrast review."],
+  ["Gradients", "--re-gradient-duration", "Time", "One-way gradient drift; subtle/default 24s, expressive 12s. Motion presets reset this value."],
   ["Reading progress", "--re-reading-progress-offset", "Length", "Physical top offset of the optional bar; safe-area-inset-top fallback. Account for fixed navigation."],
   ["Reading progress", "--re-reading-progress-height", "Length", "Physical height of the optional bar; 3px fallback. Keep clear of page content."],
   ["Reading progress", "--re-reading-progress-color", "Colour", "Optional bar colour; inherited --re-link fallback. Review contrast against underlying content."],

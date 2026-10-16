@@ -8,7 +8,7 @@
 }
 @layer re.components {
   @scope ([data-material="veil"], :scope[data-material="veil"]) to ([data-material]:not([data-material="veil"])) {
-    :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span), :scope:is(.card,fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu,.badge,.alert)) {
+    :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero),fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span), :scope:is(:is(.card,.hero),fieldset,details:not(.menu-collapse,.menu-dropdown),dialog,[popover],.top-menu,.badge,.alert)) {
       --re-veil-fill: var(--re-surface);
       --re-veil-tint: var(--re-primary);
       --re-veil-contour: color-mix(in srgb, var(--re-veil-tint) calc(var(--re-veil-strength, 1) * 12%), transparent);
@@ -34,8 +34,8 @@
     :where(.alert, :scope.alert) { --re-veil-fill:var(--re-alert-fill); --re-veil-tint:var(--re-alert-start); }
     :where(.list-group > li,.tabs > label) { --re-veil-fill:var(--re-choice-fill,var(--re-surface)); }
     :where(.pagination > ol > li > :is(a,span)) { --re-veil-fill:var(--re-pagination-fill); }
-    :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card, :scope.card) { transition:background-position var(--re-duration,140ms) ease; }
-    :where(.card:hover,.card:focus-within, :scope.card:hover, :scope.card:focus-within) { background-position:8% 8%,92% 92%; }
+    :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero), :scope:is(.card,.hero)) { transition:background-position var(--re-duration,140ms) ease; }
+    :where(:is(.card,.hero):hover,:is(.card,.hero):focus-within, :scope:is(.card,.hero):hover, :scope:is(.card,.hero):focus-within) { background-position:8% 8%,92% 92%; }
     :where(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle,.dropdown > li > :is(button,:is(.button,.scroll-top)))) {
       --re-veil-action-fill:var(--re-action-start);
       background-color:var(--re-veil-action-fill);
@@ -57,20 +57,20 @@
 @layer re.utilities {
   @scope ([data-material="veil"], :scope[data-material="veil"]) to ([data-material]:not([data-material="veil"])) {
     @media (prefers-reduced-motion:reduce) {
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(.card,button,:is(.button,.scroll-top))) { transition:none; }
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero),button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top), :scope:is(:is(.card,.hero),button,:is(.button,.scroll-top))) { transition:none; }
     }
     @media (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active), print {
       :where(*, :scope) { --re-veil-opacity:100%; --re-veil-strength:0; }
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(.card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) {
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero),fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(:is(.card,.hero),fieldset,details,dialog,[popover],.top-menu,.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) {
         background-image:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none;
       }
     }
     @media (forced-colors:active) {
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span), :scope:is(.card,fieldset,details,dialog,[popover],.top-menu,.badge,.alert)) { background:Canvas; color:CanvasText; border:1px solid CanvasText; }
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero),fieldset,details,dialog,[popover],.top-menu,.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span), :scope:is(:is(.card,.hero),fieldset,details,dialog,[popover],.top-menu,.badge,.alert)) { background:Canvas; color:CanvasText; border:1px solid CanvasText; }
       :where(button,input,select,textarea,:is(.button,.scroll-top), :scope:is(button,input,select,textarea,:is(.button,.scroll-top))) { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; }
     }
     @media print {
-      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), .card,fieldset,details,dialog,[popover],.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(.card,fieldset,details,dialog,[popover],.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) { background:#fff; color:#000; }
+      :where(.sidebar, :scope.sidebar, .app-shell > :is(aside, header), :scope.app-shell > :is(aside, header), :is(.card,.hero),fieldset,details,dialog,[popover],.badge,.alert,.list-group > li,.tabs > label,.pagination > ol > li > :is(a,span),button,input,select,textarea,:is(.button,.scroll-top), :scope:is(:is(.card,.hero),fieldset,details,dialog,[popover],.badge,.alert,button,input,select,textarea,:is(.button,.scroll-top))) { background:#fff; color:#000; }
     }
   }
 }

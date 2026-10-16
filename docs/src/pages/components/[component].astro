@@ -1,4 +1,5 @@
 ---
+import {stylesheet} from '../../data/assets.js';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Example from '../../components/Example.astro';
 import { topics } from '../../data/examples.js';
@@ -10,6 +11,7 @@ const base=import.meta.env.BASE_URL;
 const sections=[{id:'usage',title:'Usage'},...topic.examples];
 ---
 <DocsLayout title={topic.title} active={topic.slug} sections={sections}>
+{["hero","gradients"].includes(topic.slug) && <Fragment slot="head">{["reva.hero.css","reva.gradients.css"].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}</Fragment>}
 
 <p class="doc-kicker">COMPONENTS</p><h1>{topic.title}</h1><p class="doc-lead">{topic.intro}</p>
 <section id="usage">

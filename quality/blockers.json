@@ -177,6 +177,12 @@
       "kind": "manual",
       "status": "open",
       "summary": "Validate new default themed native scrollbars and auto/thin/native inheritance before release. The thumb deliberately uses the exact main-button primary colour by maintainer instruction, without dark-mode lightening; review thumb/track contrast, especially dark accent combinations: Chromium, Firefox, Safari/iOS; classic/overlay scrollbar OS modes; page, tables, textarea, dialogs/popovers and panels; keyboard/drag/touch usability; nested light/dark/palette/tone/material and .reva boundaries; native reset and auto re-entry; forced colours, print and zoom. Confirm no unintended overflow and no hidden scrollbar mode. Browser acceptance pending; the maintainer attestation through reading progress predates this addition."
+    },
+    {
+      "id": "Q-HERO-GRADIENTS",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate new optional hero and selected-text/background gradient modules before release: global/scoped isolation and nested boundaries; plain/split layouts at 320px and zoom/text spacing; all accents/themes/materials and local resets; subtle/expressive/none motion, native pause, reduced motion/transparency/contrast, forced colours/print, text-clipping fallback, text selection, background images/contrast, focus and live controls. Confirm translucent light leaves glass/backdrop blur intact and no content clipping or pointer interception. Browser tests prepared but not run; maintainer earlier attestation predates these additions."
     }
   ]
 }

@@ -1,6 +1,71 @@
 import {nativePatternTopics} from "./native-patterns.js";
 export const topics = [
   {
+    "slug": "hero",
+    "title": "Hero",
+    "intro": "A semantic introduction section with large responsive text, optional media and inherited appearance. Load the optional hero stylesheet after the core.",
+    "notes": [
+      "Source preview: these additions need fresh browser/device acceptance. The optional hero and gradient modules are separate from the complete core; use matching scoped variants inside .reva.",
+      "Use section.hero with an appropriately ranked heading. A header plus figure gives a wrapping split layout; a direct heading, paragraph and action gives a single-column introduction. No mandatory extra wrapper or data attribute.",
+      "Existing theme/palette/accent/shape/border/depth/density settings apply. Load the matching Glass/Soft UI extension for material surfaces. Deprecated Veil remains compatible.",
+      "Load the gradients module to add gradient-text to a selected phrase and/or gradient-background to the surface. Subtle and expressive motion animate; none and reduced motion remain static. Ordinary text and native controls remain real HTML."
+    ],
+    "examples": [
+      {
+        "id": "hero-basic",
+        "title": "Semantic hero",
+        "description": "A plain introduction using the hero module. Choose the heading rank for your document.",
+        "html": "<section class=\"hero\" aria-labelledby=\"hero-basic-title\">\n  <h2 id=\"hero-basic-title\">Make room for your next idea.</h2>\n  <p>Start with native HTML and shared appearance settings.</p>\n  <a class=\"button\" href=\"#hero-examples-end\">Explore the examples</a>\n</section>"
+      },
+      {
+        "id": "hero-gradients",
+        "title": "Hero with selected gradient text",
+        "description": "Load both optional modules. Only the marked phrase receives the text gradient; the background remains a separate effect. The full demo includes a native pause control.",
+        "html": "<section class=\"hero gradient-background\" data-motion=\"subtle\" aria-labelledby=\"hero-gradient-title\">\n  <h2 id=\"hero-gradient-title\">Build <span class=\"gradient-text\">something remarkable.</span></h2>\n  <p>Gentle colour movement, with the content staying still.</p>\n  <a class=\"button\" href=\"__BASE__demos/hero/\">Open the full hero demo</a>\n</section>"
+      },
+      {
+        "id": "hero-split",
+        "title": "Hero with media",
+        "description": "Native header and figure regions wrap according to available space. The illustration retains its accessible text alternative.",
+        "html": "<section class=\"hero\" aria-labelledby=\"hero-split-title\">\n  <header>\n    <h2 id=\"hero-split-title\">A clear place to begin.</h2>\n    <p>A message and an illustration arranged with native structure.</p>\n    <a class=\"button\" href=\"__BASE__demos/hero/\">View the demo</a>\n  </header>\n  <figure><img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Illustrated hills beneath the sun\"></figure>\n</section>\n<p id=\"hero-examples-end\">End of the hero examples.</p>"
+      }
+    ]
+  },
+  {
+    "slug": "gradients",
+    "title": "Gradient text and backgrounds",
+    "intro": "Independent gradient effects for a selected phrase or surface, using inherited accent colours and motion. Load the optional gradients stylesheet after the core.",
+    "notes": [
+      "gradient-text keeps a word or phrase as native selectable text. The class enables the effect independently of data-fill, so only the chosen text changes. Do not put it on form controls or wrap interactive descendants.",
+      "Accent start/end colours mix toward the text foreground for readable light/dark shades. Public --re-gradient-text-start and --re-gradient-text-end can override them; verify every animated colour against its actual background.",
+      "Subtle motion (the default) uses a 24-second one-way drift; expressive uses 12 seconds. Animation alternates smoothly without moving letters or layout. data-motion=none and reduced motion keep a static gradient. Provide a visible pause/stop control when continuous decoration is presented; the full demo shows a native checkbox with application CSS.",
+      "gradient-background paints a translucent accent layer above the existing surface paint, retaining material transparency and backdrop blur. It creates an isolated relative containing block and reserves ::before. Keep it on a non-interactive content wrapper, separate from components that already use ::before or depend on another positioning scheme.",
+      "The default background strength is 5%. Glass retains its actual backdrop filter from the matching material extension; the light tint is not a physical lighting simulation. Arbitrary photos, custom colours or stronger tints require contrast review.",
+      "High contrast and print restore solid text and remove background decoration; reduced transparency removes the background effect. The unsupported text-clipping fallback is solid text. Browser/device acceptance remains pending."
+    ],
+    "examples": [
+      {
+        "id": "gradient-phrase",
+        "title": "Only the chosen phrase",
+        "description": "The marked span uses the inherited accent gradient. Its letters stay still.",
+        "html": "<p data-accent=\"violet\" data-motion=\"subtle\" style=\"font-size:2rem; font-weight:700\">Build <span class=\"gradient-text\">something remarkable.</span></p>"
+      },
+      {
+        "id": "gradient-static",
+        "title": "Static gradient and local motion override",
+        "description": "Motion none keeps gradient colours but stops the animation. A local expressive setting re-enables movement on the selected phrase.",
+        "html": "<section data-motion=\"none\">\n  <p style=\"font-size:2rem\"><span class=\"gradient-text\">A static gradient.</span></p>\n  <p style=\"font-size:2rem\"><span class=\"gradient-text\" data-motion=\"expressive\">A local moving gradient.</span></p>\n</section>"
+      },
+      {
+        "id": "gradient-glass",
+        "title": "Translucent colour over frosted glass",
+        "glass": false,
+        "description": "A soft gradient layer leaves the Glass surface and its native backdrop blur visible. The full demo provides a pause control.",
+        "html": "<div style=\"padding:1rem; background:linear-gradient(120deg,#173044,#342352)\">\n<section data-material=\"glass\" data-theme=\"dark\" data-accent=\"blue\">\n  <section class=\"hero gradient-background\" aria-labelledby=\"glass-hero-title\">\n    <h2 id=\"glass-hero-title\">Colour that <span class=\"gradient-text\">moves like light.</span></h2>\n    <p>The surface remains translucent; native content stays in place.</p>\n    <a class=\"button\" href=\"__BASE__demos/hero/\">Open the full demo</a>\n  </section>\n</section>\n</div>"
+      }
+    ]
+  },
+  {
     "slug": "scrollbars",
     "title": "Scrollbars",
     "intro": "Native scrollbars follow the surrounding theme by default. Three modes, no structural class and no JavaScript.",

@@ -14,6 +14,7 @@ const groups=[
 ];
 ---
 <Layout title={title} current={active} theme={theme}>
+<slot name="head" slot="head"/>
 <div class="docs-shell">
 <aside class="docs-sidebar">
   <nav class="docs-sidebar-desktop" aria-label="Documentation sections">

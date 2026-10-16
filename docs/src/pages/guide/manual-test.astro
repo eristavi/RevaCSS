@@ -6,14 +6,14 @@ import {manualTopics,exampleCount,fixtureHTML,longText,longWord} from '../../dat
 import catalog from '../../../../src/icons/catalog.json';
 const base=import.meta.env.BASE_URL;
 const revision=process.env.GITHUB_SHA || 'local preview';
-const styles=['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css'];
+const styles=['reva-fonts.css','reva.css','reva.motion.css','reva.selects.css','reva.glass.css','reva.veil.css','reva.soft.css','reva.button-materials.css','reva.hero.css','reva.gradients.css'];
 const documentFor=(html,title)=>`<!doctype html><html lang="en" data-theme="auto" data-palette="default"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>${styles.map(file=>`<link rel="stylesheet" href="${stylesheet(file)}">`).join('')}</head><body>${html}</body></html>`;
 const inputTypes=['text','email','password','search','tel','url','number','date','datetime-local','time','month','week','color','range','file'];
 const menuItems=[{key:'home',label:'Start',href:'#main'},{key:'components',label:'Components',children:[{key:'forms',label:'Forms',href:'#family-forms'},{key:'navigation',label:'Navigation',href:'#family-top-menu'},{key:'more',label:'More',children:[{key:'tables',label:'Tables',href:'#family-tables'},{key:'typography',label:'Typography',href:'#family-typography'}]}]},{key:'report',label:'Review record',href:'#review-record'}];
 const report=`Build: ${revision}\nDate:\nDevice / OS / browser and version:\nViewport / orientation / actual zoom:\nTheme / palette / material / font / density / motion / contrast:\nKeyboard / screen reader:\nFixture ID:\nExpected result:\nObserved result:\nPass / fail / not checked:\nReproduction steps:\nScreenshot or recording:\n`;
 ---
 <Layout title="Complete manual-test page" current="manual-test" documentation cssCustomizer={false}>
- <Fragment slot="head">{['reva.gallery.css','reva.scrolling.css','reva.scroll-motion.css','reva.card-grid.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}</Fragment>
+ <Fragment slot="head">{['reva.hero.css','reva.gradients.css','reva.gallery.css','reva.scrolling.css','reva.scroll-motion.css','reva.card-grid.css'].map(file=><link rel="stylesheet" href={stylesheet(file)}/>)}</Fragment>
  <div class="docs-content manual-page">
   <header>
    <p class="doc-kicker">REVA CSS · MANUAL REVIEW</p>
