@@ -38,20 +38,39 @@
     background-size: 240% 100%; background-position: 0% 50%;
     animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 24s) ease-in-out infinite alternate;
   }
+  /* Glass already paints its own white/clear/dark highlight gradient.
+     Move that paint in place; retain its colours, opacity and backdrop filter.
+     Load after the matching material stylesheet. */
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+    @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      :where(.gradient-background, :scope.gradient-background) {
+        background-size: 240% 240%; background-position: 0% 50%;
+        background-repeat: no-repeat;
+        animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 24s) ease-in-out infinite alternate;
+      }
+      :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
+    }
+  }
+
 }
 @layer re.utilities {
   /* Selecting text must remain readable independently of transparent glyph fill. */
   :where(.gradient-text, :scope.gradient-text)::selection { color: HighlightText; -webkit-text-fill-color: HighlightText; background: Highlight; }
   @scope ([data-contrast="more"], :scope[data-contrast="more"]) to ([data-contrast]:not([data-contrast="more"])) {
     :where(.gradient-text, :scope.gradient-text) { background: none; color: var(--re-text); -webkit-text-fill-color: currentColor; animation: none; }
+    :where(.gradient-background, :scope.gradient-background) { animation: none; }
     :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    :where(.gradient-text, :scope.gradient-text), :where(.gradient-background, :scope.gradient-background)::before { animation: none; }
+    :where(.gradient-text, :scope.gradient-text), :where(.gradient-background, :scope.gradient-background), :where(.gradient-background, :scope.gradient-background)::before { animation: none; }
   }
-  @media (prefers-reduced-transparency: reduce) { :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; } }
+  @media (prefers-reduced-transparency: reduce) {
+    :where(.gradient-background, :scope.gradient-background) { animation: none; }
+    :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
+  }
   @media (prefers-contrast: more), (forced-colors: active), print {
     :where(.gradient-text, :scope.gradient-text) { background: none; color: var(--re-text); -webkit-text-fill-color: currentColor; animation: none; }
+    :where(.gradient-background, :scope.gradient-background) { animation: none; }
     :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
   }
   @media (forced-colors: active) { :where(.gradient-text, :scope.gradient-text) { color: CanvasText; } }

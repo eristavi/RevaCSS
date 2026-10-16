@@ -39,8 +39,8 @@ export const topics = [
       "gradient-text keeps a word or phrase as native selectable text. The class enables the effect independently of data-fill, so only the chosen text changes. Do not put it on form controls or wrap interactive descendants.",
       "Accent start/end colours mix toward the text foreground for readable light/dark shades. Public --re-gradient-text-start and --re-gradient-text-end can override them; verify every animated colour against its actual background.",
       "Subtle motion (the default) uses a 24-second one-way drift; expressive uses 12 seconds. Animation alternates smoothly without moving letters or layout. data-motion=none and reduced motion keep a static gradient. Provide a visible pause/stop control when continuous decoration is presented; the full demo shows a native checkbox with application CSS.",
-      "gradient-background paints a translucent accent layer above the existing surface paint, retaining material transparency and backdrop blur. It creates an isolated relative containing block and reserves ::before. Keep it on a non-interactive content wrapper, separate from components that already use ::before or depend on another positioning scheme.",
-      "The default background strength is 5%. Glass retains its actual backdrop filter from the matching material extension; the light tint is not a physical lighting simulation. Arbitrary photos, custom colours or stronger tints require contrast review.",
+      "On solid surfaces, gradient-background paints a translucent accent layer. Inside Glass it instead animates the existing glass highlight gradient in place, without adding a colour overlay or moving the backdrop. Load gradients after the matching material stylesheet. It creates an isolated relative containing block and reserves ::before. Keep it on a non-interactive content wrapper, separate from components that already use ::before or depend on another positioning scheme.",
+      "The solid-surface tint strength defaults to 5%. Glass keeps its original gradient colours, transparency and backdrop filter; background strength does not alter the glass sheen. data-fill=solid removes the glass highlight gradient, leaving nothing visible to animate. Arbitrary photos, custom colours or stronger tints require contrast review.",
       "High contrast and print restore solid text and remove background decoration; reduced transparency removes the background effect. The unsupported text-clipping fallback is solid text. Browser/device acceptance remains pending."
     ],
     "examples": [
@@ -58,9 +58,9 @@ export const topics = [
       },
       {
         "id": "gradient-glass",
-        "title": "Translucent colour over frosted glass",
+        "title": "Animated glass-surface highlights",
         "glass": false,
-        "description": "A soft gradient layer leaves the Glass surface and its native backdrop blur visible. The full demo provides a pause control.",
+        "description": "The original Glass highlight gradient drifts over the surface while its backdrop stays still. Glass colours, transparency and blur remain unchanged. The full demo provides a pause control.",
         "html": "<div style=\"padding:1rem; background:linear-gradient(120deg,#173044,#342352)\">\n<section data-material=\"glass\" data-theme=\"dark\" data-accent=\"blue\">\n  <section class=\"hero gradient-background\" aria-labelledby=\"glass-hero-title\">\n    <h2 id=\"glass-hero-title\">Colour that <span class=\"gradient-text\">moves like light.</span></h2>\n    <p>The surface remains translucent; native content stays in place.</p>\n    <a class=\"button\" href=\"__BASE__demos/hero/\">Open the full demo</a>\n  </section>\n</section>\n</div>"
       }
     ]

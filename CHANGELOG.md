@@ -4,6 +4,8 @@
 
 ### Hero and gradient effects
 
+- Animate the existing Glass highlight gradient in place for .gradient-background; retain its colours/transparency/blur and a stationary backdrop. Solid surfaces retain the separate tint layer. Native pause and preference fallbacks also stop the surface animation.
+
 - Add optional global/scoped hero and gradients modules: semantic .hero layout, selected .gradient-text phrases and a translucent .gradient-background light layer. Extend existing material surface lists to heroes. Inherit accent/motion, animate subtle at 24s and expressive at 12s, retain static none/reduced-motion gradients, and provide contrast/transparency/print fallbacks plus a native pause demo. No new attribute, core weight or runtime; new browser acceptance is pending.
 
 ### Native scrollbars

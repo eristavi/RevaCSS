@@ -14,10 +14,10 @@ const base=import.meta.env.BASE_URL;
       <p>A selected phrase with gentle colour movement. Subtle motion takes 24 seconds in each direction.</p>
       <a class="button" href="#glass-hero-demo">Explore the glass hero</a>
     </section>
-    <div class="hero-backdrop gradient-background" id="glass-hero-demo" data-motion="subtle">
+    <div class="hero-backdrop" id="glass-hero-demo">
       <section class="hero gradient-background" data-material="glass" data-theme="dark" data-accent="blue" data-motion="subtle" aria-labelledby="hero-glass-title">
         <h2 id="hero-glass-title">Let your ideas <span class="gradient-text">shine through.</span></h2>
-        <p>Temporary background test: a stronger pink/cyan light sweep moves behind the frosted panel. Watch the background separately from the text.</p>
+        <p>The glass surface’s own highlight gradient moves slowly. The backdrop stays still; its transparency and blur are unchanged.</p>
         <a class="button" href="#hero-expressive-demo">Compare expressive motion</a>
       </section>
     </div>
@@ -40,14 +40,8 @@ const base=import.meta.env.BASE_URL;
 }
 .hero-showcase > header { max-inline-size:65ch; }
 .hero-backdrop { padding:clamp(.5rem,2vw,2rem); border-radius:var(--re-radius); background:radial-gradient(ellipse at 5% 10%,#173044,transparent 65%),radial-gradient(ellipse at 95% 90%,#342352,transparent 65%),#0c1220; }
-/* Move high-contrast test light behind the actual frosted panel. The wrapper
-   uses the same native gradient animation and existing pause/preference rules. */
-.hero-backdrop::before {
-  background-image: linear-gradient(110deg in srgb,
-    rgb(255 70 180 / 40%), transparent 35%,
-    rgb(50 220 255 / 40%) 65%, transparent);
-}
 .hero-showcase:has(#hero-pause:checked) .gradient-text,
+.hero-showcase:has(#hero-pause:checked) .gradient-background,
 .hero-showcase:has(#hero-pause:checked) .gradient-background::before { animation-play-state:paused; }
 @media (forced-colors:active), print { .hero-backdrop { background:transparent; } }
 </style>
