@@ -4,6 +4,8 @@
 
 ### Hero and gradient effects
 
+- Use the live palette on-primary foreground for text on non-Glass gradient backgrounds, including the selected text gradient’s colour mixes. Preserve normal text for text-only effects, Glass and preferences that remove the surface layer.
+
 - Expand the hero demo with 72 text-only, material-only and combined examples across all four materials, three motion settings and both fill settings. All examples follow the customizer theme and accent; include native expandable groups, copyable HTML and a shared pause control.
 
 - Reverse text gradient movement relative to animated backgrounds, preserving shared subtle/expressive durations and easing.

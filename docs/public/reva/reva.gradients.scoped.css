@@ -8,12 +8,13 @@
 }
 @layer re.components {
   @keyframes re-gradient-drift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
-  :where(.gradient-text, :scope.gradient-text) { color: var(--re-link); }
+  :where(.gradient-text, :scope.gradient-text) { color: var(--re-gradient-foreground, var(--re-link)); }
   @supports (background-clip: text) or (-webkit-background-clip: text) {
     :where(.gradient-text, :scope.gradient-text) {
-      /* Mix toward the foreground for readable light/dark accent shades. */
-      --re-gradient-ink-start: color-mix(in srgb, var(--re-primary) 50%, var(--re-text));
-      --re-gradient-ink-end: color-mix(in srgb, var(--re-primary-end) 50%, var(--re-text));
+      /* Resolve the live palette foreground: normal text alone, on-primary
+         over the added surface gradient. Glass restores normal text. */
+      --re-gradient-ink-start: color-mix(in srgb, var(--re-primary) 50%, var(--re-gradient-foreground, var(--re-text)));
+      --re-gradient-ink-end: color-mix(in srgb, var(--re-primary-end) 50%, var(--re-gradient-foreground, var(--re-text)));
       background-color: var(--re-link);
       background-image: linear-gradient(110deg in srgb, var(--re-gradient-text-start, var(--re-gradient-ink-start)), var(--re-gradient-text-end, var(--re-gradient-ink-end)), var(--re-gradient-text-start, var(--re-gradient-ink-start)));
       background-size: 240% 100%; background-position: 0% 50%;
@@ -24,7 +25,7 @@
       animation: var(--re-gradient-animation, re-gradient-drift) var(--re-gradient-duration, 12s) ease-in-out infinite alternate-reverse;
     }
   }
-  :where(.gradient-background, :scope.gradient-background) { position: relative; isolation: isolate; }
+  :where(.gradient-background, :scope.gradient-background) { position: relative; isolation: isolate; --re-gradient-foreground: var(--re-on-primary); color: var(--re-gradient-foreground); }
   /* Solid surfaces sweep white/accent in light mode, black/accent in dark.
      Full colour is the default; lower the opacity for text-heavy surfaces.
      Negative stacking stays inside this surface, below its live content.
@@ -41,6 +42,7 @@
      Move that paint in place; retain its colours, opacity and backdrop filter.
      Load after the matching material stylesheet. */
   @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+    :where(.gradient-background, :scope.gradient-background) { --re-gradient-foreground: var(--re-text); color: var(--re-text); }
     @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
       :where(.gradient-background, :scope.gradient-background) {
         background-size: 240% 240%; background-position: 0% 50%;
@@ -57,19 +59,19 @@
   :where(.gradient-text, :scope.gradient-text)::selection { color: HighlightText; -webkit-text-fill-color: HighlightText; background: Highlight; }
   @scope ([data-contrast="more"], :scope[data-contrast="more"]) to ([data-contrast]:not([data-contrast="more"])) {
     :where(.gradient-text, :scope.gradient-text) { background: none; color: var(--re-text); -webkit-text-fill-color: currentColor; animation: none; }
-    :where(.gradient-background, :scope.gradient-background) { animation: none; }
+    :where(.gradient-background, :scope.gradient-background) { --re-gradient-foreground: var(--re-text); color: var(--re-text); animation: none; }
     :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     :where(.gradient-text, :scope.gradient-text), :where(.gradient-background, :scope.gradient-background), :where(.gradient-background, :scope.gradient-background)::before { animation: none; }
   }
   @media (prefers-reduced-transparency: reduce) {
-    :where(.gradient-background, :scope.gradient-background) { animation: none; }
+    :where(.gradient-background, :scope.gradient-background) { --re-gradient-foreground: var(--re-text); color: var(--re-text); animation: none; }
     :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
   }
   @media (prefers-contrast: more), (forced-colors: active), print {
     :where(.gradient-text, :scope.gradient-text) { background: none; color: var(--re-text); -webkit-text-fill-color: currentColor; animation: none; }
-    :where(.gradient-background, :scope.gradient-background) { animation: none; }
+    :where(.gradient-background, :scope.gradient-background) { --re-gradient-foreground: var(--re-text); color: var(--re-text); animation: none; }
     :where(.gradient-background, :scope.gradient-background)::before { display: none; animation: none; }
   }
   @media (forced-colors: active) { :where(.gradient-text, :scope.gradient-text) { color: CanvasText; } }
