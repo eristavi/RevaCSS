@@ -8,6 +8,8 @@
 
 ### Documentation
 
+- Complete native modal invocation examples using commandfor/command, platform and light dismissal, form closing, inherited material/motion effects and local appearance resets. Prepare no-script browser coverage; acceptance remains deferred.
+
 - Complete the human and generated AI stylesheet inventories with the existing card-grid, gallery, scrolling, scroll-top, scroll-motion and document-transition entry points, including their dependencies and scope limits.
 
 - Record a repeatable AI guidance baseline with five generated interface scenarios, fourteen negative controls, prompts, fixture hashes and explicit evidence limits; expose the dated report in the human/AI guides.

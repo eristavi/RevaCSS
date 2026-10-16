@@ -11,6 +11,7 @@ const base=import.meta.env.BASE_URL;
 <li>Details and summary provide disclosures. A shared name requests native exclusive groups.</li>
 <li>Checkboxes and switches retain native checked, disabled and keyboard behaviour.</li>
 <li>The top menu uses native auto popovers for outside-click and Escape dismissal.</li>
+<li>Modal dialogs can use native <code>commandfor</code>/<code>command="show-modal"</code> buttons where supported. The browser supplies modal focus handling and surrounding-page inertness. Include a labelled heading and an explicit close control; <code>open</code> alone is non-modal. Keep essential actions reachable if commands are unavailable. See the <a href={base+'components/disclosures/#dialog'}>declarative dialog examples</a>.</li>
 </ul><p>The CSS-only tabs pattern uses radio selection. Toolbars use ordinary labelled groups. Neither claims the ARIA tab or toolbar keyboard contract.</p></section>
 <section id="semantics"><h2>Supply meaningful markup</h2><ul>
 <li>Use a logical heading hierarchy and a name for each navigation landmark.</li>

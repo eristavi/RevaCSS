@@ -196,9 +196,9 @@ export const componentContracts = {
   ],
   "disclosures": [
     "details/summary, dialog, [popover]",
-    "Native open, popovertarget and popover attributes.",
+    "Native open, popovertarget and popover attributes; modal buttons use commandfor with command=show-modal/close and a unique dialog ID.",
     "reva.base.css",
-    "Dialog styling does not itself implement a modal workflow."
+    "Native modal invocation requires browser command support; open alone is non-modal. Dialogs retain inherited appearance and local overrides in the top layer. Optional matching motion/material extensions supply effects; no runtime fallback is installed. Keep essential actions available outside unsupported dialogs."
   ],
   "alerts": [
     ".alert",

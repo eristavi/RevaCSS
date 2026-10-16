@@ -1250,7 +1250,12 @@ export const topics = [
     "intro": "Native HTML supplies disclosure and popover interactions. CSS styles their surfaces without adding application behavior.",
     "notes": [
       "Plain details and exclusive groups share the accordion content animation. Motion inherits from data-motion: none opens immediately, subtle expands smoothly, and expressive adds a gentle fade. The native summary marker remains unchanged; an accordion wrapper adds its rotating chevron and group layout.",
-      "Content transitions require ::details-content, interpolate-size and discrete transitions. Unsupported browsers retain instant native disclosure; reduced motion, forced colours and print disable transitions. Complete and scoped builds include these rules; modular consumers load reva.accordions.css after tokens and base."
+      "Content transitions require ::details-content, interpolate-size and discrete transitions. Unsupported browsers retain instant native disclosure; reduced motion, forced colours and print disable transitions. Complete and scoped builds include these rules; modular consumers load reva.accordions.css after tokens and base.",
+      "Use a native button with type=button, commandfor matching a unique dialog ID and command=show-modal. Close through command=close or form method=dialog. Leave open off a modal: open alone is non-modal. Native invocation supplies modal focus handling and surrounding-page inertness; CSS does not emulate it.",
+      "Declarative commands require native browser support. No JavaScript fallback is installed. Keep essential information and actions available elsewhere for unsupported browsers. closedby=closerequest allows platform dismissal such as Escape; closedby=any additionally requests outside-click dismissal where supported. Always include an explicit close control.",
+      "Dialogs remain in their DOM ancestry when painted in the top layer. Existing theme, palette, tone, shape, border, depth and density settings apply; valid local attributes override inherited choices. Keep the dialog inside its .reva boundary for scoped builds. data-size affects its controls, not an arbitrary dialog width; decorative edges remain limited to their documented buttons/cards.",
+      "For overlay effects, load reva.motion.css after the global core, or reva.motion.scoped.css after the scoped core. data-motion=none, subtle or expressive controls existing overlay motion; reduced motion and forced colours suppress animation. Load the matching Glass, Soft or legacy Veil extension for that material. A local data-material=solid ends inherited material styling. Surface materials and independent button materials remain separate.",
+      "These modal examples are source-preview guidance; browser/device acceptance is deferred. Commands only open or close a dialog: form submission, saving and confirmation results remain application responsibilities."
     ],
     "examples": [
       {
@@ -1273,9 +1278,28 @@ export const topics = [
       },
       {
         "id": "dialog",
-        "title": "Dialog markup",
-        "description": "open displays a non-modal dialog. This static markup does not implement modal opening or focus management; those require supported native invoker commands or a separate script. A form with method=\"dialog\" can close an open dialog.",
-        "html": "<dialog open aria-labelledby=\"demo-dialog-title\">\n  <h3 id=\"demo-dialog-title\">Review your changes</h3>\n  <p>This example describes a non-modal dialog.</p>\n  <form method=\"dialog\"><button>Close</button></form>\n</dialog>",
+        "title": "Declarative modal dialog",
+        "description": "Native buttons open and close a modal without scripts in supporting browsers. The browser supplies modal focus handling and inertness; autofocus starts on the explicit close control. This example performs no save action.",
+        "html": "<button type=\"button\" commandfor=\"demo-dialog\" command=\"show-modal\">Review changes</button>\n<dialog id=\"demo-dialog\" aria-labelledby=\"demo-dialog-title\" closedby=\"closerequest\">\n  <h3 id=\"demo-dialog-title\">Review your changes</h3>\n  <p>Check your details before returning to the page.</p>\n  <button type=\"button\" commandfor=\"demo-dialog\" command=\"close\" autofocus>Close review</button>\n</dialog>"
+      },
+      {
+        "id": "dialog-inherited",
+        "title": "Inherited effects and local overrides",
+        "description": "Load the matching Glass and motion extensions after the core. The first dialog inherits the dark Glass surface, rounded shape, depth and expressive motion. The second overrides them locally. Native commands and markup remain the same.",
+        "glass": true,
+        "html": "<section data-theme=\"dark\" data-palette=\"mono\" data-material=\"glass\" data-shape=\"rounded\" data-depth=\"pronounced\" data-motion=\"expressive\">\n  <div class=\"row\">\n    <button type=\"button\" commandfor=\"effects-dialog\" command=\"show-modal\">Open inherited dialog</button>\n    <button type=\"button\" commandfor=\"plain-dialog\" command=\"show-modal\">Open local override</button>\n  </div>\n  <dialog id=\"effects-dialog\" aria-labelledby=\"effects-dialog-title\" closedby=\"closerequest\">\n    <h3 id=\"effects-dialog-title\">Inherited appearance</h3>\n    <p>This native dialog inherits its parent settings even in the top layer.</p>\n    <button type=\"button\" commandfor=\"effects-dialog\" command=\"close\" autofocus>Close inherited dialog</button>\n  </dialog>\n  <dialog id=\"plain-dialog\" aria-labelledby=\"plain-dialog-title\" closedby=\"closerequest\" data-theme=\"light\" data-material=\"solid\" data-shape=\"square\" data-depth=\"flat\" data-motion=\"none\">\n    <h3 id=\"plain-dialog-title\">Local appearance</h3>\n    <p>Light, solid, square and flat, with no overlay motion.</p>\n    <button type=\"button\" commandfor=\"plain-dialog\" command=\"close\" autofocus>Close local override</button>\n  </dialog>\n</section>"
+      },
+      {
+        "id": "dialog-light-dismiss",
+        "title": "Native light dismissal and form closing",
+        "description": "closedby=any requests outside-click dismissal where supported. Escape and the explicit form close control provide native dismissal paths; a dialog form closes without submitting data to a server.",
+        "html": "<button type=\"button\" commandfor=\"help-dialog\" command=\"show-modal\">Open dialog help</button>\n<dialog id=\"help-dialog\" aria-labelledby=\"help-dialog-title\" closedby=\"any\">\n  <h3 id=\"help-dialog-title\">Dialog help</h3>\n  <p>Use Close, Escape or, where supported, click outside this panel.</p>\n  <form method=\"dialog\"><button type=\"submit\" value=\"dismiss\" autofocus>Close help</button></form>\n</dialog>"
+      },
+      {
+        "id": "dialog-static",
+        "title": "Non-modal dialog markup",
+        "description": "open displays a non-modal dialog; it does not make surrounding content inert. Use declarative show-modal commands for a modal workflow.",
+        "html": "<dialog open aria-labelledby=\"static-dialog-title\">\n  <h3 id=\"static-dialog-title\">Non-modal information</h3>\n  <p>The surrounding page remains available.</p>\n  <form method=\"dialog\"><button>Close</button></form>\n</dialog>",
         "isolated": true
       }
     ]

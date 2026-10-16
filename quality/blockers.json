@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "blockers": [
     {
+      "id": "Q-DECLARATIVE-MODALS",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate declarative modal workflows and inherited/local effects before release; browser checks are deferred by maintainer instruction.",
+      "scope": "Run tests/browser/dialogs.spec.mjs. Review native command support/fallback, show-modal/close/form closing, Escape and closedby light dismissal, focus entry/restoration, inert background, scoped ancestry, inherited and locally reset theme/shape/depth/material/motion, reduced motion/forced colours, multiple instances, RTL, zoom, print and screen-reader behaviour. Record exact tested browser/device versions and revision."
+    },
+    {
       "id": "Q-TEXTAREA-AUTO-GROW",
       "kind": "manual",
       "status": "open",
