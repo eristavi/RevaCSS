@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Add a symptom-based troubleshooting guide for 13 interface issues, with inspection, fixes and verification steps in the human site, focused AI reference and offline package.
+
 - Standardize seven-decision AI workflows across all five adapters; generate per-adapter references and structured package requirements, and add the Laravel human guide.
 
 - Add a runnable project workspace connecting a dashboard, server-validated form, responsive native navigation and custom card to SQLite data, with complete source downloads and AI reference.

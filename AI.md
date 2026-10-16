@@ -189,6 +189,10 @@ The [project workspace example](https://revacss.eristavi.org/guide/ai-applicatio
 
 Run it with a matching compiled `dist/reva.css`; it uses Python's standard library and adds no browser JavaScript. Its route/data/validation connection points are explicit. The local example has no authentication or user permissions; move the rendering patterns into the consuming application's own routing, authorization and session facilities when building a product. Recorded HTTP checks do not establish browser or device acceptance.
 
+## Troubleshoot an unexpected result
+
+Use the [symptom-based troubleshooting guide](https://revacss.eristavi.org/guide/ai-troubleshooting/) or `/ai/troubleshooting.md` when styling or behaviour differs from expectations. It covers asset loading, attribute targets/resets, materials, scoped boundaries, cascade priority, fonts, reflow, native navigation, sticky headers, adapter state, application routes, themes and custom palettes. Follow its inspect/fix/verify sequence and distinguish an intentional fallback from a defect. `AI_TROUBLESHOOTING.md` provides the same guide in the source/package.
+
 ## Review common mistakes
 
 Read the [incorrect and corrected examples](https://revacss.eristavi.org/guide/ai-mistakes/) or the generated `/ai/mistakes.md` reference before reviewing generated interfaces. The focused guide covers foreign classes, invalid values, missing extensions, scoped boundaries, shared defaults, resets, dropdown semantics, form labels and responsive wrappers. Its **Incorrect** snippets are deliberate counterexamples; use only the **Correct** patterns with their stated dependencies. The same examples ship in `AI_MISTAKES.md` for offline review.
