@@ -1,6 +1,10 @@
 
 @layer re.base {
   :where(*, *::before, *::after) { box-sizing: border-box; }
+  /* Resolve paint on each element so nested themes keep their own colours.
+     Native mode is inherited through flags; unsupported properties stay native. */
+  :where(*) { scrollbar-color: var(--re-scrollbar-color, var(--re-muted) var(--re-surface)); scrollbar-width: var(--re-scrollbar-width, auto); }
+  @media (forced-colors: active), print { :where(*) { scrollbar-color: auto; scrollbar-width: auto; } }
   :where(html) { -webkit-text-size-adjust: 100%; }
   :where(body,.reva,:scope.reva) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
   :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]) { background-color: var(--re-bg); color: var(--re-text); }

@@ -9,7 +9,8 @@ export const componentGroups = [
       "media",
       "description-lists",
       "scroll-top",
-      "reading-progress"
+      "reading-progress",
+      "scrollbars"
     ]
   },
   {
@@ -71,6 +72,7 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "scrollbars": ["Native page/scroll container; optional data-scrollbar=auto|thin|native", "Auto by default; inherited setting with local resets and per-element theme colours.", "Core tokens + base; included in complete global/scoped builds", "Standard CSS scrollbar colours and widths. OS/browser control exact rendering. Forced colours and print retain native appearance; scrolling and gutters are unchanged."],
   "reading-progress": ["div[data-reading-progress=page][aria-hidden=true]", "One empty decorative element; page or none. Shared appearance and motion settings apply.", "Optional reva.reading-progress.css / reva.reading-progress.scoped.css", "Root page-scroll position via native CSS. Unsupported browsers and reduced-motion/forced-colour/print modes omit it. No reading-completion measurement or JavaScript."],
   "scroll-top": ["a.scroll-top with href pointing to an existing top ID", "A visible link label; optional numeric positioning in application CSS.", "reva.scroll-top.css + reva.scrolling.css", "Native fragment navigation. No scroll observer, automatic hiding or JavaScript."],
   "steps": ["ol.steps > li > a or span", "aria-current=step; visible state text; inherited appearance.", "reva.steps.css", "Native process navigation; application supplies stage state and destinations."],

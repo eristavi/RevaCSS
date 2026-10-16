@@ -560,5 +560,22 @@
       "dependencies": "Optional reva.reading-progress.css after global core, or reva.reading-progress.scoped.css after reva.scoped.css. Modular global use requires tokens, base and this extension. Not included in complete core or component bundle.",
       "limitations": "Requires native scroll(root block) timelines and auto animation duration. Unsupported browsers, reduced motion, forced colours and print omit it. No scroll range stays visually empty. Tracks the entire root scroll range, including headers/footer, not a particular article or nested scroller. Place outside transformed, filtered or contained ancestors; use one page indicator. CSS provides no accessible numeric progress or read-completion signal. Offset, height, colour and layer overrides need layout/contrast review."
     }
+  },
+  "scrollbar": {
+    "values": [
+      "auto",
+      "thin",
+      "native"
+    ],
+    "default": "auto",
+    "scope": "Inherited; applies to page and native scroll containers",
+    "affects": "Native scrollbar paint and width. Auto uses local theme/palette muted thumb and surface track with normal width; thin keeps those colours with browser-defined thinner width; native restores browser colours and normal width.",
+    "usage": {
+      "targets": "Viewport scrollbar when configured on html; scrollable elements including tables, textareas, overlays and panels. Does not create overflow or require a class.",
+      "inheritance": "Shared custom properties carry the selected mode to descendant scroll containers; native scrollbar-width itself is not inherited. Each .reva boundary initializes auto defaults. Colour fallbacks resolve on each element for local themes and palettes.",
+      "localOverride": "Use auto to restore themed normal width inside thin/native; thin for optional compact scrolling; native restores browser scrollbar-color/width auto throughout that subtree. Omission preserves the inherited setting. Invalid values do not reset it.",
+      "dependencies": "Included in complete global/scoped builds. Modular consumers load tokens and base. No extension or JavaScript.",
+      "limitations": "Uses standard scrollbar-color and scrollbar-width only. Unsupported properties retain native rendering. OS overlay/auto-hide behaviour, exact thickness, shape and touch scrollbar paint remain browser/platform controlled. Forced colours and print use native colours and normal width. No hidden mode; thin is optional and can be harder to drag. Existing scrollbar-gutter behaviour is unchanged."
+    }
   }
 }

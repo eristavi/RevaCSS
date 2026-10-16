@@ -171,6 +171,12 @@
       "kind": "manual",
       "status": "open",
       "summary": "Validate optional native reading-progress global/scoped extensions before release: root scroll at start/middle/end and reverse; dynamic page height, no overflow, RTL, supported/unsupported timelines, reduced motion, none/subtle/expressive re-entry, nested .reva isolation, forced colours, print, theme/accent/local overrides, narrow/zoomed layouts, safe-area/header offsets and pointer pass-through. Confirm decoration is absent from accessibility navigation. Review /demos/reading-progress/; prepared browser tests are not run. Browser/device acceptance deferred by maintainer instruction."
+    },
+    {
+      "id": "Q-SCROLLBARS",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate new default themed native scrollbars and auto/thin/native inheritance before release: Chromium, Firefox, Safari/iOS; classic/overlay scrollbar OS modes; page, tables, textarea, dialogs/popovers and panels; keyboard/drag/touch usability; nested light/dark/palette/tone/material and .reva boundaries; native reset and auto re-entry; forced colours, print and zoom. Confirm no unintended overflow and no hidden scrollbar mode. Browser acceptance pending; the maintainer attestation through reading progress predates this addition."
     }
   ]
 }

@@ -1,6 +1,45 @@
 import {nativePatternTopics} from "./native-patterns.js";
 export const topics = [
   {
+    "slug": "scrollbars",
+    "title": "Scrollbars",
+    "intro": "Native scrollbars follow the surrounding theme by default. Three modes, no structural class and no JavaScript.",
+    "notes": [
+      "Auto is the default: no attribute is necessary. data-scrollbar=auto/thin/native configures the page on html, a subtree or a specific scroll container.",
+      "Auto uses the local muted foreground for the thumb and the local surface for the track at normal width. Thin keeps those colours at browser-defined thinner width. Native restores browser colours and normal width.",
+      "Included in global and scoped core; modular consumers load tokens and base. Each .reva boundary initializes auto. Local themes/palettes resolve their own colours; a local auto resets an inherited native or thin mode.",
+      "Uses standard scrollbar-color and scrollbar-width. OS overlay settings, auto-hiding, shape, exact width and mobile painting remain platform-owned. Unsupported properties keep native rendering. Forced colours and print restore native colours and width.",
+      "The setting never hides a scrollbar, creates overflow or changes scroll behaviour. Make independent non-interactive scroll regions keyboard reachable with a useful accessible name. Prefer normal width where dragging is important.",
+      "The maintainer reported cross-browser success for earlier additions through reading progress on 16 October 2026. This scrollbar addition still awaits its own browser/device review."
+    ],
+    "examples": [
+      {
+        "id": "scrollbar-auto",
+        "title": "Default themed scrollbar",
+        "description": "No attribute is required: normal-width scrollbars use the local muted foreground and surface colours. Exact visibility and rendering depend on browser and OS settings.",
+        "html": "<div role=\"region\" aria-label=\"Default themed scrollbar\" tabindex=\"0\" style=\"max-block-size:12rem; overflow:auto\">\n  <p>Section 1: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 2: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 3: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 4: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 5: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 6: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n</div>"
+      },
+      {
+        "id": "scrollbar-thin",
+        "title": "Optional thin scrollbar",
+        "description": "The browser chooses the thinner width; this is an optional compact treatment. Exact visibility and rendering depend on browser and OS settings.",
+        "html": "<div data-scrollbar=\"thin\" role=\"region\" aria-label=\"Optional thin scrollbar\" tabindex=\"0\" style=\"max-block-size:12rem; overflow:auto\">\n  <p>Section 1: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 2: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 3: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 4: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 5: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 6: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n</div>"
+      },
+      {
+        "id": "scrollbar-native",
+        "title": "Browser-native scrollbar",
+        "description": "Restore browser colours and normal width locally. Native colour-scheme still follows the surrounding theme. Exact visibility and rendering depend on browser and OS settings.",
+        "html": "<div data-scrollbar=\"native\" role=\"region\" aria-label=\"Browser-native scrollbar\" tabindex=\"0\" style=\"max-block-size:12rem; overflow:auto\">\n  <p>Section 1: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 2: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 3: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 4: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 5: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n  <p>Section 6: Native scrolling remains available with the keyboard, scrollbar and your usual pointer or touch gesture.</p>\n</div>"
+      },
+      {
+        "id": "scrollbar-overrides",
+        "title": "Inherited modes and local resets",
+        "description": "A native subtree can opt back into themed scrollbars. Local themes resolve their own thumb/track colours. Each labelled panel can scroll independently.",
+        "html": "<section data-scrollbar=\"native\">\n  <div role=\"region\" aria-label=\"Inherited native scrollbar\" tabindex=\"0\" style=\"max-block-size:8rem; overflow:auto\"><p style=\"min-block-size:16rem\">Native colours and width inherited from the section.</p></div>\n  <div data-scrollbar=\"auto\" data-theme=\"dark\" role=\"region\" aria-label=\"Local dark themed scrollbar\" tabindex=\"0\" style=\"max-block-size:8rem; overflow:auto\"><p style=\"min-block-size:16rem\">Local auto restores themed normal width with dark colours.</p></div>\n</section>"
+      }
+    ]
+  },
+  {
     "slug": "reading-progress",
     "title": "Reading progress",
     "intro": "An optional decorative bar follows the whole page scroll position using native CSS. No JavaScript or structural class.",

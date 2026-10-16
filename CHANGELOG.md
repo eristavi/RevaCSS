@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Native scrollbars
+
+- Theme native scrollbar thumb/track colours at normal width by default. Add inherited data-scrollbar=auto/thin/native with local resets, nested-theme colour resolution and scoped defaults. Standard CSS only; preserve native high-contrast/print appearance, platform overlay behaviour and existing gutters. Add demos, documentation and customizer choices; browser acceptance for scrollbars is pending.
+
 ### Reading progress
 
 - Add optional global/scoped reading-progress CSS extensions and local data-reading-progress=page/none. A decorative empty element tracks root page scroll with native timelines, inherited colour/motion, RTL fill and safe-area offset. Unsupported browsers, reduced motion, forced colours and print omit the bar. Add component/API guidance and a full-page demo; core size is unchanged and browser acceptance is deferred.

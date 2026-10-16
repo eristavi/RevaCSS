@@ -17,6 +17,7 @@
 --re-button-radius: var(--re-radius); --re-surface-border: 1px;
 --re-shadow: 0 2px 8px rgb(0 0 0 / 8%); --re-glass-shadow: 0 8px 24px rgb(0 0 0 / 12%), inset 0 var(--re-surface-border) 0 rgb(255 255 255 / 40%), inset 0 calc(-1 * var(--re-surface-border)) 0 rgb(0 0 0 / 8%); --re-duration: 140ms; --re-press: 1px; --re-accordion-closed-opacity: 1;
 --re-scroll-behavior: smooth; --re-target-animation: none;
+--re-scrollbar-color: initial; --re-scrollbar-width: auto;
 --re-edge-content: none; --re-edge-position: static; --re-edge-animation: none; --re-edge-interaction: none; --re-edge-time: 8s; --re-edge-count: infinite; --re-edge-play: running; --re-edge-display: block;
 --re-gradient: 1; --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%);
 --re-secondary: light-dark(#4B5563,#BFC8CD); --re-secondary-end: light-dark(#3D4652,#CDD5D9); --re-on-secondary: light-dark(#FFFFFF,#111111); --re-secondary-link: light-dark(#4B5563,#BFC8CD); --re-success: light-dark(#256B4E,#78B99B); --re-success-end: light-dark(#1D573F,#8EC9AD); --re-on-success: light-dark(#FFFFFF,#111111); --re-danger: light-dark(#A63D4F,#D98B97); --re-danger-end: light-dark(#8C3041,#E39EAA); --re-on-danger: light-dark(#FFFFFF,#111111); --re-danger-link: light-dark(#A63D4F,#D98B97); --re-warning: light-dark(#E6BC63,#E6BC63); --re-warning-end: light-dark(#D5A94E,#F0CB7C); --re-on-warning: light-dark(#111111,#111111); color-scheme: light dark; }
@@ -81,6 +82,9 @@
 :where([data-border="none"], :scope[data-border="none"]) { --re-surface-border: 0px; }
 :where([data-controls="styled"], :scope[data-controls="styled"]) { --re-input-opacity: 1; --re-input-shadow: inset 0 1px 2px rgb(0 0 0 / 3%); }
 :where([data-controls="minimal"], :scope[data-controls="minimal"]) { --re-input-opacity: 0; --re-input-shadow: none; }
+:where([data-scrollbar="auto"], :scope[data-scrollbar="auto"]) { --re-scrollbar-color: initial; --re-scrollbar-width: auto; }
+:where([data-scrollbar="thin"], :scope[data-scrollbar="thin"]) { --re-scrollbar-color: initial; --re-scrollbar-width: thin; }
+:where([data-scrollbar="native"], :scope[data-scrollbar="native"]) { --re-scrollbar-color: auto; --re-scrollbar-width: auto; }
 :where([data-font="manrope"], :scope[data-font="manrope"]) { --re-font: Manrope, system-ui, sans-serif; }
 :where([data-font="system"], :scope[data-font="system"]) { --re-font: system-ui, sans-serif; }
 :where([data-navbar="standard"], :scope[data-navbar="standard"]) { --re-navbar-layout: flex; --re-navbar-brand-column: 1; --re-navbar-links-column: 2; --re-navbar-links-align: flex-end; --re-navbar-brand-margin: auto; --re-navbar-brand-align: start; --re-navbar-width: 100%; --re-navbar-margin: 0rem; }

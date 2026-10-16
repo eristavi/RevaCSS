@@ -2,6 +2,11 @@ import options from '../../../tokens/options.json';
 
 export const attributes = [
   {
+    id: 'scrollbar', title: 'data-scrollbar',
+    description: 'Native scrollbar appearance. Auto (the default) follows local theme/palette at normal width; thin uses those colours at a browser-defined compact width; native restores browser colours and width. Set on html, a parent or a scroll container. Forced colours/print stay native. The operating system controls visibility and exact rendering; no class or script. Browser acceptance for this addition is pending.',
+    html: '<div data-scrollbar="thin" role="region" aria-label="Compact scrollbar example" tabindex="0" style="max-block-size:10rem; overflow:auto">\n  <p>Scroll this region using its native scrollbar, the keyboard or your usual gesture.</p>\n  <p style="min-block-size:16rem">The thin setting is optional. Use auto for themed normal width, or native for the browser appearance.</p>\n</div>'
+  },
+  {
     id: 'reading-progress', title: 'data-reading-progress', render: false,
     description: 'Optional page-scroll decoration: page or none, local to one empty aria-hidden div. Load the separate reva.reading-progress.css (or matching scoped extension). Unsupported browsers, reduced motion, forced colours and print omit it; data-motion=none hides it. See /components/reading-progress/ and /demos/reading-progress/. Browser acceptance is deferred.',
     html: '<div data-reading-progress="page" aria-hidden="true"></div>'
