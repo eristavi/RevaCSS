@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "blockers": [
     {
+      "id": "Q-STICKY-TABLES",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate local sticky-table scrolling before release; browser checks are deferred by maintainer instruction.",
+      "scope": "Run tests/browser/sticky-tables.spec.mjs. Check none/header/column/both, no-class and legacy wrappers, multi-row thead, merged-cell column fallback, nested/local isolation, actual vertical/horizontal scrolling, stacking and opaque striped surfaces, global/minified/modular/scoped builds, theme/material contexts, keyboard regions, RTL, zoom, forced colours and full print output. Record exact browser/device versions and revision."
+    },
+    {
       "id": "Q-SCROLLBAR-GUTTER",
       "kind": "manual",
       "status": "open",

@@ -111,10 +111,10 @@ export const componentContracts = {
     "Layouts arrange content; there is no numbered 12-column API."
   ],
   "tables": [
-    "table; .table-scroll for overflow",
-    "data-table; caption and native header cells.",
+    "table; .table-scroll or a local data-table-sticky wrapper for overflow",
+    "data-table for appearance; local wrapper data-table-sticky=none|header|column|both; caption and native header cells.",
     "reva.components.css",
-    "CSS does not sort, filter or fetch records."
+    "Sticky wrappers need a height limit for vertical scrolling. Whole thead groups can pin; first-column pinning requires unmerged cells. Print removes pinning/height limits. CSS does not sort, filter or fetch records."
   ],
   "media": [
     "img, video, figure; native button/dialog composition for an enlarged image",

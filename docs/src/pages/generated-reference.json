@@ -259,6 +259,24 @@
         "limitations": "Bordered with data-border=none has zero-width shared rules. Does not add sorting, pagination, responsive wrapping or header associations."
       }
     },
+    "table-sticky": {
+      "values": [
+        "none",
+        "header",
+        "column",
+        "both"
+      ],
+      "default": "none",
+      "scope": "Local; non-table scroll wrapper with a direct table child. Not inherited.",
+      "affects": "Creates a native scroll container and optionally pins its direct table header group, first column or both. No wrapper class is required.",
+      "usage": {
+        "targets": "A non-table wrapper containing a direct native table child. Keep caption, thead/tbody/tfoot and th scopes in native markup.",
+        "inheritance": "Local only. This setting is not inherited and does not configure nested tables. Attributes on html or the table itself do not activate it.",
+        "localOverride": "Use none for ordinary scrolling without pinning; header, column or both enable their named behaviour on that wrapper. Omission preserves existing layout; .table-scroll remains supported.",
+        "dependencies": "Complete global/scoped build, or tokens + base + components. Set an application max-block-size or block-size for internal vertical scrolling; no height is forced.",
+        "limitations": "Column pinning is disabled for tables with direct cells spanning multiple rows/columns; both retains header pinning. Header groups may have multiple rows. Pinned backgrounds are opaque using theme tokens to prevent text bleed. Print removes pinning and wrapper height limits. No sorting, filtering, hover mode or JavaScript is added. Browser acceptance is deferred."
+      }
+    },
     "size": {
       "values": [
         "small",

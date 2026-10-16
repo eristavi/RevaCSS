@@ -6,6 +6,10 @@
 
 - Make native textareas auto-grow by default using support-gated content sizing, the existing 7rem minimum and a 24rem maximum. No class is required. Application CSS can restore `field-sizing: fixed`; unsupported browsers keep normal manual resizing. Browser/device validation is deferred to the next release review.
 
+### Tables
+
+- Add local data-table-sticky=none/header/column/both on a wrapper with a direct native table; no wrapper class is required. Preserve .table-scroll, native semantics, multi-row header groups, RTL-aware first-column pinning, opaque striped surfaces and print reset. Merged cells disable column pinning while retaining header mode. Browser validation is deferred.
+
 ### Scrollable panels
 
 - Reserve stable classic-scrollbar space inside dialogs, popovers and the desktop app-shell sidebar, without adding global page gutters or changing overlay-scrollbar geometry. Preserve native fallback and application CSS opt-out; overlay gutters reset in print. The scrollable-panel demo uses an accessible, visually bare SVG X close control. Browser/device validation is deferred.

@@ -12,6 +12,31 @@
   :where(.stack) { display: flex; flex-direction: column; }
   :where(.stack > *) { margin-block: 0; }
   :where(.table-scroll) { max-inline-size: 100%; overflow-x: auto; border-radius: var(--re-radius); }
+  /* Local native-table scrolling. Only a wrapper with a direct table qualifies. */
+  :where(:is([data-table-sticky="none"],[data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table):has(> table)) {
+    max-inline-size: 100%; min-inline-size: 0; overflow: auto;
+    border-radius: var(--re-radius); scrollbar-gutter: stable;
+  }
+  :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table) {
+    overflow: visible; background-color: var(--re-surface);
+  }
+  /* Pin the whole header group so multiple heading rows stay together. */
+  :where(:is([data-table-sticky="header"],[data-table-sticky="both"]):not(table) > table > thead) {
+    position: sticky; inset-block-start: 0; z-index: 2;
+    background-color: var(--re-surface-alt);
+  }
+  /* Cell indexes are not column indexes when merged cells are present.
+     Conservatively leave column pinning off for such tables. */
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > :is(thead,tbody,tfoot) > tr > :first-child) {
+    position: sticky; inset-inline-start: 0; z-index: 1;
+    background-color: var(--re-surface);
+  }
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > tbody > tr:nth-child(even) > :first-child) {
+    background-color: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), var(--re-surface));
+  }
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > :is(thead,tfoot) > tr > :first-child) {
+    background-color: var(--re-surface-alt); z-index: 3;
+  }
   :where(table tbody tr:nth-child(even)) { background: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), transparent); }
   :where(table th,table td) { border-inline-start: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
   :where(table tr > :last-child) { border-inline-end: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
@@ -57,6 +82,12 @@
   :where(.print-only) { display: none !important; }
   @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
   @media (forced-colors: active) {
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table),
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > :is(thead,tbody,tfoot) > tr > *) {
+      background-color: Canvas; color: CanvasText; border-color: CanvasText;
+    }
+  }
+  @media (forced-colors: active) {
     :where(button,:is(.button,.scroll-top),input,select,textarea,.card,details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
     :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
     :where(:focus-visible) { outline-color: Highlight; }
@@ -77,6 +108,10 @@
     :where(a) { color: #000; }
     :where(.card,figure,tr) { break-inside: avoid; }
     :where(.table-scroll) { overflow: visible; }
+    :where(:is([data-table-sticky="none"],[data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table):has(> table)) { overflow: visible; max-block-size: none !important; block-size: auto !important; scrollbar-gutter: auto; }
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table) { min-inline-size: 0 !important; overflow: visible; }
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > thead),
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > :is(thead,tbody,tfoot) > tr > *) { position: static; inset: auto; z-index: auto; }
     :where(.skip-link) { display: none; }
     :where(.no-print) { display: none !important; }
     :where(.print-only) { display: revert !important; }
