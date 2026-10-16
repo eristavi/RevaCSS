@@ -1,4 +1,5 @@
 export const publicTokens = [
+  ["Tables", "--re-table-highlight", "Colour", "Inset feedback tint beneath text; defaults to color-mix(in srgb, var(--re-link) 5%, transparent). Custom tints require contrast review. No cursor or selection behaviour."],
   ["Custom width", "--re-custom-max-width / --re-custom-side-padding", "Nonnegative length", "Maximum page width including padding (75rem default) and per-side padding (1rem default) with data-width=custom. Padding is capped in narrow parents."],
   ["Layout", "--re-container-width / --re-container-padding", "Size / nonnegative length", "Container width/padding overrides used by Full and Custom; existing width presets reset both. Navbar width remains independent."],
   ["Custom density", "--re-custom-surface-padding / --re-custom-content-space", "Nonnegative length", "Base surface padding and content gaps with data-density=custom; both default to 1rem. Cards scale surface padding by 1.5."],

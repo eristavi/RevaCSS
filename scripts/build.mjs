@@ -74,7 +74,17 @@ contrast+=rule(':where([data-contrast="auto"], :scope[data-contrast="auto"])','-
 contrast+=rule(':where([data-contrast="more"], :scope[data-contrast="more"])',contrastDecl);
 contrast+=`@media (prefers-contrast: more) { ${rule(':where(:root,[data-theme],[data-tone],[data-palette],[data-contrast])',contrastDecl)} }\n}\n`;
 await mkdir('dist',{recursive:true}); await mkdir('docs/public/reva',{recursive:true});
-const base=await readFile('src/css/base.css','utf8'), comp=await readFile('src/css/components.css','utf8');
+const base=await readFile('src/css/base.css','utf8');
+// Native column feedback uses finite, explicit child indexes. Above the
+// manifest limit, or with merged cells, the table keeps its cell fallback.
+const columnLimit=options['table-hover'].columnLimit;
+if(!Number.isInteger(columnLimit)||columnLimit<1||columnLimit>64)throw Error('Invalid table hover column limit');
+const groups=':is(thead,tbody,tfoot)';
+const unsupportedCells=`:is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+${columnLimit+1}))`;
+const columnTable=`table[data-table-hover="column"]:not(:has(> ${groups} > tr > ${unsupportedCells}))`;
+const columnRules=Array.from({length:columnLimit},(_,i)=>`:where(${columnTable}:has(> ${groups} > tr > :nth-child(${i+1}):hover:not(:has(table:hover))) > ${groups} > tr > :nth-child(${i+1})) { box-shadow: var(--re-table-hover-shadow); }`).join('\n');
+const tableHover=(await readFile('src/css/table-hover.css','utf8')).replace('/* @reva-table-column-rules */',columnRules);
+const comp=(await readFile('src/css/components.css','utf8'))+tableHover;
 const badges=await readFile('src/css/badges.css','utf8');
 const alerts=await readFile('src/css/alerts.css','utf8');
 const accordions=await readFile('src/css/accordions.css','utf8');

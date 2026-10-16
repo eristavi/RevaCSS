@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
   "testsDeferred": true,
-  "summary": "Current source makes native textareas auto-grow by default and adds complete declarative modal, image-lightbox and anchored-help examples with inherited effects after the published 2.0.0 release. Scrollable overlays and desktop app-shell sidebars also reserve stable classic-scrollbar space; local data-table-sticky wrappers add optional header/column pinning. Browser/device and final release validation are deferred by maintainer instruction until the planned 2.0.1 review. Published 2.0.0 downloads remain unchanged; source builds do not inherit their acceptance."
+  "summary": "Current source makes native textareas auto-grow by default and adds complete declarative modal, image-lightbox and anchored-help examples with inherited effects after the published 2.0.0 release. Scrollable overlays and desktop app-shell sidebars also reserve stable classic-scrollbar space; local data-table-sticky wrappers add optional header/column pinning. Tables now default to row feedback with local cell/column/none overrides. Browser/device and final release validation are deferred by maintainer instruction until the planned 2.0.1 review. Published 2.0.0 downloads remain unchanged; source builds do not inherit their acceptance."
 }

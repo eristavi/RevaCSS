@@ -274,7 +274,26 @@
         "inheritance": "Local only. This setting is not inherited and does not configure nested tables. Attributes on html or the table itself do not activate it.",
         "localOverride": "Use none for ordinary scrolling without pinning; header, column or both enable their named behaviour on that wrapper. Omission preserves existing layout; .table-scroll remains supported.",
         "dependencies": "Complete global/scoped build, or tokens + base + components. Set an application max-block-size or block-size for internal vertical scrolling; no height is forced.",
-        "limitations": "Column pinning is disabled for tables with direct cells spanning multiple rows/columns; both retains header pinning. Header groups may have multiple rows. Pinned backgrounds are opaque using theme tokens to prevent text bleed. Print removes pinning and wrapper height limits. No sorting, filtering, hover mode or JavaScript is added. Browser acceptance is deferred."
+        "limitations": "Column pinning is disabled for tables with direct cells spanning multiple rows/columns; both retains header pinning. Header groups may have multiple rows. Pinned backgrounds are opaque using theme tokens to prevent text bleed. Print removes pinning and wrapper height limits. Hover feedback is configured separately with data-table-hover; no sorting, filtering or JavaScript is added. Browser acceptance is deferred."
+      }
+    },
+    "table-hover": {
+      "values": [
+        "row",
+        "cell",
+        "column",
+        "none"
+      ],
+      "default": "row",
+      "scope": "Local to each native table; not inherited.",
+      "columnLimit": 32,
+      "affects": "Row background feedback by default; optional cell, bounded native column or no feedback. Pointer hover is restricted to hover-capable devices. Actual controls retain native keyboard focus.",
+      "usage": {
+        "targets": "Native table elements. Row mode affects tbody rows; cell/column pointer modes include header/body/footer cells. No wrapper class is required.",
+        "inheritance": "Local only on the table. Each table defaults to row; attributes on ancestors do not configure child or nested tables.",
+        "localOverride": "Omit the attribute or use row for body-row feedback; cell highlights one cell, column highlights the corresponding column in supported table structures, and none removes decorative feedback. Invalid values fall back to row.",
+        "dependencies": "Complete global/scoped build, or tokens + base + components. Existing table appearance and sticky wrappers remain independent. --re-table-highlight accepts a custom overlay colour; default is a 5% link-colour tint.",
+        "limitations": "Column mode uses explicit CSS selectors for unmerged tables up to 32 columns. Merged, explicitly hidden-cell or larger tables fall back to cell highlighting. Use cell mode if application CSS hides cells inconsistently. Keyboard focus highlights a body row in row mode and the focused cell in cell/column modes; none retains ordinary focus outlines. Nested-table interaction does not highlight the outer table. Forced colours and print remove decorative feedback. No sorting, selection, click handler or JavaScript is added. Browser acceptance is deferred."
       }
     },
     "size": {

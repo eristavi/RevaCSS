@@ -8,6 +8,8 @@
 
 ### Tables
 
+- Highlight native tbody rows by default; add local data-table-hover=row/cell/column/none. Retain stripes and sticky cell backgrounds beneath a theme-aware inset tint, real-control keyboard feedback and native focus. Column mode supports unmerged tables up to 32 columns, otherwise cell feedback; nested tables remain independent. Forced colours and print remove decoration. Browser validation is deferred.
+
 - Add local data-table-sticky=none/header/column/both on a wrapper with a direct native table; no wrapper class is required. Preserve .table-scroll, native semantics, multi-row header groups, RTL-aware first-column pinning, opaque striped surfaces and print reset. Merged cells disable column pinning while retaining header mode. Browser validation is deferred.
 
 ### Scrollable panels

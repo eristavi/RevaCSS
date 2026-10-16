@@ -1,0 +1,21 @@
+/* Local table feedback. Inset paint stays beneath text and above existing
+   striped/sticky cell backgrounds; it adds no click behaviour or pointer cursor. */
+@layer re.components {
+  :where(table) { --re-table-hover-shadow: inset 0 0 0 9999px var(--re-table-highlight, color-mix(in srgb, var(--re-link) 5%, transparent)); }
+  @media (hover: hover) {
+    :where(table:not([data-table-hover="cell"],[data-table-hover="column"],[data-table-hover="none"]) > tbody > tr:hover:not(:has(table:hover)) > :is(th,td)) { box-shadow: var(--re-table-hover-shadow); }
+    :where(table:is([data-table-hover="cell"],[data-table-hover="column"]) > :is(thead,tbody,tfoot) > tr > :is(th,td):hover:not(:has(table:hover))) { box-shadow: var(--re-table-hover-shadow); }
+    /* Build emits bounded column selectors here. Merged/oversized tables keep
+       the cell fallback above. Descendant tables cannot activate an outer table. */
+    /* @reva-table-column-rules */
+  }
+  /* Keyboard feedback follows real controls; no tabindex is added to rows.
+     Column mode highlights the focused cell without inventing grid navigation. */
+  :where(table:not([data-table-hover="cell"],[data-table-hover="column"],[data-table-hover="none"]) > tbody > tr:focus-within:not(:has(table:focus-within)) > :is(th,td)),
+  :where(table:is([data-table-hover="cell"],[data-table-hover="column"]) > :is(thead,tbody,tfoot) > tr > :is(th,td):focus-within:not(:has(table:focus-within))) { box-shadow: var(--re-table-hover-shadow); }
+}
+@layer re.utilities {
+  @media (forced-colors: active), print {
+    :where(table > :is(thead,tbody,tfoot) > tr > :is(th,td)) { --re-table-hover-shadow: none; }
+  }
+}
