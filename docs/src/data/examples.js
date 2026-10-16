@@ -1229,7 +1229,27 @@ export const topics = [
     "slug": "media",
     "title": "Images and media",
     "intro": "Media scales within its container. Image attributes control cropping; meaningful alternative text remains your responsibility.",
+    "notes": [
+      "A lightbox is a composition of native button, dialog, figure, img and figcaption elements, not a new class or data attribute. Use commandfor/command=show-modal to open, an explicit close control and a unique aria-labelledby caption ID. Native modal handling supplies focus and inertness where invoker commands are supported.",
+      "Keep a normal image-file link and visible thumbnail available outside the modal. Native commands have no JavaScript fallback; the file link remains usable when commands are unsupported. closedby=any requests outside-click dismissal where supported; the explicit close button and Escape remain available through native dialog behaviour.",
+      "The enlarged image uses existing data-ratio=auto and data-fit=contain on its dialog to avoid inheriting thumbnail cropping. Ordinary image CSS limits its block size to 60dvh while retaining responsive width; the dialog keeps existing safe-area and overflow rules. Replace the placeholder with your own full-resolution source and intrinsic dimensions.",
+      "Keep the dialog inside its parent and .reva boundary. Existing theme, palette, shape, border, depth, density and optional materials inherit in the top layer; local supported attributes override them. Load matching motion and material extensions after the core for effects. Motion none and reduced-motion preferences preserve static viewing.",
+      "This composition opens one image at a time. It adds no carousel state, next/previous image management, automatic playback, preloading or custom zoom. Native browser image viewing remains available through the image-file link. Browser/device acceptance for these source-preview examples is deferred."
+    ],
     "examples": [
+      {
+        "id": "image-lightbox",
+        "title": "Native image lightbox (source preview)",
+        "description": "Open an enlarged image using a native modal. No new class or data attribute is needed. The visible image-file link provides an alternative when declarative commands are unavailable.",
+        "html": "<button type=\"button\" commandfor=\"photo-dialog\" command=\"show-modal\" aria-label=\"Enlarge illustrated hills\" style=\"max-inline-size: 20rem\">\n  <img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Illustrated hills beneath a pale sky\">\n</button>\n<p><a href=\"__BASE__images/example-landscape.svg\">Open the illustrated hills image file</a></p>\n<dialog id=\"photo-dialog\" aria-labelledby=\"photo-caption\" closedby=\"any\" data-ratio=\"auto\" data-fit=\"contain\">\n  <button type=\"button\" commandfor=\"photo-dialog\" command=\"close\" autofocus>Close image</button>\n  <figure>\n    <img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Illustrated hills beneath a pale sky\" style=\"display: block; margin-inline: auto; max-block-size: 60dvh\">\n    <figcaption id=\"photo-caption\">Illustrated hills — full image view</figcaption>\n  </figure>\n</dialog>"
+      },
+      {
+        "id": "image-lightbox-effects",
+        "title": "Lightbox with inherited effects",
+        "description": "The parent supplies dark Glass, rounded corners, pronounced depth and expressive overlay motion. Load the matching Glass and motion extensions; local supported attributes on dialog can override these settings.",
+        "glass": true,
+        "html": "<section data-theme=\"dark\" data-material=\"glass\" data-shape=\"rounded\" data-depth=\"pronounced\" data-motion=\"expressive\">\n  <button type=\"button\" commandfor=\"glass-photo-dialog\" command=\"show-modal\" aria-label=\"Enlarge Glass landscape\" style=\"max-inline-size: 20rem\">\n    <img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Illustrated hills beneath a pale sky\">\n  </button>\n  <p><a href=\"__BASE__images/example-landscape.svg\">Open the illustrated hills image file</a></p>\n  <dialog id=\"glass-photo-dialog\" aria-labelledby=\"glass-photo-caption\" closedby=\"any\" data-ratio=\"auto\" data-fit=\"contain\">\n    <button type=\"button\" commandfor=\"glass-photo-dialog\" command=\"close\" autofocus>Close Glass image</button>\n    <figure>\n      <img src=\"__BASE__images/example-landscape.svg\" width=\"640\" height=\"360\" alt=\"Illustrated hills beneath a pale sky\" style=\"display: block; margin-inline: auto; max-block-size: 60dvh\">\n      <figcaption id=\"glass-photo-caption\">Illustrated hills — full image view</figcaption>\n    </figure>\n  </dialog>\n</section>"
+      },
       {
         "id": "figure",
         "title": "Figures and responsive images",

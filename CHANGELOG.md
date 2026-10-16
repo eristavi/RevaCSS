@@ -8,6 +8,8 @@
 
 ### Documentation
 
+- Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, explicit close controls, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
+
 - Complete native modal invocation examples using commandfor/command, platform and light dismissal, form closing, inherited material/motion effects and local appearance resets. Prepare no-script browser coverage; acceptance remains deferred.
 
 - Complete the human and generated AI stylesheet inventories with the existing card-grid, gallery, scrolling, scroll-top, scroll-motion and document-transition entry points, including their dependencies and scope limits.

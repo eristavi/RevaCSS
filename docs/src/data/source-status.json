@@ -1,5 +1,5 @@
 {
   "unreleasedChanges": true,
   "testsDeferred": true,
-  "summary": "Current source makes native textareas auto-grow by default and adds complete declarative modal examples with inherited effects after the published 2.0.0 release. Browser/device and final release validation are deferred by maintainer instruction until the planned 2.0.1 review. Published 2.0.0 downloads remain unchanged; source builds do not inherit their acceptance."
+  "summary": "Current source makes native textareas auto-grow by default and adds complete declarative modal and image-lightbox examples with inherited effects after the published 2.0.0 release. Browser/device and final release validation are deferred by maintainer instruction until the planned 2.0.1 review. Published 2.0.0 downloads remain unchanged; source builds do not inherit their acceptance."
 }

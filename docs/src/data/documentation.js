@@ -117,10 +117,10 @@ export const componentContracts = {
     "CSS does not sort, filter or fetch records."
   ],
   "media": [
-    "img, video, figure",
+    "img, video, figure; native button/dialog composition for an enlarged image",
     "data-ratio and data-fit; meaningful alt text.",
     "reva.components.css",
-    "Intrinsic media dimensions and playback are browser/application-owned."
+    "Intrinsic media dimensions and playback are browser/application-owned. The documented lightbox composes existing native elements without a new class: native dialog commands open/close an image, a caption labels it, and a normal image-file link remains available as an alternative. Requires native command support; no carousel or custom zoom behaviour is added."
   ],
   "description-lists": [
     "dl.description-list, dt, dd",
