@@ -256,6 +256,10 @@ identifies tested framework scope, revisions and evidence limits.
 
 **Review generated code:** “Compare this page with the RevaCSS component contracts. Flag unsupported attributes, missing extensions, duplicate IDs, placeholder destinations and missing labels. Follow my project's instructions about when to run tests.”
 
+## Contributing to the framework
+
+For repository changes, read [the contributor workflow](https://revacss.eristavi.org/guide/contributing/) or `/ai/contributing.md`, also available as `CONTRIBUTING.md` in the source/package. It maps changes to source files, explains generated outputs and identifies checks for the affected behaviour. Start with `AGENTS.md` in a checkout and keep application usage separate from framework-maintenance tasks.
+
 ## Workflow for agents
 
 1. Follow “Select the version before using the API” to identify the loaded core, matching reference and any adapter dependencies.

@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Add contributor instructions mapping changes to sources, generation steps, focused checks and release evidence; connect AGENTS.md, README, the human guide and AI references.
+
 - Add a symptom-based troubleshooting guide for 13 interface issues, with inspection, fixes and verification steps in the human site, focused AI reference and offline package.
 
 - Standardize seven-decision AI workflows across all five adapters; generate per-adapter references and structured package requirements, and add the Laravel human guide.

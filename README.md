@@ -240,6 +240,8 @@ RevaCSS targets modern browsers. Native popovers require browser support; option
 
 ## Contributing
 
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for source locations, generated documentation, focused verification and release evidence. Coding agents should start with [AGENTS.md](AGENTS.md).
+
 For documentation or framework development, clone the repository and use Node 22.12 or newer; Node 24 is recommended.
 
 ```sh

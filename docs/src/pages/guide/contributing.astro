@@ -1,0 +1,14 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../CONTRIBUTING.md';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Contributor workflow" active="contributing">
+  <p class="doc-kicker">DEVELOP / CONTRIBUTOR WORKFLOW</p>
+  <div class="contributor-guide"><Content/></div>
+  <p><a href={base+'ai/contributing.md'}>Read the contributor reference as Markdown</a></p>
+</DocsLayout>
+<style>
+.contributor-guide :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.contributor-guide :global(code) { overflow-wrap:anywhere; }
+</style>

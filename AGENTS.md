@@ -10,6 +10,8 @@ finish that step and wait before starting the next.
 - Read [AI.md](AI.md) for RevaCSS usage, component contracts and application
   responsibilities before generating or changing interface markup.
 - Read [README.md](README.md) for setup and the repository's build commands.
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for the change-to-source map,
+  generated-file workflow and verification choices before modifying the framework.
 - For framework changes, consult [SPECIFICATION.md](SPECIFICATION.md) and
   [QUALITY_STANDARD.md](QUALITY_STANDARD.md). Use
   [VERSIONING.md](VERSIONING.md) and [MIGRATION.md](MIGRATION.md) when changing

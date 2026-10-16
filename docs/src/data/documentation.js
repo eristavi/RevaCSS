@@ -266,6 +266,7 @@ export const learnLinks = [
  { key:'why-revacss', title:'Why RevaCSS?', path:'guide/why-revacss/' },
  { key:'comparison', title:'Framework comparison', path:'guide/comparison/' },
  { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },
+ { key:'contributing', title:'Contributor workflow', path:'guide/contributing/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
  { key:'custom-components', title:'Building custom components', path:'guide/custom-components/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },
