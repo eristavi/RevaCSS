@@ -17,6 +17,10 @@ export function fixtureHTML(html, prefix, base) {
   if(!target)fallback=true;
   return ` ${attribute}=${quote}#${target||destination}${quote}`;
  }).replace(/url\(#([^)]+)\)/g,(match,id)=>`url(#${ids.get(id)||id})`);
+ // Example-owned CSS selectors must follow the same namespaced IDs. Rewrite
+ // selector preludes only, leaving declaration colours (for example #abc123)
+ // untouched, even if they happen to match an element's ID.
+ html=html.replace(/(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi,(_,open,css,close)=>open+css.replace(/(^|[{}])([^{}]+)(?=\{)/g,(_,boundary,selector)=>boundary+selector.replace(/#([\w-]+)/g,(match,id)=>ids.has(id)?`#${ids.get(id)}`:match))+close);
  // Anchor names are local to their fixture; framework token names are shared.
  html=html.replace(/--(?!re-)([\w-]+)/g,(_,name)=>`--${prefix}-${name}`);
  // No application backend: submitting a specimen runs native validation then

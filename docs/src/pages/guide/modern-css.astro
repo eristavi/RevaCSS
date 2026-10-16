@@ -29,6 +29,7 @@ const gallery=`<p id="gallery-help">Scroll, swipe or follow a numbered link to b
 <link rel="stylesheet" href={stylesheet('reva.scroll-motion.css')}/>
 <p class="doc-kicker">LEARN</p><h1>Modern CSS patterns</h1>
 <p class="doc-lead">Native HTML, inherited appearance and optional CSS enhancements. These patterns add no framework JavaScript. Support checks preserve readable content when an enhancement is unavailable.</p>
+<p>See the <a href={base+'components/disclosures/#anchored-help'}>anchored help-panel composition</a> for native help popovers positioned beside their buttons with application CSS, edge-flip candidates and a centred fallback. It reuses existing appearance and motion settings without a new framework class or attribute.</p>
 <section id="safe-area"><h2>1. Safe areas for viewport overlays</h2>
 <p>Full-height drawers and mobile app-shell popovers keep their controls inside the viewport safe area. Modal dialogs are centred within the safe rectangle. Ordinary cards, menus and nested containers keep their existing spacing: only the application knows whether they touch a viewport edge.</p>
 <CodeViewer id="safe-head" label="Allow a full-bleed viewport" code={'<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'}/>

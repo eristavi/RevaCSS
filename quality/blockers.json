@@ -2,6 +2,13 @@
   "schemaVersion": 1,
   "blockers": [
     {
+      "id": "Q-ANCHORED-HELP",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate native anchored help panels before release; browser checks are deferred by maintainer instruction.",
+      "scope": "Run tests/browser/anchored-help.spec.mjs. Review implicit native anchors, edge flips, bounded centred fallback, native popover support, naming/focus/Tab/Escape/outside dismissal, persistent hints, inherited/local materials and motion, multiple instances and manual-fixture CSS namespacing, RTL, zoom, safe areas, print, preferences and screen readers. Record exact versions and release revision."
+    },
+    {
       "id": "Q-NATIVE-LIGHTBOX",
       "kind": "manual",
       "status": "open",
