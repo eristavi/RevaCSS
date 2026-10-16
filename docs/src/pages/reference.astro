@@ -4,7 +4,8 @@ import { stylesheets } from '../data/stylesheets.js';
 import reference from './generated-reference.json';
 import pkg from '../../../package.json';
 const base=import.meta.env.BASE_URL;
-const sections=[{id:'files',title:'Stylesheet files'},{id:'attributes',title:'Attribute API'},{id:'boundaries',title:'Scope and behaviour'},{id:'related',title:'Detailed reference'}];
+const sections=[{id:'files',title:'Stylesheet files'},{id:'attributes',title:'Attribute API'},{id:'attribute-contracts',title:'Attribute usage rules'},{id:'boundaries',title:'Scope and behaviour'},{id:'related',title:'Detailed reference'}];
+const usageLabels={targets:'Supported targets',inheritance:'Inheritance',localOverride:'Local overrides and resets',dependencies:'Dependencies',limitations:'Limits and combinations with no effect'};
 function fileDescription(file) {
   const descriptions={
     'reva.button-materials.css':'Optional action-only solid, glass, veil, soft and liquid materials; load after the core.',
@@ -36,11 +37,15 @@ function fileDescription(file) {
 </tbody></table></div>
 <p>The generated icons directory contains individual SVG files and <code>icons/reva.svg</code>. <a href={base+'icons/'}>See icon usage and downloads.</a></p>
 <p>Standalone modules are not a replacement for common dependencies. The complete build includes shared preference utilities; modular consumers must preserve the corresponding behaviours.</p></section>
-<section id="attributes"><h2>Shared attribute API</h2><p>Set attributes on html, a parent section, or a .reva boundary. A nearer valid value overrides only that setting for supported descendants. Unsupported values retain the nearest valid inherited setting.</p>
-<div class="table-scroll" role="region" aria-label="Shared attribute API" tabindex="0"><table class="attribute-api"><caption>{Object.keys(reference.options).length} settings from tokens/options.json</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Values</th><th scope="col">Omitted default</th><th scope="col">Targets and meaning</th></tr></thead><tbody>
+<section id="attributes"><h2>Shared attribute API</h2><p>Set attributes on html, a parent section, or a .reva boundary. A nearer valid value configures supported descendants, subject to component precedence and preference rules. Use the detailed usage rules below for resets and material boundaries; unsupported values are not a general inheritance or reset mechanism.</p>
+<div class="table-scroll" role="region" aria-label="Shared attribute API" tabindex="0"><table class="attribute-api"><caption>{Object.keys(reference.options).length} settings from tokens/options.json</caption><thead><tr><th scope="col">Attribute</th><th scope="col">Values</th><th scope="col">Unconfigured default</th><th scope="col">Targets and meaning</th></tr></thead><tbody>
 {Object.entries(reference.options).map(([name,opt])=><tr><th scope="row"><a href={base+'attributes/#'+name}><code>data-{name}</code></a></th><td>{opt.values.join(' · ')}</td><td><code>{opt.default}</code></td><td>{opt.affects}</td></tr>)}
 </tbody></table></div>
 <p><code>data-variant</code> configures buttons, action inputs, .button links, badges and alerts. <code>data-appearance</code> configures only badges and alerts. Existing semantic button classes override inherited variants; a valid action-level variant overrides those classes. Material and fill remain separate settings.</p></section>
+<section id="attribute-contracts"><h2>Attribute usage rules</h2>
+<p>Omission keeps the inherited setting within the current boundary, or the initialized default when none applies. Default descriptions are not necessarily accepted values. There is no universal reset value. Unsupported values are not reliable resets: an unsupported material value can stop its parent scope without activating a replacement. Local resets and accessibility preferences have the setting-specific rules below.</p>
+{Object.entries(reference.options).map(([name,option])=><details id={'usage-'+name}><summary><code>data-{name}</code> usage</summary><dl>{Object.entries(usageLabels).map(([field,label])=><><dt>{label}</dt><dd>{option.usage?.[field] || 'Consult the matching component reference.'}</dd></>)}</dl></details>)}
+</section>
 <section id="boundaries"><h2>Scope and behavioural boundaries</h2><p>Each .reva boundary installs defaults. Configure the boundary itself or its descendants. CSS scope does not provide Shadow DOM isolation, and overlay markup must remain in its boundary.</p><p>The core relies on modern CSS including light-dark(), color-mix(), :has() and @scope. Native popovers are required for the top-menu interaction. Some enhancements have component-specific fallbacks; do not assume a complete legacy-browser fallback.</p><p>CSS does not supply routing, data loading, validation messages or arbitrary focus management. See <a href={base+'guide/accessibility/'}>behaviour and accessibility</a>.</p></section>
 <section id="related"><h2>Detailed reference</h2><ul><li><a href={base+'reference/components/'}>Component classes, native states and dependencies</a></li><li><a href={base+'reference/tokens/'}>CSS tokens and override examples</a></li><li><a href={base+'attributes/'}>Live HTML examples for every shared attribute</a></li></ul></section>
 </DocsLayout>

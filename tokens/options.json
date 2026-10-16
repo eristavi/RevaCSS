@@ -6,7 +6,14 @@
     ],
     "default": "default",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Coordinated page, surface, foreground, border, link and primary colours. Light/dark follows data-theme. Success, warning and error colours stay semantic."
+    "affects": "Coordinated page, surface, foreground, border, link and primary colours. Light/dark follows data-theme. Success, warning and error colours stay semantic.",
+    "usage": {
+      "targets": "Page and supported component backgrounds, text, borders, links and primary colours.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local palette redeclares palette colour tokens, including primary; a local accent on the same element overrides its primary colours. A local tone on the same element overrides surface colours.",
+      "dependencies": "Core tokens and styles; theme selects the light/dark values.",
+      "limitations": "Does not recolour semantic success/warning/danger roles or load a custom palette. Custom palette names need application CSS."
+    }
   },
   "theme": {
     "values": [
@@ -16,7 +23,14 @@
     ],
     "default": "auto",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Page and component colour scheme: auto follows the visitor's preference."
+    "affects": "Page and component colour scheme: auto follows the visitor's preference.",
+    "usage": {
+      "targets": "Page and supported component colour schemes and browser controls using color-scheme.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Use light, dark or auto locally; auto follows the system preference rather than the parent explicit mode.",
+      "dependencies": "Core adaptive colours; native control rendering remains browser-owned.",
+      "limitations": "Does not select a palette, load a material or persist a visitor preference."
+    }
   },
   "accent": {
     "values": [
@@ -29,7 +43,14 @@
     ],
     "default": "Palette primary",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour. Explicit accents reset their foreground; omitted accents follow data-palette."
+    "affects": "Primary actions, badges, alerts, native accent controls and checked switches. Links retain their theme colour. Explicit accents reset their foreground; omitted accents follow data-palette.",
+    "usage": {
+      "targets": "Primary actions, badges, alerts, native accent controls, checked switches and other consumers of primary tokens.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A nearer accent replaces primary start/end and foreground. There is no palette or default accent literal; remove the override to inherit, accounting for nearer palette declarations.",
+      "dependencies": "Core primary tokens; semantic variants can select their own colours.",
+      "limitations": "Does not recolour ordinary links or replace semantic danger/warning/success colours."
+    }
   },
   "shape": {
     "values": [
@@ -41,7 +62,14 @@
     ],
     "default": "rounded",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders. Custom uses --re-custom-surface-radius, --re-custom-field-radius and --re-custom-action-radius (nonnegative lengths; .75rem defaults). Local presets reset all three groups."
+    "affects": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders. Custom uses --re-custom-surface-radius, --re-custom-field-radius and --re-custom-action-radius (nonnegative lengths; .75rem defaults). Local presets reset all three groups.",
+    "usage": {
+      "targets": "Styled controls, surfaces, navigation, media, code, choice labels, avatars and placeholders.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local preset resets surface, field and action radius groups. Custom reads --re-custom-surface-radius, --re-custom-field-radius and --re-custom-action-radius with .75rem fallbacks.",
+      "dependencies": "Core styles; custom radiuses need valid nonnegative CSS lengths.",
+      "limitations": "Does not make every element pill-shaped; individual component geometry can cap a radius. Custom properties do not select custom mode by themselves."
+    }
   },
   "fill": {
     "values": [
@@ -50,7 +78,14 @@
     ],
     "default": "gradient",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Button, badge and alert gradients; optional glass sheen. Does not change material."
+    "affects": "Button, badge and alert gradients; optional glass sheen. Does not change material.",
+    "usage": {
+      "targets": "Gradient treatment on supported actions, badges and alerts, plus sheen in extensions that consume the fill token.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Use solid locally to remove the supported gradient contribution; gradient restores it without changing other settings.",
+      "dependencies": "Core styles; optional materials provide their own supported sheen treatment.",
+      "limitations": "Does not select an opaque surface or reset Glass. Outline/ghost actions can have no filled gradient to change."
+    }
   },
   "density": {
     "values": [
@@ -61,7 +96,14 @@
     ],
     "default": "comfortable",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Control and surface padding, list and description spacing, card sections and layout spacing. Custom separates surface padding (--re-custom-surface-padding, 1rem), control padding multiplier (--re-custom-control-density, 1), and content spacing (--re-custom-content-space, 1rem). Minimum control heights are preserved; local presets reset all groups."
+    "affects": "Control and surface padding, list and description spacing, card sections and layout spacing. Custom separates surface padding (--re-custom-surface-padding, 1rem), control padding multiplier (--re-custom-control-density, 1), and content spacing (--re-custom-content-space, 1rem). Minimum control heights are preserved; local presets reset all groups.",
+    "usage": {
+      "targets": "Control/surface padding, list/description spacing, card sections and layout spacing.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local built-in preset resets all density groups. Custom separates surface padding, control multiplier and content spacing through the documented --re-custom-* density tokens.",
+      "dependencies": "Core styles; data-gap independently multiplies supported layout gaps.",
+      "limitations": "Does not remove minimum control heights or resize page typography. Custom spacing tokens need custom mode and valid values."
+    }
   },
   "depth": {
     "values": [
@@ -71,7 +113,14 @@
     ],
     "default": "subtle",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Action and surface shadows. Text-control inset shadows are configured with data-controls."
+    "affects": "Action and surface shadows. Text-control inset shadows are configured with data-controls.",
+    "usage": {
+      "targets": "Supported action and surface shadows, including extension-specific Soft UI depth.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Flat, subtle or pronounced locally replaces the supported shadow/depth tokens.",
+      "dependencies": "Core shadows; Soft UI-specific shadows require its surface or independent action material extension.",
+      "limitations": "Does not control text-field inset shadows. Outline/ghost, pressed states, navbar finish and accessibility preferences can suppress shadows."
+    }
   },
   "motion": {
     "values": [
@@ -81,7 +130,14 @@
     ],
     "default": "subtle",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Action transitions, accordion expansion and chevron rotation (expressive adds a fade), press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned."
+    "affects": "Action transitions, accordion expansion and chevron rotation (expressive adds a fade), press movement, decorative edges, custom spinners, switch transitions and skeleton shimmer. Reduced motion wins; native progress is browser-owned.",
+    "usage": {
+      "targets": "Supported transitions, presses, disclosure motion, decorative edges, custom spinners, switches and skeletons.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Use none locally to stop supported framework motion, or a documented preset to restore it subject to user preferences.",
+      "dependencies": "Complete core includes disclosure motion; optional reva.motion.css adds native overlay motion. Use scoped equivalents with scoped core.",
+      "limitations": "Does not animate arbitrary markup or control browser-owned progress animation. Reduced motion wins; no setting supplies application state changes."
+    }
   },
   "type": {
     "values": [
@@ -91,7 +147,14 @@
     ],
     "default": "standard",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Page or subtree typography."
+    "affects": "Page or subtree typography.",
+    "usage": {
+      "targets": "Page/subtree typography and descendants that inherit relative font sizes.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local compact, standard or large establishes that subtree font size using the corresponding typography token.",
+      "dependencies": "Core text styles; component font rules still apply.",
+      "limitations": "Does not replace data-size or scale every rem-based dimension; it is not proof of browser zoom or text adaptability."
+    }
   },
   "border": {
     "values": [
@@ -101,7 +164,14 @@
     ],
     "default": "subtle",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Styled control and surface borders, table rules and navigation boundaries. Invalid-state and forced-colour boundaries take priority."
+    "affects": "Styled control and surface borders, table rules and navigation boundaries. Invalid-state and forced-colour boundaries take priority.",
+    "usage": {
+      "targets": "Supported control/surface borders, table rules and navigation boundaries.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local preset changes shared border thickness without resetting shape, material or semantic state.",
+      "dependencies": "Core styles; table grid visibility also follows data-table.",
+      "limitations": "None does not remove focus outlines or required invalid/forced-colour boundaries. Decorative edge paint is configured separately."
+    }
   },
   "contrast": {
     "values": [
@@ -110,7 +180,14 @@
     ],
     "default": "auto",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Foreground and boundary contrast; optional glass becomes opaque. System preferences retain their component-specific priority."
+    "affects": "Foreground and boundary contrast; optional glass becomes opaque. System preferences retain their component-specific priority.",
+    "usage": {
+      "targets": "Supported foreground/boundary contrast and extension-specific opaque or simplified material treatment.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "More strengthens relevant tokens. Auto restores only explicitly implemented local resets, such as edge visibility and extension finish tokens; it does not redeclare every foreground/border token inherited from more.",
+      "dependencies": "Complete core preference utilities and any loaded material extensions.",
+      "limitations": "Auto is not a universal inverse of more and cannot defeat system preferences. This setting does not certify contrast on arbitrary custom backgrounds."
+    }
   },
   "tone": {
     "values": [
@@ -120,7 +197,14 @@
     ],
     "default": "Palette surfaces",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Override page and surface temperature without resetting the palette accent, links or foregrounds."
+    "affects": "Override page and surface temperature without resetting the palette accent, links or foregrounds.",
+    "usage": {
+      "targets": "Page/surface background temperature tokens.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local neutral, cool or warm redeclares surface colours; neutral selects the framework neutral surfaces. Omission inherits the existing surfaces, which may come from a parent tone or palette.",
+      "dependencies": "Core surface tokens; theme selects light/dark values.",
+      "limitations": "Does not change accent, links or foregrounds. Palette surfaces is an omitted-default description, not a supported attribute value or a neutral alias."
+    }
   },
   "controls": {
     "values": [
@@ -129,7 +213,14 @@
     ],
     "default": "styled",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Text input, select and textarea backing and inset shadow."
+    "affects": "Text input, select and textarea backing and inset shadow.",
+    "usage": {
+      "targets": "Styled text inputs, selects and textareas with backing/inset treatment.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Minimal removes supported backing/inset treatment; styled restores its tokens locally. Soft UI also observes a minimal scope for its field shadow.",
+      "dependencies": "Core form styling; optional Soft UI supplies its own field treatment.",
+      "limitations": "Does not restyle actions, checkboxes, radios or every native picker. Minimal does not remove labels, focus or validation boundaries."
+    }
   },
   "width": {
     "values": [
@@ -141,7 +232,14 @@
     ],
     "default": "standard",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Page-container width. Narrow, Standard and Wide cap .container at 48rem, 75rem and 90rem. Full fills the parent with 1rem side padding. Custom uses --re-custom-max-width (75rem) and --re-custom-side-padding (1rem); max width includes padding, which is reduced in narrow containers. Local presets reset width/padding. Navbar width is configured separately."
+    "affects": "Page-container width. Narrow, Standard and Wide cap .container at 48rem, 75rem and 90rem. Full fills the parent with 1rem side padding. Custom uses --re-custom-max-width (75rem) and --re-custom-side-padding (1rem); max width includes padding, which is reduced in narrow containers. Local presets reset width/padding. Navbar width is configured separately.",
+    "usage": {
+      "targets": ".container width and consumers of the shared container-width token.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local preset resets width/padding; full fills the parent with side padding. Custom uses --re-custom-max-width and --re-custom-side-padding with documented defaults.",
+      "dependencies": "Core container styling and an actual .container for page-container layout.",
+      "limitations": "Does not set arbitrary element widths, escape a constrained parent or configure navbar surface width; use data-navbar-width for that choice."
+    }
   },
   "table": {
     "values": [
@@ -151,7 +249,14 @@
     ],
     "default": "plain",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Table stripes and grid lines; rule thickness follows data-border."
+    "affects": "Table stripes and grid lines; rule thickness follows data-border.",
+    "usage": {
+      "targets": "Native table stripes and cell grid lines.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Plain removes optional stripes/grid lines; striped and bordered select their documented treatment locally.",
+      "dependencies": "Core table styles; rule thickness follows data-border.",
+      "limitations": "Bordered with data-border=none has zero-width shared rules. Does not add sorting, pagination, responsive wrapping or header associations."
+    }
   },
   "size": {
     "values": [
@@ -161,7 +266,14 @@
     ],
     "default": "medium",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination, form labels, choice labels, spinners and avatars."
+    "affects": "Controls, menu actions, badges, alerts, accordion summaries, breadcrumbs, pagination, form labels, choice labels, spinners and avatars.",
+    "usage": {
+      "targets": "Controls, menu actions, badges, alerts, summaries, breadcrumbs, pagination, form/choice labels, spinners and avatars.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local small, medium or large replaces the inherited component scale.",
+      "dependencies": "Core and relevant component styles.",
+      "limitations": "Does not set general page text size, card width or arbitrary element dimensions. Minimum target sizes and component-specific geometry still apply."
+    }
   },
   "ratio": {
     "values": [
@@ -173,7 +285,14 @@
     ],
     "default": "auto",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Image and video aspect ratio; auto retains natural proportions."
+    "affects": "Image and video aspect ratio; auto retains natural proportions.",
+    "usage": {
+      "targets": "Image and video aspect ratio.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A nearer ratio selects a supported aspect ratio; auto restores natural proportions.",
+      "dependencies": "Core media styling; fitting cropped/letterboxed content also uses data-fit.",
+      "limitations": "Does not constrain arbitrary cards or SVG charts. Auto does not impose a fixed media box."
+    }
   },
   "fit": {
     "values": [
@@ -182,7 +301,14 @@
     ],
     "default": "cover",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Image, video and avatar content within constrained dimensions."
+    "affects": "Image, video and avatar content within constrained dimensions.",
+    "usage": {
+      "targets": "Image/video content and supported avatar media within their boxes.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Cover fills the constrained media box; contain keeps the content within it.",
+      "dependencies": "Core/media component styles; a constrained box or aspect ratio is needed for a visible fitting difference.",
+      "limitations": "May have no visible effect when natural proportions already match the box. Does not style CSS background images or set a width/height itself."
+    }
   },
   "gap": {
     "values": [
@@ -193,7 +319,14 @@
     ],
     "default": "medium",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Spacing in .grid, .row, .stack, .accordion, .pagination, .tabs and .toolbar; combines with density."
+    "affects": "Spacing in .grid, .row, .stack, .accordion, .pagination, .tabs and .toolbar; combines with density.",
+    "usage": {
+      "targets": ".grid, .row, .stack, .accordion, .pagination, .tabs and .toolbar gaps.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local preset replaces the gap multiplier; medium restores multiplier 1 while retaining the current density spacing.",
+      "dependencies": "Relevant core layout/component styling; combines with density content spacing.",
+      "limitations": "Does not create a grid/flex layout, add gaps to an ordinary div or replace padding/margins."
+    }
   },
   "material": {
     "values": [
@@ -207,6 +340,13 @@
     "affects": "Solid surfaces by default; optional Glass or Soft UI surfaces and actions use their matching extension. Veil is deprecated and retained for existing sites. Explicit material boundaries stop another inherited material.",
     "deprecatedValues": {
       "veil": "Deprecated; retained for existing sites. Use solid, glass or soft for new interfaces."
+    },
+    "usage": {
+      "targets": "Documented surfaces and actions; Soft UI also has documented text-field styling. Exact targets depend on the selected extension.",
+      "inheritance": "Configure a material scope on a parent or supported target. Scoped selectors stop at explicit nested material boundaries as described in localOverride; this is not plain attribute inheritance. Keep content inside its .reva boundary with the scoped build.",
+      "localOverride": "An explicit material boundary stops a different parent material scope; solid supplies the documented local reset. A nested supported material can re-enter its own scope.",
+      "dependencies": "Core for solid; matching Glass, Soft UI or deprecated Veil extension for those finishes, loaded after the core. Use scoped counterparts when scoped.",
+      "limitations": "An arbitrary element does not become a surface. Independent button material can override action paint. Unsupported material values can stop a parent scope without activating a replacement; never use them as resets."
     }
   },
   "edge": {
@@ -218,7 +358,14 @@
     ],
     "default": "plain",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Decorative borders on buttons, .button links and cards. Shine sweeps on interaction; animated turns continuously. Native action inputs keep regular borders."
+    "affects": "Decorative borders on buttons, .button links and cards. Shine sweeps on interaction; animated turns continuously. Native action inputs keep regular borders.",
+    "usage": {
+      "targets": "Decorative borders on buttons, .button links and cards.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Plain removes edge decoration; gradient, shine or animated selects the documented edge treatment locally.",
+      "dependencies": "Complete core edge styling; motion, contrast and system preferences control animation/visibility.",
+      "limitations": "Native action inputs keep regular borders. Shine is interaction-driven; animated is continuous only when preferences and motion allow it. Does not decorate every surface."
+    }
   },
   "variant": {
     "values": [
@@ -230,7 +377,14 @@
     ],
     "default": "primary",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Button, action-input, .button link, badge and alert semantic colour. Primary uses the inherited accent; local legacy button classes override inherited variants, while a valid action-level attribute takes precedence."
+    "affects": "Button, action-input, .button link, badge and alert semantic colour. Primary uses the inherited accent; local legacy button classes override inherited variants, while a valid action-level attribute takes precedence.",
+    "usage": {
+      "targets": "Supported actions, badges and alerts; navigation toggles retain their documented treatment.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A nearer valid variant selects semantic colours. Legacy danger/warning/secondary action classes override an inherited variant; a valid attribute on that action takes precedence over those classes.",
+      "dependencies": "Core actions and relevant badge/alert styling; primary uses local primary/accent tokens.",
+      "limitations": "Does not create validation messages or application error state. Secondary is an action class, not a supported data-variant value."
+    }
   },
   "appearance": {
     "values": [
@@ -240,7 +394,14 @@
     ],
     "default": "tinted",
     "scope": "Inherited; applies to supported targets",
-    "affects": "Badge and alert backing and border treatment. Does not configure buttons."
+    "affects": "Badge and alert backing and border treatment. Does not configure buttons.",
+    "usage": {
+      "targets": "Badge and alert backing/border treatment.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Tinted, solid or outline locally replaces the inherited badge/alert appearance.",
+      "dependencies": "Badge/alert styles included in the complete core.",
+      "limitations": "Does not configure buttons or select a surface material. Use documented outline/ghost action classes for action appearance."
+    }
   },
   "navbar": {
     "values": [
@@ -251,7 +412,14 @@
     ],
     "default": "standard",
     "scope": "Inherited; applies to .top-menu only",
-    "affects": "Top navigation layout: standard brand and links, centered links, inset floating surface, or central brand with links on either side. Mobile retains the shared Menu button and popovers. Does not change sidebars."
+    "affects": "Top navigation layout: standard brand and links, centered links, inset floating surface, or central brand with links on either side. Mobile retains the shared Menu button and popovers. Does not change sidebars.",
+    "usage": {
+      "targets": ".top-menu layout.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "A local layout preset resets the navbar layout variables, preserving separate position/spacing/width settings.",
+      "dependencies": "Complete core navigation styling and the full documented top-menu structure.",
+      "limitations": "Does not change sidebars or implement mobile behaviour without the documented native controls and panels."
+    }
   },
   "navbar-position": {
     "values": [
@@ -260,7 +428,14 @@
     ],
     "default": "static",
     "scope": "Inherited; applies to .navbar-header, standalone .top-menu and .app-shell > header",
-    "affects": "Static follows normal document flow. Sticky keeps the outer header at block-start of its scroll container; layout, palette and material remain independent. Put the wrapper in the scrolling page, outside short sections."
+    "affects": "Static follows normal document flow. Sticky keeps the outer header at block-start of its scroll container; layout, palette and material remain independent. Put the wrapper in the scrolling page, outside short sections.",
+    "usage": {
+      "targets": ".navbar-header, standalone .top-menu and .app-shell > header positioning.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Static restores normal flow; sticky selects supported sticky positioning within the current scroll container.",
+      "dependencies": "Navigation/app-shell styles; the wrapper must have useful scrolling space within its containing block.",
+      "limitations": "Does not create fixed positioning or escape a short/clipping parent. Does not change navbar layout, palette or material."
+    }
   },
   "navbar-spacing": {
     "values": [
@@ -269,7 +444,14 @@
     ],
     "default": "spaced",
     "scope": "Inherited; applies to .navbar-header and standalone .top-menu",
-    "affects": "Flush removes the wrapper gap and Floating margins so a sticky bar meets the safe top edge. Spaced adds wrapper breathing room, reduced on small screens, and retains Floating margins."
+    "affects": "Flush removes the wrapper gap and Floating margins so a sticky bar meets the safe top edge. Spaced adds wrapper breathing room, reduced on small screens, and retains Floating margins.",
+    "usage": {
+      "targets": ".navbar-header and standalone .top-menu wrapper spacing/finish.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Flush removes wrapper breathing room/Floating margins; spaced restores documented responsive spacing.",
+      "dependencies": "Documented navigation wrapper and styles; safe-area rules still apply.",
+      "limitations": "Does not reset general page density or all gaps inside menu panels."
+    }
   },
   "navbar-width": {
     "values": [
@@ -278,7 +460,14 @@
     ],
     "default": "contained",
     "scope": "Inherited; applies to .navbar-header and .top-menu",
-    "affects": "Contained follows the shared page width and navbar layout. Full fills its parent with a navbar surface while aligning its contents to the shared page width. Use a page-wide wrapper to reach both screen edges; app-shell toolbars retain their grid column."
+    "affects": "Contained follows the shared page width and navbar layout. Full fills its parent with a navbar surface while aligning its contents to the shared page width. Use a page-wide wrapper to reach both screen edges; app-shell toolbars retain their grid column.",
+    "usage": {
+      "targets": ".navbar-header and .top-menu surface/content width rules.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "Contained follows shared page width/layout; full fills the parent surface while aligning contents to page width.",
+      "dependencies": "Navigation styling and an appropriately wide parent wrapper.",
+      "limitations": "Full does not escape a constrained parent; app-shell headers retain their grid column. Does not change every page .container."
+    }
   },
   "button-material": {
     "values": [
@@ -294,6 +483,13 @@
     "affects": "Optional button material extension. Default follows data-material at the action; explicit choices override general material for actions only. Liquid is transparent neutral glass without accent tint; movement follows data-motion. Veil is deprecated and retained for existing sites.",
     "deprecatedValues": {
       "veil": "Deprecated; retained for existing sites. Use solid, glass or soft for new interfaces."
+    },
+    "usage": {
+      "targets": "Native button/submit/reset actions and .button/.scroll-top links, excluding menu toggles and dropdown controls.",
+      "inheritance": "Configure a material scope on a parent or supported target. Scoped selectors stop at explicit nested material boundaries as described in localOverride; this is not plain attribute inheritance. Keep content inside its .reva boundary with the scoped build.",
+      "localOverride": "An explicit action-material boundary stops the parent action-material scope. Default installs no independent finish, allowing general data-material treatment; it is not an alias for solid.",
+      "dependencies": "reva.button-materials.css or its scoped counterpart for independent finishes. A different material on surrounding surfaces needs its own extension.",
+      "limitations": "Does not style cards or navigation toggles. Unsupported values can stop a parent action-material scope without installing another finish. Veil is deprecated; system preferences can replace decorative paint."
     }
   },
   "font": {
@@ -303,6 +499,13 @@
     ],
     "default": "manrope",
     "scope": "Inherited; page, section or individual text/control",
-    "affects": "Body text, headings and native controls. Manrope is the framework default with system-ui/sans-serif fallback; its font stylesheet is optional. System uses system-ui/sans-serif even when Manrope is loaded. A local preset resets this choice; code remains monospace and --re-font-heading remains an optional heading override."
+    "affects": "Body text, headings and native controls. Manrope is the framework default with system-ui/sans-serif fallback; its font stylesheet is optional. System uses system-ui/sans-serif even when Manrope is loaded. A local preset resets this choice; code remains monospace and --re-font-heading remains an optional heading override.",
+    "usage": {
+      "targets": "Body/subtree text, headings and native controls; code retains the monospace contract.",
+      "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
+      "localOverride": "System selects device UI fonts even when Manrope is loaded; manrope restores the default family stack locally. An explicit --re-font-heading remains an independent heading override.",
+      "dependencies": "Core font rules. Optional reva-fonts.css and adjacent fonts/ files provide Manrope; the default stack remains usable without them.",
+      "limitations": "Selecting manrope does not download a font or require Google Fonts. Does not change code to proportional text or remove an application heading-font override."
+    }
   }
 }

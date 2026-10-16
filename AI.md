@@ -175,6 +175,8 @@ Put shared appearance settings on `html`, or on a documented local boundary when
 
 Use `data-theme="auto"` for the system preference. Use `data-shape` for corner shape. Read the generated attribute reference for the exact values and scope of each option; a setting affects its supported targets, not every HTML element.
 
+The generated `/ai/attributes.md` and structured API include `usage` rules for every attribute: supported targets, inheritance, local overrides, dependencies and limitations. Read these before combining settings. Omitting an attribute preserves the inherited setting within the current boundary; it does not automatically restore the unconfigured default. There is no universal `default`, `auto` or `none` reset across attributes. In particular, `data-contrast="auto"` is not a complete inverse of inherited increased contrast, and unsupported material values can stop a parent material scope without selecting a new finish. Use the documented reset for the specific setting.
+
 Use `data-font="manrope"` for the default font preset or `data-font="system"` for the device UI font. The optional `reva-fonts.css` and adjacent font files provide Manrope; without them, the system fallback remains usable. Local font settings reset only that choice, and code remains monospace.
 
 Start with one complete global or scoped build. The scoped build uses a `.reva` boundary. Load matching optional extensions after that build. Glass, Veil, Soft UI and independent button materials require their respective extension files. Preserve reduced-motion, forced-colour and contrast fallbacks.

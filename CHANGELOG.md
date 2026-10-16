@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Documentation
+
+- Expand all 29 attribute contracts with supported targets, inheritance, local resets, dependencies and limitations. Generate the same guidance in AI Markdown, the structured API, HTML editor descriptions and the human reference.
+
 Experimental demo work remains outside the 2.0 public CSS API:
 
 - Effects Lab explores Aura, Spring lift and Layered depth, including a CSS/SVG mobile-tap prototype. Draft classes and separate demo stylesheets have no release commitment; prototype device acceptance is not inferred from core sign-off.
