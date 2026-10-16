@@ -217,11 +217,11 @@
   }
   :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
   :where(textarea) { resize: vertical; min-block-size: 7rem; }
-  /* Opt in per field. Unsupported browsers retain the ordinary textarea.
+  /* Native content sizing is the default; unsupported browsers keep rows.
      Native sizing responds to input, initial values and form reset without JS.
      Keep a bounded scroll area and the existing manual resize affordance. */
   @supports (field-sizing: content) {
-    :where(textarea.auto-grow) {
+    :where(textarea) {
       field-sizing: content;
       block-size: auto;
       max-block-size: 24rem;

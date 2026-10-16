@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 test.use({javaScriptEnabled:false});
 
 for(const sheet of ['reva.css','reva.min.css','reva.scoped.css','modular']) {
-  test(`native textarea growth, cap, reset and opt-in isolation (${sheet})`,async({page,request})=>{
+  test(`native textarea growth, cap, reset and CSS opt-out (${sheet})`,async({page,request})=>{
     const names=sheet==='modular'?['reva.tokens.css','reva.base.css']:[sheet];
     const styles=await Promise.all(names.map(async name=>{
       const response=await request.get('/reva/'+name);
@@ -12,11 +12,11 @@ for(const sheet of ['reva.css','reva.min.css','reva.scoped.css','modular']) {
     await page.setViewportSize({width:375,height:900});
     await page.setContent(`<!doctype html><html lang="en"><style>${styles.join('\n')}</style><body>
       <form class="reva" style="max-inline-size:320px">
-        <label for="growing">Notes</label><textarea id="growing" name="notes" class="auto-grow" rows="4">Initial notes</textarea>
-        <label for="ordinary">Ordinary notes</label><textarea id="ordinary" rows="4"></textarea>
+        <label for="growing">Notes</label><textarea id="growing" name="notes" rows="4">Initial notes</textarea>
+        <label for="ordinary">Ordinary notes</label><textarea id="ordinary" rows="4" style="field-sizing:fixed;max-block-size:none"></textarea>
         <button type="reset">Reset</button>
       </form>
-      <label for="outside">Outside</label><textarea id="outside" class="auto-grow"></textarea>
+      <label for="outside">Outside</label><textarea id="outside"></textarea>
     </body></html>`);
     const field=page.getByRole('textbox',{name:'Notes',exact:true});
     await expect(field).toHaveCSS('resize','vertical');

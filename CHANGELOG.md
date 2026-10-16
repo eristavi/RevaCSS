@@ -4,7 +4,7 @@
 
 ### Native forms
 
-- Add opt-in `textarea.auto-grow` using support-gated native content sizing, the existing 7rem minimum and a 24rem maximum. Existing textareas retain their sizing; unsupported browsers keep normal manual resizing. Browser/device validation is deferred to the next release review.
+- Make native textareas auto-grow by default using support-gated content sizing, the existing 7rem minimum and a 24rem maximum. No class is required. Application CSS can restore `field-sizing: fixed`; unsupported browsers keep normal manual resizing. Browser/device validation is deferred to the next release review.
 
 ### Documentation
 

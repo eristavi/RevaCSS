@@ -1116,8 +1116,8 @@ export const topics = [
       {
         "id": "textarea-auto-grow",
         "title": "Native auto-growing textarea (source preview)",
-        "description": "Unreleased: add auto-grow to opt one textarea into content sizing. It grows from the existing 7rem minimum to 24rem, then scrolls. Unsupported browsers retain normal manual resizing. Supported content sizing ignores rows for height; override min-block-size/max-block-size in application CSS and avoid fixed height. Browser acceptance is deferred.",
-        "html": "<form>\n  <label for=\"growing-notes\">Project notes</label>\n  <textarea class=\"auto-grow\" id=\"growing-notes\" name=\"notes\" rows=\"4\" aria-describedby=\"growing-notes-help\">Write your project notes here.</textarea>\n  <small id=\"growing-notes-help\">The field grows as you type where supported. Longer content scrolls.</small>\n  <button type=\"reset\">Reset notes</button>\n</form>"
+        "description": "Unreleased: native textareas use content sizing by default; no class is needed. It grows from the existing 7rem minimum to 24rem, then scrolls. Unsupported browsers retain normal manual resizing. Supported content sizing ignores rows for height; override min-block-size/max-block-size in application CSS and avoid fixed height. Use field-sizing: fixed and max-block-size: none in application CSS to restore rows-based sizing. Browser acceptance is deferred.",
+        "html": "<form>\n  <label for=\"growing-notes\">Project notes</label>\n  <textarea id=\"growing-notes\" name=\"notes\" rows=\"4\" aria-describedby=\"growing-notes-help\">Write your project notes here.</textarea>\n  <small id=\"growing-notes-help\">The field grows as you type where supported. Longer content scrolls.</small>\n  <button type=\"reset\">Reset notes</button>\n</form>"
       },
       {
         "id": "form-disabled-group",
