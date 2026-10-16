@@ -8,7 +8,8 @@ export const componentGroups = [
       "tables",
       "media",
       "description-lists",
-      "scroll-top"
+      "scroll-top",
+      "reading-progress"
     ]
   },
   {
@@ -70,6 +71,7 @@ export const componentGroups = [
   }
 ];
 export const componentContracts = {
+  "reading-progress": ["div[data-reading-progress=page][aria-hidden=true]", "One empty decorative element; page or none. Shared appearance and motion settings apply.", "Optional reva.reading-progress.css / reva.reading-progress.scoped.css", "Root page-scroll position via native CSS. Unsupported browsers and reduced-motion/forced-colour/print modes omit it. No reading-completion measurement or JavaScript."],
   "scroll-top": ["a.scroll-top with href pointing to an existing top ID", "A visible link label; optional numeric positioning in application CSS.", "reva.scroll-top.css + reva.scrolling.css", "Native fragment navigation. No scroll observer, automatic hiding or JavaScript."],
   "steps": ["ol.steps > li > a or span", "aria-current=step; visible state text; inherited appearance.", "reva.steps.css", "Native process navigation; application supplies stage state and destinations."],
   "rating": ["fieldset.rating > legend, label > input[type=radio], span; labelled .rating display", "Native radio name/value/checked/disabled/required and reset; accessible numeric display.", "reva.rating.css", "Integer star selection without JavaScript; backend supplies averages and submissions."],

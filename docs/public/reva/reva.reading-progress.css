@@ -1,0 +1,36 @@
+/* Optional decorative page-scroll indicator. No clock-based fallback.
+   Put one empty aria-hidden div near the body/root .reva boundary, outside
+   ancestors that establish fixed-position containing blocks. */
+@layer re.tokens {
+  :where(:root, .reva, :scope.reva) { --re-reading-progress-display: block; }
+  :where([data-motion="none"], :scope[data-motion="none"]) { --re-reading-progress-display: none; }
+  :where([data-motion="subtle"], [data-motion="expressive"], :scope:is([data-motion="subtle"],[data-motion="expressive"])) { --re-reading-progress-display: block; }
+}
+@layer re.components {
+  :where([data-reading-progress], :scope[data-reading-progress]) { display: none; }
+  @supports (animation-timeline: scroll(root block)) and (animation-duration: auto) {
+    @keyframes re-reading-progress { from { scale: 0 1; } to { scale: 1 1; } }
+    :where([data-reading-progress="page"], :scope[data-reading-progress="page"]) {
+      display: var(--re-reading-progress-display, block);
+      position: fixed;
+      top: var(--re-reading-progress-offset, env(safe-area-inset-top, 0px));
+      left: 0; right: 0;
+      height: var(--re-reading-progress-height, 3px);
+      margin: 0; padding: 0; border: 0;
+      background: var(--re-reading-progress-color, var(--re-link));
+      z-index: var(--re-reading-progress-layer, 50);
+      pointer-events: none;
+      transform-origin: left center;
+      scale: 0 1;
+      animation: re-reading-progress linear both;
+      animation-duration: auto;
+      animation-timeline: scroll(root block);
+    }
+    :where([data-reading-progress="page"]:dir(rtl), :scope[data-reading-progress="page"]:dir(rtl)) { transform-origin: right center; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where([data-reading-progress], :scope[data-reading-progress]) { display: none; animation: none; }
+  }
+}

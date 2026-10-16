@@ -1,0 +1,25 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import {stylesheet} from '../../../data/assets.js';
+import {blogPosts} from '../../../data/blog-posts.js';
+const base=import.meta.env.BASE_URL;
+---
+<Layout title="Reading progress demo" current="reading-progress" cssCustomizer={false}>
+  <Fragment slot="head"><link rel="stylesheet" href={stylesheet('reva.reading-progress.css')}/></Fragment>
+  <div data-reading-progress="page" aria-hidden="true"></div>
+  <article class="prose reading-demo">
+    <header>
+      <p class="doc-kicker">NATIVE CSS · SOURCE PREVIEW</p>
+      <h1>Reading at your own pace.</h1>
+      <p class="doc-lead">Scroll through these fictional journal pieces and watch the thin bar at the top of the viewport. Scroll back up to watch it reverse.</p>
+      <p>The bar follows the whole page, including this introduction and the footer. It does not measure how much you have read. It stays absent without supported native timelines or when reduced motion, forced colours or print are active. Browser acceptance is pending.</p>
+      <nav aria-label="Reading progress demo"><a href={base+'components/reading-progress/'}>Implementation and markup</a> · <a href="#reading-end">Jump to the end</a></nav>
+    </header>
+    {blogPosts.map(post=><section>
+      <h2>{post.title}</h2><p>{post.summary}</p>
+      {post.sections.map(section=><section><h3>{section.title}</h3>{section.text.map(text=><p>{text}</p>)}</section>)}
+    </section>)}
+    <section id="reading-end"><h2>Keep the reader in control.</h2><p>This decoration adds no keyboard stop and catches no pointer events. Ordinary links, browser search, zoom, scroll restoration and the scrollbar remain available.</p><p><a href="#page-top">Return to the beginning</a> · <a href={base+'components/reading-progress/'}>Back to the component guide</a></p></section>
+  </article>
+</Layout>
+<style>.reading-demo { max-inline-size:65ch; margin-inline:auto; padding-block:clamp(2rem,6vw,5rem); } .reading-demo > section { margin-block:clamp(3rem,8vw,6rem); } .reading-demo section > section { margin-block:2rem; }</style>

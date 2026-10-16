@@ -40,6 +40,8 @@ export const stylesheets = [
   "reva.selects.scoped.css",
   "reva.motion.css",
   "reva.motion.scoped.css",
+  "reva.reading-progress.css",
+  "reva.reading-progress.scoped.css",
   "reva.scroll-motion.css",
   "reva.scroll-motion.scoped.css",
   "reva.transitions.css",

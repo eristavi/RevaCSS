@@ -165,6 +165,12 @@
       "kind": "manual",
       "status": "open",
       "summary": "Validate default native autofill on actual saved-profile and credential fills before release: Chromium, Firefox and Safari/iOS; light/dark, tones, nested overrides, glass/soft materials, keyboard focus, user-invalid and aria-invalid, disabled fieldsets, read-only dashed borders, editing/reset, forced colours and print. Confirm readable browser background/text pairs and native suggestions. Typed values or synthetic pseudo-states are not actual autofill evidence. Browser/device checks deferred by maintainer instruction. Demo: /components/forms/#form-autofill."
+    },
+    {
+      "id": "Q-READING-PROGRESS",
+      "kind": "manual",
+      "status": "open",
+      "summary": "Validate optional native reading-progress global/scoped extensions before release: root scroll at start/middle/end and reverse; dynamic page height, no overflow, RTL, supported/unsupported timelines, reduced motion, none/subtle/expressive re-entry, nested .reva isolation, forced colours, print, theme/accent/local overrides, narrow/zoomed layouts, safe-area/header offsets and pointer pass-through. Confirm decoration is absent from accessibility navigation. Review /demos/reading-progress/; prepared browser tests are not run. Browser/device acceptance deferred by maintainer instruction."
     }
   ]
 }

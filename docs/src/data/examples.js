@@ -1,6 +1,40 @@
 import {nativePatternTopics} from "./native-patterns.js";
 export const topics = [
   {
+    "slug": "reading-progress",
+    "title": "Reading progress",
+    "intro": "An optional decorative bar follows the whole page scroll position using native CSS. No JavaScript or structural class.",
+    "notes": [
+      "Source preview: browser/device acceptance is deferred. Load reva.reading-progress.css after the global core, or the matching scoped extension after reva.scoped.css. This extension is not included in either complete core.",
+      "Put one empty div with data-reading-progress=page and aria-hidden=true near body or the root .reva boundary. Use none, omit the attribute or remove the element to opt out. Empty/invalid values stay hidden; the setting does not inherit.",
+      "This represents the root page scroll range, including other page content and the footer. It does not measure reading, article completion, task progress or a nested scroller. Do not use native progress, role=progressbar, live announcements or keyboard focus for this decoration.",
+      "Unsupported timelines and pages with no scroll range produce no visible bar. Reduced motion, data-motion=none, forced colours and print hide the decoration. Shared theme/palette/accent apply; the bar grows from the right in RTL.",
+      "Keep the element outside transformed, filtered or contained ancestors that change fixed positioning. Optional --re-reading-progress-offset, --re-reading-progress-height, --re-reading-progress-color and --re-reading-progress-layer adjust placement and appearance; keep it thin, readable and clear of navigation. Pointer events pass through."
+    ],
+    "examples": [
+      {
+        "id": "reading-progress-page",
+        "title": "Optional page indicator",
+        "render": false,
+        "description": "Open the full-page demo to see the bar while scrolling; the code below needs the optional extension. No indicator is injected into this documentation page.",
+        "html": "<div data-reading-progress=\"page\" aria-hidden=\"true\"></div>\n<main>\n  <article>\n    <h1>Your long article</h1>\n    <p>Your article content goes here.</p>\n  </article>\n</main>"
+      },
+      {
+        "id": "reading-progress-demo",
+        "title": "Full-page demonstration",
+        "description": "Follow this link to a long article with the optional stylesheet loaded. Scroll down and back up. Browser support and motion preferences determine whether the decorative bar appears.",
+        "html": "<p><a href=\"__BASE__demos/reading-progress/\">Open the reading-progress demo</a></p>"
+      },
+      {
+        "id": "reading-progress-disable",
+        "title": "Disable or customise",
+        "render": false,
+        "description": "Use none to disable a configured indicator. Ordinary application CSS can adjust its position below a fixed header. Shared data-motion=none also hides it.",
+        "html": "<div data-reading-progress=\"none\" aria-hidden=\"true\"></div>\n<!-- Or use one enabled indicator with a deliberate header offset: -->\n<div data-reading-progress=\"page\" aria-hidden=\"true\"\n     style=\"--re-reading-progress-offset: 4rem\"></div>"
+      }
+    ]
+  },
+  {
     "slug": "scroll-top",
     "title": "Scroll to top",
     "intro": "A labelled native link returns to a page-owned top anchor. One structural class; no JavaScript.",

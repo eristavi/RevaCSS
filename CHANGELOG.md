@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Reading progress
+
+- Add optional global/scoped reading-progress CSS extensions and local data-reading-progress=page/none. A decorative empty element tracks root page scroll with native timelines, inherited colour/motion, RTL fill and safe-area offset. Unsupported browsers, reduced motion, forced colours and print omit the bar. Add component/API guidance and a full-page demo; core size is unchanged and browser acceptance is deferred.
+
 ### Native forms
 
 - Style native browser-autofilled fields by default with a theme-aware border using standard and WebKit autofill selectors. Preserve native background/text colours, suggestion UI, validation, focus and disabled/read-only states; add a saved-profile forms demo. Browser acceptance remains deferred.

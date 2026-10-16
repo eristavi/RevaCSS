@@ -1,4 +1,8 @@
 export const publicTokens = [
+  ["Reading progress", "--re-reading-progress-offset", "Length", "Physical top offset of the optional bar; safe-area-inset-top fallback. Account for fixed navigation."],
+  ["Reading progress", "--re-reading-progress-height", "Length", "Physical height of the optional bar; 3px fallback. Keep clear of page content."],
+  ["Reading progress", "--re-reading-progress-color", "Colour", "Optional bar colour; inherited --re-link fallback. Review contrast against underlying content."],
+  ["Reading progress", "--re-reading-progress-layer", "Integer", "Optional bar z-index; 50 fallback. Fixed elements remain subject to ancestor stacking/containing blocks."],
   ["Tables", "--re-table-highlight", "Colour", "Inset feedback tint beneath text; defaults to color-mix(in srgb, var(--re-link) 5%, transparent). Custom tints require contrast review. No cursor or selection behaviour."],
   ["Custom width", "--re-custom-max-width / --re-custom-side-padding", "Nonnegative length", "Maximum page width including padding (75rem default) and per-side padding (1rem default) with data-width=custom. Padding is capped in narrow parents."],
   ["Layout", "--re-container-width / --re-container-padding", "Size / nonnegative length", "Container width/padding overrides used by Full and Custom; existing width presets reset both. Navbar width remains independent."],
