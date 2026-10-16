@@ -4,7 +4,7 @@
 
 ### Native scrollbars
 
-- Theme native scrollbar thumb/track colours at normal width by default. Add inherited data-scrollbar=auto/thin/native with local resets, nested-theme colour resolution and scoped defaults. Standard CSS only; preserve native high-contrast/print appearance, platform overlay behaviour and existing gutters. Add demos, documentation and customizer choices; browser acceptance for scrollbars is pending.
+- Theme native scrollbar thumb/track colours at normal width by default. The thumb follows palette/data-accent primary colour exactly, matching the main button; the track uses the local surface. Add inherited data-scrollbar=auto/thin/native with local resets, nested-theme colour resolution and scoped defaults. Standard CSS only; preserve native high-contrast/print appearance, platform overlay behaviour and existing gutters. Add demos, documentation and customizer choices; browser acceptance for scrollbars is pending.
 
 ### Reading progress
 

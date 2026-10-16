@@ -176,7 +176,7 @@
       "id": "Q-SCROLLBARS",
       "kind": "manual",
       "status": "open",
-      "summary": "Validate new default themed native scrollbars and auto/thin/native inheritance before release: Chromium, Firefox, Safari/iOS; classic/overlay scrollbar OS modes; page, tables, textarea, dialogs/popovers and panels; keyboard/drag/touch usability; nested light/dark/palette/tone/material and .reva boundaries; native reset and auto re-entry; forced colours, print and zoom. Confirm no unintended overflow and no hidden scrollbar mode. Browser acceptance pending; the maintainer attestation through reading progress predates this addition."
+      "summary": "Validate new default themed native scrollbars and auto/thin/native inheritance before release. The thumb deliberately uses the exact main-button primary colour by maintainer instruction, without dark-mode lightening; review thumb/track contrast, especially dark accent combinations: Chromium, Firefox, Safari/iOS; classic/overlay scrollbar OS modes; page, tables, textarea, dialogs/popovers and panels; keyboard/drag/touch usability; nested light/dark/palette/tone/material and .reva boundaries; native reset and auto re-entry; forced colours, print and zoom. Confirm no unintended overflow and no hidden scrollbar mode. Browser acceptance pending; the maintainer attestation through reading progress predates this addition."
     }
   ]
 }

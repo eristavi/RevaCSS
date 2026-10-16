@@ -569,13 +569,13 @@
     ],
     "default": "auto",
     "scope": "Inherited; applies to page and native scroll containers",
-    "affects": "Native scrollbar paint and width. Auto uses local theme/palette muted thumb and surface track with normal width; thin keeps those colours with browser-defined thinner width; native restores browser colours and normal width.",
+    "affects": "Native scrollbar paint and width. Auto uses local palette/data-accent thumb and surface track with normal width; thin keeps those colours with browser-defined thinner width; native restores browser colours and normal width.",
     "usage": {
       "targets": "Viewport scrollbar when configured on html; scrollable elements including tables, textareas, overlays and panels. Does not create overflow or require a class.",
-      "inheritance": "Shared custom properties carry the selected mode to descendant scroll containers; native scrollbar-width itself is not inherited. Each .reva boundary initializes auto defaults. Colour fallbacks resolve on each element for local themes and palettes.",
+      "inheritance": "Shared custom properties carry the selected mode to descendant scroll containers; native scrollbar-width itself is not inherited. Each .reva boundary initializes auto defaults. Colour fallbacks resolve on each element for local themes, palettes and data-accent choices.",
       "localOverride": "Use auto to restore themed normal width inside thin/native; thin for optional compact scrolling; native restores browser scrollbar-color/width auto throughout that subtree. Omission preserves the inherited setting. Invalid values do not reset it.",
       "dependencies": "Included in complete global/scoped builds. Modular consumers load tokens and base. No extension or JavaScript.",
-      "limitations": "Uses standard scrollbar-color and scrollbar-width only. Unsupported properties retain native rendering. OS overlay/auto-hide behaviour, exact thickness, shape and touch scrollbar paint remain browser/platform controlled. Forced colours and print use native colours and normal width. No hidden mode; thin is optional and can be harder to drag. Existing scrollbar-gutter behaviour is unchanged."
+      "limitations": "Uses standard scrollbar-color and scrollbar-width only. Unsupported properties retain native rendering. OS overlay/auto-hide behaviour, exact thickness, shape and touch scrollbar paint remain browser/platform controlled. Forced colours and print use native colours and normal width. No hidden mode; thin is optional and can be harder to drag. Existing scrollbar-gutter behaviour is unchanged. The thumb exactly matches the main-button primary colour; dark accent/track contrast needs review for the chosen palette."
     }
   }
 }

@@ -3,7 +3,7 @@ import options from '../../../tokens/options.json';
 export const attributes = [
   {
     id: 'scrollbar', title: 'data-scrollbar',
-    description: 'Native scrollbar appearance. Auto (the default) follows local theme/palette at normal width; thin uses those colours at a browser-defined compact width; native restores browser colours and width. Set on html, a parent or a scroll container. Forced colours/print stay native. The operating system controls visibility and exact rendering; no class or script. Browser acceptance for this addition is pending.',
+    description: 'Native scrollbar appearance. Auto (the default) uses the palette/data-accent thumb and surface track at normal width; thin uses those colours at a browser-defined compact width; native restores browser colours and width. Set on html, a parent or a scroll container. Forced colours/print stay native. The operating system controls visibility and exact rendering; no class or script. Browser acceptance for this addition is pending.',
     html: '<div data-scrollbar="thin" role="region" aria-label="Compact scrollbar example" tabindex="0" style="max-block-size:10rem; overflow:auto">\n  <p>Scroll this region using its native scrollbar, the keyboard or your usual gesture.</p>\n  <p style="min-block-size:16rem">The thin setting is optional. Use auto for themed normal width, or native for the browser appearance.</p>\n</div>'
   },
   {
