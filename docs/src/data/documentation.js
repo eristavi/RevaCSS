@@ -178,7 +178,7 @@ export const componentContracts = {
     ".top-menu and documented menu structure",
     "Unique panel IDs, popovertarget, popover=auto. Optional .navbar-header wrapper; inherited data-navbar-position, data-navbar-spacing and data-navbar-width configure scrolling, gap and frame independently.",
     "reva.navigation.css",
-    "Native popover support is required; nested focus restoration is browser-dependent."
+    "The menu-brand home link has no menu hover background, including pointer presses that also match hover; keyboard focus remains visible. Native popover support is required; nested focus restoration is browser-dependent."
   ],
   "breadcrumbs": [
     "nav.breadcrumbs > ol > li",

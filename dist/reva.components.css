@@ -964,7 +964,7 @@
   :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
   :where(.top-menu summary:dir(rtl))::after { transform: rotate(-45deg); }
   :where(.top-menu details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
-  :where(.top-menu a:not(:is(.button,.scroll-top)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
+  :where(.top-menu a:not(:is(.button,.scroll-top,.menu-brand)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
   :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
   :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
   :where(.top-menu .menu-items) { margin-block-start: .5rem; }
