@@ -8,7 +8,7 @@
 
 ### Documentation
 
-- Add native anchored help-panel examples with ID-targeted application CSS, logical anchor positioning, edge-flip candidates, centred fallback, persistent essential hints and inherited effects. Preserve example CSS ID selectors in namespaced manual fixtures; browser acceptance remains deferred.
+- Add native anchored help-panel examples with accessible SVG question-mark buttons, ID-targeted application CSS, logical anchor positioning, edge-flip candidates, centred fallback, persistent essential hints and inherited effects. Preserve example CSS ID selectors in namespaced manual fixtures; browser acceptance remains deferred.
 
 - Add native image-lightbox compositions using existing dialog/figure markup, responsive contained images, caption labels, accessible SVG X close controls aligned to the logical end, image-file alternatives and inherited material/motion effects. No new CSS class or data attribute; browser acceptance remains deferred.
 
