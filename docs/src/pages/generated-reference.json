@@ -593,7 +593,7 @@
         "inheritance": "The setting paints only its target. Descendants retain their component surfaces; it does not recolour every child. Motion follows inherited data-motion.",
         "localOverride": "default paints the local theme background and removes the colorful effect. Omission keeps existing styling untouched.",
         "dependencies": "Optional reva.backgrounds.css or reva.backgrounds.scoped.css, loaded after core and materials. Not included in complete core.",
-        "limitations": "Uses every built-in accent start colour; changing primary or a custom palette does not replace these accents. No text or layout changes. Review foreground contrast across the full gradient. Do not combine on the same element with gradient-background or another background animation. Reduced motion keeps a static gradient; higher contrast, forced colours and print remove it."
+        "limitations": "Uses every built-in accent start colour mixed with 80% white in light mode or 80% black in dark mode; changing primary or a custom palette does not replace these accents. No text or layout changes. Review foreground contrast across the full gradient. Do not combine on the same element with gradient-background or another background animation. Reduced motion keeps a static gradient; higher contrast, forced colours and print remove it."
       }
     }
   },

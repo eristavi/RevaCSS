@@ -15,10 +15,12 @@ for(const scoped of [false,true])test(`colorful backgrounds retain native conten
   await expect(page.locator('#still')).toHaveCSS('animation-name','none');
   await expect(page.locator('#fast')).toHaveCSS('animation-duration','6s');
   const first=await image();
-  await page.locator('#root').evaluate(el=>{el.setAttribute('data-theme','dark');el.setAttribute('data-accent','orange');});
-  expect(await image()).toBe(first);
   if(scoped)await expect(page.locator('#outside')).toHaveCSS('background-image','none');
   else await expect(page.locator('body')).toHaveCSS('background-image',first);
+  await page.locator('#root').evaluate(el=>el.setAttribute('data-theme','dark'));
+  const dark=await image();expect(dark).not.toBe(first);
+  await page.locator('#root').evaluate(el=>el.setAttribute('data-accent','orange'));
+  expect(await image()).toBe(dark);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.emulateMedia({reducedMotion:'reduce'});
   await expect(moving).toHaveCSS('animation-name','none');

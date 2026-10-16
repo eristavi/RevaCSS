@@ -4,7 +4,7 @@
 
 ### Colorful backgrounds
 
-- Add optional global/scoped background modules and data-background=default/colorful/colorful-animated for page or section paint. Blend all built-in accent start colours; animated uses the same gradient and inherited motion. Keep theme, component surfaces and accepted hero gradients independent. Include customizer, native pause demo, preference fallbacks and documentation; browser acceptance remains pending.
+- Add optional global/scoped background modules and data-background=default/colorful/colorful-animated for page or section paint. Blend all built-in accent start colours, mixed with 80% white in light mode or 80% black in dark mode; animated uses the same gradient and inherited motion. Keep theme, component surfaces and accepted hero gradients independent. Include customizer, native pause demo, preference fallbacks and documentation; browser acceptance remains pending.
 
 ### Hero and gradient effects
 

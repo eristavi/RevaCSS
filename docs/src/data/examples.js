@@ -7,7 +7,7 @@ export const topics = [
   "notes": [
     "Use data-background=default/colorful/colorful-animated. Omission leaves existing paint unchanged. Default restores the local theme background. This attribute paints its own element; children retain their own surfaces.",
     "Set the attribute on html for the page; the module also paints body so its ordinary opaque background does not conceal the effect. Scoped consumers use reva.backgrounds.scoped.css inside a .reva boundary.",
-    "Colorful uses every built-in accent start colour from the foundation tokens. These colours are independent of the selected primary, palette and light/dark mode; theme text and component surfaces still follow their existing settings.",
+    "Colorful uses every built-in accent start colour from the foundation tokens. Each accent mixes with 80% white in light mode or 80% black in dark mode. The base accent colours are independent of the selected primary and palette; theme text and component surfaces still follow their existing settings.",
     "Animated colorful uses the same colour blend, with 12 seconds per direction for subtle/default and 6 seconds for expressive. Motion none and reduced motion keep it static. Provide a visible pause control for continuous decoration; the demo includes one.",
     "High contrast, forced colours and print remove the decoration. Review foreground contrast throughout the gradient. This feature adds no automatic text backing or foreground changes.",
     "Do not combine data-background with gradient-background or another background animator on the same element. The hero’s darker/lighter primary gradient remains a separate feature. Browser/device acceptance is pending."
