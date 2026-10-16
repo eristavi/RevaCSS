@@ -1,0 +1,17 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../examples/ai-application/README.md';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Complete AI application example" active="ai">
+  <p class="doc-kicker">LEARN / AI APPLICATION EXAMPLE</p>
+  <p><a href={base+'ai/application/app.py'} download>Download app.py</a> · <a href={base+'ai/application/app.css'} download>Download app.css</a> · <a href={base+'ai/application.md'}>Guide and complete source as Markdown</a></p>
+  <div class="application-guide"><Content/></div>
+  <p><a href={base+'guide/ai/'}>Return to the AI guide</a></p>
+</DocsLayout>
+<style>
+.application-guide :global(pre) { max-inline-size:100%; overflow-x:auto; }
+.application-guide :global(h2) { margin-block-start:2rem; }
+.application-guide :global(code) { overflow-wrap:anywhere; }
+.application-guide :global(pre code) { overflow-wrap:normal; }
+</style>

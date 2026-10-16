@@ -73,6 +73,7 @@
     "QUALITY_STANDARD.md",
     "SPECIFICATION.md",
     "IMPLEMENTATION.md",
+    "examples/ai-application",
     "examples/custom-components.html",
     "examples/custom-components.css",
     "quality/blockers.json",

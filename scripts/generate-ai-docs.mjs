@@ -17,6 +17,9 @@ const site=new URL(base,(process.env.REVA_SITE || 'https://revacss.eristavi.org'
 const url=path=>new URL(path,site).href;
 const guide=(await readFile(new URL('AI.md',root),'utf8')).trim();
 const mistakesGuide=(await readFile(new URL('AI_MISTAKES.md',root),'utf8')).trim();
+const applicationGuide=(await readFile(new URL('examples/ai-application/README.md',root),'utf8')).trim();
+const applicationPython=await readFile(new URL('examples/ai-application/app.py',root),'utf8');
+const applicationCSS=await readFile(new URL('examples/ai-application/app.css',root),'utf8');
 const extensionGuide=(await readFile(new URL('CUSTOM_COMPONENTS.md',root),'utf8')).trim();
 const extensionHTML=(await readFile(new URL('examples/custom-components.html',root),'utf8')).replaceAll('../dist/','dist/').trim();
 const extensionCSS=(await readFile(new URL('examples/custom-components.css',root),'utf8')).trim();
@@ -35,6 +38,7 @@ const componentData=componentGroups.flatMap(group=>group.slugs.map(slug=>{
 }));
 add('ai/guide.md','Using RevaCSS with AI',guide.replace(/^# .+\n/,'').replaceAll('(CUSTOM_COMPONENTS.md)',`(${url('ai/custom-components.md')})`));
 add('ai/mistakes.md','Common AI mistakes and corrected patterns',mistakesGuide.replace(/^# .+\n/,''));
+add('ai/application.md','Complete project workspace application',`${applicationGuide.replace(/^# .+\n/,'')}\n\n## Complete app.py source\n\n${fence('python',applicationPython.trim())}\n\n## Complete app.css source\n\n${fence('css',applicationCSS.trim())}`);
 add('ai/custom-components.md','Building custom components',`${extensionGuide.replace(/^# .+\n/,'')}\n\n## Complete starter HTML\n\nSave this document and its application stylesheet beside your matching \`dist/\` directory.\n\n${fence('html',extensionHTML)}\n\n## Application stylesheet\n\nSave as \`custom-components.css\` beside the HTML.\n\n${fence('css',extensionCSS)}`);
 const usageLabels={targets:'Supported targets',inheritance:'Inheritance',localOverride:'Local overrides and resets',dependencies:'Dependencies',limitations:'Limits and combinations with no effect'};
 const attributeRules='HTML data attributes do not inherit by themselves. RevaCSS uses CSS custom properties and scoped selectors to apply settings to documented targets. A local choice changes that setting subject to its component rules and accessibility preferences. Omission preserves the inherited setting within the current boundary, or uses the initialized default when none applies. Each scoped .reva boundary initializes defaults. There is no universal reset value: use only the listed values and read the per-setting exceptions below. Unsupported values are not a reliable reset; material boundaries can stop a parent scope even without selecting another finish. Defaults describe the unconfigured build, not a command to repeat on every element.';
@@ -46,6 +50,9 @@ for(const component of componentData){
 }
 add('ai/demos.md','Complete website starters',`These are full demonstration websites. Open a demo, use its customizer and download the HTML. Download linked stylesheets and update their paths for your own hosting. Replace fictional content and connect product behaviour to your application.\n\n${demoPages.map(demo=>`## ${demo.title}\n\n${demo.description}\n\n${url(demo.path)}`).join('\n\n')}`);
 await mkdir(new URL('ai/components/',output),{recursive:true});
+await mkdir(new URL('ai/application/',output),{recursive:true});
+await writeFile(new URL('ai/application/app.py',output),applicationPython);
+await writeFile(new URL('ai/application/app.css',output),applicationCSS);
 for(const document of documents)await writeFile(new URL(document.path,output),document.text);
 const api={schemaVersion:1,framework:'RevaCSS',sourceStatus,version:pkg.version,releaseName:pkg.releaseName,documentation:url(''),guide:url('ai/guide.md'),installation:url('guide/'),npmPublished:process.env.REVA_NPM_PUBLISHED==='true',releasePublished:process.env.REVA_RELEASE_PUBLISHED==='true',attributes:options,stylesheets,publicTokens:publicTokens.map(([group,name,valueType,description])=>({group,name,valueType,description})),components:componentData,demos:demoPages.map(demo=>({...demo,url:url(demo.path)}))};
 await writeFile(new URL('ai/api.json',output),JSON.stringify(api,null,2)+'\n');

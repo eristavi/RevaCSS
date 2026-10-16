@@ -183,6 +183,12 @@ Start with one complete global or scoped build. The scoped build uses a `.reva` 
 
 For colours, shapes and spacing, prefer existing attributes and documented public tokens. Use ordinary application CSS for page composition or custom styling beyond those options. Never promise an effect just because an attribute name sounds plausible.
 
+## Start from a complete application example
+
+The [project workspace example](https://revacss.eristavi.org/guide/ai-application/) connects a dashboard, validated form, responsive top menu and custom project card to real local routes and SQLite storage. Read the generated `/ai/application.md` for its guide and complete Python/CSS source, or use `examples/ai-application/` in the repository/package. The documentation page provides source downloads.
+
+Run it with a matching compiled `dist/reva.css`; it uses Python's standard library and adds no browser JavaScript. Its route/data/validation connection points are explicit. The local example has no authentication or user permissions; move the rendering patterns into the consuming application's own routing, authorization and session facilities when building a product. Recorded HTTP checks do not establish browser or device acceptance.
+
 ## Review common mistakes
 
 Read the [incorrect and corrected examples](https://revacss.eristavi.org/guide/ai-mistakes/) or the generated `/ai/mistakes.md` reference before reviewing generated interfaces. The focused guide covers foreign classes, invalid values, missing extensions, scoped boundaries, shared defaults, resets, dropdown semantics, form labels and responsive wrappers. Its **Incorrect** snippets are deliberate counterexamples; use only the **Correct** patterns with their stated dependencies. The same examples ship in `AI_MISTAKES.md` for offline review.

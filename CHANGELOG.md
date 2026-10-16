@@ -4,6 +4,8 @@
 
 ### Documentation
 
+- Add a runnable project workspace connecting a dashboard, server-validated form, responsive native navigation and custom card to SQLite data, with complete source downloads and AI reference.
+
 - Add ten incorrect/corrected AI examples with a dedicated guide page, focused generated Markdown reference and offline package documentation.
 - Expand all 29 attribute contracts with supported targets, inheritance, local resets, dependencies and limitations. Generate the same guidance in AI Markdown, the structured API, HTML editor descriptions and the human reference.
 
