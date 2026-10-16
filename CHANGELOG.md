@@ -4,16 +4,9 @@
 
 ### Hero and gradient effects
 
-- Use the live palette on-primary foreground for text on non-Glass gradient backgrounds, including the selected text gradient’s colour mixes. Preserve normal text for text-only effects, Glass and preferences that remove the surface layer.
-
-- Expand the hero demo with 72 text-only, material-only and combined examples across all four materials, three motion settings and both fill settings. All examples follow the customizer theme and accent; include native expandable groups, copyable HTML and a shared pause control.
-
-- Reverse text gradient movement relative to animated backgrounds, preserving shared subtle/expressive durations and easing.
-- Animate solid gradient backgrounds between white/primary in light mode and black/primary in dark mode, with full opacity by default and an optional strength override. Double gradient speed to subtle 12s / expressive 6s per direction for text, solid surfaces and glass sheen. Solid hero demos use the inherited primary without test colour overrides or inner content backings; full-strength background/foreground combinations require contrast review.
-
-- Animate the existing Glass highlight gradient in place for .gradient-background; retain its colours/transparency/blur and a stationary backdrop. Solid surfaces retain the separate tint layer. Native pause and preference fallbacks also stop the surface animation.
-
-- Add optional global/scoped hero and gradients modules: semantic .hero layout, selected .gradient-text phrases and a translucent .gradient-background light layer. Extend existing material surface lists to heroes. Inherit accent/motion, animate subtle at 12s and expressive at 6s, retain static none/reduced-motion gradients, and provide contrast/transparency/print fallbacks plus a native pause demo. No new attribute, core weight or runtime; new browser acceptance is pending.
+- Add optional semantic hero layouts and material/background gradients, with global and scoped modules. Text gradient effects and animations have been removed at the maintainer’s request; ordinary text follows theme colours.
+- Animate the existing Glass sheen in place, preserving transparency, blur and the stationary backdrop. Other surfaces animate white/primary in light mode and black/primary in dark mode, with adaptive on-primary text and optional background strength.
+- Subtle/default motion takes 12 seconds per direction; expressive takes 6 seconds; none/reduced motion stays static. Provide native pause, contrast/transparency/print fallbacks and material/motion/fill demos following the customizer. Browser acceptance and full-cycle foreground contrast review remain pending.
 
 ### Native scrollbars
 

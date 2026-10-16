@@ -85,7 +85,7 @@
         "inheritance": "Configure on html for global defaults, or on a local parent/target. CSS tokens and scoped selectors apply the setting to supported descendants; the HTML attribute itself does not inherit. Omission keeps the inherited setting within the current boundary; each scoped .reva boundary initializes its own defaults. Read localOverride for setting-specific exceptions.",
         "localOverride": "Use solid locally to remove the supported gradient contribution; gradient restores it without changing other settings.",
         "dependencies": "Core styles; optional materials provide their own supported sheen treatment.",
-        "limitations": "Does not select an opaque surface or reset Glass. Outline/ghost actions can have no filled gradient to change. The optional gradient-text and gradient-background classes opt in independently of data-fill."
+        "limitations": "Does not select an opaque surface or reset Glass. Outline/ghost actions can have no filled gradient to change. The optional gradient-background class opts in independently of data-fill."
       }
     },
     "density": {
