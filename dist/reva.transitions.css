@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Optional document-level extension; load on both same-origin destinations. */
 @view-transition { navigation: auto; }
 ::view-transition-group(root), ::view-transition-old(root), ::view-transition-new(root) {

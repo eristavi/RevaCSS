@@ -4,6 +4,27 @@ RevaCSS is an HTML/CSS-first framework with a zero-JavaScript core. Use native H
 
 This guide is for people building with an AI assistant and for agents given this file as project context. Follow the user's instructions and the project's existing workflow. This file describes RevaCSS usage; it does not authorize publishing, installing tools or running tests.
 
+## Architectural principles and source-preview foundation hooks
+
+Read [ARCHITECTURE.md](https://github.com/eristavi/RevaCSS/blob/main/ARCHITECTURE.md) for the authoritative architecture and contribution checklist. The generated `/ai/architecture.md` and `/guide/architecture/` publish the complete markup audit and inheritance/reset matrix. Native HTML provides meaning; local hooks select presentation; shared settings configure documented descendants. Never choose article merely to get a card or main merely to get a width container.
+
+Current source adds `data-layout="container|grid|row|stack"`, `data-surface="card"` and the `data-reva` presence marker. These are **unreleased and unavailable in published 2.0.0**. The existing class-based examples below remain valid for 2.0.0. New hooks preserve those classes and introduce no automatic structural-element styling. For source builds, use:
+
+```html
+<main data-layout="container">
+  <h1>Projects</h1>
+  <div data-layout="grid">
+    <article data-surface="card">
+      <header><h2>Project Aurora</h2></header>
+      <p>A self-contained summary.</p>
+      <footer><a href="/projects/aurora">View project</a></footer>
+    </article>
+  </div>
+</main>
+```
+
+A generic panel can use div[data-surface="card"]. Configure material on the page/parent; the panel follows supported inherited settings with the matching extension loaded. Layout and surface hooks are local, not inherited. One layout value per element; do not mix conflicting class/attribute layout hooks. Use data-reva on an existing block boundary with matching scoped files, configure defaults there, and place component/layout hooks on descendants. The scoped root is not Shadow DOM isolation and initializes its own defaults. Native footers retain their meaning at page or section level; card footer spacing follows its parent surface without a footer class.
+
 ## Give your assistant the right context
 
 Tell your assistant to use RevaCSS explicitly. Give it the current documentation index at `/llms.txt` under the documentation site's base path, then the relevant Markdown reference pages listed there. For GitHub Pages, that base path is `/RevaCSS/`.

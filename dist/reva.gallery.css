@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Native scrolling and fragment links; no carousel state or automatic playback. */
 @layer re.components {
   :where(.gallery, :scope.gallery) {

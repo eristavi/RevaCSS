@@ -23,8 +23,9 @@ test('default glass text and control boundaries remain readable on theme-matched
 });
 test('glass global and scoped distributions match their source and remain opt-in',async()=>{
   const source=await readFile('src/css/glass.css','utf8');
-  assert.equal(await readFile('dist/reva.glass.css','utf8'),source);
-  assert.equal(await readFile('dist/reva.glass.scoped.css','utf8'),'@scope (.reva) {\n'+source+'\n}\n');
+  const order='@layer re.tokens, re.base, re.components, re.buttons, re.utilities;\n';
+  assert.equal(await readFile('dist/reva.glass.css','utf8'),order+source);
+  assert.equal(await readFile('dist/reva.glass.scoped.css','utf8'),order+'@scope (.reva, [data-reva]) {\n'+source+'\n}\n');
   assert.ok(!(await readFile('dist/reva.css','utf8')).includes('--re-glass-opacity'));
 });
 

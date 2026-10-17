@@ -1,9 +1,6 @@
 @layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 @layer re.tokens {
-:where(:root) { --re-primary: #111111;
---re-primary-end: #000000;
---re-on-primary: #ffffff;
---re-radius: 0.75rem;
+:where(:root) { --re-radius: 0.75rem;
 --re-gap: 1rem;
 --re-font: Manrope, system-ui, sans-serif; --re-bg: light-dark(#FAFAFA,#101010); --re-surface: light-dark(#FFFFFF,#191919); --re-text: light-dark(#111111,#F5F5F5); --re-surface-alt: light-dark(#EDEDED,#292929); --re-primary: light-dark(#1F6E8C,#2E8A99); --re-on-primary: light-dark(#FFFFFF,#111111); --re-line: light-dark(#D4D4D4,#414141); --re-primary-end: light-dark(#195E78,#57ACB8); --re-link: light-dark(#1F6E8C,#65BBC7); --re-muted: light-dark(#4C4C4C,#BEBEBE); --re-control-line: light-dark(#7C7C7C,#929292); --re-palette-muted: light-dark(#4C4C4C,#BEBEBE); --re-palette-link: light-dark(#1F6E8C,#65BBC7); --re-palette-control-line: light-dark(#7C7C7C,#929292);
 --re-density: 1; --re-space: 1rem; --re-type: 1rem;

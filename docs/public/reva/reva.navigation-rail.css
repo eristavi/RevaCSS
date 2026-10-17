@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* One class on native navigation. Labels remain visible at every width. */
 @layer re.components {
   :where(nav.nav-rail) { display: flex; flex-direction: column; gap: .25rem; inline-size: fit-content; max-inline-size: 100%; }

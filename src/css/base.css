@@ -6,7 +6,7 @@
   :where(*) { scrollbar-color: var(--re-scrollbar-color, var(--re-primary) var(--re-surface)); scrollbar-width: var(--re-scrollbar-width, auto); }
   @media (forced-colors: active), print { :where(*) { scrollbar-color: auto; scrollbar-width: auto; } }
   :where(html) { -webkit-text-size-adjust: 100%; }
-  :where(body,.reva,:scope.reva) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
+  :where(body,:is(.reva,[data-reva]),:scope:is(.reva,[data-reva])) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
   :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]) { background-color: var(--re-bg); color: var(--re-text); }
   :where([data-type], :scope[data-type]) { font-size: var(--re-type); }
   :where(h1,h2,h3,h4,h5,h6) { font-family: var(--re-font-heading, var(--re-font)); font-weight: 700; line-height: 1.2; margin-block: 1.5em .55em; overflow-wrap: anywhere; text-wrap: balance; }

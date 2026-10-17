@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Labels and descriptions remain native HTML with explicit ID associations. */
 @layer re.components {
   :where(.form-group) { display: flex; flex-direction: column; gap: calc(.4em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin-block-end: var(--re-space); }

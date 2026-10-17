@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* One class on an ordered list; timestamps and event content remain native. */
 @layer re.components {
   :where(ol.timeline) { list-style: none; padding: 0; margin: 0; }

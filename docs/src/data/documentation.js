@@ -115,7 +115,7 @@ export const componentContracts = {
     "Document structure comes from your markup."
   ],
   "layouts": [
-    ".card, .container, .grid, .row, .stack; optional .responsive parent",
+    "Source preview: data-surface=card and data-layout=container|grid|row|stack; existing .card/.container/.grid/.row/.stack remain supported; optional .responsive parent",
     "Optional cols-2/cols-3; shared width and gap settings. .responsive enables named container queries.",
     "reva.components.css",
     "Layouts arrange content; there is no numbered 12-column API."
@@ -277,6 +277,7 @@ export const learnLinks = [
  { key:'comparison', title:'Framework comparison', path:'guide/comparison/' },
  { key:'ai', title:'Using RevaCSS with AI', path:'guide/ai/' },
  { key:'contributing', title:'Contributor workflow', path:'guide/contributing/' },
+ { key:'architecture', title:'Architecture and markup audit', path:'guide/architecture/' },
  { key:'styling', title:'Styling and inheritance', path:'guide/styling/' },
  { key:'custom-components', title:'Building custom components', path:'guide/custom-components/' },
  { key:'motion', title:'Motion and animations', path:'guide/motion/' },

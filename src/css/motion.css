@@ -1,6 +1,6 @@
 /* Optional native overlay motion. Load after the matching global/scoped core. */
 @layer re.tokens {
-  :where(:root, .reva, :scope.reva) {
+  :where(:root, :is(.reva,[data-reva]), :scope:is(.reva,[data-reva])) {
     --re-popover-offset: 0rem; --re-popover-scale: 1;
     --re-popover-start-opacity: 0; --re-drawer-shift: 1rem;
   }

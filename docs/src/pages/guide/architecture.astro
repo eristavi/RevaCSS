@@ -1,0 +1,15 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import {Content} from '../../../../ARCHITECTURE.md';
+import {markupAudit,inheritanceMatrix,nativeMarkupAudit} from '../../data/architecture.js';
+const base=import.meta.env.BASE_URL;
+---
+<DocsLayout title="Architecture and markup audit" active="architecture">
+<Content/>
+<p><a href={base+'ai/architecture.md'}>Architecture, markup audit and inheritance matrix as Markdown</a></p>
+<section id="markup-audit"><h2>Public markup audit</h2><p>Every public class is accounted for. Alternatives are source-preview additions; existing classes remain supported. Remaining hooks identify optional patterns, contextual parts or presentation utilities.</p>
+<table><caption>Public class decisions</caption><thead><tr><th scope="col">Hook</th><th scope="col">Decision / preferred hook</th><th scope="col">Reason and structure</th></tr></thead><tbody>{markupAudit.map(item=><tr><th scope="row"><code>{'.'+item.name}</code></th><td>{item.decision}<br/><code>{item.preferredHook}</code></td><td>{item.rationale} {item.wrapperRule} <a href={base+item.guide}>Contract</a></td></tr>)}</tbody></table></section>
+<section id="inheritance-matrix"><h2>Inheritance and reset matrix</h2><p>Generated directly from the option manifest. Defaults describe omission; they are not universal reset values.</p>{inheritanceMatrix.map(item=><article><h3><code>{item.attribute}</code></h3><dl><dt>Values / default</dt><dd>{item.values.map(v=>v===''?'(presence marker)':v).join(', ')} / {item.default}</dd><dt>Scope / targets</dt><dd>{item.scope}. {item.targets}</dd><dt>Omission and inheritance</dt><dd>{item.inheritance}</dd><dt>Local reset</dt><dd>{item.localOverride}</dd><dt>Dependencies</dt><dd>{item.dependencies}</dd><dt>Limits</dt><dd>{item.limitations}</dd></dl></article>)}</section>
+<section id="component-audit"><h2>Component structure inventory</h2><p>The current component manifest supplies the exact native markup, states and stylesheet dependencies, including components that require no class.</p>{nativeMarkupAudit.map(item=><article><h3>{item.name}</h3><p><code>{item.markup}</code></p><p>{item.states} {item.behaviour}</p><p>{item.stylesheet}</p></article>)}</section>
+</DocsLayout>
+<style>td,th { overflow-wrap:anywhere; } dl { margin-block-end:2rem; } dd { margin-inline-start:0; } dt { font-weight:600; }</style>

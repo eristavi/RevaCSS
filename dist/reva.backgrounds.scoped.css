@@ -1,9 +1,10 @@
-@scope (.reva) {
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@scope (.reva, [data-reva]) {
 /* Optional page/section backgrounds. Colours mix each primitive accent with 80% white/light or black/dark.
    Explicit targets paint themselves; descendants keep their own surfaces.
    Load after materials. Do not combine with another background animator. */
 @layer re.tokens {
-  :where(:scope, .reva, :scope.reva) { --re-background-motion: re-background-drift; --re-background-duration: 12s; --re-background-size: 300% 100%; }
+  :where(:scope, :is(.reva,[data-reva]), :scope:is(.reva,[data-reva])) { --re-background-motion: re-background-drift; --re-background-duration: 12s; --re-background-size: 300% 100%; }
   :where([data-motion="none"], :scope[data-motion="none"]) { --re-background-motion: none; --re-background-size: 100% 100%; }
   :where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-background-motion: re-background-drift; --re-background-duration: 12s; --re-background-size: 300% 100%; }
   :where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-background-motion: re-background-drift; --re-background-duration: 6s; --re-background-size: 300% 100%; }

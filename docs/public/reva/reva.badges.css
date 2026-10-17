@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Passive labels: one identifying class, with shared parent configuration. */
 @layer re.components {
   :where(.badge) {

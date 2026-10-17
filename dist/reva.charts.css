@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* One figure class. Coordinates and series values are supplied in SVG/HTML. */
 @layer re.components {
   :where(figure.chart) { margin: var(--re-space) 0; min-inline-size: 0; }

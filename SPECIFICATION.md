@@ -1,5 +1,8 @@
 # RevaCSS specification — frozen v0.1 scope
 
+Current architectural decisions follow [ARCHITECTURE.md](ARCHITECTURE.md). Exact current values and structures follow the source manifests; frozen foundation sections below remain design history.
+
+
 A new default for the web. Native foundations, adaptive design, minimal decisions.
 
 ## Current distribution release

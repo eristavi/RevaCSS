@@ -32,7 +32,7 @@ files = {path.relative_to(root).as_posix(): path.read_bytes()
          for directory in ['dist', 'tokens', 'types']
          for path in sorted((root / directory).rglob('*')) if path.is_file()}
 for filename in ['LICENSE', 'README.md', 'CHANGELOG.md', 'RELEASE_NOTES.md', 'MIGRATION.md',
-                 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md', 'NPM.md', 'AI.md',
+                 'ARCHITECTURE.md', 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'QUALITY_STANDARD.md', 'NPM.md', 'AI.md',
                  'CUSTOM_COMPONENTS.md', 'VERSIONING.md', 'examples/custom-components.html', 'examples/custom-components.css',
                  'package.json', 'quality/blockers.json',
                  f'quality/releases/v{version}.md', '.github/assets/revacss-preview.png']:

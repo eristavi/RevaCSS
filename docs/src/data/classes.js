@@ -11,7 +11,7 @@ export const classGroups=[
 const entries=(group,rows)=>rows.map(([name,description,markup,module,guide,notes='',status='supported'])=>({name,selector:'.'+name,group,description,markup,stylesheet:`reva.${module}.css`,includedInCore:!['hero','gradients','scoped'].includes(module),guide,notes,status}));
 export const classes=[
  ...entries('layout',[
-  ['container','Constrain and center page content.','A block wrapper. data-width controls its width.','components','components/layouts/'],
+  ['container','Constrain and center page content.','A block wrapper. data-width controls its width. Source-preview alternative: data-layout=container.','components','components/layouts/'],
   ['grid','Auto-fitting responsive grid.','A wrapper with direct child items.','components','components/layouts/'],
   ['row','Wrapping horizontal flex layout.','A wrapper with direct child items.','components','components/layouts/'],
   ['stack','Vertical flex layout with shared spacing.','A wrapper with direct child items.','components','components/layouts/'],
@@ -22,10 +22,10 @@ export const classes=[
   ['justify-between','Distribute flex/grid content with space between.','Use on a layout wrapper that has available free space.','components','components/layouts/'],
   ['responsive','Create a named inline-size layout container.','An ancestor of the layout being adapted.','components','components/layouts/','Requires container-query support; viewport fallbacks remain.'],
   ['prose','Limit readable text width.','A text-content wrapper.','components','components/typography/','Sets a maximum measure; does not add document semantics.'],
-  ['reva','Boundary for the scoped distribution.','Wrap the area styled by reva.scoped.css.','scoped','guide/styling/','Use matching scoped optional modules; each boundary initializes its defaults.'],
+  ['reva','Boundary for the scoped distribution.','Mark the existing block containing the area styled by reva.scoped.css. Source-preview alternative: data-reva.','scoped','guide/styling/','Use matching scoped optional modules; each boundary initializes its defaults.'],
  ]),
  ...entries('components',[
-  ['card','Reusable content surface.','A section/article/div with appropriate semantic content.','components','components/card-patterns/','Native header/footer/figure children extend the card pattern.'],
+  ['card','Reusable content surface.','A section/article/div with appropriate semantic content. Source-preview alternative: data-surface=card.','components','components/card-patterns/','Native header/footer/figure children extend the card pattern.'],
   ['hero','Responsive introduction with a large heading.','section.hero with a heading; optional header and figure.','hero','components/hero/','Optional module; matching material extensions style the surface.'],
   ['gradient-background','Animate background paint independently of text.','A non-interactive content wrapper, optionally .hero.','gradients','components/gradients/','Optional module; reserves ::before and relative positioning/isolation. Keep separate from data-background.'],
   ['card-grid','Grid of content cards.','A wrapper with direct .card children, each containing header, section and footer.','card-grid','guide/modern-css/#adaptive'],

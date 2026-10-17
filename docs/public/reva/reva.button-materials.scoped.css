@@ -1,4 +1,5 @@
-@scope (.reva) {
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@scope (.reva, [data-reva]) {
 /* The Veil finish is deprecated and retained for existing sites. */
 /* Optional action-only materials. Load after the matching global/scoped core.
    re.buttons overrides general material paint; re.utilities keeps preferences first.
@@ -72,7 +73,7 @@
 
 /* Direct action roots also receive the same paint. This avoids Firefox
    losing local scope-root matches inside a differently configured material.
-   Scoped distributions retain their outer .reva boundary. */
+   Scoped distributions retain their outer :is(.reva,[data-reva]) boundary. */
 @layer re.buttons { :where(:is([data-button-material="solid"],[data-button-material="glass"],[data-button-material="veil"],[data-button-material="soft"],[data-button-material="liquid"]):is(button,input:is([type=button],[type=submit],[type=reset]),.button,.scroll-top)):where(:not(.menu-toggle,.dropdown > li > :is(button,.button,.scroll-top))) { --re-bm-fallback:initial; --re-bm-fallback-text:initial; background-color:var(--re-action-start); background-image:var(--re-bm-image,linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 28%),var(--re-action-start)))); background-position:0% 0%; background-size:auto; background-repeat:no-repeat; color:var(--re-action-text); border-color:color-mix(in srgb,var(--re-action-text) 18%,transparent); box-shadow:var(--re-bm-shadow,var(--re-shadow)); -webkit-backdrop-filter:none; backdrop-filter:none; transition:filter var(--re-duration) ease,transform var(--re-duration) ease; } }
 @layer re.buttons { :where(:is([data-button-material="solid"],[data-button-material="glass"],[data-button-material="veil"],[data-button-material="soft"],[data-button-material="liquid"]):is(button,input:is([type=button],[type=submit],[type=reset]),.button,.scroll-top)):where(:not(.menu-toggle,.dropdown > li > :is(button,.button,.scroll-top))):where(.outline,.ghost) { background-color:transparent; background-image:none; color:var(--re-action-link,var(--re-link)); border-color:transparent; box-shadow:none; } }
 @layer re.buttons { :where(:is([data-button-material="solid"],[data-button-material="glass"],[data-button-material="veil"],[data-button-material="soft"],[data-button-material="liquid"]):is(button,input:is([type=button],[type=submit],[type=reset]),.button,.scroll-top)):where(:not(.menu-toggle,.dropdown > li > :is(button,.button,.scroll-top))):where(.danger):where(.outline,.ghost) { color:var(--re-action-link,var(--re-danger-link)); } }

@@ -1,5 +1,8 @@
 # RevaCSS
 
+Architectural contract: [ARCHITECTURE.md](ARCHITECTURE.md). The current source adds class-free layout/surface hooks and scoped presence boundaries; these additions are not in published 2.0.0. Existing classes remain supported. See the [architecture and markup audit](https://revacss.eristavi.org/guide/architecture/) before adopting source-preview APIs.
+
+
 **Start with HTML. Set your defaults once.**
 
 A CSS framework for building consistent interfaces with native HTML, shared appearance settings and a small set of structural classes. Choose a theme, palette, shape and spacing on a page or section, then refine individual components where needed.

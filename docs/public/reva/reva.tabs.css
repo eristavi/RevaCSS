@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Radio-selected panels; native radios retain their semantics and focus. */
 @layer re.components {
   :where(.tabs) { display: flex; flex-wrap: wrap; column-gap: calc(.25rem * var(--re-gap-factor, 1)); row-gap: 0; min-inline-size: 0; }
