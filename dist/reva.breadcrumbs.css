@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Ordered navigation; separators are decorative, not spoken text. */
 @layer re.components {
   :where(.breadcrumbs) { min-inline-size: 0; font-size: calc(1em * var(--re-control-scale, 1)); }

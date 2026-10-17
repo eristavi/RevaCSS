@@ -32,3 +32,9 @@ Existing shape, density and width presets remain available and reset their own s
 Use matching core and optional extension files from the same release. Framework pages retain plain light/dark backgrounds through `--re-bg`; decorative documentation and demo backgrounds stay in their own stylesheets. The optional customizer remains separate from the framework runtime. Downloaded demo HTML requires the linked composition CSS; production application behaviour remains application-owned.
 
 Check your native controls, local overrides, colour contrast and supported browsers before upgrading. Published 1.2.1 archives remain available and unchanged.
+
+## Unreleased architectural additions
+
+Current source adds local data-layout=container/grid/row/stack, data-surface=card and data-reva presence boundaries. They are not available in published 2.0.0. No existing class is removed or deprecated by this addition, and native structural elements remain neutral. A compatible future release can adopt these hooks incrementally; use matching rebuilt core and scoped material extensions. Choose a single layout hook per element, and put layout/surface targets below the scoped boundary. See [ARCHITECTURE.md](ARCHITECTURE.md) for separation of width, surface, scope and semantics.
+
+Every generated CSS entry point now declares the established layer order, including re.buttons before re.utilities. This fixes load-order-dependent precedence for modular/extension consumers; review applications that relied on the previous accidental first-appearance order. The supported installation still loads core before extensions. Unlayered ordinary application overrides remain stronger than normal layered framework rules. Existing invalid material-boundary behaviour remains documented; invalid values are not reset APIs.

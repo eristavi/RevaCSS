@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Content messages: one identifying class; meaning stays in the HTML. */
 @layer re.components {
   :where(.alert) {

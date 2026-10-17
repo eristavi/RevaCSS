@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* One structural class; native popovers own interaction and visibility. */
 @layer re.components {
   :where(.drawer[popover], :scope.drawer[popover]) {

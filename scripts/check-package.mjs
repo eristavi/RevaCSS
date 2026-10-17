@@ -14,7 +14,7 @@ for (const entry of entryPoints) {
   assert.ok(paths.has(entry.replace(/^\.\//, '')), `Missing package entry: ${entry}`);
 }
 for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md', 'RELEASE_NOTES.md', 'MIGRATION.md', 'AI.md', 'CUSTOM_COMPONENTS.md', 'VERSIONING.md',
-  'QUALITY_STANDARD.md', 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'examples/custom-components.html', 'examples/custom-components.css',
+  'ARCHITECTURE.md', 'QUALITY_STANDARD.md', 'SPECIFICATION.md', 'IMPLEMENTATION.md', 'examples/custom-components.html', 'examples/custom-components.css',
   'quality/blockers.json', `quality/releases/v${metadata.version}.md`,
   'dist/reva.scoped.css', 'dist/reva.glass.css', 'dist/reva.glass.scoped.css',
   'dist/reva.button-materials.css', 'dist/reva.button-materials.scoped.css', 'dist/reva.soft.css', 'dist/reva.soft.scoped.css', 'dist/reva.veil.css', 'dist/reva.motion.css', 'dist/reva.selects.css',
@@ -26,10 +26,15 @@ for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md', 'RELEA
   'dist/icons/reva.svg', 'tokens/foundation.tokens.json']) {
   assert.ok(paths.has(required), `Missing distribution asset: ${required}`);
 }
+// Explicit documentation/source examples already selected by package.json.
+// app.py is the optional server-side example, never a framework browser runtime.
+const sourceDocumentation=new Set(['AI_MISTAKES.md','AI_TROUBLESHOOTING.md','CONTRIBUTING.md',
+  'examples/ai-application/README.md','examples/ai-application/app.css','examples/ai-application/app.py',
+  'quality/ai-guidance/2026-10-16.md','quality/ai-guidance/results-2026-10-16.json']);
 for (const path of paths) {
-  assert.ok(/^(?:(?:package\.json|LICENSE|README\.md|CHANGELOG\.md|NPM\.md|RELEASE_NOTES\.md|MIGRATION\.md|AI\.md|CUSTOM_COMPONENTS\.md|VERSIONING\.md|QUALITY_STANDARD\.md|SPECIFICATION\.md|IMPLEMENTATION\.md)$|(?:dist|tokens|types)\/|examples\/custom-components\.(?:html|css)$|quality\/(?:blockers\.json|releases\/v\d+\.\d+\.\d+(?:-preview)?\.md)$)/.test(path),
+  assert.ok(/^(?:(?:package\.json|LICENSE|README\.md|CHANGELOG\.md|NPM\.md|RELEASE_NOTES\.md|MIGRATION\.md|AI\.md|ARCHITECTURE\.md|CUSTOM_COMPONENTS\.md|VERSIONING\.md|QUALITY_STANDARD\.md|SPECIFICATION\.md|IMPLEMENTATION\.md)$|(?:dist|tokens|types)\/|examples\/custom-components\.(?:html|css)$|quality\/(?:blockers\.json|releases\/v\d+\.\d+\.\d+(?:-preview)?\.md)$)/.test(path) || sourceDocumentation.has(path),
     `Unexpected package file: ${path}`);
-  assert.ok(!/\.(?:[cm]?js|py)$/.test(path), `Unexpected framework runtime: ${path}`);
+  assert.ok(!/\.(?:[cm]?js|py)$/.test(path) || path==='examples/ai-application/app.py', `Unexpected framework runtime: ${path}`);
   assert.ok(!path.endsWith('.npmrc'), `Unexpected npm configuration: ${path}`);
 }
 assert.equal(Object.keys(metadata.dependencies || {}).length, 0, 'Core must have no runtime dependencies.');

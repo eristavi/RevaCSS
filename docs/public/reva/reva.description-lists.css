@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* A single opt-in class arranges native term/description pairs. */
 @layer re.components {
   :where(dl.description-list) { margin: 0; min-inline-size: 0; container-type: inline-size; }

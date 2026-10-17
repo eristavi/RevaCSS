@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* One shell class owns layout; semantic children own their regions. */
 @layer re.components {
   :where(.app-shell, :scope.app-shell) {

@@ -1,6 +1,7 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Optional animated material/background effects. Text remains native HTML. */
 @layer re.tokens {
-  :where(:root, .reva, :scope.reva) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
+  :where(:root, :is(.reva,[data-reva]), :scope:is(.reva,[data-reva])) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
   :where([data-motion="none"], :scope[data-motion="none"]) { --re-gradient-animation: none; }
   :where([data-motion="subtle"], :scope[data-motion="subtle"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 12s; }
   :where([data-motion="expressive"], :scope[data-motion="expressive"]) { --re-gradient-animation: re-gradient-drift; --re-gradient-duration: 6s; }

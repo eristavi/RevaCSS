@@ -13,6 +13,9 @@ For acceptance and API changes, read the
 
 ## Identify the change before editing
 
+Use [ARCHITECTURE.md](https://github.com/eristavi/RevaCSS/blob/main/ARCHITECTURE.md) as the architectural decision contract. The class and option catalogs generate the full public markup audit and inheritance matrix; keep their decisions aligned when changing hooks.
+
+
 Record the relevant version/commit, intended behaviour and files involved.
 Compare the reported result with the matching component contract and a small
 reproduction. Current source, release archives and registry packages can have

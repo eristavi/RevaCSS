@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Fragment navigation stays native. The nearest scroll container owns motion. */
 @layer re.base {
   :where(*) { scroll-behavior: var(--re-scroll-behavior, auto); }

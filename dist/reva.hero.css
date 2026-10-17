@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Optional semantic section/header composition. Load after the core. */
 @layer re.components {
   :where(.hero, :scope.hero) {

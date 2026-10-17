@@ -1,5 +1,8 @@
 # RevaCSS
 
+Architectural contract: [ARCHITECTURE.md](ARCHITECTURE.md). The current source adds class-free layout/surface hooks and scoped presence boundaries; these additions are not in published 2.0.0. Existing classes remain supported. See the [architecture and markup audit](https://revacss.eristavi.org/guide/architecture/) before adopting source-preview APIs.
+
+
 **Start with HTML. Set your defaults once.**
 
 A CSS framework for building consistent interfaces with native HTML, shared appearance settings and a small set of structural classes. Choose a theme, palette, shape and spacing on a page or section, then refine individual components where needed.
@@ -240,7 +243,7 @@ RevaCSS targets modern browsers. Native popovers require browser support; option
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for source locations, generated documentation, focused verification and release evidence. Coding agents should start with [AGENTS.md](AGENTS.md).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for source locations, generated documentation, focused verification and release evidence. Coding agents should start with [AGENTS.md](https://github.com/eristavi/RevaCSS/blob/main/AGENTS.md).
 
 For documentation or framework development, clone the repository and use Node 22.12 or newer; Node 24 is recommended.
 

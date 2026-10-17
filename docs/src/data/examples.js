@@ -1344,6 +1344,7 @@ export const topics = [
     "title": "Cards and layouts",
     "intro": "Use a small set of layout classes. Grids adapt intrinsically; rows wrap; stacks arrange content vertically.",
     "examples": [
+      {"id":"semantic-foundations","render":false,"title":"Class-free foundations (source preview)","description":"Unreleased: native structure, local layout and surface hooks, inherited appearance. Existing 2.0 classes remain supported.","html":"<main data-layout=\"container\"><h2>Projects</h2><div data-layout=\"grid\"><article data-surface=\"card\"><header><h3>Project Aurora</h3></header><p>A self-contained summary.</p><footer><a href=\"__BASE__guide/architecture/\">View architecture</a></footer></article></div></main>"},
       {
         "id": "container-responsive",
         "title": "A layout inside a narrow parent",

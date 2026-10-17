@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 @layer re.components {
   :where(.top-menu, :scope.top-menu) {
     --re-menu-width: 20rem;

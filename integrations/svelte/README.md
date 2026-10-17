@@ -1,5 +1,8 @@
 # RevaCSS for Svelte and SvelteKit
 
+Architecture: [shared contract](https://github.com/eristavi/RevaCSS/blob/main/ARCHITECTURE.md). Current core source adds local `data-layout="container|grid|row|stack"`, `data-surface="card"` and `data-reva` scoped presence markers. They are unavailable in published 2.0.0. Use them on native elements with matching rebuilt core/extensions; existing adapter components keep their class-based output for compatibility. A native element can receive an appearance hook without changing its semantic meaning. The scoped marker belongs on a boundary above component/layout targets. No adapter API or runtime is added by these core aliases.
+
+
 Optional Svelte 5 components for RevaCSS 2.0. The stable `@revacss/svelte` archive is available in the [2.0.0 GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). The same adapter serves plain Svelte and SvelteKit, with no Kit-specific package. Svelte owns application rendering/state; RevaCSS core remains CSS-only. Registry availability is separate from GitHub downloads.
 
 Automated fixture checks and the core manual attestation are recorded in the [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md). Application-specific device, screen-reader and accessibility acceptance is not inferred from core sign-off.

@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Pair decorative motion with visible loading text. */
 @layer re.components {
   :where(.spinner) {

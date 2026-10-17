@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Optional native-select enhancement. No classes, scripts or new attributes. */
 @supports (appearance: base-select) and selector(::picker(select)) {
   @layer re.base {

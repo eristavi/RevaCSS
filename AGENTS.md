@@ -45,6 +45,9 @@ manifest alone does not establish publication or validation of later changes.
 
 ## Preserve the framework contract
 
+Read [ARCHITECTURE.md](ARCHITECTURE.md) before architectural changes and apply its contribution checklist. Review the generated markup audit and inheritance matrix at `/guide/architecture/`.
+
+
 - Keep the CSS core free of a browser JavaScript runtime. Application behaviour
   and the optional documentation customizer have separate responsibilities.
 - Use documented native markup, supported attributes and public tokens. Preserve

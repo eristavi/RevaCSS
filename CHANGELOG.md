@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### Architectural foundations (compatible additions)
+
+- Add local data-layout=container/grid/row/stack and data-surface=card hooks, equivalent to existing presentation classes across core, patterns and matching material extensions. Add data-reva presence boundaries to every scoped build; preserve existing classes and neutral structural elements.
+- Declare the same ordered re.tokens/re.base/re.components/re.buttons/re.utilities layers in every generated entry point, including modular and optional files.
+- Align package validation with the already selected documentation and optional server-side example files; continue rejecting browser runtime files.
+- Establish ARCHITECTURE.md as the architectural decision contract. Generate complete public markup and inheritance audits for human and AI references, with explicit reset, dependency, compatibility and scope limits.
+
+
 - Add a complete Classes API with all 72 framework class names, markup contracts, stylesheet dependencies, core/optional availability and compatibility notes. Share one catalog across the searchable human reference, generated AI Markdown and structured API; preserve a complete no-JavaScript reference.
 
 - Exclude the navbar brand/home link from menu-item hover backgrounds, including the highlight shown during pointer presses. Preserve its native link and visible keyboard focus.

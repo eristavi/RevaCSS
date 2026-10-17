@@ -1,3 +1,4 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
 /* Native calendar table: no ARIA grid, date-picker engine or client-side state. */
 @layer re.components {
   :where(table.calendar) { table-layout:fixed; border-spacing:.2rem; overflow:visible; }

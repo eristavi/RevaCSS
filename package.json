@@ -81,7 +81,8 @@
     "quality/blockers.json",
     "RELEASE_NOTES.md",
     "quality/ai-guidance",
-    "quality/releases"
+    "quality/releases",
+    "ARCHITECTURE.md"
   ],
   "scripts": {
     "clean": "node scripts/clean.mjs",

@@ -1,5 +1,8 @@
 # RevaCSS for Laravel — version 2 integration
 
+Architecture: [shared contract](https://github.com/eristavi/RevaCSS/blob/main/ARCHITECTURE.md). Current core source adds local `data-layout="container|grid|row|stack"`, `data-surface="card"` and `data-reva` scoped presence markers. They are unavailable in published 2.0.0. Use them on native elements with matching rebuilt core/extensions; existing adapter components keep their class-based output for compatibility. A native element can receive an appearance hook without changing its semantic meaning. The scoped marker belongs on a boundary above component/layout targets. No adapter API or runtime is added by these core aliases.
+
+
 Optional Laravel integration, kept outside the RevaCSS core. The package adds Blade templates, Laravel form/validation handling, appearance configuration, versioned asset publishing and development guidance. It adds no browser JavaScript or replacement CSS engine. Livewire is optional in consuming applications.
 
 **Status:** stable 2.0.0 Composer ZIP available in the [GitHub release](https://github.com/eristavi/RevaCSS/releases/tag/v2.0.0). Packagist registration is separate and has not been claimed. Source/path and artifact installation remain supported. The [release validation record](https://github.com/eristavi/RevaCSS/blob/main/quality/releases/v2.0.0.md) identifies automated and manual scope; reference-application device acceptance is not inferred from core sign-off.

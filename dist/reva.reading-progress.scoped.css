@@ -1,9 +1,10 @@
-@scope (.reva) {
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@scope (.reva, [data-reva]) {
 /* Optional decorative page-scroll indicator. No clock-based fallback.
-   Put one empty aria-hidden div near the body/root .reva boundary, outside
+   Put one empty aria-hidden div near the body/root :is(.reva,[data-reva]) boundary, outside
    ancestors that establish fixed-position containing blocks. */
 @layer re.tokens {
-  :where(:scope, .reva, :scope.reva) { --re-reading-progress-display: block; }
+  :where(:scope, :is(.reva,[data-reva]), :scope:is(.reva,[data-reva])) { --re-reading-progress-display: block; }
   :where([data-motion="none"], :scope[data-motion="none"]) { --re-reading-progress-display: none; }
   :where([data-motion="subtle"], [data-motion="expressive"], :scope:is([data-motion="subtle"],[data-motion="expressive"])) { --re-reading-progress-display: block; }
 }
