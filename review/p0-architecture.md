@@ -23,6 +23,7 @@ The package checker also needed an explicit allowlist for documentation and the 
 - CSS build and full Astro documentation build passed (253 pages).
 - npm test: 50 passed, zero failed.
 - npm run check:package passed: 138 packaged files inspected.
+- Installed-package consumer suite: 5 passed, zero failed (offline assets, packaged documentation links, exports, Vite assets and strict TypeScript imports). The CI-discovered stale Python-example assertion and README link to an unshipped AGENTS.md were corrected before merge.
 - git diff --check passed.
 - Core minified gzip: 17,400 bytes, below the unchanged 17 KiB (17,408-byte) budget. Headroom is small; further size work belongs in P2.
 - New Node checks verify complete catalog coverage, generated architectural records, every module's layer prelude/scoped boundary and attribute/class selector pairing across all CSS sources.

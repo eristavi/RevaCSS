@@ -25,7 +25,9 @@ test('an offline tarball install preserves every distribution asset and token', 
   assert.ok(files.includes('LICENSE'));
   assert.ok(files.includes('NPM.md'));
   assert.ok(!files.some(path => /^(?:src|docs|tests|scripts|\.github|node_modules)\//.test(path)));
-  assert.ok(!files.some(path => /\.(?:[cm]?js|py)$/.test(path) || path.endsWith('.npmrc')));
+  // The documented optional Python server is source example content, not a CSS browser runtime.
+  assert.ok(!files.some(path => (/\.(?:[cm]?js|py)$/.test(path) && path !== 'examples/ai-application/app.py') || path.endsWith('.npmrc')));
+  assert.ok(files.includes('ARCHITECTURE.md'));
 });
 
 test('installed documentation links resolve to included project files', async () => {

@@ -243,7 +243,7 @@ RevaCSS targets modern browsers. Native popovers require browser support; option
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for source locations, generated documentation, focused verification and release evidence. Coding agents should start with [AGENTS.md](AGENTS.md).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for source locations, generated documentation, focused verification and release evidence. Coding agents should start with [AGENTS.md](https://github.com/eristavi/RevaCSS/blob/main/AGENTS.md).
 
 For documentation or framework development, clone the repository and use Node 22.12 or newer; Node 24 is recommended.
 
