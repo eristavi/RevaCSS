@@ -4,6 +4,12 @@ RevaCSS is an HTML/CSS-first framework with a zero-JavaScript core. Use native H
 
 This guide is for people building with an AI assistant and for agents given this file as project context. Follow the user's instructions and the project's existing workflow. This file describes RevaCSS usage; it does not authorize publishing, installing tools or running tests.
 
+## Unreleased semantic-first distributions
+
+Current source adds `dist/reva.semantic.css`: native HTML plus the shared presets, without framework class selectors or data-layout/data-surface pattern aliases. Add application CSS consuming public tokens; do not invent native semantics to obtain a card or layout. Optionally load `dist/reva.patterns.css` afterward for the existing RevaCSS classes. The compatible complete `reva.css` is an alternative to the pair, not an additional dependency. These distributions are not in published 2.0.0.
+
+Matching semantic extensions use `reva.semantic.<extension>.css`. Split scoped variants use `data-reva` boundaries and matching scoped files; fresh nested boundaries stop outer matching. The documentation customizer can export a clean project starter for either path, including current attributes and custom CSS values without its authoring runtime. See `/guide/foundation/` and `examples/semantic.html` / `examples/patterns.html`.
+
 ## Architectural principles and source-preview foundation hooks
 
 Read [ARCHITECTURE.md](https://github.com/eristavi/RevaCSS/blob/main/ARCHITECTURE.md) for the authoritative architecture and contribution checklist. The generated `/ai/architecture.md` and `/guide/architecture/` publish the complete markup audit and inheritance/reset matrix. Native HTML provides meaning; local hooks select presentation; shared settings configure documented descendants. Never choose article merely to get a card or main merely to get a width container.

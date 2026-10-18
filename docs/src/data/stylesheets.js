@@ -1,4 +1,6 @@
+import {distributionFiles} from './distributions.js';
 export const stylesheets = [
+  ...distributionFiles,
   "reva.css",
   "reva.tokens.css",
   "reva.base.css",

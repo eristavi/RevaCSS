@@ -1,6 +1,7 @@
 
 import { readFile, writeFile, mkdir, copyFile } from 'node:fs/promises';
 import { transform } from 'lightningcss';
+import { semanticCSS, semanticScope } from './semantic-css.mjs';
 const data=JSON.parse(await readFile('tokens/foundation.tokens.json','utf8'));
 const options=JSON.parse(await readFile('tokens/options.json','utf8'));
 const palettes=JSON.parse(await readFile('tokens/palettes.json','utf8'));
@@ -139,13 +140,47 @@ const buttonMaterials=await readFile('src/css/button-materials.css','utf8');
 const edgeSource=await readFile('src/css/edges.css','utf8');
 const edgeSplit=edgeSource.indexOf('@layer re.components');
 const edgeRegistration=edgeSource.slice(0,edgeSplit), edges=edgeSource.slice(edgeSplit);
-const full=layerOrder+edgeRegistration+tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+timeline+steps+rating+calendar+messageThread+charts+navigationRail+cardGrid+gallery+scrolling+scrollTop+edges+contrast;
+const patterns=base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+timeline+steps+rating+calendar+messageThread+charts+navigationRail+cardGrid+gallery+scrolling+scrollTop+edges+contrast;
+const full=layerOrder+edgeRegistration+tokens+patterns;
 for(const [name,content] of [['reva.css',full],['reva.tokens.css',tokens],['reva.base.css',base],['reva.components.css',edgeRegistration+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+timeline+steps+rating+calendar+messageThread+charts+navigationRail+cardGrid+gallery+scrolling+scrollTop+edges+contrast],['reva.badges.css',badges],['reva.alerts.css',alerts],['reva.accordions.css',accordions],['reva.breadcrumbs.css',breadcrumbs],['reva.pagination.css',pagination],['reva.form-groups.css',formGroups],['reva.loading.css',loading],['reva.tabs.css',tabs],['reva.lists.css',lists],['reva.empty-states.css',emptyStates],['reva.avatars.css',avatars],['reva.icons.css',icons],['reva.switches.css',switches],['reva.input-groups.css',inputGroups],['reva.skeletons.css',skeletons],['reva.toolbars.css',toolbars],['reva.description-lists.css',descriptionLists],['reva.card-patterns.css',cardPatterns],['reva.dropdowns.css',dropdowns],['reva.navigation.css',navigation],['reva.app-shell.css',appShell],['reva.drawers.css',drawers],['reva.timeline.css',timeline],['reva.steps.css',steps],['reva.rating.css',rating],['reva.calendar.css',calendar],['reva.message-thread.css',messageThread],['reva.charts.css',charts],['reva.navigation-rail.css',navigationRail],['reva.selects.css',selects],['reva.selects.scoped.css',`@scope (.reva, [data-reva]) {\n${selects}\n}\n`],['reva.motion.css',motion],['reva.motion.scoped.css',`@scope (.reva, [data-reva]) {\n${motion.replaceAll(':root', ':scope')}\n}\n`],['reva.card-grid.css',cardGrid],['reva.gallery.css',gallery],['reva.scrolling.css',scrolling],['reva.scroll-top.css',scrollTop],['reva.hero.css',hero],['reva.hero.scoped.css',`@scope (.reva, [data-reva]) {\n${hero}\n}\n`],['reva.backgrounds.css',backgrounds],['reva.backgrounds.scoped.css',`@scope (.reva, [data-reva]) {\n${backgrounds.replaceAll(':root', ':scope')}\n}\n`],['reva.gradients.css',gradients],['reva.gradients.scoped.css',`@scope (.reva, [data-reva]) {\n${gradients.replaceAll(':root', ':scope')}\n}\n`],['reva.reading-progress.css',readingProgress],['reva.reading-progress.scoped.css',`@scope (.reva, [data-reva]) {\n${readingProgress.replaceAll(':root', ':scope')}\n}\n`],['reva.scroll-motion.css',scrollMotion],['reva.scroll-motion.scoped.css',`@scope (.reva, [data-reva]) {\n${scrollMotion}\n}\n`],['reva.transitions.css',transitions],['reva.button-materials.css',buttonMaterials],['reva.button-materials.scoped.css',`@scope (.reva, [data-reva]) {\n${buttonMaterials}\n}\n`],['reva.soft.css',soft],['reva.soft.scoped.css',`@scope (.reva, [data-reva]) {\n${soft}\n}\n`],['reva.veil.css',veil],['reva.veil.scoped.css',`@scope (.reva, [data-reva]) {\n${veil}\n}\n`],['reva.glass.css',glass],['reva.glass.scoped.css',`@scope (.reva, [data-reva]) {\n${glass}\n}\n`],['reva.scoped.css',`${edgeRegistration}@scope (.reva, [data-reva]) {\n${(tokens+base+comp+badges+alerts+accordions+breadcrumbs+pagination+formGroups+loading+tabs+lists+emptyStates+avatars+icons+switches+inputGroups+skeletons+toolbars+descriptionLists+cardPatterns+dropdowns+navigation+appShell+drawers+timeline+steps+rating+calendar+messageThread+charts+navigationRail+cardGrid+gallery+scrolling+scrollTop+edges+contrast).replaceAll(':root',':scope')}\n}`]]) {
  transform({filename:name,code:Buffer.from(content),minify:false});
  await writeFile('dist/'+name,content.startsWith(layerOrder)?content:layerOrder+content); await copyFile('dist/'+name,'docs/public/reva/'+name);
 }
 const min=transform({filename:'reva.css',code:Buffer.from(full),minify:true}).code;
 await writeFile('dist/reva.min.css',min); await copyFile('dist/reva.min.css','docs/public/reva/reva.min.css');
+// Additive distributions share the declarations, tokens and preset generator.
+// Existing complete/modular paths remain compatible. The semantic projection
+// cannot select application classes or instantiate layout/surface aliases.
+const nativeCore=semanticCSS(tokens+patterns);
+const semanticEntries=[
+ ['reva.semantic.css',edgeRegistration+nativeCore],
+ ['reva.semantic.scoped.css',edgeRegistration+semanticScope(nativeCore)],
+ ['reva.patterns.css',edgeRegistration+patterns],
+ ['reva.patterns.scoped.css',edgeRegistration+semanticScope(patterns)],
+ ...[['glass',glass],['soft',soft],['veil',veil],['button-materials',buttonMaterials],['backgrounds',backgrounds],['motion',motion],['selects',selects]].flatMap(([name,content])=>{
+  const native=semanticCSS(content);
+  return [[`reva.semantic.${name}.css`,native],[`reva.semantic.${name}.scoped.css`,semanticScope(native)]];
+ })
+];
+for(const [name,content] of semanticEntries){
+ const code=layerOrder+content;
+ transform({filename:name,code:Buffer.from(code)});
+ await writeFile('dist/'+name,code);await copyFile('dist/'+name,'docs/public/reva/'+name);
+ if(name==='reva.semantic.css'||name==='reva.patterns.css'){
+  const minName=name.replace('.css','.min.css');
+  await writeFile('dist/'+minName,transform({filename:name,code:Buffer.from(code),minify:true}).code);
+  await copyFile('dist/'+minName,'docs/public/reva/'+minName);
+ }
+}
+await mkdir('docs/public/starters',{recursive:true});
+for(const profile of ['semantic','patterns']){
+ const html=(await readFile(`examples/${profile}.html`,'utf8')).replaceAll('../dist/','../reva/');
+ // Hosted previews share the customizer's settings but have no scripts of
+ // their own. Export selects only required extensions and local asset paths.
+ const prefix=profile==='semantic'?'reva.semantic.':'reva.';
+ const extras=['glass','soft','veil','button-materials','backgrounds','motion','selects'].map(name=>`  <link rel="stylesheet" href="../reva/${prefix}${name}.css">`).join('\n');
+ await writeFile(`docs/public/starters/${profile}.html`,html.replace('</head>',extras+'\n</head>'));
+}
 await writeFile('docs/src/pages/generated-reference.json',JSON.stringify({options,tokens:data,palettes,roles},null,2));
 console.log(`Built CSS: ${Buffer.byteLength(full)} bytes; minified ${min.length} bytes.`);
 

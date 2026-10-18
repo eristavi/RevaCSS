@@ -1,0 +1,100 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@scope ([data-reva]) to ([data-reva]) {
+@layer re.tokens {
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) {
+    --re-veil-opacity: 94%;
+    --re-veil-strength: 1;
+  }
+
+  :where([data-contrast="more"], :scope[data-contrast="more"]) {
+    --re-veil-opacity: 100%;
+    --re-veil-strength: 0;
+  }
+}
+
+@layer re.components.native {
+  @scope ([data-material="veil"], :scope[data-material="veil"]) to ([data-material]:not([data-material="veil"])) {
+    :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+      --re-veil-fill: var(--re-surface);
+      --re-veil-tint: var(--re-primary);
+      --re-veil-contour: color-mix(in srgb, var(--re-veil-tint) calc(var(--re-veil-strength, 1) * 12%), transparent);
+      background-color: color-mix(in srgb, var(--re-veil-fill) var(--re-veil-opacity, 94%), transparent);
+      background-image: radial-gradient(ellipse at 0% 0%, color-mix(in srgb, var(--re-veil-tint) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 12%), transparent), transparent 58%),
+        radial-gradient(ellipse at 100% 100%, color-mix(in srgb, var(--re-veil-tint) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 8%), transparent), transparent 58%);
+      box-shadow: inset 0 0 0 calc(var(--re-surface-border) * 2) var(--re-veil-contour), inset 0 0 0 calc(var(--re-surface-border) * 6) color-mix(in srgb, var(--re-veil-fill) calc(var(--re-veil-strength, 1) * 60%), transparent), var(--re-shadow);
+      backdrop-filter: none;
+      background-position: 0 0, 100% 100%;
+      background-repeat: no-repeat;
+      background-size: 120% 120%;
+    }
+
+    :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(*) {
+      --re-veil-action-fill: var(--re-action-start);
+      background-color: var(--re-veil-action-fill);
+      background-image: radial-gradient(ellipse at 0% 0%, color-mix(in srgb,var(--re-action-text) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 12%),transparent),transparent 65%), radial-gradient(ellipse at 100% 100%,color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient, 1) * var(--re-veil-strength, 1) * 40%),transparent),transparent 70%);
+      box-shadow: inset 0 0 0 calc(var(--re-surface-border) * 2) color-mix(in srgb,var(--re-action-text) calc(var(--re-veil-strength, 1) * 14%),transparent), inset 0 0 0 calc(var(--re-surface-border) * 4) color-mix(in srgb,var(--re-action-start) calc(var(--re-veil-strength, 1) * 65%),transparent),var(--re-shadow);
+      backdrop-filter: none;
+      transition: background-position var(--re-duration, .14s) ease,filter var(--re-duration, .14s) ease,transform var(--re-duration, .14s) ease;
+      background-position: 0 0, 100% 100%;
+      background-repeat: no-repeat;
+      background-size: 120% 120%;
+    }
+
+    :where(button:enabled:hover, button:enabled:focus-visible, input:is([type="button"], [type="submit"], [type="reset"]):enabled:hover, :scope:is(button:enabled):hover):where(*) {
+      background-position: 8% 8%, 92% 92%;
+    }
+
+    :where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+      background-color: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity, 1) * 100%),transparent);
+      background-image: linear-gradient(135deg,color-mix(in srgb,var(--re-primary) calc(var(--re-input-opacity, 1) * var(--re-gradient, 1) * var(--re-veil-strength, 1) * 4%),transparent),transparent 65%);
+      box-shadow: var(--re-input-shadow);
+      backdrop-filter: none;
+    }
+  }
+}
+
+@layer re.utilities.native {
+  @scope ([data-material="veil"], :scope[data-material="veil"]) to ([data-material]:not([data-material="veil"])) {
+    @media (prefers-reduced-motion: reduce) {
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button)) {
+        transition: none;
+      }
+    }
+
+    @media (prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active), print {
+      :where(*, :scope) {
+        --re-veil-opacity: 100%;
+        --re-veil-strength: 0;
+      }
+
+      :where(fieldset, details, dialog, [popover], button, input, select, textarea, :scope:is(fieldset, details, dialog, [popover], button, input, select, textarea)) {
+        box-shadow: none;
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+
+    @media (forced-colors: active) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        color: canvastext;
+        background: canvas;
+        border: 1px solid canvastext;
+      }
+
+      :where(button, input, select, textarea, :scope:is(button, input, select, textarea)) {
+        color: buttontext;
+        background: buttonface;
+        border: 1px solid buttontext;
+      }
+    }
+
+    @media print {
+      :where(fieldset, details, dialog, [popover], button, input, select, textarea, :scope:is(fieldset, details, dialog, [popover], button, input, select, textarea)) {
+        color: #000;
+        background: #fff;
+      }
+    }
+  }
+}
+
+}

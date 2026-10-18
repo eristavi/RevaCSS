@@ -1,0 +1,100 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@scope ([data-reva]) to ([data-reva]) {
+@layer re.tokens {
+  :where([data-depth="flat"], :scope[data-depth="flat"]) {
+    --re-soft-distance: 0px;
+    --re-soft-blur: 0px;
+  }
+
+  :where([data-depth="subtle"], :scope[data-depth="subtle"]) {
+    --re-soft-distance: 4px;
+    --re-soft-blur: 10px;
+  }
+
+  :where([data-depth="pronounced"], :scope[data-depth="pronounced"]) {
+    --re-soft-distance: 7px;
+    --re-soft-blur: 18px;
+  }
+
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) {
+    --re-soft-strength: 1;
+  }
+
+  :where([data-contrast="more"], :scope[data-contrast="more"]) {
+    --re-soft-strength: 0;
+  }
+}
+
+@layer re.components.native {
+  @scope ([data-material="soft"], :scope[data-material="soft"]) to ([data-material]:not([data-material="soft"])) {
+    :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover]), button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"])), input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+      --re-soft-fill: var(--re-bg);
+      --re-soft-light: light-dark(#ffffffe6, #ffffff12);
+      --re-soft-dark: light-dark(#00000024, #00000073);
+      --re-soft-offset: calc(var(--re-soft-distance, 4px) * var(--re-soft-strength, 1));
+      --re-soft-radius: calc(var(--re-soft-blur, 10px) * var(--re-soft-strength, 1));
+      --re-soft-raised: calc(-1 * var(--re-soft-offset)) calc(-1 * var(--re-soft-offset)) var(--re-soft-radius) var(--re-soft-light), var(--re-soft-offset) var(--re-soft-offset) var(--re-soft-radius) var(--re-soft-dark);
+      --re-soft-inset: inset calc(var(--re-soft-offset) * .5) calc(var(--re-soft-offset) * .5) calc(var(--re-soft-radius) * .65) var(--re-soft-dark), inset calc(var(--re-soft-offset) * -.5) calc(var(--re-soft-offset) * -.5) calc(var(--re-soft-radius) * .65) var(--re-soft-light);
+      backdrop-filter: none;
+    }
+
+    :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+      background-color: var(--re-soft-fill);
+      box-shadow: var(--re-soft-raised);
+      background-image: none;
+    }
+
+    :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(*) {
+      box-shadow: var(--re-soft-raised);
+    }
+
+    :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(*):is(:active, [aria-pressed="true"]):where(:not(:disabled, [aria-disabled="true"])) {
+      box-shadow: var(--re-soft-inset);
+    }
+
+    :where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+      background-color: color-mix(in srgb,var(--re-soft-fill) calc(var(--re-input-opacity, 1) * 100%),transparent);
+      box-shadow: var(--re-soft-inset);
+      background-image: none;
+    }
+
+    @scope ([data-controls="minimal"], :scope[data-controls="minimal"]) to ([data-controls]:not([data-controls="minimal"])) {
+      :where(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+@layer re.utilities.native {
+  @scope ([data-material="soft"], :scope[data-material="soft"]) to ([data-material]:not([data-material="soft"])) {
+    @media (prefers-contrast: more), (forced-colors: active), print {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover]), button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"])), input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+        box-shadow: none;
+      }
+    }
+
+    @media (forced-colors: active) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        color: canvastext;
+        background: canvas;
+        border: 1px solid canvastext;
+      }
+
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"])), input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+        color: buttontext;
+        background: buttonface;
+        border: 1px solid buttontext;
+      }
+    }
+
+    @media print {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover]), button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"])), input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea, :scope:is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="hidden"]), select, textarea)) {
+        color: #000;
+        background: #fff;
+      }
+    }
+  }
+}
+
+}

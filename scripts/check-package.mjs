@@ -3,7 +3,11 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 
 const metadata = JSON.parse(await readFile('package.json', 'utf8'));
-const [packed] = JSON.parse(execFileSync('npm', ['pack', '--dry-run', '--ignore-scripts', '--json'], {
+// npm run supplies its CLI path; invoking it through Node also works on
+// Windows, where npm itself is a command shim rather than an executable.
+const npmCommand=process.env.npm_execpath?process.execPath:'npm';
+const npmArgs=[...(process.env.npm_execpath?[process.env.npm_execpath]:[]),'pack','--dry-run','--ignore-scripts','--json'];
+const [packed] = JSON.parse(execFileSync(npmCommand, npmArgs, {
   encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'],
 }));
 const paths = new Set(packed.files.map(file => file.path));
@@ -28,7 +32,7 @@ for (const required of ['LICENSE', 'README.md', 'CHANGELOG.md', 'NPM.md', 'RELEA
 }
 // Explicit documentation/source examples already selected by package.json.
 // app.py is the optional server-side example, never a framework browser runtime.
-const sourceDocumentation=new Set(['AI_MISTAKES.md','AI_TROUBLESHOOTING.md','CONTRIBUTING.md',
+const sourceDocumentation=new Set(['AI_MISTAKES.md','AI_TROUBLESHOOTING.md','CONTRIBUTING.md','examples/semantic.html','examples/patterns.html',
   'examples/ai-application/README.md','examples/ai-application/app.css','examples/ai-application/app.py',
   'quality/ai-guidance/2026-10-16.md','quality/ai-guidance/results-2026-10-16.json']);
 for (const path of paths) {

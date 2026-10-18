@@ -1,0 +1,1983 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+/* The registration stays outside @scope; the names are framework-prefixed. */
+@property --re-edge-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 45deg;
+}
+@keyframes re-edge-turn {
+  from { --re-edge-angle: 45deg; }
+  to { --re-edge-angle: 405deg; }
+}
+@scope ([data-reva]) to ([data-reva]) {
+
+@layer re.base {
+  :where(*, *::before, *::after) { box-sizing: border-box; }
+  /* Resolve paint on each element so nested themes keep their own colours.
+     Native mode is inherited through flags; unsupported properties stay native. */
+  :where(*) { scrollbar-color: var(--re-scrollbar-color, var(--re-primary) var(--re-surface)); scrollbar-width: var(--re-scrollbar-width, auto); }
+  @media (forced-colors: active), print { :where(*) { scrollbar-color: auto; scrollbar-width: auto; } }
+  :where(html) { -webkit-text-size-adjust: 100%; }
+  :where(body,:is(.reva,[data-reva]),:scope:is(.reva,[data-reva])) { margin: 0; background: var(--re-bg); color: var(--re-text); font-family: var(--re-font); font-size: var(--re-type); line-height: 1.65; }
+  :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]) { background-color: var(--re-bg); color: var(--re-text); }
+  :where([data-type], :scope[data-type]) { font-size: var(--re-type); }
+  :where(h1,h2,h3,h4,h5,h6) { font-family: var(--re-font-heading, var(--re-font)); font-weight: 700; line-height: 1.2; margin-block: 1.5em .55em; overflow-wrap: anywhere; text-wrap: balance; }
+  :where(h1) { color: var(--re-link); font-size: clamp(2em, 1.65em + 1.2vw, 3em); letter-spacing: -.025em; }
+  :where(h2) { font-size: 1.8em; letter-spacing: -.02em; }
+  :where(h3) { font-size: 1.4em; }
+  :where(h4) { font-size: 1.15em; }
+  :where(h5,h6) { font-size: 1em; }
+  :where(p,ul,ol,dl,pre,blockquote,figure,table,details) { margin-block: 0 var(--re-space); }
+  :where(p,li,dd) { overflow-wrap: anywhere; }
+  :where(a) { color: var(--re-link); text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: .08em; }
+  :where(a:hover) { text-decoration-thickness: .14em; }
+  :where(:focus-visible) { outline: 2px solid var(--re-palette-link, var(--re-link)); outline-offset: 2px; scroll-margin-block: 5rem; }
+  :where(strong,b,dt) { font-weight: 700; }
+  :where(small,figcaption) { font-size: .875em; }
+  :where(figcaption) { color: var(--re-muted); margin-block-start: .5em; }
+  :where(ul,ol) { padding-inline-start: 1.5em; }
+  :where(li + li) { margin-block-start: .3em; }
+  :where(dd) { margin-inline-start: 1.25em; }
+  :where(blockquote) { margin-inline: 0; padding-inline-start: var(--re-space); border-inline-start: 3px solid var(--re-primary); }
+  :where(blockquote p:last-child) { margin-block-end: 0; }
+  :where(hr) { border: 0; border-block-start: 1px solid var(--re-line); margin-block: calc(var(--re-space) * 2); }
+  :where(mark) { background: #f5cc61; color: #332400; padding-inline: .15em; }
+  :where(abbr[title]) { text-decoration: underline dotted; text-underline-offset: .2em; cursor: help; }
+  :where(pre,code,kbd,samp) { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9em; }
+  :where(code,kbd) { background: var(--re-surface-alt); border-radius: min(var(--re-radius), .25em); padding: .12em .35em; }
+  :where(kbd) { border: var(--re-surface-border) solid var(--re-control-line); }
+  :where(pre) { padding: var(--re-surface-space, var(--re-space)); background: var(--re-surface-alt); border-radius: var(--re-radius); overflow-x: auto; }
+  :where(pre code) { padding: 0; font-size: inherit; background: transparent; }
+  :where(figure) { margin-inline: 0; }
+  :where(img,video,canvas,svg) { max-inline-size: 100%; }
+  :where(img,video) { block-size: auto; }
+  :where(iframe,object,embed) { max-inline-size: 100%; border: var(--re-surface-border) solid var(--re-line); }
+  :where(audio) { max-inline-size: 100%; }
+  :where(address) { font-style: normal; }
+  :where(button,input,select,textarea) { font: inherit; color: inherit; }
+  /* Apply local font choices to their own text and controls; keep code monospace. */
+  :where([data-font="manrope"], [data-font="system"], :scope[data-font="manrope"], :scope[data-font="system"]):where(:not(pre,code,kbd,samp,h1,h2,h3,h4,h5,h6)) { font-family: var(--re-font); }
+  :where(button,input,select,textarea,summary,a) { -webkit-tap-highlight-color: transparent; }
+  :where(button, input[type=button],input[type=submit],input[type=reset], :is(.button,.scroll-top)) {
+    --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary);
+    display: inline-flex; align-items: center; justify-content: center; gap: .5em; vertical-align: middle;
+    min-inline-size: 0; max-inline-size: 100%; white-space: normal; overflow-wrap: anywhere;
+    min-block-size: 2.75rem; padding: calc(.65em * var(--re-density)) calc(1.1em * var(--re-density));
+    border: var(--re-surface-border) solid color-mix(in srgb, var(--re-action-text) 18%, transparent); border-radius: var(--re-button-radius); font-weight: 600; line-height: 1.3; text-align: center;
+    background: var(--re-action-start); background-image: linear-gradient(to bottom,var(--re-action-start),color-mix(in srgb,var(--re-action-end) calc(var(--re-gradient) * 28%),var(--re-action-start))); color: var(--re-action-text);
+    box-shadow: var(--re-shadow); text-decoration: none; cursor: pointer;
+    transition: filter var(--re-duration) ease, transform var(--re-duration) ease;
+  }
+  :where(button.danger,:is(.button,.scroll-top).danger,input.danger) { --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); }
+  :where(button.warning,:is(.button,.scroll-top).warning,input:is([type=button],[type=submit],[type=reset]).warning) { --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); }
+  :where(button.secondary,:is(.button,.scroll-top).secondary,input:is([type=button],[type=submit],[type=reset]).secondary) {
+    --re-action-start: var(--re-secondary);
+    --re-action-end: var(--re-secondary-end);
+    --re-action-text: var(--re-on-secondary);
+  }
+  :where(button.outline,:is(.button,.scroll-top).outline,button.ghost,:is(.button,.scroll-top).ghost,input:is([type=button],[type=submit],[type=reset]):is(.outline,.ghost)) { background: transparent; background-image: none; border-color: transparent; color: var(--re-link); box-shadow: none; }
+  :where(button.outline,:is(.button,.scroll-top).outline,input:is([type=button],[type=submit],[type=reset]).outline) { border-color: currentColor; }
+  :where(button.danger.outline,button.danger.ghost,:is(.button,.scroll-top).danger:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).danger:is(.outline,.ghost)) { color: var(--re-danger-link); }
+  :where(button.secondary:is(.outline,.ghost),:is(.button,.scroll-top).secondary:is(.outline,.ghost),input:is([type=button],[type=submit],[type=reset]).secondary:is(.outline,.ghost)) { color: var(--re-secondary-link); }
+  /* Shared semantic variants. Local legacy classes override parent defaults;
+     a valid attribute on the action itself overrides a legacy class. */
+  @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="primary"],:scope[data-variant="primary"] *) {
+      --re-action-start: var(--re-primary); --re-action-end: var(--re-primary-end); --re-action-text: var(--re-on-primary); --re-action-link: var(--re-link);
+    }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="primary"],:scope[data-variant="primary"] *) { color: var(--re-action-link); }
+  }
+  @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="success"],:scope[data-variant="success"] *) {
+      --re-action-start: var(--re-success); --re-action-end: var(--re-success-end); --re-action-text: var(--re-on-success); --re-action-link: light-dark(color-mix(in srgb, var(--re-success) 80%, #000), color-mix(in srgb, var(--re-success) 30%, #fff));
+    }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="success"],:scope[data-variant="success"] *) { color: var(--re-action-link); }
+  }
+  @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="warning"],:scope[data-variant="warning"] *) {
+      --re-action-start: var(--re-warning); --re-action-end: var(--re-warning-end); --re-action-text: var(--re-on-warning); --re-action-link: var(--re-text);
+    }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="warning"],:scope[data-variant="warning"] *) { color: var(--re-action-link); }
+  }
+  @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="danger"],:scope[data-variant="danger"] *) {
+      --re-action-start: var(--re-danger); --re-action-end: var(--re-danger-end); --re-action-text: var(--re-on-danger); --re-action-link: var(--re-danger-link);
+    }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="danger"],:scope[data-variant="danger"] *) { color: var(--re-action-link); }
+  }
+  @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="neutral"],:scope[data-variant="neutral"] *) {
+      --re-action-start: var(--re-text); --re-action-end: var(--re-text); --re-action-text: var(--re-surface); --re-action-link: var(--re-text);
+    }
+    :where(button, input:is([type=button],[type=submit],[type=reset]), :is(.button,.scroll-top), :scope:is(button,input:is([type=button],[type=submit],[type=reset]),:is(.button,.scroll-top))):where(.outline,.ghost):where(:not(.menu-toggle)):where(:not(.danger,.warning,.secondary),:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"])):where(:scope[data-variant="neutral"],:scope[data-variant="neutral"] *) { color: var(--re-action-link); }
+  }
+  :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { cursor: not-allowed; opacity: .6; }
+  @media (hover: hover) { :where(button:enabled:hover,:is(.button,.scroll-top):hover,input:is([type=button],[type=submit],[type=reset]):enabled:hover) { filter: brightness(1.025); } }
+  :where(button:enabled:active,:is(.button,.scroll-top):active,input:is([type=button],[type=submit],[type=reset]):enabled:active) { transform: translateY(var(--re-press)); box-shadow: none; }
+  :where(label) { display: block; font-weight: 600; margin-block-end: .4em; }
+  :where(input:not([type=checkbox],[type=radio],[type=range],[type=button],[type=submit],[type=reset],[type=image],[type=hidden]),select,textarea) {
+    display: block; inline-size: 100%; min-inline-size: 0; min-block-size: 2.75rem;
+    padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
+    background: color-mix(in srgb,var(--re-surface) calc(var(--re-input-opacity) * 100%),transparent); border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-field-radius, var(--re-radius)); box-shadow: var(--re-input-shadow);
+  }
+  /* Keep the browser's autofill background/text pair and native affordances.
+     Forgiving selectors support either spelling; later validation wins.
+     Do not recolour disabled controls or conceal autofill with shadow hacks. */
+  :where(input,select,textarea):where(:autofill,:-webkit-autofill):where(:not(:disabled)) { border-color: var(--re-link); }
+  :where(input::placeholder,textarea::placeholder) { color: var(--re-muted); opacity: 1; }
+  :where(textarea) { resize: vertical; min-block-size: 7rem; }
+  /* Native content sizing is the default; unsupported browsers keep rows.
+     Native sizing responds to input, initial values and form reset without JS.
+     Keep a bounded scroll area and the existing manual resize affordance. */
+  @supports (field-sizing: content) {
+    :where(textarea) {
+      field-sizing: content;
+      block-size: auto;
+      max-block-size: 24rem;
+      overflow-y: auto;
+    }
+  }
+  :where(input[type=checkbox],input[type=radio]) { accent-color: var(--re-primary); inline-size: calc(1.25rem * var(--re-control-scale)); block-size: calc(1.25rem * var(--re-control-scale)); vertical-align: middle; margin-inline: 0 .5em; }
+  :where(label:has(input[type=checkbox],input[type=radio])) { display: flex; align-items: center; min-block-size: 2.75rem; font-weight: 400; }
+  :where(input[type=range],progress,meter) { accent-color: var(--re-primary); inline-size: 100%; }
+  :where(input[type=color]) { padding: .25em; }
+  :where(input[type=file]::file-selector-button) { font: inherit; padding: .4em .7em; margin-inline-end: .8em; border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-radius); color: var(--re-text); background: var(--re-surface-alt); }
+  :where(fieldset) { min-inline-size: 0; margin: 0 0 var(--re-space); padding: var(--re-surface-space, var(--re-space)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
+  :where(legend) { padding-inline: .4em; font-weight: 650; }
+  :where(input:user-invalid,textarea:user-invalid,select:user-invalid,[aria-invalid=true]) { border-color: var(--re-danger-link); border-width: 2px; }
+  /* :read-only also matches non-editable native input types. Only an explicit
+     readonly attribute requests this treatment. Disabled fields keep theirs. */
+  :where(input[readonly]:not(:disabled),textarea[readonly]:not(:disabled)) { background: var(--re-surface-alt); border-style: dashed; }
+  :where(input,select,textarea):where(:focus-visible):where(:user-invalid,[aria-invalid=true]) { outline-color: var(--re-danger-link); }
+  :where(fieldset:disabled > legend) { color: var(--re-muted); }
+  /* Keep OS pickers and native range thumbs; improve their sizing, not behaviour. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week],[type=file],[type=color])) { max-inline-size: 100%; }
+  /* iOS native temporal appearance can add padding outside a 100% field.
+     Normalize the outer surface; input types still open their native pickers.
+     Keep widths owned by the shared field/input-group layout rules. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week])) {
+    -webkit-appearance: none; appearance: none; box-sizing: border-box;
+    min-inline-size: 0; text-align: start;
+  }
+  /* An empty iOS value must reserve the same text line as a populated field. */
+  :where(input:is([type=date],[type=time],[type=datetime-local],[type=month],[type=week]))::-webkit-date-and-time-value {
+    min-inline-size: 0; min-block-size: 1lh; text-align: inherit;
+  }
+  :where(input[type=range]) { display: block; min-inline-size: 0; min-block-size: 2.75rem; margin-inline: 0; padding: 0; cursor: pointer; }
+  :where(input[type=range]:disabled) { cursor: not-allowed; }
+  :where(input[type=color]) { cursor: pointer; }
+  :where(input[type=color]:disabled) { cursor: not-allowed; }
+  :where(input[type=file])::file-selector-button { min-block-size: 2.25rem; cursor: pointer; }
+  :where(input[type=file]:disabled)::file-selector-button { cursor: not-allowed; }
+  @media (hover: hover) {
+    :where(input[type=file]:enabled:hover)::file-selector-button { background: var(--re-surface); }
+  }
+  :where(output) { font-weight: 600; }
+  :where(table) { inline-size: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--re-radius); overflow: hidden; text-align: start; }
+  :where(caption) { text-align: start; color: var(--re-muted); margin-block-end: .75em; }
+  :where(th,td) { padding: calc(.75em * var(--re-density)); border-block-end: var(--re-surface-border) solid var(--re-line); vertical-align: top; }
+  :where(th) { font-weight: 650; text-align: start; }
+  :where(thead > tr > *,tfoot > tr > *) { background: var(--re-surface-alt); }
+  :where(details) { padding: var(--re-surface-space, var(--re-space)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); box-shadow: var(--re-shadow); }
+  :where(summary) { cursor: pointer; font-weight: 650; min-block-size: 2.75rem; overflow-wrap: anywhere; }
+  /* Centre native marker/text within the existing 44px minimum target.
+     Symmetric line-height padding also accommodates wrapped labels. */
+  :where(details > summary) { padding-block: max(0px, calc((2.75rem - 1lh) / 2)); }
+  :where(details[open] > summary) { margin-block-end: var(--re-space); }
+  :where(dialog,[popover]) { max-inline-size: min(90vw, 40rem); max-block-size: 85dvh; overflow: auto; padding: calc(var(--re-surface-space, var(--re-space)) * 1.5); background: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); box-shadow: var(--re-shadow); }
+  /* Reserve classic scrollbar space inside overlays, not on the page.
+     Overlay scrollbars keep their native geometry; unsupported CSS is ignored. */
+  :where(dialog,[popover]) { scrollbar-gutter: stable; }
+  :where(dialog)::backdrop { background: rgb(0 0 0 / 55%); }
+  /* A modal is centred within the safe rectangle, not the raw viewport. */
+  :where(dialog:modal) {
+    top: var(--re-safe-top, env(safe-area-inset-top, 0px));
+    right: var(--re-safe-right, env(safe-area-inset-right, 0px));
+    bottom: var(--re-safe-bottom, env(safe-area-inset-bottom, 0px));
+    left: var(--re-safe-left, env(safe-area-inset-left, 0px));
+    max-inline-size: min(40rem, 90vw, max(0px, calc(100dvw - var(--re-safe-left, 0px) - var(--re-safe-right, 0px) - 2rem)));
+    max-block-size: min(85dvh, max(0px, calc(100dvh - var(--re-safe-top, 0px) - var(--re-safe-bottom, 0px) - 2rem)));
+  }
+  @media print { :where(dialog,[popover]) { scrollbar-gutter: auto; } }
+  :where([hidden]) { display: none !important; }
+}
+
+
+@layer re.components {
+  :where(.card,[data-surface="card"]) { min-inline-size: 0; padding: var(--re-card-padding, calc(var(--re-surface-space, var(--re-space)) * 1.5)); border: var(--re-surface-border) solid var(--re-line); border-radius: var(--re-radius); background: var(--re-surface); color: var(--re-text); box-shadow: var(--re-shadow); }
+  :where(:is(.card,[data-surface="card"]) > :first-child) { margin-block-start: 0; }
+  :where(:is(.card,[data-surface="card"]) > :last-child) { margin-block-end: 0; }
+  :where(.container,[data-layout="container"]) { inline-size: var(--re-container-width, min(max(0px, calc(100% - 2rem)), var(--re-container, 75rem))); margin-inline: auto; padding-inline: min(var(--re-container-padding, 0rem), calc(var(--re-container, 75rem) / 4), 25%); }
+  :where(.prose) { max-inline-size: var(--re-prose, 65ch); }
+  :where(.grid,.row,.stack,[data-layout="grid"],[data-layout="row"],[data-layout="stack"]) { gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(:is(.grid,.row,.stack,[data-layout="grid"],[data-layout="row"],[data-layout="stack"]) > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.grid,[data-layout="grid"]) { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,var(--re-column,18rem)),1fr)); }
+  :where(.row,[data-layout="row"]) { display: flex; flex-wrap: wrap; align-items: center; }
+  :where(.stack,[data-layout="stack"]) { display: flex; flex-direction: column; }
+  :where(:is(.stack,[data-layout="stack"]) > *) { margin-block: 0; }
+  :where(.table-scroll) { max-inline-size: 100%; overflow-x: auto; border-radius: var(--re-radius); }
+  /* Local native-table scrolling. Only a wrapper with a direct table qualifies. */
+  :where(:is([data-table-sticky="none"],[data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table):has(> table)) {
+    max-inline-size: 100%; min-inline-size: 0; overflow: auto;
+    border-radius: var(--re-radius); scrollbar-gutter: stable;
+  }
+  :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table) {
+    overflow: visible; background-color: var(--re-surface);
+  }
+  /* Pin the whole header group so multiple heading rows stay together. */
+  :where(:is([data-table-sticky="header"],[data-table-sticky="both"]):not(table) > table > thead) {
+    position: sticky; inset-block-start: 0; z-index: 2;
+    background-color: var(--re-surface-alt);
+  }
+  /* Cell indexes are not column indexes when merged cells are present.
+     Conservatively leave column pinning off for such tables. */
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > :is(thead,tbody,tfoot) > tr > :first-child) {
+    position: sticky; inset-inline-start: 0; z-index: 1;
+    background-color: var(--re-surface);
+  }
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > tbody > tr:nth-child(even) > :first-child) {
+    background-color: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), var(--re-surface));
+  }
+  :where(:is([data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table:not(:has(> :is(thead,tbody,tfoot) > tr > :is([colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"])))) > :is(thead,tfoot) > tr > :first-child) {
+    background-color: var(--re-surface-alt); z-index: 3;
+  }
+  :where(table tbody tr:nth-child(even)) { background: color-mix(in srgb, var(--re-surface-alt) var(--re-table-stripe, 0%), transparent); }
+  :where(table th,table td) { border-inline-start: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  :where(table tr > :last-child) { border-inline-end: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > *) { border-block-start: calc(var(--re-table-lines, 0) * var(--re-surface-border)) solid var(--re-line); }
+  /* Round painted cells as well as the table box: captions sit above its grid. */
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > :first-child) { border-start-start-radius: var(--re-radius); }
+  :where(table > :nth-child(1 of thead,tbody,tfoot) > tr:first-child > :last-child) { border-start-end-radius: var(--re-radius); }
+  :where(table > :nth-last-child(1 of thead,tbody,tfoot) > tr:last-child > :first-child) { border-end-start-radius: var(--re-radius); }
+  :where(table > :nth-last-child(1 of thead,tbody,tfoot) > tr:last-child > :last-child) { border-end-end-radius: var(--re-radius); }
+  :where(img,video) { border-radius: var(--re-radius); aspect-ratio: var(--re-image-ratio, auto); object-fit: var(--re-image-fit, cover); }
+  :where(.skip-link) { position: absolute; inset-inline-start: 1rem; inset-block-start: .5rem; padding: .65rem 1rem; background: var(--re-surface); z-index: 100; transform: translateY(-200%); }
+  :where(.skip-link:focus) { transform: none; }
+}
+/* Explicit containment avoids changing intrinsic sizing of existing cards and
+   subgrids. Put this wrapper inside a sized parent, not on the queried component. */
+@layer re.components {
+  :where(.responsive) { inline-size: 100%; min-inline-size: 0; }
+  @supports (container-type: inline-size) {
+    :where(.responsive) { container-type: inline-size; container-name: re-layout; }
+  }
+}
+@layer re.utilities {
+  :where(button,input,select,textarea,:is(.button,.scroll-top)) { --re-action-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.align-start) { align-items: start; }
+  :where(.align-center) { align-items: center; }
+  :where(.justify-between) { justify-content: space-between; }
+  :where(:is(.grid,[data-layout="grid"]).cols-2) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  :where(:is(.grid,[data-layout="grid"]).cols-3) { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  @media (width < 40rem) { :where(:is(.grid,[data-layout="grid"]):is(.cols-2,.cols-3)) { grid-template-columns: 1fr; } }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(:is(.grid,[data-layout="grid"]):is(.cols-2,.cols-3)) { grid-template-columns: 1fr; }
+    }
+    @container re-layout (40rem <= width < 60rem) {
+      :where(:is(.grid,[data-layout="grid"]).cols-3) { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    }
+  }
+  /* Focusable hidden labels become visible when reached by the keyboard. */
+  :where(.visually-hidden:not(:focus):not(:focus-within)) {
+    position: absolute; inline-size: 1px; block-size: 1px; padding: 0;
+    margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  :where(.print-only) { display: none !important; }
+  @media (prefers-reduced-motion: reduce) { :where(*) { --re-duration: 0ms; --re-press: 0px; scroll-behavior: auto; } }
+  @media (forced-colors: active) {
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table),
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > :is(thead,tbody,tfoot) > tr > *) {
+      background-color: Canvas; color: CanvasText; border-color: CanvasText;
+    }
+  }
+  @media (forced-colors: active) {
+    :where(button,:is(.button,.scroll-top),input,select,textarea,.card,[data-surface="card"],details) { box-shadow: none; background-image: none; border: 1px solid ButtonText; }
+    :where(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset])) { color: ButtonText; background-color: ButtonFace; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(:focus-visible) { outline-color: Highlight; }
+    :where(button:disabled,input:disabled,select:disabled,textarea:disabled) { color: GrayText; opacity: 1; }
+    :where(input[type=file])::file-selector-button { color: ButtonText; background: ButtonFace; border: 1px solid ButtonText; }
+    :where(input[type=file]:disabled)::file-selector-button { color: GrayText; border-color: GrayText; }
+  }
+  @media print {
+    /* Reset shared paint tokens at every theme boundary, including scoped roots. */
+    :where(:scope,.reva,[data-reva],[data-theme],[data-tone]) {
+      color-scheme: light;
+      --re-bg: #fff; --re-surface: #fff; --re-surface-alt: #fff;
+      --re-text: #000; --re-muted: #000; --re-link: #000; --re-line: #000; --re-control-line: #000;
+    }
+    :where(button,:is(.button,.scroll-top),input,select,textarea) { color: #000; accent-color: #000; background-color: #fff; background-image: none; border: 1px solid #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(*) { box-shadow: none !important; text-shadow: none !important; }
+    :where(body,[data-theme],.card,[data-surface="card"],details) { color: #000; background: #fff; }
+    :where(a) { color: #000; }
+    :where(.card,[data-surface="card"],figure,tr) { break-inside: avoid; }
+    :where(.table-scroll) { overflow: visible; }
+    :where(:is([data-table-sticky="none"],[data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table):has(> table)) { overflow: visible; max-block-size: none !important; block-size: auto !important; scrollbar-gutter: auto; }
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table) { min-inline-size: 0 !important; overflow: visible; }
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > thead),
+    :where(:is([data-table-sticky="header"],[data-table-sticky="column"],[data-table-sticky="both"]):not(table) > table > :is(thead,tbody,tfoot) > tr > *) { position: static; inset: auto; z-index: auto; }
+    :where(.skip-link) { display: none; }
+    :where(.no-print) { display: none !important; }
+    :where(.print-only) { display: revert !important; }
+    :where(.container,[data-layout="container"],.prose) { inline-size: 100%; max-inline-size: none; }
+    :where(.responsive) { container-type: normal; }
+    :where(h1,h2,h3,h4,h5,h6,caption) { break-after: avoid; }
+    :where(p,li) { orphans: 3; widows: 3; }
+    :where(thead) { display: table-header-group; }
+    :where(tfoot) { display: table-footer-group; }
+    :where(pre) { white-space: pre-wrap; overflow-wrap: anywhere; overflow: visible; }
+    :where(img,video) { aspect-ratio: auto; object-fit: contain; }
+    /* URLs are opt-in, to keep navigation and ordinary page links concise. */
+    :where(.print-links a[href^="https://"],.print-links a[href^="http://"])::after {
+      content: " (" attr(href) ")"; font-size: .875em; font-weight: 400; overflow-wrap: anywhere;
+    }
+  }
+}
+
+/* Local table feedback. Inset paint stays beneath text and above existing
+   striped/sticky cell backgrounds; it adds no click behaviour or pointer cursor. */
+@layer re.components {
+  :where(table) { --re-table-hover-shadow: inset 0 0 0 9999px var(--re-table-highlight, color-mix(in srgb, var(--re-link) 5%, transparent)); }
+  @media (hover: hover) {
+    :where(table:not([data-table-hover="cell"],[data-table-hover="column"],[data-table-hover="none"]) > tbody > tr:hover:not(:has(table:hover)) > :is(th,td)) { box-shadow: var(--re-table-hover-shadow); }
+    :where(table:is([data-table-hover="cell"],[data-table-hover="column"]) > :is(thead,tbody,tfoot) > tr > :is(th,td):hover:not(:has(table:hover))) { box-shadow: var(--re-table-hover-shadow); }
+    /* Build emits bounded column selectors here. Merged/oversized tables keep
+       the cell fallback above. Descendant tables cannot activate an outer table. */
+    :where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(1):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(1)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(2):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(2)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(3):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(3)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(4):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(4)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(5):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(5)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(6):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(6)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(7):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(7)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(8):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(8)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(9):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(9)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(10):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(10)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(11):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(11)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(12):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(12)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(13):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(13)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(14):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(14)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(15):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(15)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(16):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(16)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(17):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(17)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(18):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(18)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(19):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(19)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(20):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(20)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(21):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(21)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(22):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(22)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(23):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(23)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(24):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(24)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(25):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(25)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(26):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(26)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(27):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(27)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(28):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(28)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(29):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(29)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(30):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(30)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(31):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(31)) { box-shadow: var(--re-table-hover-shadow); }
+:where(table[data-table-hover="column"]:not(:has(> :is(thead,tbody,tfoot) > tr > :is([hidden],[colspan]:not([colspan="1"]),[rowspan]:not([rowspan="1"]),:nth-child(n+33)))):has(> :is(thead,tbody,tfoot) > tr > :nth-child(32):hover:not(:has(table:hover))) > :is(thead,tbody,tfoot) > tr > :nth-child(32)) { box-shadow: var(--re-table-hover-shadow); }
+  }
+  /* Keyboard feedback follows real controls; no tabindex is added to rows.
+     Column mode highlights the focused cell without inventing grid navigation. */
+  :where(table:not([data-table-hover="cell"],[data-table-hover="column"],[data-table-hover="none"]) > tbody > tr:focus-within:not(:has(table:focus-within)) > :is(th,td)),
+  :where(table:is([data-table-hover="cell"],[data-table-hover="column"]) > :is(thead,tbody,tfoot) > tr > :is(th,td):focus-within:not(:has(table:focus-within))) { box-shadow: var(--re-table-hover-shadow); }
+}
+@layer re.utilities {
+  @media (forced-colors: active), print {
+    :where(table > :is(thead,tbody,tfoot) > tr > :is(th,td)) { --re-table-hover-shadow: none; }
+  }
+}
+/* Passive labels: one identifying class, with shared parent configuration. */
+@layer re.components {
+  :where(.badge) {
+    --re-badge-start: var(--re-primary);
+    --re-badge-end: var(--re-primary-end);
+    --re-badge-on: var(--re-on-primary);
+    --re-badge-text: var(--re-link);
+    --re-badge-fill: color-mix(in srgb, var(--re-badge-start) 12%, var(--re-surface));
+    --re-badge-fill-end: color-mix(in srgb, var(--re-badge-end) 12%, var(--re-surface));
+    --re-badge-glass-fill: var(--re-badge-fill);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    gap: .35em;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding: calc(.2em * var(--re-density)) calc(.65em * var(--re-density));
+    border: var(--re-surface-border) solid color-mix(in srgb, var(--re-badge-start) 35%, var(--re-surface));
+    border-radius: var(--re-button-radius);
+    font-size: calc(.8125em * var(--re-control-scale, 1));
+    font-weight: 650;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    color: var(--re-badge-text);
+    background-color: var(--re-badge-fill);
+    background-image: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--re-badge-fill-end) calc(var(--re-gradient) * 28%), transparent));
+    box-shadow: var(--re-shadow);
+  }
+  :where(.badge > *) { min-inline-size: 0; max-inline-size: 100%; }
+  @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-primary); --re-badge-end: var(--re-primary-end); --re-badge-on: var(--re-on-primary); --re-badge-text: var(--re-link); }
+  }
+  @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-success); --re-badge-end: var(--re-success-end); --re-badge-on: var(--re-on-success); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+  }
+  @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-warning); --re-badge-end: var(--re-warning-end); --re-badge-on: var(--re-on-warning); --re-badge-text: var(--re-text); }
+  }
+  @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-danger); --re-badge-end: var(--re-danger-end); --re-badge-on: var(--re-on-danger); --re-badge-text: light-dark(color-mix(in srgb, var(--re-badge-start) 80%, #000), color-mix(in srgb, var(--re-badge-start) 30%, #fff)); }
+  }
+  @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
+    :where(.badge, :scope.badge) { --re-badge-start: var(--re-text); --re-badge-end: var(--re-muted); --re-badge-on: var(--re-surface); --re-badge-text: var(--re-text); }
+  }
+  @scope ([data-appearance="tinted"], :scope[data-appearance="tinted"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="tinted"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: color-mix(in srgb, var(--re-badge-start) 12%, var(--re-surface)); --re-badge-fill-end: color-mix(in srgb, var(--re-badge-end) 12%, var(--re-surface)); }
+  }
+  @scope ([data-appearance="solid"], :scope[data-appearance="solid"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="solid"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: var(--re-badge-start); --re-badge-fill-end: var(--re-badge-end); --re-badge-glass-fill: color-mix(in srgb, var(--re-badge-start) 65%, var(--re-badge-end)); color: var(--re-badge-on); }
+  }
+  @scope ([data-appearance="outline"], :scope[data-appearance="outline"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="outline"])) {
+    :where(.badge, :scope.badge) { --re-badge-fill: var(--re-surface); --re-badge-fill-end: var(--re-surface); border-color: currentColor; background-image: none; }
+  }
+}
+@layer re.utilities {
+  :where(:is(button,:is(.button,.scroll-top)) .badge) { font-size: calc(.8125em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1)); }
+
+  @media (prefers-contrast: more) {
+    :where(.badge) { color: var(--re-text); background-color: var(--re-surface); background-image: none; border: 1px solid currentColor; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :where(.badge) { background-color: var(--re-badge-fill); background-image: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.badge) { color: CanvasText; background-color: Canvas; background-image: none; border: 1px solid CanvasText; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media print {
+    :where(.badge) { color: #000; background-color: #fff; background-image: none; border: 1px solid #000; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; break-inside: avoid; }
+  }
+}
+/* Content messages: one identifying class; meaning stays in the HTML. */
+@layer re.components {
+  :where(.alert) {
+    --re-alert-start: var(--re-primary);
+    --re-alert-end: var(--re-primary-end);
+    --re-alert-on: var(--re-on-primary);
+    --re-alert-text: var(--re-text);
+    --re-alert-fill: color-mix(in srgb, var(--re-alert-start) 12%, var(--re-surface));
+    --re-alert-fill-end: color-mix(in srgb, var(--re-alert-end) 12%, var(--re-surface));
+    --re-alert-glass-fill: var(--re-alert-fill);
+    display: block;
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    padding: calc(1em * var(--re-density));
+    border: var(--re-surface-border) solid color-mix(in srgb, var(--re-alert-start) 35%, var(--re-surface));
+    border-inline-start-width: calc(var(--re-surface-border) * 3);
+    border-radius: var(--re-radius);
+    font-size: calc(1em * var(--re-control-scale, 1));
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+    color: var(--re-alert-text);
+    background-color: var(--re-alert-fill);
+    background-image: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--re-alert-fill-end) calc(var(--re-gradient) * 28%), transparent));
+    box-shadow: var(--re-shadow);
+  }
+  :where(.alert > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.alert > :first-child) { margin-block-start: 0; }
+  :where(.alert > :last-child) { margin-block-end: 0; }
+  :where(.alert h1) { color: inherit; }
+  :where(.alert a:not(:is(.button,.scroll-top))) { color: inherit; }
+  @scope ([data-variant="primary"], :scope[data-variant="primary"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="primary"])) {
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-primary); --re-alert-end: var(--re-primary-end); --re-alert-on: var(--re-on-primary); }
+  }
+  @scope ([data-variant="success"], :scope[data-variant="success"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="success"])) {
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-success); --re-alert-end: var(--re-success-end); --re-alert-on: var(--re-on-success); }
+  }
+  @scope ([data-variant="warning"], :scope[data-variant="warning"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="warning"])) {
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-warning); --re-alert-end: var(--re-warning-end); --re-alert-on: var(--re-on-warning); --re-alert-text: var(--re-text); }
+  }
+  @scope ([data-variant="danger"], :scope[data-variant="danger"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="danger"])) {
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-danger); --re-alert-end: var(--re-danger-end); --re-alert-on: var(--re-on-danger); }
+  }
+  @scope ([data-variant="neutral"], :scope[data-variant="neutral"]) to (:is([data-variant="primary"],[data-variant="success"],[data-variant="warning"],[data-variant="danger"],[data-variant="neutral"]):not([data-variant="neutral"])) {
+    :where(.alert, :scope.alert) { --re-alert-start: var(--re-text); --re-alert-end: var(--re-muted); --re-alert-on: var(--re-surface); --re-alert-text: var(--re-text); }
+  }
+  @scope ([data-appearance="tinted"], :scope[data-appearance="tinted"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="tinted"])) {
+    :where(.alert, :scope.alert) { --re-alert-fill: color-mix(in srgb, var(--re-alert-start) 12%, var(--re-surface)); --re-alert-fill-end: color-mix(in srgb, var(--re-alert-end) 12%, var(--re-surface)); }
+  }
+  @scope ([data-appearance="solid"], :scope[data-appearance="solid"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="solid"])) {
+    :where(.alert, :scope.alert) { --re-alert-fill: var(--re-alert-start); --re-alert-fill-end: var(--re-alert-end); --re-alert-glass-fill: color-mix(in srgb, var(--re-alert-start) 65%, var(--re-alert-end)); color: var(--re-alert-on); }
+  }
+  @scope ([data-appearance="outline"], :scope[data-appearance="outline"]) to (:is([data-appearance="tinted"],[data-appearance="solid"],[data-appearance="outline"]):not([data-appearance="outline"])) {
+    :where(.alert, :scope.alert) { --re-alert-fill: var(--re-surface); --re-alert-fill-end: var(--re-surface); border-color: currentColor; background-image: none; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-contrast: more) {
+    :where(.alert) { color: var(--re-text); background-color: var(--re-surface); background-image: none; border: 1px solid currentColor; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :where(.alert) { background-color: var(--re-alert-fill); background-image: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.alert) { color: CanvasText; background-color: Canvas; background-image: none; border: 1px solid CanvasText; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
+  @media print {
+    :where(.alert) { color: #000; background-color: #fff; background-image: none; border: 1px solid #000; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; break-inside: avoid; }
+  }
+}
+/* Shared native disclosure motion and accordion presentation. HTML owns state. */
+@layer re.components {
+  :where(.accordion) { display: grid; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; }
+  :where(.accordion > details) { margin-block: 0; min-inline-size: 0; }
+  :where(.accordion > details > summary) {
+    display: flex;
+    align-items: center;
+    padding-block: 0;
+    justify-content: space-between;
+    gap: var(--re-space);
+    list-style: none;
+    font-size: calc(1em * var(--re-control-scale, 1));
+  }
+  :where(.accordion > details > summary)::-webkit-details-marker { display: none; }
+  :where(.accordion > details > summary)::after {
+    content: "";
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    margin-inline-end: .2em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform var(--re-duration, 140ms) ease;
+  }
+  :where(.accordion > details[open] > summary)::after { transform: rotate(225deg); }
+  :where(.accordion > details > summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.accordion > details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
+  :where(.accordion > details > :last-child:not(summary)) { margin-block-end: 0; }
+
+  /* Plain and grouped disclosures share the same native content animation.
+     No wrapper, script or guessed maximum height is required. */
+  @supports selector(::details-content) and (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+    :where(details > summary) { margin-block-end: 0; }
+    :where(details)::details-content {
+      interpolate-size: allow-keywords;
+      block-size: 0;
+      padding-block-start: 0;
+      overflow: clip;
+      overflow-clip-margin: .25rem;
+      opacity: var(--re-accordion-closed-opacity, 1);
+      transition:
+        block-size var(--re-duration, 140ms) ease,
+        padding-block-start var(--re-duration, 140ms) ease,
+        opacity var(--re-duration, 140ms) ease,
+        content-visibility var(--re-duration, 140ms) allow-discrete;
+    }
+    :where(details[open])::details-content {
+      block-size: auto;
+      padding-block-start: var(--re-space);
+      opacity: 1;
+    }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(.accordion > details > summary)::after { transition: none; }
+    :where(details)::details-content { transition: none; opacity: 1; }
+  }
+}
+/* Ordered navigation; separators are decorative, not spoken text. */
+@layer re.components {
+  :where(.breadcrumbs) { min-inline-size: 0; font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.breadcrumbs > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.5em * var(--re-density)); list-style: none; padding: 0; margin: 0; }
+  :where(.breadcrumbs > ol > li) { display: inline-flex; align-items: center; gap: calc(.5em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin: 0; }
+  :where(.breadcrumbs > ol > li + li)::before { content: ""; flex: 0 0 auto; block-size: .8em; border-inline-start: 1px solid var(--re-muted); transform: skew(-15deg); }
+  :where(.breadcrumbs > ol > li + li:dir(rtl))::before { transform: skew(15deg); }
+  :where(.breadcrumbs a) { display: inline-flex; align-items: center; min-block-size: 2.75rem; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.breadcrumbs [aria-current="page"]) { color: var(--re-text); font-weight: 600; }
+}
+/* Real links navigate; plain spans represent current/unavailable pages. */
+@layer re.components {
+  :where(.pagination) { min-inline-size: 0; }
+  :where(.pagination > ol) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(.4em * var(--re-density) * var(--re-gap-factor, 1)); list-style: none; margin: 0; padding: 0; }
+  :where(.pagination > ol > li) { min-inline-size: 0; max-inline-size: 100%; margin: 0; }
+  :where(.pagination > ol > li > :is(a,span)) {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-inline-size: min(2.75rem, 100%); max-inline-size: 100%; min-block-size: 2.75rem;
+    padding: calc(.5em * var(--re-density)) calc(.8em * var(--re-density));
+    font-size: calc(1em * var(--re-control-scale, 1)); line-height: 1.4; overflow-wrap: anywhere; text-align: center;
+    --re-pagination-fill: var(--re-surface);
+    color: var(--re-link); background-color: var(--re-pagination-fill);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    box-shadow: var(--re-shadow); text-decoration: none;
+  }
+  :where(.pagination a:hover) { text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-current="page"]) { --re-pagination-fill: var(--re-surface-alt); color: var(--re-text); background-color: var(--re-pagination-fill); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+  :where(.pagination [aria-disabled="true"]) { color: var(--re-muted); box-shadow: none; }
+}
+@layer re.utilities {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+    :where(.pagination > ol) { isolation: isolate; }
+    :where(.pagination > ol > li > a:not([aria-disabled=true]), .pagination > ol > li > :is(a,span)[aria-current=page]) {
+      position: relative; z-index: 1; background: transparent;
+      -webkit-backdrop-filter: none; backdrop-filter: none; text-decoration: none;
+    }
+    /* Preserve the selected page when the hover highlight moves away. */
+    :where(.pagination > ol > li > :is(a,span)[aria-current=page]) { border-color: var(--re-primary); }
+  }
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.pagination > ol > li > :is(a,span)) { background-color: var(--re-pagination-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.pagination > ol > li > :is(a,span)) { color: LinkText; background-color: Canvas; border: 1px solid CanvasText; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(.pagination [aria-current="page"]) { color: CanvasText; }
+    :where(.pagination [aria-disabled="true"]) { color: GrayText; }
+  }
+  @media print {
+    :where(.pagination > ol > li > :is(a,span)) { color: #000; background-color: #fff; border: 1px solid #000; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+}
+
+/* A shared background follows interaction while the current page stays marked. */
+@layer re.components {
+  @supports (anchor-scope: --re-page-highlight) and (left: anchor(left)) {
+
+  :where(.pagination > ol) { position: relative; anchor-scope: --re-page-highlight; }
+  :where(.pagination > ol)::after {
+    content: ""; position: absolute; position-anchor: --re-page-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+    background: var(--re-surface-alt); border-radius: var(--re-button-radius);
+    pointer-events: none; z-index: 0; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease,
+      bottom var(--re-duration, 140ms) ease;
+  }
+
+    :where(.pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover)) > li > :is(a,span)[aria-current=page],
+      .pagination > ol > li > a:not([aria-disabled=true]):focus-visible,
+      .pagination > ol:not(:has(> li > a:not([aria-disabled=true]):focus-visible)) > li > a:not([aria-disabled=true]):hover) { anchor-name: --re-page-highlight; }
+    :where(.pagination > ol:has(> li > :is(a,span)[aria-current=page], > li > a:not([aria-disabled=true]):focus-visible, > li > a:not([aria-disabled=true]):hover))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.pagination > ol)::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.pagination > ol)::after { display: none; } }
+}
+/* Labels and descriptions remain native HTML with explicit ID associations. */
+@layer re.components {
+  :where(.form-group) { display: flex; flex-direction: column; gap: calc(.4em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; margin-block-end: var(--re-space); }
+  :where(.form-group > *) { min-inline-size: 0; max-inline-size: 100%; margin-block: 0; }
+  :where(.form-group > label) { --re-label-font-scale: var(--re-control-scale, 1); font-size: calc(1em * var(--re-control-scale, 1)); }
+  :where(.form-group > small) { color: var(--re-muted); }
+  :where(.form-group > .field-error) { color: var(--re-danger-link); font-weight: 600; overflow-wrap: anywhere; }
+}
+@layer re.utilities {
+  /* The group label already consumed the shared size. */
+  :where(.form-group > label :is(input,select,textarea)) { font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1)); }
+
+  @media (forced-colors: active) { :where(.form-group > .field-error) { color: CanvasText; } }
+  @media print { :where(.form-group > small, .form-group > .field-error) { color: #000; } }
+}
+/* Pair decorative motion with visible loading text. */
+@layer re.components {
+  :where(.spinner) {
+    display: inline-block; flex: 0 0 auto; vertical-align: middle;
+    inline-size: calc(1.25em * var(--re-control-scale, 1)); block-size: calc(1.25em * var(--re-control-scale, 1));
+    border: .15em solid var(--re-control-line); border-inline-end-color: transparent; border-radius: 50%;
+    animation: re-spinner-turn calc(var(--re-duration, 140ms) * 6) linear infinite;
+    animation-play-state: var(--re-edge-play, running);
+  }
+  @keyframes re-spinner-turn { to { transform: rotate(1turn); } }
+}
+@layer re.utilities {
+  /* Action text already consumed its size; local spinner overrides remain independent. */
+  :where(:is(button,:is(.button,.scroll-top)) .spinner) {
+    inline-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+    block-size: calc(1.25em * var(--re-control-scale, 1) / var(--re-action-font-scale, 1));
+  }
+
+  @media (prefers-reduced-motion: reduce) { :where(.spinner) { animation: none; } }
+  @media (forced-colors: active) { :where(.spinner) { border-color: CanvasText; border-inline-end-color: transparent; } }
+  @media print { :where(.spinner) { animation: none; } }
+}
+/* Radio-selected panels; native radios retain their semantics and focus. */
+@layer re.components {
+  :where(.tabs) { display: flex; flex-wrap: wrap; column-gap: calc(.25rem * var(--re-gap-factor, 1)); row-gap: 0; min-inline-size: 0; }
+  :where(.tabs > label) {
+    --re-label-font-scale: var(--re-control-scale, 1);
+    position: relative; display: inline-flex; align-items: center; order: 0; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem;
+    margin: 0; padding: calc(.7em * var(--re-density)) calc(1em * var(--re-density));
+    border: var(--re-surface-border) solid transparent; border-block-end: 3px solid transparent;
+    border-radius: min(var(--re-radius), .75rem) min(var(--re-radius), .75rem) 0 0;
+    --re-choice-fill: transparent;
+    color: var(--re-text); background-color: var(--re-choice-fill); cursor: pointer;
+    font-size: calc(1em * var(--re-control-scale, 1)); font-weight: 600; overflow-wrap: anywhere;
+  }
+  :where(.tabs > label:hover:not(:has(input:disabled))) { --re-choice-fill: var(--re-surface-alt); }
+  :where(.tabs > label:has(input:checked)) { --re-choice-fill: var(--re-surface-alt); border-block-end-color: var(--re-primary); }
+  :where(.tabs > label:has(input:focus-visible)) { outline: 3px solid var(--re-text); outline-offset: -3px; }
+  :where(.tabs > label:has(input:disabled)) { opacity: .55; cursor: not-allowed; }
+  :where(.tabs > .tab-panel) { order: 1; flex-basis: 100%; min-inline-size: 0; border-block-start: 1px solid var(--re-line); padding-block-start: var(--re-space); overflow-wrap: anywhere; }
+  :where(.tab-panel > :first-child) { margin-block-start: 0; }
+  :where(.tab-panel > :last-child) { margin-block-end: 0; }
+  @supports selector(label:has(input:checked)) {
+    :where(.tabs > .tab-panel) { display: none; }
+    :where(.tabs > label:has(input:checked) + .tab-panel) { display: block; }
+  }
+}
+@layer re.utilities {
+  /* Visually hide the control, preserving native focus and radio behaviour. */
+  :where(.tabs > label > input[type=radio]) {
+    position: absolute; inline-size: 1px; block-size: 1px;
+    margin: -1px; padding: 0; border: 0; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+    font-size: calc(1em * var(--re-control-scale, 1) / var(--re-label-font-scale, 1));
+  }
+
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.tabs > label) { background-color: var(--re-choice-fill); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+
+  @media (forced-colors: active) { :where(.tabs > label) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+  @media (forced-colors: active) {
+    :where(.tabs > label:has(input:checked)) { border-block-end: 3px solid Highlight; }
+    :where(.tabs > label:has(input:disabled)) { color: GrayText; opacity: 1; }
+  }
+  @media print {
+    :where(.tabs) { display: block; }
+    :where(.tabs > .tab-panel) { display: block; margin-block-end: var(--re-space); }
+    :where(.tabs > label) { display: block; color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+    :where(.tabs > label:has(input:checked)) { border-block-end-color: #000; }
+  }
+}
+
+/* One scoped underline follows the selected label; the base border is fallback. */
+@layer re.components {
+  @supports (anchor-scope: --re-tab-highlight) and (left: anchor(left)) {
+
+  :where(.tabs) { position: relative; anchor-scope: --re-tab-highlight; }
+  :where(.tabs)::after {
+    content: ""; position: absolute; position-anchor: --re-tab-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    :where(.tabs > label:has(> input:checked)) { anchor-name: --re-tab-highlight; border-block-end-color: transparent; }
+    :where(.tabs:has(> label > input:checked))::after { opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.tabs)::after { transition: none; } }
+  @media (forced-colors: active), print {
+    :where(.tabs)::after { display: none; }
+    :where(.tabs > label:has(input:checked)) { border-block-end-color: currentColor; }
+  }
+}
+/* List semantics remain in ul/ol; optional item links need no class. */
+@layer re.components {
+  :where(.list-group) { list-style: none; margin: 0; padding: 0; min-inline-size: 0; }
+  :where(.list-group > li) { margin: 0; padding: calc(.85em * var(--re-density)); min-inline-size: 0; overflow-wrap: anywhere; background-color: var(--re-surface); color: var(--re-text); border: var(--re-surface-border) solid var(--re-line); }
+  :where(.list-group > li + li) { border-block-start: 0; }
+  :where(.list-group > li:first-child) { border-start-start-radius: var(--re-radius); border-start-end-radius: var(--re-radius); }
+  :where(.list-group > li:last-child) { border-end-start-radius: var(--re-radius); border-end-end-radius: var(--re-radius); }
+  :where(.list-group > li > :first-child) { margin-block-start: 0; }
+  :where(.list-group > li > :last-child) { margin-block-end: 0; }
+  :where(.list-group > li > a:only-child) { display: flex; align-items: center; min-block-size: 2.75rem; }
+  :where(.list-group [aria-current]) { font-weight: 700; }
+}
+@layer re.utilities {
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    :where(.list-group > li) { background-color: var(--re-surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  }
+
+  @media (forced-colors: active) { :where(.list-group > li) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+  @media print { :where(.list-group > li) { color: #000; background-color: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; } }
+}
+/* Content decides whether an empty state is shown. */
+@layer re.components {
+  :where(.empty-state) { min-inline-size: 0; padding: calc(var(--re-surface-space, var(--re-space)) * 2); text-align: center; overflow-wrap: anywhere; }
+  :where(.empty-state > :first-child) { margin-block-start: 0; }
+  :where(.empty-state > :last-child) { margin-block-end: 0; }
+  :where(.empty-state > p) { max-inline-size: 55ch; margin-inline: auto; }
+  :where(.empty-state > :is(.row,[data-layout="row"])) { justify-content: center; }
+}
+/* Images or explicit initials; no automatic failed-image replacement. */
+@layer re.components {
+  :where(.avatar) {
+    display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; vertical-align: middle;
+    inline-size: calc(var(--re-avatar-size, 2.75rem) * var(--re-control-scale, 1)); block-size: auto; align-self: center;
+    max-inline-size: 100%; border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    object-fit: var(--re-image-fit, cover); aspect-ratio: 1; color: var(--re-text); background-color: var(--re-surface-alt);
+    font-weight: 650; font-size: 1em; line-height: 1; overflow: hidden;
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(.avatar) { color: CanvasText; background-color: Canvas; border-color: CanvasText; } }
+  @media print { :where(.avatar) { color: #000; background-color: #fff; } }
+}
+/* Monochrome vectors inherit text colour and size; no theme attributes needed. */
+@layer re.components {
+  :where(svg.icon) {
+    display: inline-block; flex: 0 0 auto; vertical-align: -.2em;
+    inline-size: var(--re-icon-size, 1.25em); block-size: var(--re-icon-size, 1.25em);
+    fill: none; stroke: currentColor; stroke-width: var(--re-icon-stroke, 1.75);
+    stroke-linecap: round; stroke-linejoin: round; overflow: visible;
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(svg.icon) { stroke: currentColor; } }
+}
+/* A styled native checkbox retains checked, disabled and keyboard behavior. */
+@layer re.components {
+  :where(input[type="checkbox"].switch) {
+    appearance: none; -webkit-appearance: none; position: relative; display: inline-block; flex: 0 0 auto;
+    inline-size: 2.75em; block-size: 1.5em; margin-inline: 0 .5em;
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-button-radius);
+    background-color: var(--re-surface-alt); cursor: pointer; vertical-align: middle;
+  }
+  :where(input[type="checkbox"].switch)::before {
+    content: ""; position: absolute; inset-block-start: 50%; inset-inline-start: .15em;
+    inline-size: 1.05em; block-size: 1.05em; border-radius: var(--re-button-radius);
+    background-color: var(--re-text); transform: translateY(-50%);
+    transition: inset-inline-start var(--re-duration) ease;
+  }
+  :where(input[type="checkbox"].switch:checked) { background-color: var(--re-primary); border-color: var(--re-primary); }
+  :where(input[type="checkbox"].switch:checked)::before { inset-inline-start: calc(100% - 1.2em); background-color: var(--re-on-primary); }
+  :where(input[type="checkbox"].switch:disabled) { cursor: not-allowed; }
+}
+@layer re.utilities {
+  @media print {
+    :where(input[type="checkbox"].switch) { background-color: #fff; border: 1px solid #000; }
+    :where(input[type="checkbox"].switch)::before { background-color: #000; transition: none; }
+    :where(input[type="checkbox"].switch:checked) { background-color: #000; }
+    :where(input[type="checkbox"].switch:checked)::before { background-color: #fff; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { :where(input[type="checkbox"].switch)::before { transition: none; } }
+
+  @media (forced-colors: active) {
+    :where(input[type="checkbox"].switch) { background-color: Canvas; border: 1px solid ButtonText; }
+    :where(input[type="checkbox"].switch)::before { background-color: ButtonText; }
+    :where(input[type="checkbox"].switch:checked) { background-color: Highlight; border-color: Highlight; }
+    :where(input[type="checkbox"].switch:checked)::before { background-color: HighlightText; }
+    :where(input[type="checkbox"].switch:disabled) { border-color: GrayText; }
+    :where(input[type="checkbox"].switch:disabled)::before { background-color: GrayText; }
+  }
+}
+/* Flexible grouped fields wrap rather than shrinking actions beyond usability. */
+@layer re.components {
+  :where(.input-group) { display: flex; flex-wrap: wrap; align-items: stretch; gap: calc(.35em * var(--re-density)); min-inline-size: 0; max-inline-size: 100%; }
+  :where(.input-group > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.input-group > :is(input:not([type=button],[type=submit],[type=reset],[type=checkbox],[type=radio],[type=hidden]),select,textarea)) { flex: 1 1 12rem; inline-size: auto; }
+  :where(.input-group > :is(button,:is(.button,.scroll-top),input:is([type=button],[type=submit],[type=reset]))) { flex: 0 1 auto; inline-size: auto; }
+  :where(.input-group > span) {
+    display: inline-flex; align-items: center; padding: calc(.65em * var(--re-density)) calc(.8em * var(--re-density));
+    font-size: calc(1em * var(--re-control-scale, 1)); overflow-wrap: anywhere;
+    background-color: var(--re-surface-alt); color: var(--re-text);
+    border: var(--re-surface-border) solid var(--re-control-line); border-radius: var(--re-field-radius, var(--re-radius));
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) { :where(.input-group > span) { color: CanvasText; background-color: Canvas; border: 1px solid CanvasText; } }
+  @media print { :where(.input-group > span) { color: #000; background-color: #fff; } }
+}
+/* Decorative placeholders; application markup owns the loading state. */
+@layer re.components {
+  :where(.skeleton) {
+    display: block; min-inline-size: 0; max-inline-size: 100%; block-size: var(--re-skeleton-height, 1em);
+    inline-size: var(--re-skeleton-width, 100%); border-radius: var(--re-radius);
+    background-color: var(--re-surface-alt);
+    background-image: linear-gradient(100deg, transparent 25%, color-mix(in srgb, var(--re-text) 10%, transparent) 50%, transparent 75%);
+    background-size: 200% 100%;
+    animation: re-skeleton-sweep calc(var(--re-duration, 140ms) * 12) linear infinite;
+    animation-play-state: var(--re-edge-play, running);
+  }
+  @keyframes re-skeleton-sweep { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.skeleton) { animation: none; background-image: none; } }
+  @media (forced-colors: active) { :where(.skeleton) { animation: none; background-image: none; background-color: Canvas; border: 1px solid CanvasText; } }
+  @media print { :where(.skeleton) { display: none; } }
+}
+/* A normal labelled group; each native control keeps its own tab stop. */
+@layer re.components {
+  :where(.toolbar) { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--re-gap) * var(--re-gap-factor, 1)); min-inline-size: 0; max-inline-size: 100%; }
+  :where(.toolbar > *) { min-inline-size: 0; max-inline-size: 100%; }
+  :where(.toolbar > :is(:is(.row,[data-layout="row"]),.input-group)) { flex: 1 1 auto; }
+}
+@layer re.components {
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 24rem) {
+      :where(.toolbar) { align-items: stretch; }
+      :where(.toolbar > *) { flex: 1 1 100%; inline-size: 100%; }
+      :where(.toolbar > :is(:is(.row,[data-layout="row"]),.input-group)) { flex-direction: column; align-items: stretch; }
+      /* A horizontal field basis must not become a tall vertical basis. */
+      :where(.toolbar > .input-group > *) { flex-basis: auto; inline-size: 100%; }
+    }
+  }
+}
+/* A single opt-in class arranges native term/description pairs. */
+@layer re.components {
+  :where(dl.description-list) { margin: 0; min-inline-size: 0; container-type: inline-size; }
+  :where(.description-list > div) {
+    display: grid; grid-template-columns: minmax(0, var(--re-description-label, 12rem)) minmax(0, 1fr);
+    gap: calc(.75rem * var(--re-density)); padding-block: calc(.75rem * var(--re-density));
+    border-block-end: var(--re-surface-border) solid var(--re-line); min-inline-size: 0;
+  }
+  :where(.description-list dt,.description-list dd) { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.description-list dt) { color: var(--re-text); }
+  :where(.description-list dd) { color: var(--re-muted); }
+  @container (width < 30rem) { :where(.description-list > div) { grid-template-columns: minmax(0,1fr); gap: .25em; } }
+  @media (width < 40rem) { :where(.description-list > div) { grid-template-columns: minmax(0,1fr); gap: .25em; } }
+}
+/* Extend :is(.card,[data-surface="card"]) with meaningful native header/footer/figure elements. */
+@layer re.components {
+  :where(:is(.card,[data-surface="card"]) > header) { padding-block-end: var(--re-space); margin-block-end: var(--re-space); border-block-end: var(--re-surface-border) solid var(--re-line); }
+  :where(:is(.card,[data-surface="card"]) > footer) { padding-block-start: var(--re-space); margin-block-start: var(--re-space); border-block-start: var(--re-surface-border) solid var(--re-line); }
+  :where(:is(.card,[data-surface="card"]) > :is(header,footer) > :first-child) { margin-block-start: 0; }
+  :where(:is(.card,[data-surface="card"]) > :is(header,footer) > :last-child) { margin-block-end: 0; }
+  :where(:is(.card,[data-surface="card"]) > figure > :is(img,video)) { display: block; inline-size: 100%; }
+  :where(:is(.card,[data-surface="card"]) > footer:is(.row,[data-layout="row"])) { flex-wrap: wrap; }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 24rem) {
+      :where(:is(.card,[data-surface="card"]) > footer:is(.row,[data-layout="row"]),:is(.card,[data-surface="card"]) > footer > :is(.row,[data-layout="row"])) { flex-direction: column; align-items: stretch; }
+    }
+  }
+}
+
+/* A metric is an existing card with a native term/value pair, not another class. */
+@layer re.components {
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output)) { margin: 0; min-inline-size: 0; }
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output) > :is(dt,dd)) {
+    margin: 0; min-inline-size: 0; overflow-wrap: anywhere;
+  }
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output) > dt) {
+    font-size: var(--re-type); font-weight: 600; margin-block-end: calc(var(--re-space) * .5);
+  }
+  :where(:is(.card,[data-surface="card"]) > dl > dd > output) {
+    display: block; font-size: calc(var(--re-type) * 2.25); line-height: 1.15;
+    font-weight: 750; font-variant-numeric: tabular-nums; letter-spacing: -.035em;
+    overflow-wrap: anywhere;
+  }
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output) > dd + dd) {
+    margin-block-start: calc(var(--re-space) * .5); font-size: calc(var(--re-type) * .875);
+  }
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output) > dd > small) { color: var(--re-muted); }
+  :where(:is(.card,[data-surface="card"]) > dl:has(> dd > output) > dd > :is(progress,meter)) {
+    display: block; inline-size: 100%; margin-block-start: calc(var(--re-space) * .5);
+  }
+}
+/* Ordinary list semantics and native popover interaction; no ARIA menu roles. */
+@layer re.components {
+  :where(.dropdown[popover], :scope.dropdown[popover]) {
+    position: fixed;
+    inset: 1rem;
+    margin: auto;
+    inline-size: min(var(--re-dropdown-width, 18rem), calc(100dvw - 2rem));
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    list-style: none;
+    padding: .5rem;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.dropdown > li) { margin: 0; padding: 0; }
+  :where(.dropdown > li > :is(a, button)) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .75em;
+    inline-size: 100%;
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+    padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+    border: 1px solid transparent;
+    border-radius: calc(var(--re-radius) * .6);
+    font-weight: 550;
+    line-height: 1.5;
+    text-align: start;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  :where(.dropdown > li > a[aria-current=page]) {
+    text-decoration: underline;
+    text-underline-offset: .25em;
+    font-weight: 700;
+  }
+  :where(.dropdown > li > :is(a, button):focus-visible) {
+    outline-offset: -3px;
+  }
+  @supports selector(:popover-open) {
+    :where(.dropdown[popover]:not(:popover-open)) { display: none; }
+    :where(.dropdown[popover]:popover-open) { display: block; }
+  }
+  @supports (position-area: block-end span-inline-end) {
+    :where(.dropdown[popover], :scope.dropdown[popover]) {
+      position-anchor: auto;
+      position-area: block-end span-inline-end;
+      position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+      inset: auto;
+      margin: .25rem 0;
+      max-block-size: min(70dvh, 30rem);
+    }
+  }
+}
+@layer re.utilities {
+  /* Rows remain neutral navigation/actions, even under shared button variants. */
+  :where(.dropdown > li > :is(a, button)) {
+    --re-edge-content: none;
+    --re-edge-animation: none;
+    --re-edge-interaction: none;
+    background: transparent;
+    color: var(--re-text);
+    font-size: calc(var(--re-type) * var(--re-control-scale));
+    box-shadow: none;
+    filter: none;
+    transform: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  :where(.dropdown > li > a:hover, .dropdown > li > button:enabled:hover) {
+    background-color: var(--re-surface-alt);
+  }
+  @media (forced-colors: active) {
+    :where(.dropdown[popover]) {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      box-shadow: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    :where(.dropdown > li > a) { color: LinkText; }
+    :where(.dropdown > li > button) { color: ButtonText; }
+    :where(.dropdown > li > button:disabled) { color: GrayText; opacity: 1; }
+    :where(.dropdown > li > a:hover, .dropdown > li > button:enabled:hover) {
+      color: HighlightText;
+      background-color: Highlight;
+    }
+    :where(.dropdown > li > :is(a, button):focus-visible) { outline-color: Highlight; }
+  }
+  @media print { :where(.dropdown[popover], .dropdown[popover]:popover-open) { display: none; } }
+}
+@layer re.components {
+  :where(.top-menu, :scope.top-menu) {
+    --re-menu-width: 20rem;
+    anchor-name: var(--re-menu-anchor, --re-navigation);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+    position: relative;
+    min-inline-size: 0;
+    min-block-size: calc(2.75rem + 1rem + 2px);
+    padding: .5rem;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    /* Flush meets the top edge; the lower corners keep the shared shape. */
+    border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    background: var(--re-surface);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
+    color: var(--re-text);
+  }
+  :where(.top-menu .menu-brand) {
+    margin-inline-end: auto;
+    color: inherit;
+    font-weight: 750;
+    font-size: 1.125em;
+    text-decoration: none;
+  }
+  :where(.top-menu details) {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  :where(.top-menu .menu-collapse) { flex: 1 1 auto; }
+  :where(.top-menu .menu-desktop) { display: none; }
+  /* Explicit hiding also contains open descendants in nested disclosures. */
+  :where(.top-menu details:not([open]) > .menu-items, .top-menu details:not([open]) > .menu-panel) { display: none; }
+  :where(.top-menu .menu-collapse > summary) { inline-size: fit-content; margin-inline-start: auto; }
+  :where(.top-menu .menu-items, .top-menu .menu-panel) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-inline-size: 0;
+  }
+  :where(.top-menu li + li) { margin-block-start: 0; }
+  :where(.top-menu a:not(:is(.button,.scroll-top)), .top-menu summary) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75em;
+    min-block-size: 2.75rem;
+    padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+    border-radius: calc(var(--re-radius) * .6);
+    color: inherit;
+    font-size: calc(var(--re-type) * var(--re-control-scale));
+    font-weight: 550;
+    text-align: start;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+  }
+  :where(.top-menu summary) { list-style: none; }
+  :where(.top-menu summary)::-webkit-details-marker { display: none; }
+  :where(.top-menu summary)::after {
+    content: '';
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-block-end: .25em;
+  }
+  :where(.top-menu details[open] > summary) { margin-block-end: 0; }
+  :where(.top-menu details[open] > summary)::after { transform: rotate(225deg); margin-block-end: -.2em; }
+  :where(.top-menu summary:dir(rtl))::after { transform: rotate(-45deg); }
+  :where(.top-menu details[open] > summary:dir(rtl))::after { transform: rotate(135deg); }
+  :where(.top-menu a:not(:is(.button,.scroll-top,.menu-brand)):hover, .top-menu summary:hover, .top-menu details[open] > summary) { background: var(--re-surface-alt); }
+  :where(.top-menu a[aria-current=page]) { color: var(--re-link); text-decoration: underline; text-underline-offset: .25em; }
+  :where(.top-menu .menu-panel) { margin-inline-start: .75rem; padding-inline-start: .5rem; border-inline-start: var(--re-surface-border) solid var(--re-line); }
+  :where(.top-menu .menu-items) { margin-block-start: .5rem; }
+
+  @media (width < 48rem) {
+    :where(.top-menu .menu-brand) { max-inline-size: calc(100% - 6rem); }
+    :where(.top-menu .menu-collapse[open]) { flex-basis: 100%; }
+    :where(.top-menu .menu-collapse > summary) { position: absolute; inset-block-start: .5rem; inset-inline-end: .5rem; }
+  }
+
+  @media (width >= 48rem) {
+    :where(.top-menu .menu-collapse) { display: none; }
+    :where(.top-menu .menu-desktop) { display: flex; flex: 1 1 auto; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .25rem; margin-block-start: 0; }
+    :where(.top-menu .menu-items > li > .menu-dropdown) { position: static; }
+    :where(.top-menu .menu-items > li > .menu-dropdown > .menu-panel) {
+      position: absolute;
+      z-index: var(--re-menu-z, 20);
+      inset-block-start: 100%;
+      inset-inline-end: 0;
+      inline-size: min(var(--re-menu-width), 100%);
+      max-block-size: min(70dvh, 36rem);
+      overflow: auto;
+      overscroll-behavior: contain;
+      margin: 0;
+      padding: .5rem;
+      border: var(--re-surface-border) solid var(--re-line);
+      border-radius: var(--re-radius);
+      background: var(--re-surface);
+      box-shadow: var(--re-shadow);
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.top-menu, .top-menu .menu-panel) { border-color: CanvasText; }
+    :where(.top-menu a[aria-current=page]) { color: LinkText; }
+  }
+  @media print { :where(.top-menu) { display: none; } }
+}
+
+/* Native popover navigation. Legacy details markup keeps its disclosure behavior. */
+@layer re.components {
+  :where(.top-menu .menu-toggle) {
+    --re-edge-content: none;
+    --re-edge-animation: none;
+    --re-edge-interaction: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75em;
+    min-block-size: 2.75rem;
+    inline-size: 100%;
+    padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+    border: 0;
+    border-radius: calc(var(--re-radius) * .6);
+    background: transparent;
+    background-image: none;
+    box-shadow: none;
+    color: inherit;
+    font-size: calc(var(--re-type) * var(--re-control-scale));
+    font-weight: 550;
+    text-align: start;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    filter: none;
+    transform: none;
+  }
+  :where(.top-menu .menu-toggle:hover) { background: var(--re-surface-alt); filter: none; }
+  :where(.top-menu .menu-toggle)::before {
+    content: '';
+    order: 1;
+    flex: 0 0 .45em;
+    inline-size: .45em;
+    block-size: .45em;
+    border-inline-end: 2px solid currentColor;
+    border-block-end: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-block-end: .25em;
+  }
+  :where(.top-menu .menu-back .menu-toggle)::before { content: none; }
+  :where(.top-menu .menu-toggle:dir(rtl))::before { transform: rotate(-45deg); }
+  :where(.top-menu button.menu-collapse) { flex: 0 0 auto; inline-size: auto; min-inline-size: 2.75rem; justify-content: center; margin-inline-start: auto; }
+  :where(.top-menu button.menu-collapse:has(> .icon))::before { content: none; }
+  :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+    position: fixed;
+    inset: 1rem;
+    margin: auto;
+    inline-size: min(var(--re-menu-width), calc(100dvw - 2rem));
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: .5rem;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.top-menu [popover]:not(:popover-open)) { display: none; }
+  :where(.top-menu [popover]:popover-open) { display: block; }
+  :where(.top-menu .menu-back) { display: list-item; }
+  /* One visible panel per branch avoids overlapping ancestor hit targets.
+     Hidden ancestors remain in the native popover stack for Back and Escape. */
+  :where(.top-menu [popover]:has([popover]:popover-open)) { visibility: hidden; }
+  :where(.top-menu [popover]:popover-open:not(:has([popover]:popover-open))) { visibility: visible; }
+  @media (width < 48rem) {
+    :where(.top-menu .menu-back) { display: list-item; }
+    :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+      inset: 1rem;
+      margin: auto;
+      inline-size: calc(100dvw - 2rem);
+      max-block-size: calc(100dvh - 2rem);
+    }
+    @supports (position-area: block-end span-all) {
+      :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) {
+        inset: auto;
+        position-anchor: var(--re-menu-anchor, --re-navigation);
+        position-area: block-end span-all;
+        position-try-fallbacks: flip-block;
+        margin: .25rem 1rem;
+        max-block-size: min(70dvh, 36rem);
+      }
+    }
+    :where(.top-menu .menu-desktop [popover]:popover-open) { display: none; }
+  }
+  @media (width >= 48rem) {
+    :where(.top-menu button.menu-collapse, .top-menu .menu-mobile[popover]:popover-open, .top-menu .menu-mobile [popover]:popover-open) { display: none; }
+    /* A branch anchor keeps deeper panels under the visible top-level opener. */
+    :where(.top-menu .menu-desktop > .menu-dropdown > .menu-toggle) {
+      anchor-name: var(--re-menu-branch-anchor, none);
+    }
+    @supports (position-area: block-end span-inline-end) {
+      :where(.top-menu .menu-panel[popover]) {
+        inset: auto;
+        margin: .25rem 0;
+        position-anchor: var(--re-menu-branch-anchor, auto);
+        position-area: block-end span-inline-end;
+        position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+        max-block-size: min(70dvh, 36rem);
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.top-menu .menu-toggle) { color: ButtonText; background: Canvas; }
+    :where(.top-menu .menu-mobile[popover], .top-menu .menu-panel[popover]) { border-color: CanvasText; }
+  }
+  @media print { :where(.top-menu [popover]:popover-open) { display: none; } }
+}
+
+/* Only the desktop top-level list receives a shared hover highlight. */
+@layer re.components {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+
+  :where(.top-menu .menu-desktop) { anchor-scope: --re-nav-highlight; }
+  /* Contiguous item hit areas preserve the glide while crossing the old gap. */
+  :where(.top-menu .menu-desktop) { position: relative; gap: 0; }
+  :where(.top-menu .menu-desktop > li) { padding-inline: .125rem; }
+  :where(.top-menu .menu-desktop)::after {
+    content: ""; display: none; position: absolute; position-anchor: --re-nav-highlight;
+    inset: auto; left: anchor(left, 0px); right: anchor(right, 100%);
+    top: calc(anchor(bottom, 0px) - 3px); block-size: 3px;
+    background: var(--re-primary); border-radius: 999px;
+    pointer-events: none; z-index: 1; opacity: 0;
+    transition: left var(--re-duration, 140ms) ease,
+      right var(--re-duration, 140ms) ease,
+      top var(--re-duration, 140ms) ease;
+  }
+
+    /* First entry is displayed at its resolved anchor without an entry transition.
+       Subsequent item changes transition the already rendered highlight. */
+    /* Preserve the root branch anchor used to position its dropdown panels. */
+    :where(.top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible, > li:hover > :is(a, button):not(:disabled))) > li > a[aria-current=page],
+      .top-menu .menu-desktop > li > :is(a, button):focus-visible,
+      .top-menu .menu-desktop:not(:has(> li > :is(a, button):focus-visible)) > li:hover > :is(a, button):not(:disabled)) {
+      anchor-name: var(--re-menu-branch-anchor, --re-unused-navigation-anchor), --re-nav-highlight;
+    }
+    :where(.top-menu .menu-desktop:has(> li > a[aria-current=page], > li > :is(a, button):focus-visible, > li:hover > :is(a, button):not(:disabled)))::after { display: block; opacity: 1; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) { :where(.top-menu .menu-desktop)::after { transition: none; } }
+  @media (forced-colors: active), print { :where(.top-menu .menu-desktop)::after { display: none; } }
+}
+
+/* Desktop top-level navigation uses a gliding surface rather than an underline. */
+@layer re.components {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+    :where(.top-menu .menu-desktop)::after {
+      top: anchor(top, 0px); bottom: anchor(bottom, 100%); block-size: auto;
+      background: var(--re-surface-alt); border-radius: calc(var(--re-radius) * .6);
+      z-index: 0;
+      transition: left var(--re-duration, 140ms) ease,
+        right var(--re-duration, 140ms) ease,
+        top var(--re-duration, 140ms) ease,
+        bottom var(--re-duration, 140ms) ease;
+    }
+    :where(.top-menu .menu-desktop > li > :is(a, button)) {
+      background: transparent;
+    }
+    :where(.top-menu .menu-desktop > li > a[aria-current=page]) {
+      text-decoration: none; font-weight: 700;
+    }
+  }
+}
+@layer re.utilities {
+  @supports (anchor-scope: --re-nav-highlight) and (left: anchor(left)) {
+    :where(.top-menu .menu-desktop) { isolation: isolate; }
+    /* Keep labels above the gliding surface even when edge rules position buttons. */
+    :where(.top-menu .menu-desktop > li > :is(a, button)) {
+      position: relative; z-index: 1;
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.top-menu .menu-desktop > li > :is(a, button):hover) {
+      color: HighlightText; background-color: Highlight;
+    }
+  }
+}
+
+/* Layout presets inherit from html or a parent; a local preset resets them. */
+@layer re.components {
+  :where(.top-menu, :scope.top-menu) {
+    inline-size: var(--re-navbar-surface-width, var(--re-navbar-width, 100%));
+    margin-inline: auto;
+    margin-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-margin, 0rem));
+    padding-inline: var(--re-navbar-content-padding, .5rem);
+  }
+  :where(.top-menu .menu-actions) {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+    gap: .5rem; min-inline-size: 0;
+  }
+  @media screen and (width >= 48rem) {
+    :where(.top-menu, :scope.top-menu) {
+      display: var(--re-navbar-layout, flex);
+      /* Size the middle to its contents while keeping equal outer tracks. */
+      grid-template-columns: minmax(0, 1fr) minmax(0, max-content) minmax(0, 1fr);
+    }
+    :where(.top-menu > .menu-brand) {
+      grid-column: var(--re-navbar-brand-column, 1); grid-row: 1;
+      margin-inline-end: var(--re-navbar-brand-margin, auto);
+      justify-self: var(--re-navbar-brand-align, start);
+    }
+    :where(.top-menu > .menu-desktop) {
+      grid-column: var(--re-navbar-links-column, 2); grid-row: 1;
+      justify-content: var(--re-navbar-links-align, flex-end);
+    }
+    :where(.top-menu > .menu-desktop ~ .menu-desktop) {
+      grid-column: 3; justify-content: flex-end;
+    }
+    :where(.top-menu > .menu-actions) { grid-column: 3; grid-row: 1; }
+  }
+}
+
+/* The outer header owns stickiness; a nested menu stays its positioning anchor.
+   Standalone menus and semantic app-shell headers use the same inherited mode. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header, .top-menu, :scope.top-menu, .app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto);
+    align-self: start;
+  }
+  :where(.navbar-header .top-menu, .app-shell > header .top-menu) {
+    position: relative;
+    inset-block-start: auto;
+    z-index: auto;
+  }
+}
+@layer re.utilities {
+  /* This also protects keyboard destinations, without changing scroll motion. */
+  :where([id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(:focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.navbar-header, :scope.navbar-header) { display: none; }
+    :where([id], :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* A full-width surface still aligns its contents with the shared page width.
+   Use a page-wide parent; percentages avoid viewport scrollbar overflow. */
+@layer re.components {
+  :where(.navbar-header, :scope.navbar-header) {
+    inline-size: var(--re-navbar-frame-width, min(calc(100% - 2rem), var(--re-container, 75rem)));
+    margin-inline: auto;
+    padding-block: calc(var(--re-navbar-spacing-scale, 1) * var(--re-navbar-space, 1rem));
+    padding-inline: 0;
+  }
+  @media (width < 48rem) {
+    :where(.navbar-header, :scope.navbar-header) {
+      padding-block: calc(var(--re-navbar-spacing-scale, 1) * min(var(--re-navbar-space, 1rem), .5rem));
+    }
+  }
+}
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  /* Flush mobile bars and full-width desktop bars meet every edge squarely. */
+  @media (width < 48rem) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (width >= 48rem) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1));
+      border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+      border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (forced-colors: active) {
+    .top-menu, :scope.top-menu, .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+}
+
+/* The native mobile header keeps compact actions before the menu toggle. */
+@layer re.components {
+  @media (width < 48rem) {
+    :where(.top-menu:has(> button.menu-collapse) > .menu-brand, :scope.top-menu:has(> button.menu-collapse) > .menu-brand) {
+      flex: 1 1 0;
+      min-inline-size: 0;
+      max-inline-size: none;
+      margin-inline-end: 0;
+      padding: .25rem;
+      line-height: 1.2;
+    }
+    :where(.top-menu > button.menu-collapse, :scope.top-menu > button.menu-collapse) { margin-inline-start: 0; }
+  }
+}
+/* One shell class owns layout; semantic children own their regions. */
+@layer re.components {
+  :where(.app-shell, :scope.app-shell) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: var(--re-space);
+    min-inline-size: 0;
+    min-block-size: 100dvh;
+    color: var(--re-text);
+  }
+  :where(.app-shell > :is(header, main, section)) { min-inline-size: 0; }
+  :where(.app-shell > header) {
+    position: var(--re-navbar-position, relative);
+    inset-block-start: calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))));
+    z-index: var(--re-navbar-layer, auto); align-self: start;
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: var(--re-space); padding: var(--re-surface-space, var(--re-space));
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    /* Flush meets the top edge; the lower corners keep the shared shape. */
+    border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    background: var(--re-surface);
+    box-shadow: var(--re-navbar-shadow, var(--re-shadow));
+  }
+  :where(.app-shell > header > nav) { flex: 1 1 0; min-inline-size: 0; }
+  :where(.app-shell > aside:not([popover])) { display: none; }
+  :where(.sidebar, .app-shell > aside) {
+    padding: var(--re-surface-space, var(--re-space)); border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius); background: var(--re-surface);
+    box-shadow: var(--re-shadow); color: var(--re-text);
+    min-inline-size: 0;
+  }
+  :where(.sidebar, :scope.sidebar) { display: flex; inline-size: min(var(--re-sidebar-width, 16rem), 100%); }
+  /* Scope navigation to this sidebar, excluding nested component boundaries. */
+  @scope (.sidebar, .app-shell > aside) to (.sidebar, .app-shell) {
+    :where(:scope) { flex-direction: column; gap: var(--re-space); }
+    :scope > header { display: grid; gap: .5rem; }
+    :scope > header > a { color: inherit; font-weight: 750; text-decoration: none; }
+    :scope > nav { display: grid; gap: .25rem; }
+    :scope > nav :where(a, summary) {
+      display: flex; align-items: center; gap: .75em;
+      min-block-size: 2.75rem;
+      padding: calc(.6em * var(--re-density)) calc(.8em * var(--re-density));
+      border-radius: calc(var(--re-radius) * .6);
+      color: inherit; text-decoration: none; overflow-wrap: anywhere;
+      font-size: calc(var(--re-type) * var(--re-control-scale));
+    }
+    :scope > nav :where(a:hover, summary:hover) { background: var(--re-surface-alt); }
+    :scope > nav a[aria-current=page] {
+      background: var(--re-surface-alt); color: var(--re-link); font-weight: 750;
+    }
+    :scope > nav details {
+      margin: 0; padding: 0; border: 0; border-radius: 0;
+      background: transparent; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    :scope > nav summary { cursor: pointer; list-style: none; }
+    :scope > nav summary::-webkit-details-marker { display: none; }
+    :scope > nav summary::after {
+      content: ''; inline-size: .45em; block-size: .45em;
+      border-inline-end: 2px solid currentColor; border-block-end: 2px solid currentColor;
+      margin-inline-start: auto; transform: rotate(45deg);
+      transition: transform var(--re-duration, 140ms) ease;
+    }
+    :scope > nav details[open] > summary { margin-block-end: 0; }
+    :scope > nav details[open] > summary::after { transform: rotate(225deg); }
+    :scope > nav summary:dir(rtl)::after { transform: rotate(-45deg); }
+    :scope > nav details[open] > summary:dir(rtl)::after { transform: rotate(135deg); }
+    :scope > nav details > :where(a, details) { margin-inline-start: .75rem; }
+    :scope > footer { margin-block-start: auto; padding-block-start: var(--re-surface-space, var(--re-space)); }
+  }
+  :where(.app-shell > aside[popover]) {
+    padding-top: max(var(--re-surface-space, var(--re-space)), var(--re-safe-top, env(safe-area-inset-top, 0px)));
+    padding-right: max(var(--re-surface-space, var(--re-space)), var(--re-safe-right, env(safe-area-inset-right, 0px)));
+    padding-bottom: max(var(--re-surface-space, var(--re-space)), var(--re-safe-bottom, env(safe-area-inset-bottom, 0px)));
+    padding-left: max(var(--re-surface-space, var(--re-space)), var(--re-safe-left, env(safe-area-inset-left, 0px)));
+    position: fixed; inset-block: 0; inset-inline: 0 auto; margin: 0;
+    inline-size: min(var(--re-sidebar-width, 16rem), calc(100dvw - 1rem));
+    max-inline-size: calc(100dvw - 1rem); block-size: 100dvh;
+    max-block-size: 100dvh; overflow: auto; overscroll-behavior: contain;
+  }
+  :where(.app-shell > aside[popover]:not(:popover-open)) { display: none; }
+  :where(.app-shell > aside[popover]:popover-open) { display: flex; }
+  :where(.app-shell > aside[popover])::backdrop { background: rgb(0 0 0 / 20%); }
+  @media (width >= 60rem) {
+    :where(.app-shell, :scope.app-shell) {
+      grid-template-columns: minmax(0, var(--re-sidebar-width, 16rem)) minmax(0, 1fr);
+    }
+    :where(.app-shell > aside:not([popover])) {
+      display: flex; grid-column: 1; grid-row: 1 / span 2;
+      position: sticky; inset-block-start: calc(var(--re-space) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))); align-self: start;
+      min-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+      max-block-size: calc(100dvh - 2 * var(--re-space) - calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+      overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+    }
+    :where(.app-shell > header) { grid-column: 2; grid-row: 1; }
+    :where(.app-shell > :is(main, section)) { grid-column: 2; grid-row: 2; }
+    :where(.app-shell > header > button[popovertarget], .app-shell > aside[popover]:popover-open) { display: none; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) {
+    :where(.sidebar nav summary, .app-shell > aside nav summary)::after { transition: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.sidebar, .app-shell > aside, .app-shell > header) { background: Canvas; color: CanvasText; border-color: CanvasText; }
+    :where(.sidebar nav a[aria-current=page], .app-shell > aside nav a[aria-current=page]) { outline: 1px solid Highlight; color: LinkText; }
+    :where(.app-shell > aside[popover])::backdrop { background: transparent; }
+  }
+  @media print {
+    :where(.app-shell, :scope.app-shell) { display: block; min-block-size: 0; }
+    :where(.sidebar, .app-shell > aside, .app-shell > aside[popover]:popover-open, .app-shell > header) { display: none; }
+  }
+}
+
+/* Dedicated app-shell builds retain their own sticky destination clearance. */
+@layer re.utilities {
+  :where(.app-shell [id]) {
+    scroll-margin-block-start: calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px)))));
+  }
+  :where(.app-shell :focus-visible) {
+    scroll-margin-block-start: max(5rem, calc(var(--re-anchor-offset, 1rem) + calc(var(--re-navbar-sticky, 0) * (var(--re-navbar-height, calc(6rem + 2 * var(--re-navbar-margin, 0rem))) + var(--re-navbar-offset, 0px) + var(--re-safe-top, env(safe-area-inset-top, 0px))))));
+  }
+  @media print {
+    :where(.app-shell [id], .app-shell :focus-visible) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+  }
+}
+
+/* Spacing also governs the upper edge, above material and preference paint. */
+@layer re.utilities {
+  .app-shell > header, :scope.app-shell > header {
+    border-block-start-width: calc(var(--re-surface-border) * var(--re-navbar-spacing-scale, 1));
+  }
+  /* Flush mobile bars and full-width desktop bars meet every edge squarely. */
+  @media (width < 48rem) {
+    .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (width >= 48rem) {
+    .app-shell > header, :scope.app-shell > header {
+      border-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1));
+      border-start-start-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+      border-start-end-radius: calc(var(--re-radius) * var(--re-navbar-radius-scale, 1) * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+  @media (forced-colors: active) {
+    .app-shell > header, :scope.app-shell > header {
+      border-block-start-width: calc(1px * var(--re-navbar-spacing-scale, 1));
+    }
+  }
+}
+/* One structural class; native popovers own interaction and visibility. */
+@layer re.components {
+  :where(.drawer[popover], :scope.drawer[popover]) {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: var(--re-drawer-start, auto);
+    inset-inline-end: var(--re-drawer-end, 0);
+    margin: 0;
+    inline-size: min(var(--re-drawer-width, 28rem), 100dvw);
+    max-inline-size: 100dvw;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    padding: var(--re-surface-space, var(--re-space));
+    /* Insets are physical viewport edges, independent of text direction. */
+    padding-top: max(var(--re-surface-space, var(--re-space)), var(--re-safe-top, env(safe-area-inset-top, 0px)));
+    padding-right: max(var(--re-surface-space, var(--re-space)), var(--re-safe-right, env(safe-area-inset-right, 0px)));
+    padding-bottom: max(var(--re-surface-space, var(--re-space)), var(--re-safe-bottom, env(safe-area-inset-bottom, 0px)));
+    padding-left: max(var(--re-surface-space, var(--re-space)), var(--re-safe-left, env(safe-area-inset-left, 0px)));
+    overflow: auto;
+    overscroll-behavior: contain;
+    border: var(--re-surface-border) solid var(--re-line);
+    border-radius: var(--re-radius);
+    background: var(--re-surface);
+    color: var(--re-text);
+    box-shadow: var(--re-shadow);
+  }
+  :where(.drawer[popover]:not(:popover-open)) { display: none; }
+  :where(.drawer[popover]:popover-open) {
+    display: flex; flex-direction: column; gap: var(--re-space);
+  }
+  :where(.drawer[popover])::backdrop { background: rgb(0 0 0 / 20%); }
+  @scope (.drawer) to (.drawer) {
+    :scope > :is(header, section, footer) { min-inline-size: 0; overflow-wrap: anywhere; }
+    :scope > header {
+      display: flex; flex-wrap: wrap; align-items: start;
+      justify-content: space-between; gap: var(--re-space);
+      padding-block-end: var(--re-space);
+      border-block-end: var(--re-surface-border) solid var(--re-line);
+    }
+    :scope > header > :is(h2, h3, div) { flex: 1 1 10rem; margin: 0; }
+    :scope > section { flex: 1 0 auto; }
+    :scope > footer {
+      display: flex; flex-wrap: wrap; gap: var(--re-space);
+      margin-block-start: auto; padding-block-start: var(--re-space);
+      border-block-start: var(--re-surface-border) solid var(--re-line);
+    }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.drawer[popover]) {
+      border: 1px solid CanvasText; background: Canvas; color: CanvasText;
+      box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+    }
+    :where(.drawer[popover])::backdrop { background: transparent; }
+  }
+  @media print { :where(.drawer[popover], .drawer[popover]:popover-open) { display: none; } }
+}
+/* One class on an ordered list; timestamps and event content remain native. */
+@layer re.components {
+  :where(ol.timeline) { list-style: none; padding: 0; margin: 0; }
+  :where(.timeline > li) {
+    position: relative; margin-inline-start: .5rem;
+    padding-inline-start: calc(var(--re-space) * 1.5);
+    padding-block: 0 var(--re-space); min-inline-size: 0; overflow-wrap: anywhere;
+    border-inline-start: var(--re-surface-border) solid var(--re-line);
+  }
+  :where(.timeline > li:last-child) { border-inline-start-color: transparent; padding-block-end: 0; }
+  :where(.timeline > li)::before {
+    content: ""; position: absolute; inset-inline-start: calc(-.3rem - var(--re-surface-border) / 2);
+    inset-block-start: .35em; inline-size: .6rem; block-size: .6rem;
+    border-radius: 50%; background: var(--re-primary);
+  }
+  :where(.timeline > li > :is(p,h3,h4)) { margin-block: 0 .35em; }
+  :where(.timeline > li > time) { display: block; color: var(--re-muted); font-size: .875em; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.timeline > li) { border-inline-start-color: CanvasText; }
+    :where(.timeline > li:last-child) { border-inline-start-color: transparent; }
+    :where(.timeline > li)::before { background: CanvasText; }
+  }
+}
+/* A process is an ordered list; the application supplies state and destinations. */
+@layer re.components {
+  :where(ol.steps) { display:flex; flex-wrap:wrap; gap:var(--re-space); counter-reset:re-step; list-style:none; padding:0; }
+  :where(.steps > li) { counter-increment:re-step; flex:1 1 8rem; min-inline-size:0; margin:0; padding-block-start:.75rem; border-block-start:2px solid var(--re-line); overflow-wrap:anywhere; }
+  :where(.steps > li)::before { content:counter(re-step); display:inline-grid; place-items:center; inline-size:2rem; block-size:2rem; margin-inline-end:.5rem; border-radius:50%; background:var(--re-surface-alt); color:var(--re-text); font-weight:700; }
+  :where(.steps > li:has([aria-current="step"])) { border-color:var(--re-primary); }
+  :where(.steps > li:has([aria-current="step"]))::before { background:var(--re-primary); color:var(--re-on-primary); }
+  :where(.steps > li > :is(a,span)) { display:inline-block; min-block-size:2.75rem; padding-block:.5rem; }
+  :where(.steps [aria-current="step"]) { font-weight:750; }
+  :where(.steps > li > small) { display:block; color:var(--re-muted); }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.steps > li)::before { background:Canvas; color:CanvasText; border:1px solid CanvasText; } :where(.steps > li:has([aria-current="step"])) { border-color:Highlight; } }
+}
+/* Native radio choices and an explicitly labelled read-only star display. */
+@layer re.components {
+  :where(.rating:not(fieldset)) { display:inline-block; color:var(--re-link); font-size:1.5em; letter-spacing:.1em; white-space:nowrap; }
+  :where(fieldset.rating) { display:flex; flex-wrap:wrap; gap:0; border:0; padding:0; background:transparent; box-shadow:none; }
+  :where(.rating > legend) { padding:0; margin-block-end:.5rem; font-weight:650; }
+  :where(.rating > label) { display:inline-grid; place-items:center; position:relative; min-inline-size:2.75rem; min-block-size:2.75rem; margin:0; padding:.25rem; border-radius:var(--re-radius); color:var(--re-link); cursor:pointer; }
+  :where(.rating > label > svg) { inline-size:calc(var(--re-type) * 1.75); block-size:calc(var(--re-type) * 1.75); fill:none; stroke:currentColor; stroke-width:1.5; }
+  :where(.rating > label:has(input:checked) > svg,.rating > label:has(~ label input:checked) > svg) { fill:currentColor; }
+  :where(.rating > label:has(input:focus-visible)) { outline:2px solid var(--re-primary); outline-offset:2px; }
+  :where(.rating > label:has(input:disabled)) { opacity:.55; cursor:default; }
+}
+@layer re.utilities {
+  :where(.rating > label > :is(input,span)) { position:absolute; inline-size:1px; block-size:1px; margin:-1px; padding:0; border:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  @media (forced-colors:active) { :where(.rating,.rating > label) { color:CanvasText; } :where(.rating > label:has(input:focus-visible)) { outline-color:Highlight; } }
+}
+/* Native calendar table: no ARIA grid, date-picker engine or client-side state. */
+@layer re.components {
+  :where(table.calendar) { table-layout:fixed; border-spacing:.2rem; overflow:visible; }
+  :where(.calendar caption) { color:var(--re-text); font-size:1.15em; font-weight:700; }
+  :where(.calendar :is(th,td)) { padding:calc(.3rem * var(--re-density)); border:0; overflow-wrap:anywhere; }
+  :where(.calendar th) { text-align:center; font-size:.8125em; }
+  :where(.calendar td) { block-size:5rem; border:var(--re-surface-border) solid var(--re-line); border-radius:calc(var(--re-radius) * .5); background:var(--re-surface); }
+  :where(.calendar td:empty) { background:transparent; border-color:transparent; }
+  :where(.calendar td > time) { display:block; text-align:center; font-weight:650; font-size:.875em; }
+  :where(.calendar td:has(> time[aria-current="date"])) { outline:2px solid var(--re-primary); outline-offset:-2px; }
+  :where(.calendar td > ul) { list-style:none; padding:0; margin:.25rem 0 0; }
+  :where(.calendar td li) { margin:0; }
+  :where(.calendar td a) { display:flex; align-items:center; min-block-size:2.75rem; font-size:.8125em; border-radius:calc(var(--re-radius) * .4); background:var(--re-surface-alt); padding:.15rem; }
+}
+@layer re.utilities {
+  @media (forced-colors:active) { :where(.calendar td) { background:Canvas; border-color:CanvasText; } :where(.calendar td:empty) { border-color:transparent; } :where(.calendar td:has(> time[aria-current="date"])) { outline-color:Highlight; } }
+}
+/* One layout class reuses existing cards and avatars for message content. */
+@layer re.components {
+  :where(ol.message-thread) { list-style:none; padding:0; display:flex; flex-direction:column; gap:var(--re-space); }
+  :where(.message-thread > li) { display:flex; margin:0; min-inline-size:0; }
+  :where(.message-thread > li:has(> :is(.card,[data-surface="card"])[data-variant="primary"])) { justify-content:flex-end; }
+  :where(.message-thread > li > :is(.card,[data-surface="card"])) { inline-size:fit-content; max-inline-size:min(85%,36rem); min-inline-size:0; overflow-wrap:anywhere; }
+  :where(.message-thread > li > :is(.card,[data-surface="card"])[data-variant="primary"]) { border-color:var(--re-primary); }
+  :where(.message-thread > li > :is(.card,[data-surface="card"]) > header) { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; padding:0; margin:0; border:0; }
+  :where(.message-thread > li > :is(.card,[data-surface="card"]) > header > time) { color:var(--re-muted); font-size:.8125em; margin-inline-start:auto; }
+  :where(.message-thread > li > :is(.card,[data-surface="card"]) > p) { margin-block:.5rem 0; }
+  :where(.message-thread > li > :is(.card,[data-surface="card"]) > footer) { margin:0; padding-block-start:.5rem; border:0; color:var(--re-muted); font-size:.8125em; }
+}
+/* One figure class. Coordinates and series values are supplied in SVG/HTML. */
+@layer re.components {
+  :where(figure.chart) { margin: var(--re-space) 0; min-inline-size: 0; }
+  :where(.chart > svg) { display: block; inline-size: 100%; block-size: auto; }
+  :where(.chart > svg text) { fill: var(--re-text); font-family: inherit; font-size: 12px; }
+  :where(.chart > svg > g > line) { stroke: var(--re-line); stroke-dasharray: 3 5; }
+  :where(.chart > svg > polygon) { fill: var(--re-primary); fill-opacity: .12; }
+  :where(.chart > svg > polyline) { fill: none; stroke: var(--re-primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  :where(.chart > svg > circle:not([pathLength])) { fill: var(--re-surface); stroke: var(--re-primary); stroke-width: 2; }
+  :where(.chart > svg > circle[pathLength]) {
+    fill: none; stroke: var(--re-chart-color, var(--re-primary)); stroke-width: var(--re-chart-ring-width, 22);
+    transform: rotate(-90deg); transform-box: view-box; transform-origin: center;
+  }
+  :where(.chart > svg:has(> circle[pathLength])) { max-inline-size: 11rem; margin-inline: auto; }
+  :where(.chart > svg:has(> circle[pathLength]) > text:first-of-type) { font-weight: 750; }
+  :where(.chart > figcaption) { margin-block-start: .5rem; color: var(--re-muted); font-size: .875em; overflow-wrap: anywhere; }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: CanvasText; }
+    :where(.chart > svg > polygon) { fill: CanvasText; }
+    :where(.chart > svg text) { fill: CanvasText; }
+  }
+  @media print {
+    :where(.chart > svg > :is(polyline,circle), .chart > svg > g > line) { stroke: #000; }
+    :where(.chart > svg > polygon, .chart > svg text) { fill: #000; }
+  }
+}
+/* One class on native navigation. Labels remain visible at every width. */
+@layer re.components {
+  :where(nav.nav-rail) { display: flex; flex-direction: column; gap: .25rem; inline-size: fit-content; max-inline-size: 100%; }
+  :where(.nav-rail > a) {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: .35em; min-block-size: 2.75rem; min-inline-size: 2.75rem;
+    padding: calc(.6rem * var(--re-density)); border-radius: var(--re-radius);
+    color: var(--re-text); font-size: calc(var(--re-type) * .875);
+    text-decoration: none; text-align: center; overflow-wrap: anywhere;
+  }
+  :where(.nav-rail > a:hover, .nav-rail > a[aria-current]:not([aria-current="false"])) { background: var(--re-surface-alt); }
+  :where(.nav-rail > a[aria-current]:not([aria-current="false"])) { font-weight: 750; }
+  @media (width < 40rem) {
+    :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
+    :where(.nav-rail > a) { flex: 1 1 4rem; }
+  }
+  @supports (container-type: inline-size) {
+    @container re-layout (width < 40rem) {
+      :where(nav.nav-rail) { flex-direction: row; flex-wrap: wrap; inline-size: 100%; }
+      :where(.nav-rail > a) { flex: 1 1 4rem; }
+    }
+  }
+}
+@layer re.utilities {
+  @media (forced-colors: active) {
+    :where(.nav-rail > a) { color: LinkText; }
+    :where(.nav-rail > a[aria-current]:not([aria-current="false"])) { outline: 1px solid Highlight; }
+  }
+}
+/* Three semantic regions per card: header, section, footer. */
+@layer re.components {
+  :where(.card-grid, :scope.card-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--re-column, 18rem)), 1fr));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0;
+  }
+  :where(.card-grid > :is(.card,[data-surface="card"])) {
+    display: grid; grid-template-rows: auto 1fr auto;
+    min-inline-size: 0; gap: var(--re-space);
+  }
+  :where(.card-grid > :is(.card,[data-surface="card"]) > :is(header, section, footer)) { margin-block: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  :where(.card-grid > :is(.card,[data-surface="card"]) > footer > div) { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  @supports (grid-template-rows: subgrid) {
+    :where(.card-grid > :is(.card,[data-surface="card"])) { grid-row: span 3; grid-template-rows: subgrid; }
+  }
+  /* A subgrid must not itself establish layout containment. Query its footer. */
+  @supports (container-type: inline-size) {
+    :where(.card-grid > :is(.card,[data-surface="card"]) > footer) { container-type: inline-size; container-name: re-card-actions; }
+    @container re-card-actions (width < 22rem) {
+      :where(.card-grid > :is(.card,[data-surface="card"]) > footer > div) { flex-direction: column; align-items: stretch; }
+    }
+  }
+}
+/* Native scrolling and fragment links; no carousel state or automatic playback. */
+@layer re.components {
+  :where(.gallery, :scope.gallery) {
+    display: grid; grid-auto-flow: column;
+    grid-auto-columns: min(100%, var(--re-gallery-width, 24rem));
+    gap: calc(var(--re-gap) * var(--re-gap-factor, 1));
+    min-inline-size: 0; max-inline-size: 100%;
+    margin: 0; padding: var(--re-space); list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: inline proximity;
+    scroll-padding-inline: var(--re-space);
+  }
+  :where(.gallery > *) { min-inline-size: 0; margin: 0; scroll-snap-align: start; overflow-wrap: anywhere; }
+  :where(.gallery > li > figure) { margin: 0; }
+  :where(.gallery img, .gallery video) { display: block; inline-size: 100%; }
+}
+@layer re.utilities {
+  @media print {
+    :where(.gallery) { display: block; overflow: visible; scroll-snap-type: none; padding: 0; }
+    :where(.gallery > *) { margin-block-end: var(--re-space); break-inside: avoid; }
+  }
+}
+/* Fragment navigation stays native. The nearest scroll container owns motion. */
+@layer re.base {
+  :where(*) { scroll-behavior: var(--re-scroll-behavior, auto); }
+  :where([id]) { scroll-margin-block-start: var(--re-anchor-offset, 1rem); }
+}
+@layer re.components {
+  @keyframes re-target-emphasis {
+    from {
+      background-color: color-mix(in srgb, var(--re-link) 12%, transparent);
+      box-shadow: inset 0 0 0 2px var(--re-link);
+    }
+    to { background-color: transparent; box-shadow: inset 0 0 0 2px transparent; }
+  }
+  /* Highlight headings and gallery items, never an entire page or form control.
+     :target represents the URL fragment, not a carousel's selected state. */
+  :where(h1,h2,h3,h4,h5,h6):target,
+  :where(section,article,main):target > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(section,article,main):target > header > :where(h1,h2,h3,h4,h5,h6):first-of-type,
+  :where(.gallery > li):target {
+    animation: var(--re-target-animation, none);
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce), (forced-colors: active), print {
+    :where(*) { scroll-behavior: auto; --re-target-animation: none; }
+  }
+}
+/* A native action link; shared base/action/material selectors style it. */
+@layer re.utilities {
+  @media print { :where(a.scroll-top) { display: none; } }
+}
+@layer re.components {
+  /* Native input buttons do not reliably generate pseudo-elements. */
+  @supports (mask-composite: exclude) {
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]))) {
+      position: var(--re-edge-position, static);
+    }
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"])))::after {
+      content: var(--re-edge-content, none);
+      display: var(--re-edge-display, block);
+      position: absolute;
+      inset: calc(-1 * var(--re-surface-border));
+      /* Paint exactly the existing border width; preserve its outer edge. */
+      padding: var(--re-surface-border);
+      border-radius: inherit;
+      pointer-events: none;
+      background: conic-gradient(from var(--re-edge-angle, 45deg),
+        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #000), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, var(--re-action-text, var(--re-on-primary)))),
+        color-mix(in srgb, var(--re-action-start, var(--re-primary)) 10%, #fff),
+        light-dark(color-mix(in srgb, var(--re-action-end, var(--re-primary-end)) 45%, #000), var(--re-action-end, var(--re-primary-end))),
+        light-dark(color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, #000), color-mix(in srgb, var(--re-action-start, var(--re-primary)) 45%, var(--re-action-text, var(--re-on-primary)))));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      animation: var(--re-edge-animation, none) 8s linear infinite;
+      animation-play-state: var(--re-edge-play, running);
+    }
+    :where(button:enabled:hover, button:enabled:focus-visible, :is(.button,.scroll-top):not([aria-disabled="true"]):hover, :is(.button,.scroll-top):not([aria-disabled="true"]):focus-visible, :is(.card,[data-surface="card"]):hover, :is(.card,[data-surface="card"]):focus-within, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"]), :is(.card,[data-surface="card"])):hover, :scope:is(button:enabled, :is(.button,.scroll-top):not([aria-disabled="true"])):focus-visible, :scope:is(.card,[data-surface="card"]):focus-within)::after {
+      animation-name: var(--re-edge-interaction, var(--re-edge-animation, none));
+      animation-duration: var(--re-edge-time, 8s);
+      animation-iteration-count: var(--re-edge-count, infinite);
+    }
+    :where(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"], :scope:is(button:disabled, :is(.button,.scroll-top)[aria-disabled="true"]))::after { animation: none; }
+  }
+}
+@layer re.utilities {
+  @media (prefers-reduced-motion: reduce) {
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"])))::after { animation: none; }
+  }
+  @media (prefers-contrast: more) {
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"])))::after { display: none; animation: none; }
+  }
+  @media (forced-colors: active) {
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"])))::after { display: none; animation: none; }
+  }
+  @media print {
+    :where(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"]), :scope:is(button, :is(.button,.scroll-top), :is(.card,[data-surface="card"])))::after { display: none; animation: none; }
+  }
+}
+
+@layer re.utilities {
+:where([data-contrast="auto"], :scope[data-contrast="auto"]) { --re-edge-display: block; }
+:where([data-contrast="more"], :scope[data-contrast="more"]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
+@media (prefers-contrast: more) { :where(:scope,[data-theme],[data-tone],[data-palette],[data-contrast]) { --re-control-line: var(--re-text); --re-line: var(--re-text); --re-muted: var(--re-text); --re-input-shadow: none; --re-edge-display: none; }
+ }
+}
+
+}

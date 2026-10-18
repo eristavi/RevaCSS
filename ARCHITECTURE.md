@@ -6,6 +6,14 @@ The class-free foundation hooks described here are additive, unreleased source f
 
 ## Semantic HTML first
 
+### Source distributions
+
+The additive `reva.semantic.css` distribution projects native-element rules from the same CSS sources and generated presets as the compatible complete build. It contains no class selectors and does not implement the local data-layout/data-surface pattern aliases. Shared settings remain available; application CSS consumes layout tokens where no native layout is defined. No structural element acquires card/container semantics or presentation automatically.
+
+`reva.patterns.css` optionally adds the existing pattern/class vocabulary after the semantic foundation. Native styling uses internal `.native` sublayers of the established base/components/buttons/utilities layers; ordinary pattern rules can therefore preserve existing class exceptions without being defeated by native scope proximity. Tokens retain the same layer. There is one token/preset engine, not separate themes to maintain. The complete `reva.css` path stays compatible. Matching semantic extensions target native consumers; arbitrary application classes require application CSS or an opted-in supported RevaCSS pattern for component-specific material rules.
+
+The new split scoped files use `data-reva` boundaries with explicit lower limits, so fresh nested islands stop outer selector matching. Global and scoped installation modes are alternatives. These additive outputs and their customizer project export remain unreleased until validated and published.
+
 HTML supplies meaning, content, relationships and native state. CSS supplies presentation. Use main for primary content, nav for navigation, article for independently meaningful content, section for a thematic grouping, and div when no semantic element fits. A presentation attribute does not create semantics.
 
 Native buttons, fields, tables, details/summary, dialogs and popovers retain their native behaviour. Native attributes own browser state; ARIA describes accessibility semantics where required; data-reva-* is reserved for Reva-owned optional behaviour/state. Applications own data, routing, validation messages and business logic. Adapters preserve these contracts through their host framework's lifecycle.

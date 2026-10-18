@@ -1,0 +1,232 @@
+@layer re.tokens, re.base, re.components, re.buttons, re.utilities;
+@layer re.tokens {
+  :where([data-contrast="more"], :scope[data-contrast="more"]) {
+    --re-glass-opacity: 100%;
+    --re-glass-button-opacity: 100%;
+    --re-glass-filter: none;
+  }
+
+  :where([data-contrast="auto"], :scope[data-contrast="auto"]) {
+    --re-glass-opacity: 32%;
+    --re-glass-button-opacity: 90%;
+    --re-glass-filter: blur(12px) saturate(145%);
+  }
+}
+
+@layer re.components.native {
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+    :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+      border-width: var(--re-surface-border);
+      border-color: var(--re-line);
+      box-shadow: var(--re-shadow);
+    }
+
+    @supports (backdrop-filter: blur(1px)) {
+      :where([data-theme], [data-tone], [data-palette], :scope[data-theme], :scope[data-tone], :scope[data-palette]):where(:not(html, body, [data-reva], fieldset, details, dialog, [popover])) {
+        background-color: #0000;
+      }
+
+      :where(*, :scope):where(:not([data-material="solid"])) {
+        --re-muted: var(--re-text);
+        --re-link: var(--re-text);
+        --re-control-line: var(--re-text);
+      }
+
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="solid"])) {
+        --re-glass-button-fill: color-mix(in srgb, var(--re-action-start) 65%, var(--re-action-end));
+        --re-glass-button-end: var(--re-action-end);
+        background-color: color-mix(in srgb, var(--re-glass-button-fill) var(--re-glass-button-opacity, 90%), transparent);
+        background-image: linear-gradient(to bottom, transparent,
+          color-mix(in srgb, var(--re-glass-button-end) calc(var(--re-gradient) * 28%), transparent));
+        border-block-start-color: color-mix(in srgb, currentColor 32%, transparent);
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+      }
+
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        background-color: color-mix(in srgb, var(--re-surface) var(--re-glass-opacity, 32%), transparent);
+        background-image: linear-gradient(135deg,
+          rgb(255 255 255 / calc(var(--re-gradient) * 14%)),
+          transparent 42%, rgb(0 0 0 / calc(var(--re-gradient) * 4%)));
+        border-block-start-color: color-mix(in srgb, var(--re-line) 45%, #ffffff8c);
+        border-block-end-color: color-mix(in srgb, var(--re-line) 65%, #00000026);
+        box-shadow: var(--re-glass-shadow, var(--re-shadow));
+        backdrop-filter: var(--re-glass-filter, blur(12px) saturate(145%));
+      }
+    }
+  }
+
+  @scope ([data-material="solid"], :scope[data-material="solid"]) to ([data-material]:not([data-material="solid"])) {
+    @supports (backdrop-filter: blur(1px)) {
+      :where(*, :scope):where(:not([data-material="glass"])) {
+        --re-muted: var(--re-palette-muted);
+        --re-link: var(--re-palette-link);
+        --re-control-line: var(--re-palette-control-line);
+      }
+    }
+
+    :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="glass"])) {
+      --re-glass-button-fill: var(--re-action-start);
+      background-color: var(--re-action-start);
+      background-image: linear-gradient(to bottom, var(--re-action-start), color-mix(in srgb, var(--re-action-end) calc(var(--re-gradient) * 28%), var(--re-action-start)));
+      border-block-start-color: color-mix(in srgb, var(--re-action-text) 18%, transparent);
+      backdrop-filter: none;
+    }
+  }
+
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+
+  }
+
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+
+  }
+
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+
+  }
+
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+
+  }
+}
+
+@layer re.utilities.native {
+  @media (prefers-reduced-transparency: reduce) {
+    :where(*, :scope) {
+      --re-glass-opacity: 100%;
+      --re-glass-filter: none;
+    }
+
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        background-color: var(--re-surface);
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :where(*, :scope) {
+      --re-glass-opacity: 100%;
+      --re-glass-filter: none;
+    }
+
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        background-color: var(--re-surface);
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    :where(*, :scope) {
+      --re-glass-opacity: 100%;
+      --re-glass-filter: none;
+    }
+
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        background-color: var(--re-surface);
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media print {
+    :where(*, :scope) {
+      --re-glass-opacity: 100%;
+      --re-glass-filter: none;
+    }
+
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        background-color: var(--re-surface);
+        box-shadow: var(--re-shadow);
+        border-color: var(--re-line);
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        color: canvastext;
+        box-shadow: none;
+        background-color: canvas;
+        border-color: canvastext;
+      }
+    }
+  }
+
+  @media print {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(fieldset, details, dialog, [popover], :scope:is(fieldset, details, dialog, [popover])) {
+        color: #000;
+        box-shadow: none;
+        background-color: #fff;
+      }
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="solid"])) {
+        background-color: var(--re-glass-button-fill, var(--re-action-start));
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="solid"])) {
+        background-color: var(--re-glass-button-fill, var(--re-action-start));
+        backdrop-filter: none;
+        background-image: none;
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="solid"])) {
+        color: buttontext;
+        box-shadow: none;
+        backdrop-filter: none;
+        background-color: buttonface;
+        background-image: none;
+        border: 1px solid buttontext;
+      }
+    }
+  }
+
+  @media print {
+    @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+      :where(button, input:is([type="button"], [type="submit"], [type="reset"]), :scope:is(button, input:is([type="button"], [type="submit"], [type="reset"]))):where(:not([data-material="solid"])) {
+        color: #000;
+        box-shadow: none;
+        backdrop-filter: none;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #000;
+      }
+    }
+  }
+
+  @scope ([data-material="glass"], :scope[data-material="glass"]) to ([data-material]:not([data-material="glass"])) {
+
+  }
+}

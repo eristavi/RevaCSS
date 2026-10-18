@@ -24,6 +24,17 @@ A CSS framework for building consistent interfaces with native HTML, shared appe
 
 Appearance inheritance is implemented through CSS rules and custom properties; HTML data attributes do not inherit by themselves. RevaCSS works with static HTML, server-rendered templates and frameworks that render HTML.
 
+## Unreleased: semantic foundation and optional patterns
+
+Current source offers two additive starting points from one token/preset engine:
+
+- `dist/reva.semantic.css` styles native HTML without framework class selectors. Set shared defaults on `html` or a region, then add your own application CSS.
+- Add `dist/reva.patterns.css` when you want existing RevaCSS classes such as `.container`, `.grid`, `.card` and `.button`. Your classes can coexist with them.
+
+The existing complete `reva.css` remains compatible; use it **or** the split pair. Matching minified, scoped and optional semantic material/background/motion/select files are generated. See [the foundation guide](https://revacss.eristavi.org/guide/foundation/) and `examples/semantic.html` / `examples/patterns.html`. These files are not in published 2.0.0.
+
+Use the customizer to select or design your shared options, then **Download project starter** with or without optional classes. Selected attributes and custom palette/shape/density/width/background CSS are included; no customizer scripts are exported. Place the matching `dist/` directory beside the downloaded HTML. Ordinary structural elements remain neutral: appearance presets do not turn `article` into a card or `main` into a container. Your CSS can consume the same width/gap tokens without RevaCSS classes.
+
 ## Quick start
 
 Download the [compiled stylesheet](https://github.com/eristavi/RevaCSS/releases/download/v2.0.0/reva-2.0.0.min.css), save it as `reva.min.css` beside your HTML, and link it:

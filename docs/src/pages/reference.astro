@@ -7,6 +7,8 @@ const base=import.meta.env.BASE_URL;
 const sections=[{id:'files',title:'Stylesheet files'},{id:'attributes',title:'Attribute API'},{id:'attribute-contracts',title:'Attribute usage rules'},{id:'boundaries',title:'Scope and behaviour'},{id:'related',title:'Detailed reference'}];
 const usageLabels={targets:'Supported targets',inheritance:'Inheritance',localOverride:'Local overrides and resets',dependencies:'Dependencies',limitations:'Limits and combinations with no effect'};
 function fileDescription(file) {
+  if(file.startsWith('reva.semantic.'))return file.includes('.scoped.')?'Classless semantic foundation/native extension inside data-reva boundaries; use matching scoped split files.':'Classless semantic foundation or matching optional native extension; shares all predefined settings.';
+  if(file.startsWith('reva.patterns.'))return 'Optional RevaCSS patterns; load after the matching global/scoped semantic foundation.';
   const descriptions={
     'reva.button-materials.css':'Optional action-only solid, glass, veil, soft and liquid materials; load after the core.',
     'reva.button-materials.scoped.css':'Optional action-only materials inside .reva; load after the scoped core.',

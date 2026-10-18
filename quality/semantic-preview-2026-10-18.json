@@ -1,0 +1,20 @@
+{
+  "status": "unreleased-source-preview",
+  "baseCommit": "f4d7deb804b12a7310002a6284fb9cf3ee863158",
+  "scope": "Additive semantic foundation, optional patterns, shared customizer project export and matching scoped/native extensions",
+  "validation": {
+    "cssBuild": "passed",
+    "documentationBuild": "passed; 254 pages",
+    "nodeTests": "53 passed",
+    "featureBrowserTests": "8 cases in Chromium and WebKit; 16 passed, including downloaded custom CSS rendering and optional class precedence",
+    "existingChromiumRegressions": "38 cases passed across architecture, defaults, settings and custom background/density/shape/width behavior",
+    "packageCheck": "passed; 160 files, entry points and CSS-only runtime boundary verified",
+    "visualInspection": "Desktop foundation and customizer inspected; 390px page and popup horizontal overflow checks passed"
+  },
+  "limits": [
+    "No publication, version bump or release acceptance is implied.",
+    "Firefox, physical devices and manual accessibility acceptance were not completed for this change.",
+    "The previous audit's contrast-auto and invalid-material compatibility issues are not fully repaired by this additive distribution change.",
+    "Existing complete distributions remain compatible; fresh-island selector lower limits apply to the new split scoped distributions."
+  ]
+}

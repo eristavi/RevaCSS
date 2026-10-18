@@ -267,6 +267,7 @@ export const componentContracts = {
 };
 export const learnLinks = [
  { key:'guide', title:'Get started', path:'guide/' },
+ { key:'foundation', title:'Semantic foundation and optional patterns', path:'guide/foundation/' },
  { key:'astro', title:'Astro integration', path:'guide/astro/' },
  { key:'vue', title:'Vue integration', path:'guide/vue/' },
  { key:'nuxt', title:'Nuxt integration', path:'guide/nuxt/' },

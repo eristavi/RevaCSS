@@ -2,6 +2,7 @@ node_modules/
 docs/.astro/
 docs/dist/
 docs/public/reva/
+docs/public/starters/
 docs/src/pages/generated-reference.json
 playwright-report/
 test-results/

@@ -32,6 +32,13 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
       </form>
       <div class="accordion"><details class="configuration-summary"><summary>View HTML configuration</summary><pre tabindex="0" role="region" aria-label="Selected page attributes"><code id="demo-configuration">{'<html lang="en"'}{Object.values(controls).map(option=>option.values.filter(value=>value!=='default').map(value=><span class={`selected-attribute attribute-${option.key}-${value}`}>{`\n  data-${option.key}="${value}"`}</span>))}{'>'}</code></pre></details></div>
       <p class="customizer-note">These controls use existing RevaCSS data attributes. Device accessibility preferences take priority. Escape or a click outside closes the panel.</p>
+      <section class="project-starter" aria-labelledby="starter-title">
+        <h3 id="starter-title">Start your own project</h3>
+        <label for="starter-profile">Starting point</label>
+        <select id="starter-profile"><option value="semantic">Semantic HTML and my own CSS</option><option value="patterns">Semantic HTML with optional RevaCSS classes</option></select>
+        <p>Download your selected defaults and custom values together. Put the matching <code>dist/</code> folder beside the downloaded HTML. The starter needs no customizer scripts.</p>
+        <p><a id="download-project-starter" href={base+'guide/foundation/starter.html'} data-semantic-source={base+'starters/semantic.html'} data-patterns-source={base+'starters/patterns.html'}>Download project starter</a> · <a href={base+'guide/foundation/'}>Compare starting points</a></p>
+      </section>
       {download && <p><a href={download} download={downloadName || `forma-${config.theme}-${config.palette}-${config.material}-${config.shape}.html`}>Download starting HTML</a></p>}
     </div>
     <footer class="customizer-footer"><div class="row"><button type="button" id="copy-configuration" disabled>Copy configuration</button><button type="reset" form="demo-customizer-form" class="outline">Reset to defaults</button></div><p id="demo-settings-status" role="status" aria-live="polite"></p></footer>
@@ -63,6 +70,8 @@ const download=kind==='demo'?(downloadHref || sourceHref(base,config)):null;
 .configuration-summary { margin-block:1rem 0; background:var(--re-surface); }
 .configuration-summary pre { margin-block:.8rem 0; max-inline-size:100%; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--re-surface-alt); color:var(--re-text); }
 .customizer-note { font-size:.8rem; color:var(--re-muted); margin-block:1rem 0; }
+.project-starter { margin-block:1.5rem 0; }
+.project-starter a { display:inline; min-block-size:0; padding:0; font:inherit; text-decoration:underline; }
 .customizer-footer { flex:0 0 auto; padding:.85rem 1.25rem; border-block-start:1px solid var(--re-line); background:var(--re-surface); }
 .customizer-footer p { font-size:.8rem; color:var(--re-muted); margin:.4rem 0 0; }
 .customizer-footer p:empty { display:none; }
