@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your RevaCSS foundation</title>
+  <link rel="stylesheet" href="../dist/reva.semantic.css">
+  <style>
+    /* Application composition: shared settings remain RevaCSS tokens. */
+    main { max-inline-size:var(--re-container,75rem); margin-inline:auto; padding:var(--re-space,1rem); }
+    main > section { margin-block:calc(var(--re-space,1rem) * 2); }
+  </style>
+</head>
+<body>
+  <main>
+    <header><h1>Your next project</h1><p>Choose shared defaults once, then build with native HTML and your own CSS.</p></header>
+    <section aria-labelledby="content-title">
+      <h2 id="content-title">Start with meaningful content</h2>
+      <p>Headings, links, fields, tables and disclosures receive coordinated defaults. An article remains an article; it does not automatically become a card.</p>
+      <p><a href="#project-form">Add a project</a></p>
+    </section>
+    <section aria-labelledby="form-title">
+      <h2 id="form-title">Native controls</h2>
+      <form id="project-form" method="get">
+        <fieldset>
+          <legend>Project details</legend>
+          <label for="project-name">Name</label>
+          <input id="project-name" name="name" required autocomplete="off">
+          <label for="project-notes">Notes</label>
+          <textarea id="project-notes" name="notes" rows="3"></textarea>
+        </fieldset>
+        <button type="submit">Preview details</button>
+      </form>
+      <p>This starter submits to the current page. Connect your application's own destination when ready.</p>
+    </section>
+    <section aria-labelledby="table-title">
+      <h2 id="table-title">Shared table defaults</h2>
+      <table>
+        <caption>Example project stages</caption>
+        <thead><tr><th scope="col">Stage</th><th scope="col">State</th></tr></thead>
+        <tbody><tr><th scope="row">Plan</th><td>Ready</td></tr><tr><th scope="row">Build</th><td>Next</td></tr></tbody>
+      </table>
+      <details><summary>Local exceptions</summary><p>Override one shared setting on a section when needed. Other choices continue through the CSS system.</p></details>
+    </section>
+  </main>
+</body>
+</html>

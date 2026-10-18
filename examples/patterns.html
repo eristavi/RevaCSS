@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your RevaCSS patterns</title>
+  <link rel="stylesheet" href="../dist/reva.semantic.css">
+  <link rel="stylesheet" href="../dist/reva.patterns.css">
+  <style>
+    /* Application composition can extend or replace any optional pattern. */
+    main { padding-block:calc(var(--re-space,1rem) * 2); }
+  </style>
+</head>
+<body>
+  <main class="container stack">
+    <header><h1>Your next project</h1><p>The same shared defaults, with optional RevaCSS classes.</p></header>
+    <div class="grid">
+      <article class="card">
+        <header><h2>Project Aurora</h2></header>
+        <p>A reusable surface with inherited shape, spacing, colors and material.</p>
+        <footer><a class="button" href="#project-form">Add a project</a></footer>
+      </article>
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title">Project details</h2>
+        <form id="project-form" method="get">
+          <label for="project-name">Name</label>
+          <input id="project-name" name="name" required autocomplete="off">
+          <p><button type="submit">Preview details</button></p>
+        </form>
+        <p>Connect your application's own form destination when ready.</p>
+      </section>
+    </div>
+    <p>Your own classes can consume the same public tokens. Adding the pattern stylesheet does not change the selected presets.</p>
+  </main>
+</body>
+</html>

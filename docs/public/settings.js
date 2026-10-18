@@ -273,6 +273,40 @@
       const link=document.createElement('a');link.href=url;link.download=name;
       document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
     };
+    const projectStarter=document.getElementById('download-project-starter');
+    projectStarter?.addEventListener('click',async event=>{
+      event.preventDefault();
+      try{
+        const withPatterns=document.getElementById('starter-profile')?.value==='patterns';
+        const source=withPatterns?projectStarter.dataset.patternsSource:projectStarter.dataset.semanticSource;
+        const response=await fetch(source);
+        if(!response.ok)throw new Error('Starter unavailable');
+        const starter=new DOMParser().parseFromString(await response.text(),'text/html');
+        for(const script of starter.querySelectorAll('script'))script.remove();
+        for(const sheet of starter.querySelectorAll('link[rel="stylesheet"]'))sheet.remove();
+        for(const key of Object.keys(schema.values))starter.documentElement.removeAttribute('data-'+key);
+        const choices=values();
+        for(const [key,value] of Object.entries(choices))if(value!=='default')starter.documentElement.setAttribute('data-'+key,value);
+        const prefix=withPatterns?'reva.':'reva.semantic.';
+        const sheets=['reva.semantic.css',...(withPatterns?['reva.patterns.css']:[])];
+        if(choices.font!=='system')sheets.push('reva-fonts.css');
+        if(['glass','soft','veil'].includes(choices.material))sheets.push(prefix+choices.material+'.css');
+        if(choices['button-material'] && choices['button-material']!=='default')sheets.push(prefix+'button-materials.css');
+        if(['colorful','colorful-animated'].includes(choices.background))sheets.push(prefix+'backgrounds.css');
+        // Motion/select enhancement are optional native features, not a
+        // browser runtime. Only explicitly selected motion needs its module.
+        if(choices.motion && choices.motion!=='none')sheets.push(prefix+'motion.css');
+        const firstStyle=starter.head.querySelector('style');
+        for(const file of sheets){const sheet=starter.createElement('link');sheet.rel='stylesheet';sheet.href='dist/'+file;starter.head.insertBefore(sheet,firstStyle);}
+        if(choices.palette==='custom')palette?.applyTo(starter);
+        if(choices.shape==='custom')radius?.applyTo(starter);
+        if(choices.density==='custom')density?.applyTo(starter);
+        if(choices.width==='custom')width?.applyTo(starter);
+        if(['colorful','colorful-animated'].includes(choices.background))backgrounds?.applyTo(starter);
+        downloadText('<!doctype html>\n'+starter.documentElement.outerHTML+'\n','revacss-'+(withPatterns?'patterns':'semantic')+'-starter.html','text/html');
+        if(status)status.textContent='Downloaded your starter with shared settings and custom values. Use the matching dist folder; add your own CSS whenever you are ready.';
+      }catch{if(status)status.textContent='Could not prepare the project starter. Please try again when the page is available.';}
+    });
     document.getElementById('reset-custom-backgrounds')?.addEventListener('click',()=>{
       backgrounds?.reset();update();
       if(status)status.textContent='Default background colours restored.';

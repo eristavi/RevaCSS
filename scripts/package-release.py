@@ -42,6 +42,8 @@ for record in sorted((root / 'quality/releases').glob('v*.md')):
 
 files['starter.html'] = (root / 'examples/quick-start.html').read_bytes().replace(b'../dist/', b'dist/')
 files['index.html'] = files['starter.html']
+for profile in ['semantic', 'patterns']:
+    files[f'{profile}-starter.html'] = (root / f'examples/{profile}.html').read_bytes().replace(b'../dist/', b'dist/')
 if any(filename.endswith('.js') for filename in files if filename.startswith('dist/')):
     raise SystemExit('A framework JavaScript runtime must not enter the distribution.')
 output = args.output.resolve()

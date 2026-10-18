@@ -24,7 +24,7 @@ const canonical=new URL(Astro.url.pathname,Astro.site || Astro.url.origin);
 /* CSS-only clearance fallback; the optional settings helper measures headers. */
 html { --re-navbar-height:calc(7rem + 2 * var(--re-navbar-margin, 0rem)); }
 .doc-kicker { font-size:.75rem; font-weight:750; letter-spacing:.12em; color:var(--re-muted); }
-html:not([data-background="colorful"],[data-background="colorful-animated"]):not(:has(#demo-background option[value="colorful"]:checked,#demo-background option[value="colorful-animated"]:checked)) body.documentation-page {
+:where(html:not([data-background="colorful"],[data-background="colorful-animated"]):not(:has(#demo-background option[value="colorful"]:checked,#demo-background option[value="colorful-animated"]:checked))) body.documentation-page {
  background-image:radial-gradient(ellipse at 0% 0%,color-mix(in srgb,var(--re-primary) 12%,transparent),transparent 60%),radial-gradient(ellipse at 100% 100%,color-mix(in srgb,var(--re-primary-end) 10%,transparent),transparent 60%);
 }
 @media (prefers-contrast:more), (forced-colors:active), print { body.documentation-page { background-image:none; } }

@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeViewer from '../../components/CodeViewer.astro';
+const base=import.meta.env.BASE_URL;
+const sections=[{id:'foundation',title:'Semantic foundation'},{id:'patterns',title:'Optional patterns'},{id:'customizer',title:'Design then build'},{id:'scoped',title:'Scoped foundation'}];
+---
+<DocsLayout title="Semantic foundation and optional patterns" active="foundation" sections={sections}>
+  <p class="doc-kicker">SOURCE PREVIEW</p>
+  <h1>Set defaults once. Build your way.</h1>
+  <p class="doc-lead">Start with semantic HTML and a complete set of predefined defaults. Design shared options in the customizer, then write your own CSS or opt into RevaCSS classes.</p>
+  <p class="doc-note">These additive distributions are unreleased source features. Published 2.0.0 files remain unchanged. Existing <code>reva.css</code> sites, adapters and demonstrations remain compatible.</p>
+  <section id="foundation">
+    <h2>The semantic foundation</h2>
+    <p>Load <code>reva.semantic.css</code>. Native headings, links, fields, tables, disclosures and overlays receive coordinated styling without framework classes. Shared shape, density, size, gap, typography, borders, depth, fill, media and table settings remain predefined options.</p>
+    <CodeViewer id="foundation-files" lang="html" code={'<link rel="stylesheet" href="dist/reva.semantic.css">\n<!-- Your own stylesheet can follow. -->\n<link rel="stylesheet" href="app.css">'}/>
+    <p>Choose elements for their meaning. An <code>article</code> does not automatically become a card and <code>main</code> does not automatically become a width container. Width and gap supply shared tokens: your own layout consumes them when it defines a layout.</p>
+    <CodeViewer id="foundation-layout" lang="css" code={'main {\n  max-inline-size: var(--re-container, 75rem);\n  margin-inline: auto;\n  padding: var(--re-space, 1rem);\n}\n.project-list {\n  display: grid;\n  gap: calc(var(--re-gap) * var(--re-gap-factor, 1));\n}'}/>
+    <p>The preview below loads the semantic foundation and matching optional native extensions. It has no framework classes or browser scripts. Shared customizer choices are applied by the documentation page.</p>
+    <iframe class="example-isolated foundation-preview" src={base+'starters/semantic.html'} title="Semantic HTML with shared RevaCSS settings" loading="lazy"></iframe>
+  </section>
+  <section id="patterns">
+    <h2>Optional RevaCSS patterns</h2>
+    <p>Add <code>reva.patterns.css</code> when you want <code>.container</code>, <code>.grid</code>, <code>.card</code>, <code>.button</code> and the other existing core patterns. It uses the same tokens and settings. Your own classes and RevaCSS classes can coexist.</p>
+    <CodeViewer id="pattern-files" lang="html" code={'<link rel="stylesheet" href="dist/reva.semantic.css">\n<link rel="stylesheet" href="dist/reva.patterns.css">\n<link rel="stylesheet" href="app.css">'}/>
+    <iframe class="example-isolated foundation-preview" src={base+'starters/patterns.html'} title="The same shared defaults with optional RevaCSS classes" loading="lazy"></iframe>
+    <p>Full <a href={base+'demos/'}>demonstration sites</a> compose these capabilities with their own application styles. They demonstrate a design rather than prescribe required application markup. The compatible <code>reva.css</code> bundle remains available; do not load it in addition to both split files.</p>
+    <p>When adding patterns, use the complete optional extension for their finish too—for example, load <code>reva.glass.css</code> after the split pair so cards join the material treatment. The <code>reva.semantic.glass.css</code> variant targets native elements only. Project starter export chooses the matching files for you.</p>
+  </section>
+  <section id="customizer">
+    <h2>Design your defaults, then build</h2>
+    <ol><li>Open <strong>Customize</strong> and select your shared presets. Design custom colors, corners, spacing and width if needed.</li><li>Under <strong>Start your own project</strong>, choose semantic HTML with your own CSS, or include optional RevaCSS classes.</li><li>Download the starter. Selected attributes, custom configuration CSS and the required stylesheet links are included. Put the matching <code>dist/</code> folder next to the HTML.</li><li>Add your own content and application CSS. Override a setting on a region only where it differs.</li></ol>
+    <p>The customizer is an authoring tool. Its saved preferences and editing scripts are not required by the exported page. Custom backgrounds, materials and motion use matching optional stylesheets; self-hosted fonts also require their adjacent font assets.</p>
+  </section>
+  <section id="scoped">
+    <h2>A foundation inside an existing site</h2>
+    <CodeViewer id="scoped-foundation" lang="html" code={'<link rel="stylesheet" href="dist/reva.semantic.scoped.css">\n<section data-reva data-theme="dark" data-density="compact">\n  <h2>Native content</h2>\n  <button type="button">Save</button>\n</section>'}/>
+    <p>New split scoped files use a <code>data-reva</code> boundary. Each nested boundary starts fresh; outer selector matching stops before it. Use matching <code>reva.semantic.*.scoped.css</code> extensions. If adding patterns, load <code>reva.patterns.scoped.css</code> after the scoped foundation. Global and scoped files are alternative installation modes, not stylesheets to combine.</p>
+  </section>
+</DocsLayout>
+<style>.foundation-preview{display:block;inline-size:100%;block-size:42rem;border:1px solid var(--re-line);border-radius:var(--re-radius);background:var(--re-bg);margin-block:1rem 2rem;}</style>

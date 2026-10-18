@@ -14,6 +14,12 @@ Palette migration does not remove `data-accent` choices. For example, `data-acce
 
 ## Compatible additions
 
+### Unreleased source distributions
+
+Existing `reva.css` / `reva.scoped.css` consumers do not need to migrate. To opt into the new global semantic foundation, load `reva.semantic.css` and your own CSS. To retain the complete core class vocabulary, add `reva.patterns.css` after it; do not also load `reva.css`. Use matching semantic optional extensions for a classless installation, or existing complete extensions when using patterns. The split scoped path uses `data-reva`, `reva.semantic.scoped.css` and optional `reva.patterns.scoped.css`; each nested boundary starts fresh.
+
+The customizer's project starter captures shared presets and custom values without its scripts. Its stylesheet paths expect a matching local `dist/` folder. Source outputs remain unavailable in published 2.0.0. This addition does not rename or remove any released class or attribute.
+
 - Default (Manrope) and System font presets are available through `data-font="manrope|system"`; self-hosted fonts remain optional.
 - Custom palette editing exports ordinary CSS; palettes remain an application stylesheet rather than a core JavaScript runtime.
 - Custom shape separates surface, field and action radiuses.

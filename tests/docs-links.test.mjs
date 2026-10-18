@@ -11,6 +11,7 @@ test('generated documentation links and assets resolve under the configured base
   // intentionally relative to the extracted starter and matching distribution.
   const starter = join(root, 'guide/custom-components/starter.html');
   const starterSource = (await readFile('examples/custom-components.html', 'utf8')).replaceAll('../dist/', 'dist/');
+  const semanticStarter=join(root,'guide/foundation/starter.html');
   let pages = 0;
   async function visit(directory) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -20,17 +21,18 @@ test('generated documentation links and assets resolve under the configured base
         pages++;
         const html = await readFile(path, 'utf8');
         if (path === starter) assert.equal(html, starterSource, 'Downloaded starter must match its source');
+        if(path===semanticStarter)assert.equal(html,(await readFile('examples/semantic.html','utf8')).replaceAll('../dist/','dist/'));
         for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
           const link = match[1];
           if (link.startsWith('#') || /^(?:[a-z]+:|\/\/)/i.test(link)) continue;
-          if (path === starter && !link.startsWith('/')) {
+          if ((path === starter || path === semanticStarter) && !link.startsWith('/')) {
             const target = link.startsWith('dist/') ? link : join('examples', link);
             assert.ok((await stat(target)).isFile(), `${path}: missing project asset ${link}`);
             continue;
           }
           // Standalone launch pages also work as downloaded HTML. Resolve their
           // relative links against the hosted page, retaining base/target checks.
-          const portable = path.startsWith(join(root, 'launch') + sep);
+          const portable = path.startsWith(join(root, 'launch') + sep) || path.startsWith(join(root,'starters')+sep);
           const page = new URL(prefix + relative(root, path).split(sep).join('/'), 'https://eristavi.github.io');
           const pathname = new URL(link, page).pathname;
           assert.ok((portable ? pathname : link).startsWith(prefix), `${path}: ${link} must start with ${prefix}`);

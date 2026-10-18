@@ -30,10 +30,10 @@ test('every public class, component and option has a generated architectural dec
 });
 test('all emitted component and extension modules establish layer order outside their scope',async()=>{
  const order='@layer '+cascadeLayers.join(', ')+';';
- for(const name of await readdir('dist'))if(/^reva\..*\.css$/.test(name)&&name!=='reva.min.css'){
+ for(const name of await readdir('dist'))if(/^reva\..*\.css$/.test(name)&&!name.endsWith('.min.css')){
   const css=await readFile('dist/'+name,'utf8');
   assert.ok(css.startsWith(order),name);
-  if(name.endsWith('.scoped.css')||name==='reva.scoped.css')assert.ok(css.includes('@scope (.reva, [data-reva])'),name);
+  if(name.endsWith('.scoped.css')||name==='reva.scoped.css')assert.ok(css.includes(name.startsWith('reva.semantic.')||name==='reva.patterns.scoped.css'?'@scope ([data-reva]) to ([data-reva])':'@scope (.reva, [data-reva])'),name);
  }
 });
 test('foundation aliases accompany each legacy selector across components, materials and preferences',async()=>{

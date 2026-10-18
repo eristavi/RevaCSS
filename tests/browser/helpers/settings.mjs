@@ -23,7 +23,10 @@ export async function expectOnlyOptionalSettings(page) {
       expect(script.type).toBe('application/json');
       expect(script.src).toBeNull();
       const data = JSON.parse(script.content);
-      expect(data).toHaveProperty(script.id === 'reva-settings-schema' ? 'values' : 'light');
+      if(script.id==='reva-background-defaults'){
+        expect(Array.isArray(data)).toBe(true);expect(data).toHaveLength(6);
+        for(const colour of data)expect(colour).toMatch(/^#[0-9a-f]{6}$/i);
+      }else expect(data).toHaveProperty(script.id === 'reva-settings-schema' ? 'values' : 'light');
     } else if (runtimes.has(script.id)) {
       const url = new URL(script.src, page.url());
       expect(url.origin).toBe(new URL(page.url()).origin);

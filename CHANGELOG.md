@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+### Semantic foundation and optional patterns (compatible additions)
+
+- Generate classless `reva.semantic.css` and optional `reva.patterns.css` from the same native/pattern declarations and preset engine; preserve complete legacy entry points. Include minified/scoped split builds and matching native material, background, motion and select extensions. Split scoped selectors stop at fresh nested data-reva boundaries.
+- Add semantic and pattern project starters. Extend the existing customizer with accent/media/table defaults and an export that captures selected settings plus custom palette, shape, density, width and background CSS. Exported pages have no authoring scripts and use matching local distribution assets.
+- Document the semantic-first path, optional framework classes, custom application CSS and showcase boundary. Add focused source/browser checks; manual/device and final release acceptance remain separate.
+- Keep documentation backdrop selectors low-specificity so increased-contrast/print preference rules can suppress decoration. Correct the optional-settings browser helper to validate the existing six-color background array.
+
 ### Architectural foundations (compatible additions)
 
 - Add local data-layout=container/grid/row/stack and data-surface=card hooks, equivalent to existing presentation classes across core, patterns and matching material extensions. Add data-reva presence boundaries to every scoped build; preserve existing classes and neutral structural elements.

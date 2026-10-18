@@ -27,6 +27,8 @@
   "style": "./dist/reva.css",
   "types": "./types/index.d.ts",
   "exports": {
+    "./semantic": { "types": "./types/index.d.ts", "default": "./dist/reva.semantic.css" },
+    "./patterns": { "types": "./types/index.d.ts", "default": "./dist/reva.patterns.css" },
     ".": {
       "types": "./types/index.d.ts",
       "default": "./dist/reva.css"
@@ -78,6 +80,8 @@
     "examples/ai-application",
     "examples/custom-components.html",
     "examples/custom-components.css",
+    "examples/semantic.html",
+    "examples/patterns.html",
     "quality/blockers.json",
     "RELEASE_NOTES.md",
     "quality/ai-guidance",
